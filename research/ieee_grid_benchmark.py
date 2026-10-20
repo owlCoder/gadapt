@@ -46,6 +46,18 @@ class GridProblem:
         if not self.gen_ids:
             raise ValueError("No generators for voltage control")
         self.reference = self.net.gen.loc[self.gen_ids, "vm_pu"].to_numpy(copy=True)
+        # Respect per-bus operating limits when supplied in the published case.
+        # Fall back to explicit defaults only if no finite case limit exists.
+        lower = (self.net.bus["min_vm_pu"].to_numpy(dtype=float)
+                 if "min_vm_pu" in self.net.bus else
+                 np.full(len(self.net.bus), LOW_VOLTAGE))
+        upper = (self.net.bus["max_vm_pu"].to_numpy(dtype=float)
+                 if "max_vm_pu" in self.net.bus else
+                 np.full(len(self.net.bus), HIGH_VOLTAGE))
+        self.v_lower = np.where(np.isfinite(lower), lower, LOW_VOLTAGE)
+        self.v_upper = np.where(np.isfinite(upper), upper, HIGH_VOLTAGE)
+        if np.any(self.v_upper < self.v_lower):
+            raise ValueError("Grid has invalid bus voltage limits")
         self.calls = 0
 
     @property
@@ -74,8 +86,8 @@ class GridProblem:
                 not np.all(np.isfinite(t))):
                 raise ArithmeticError("Non-finite grid output")
             voltage_violation = (
-                np.maximum(LOW_VOLTAGE-v, 0.0).sum() +
-                np.maximum(v-HIGH_VOLTAGE, 0.0).sum()
+                np.maximum(self.v_lower-v, 0.0).sum() +
+                np.maximum(v-self.v_upper, 0.0).sum()
             )
             overload = (
                 np.maximum(l-LINE_LIMIT_PERCENT, 0.0).sum() +
