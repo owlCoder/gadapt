@@ -1,4 +1,6 @@
 import sys
+import math
+from numbers import Real
 import traceback
 from abc import ABC, abstractmethod
 from typing import Optional
@@ -28,7 +30,11 @@ class BaseCostFinder(ABC):
         sorted_variable_values = list(sorted(c, key=lambda vv: vv.decision_variable.variable_id))
         try:
             variable_values = [a.value for a in sorted_variable_values]
-            c.cost_value = cost_function(variable_values)
+            value = cost_function(variable_values)
+            if not isinstance(value, Real) or not math.isfinite(float(value)):
+                raise ValueError("Cost function must return a finite real number")
+            c.cost_value = float(value)
+            c.succ = True
         except Exception as ex:
             print(ex)
             traceback.print_exc()
