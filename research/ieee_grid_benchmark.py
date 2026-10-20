@@ -23,7 +23,7 @@ import pandapower.networks as pn
 
 from gadapt.ga import GA
 
-GRIDS = {"ieee14": pn.case14, "ieee118": pn.case118}
+GRIDS = {"ieee14": pn.case14, "ieee118": pn.case118, "rte1888": pn.case1888rte}
 LOW_VOLTAGE = 0.94
 HIGH_VOLTAGE = 1.08
 LINE_LIMIT_PERCENT = 100.0
@@ -158,7 +158,7 @@ def run_one(case, load_factor, algorithm, seed, population, ga_generations):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--cases", nargs="+", choices=list(GRIDS), default=list(GRIDS))
+    parser.add_argument("--cases", nargs="+", choices=list(GRIDS), default=["ieee14", "ieee118"])
     parser.add_argument("--loads", nargs="+", type=float, default=[1.0, 1.15])
     parser.add_argument("--runs", type=int, default=5)
     parser.add_argument("--population", type=int, default=16)
