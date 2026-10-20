@@ -98,7 +98,8 @@ class GridProblem:
             return dict(loss=math.nan, violation=math.inf, feasible=False,
                         minimum_voltage=math.nan, maximum_voltage=math.nan,
                         maximum_loading=math.nan, objective=1e12,
-                        solver_failed=True)
+                        solver_failed=True,
+                        solver_error=f"{type(exc).__name__}: {str(exc)[:160]}")
 
     def objective(self, values):
         return float(self.evaluate(values)["objective"])
