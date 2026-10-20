@@ -125,6 +125,20 @@ class AffineCostDiversityTest(unittest.TestCase):
         # This must count ALL executions, not just those two calls.
         self.assertGreater(simulator.evaluations, 12)
 
+    def test_nonfinite_industry_objective_fails_closed(self):
+        for invalid in (float("nan"), float("inf"), -float("inf")):
+            with self.subTest(invalid=invalid):
+                ga = GA(
+                    cost_function=lambda x, value=invalid: float(value),
+                    population_size=12, exit_check="generations",
+                    number_of_generations=6,
+                )
+                ga.add(-2.0, 2.0)
+                ga.add(-2.0, 2.0)
+                result = ga.execute()
+                self.assertFalse(result.success)
+                self.assertIn("All evaluated candidate costs", repr(result.messages))
+
     def test_end_to_end_both_modes(self):
         for metric in ("log_relative", "affine_invariant"):
             with self.subTest(metric=metric):
