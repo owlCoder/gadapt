@@ -71,7 +71,7 @@ class GridProblem:
             self.net.gen.at[idx, "vm_pu"] = float(value)
         try:
             pp.runpp(
-                self.net, init="flat", algorithm="nr",
+                self.net, init="dc", algorithm="nr",
                 calculate_voltage_angles=True, numba=False,
                 enforce_q_lims=True, max_iteration=40, tolerance_mva=1e-8,
             )
@@ -161,7 +161,7 @@ def run_one(case, load_factor, algorithm, seed, population, ga_generations):
     return dict(
         case=case, load_factor=load_factor, algorithm=algorithm, seed=seed,
         dimension=grid.dimension, evaluations=grid.calls, runtime_sec=round(runtime, 4),
-        converged=success, solver_failed=checked["solver_failed"],
+        optimizer_completed=success, solver_failed=checked["solver_failed"],
         optimizer_message=ga_message[:160], solver_error=checked["solver_error"],
         feasible=checked["feasible"], loss_mw=checked["loss"],
         violation=checked["violation"], minimum_voltage=checked["minimum_voltage"],
@@ -181,6 +181,8 @@ def main():
     parser.add_argument("--population", type=int, default=16)
     parser.add_argument("--ga-generations", type=int, default=28)
     parser.add_argument("--output", default="ieee_grid_results.csv")
+    parser.add_argument("--require-ac-success", action="store_true",
+                        help="Fail if all candidate AC power flows fail")
     args = parser.parse_args()
     if args.runs < 1 or args.population < 8:
         parser.error("runs >= 1 and population >= 8 are required")
@@ -206,6 +208,9 @@ def main():
         w = csv.DictWriter(file, rows[0].keys())
         w.writeheader()
         w.writerows(rows)
+
+    if args.require_ac_success and not any(not r["solver_failed"] for r in rows):
+        raise SystemExit("ERROR: no candidate yielded a valid AC powerflow result")
 
     for case in args.cases:
         for load_factor in args.loads:
