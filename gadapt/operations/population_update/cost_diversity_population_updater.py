@@ -4,6 +4,7 @@ from gadapt.operations.population_update.base_population_updater import (
     BasePopulationUpdater,
 )
 from gadapt.utils import ga_utils
+from gadapt.utils.affine_cost_diversity import affine_cost_diversity
 
 
 class CostDiversityPopulationUpdater(BasePopulationUpdater):
@@ -84,6 +85,17 @@ class CostDiversityPopulationUpdater(BasePopulationUpdater):
         return max(0.0, min(1.0, normalized_score))
 
     def calculate_coefficient_of_population_diversity(self) -> float:
+        if self.population.options.cost_diversity_metric == "affine_invariant":
+            costs = [c.cost_value for c in self.population.candidate_solutions]
+            initial = self.population.relative_cost_diversity_in_first_population
+            if initial is None or math.isnan(initial):
+                initial = None
+            coefficient, initial = affine_cost_diversity(costs, initial)
+            self.population.relative_cost_diversity_in_first_population = initial
+            return coefficient
+        return self._calculate_log_relative_cost_diversity()
+
+    def _calculate_log_relative_cost_diversity(self) -> float:
         """
         Calculates diversity in log-space.
         1.0 = Same relative diversity as Generation 0.
