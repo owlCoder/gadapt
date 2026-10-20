@@ -29,7 +29,7 @@ jobs:
       - name: Smoke-test on RTE-origin high-voltage network
         run: |
           set -o pipefail
-          python research/ieee_grid_benchmark.py --cases rte1888 --loads 1.0 --runs 1 --population 8 --ga-generations 4 --output rte_snapshot_pilot.csv | tee rte_snapshot_log.txt
+          python research/ieee_grid_benchmark.py --cases rte1888 --loads 1.0 --runs 1 --population 8 --ga-generations 4 --require-ac-success --output rte_snapshot_pilot.csv | tee rte_snapshot_log.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
