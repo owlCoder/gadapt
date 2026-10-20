@@ -153,7 +153,7 @@ def run_one(case, load_factor, algorithm, seed, population, ga_generations):
             ga.add(*GEN_VOLTAGE_BOUNDS)
         result = ga.execute()
         success = bool(result.success)
-        ga_message = str(result.message) if not success else ""
+        ga_message = repr(result.messages) if not success else ""
         values = [result.result_values[i] for i in range(grid.dimension)] if success else grid.reference
     runtime = time.perf_counter()-start
     # Independent final AC power flow, not based on the algorithm's penalty value.
@@ -201,6 +201,7 @@ def main():
                     print("RUN", case, load_factor, seed, algorithm,
                           "feasible", row["feasible"], "loss", row["loss_mw"],
                           "evaluations", row["evaluations"],
+                          "optimizer_completed", row["optimizer_completed"],
                           "optimizer_message", row["optimizer_message"],
                           "solver_error", row["solver_error"],
                           "baseline_error", row["baseline_error"], flush=True)
