@@ -6,8 +6,9 @@ a synthetic mathematical sphere / Rastrigin function as the objective.
 
 The control vector consists of generator voltage setpoints for a fixed subset
 of generators (four on IEEE14, up to eight on IEEE118). We minimize
-active network losses (MW), subject to a bus voltage window [0.94, 1.08] p.u.
-and branch/transformer loading below 100%. We scale all base-case P/Q
+active network losses (MW), subject to per-bus min/max voltage limits from the published network
+(only falling back to [0.94, 1.08] p.u. where limits are missing) and
+branch/transformer loading below 100%. We scale all base-case P/Q
 demands by 1.0 or 1.15 for a sensitivity experiment. The optimizer gets a
 penalty proportional to the aggregate physical violation, but final
 feasibility is evaluated **again** by an independent AC power-flow run.
