@@ -91,9 +91,9 @@ class GridProblem:
                 "maximum_loading": float(max(np.max(l, initial=0.0),
                                               np.max(t, initial=0.0))),
                 "objective": ploss + PENALTY_WEIGHT * violation,
-                "solver_failed": False,
+                "solver_failed": False, "solver_error": "",
             }
-        except (Exception, ArithmeticError):
+        except Exception as exc:
             # Do not invent an apparently feasible grid state on solver failure.
             return dict(loss=math.nan, violation=math.inf, feasible=False,
                         minimum_voltage=math.nan, maximum_voltage=math.nan,
@@ -124,6 +124,7 @@ def run_one(case, load_factor, algorithm, seed, population, ga_generations):
         )
         values = result.x
         success = bool(np.isfinite(result.fun))
+        ga_message = str(result.message)
     else:
         metric = ("log_relative" if algorithm == "gadapt_original"
                   else "affine_invariant")
@@ -139,6 +140,7 @@ def run_one(case, load_factor, algorithm, seed, population, ga_generations):
             ga.add(*GEN_VOLTAGE_BOUNDS)
         result = ga.execute()
         success = bool(result.success)
+        ga_message = str(result.message) if not success else ""
         values = [result.result_values[i] for i in range(grid.dimension)] if success else grid.reference
     runtime = time.perf_counter()-start
     # Independent final AC power flow, not based on the algorithm's penalty value.
@@ -147,11 +149,13 @@ def run_one(case, load_factor, algorithm, seed, population, ga_generations):
         case=case, load_factor=load_factor, algorithm=algorithm, seed=seed,
         dimension=grid.dimension, evaluations=grid.calls, runtime_sec=round(runtime, 4),
         converged=success, solver_failed=checked["solver_failed"],
+        optimizer_message=ga_message[:160], solver_error=checked["solver_error"],
         feasible=checked["feasible"], loss_mw=checked["loss"],
         violation=checked["violation"], minimum_voltage=checked["minimum_voltage"],
         maximum_voltage=checked["maximum_voltage"],
         maximum_loading_percent=checked["maximum_loading"],
         baseline_loss_mw=baseline["loss"], baseline_feasible=baseline["feasible"],
+        baseline_error=baseline["solver_error"],
         baseline_violation=baseline["violation"],
     )
 
@@ -181,7 +185,10 @@ def main():
                     rows.append(row)
                     print("RUN", case, load_factor, seed, algorithm,
                           "feasible", row["feasible"], "loss", row["loss_mw"],
-                          "evaluations", row["evaluations"], flush=True)
+                          "evaluations", row["evaluations"],
+                          "optimizer_message", row["optimizer_message"],
+                          "solver_error", row["solver_error"],
+                          "baseline_error", row["baseline_error"], flush=True)
     with open(args.output, "w", encoding="utf-8", newline="") as file:
         w = csv.DictWriter(file, rows[0].keys())
         w.writeheader()
