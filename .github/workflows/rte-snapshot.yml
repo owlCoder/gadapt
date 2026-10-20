@@ -1,0 +1,35 @@
+name: RTE offline grid snapshot smoke validation
+
+on:
+  push:
+    branches:
+      - "research/**"
+    paths:
+      - ".github/workflows/rte-snapshot.yml"
+      - "research/ieee_grid_benchmark.py"
+  workflow_dispatch:
+
+jobs:
+  rte-snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+          python -m pip install "pandapower==2.14.11" "scipy==1.13.1"
+      - name: Smoke-test on RTE-origin high-voltage network
+        run: |
+          set -o pipefail
+          python research/ieee_grid_benchmark.py --cases rte1888 --loads 1.0 --runs 1 --population 8 --ga-generations 4 --output rte_snapshot_pilot.csv | tee rte_snapshot_log.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rte-1888-snapshot-pilot
+          path: |
+            rte_snapshot_pilot.csv
+            rte_snapshot_log.txt
