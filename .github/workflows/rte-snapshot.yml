@@ -7,6 +7,7 @@ on:
     paths:
       - ".github/workflows/rte-snapshot.yml"
       - "research/ieee_grid_benchmark.py"
+      - "gadapt/**"
   workflow_dispatch:
 
 concurrency:
