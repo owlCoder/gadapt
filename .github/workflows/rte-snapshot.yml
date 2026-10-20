@@ -9,6 +9,10 @@ on:
       - "research/ieee_grid_benchmark.py"
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   rte-snapshot:
     runs-on: ubuntu-latest
