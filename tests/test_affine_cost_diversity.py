@@ -2,12 +2,14 @@
 import math
 import random
 import unittest
+from types import SimpleNamespace
 
 import numpy as np
 
 from gadapt.ga import GA
 from gadapt.ga_model.ga_options import GAOptions
 from gadapt.utils.affine_cost_diversity import affine_cost_diversity
+from gadapt.operations.population_update.cost_diversity_population_updater import CostDiversityPopulationUpdater
 
 
 class AffineCostDiversityTest(unittest.TestCase):
@@ -53,6 +55,51 @@ class AffineCostDiversityTest(unittest.TestCase):
         self.assertEqual(GAOptions(ga.clone()).cost_diversity_metric, "affine_invariant")
         with self.assertRaises(ValueError):
             ga.cost_diversity_metric = "unknown"
+
+    def test_real_population_updater_recovers_from_initial_tie(self):
+        population = SimpleNamespace(
+            options=SimpleNamespace(cost_diversity_metric="affine_invariant"),
+            candidate_solutions=[],
+            relative_cost_diversity_in_first_population=float("nan"),
+            absolute_cost_diversity_in_first_population=float("nan"),
+            relative_cost_diversity_coefficient=float("nan"),
+            absolute_cost_diversity=float("nan"),
+        )
+        updater = CostDiversityPopulationUpdater()
+        population.candidate_solutions = [
+            SimpleNamespace(cost_value=1.0) for _ in range(4)
+        ]
+        updater.update_population(population)
+        self.assertEqual(population.relative_cost_diversity_coefficient, 0.0)
+        population.candidate_solutions = [
+            SimpleNamespace(cost_value=float(v)) for v in (1, 2, 3, 4)
+        ]
+        updater.update_population(population)
+        self.assertEqual(population.relative_cost_diversity_coefficient, 1.0)
+
+    def test_full_optimizer_affine_translation_invariance(self):
+        def run(shift):
+            random.seed(21)
+            np.random.seed(21)
+            ga = GA(
+                cost_function=lambda x: float(sum(v * v for v in x) + shift),
+                cost_diversity_metric="affine_invariant",
+                population_size=12,
+                exit_check="generations",
+                number_of_generations=8,
+                population_mutation="cost_diversity,parent_diversity",
+            )
+            for _ in range(3):
+                ga.add(-5.0, 5.0)
+            result = ga.execute()
+            self.assertTrue(result.success, result.message)
+            return result
+        original = run(0.0)
+        shifted = run(1000.0)
+        self.assertAlmostEqual(
+            original.min_cost, shifted.min_cost - 1000.0, places=7
+        )
+        self.assertEqual(original.result_values, shifted.result_values)
 
     def test_end_to_end_both_modes(self):
         for metric in ("log_relative", "affine_invariant"):
