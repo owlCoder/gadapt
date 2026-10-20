@@ -101,6 +101,30 @@ class AffineCostDiversityTest(unittest.TestCase):
         )
         self.assertEqual(original.result_values, shifted.result_values)
 
+    def test_stateful_bound_objective_is_not_deep_copied(self):
+        class ExternalSimulator:
+            def __init__(self):
+                self.evaluations = 0
+
+            def objective(self, variables):
+                self.evaluations += 1
+                return float(sum(float(x) ** 2 for x in variables))
+
+        simulator = ExternalSimulator()
+        ga = GA(cost_function=simulator.objective,
+                population_size=12, exit_check="generations",
+                number_of_generations=8)
+        ga.add(-3.0, 3.0)
+        ga.add(-3.0, 3.0)
+        cloned = ga.clone()
+        self.assertIs(cloned.cost_function.__self__, simulator)
+        self.assertIsNot(cloned._decision_variables, ga._decision_variables)
+        result = ga.execute()
+        self.assertTrue(result.success, result.message)
+        # Validation alone invokes two boundary-point evaluations.
+        # This must count ALL executions, not just those two calls.
+        self.assertGreater(simulator.evaluations, 12)
+
     def test_end_to_end_both_modes(self):
         for metric in ("log_relative", "affine_invariant"):
             with self.subTest(metric=metric):
