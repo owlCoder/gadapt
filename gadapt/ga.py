@@ -117,6 +117,7 @@ class GA:
         timeout=600,
         factory: Optional[BaseGAFactory] = None,
         normal_distribution_mutation_min_std_dev_decay_generations: Optional[float] = None,
+        cost_diversity_metric: str = "log_relative",
         **deprecated_kwargs,
     ) -> None:
         """
@@ -273,6 +274,9 @@ class GA:
                 variables, the lower bound never goes below one step. A good starting point is
                 2.5, together with normal_distribution_mutation_min_std_dev of 1e-4.
 
+            cost_diversity_metric: 'log_relative' (legacy default) or
+                'affine_invariant' (experimental, scale/offset-invariant measure).
+
             deprecated_kwargs: Previous names of the parameters (see
             DEPRECATED_PARAMETER_NAMES), e.g. number_of_mutation_chromosomes.
             They are still accepted, but emit a DeprecationWarning.
@@ -317,6 +321,7 @@ class GA:
             parent_diversity_mutation_candidate_solution_sampling
         )
         self.ensure_unique_individuals = ensure_unique_individuals
+        self.cost_diversity_metric = cost_diversity_metric
         self.normal_distribution_mutation_max_std_dev = normal_distribution_mutation_max_std_dev
         self.normal_distribution_mutation_min_std_dev = normal_distribution_mutation_min_std_dev
         self.normal_distribution_mutation_min_std_dev_decay_generations = normal_distribution_mutation_min_std_dev_decay_generations
@@ -854,6 +859,18 @@ class GA:
     @ensure_unique_individuals.setter
     def ensure_unique_individuals(self, value: Optional[bool]):
         self._ensure_unique_individuals = ga_utils.try_get_bool(value)
+
+    @property
+    def cost_diversity_metric(self) -> str:
+        return self._cost_diversity_metric
+
+    @cost_diversity_metric.setter
+    def cost_diversity_metric(self, value: str) -> None:
+        if value not in ("log_relative", "affine_invariant"):
+            raise ValueError(
+                "cost_diversity_metric must be 'log_relative' or 'affine_invariant'"
+            )
+        self._cost_diversity_metric = value
 
     @property
     def normal_distribution_mutation_max_std_dev(self) -> float:
