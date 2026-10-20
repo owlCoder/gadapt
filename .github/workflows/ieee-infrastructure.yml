@@ -23,7 +23,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -e .
-          python -m pip install "pandapower==2.14.11" "scipy==1.13.1"
+          python -m pip install "pandapower==2.14.11" "scipy==1.13.1" "pandas==2.2.3"
       - name: Run IEEE 14/118 AC feasibility comparisons
         run: |
           set -o pipefail
