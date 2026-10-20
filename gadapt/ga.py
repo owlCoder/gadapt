@@ -952,12 +952,24 @@ class GA:
         self._timeout = ga_utils.try_get_int(value)
 
     def clone(self):
-        # Create a new instance of the class
+        """Copy GA configuration without cloning external callback state.
+
+        A bound cost function may point to an expensive/stateful simulator,
+        database interface or objective-evaluation counter. Deep-copying
+        such a bound method also deep-copies its owner, silently splitting
+        the optimization from the original simulator.
+
+        Deep-copy internal GA options and decision variables as before,
+        but preserve the identities of the user-supplied callbacks.
+        """
         new_instance = self.__class__.__new__(self.__class__)
-
-        # Copy the attributes from the current instance to the new instance
-        new_instance.__dict__ = copy.deepcopy(self.__dict__)
-
+        attributes = dict(self.__dict__)
+        callbacks = {}
+        for name in ("_cost_function", "_exit_function"):
+            if name in attributes:
+                callbacks[name] = attributes.pop(name)
+        new_instance.__dict__ = copy.deepcopy(attributes)
+        new_instance.__dict__.update(callbacks)
         return new_instance
 
 
