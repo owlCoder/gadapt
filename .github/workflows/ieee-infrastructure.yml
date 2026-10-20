@@ -31,7 +31,7 @@ jobs:
       - name: Run IEEE 14/118 AC feasibility comparisons
         run: |
           set -o pipefail
-          python research/ieee_grid_benchmark.py --runs 2 --ga-generations 12 --output ieee_grid_results.csv | tee ieee_grid_log.txt
+          python research/ieee_grid_benchmark.py --runs 2 --ga-generations 12 --require-ac-success --output ieee_grid_results.csv | tee ieee_grid_log.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
