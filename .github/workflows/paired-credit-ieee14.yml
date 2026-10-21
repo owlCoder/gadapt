@@ -1,0 +1,40 @@
+name: Physically paired IEEE14 mutation-credit validation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/paired_credit_ieee14.py"
+      - "research/analyze_paired_credit_ieee14.py"
+      - "research/PAIRED_CREDIT_PROTOCOL.md"
+      - ".github/workflows/paired-credit-ieee14.yml"
+      - "gadapt/**"
+  workflow_dispatch:
+
+jobs:
+  paired-physical-evaluation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e . 'scipy>=1.11,<1.16' 'pypower>=5.1,<6'
+      - name: Run full-GAdapt paired local-controls on real AC PF
+        run: |
+          set -o pipefail
+          python -m research.paired_credit_ieee14 --runs 8 --budget 240 --output paired_ieee14.csv | tee paired_ieee14_log.txt
+          test -s paired_ieee14.csv
+      - name: Compute predeclared failure-aware paired statistics
+        run: |
+          set -o pipefail
+          python -m research.analyze_paired_credit_ieee14 paired_ieee14.csv | tee paired_ieee14_stats.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: paired-ieee14-ac-physical-pilot
+          path: |
+            paired_ieee14.csv
+            paired_ieee14_log.txt
+            paired_ieee14_stats.txt
