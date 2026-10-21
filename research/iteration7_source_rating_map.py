@@ -142,11 +142,19 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("--source",default=INPUT)
     parser.add_argument("--output",default="rte1888_source_rating_map.json")
+    parser.add_argument("--compact",default="rte1888_source_rating_map.csv")
     args=parser.parse_args()
     net=pn.case1888rte()
     result=match(net,source_branches(args.source))
     with open(args.output,"w",encoding="utf8") as handle:
         json.dump(result,handle,indent=2,sort_keys=True,allow_nan=False)
+    # A short deterministic map is suitable for checked-in raw provenance.
+    with open(args.compact,"w",encoding="utf8",newline="") as f:
+        cols=("kind","element_index","source_branch_row_1based","source_from_bus",
+              "source_to_bus","rate_a_mva","match_impedance_relative_error")
+        w=csv.DictWriter(f,fieldnames=cols)
+        w.writeheader()
+        w.writerows({k:row[k] for k in cols} for row in result["map"])
     print("RATING_MAP",json.dumps({k:v for k,v in result.items() if k!="map"}),flush=True)
     print("RATING_EXAMPLES",json.dumps([x for x in result["map"] if
         x["kind"]=="trafo" and x["element_index"] in (404,466,402,403)]),flush=True)
