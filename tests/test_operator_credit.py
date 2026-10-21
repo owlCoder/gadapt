@@ -77,7 +77,7 @@ class CreditTests(unittest.TestCase):
             violation_function=lambda x, cost: None)
         controller.append(RandomDecisionVariableMutator())
         var = type("Var", (), {
-            "min_value": 0.0, "max_value": 1.0,
+            "variable_id": 0, "min_value": 0.0, "max_value": 1.0,
             "step": None, "decimal_places": -1,
             "make_random_value": lambda _: 0.3,
         })()
