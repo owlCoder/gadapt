@@ -18,6 +18,18 @@ izdvojenog AC audita bilo je nekonvergentno.
 Pri nominalnom opterećenju 17/17 stvarnih AC poziva konvergira,
 ali 0/17 daje potpuno izvodljiv vektor.
 
+**Završen i preliminarni petometodni pilot** na novoj source-rated formulaciji:
+5 metoda × 3 nova uparena semena × 72 stvarna AC poziva = **1.080 AC proračuna**.
+Sve metode imaju **0/3 izvodljiva pokretanja**; feasibility-first
+GAdapt nema potvrđenu prednost nad originalnim GAdapt-om.
+Četiri Holm-korigovana uparena sign testa: **p=1,0**; n=3 je
+nedovoljan za tvrdnje o superiornosti. Vidi
+[sirovi pilot](results/rte1888_iteration7_source_rated_pilot_20261021.csv),
+[nezavisnu statistiku](results/rte1888_iteration7_source_rated_stats_20261021.json),
+[SVG grafikon](figures/rte1888_iteration7_source_rated_violation.svg),
+[CI izvršavanje](https://github.com/owlCoder/gadapt/actions/runs/39608967519),
+[bibliografiju](ITERATION7_LITERATURE.md).
+
 **Doktorски algoritam sa potvrđenom originalnošću/superiornošću
 još nije pronađen.** Revidirani eksperimentalni cilj i dalje
 sadrži samo osam napona, nije puni AC-OPF niti potvrđena
