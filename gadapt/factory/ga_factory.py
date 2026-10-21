@@ -205,6 +205,7 @@ class GAFactory(BaseGAFactory):
                 assignment=self._options.mutation_credit_assignment,
                 evaluation_counter=self._options.mutation_evaluation_counter,
                 violation_function=self._options.mutation_violation_function,
+                scenario_count=self._options.mutation_scenario_count,
             )
             for operator in decision_variable_mutators:
                 controller.append(operator)
