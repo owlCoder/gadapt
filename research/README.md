@@ -1,3 +1,66 @@
+# NAJNOVIJE I29–I30 — opipljiva ušteda AC evaluacija kroz opt-in GAdapt screening, ALI naučna originalnost NIJE dokazana (21.10.2026)
+
+**I29: pravi opt-in source code evaluator UNUTAR GAdapt paketa**:
+[gadapt/operations/cost_finding/sequential_scenario_budget_cost.py](../gadapt/operations/cost_finding/sequential_scenario_budget_cost.py).
+Evaluira iste originalne 6 PV generator VG kontrole pod tri realno plaćena
+AC load scenarija, i samo nakon dokazanog fizičkog izvornog Q/P/V/positive
+RATE_A/KCL kršenja može **preskočiti naredni scenario bez predstavljanja
+kao izmerenog**. Pozitivna robust feasibility i source original
+mean economic cost zahtevaju **stvarno tri izvršena, AC-konvergentna
+i source-feasible** scenarija. NR neuspeh NIJE dokaz matematičke
+neizvodljivosti. Testovi, uključujući integraciju sa stvarnim default
+GA, prošli Python **3.10, 3.11, 3.12**; originalni GA default
+je nepromenjen.
+
+**I29 uniformno sintetičko opterećenje 98/100/102%:**
+20 run-ova, **3.583 STVARNA IEEE118 AC** od max 3.600:
+GAdapt full **1/4** uspešna run-a / **1** verificiran all-three source
+candidate; GAdapt stop-fixed **4/4** / **118**; GAdapt stop-adaptive
+**4/4** / **118**, potpuno isti ishod kao fixed. DE full **0/4**
+/ **0**, DE fixed **4/4** / **9**. Ovo nije izolovan efekat
+novog adaptivnog operatora: pretraga i fizikalno proveravanje
+promenjeni su pre svega poznatim first-fail screen-om i njegovom
+censored heurističkom fitness ocenom. [I29 detaljan izveštaj](ITERATION29_REPORT_SR.md) ·
+[raw JSON, 3583 stvarnih AC](results/ieee118_iteration29_scenario_earlyreject_20runs_trueAC_20261021.json) ·
+[preregistracija I29](ITERATION29_PROTOCOL.md) ·
+[CI #39669410103](https://github.com/owlCoder/gadapt/actions/runs/39669410103).
+
+**I30 unapred definisana NOVA PROSTORNA PD/QD promena na ISTOJ
+IEEE118 mreži**: za neparne source BUS_I load ×1,02 a parne ×0,98,
+ili obrnuto, plus nominalni source režim.
+20 run-ova, **3.580 pravih AC** od max3600; GAdapt
+full **2/4** / **14** source three-scenario verified feasible,
+GAdapt stop-fixed **2/4** / **58**, stop-adaptive **2/4**
+/ **60**; DE full **3/4** / **3**, DE stop-fixed
+**4/4** / **44**. U seed-u 2070 early GA **nije našao
+nijednu** source robust-feasible tačku iako je full našao 5,
+a u seed-u 2072 obrnuto — nije dokazano da screening povećava
+**broj uspešnih GAdapt run-ova** na različitom spatial load-u.
+Adaptivni redosled je dao samo 2 dodatna validated
+kandidata, ne uspešno seme ili jeftiniji optimum.
+[I30 pun izveštaj](ITERATION30_REPORT_SR.md) ·
+[raw JSON 3580 source AC](results/ieee118_iteration30_spatial_parity_holdout_20runs_3580_trueAC_20261021.json) ·
+[preregistracija I30](ITERATION30_PROTOCOL.md) ·
+[CI #39671017417](https://github.com/owlCoder/gadapt/actions/runs/39671017417).
+
+**KLJUČNO ZA DOKTORAT:** first-failure screening i stochastic
+scenario evaluations **već postoje u literaturi**, uključujući
+Sankary et al. 2018 (doi:10.1002/2017WR022068), vidi
+[prior-art I29](ITERATION29_PRIOR_ART_SR.md). Naš softver jeste
+direktno reproduktivan i realno štedljiviji na ovom
+kalibrisanom testu, ali **nismo dokazali novu naučno
+originalnu GAdapt algoritamsku metodu, statističku
+superiornost ili industrijsku efikasnost**. I26 novi
+scenario-UCB operator reward je u ranijoj I28
+12-seed proveri dao samo 6/12 uspeha naspram 8/12
+originalnog GAdapt-a i NIJE potvrđen.
+**Sledeći korak pre rada sa još većim brojem iteracija:
+sa mentorom definisati dokazivo različitu originalnu hipotezu,
+odvojiti broj genome-a, censored fitness i redosled,
+pa testirati nezavisne mreže/domene.**
+
+---
+
 # NAJNOVIJE I28 — 12 novih uparenih semena NIJE potvrdilo prednost novog GAdapt scenario-UCB mehanizma (21.10.2026)
 
 **Novi direktni GAdapt mutator-credit iz I26 radi i testiran je**, ali
