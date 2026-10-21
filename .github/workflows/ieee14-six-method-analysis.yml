@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "research/analyze_ieee14_six_method_pilot.py"
+      - "research/plot_iteration5_ieee14.py"
       - "research/results/ieee14_cma_es_20261021.csv"
       - "research/results/ieee14_reference_3600_20261021.csv"
       - "research/results/ieee14_local_refinement_20261021.csv"
@@ -20,13 +21,21 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python -m pip install -e . 'scipy>=1.11,<1.16'
+      - run: python -m pip install -e . 'scipy>=1.11,<1.16' 'matplotlib>=3.8,<4'
       - run: |
           set -o pipefail
           python -m research.analyze_ieee14_six_method_pilot | tee ieee14_six_method_statistics.txt
           test -s ieee14_six_method_statistics.txt
+      - run: |
+          set -o pipefail
+          python -m research.plot_iteration5_ieee14 --output-dir iteration5_figures | tee ieee14_figure_log.txt
+          test -s iteration5_figures/ieee14_local_refinement_load100.png
+          test -s iteration5_figures/ieee14_local_refinement_load110.png
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: ieee14-six-method-CMA-audited-paired-statistics
-          path: ieee14_six_method_statistics.txt
+          path: |
+            ieee14_six_method_statistics.txt
+            ieee14_figure_log.txt
+            iteration5_figures/*
