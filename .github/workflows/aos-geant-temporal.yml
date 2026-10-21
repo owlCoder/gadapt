@@ -7,6 +7,7 @@ on:
     paths:
       - "research/aos_geant_temporal.py"
       - "research/analyze_aos_geant_temporal.py"
+      - "research/plot_aos.py"
       - ".github/workflows/aos-geant-temporal.yml"
   workflow_dispatch:
 
@@ -19,7 +20,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python -m pip install -e . 'scipy>=1.11,<1.16' 'networkx>=3.2,<4'
+      - run: python -m pip install -e . 'scipy>=1.11,<1.16' 'networkx>=3.2,<4' 'matplotlib>=3.8,<4'
       - name: Frozen timestamp direct-GAdapt benchmark
         run: |
           set -o pipefail
@@ -29,6 +30,7 @@ jobs:
         run: |
           set -o pipefail
           python -m research.analyze_aos_geant_temporal aos_geant_temporal.csv | tee aos_geant_stats.txt
+      - run: python research/plot_aos.py --kind geant --csv aos_geant_temporal.csv --prefix aos_geant_figure
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -37,3 +39,4 @@ jobs:
             aos_geant_temporal.csv
             aos_geant_log.txt
             aos_geant_stats.txt
+            aos_geant_figure_*.png
