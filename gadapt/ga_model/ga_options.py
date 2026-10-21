@@ -20,6 +20,10 @@ class GAOptions:
         self._number_of_crossover_parents = ga.number_of_crossover_parents
         self._cost_function = ga.cost_function
         self.cost_diversity_metric = ga.cost_diversity_metric
+        self.mutation_operator_policy = ga.mutation_operator_policy
+        self.mutation_operator_credit = ga.mutation_operator_credit
+        self.mutation_violation_function = ga.mutation_violation_function
+        self.operator_credit_controller = None
         self.adaptive_immigration_patience = ga.adaptive_immigration_patience
         self.adaptive_immigration_percentage = ga.adaptive_immigration_percentage
         self.adaptive_immigration_diversity_threshold = ga.adaptive_immigration_diversity_threshold
