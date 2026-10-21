@@ -89,3 +89,31 @@ ima drugačiju raspoloživu fleksibilnost od istorijskih 8 napona,
 pa se ne sme direktno porediti sa istorijskim optima.
 Eksperimentalne metode i budžet dodatno će se zamrznuti
 pre novih optimizacionih izvršavanja.
+
+## Dodatak B — pokušaj NUŽNOG uslova preko radijalnog terminala
+Pre testiranja ove analitičke provere, u statičkom auditu top 15
+transformatora identifikovani su krajnji autobusi povezani sa samo
+jednim serijskim elementom, koji sadrže generatore na njihovim
+publikovanim minimalnim aktivnim snagama. Primer: transformator 404
+100 MVA, terminal 1705 sa 236,69 MW proizvodnje i 40 MW potrošnje.
+
+Sada se proverava *nužan* uslov (nije dovoljan za izvodljivost):
+na pravom jedino vezanom krajnjem busu bez drugih serijskih veza,
+šantova, sgen/ext_grid i sa konstantnim P potrošačima,
+`P_export_min = sum(P_gen_min) - sum(P_load)`. Za slučaj pozitivnog
+min. eksporta iz busa, transformator sa nazivnom snagom S_n i 100%
+**strujnim** limitom (pandapower `trafo_loading="current"`)
+zahteva `P_export_min <= S_n * vmax_pu * V_nom_bus / V_nom_trafo_terminal`.
+Ako je stroga suprotna nejednakost ispunjena i svi uslovi zaista
+provereni iz net strukture, to je sertifikat neizvodljivosti
+**za ovaj fiksirani model i termički uslov**, nezavisan od heuristike.
+Za izvodljivost cele mreže dovoljno je da jedan tako obavezan
+terminal ne može zadovoljiti fizičku granicu.
+
+Obavezno proveriti radijalnost po **broju elemenata** (ne broju
+različitih suseda), odsustvo prekidača i drugih izvora, konst. P
+potrošnju, postojanje granica i stvarni odnos nazivnih napona.
+Poređenje se odnosi na pretpostavljenu termičku granicu iz
+pandapower konverzije; validnost izvornog RATE_A kao operativnog
+limita ostaje **odvojeno otvoreno pitanje**. Nema potrebe za novim
+AC pozivima u ovom matematičkom skriningu.
