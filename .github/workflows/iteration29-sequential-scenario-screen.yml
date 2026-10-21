@@ -1,0 +1,75 @@
+name: Iteration 29 verified-only original IEEE118 AC sequential scenario screening
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION29_PROTOCOL.md"
+      - "gadapt/operations/cost_finding/sequential_scenario_budget_cost.py"
+      - "tests/test_sequential_scenario_budget_cost.py"
+      - "research/iteration29_real_scenario_earlystop_benchmark.py"
+      - "research/test_iteration29_earlystop_protocol.py"
+      - ".github/workflows/iteration29-sequential-scenario-screen.yml"
+  workflow_dispatch:
+
+jobs:
+  test-metered-scenario-cost:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install pinned old compatible native powerflow dependencies
+        run: python -m pip install -e . 'pypower==5.1.19' 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Verify robust source feasibility never inferred from an unobserved AC
+        run: python -m unittest -v tests.test_sequential_scenario_budget_cost research.test_iteration29_earlystop_protocol tests.test_scenario_feasibility_credit
+
+  real-sequential-source-IEEE118:
+    needs: test-metered-scenario-cost
+    runs-on: ubuntu-latest
+    timeout-minutes: 32
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned original IEEE source AC native dependencies
+        run: python -m pip install -e . 'pypower==5.1.19' 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Execute 20 frozen GAdapt DE runs under 3600 REAL IEEE118 AC limit
+        run: python -m research.iteration29_real_scenario_earlystop_benchmark --json iteration29_source_earlystop.json --csv iteration29_source_earlystop.csv
+      - name: Emit exact raw data for permanent public science record
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          for kind,p in (("CSV","iteration29_source_earlystop.csv"),
+                         ("JSON","iteration29_source_earlystop.json")):
+              f=Path(p)
+              if f.exists():
+                  content=base64.b64encode(f.read_bytes()).decode("ascii")
+                  for i,k in enumerate(range(0,len(content),2048)):
+                      print("I29_ARCHIVE",kind,i,content[k:k+2048],flush=True)
+              else:
+                  print("I29_MISSING",kind,flush=True)
+          PY
+      - name: Archive every genuine AC success, failure and early skip
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration29-IEEE118-physical-early-rejection-and-adaptive-order
+          path: |
+            iteration29_source_earlystop.csv
+            iteration29_source_earlystop.json
