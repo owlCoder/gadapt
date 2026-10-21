@@ -213,8 +213,8 @@ def experiment():
             withheld_operator_feedback=sum(r["total_withheld_operator_traces"] for r in rr),
             real_complete_candidates=sum(r["completely_evaluated_candidates"] for r in rr),
             minimum_true_verified_mean_module_cost_or_null=min(costs) if costs else None,
-            median_verified_mean_module_cost_only_successful_seed_or_null:
-                float(np.median(costs)) if costs else None)
+            median_verified_mean_module_cost_only_successful_seed_or_null=(
+                float(np.median(costs)) if costs else None))
     comparisons=[
         ("ucb_censor_safe_fixed","legacy_fixed"),
         ("ucb_censor_safe_fixed","ucb_objective_fixed"),
