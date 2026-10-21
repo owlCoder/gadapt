@@ -106,3 +106,37 @@ doing so is NOT a feasible optimal solution or an independent
 validated industrial OPF. This RTE subset has pre-existing line overload,
 so the measured violation may represent unrepairable structural
 constraints under voltage-only changes.
+
+## Post-experiment reproducibility amendment — NOT a method change
+
+After the **original unpinned** experiments were completed and reported,
+a second independently successful workflow execution with identical source
+and paired seeds produced *different final numerical values* despite
+identical physical-call counts and identical adaptive decision classes.
+Across two 72-trial executions, all 12 per-method IEEE118 feasible-loss
+measurements changed to some degree: ~1e-12 MW for CMA-ES, <0.0003 MW
+for SLSQP, but up to ~0.1–0.25 MW for GA/DE/hybrids. These facts preclude
+bitwise reproducibility claims for the original unpinned workflows.
+The original `research/results/ieee118_allocation_20261021.csv` and
+original Actions run are kept immutable as provenance.
+
+An independent diagnostic,
+https://github.com/owlCoder/gadapt/actions/runs/39584533666,
+pinned `PYTHONHASHSEED=0` plus `OPENBLAS_NUM_THREADS=1`,
+`OMP_NUM_THREADS=1`, `MKL_NUM_THREADS=1`,
+`NUMEXPR_NUM_THREADS=1`. With identical package versions, it verified
+matching SHA256 of the actual first 16 public IEEE118 AC inputs/results
+and first 48 actual GA-proposed inputs/physics results
+**across two independent GitHub Actions runners and within fresh
+Python processes**. This local deterministic observation does not
+prove the whole algorithm universally deterministic.
+
+We therefore RETAIN the original hypotheses, objective, physical
+limits, method family, sample size, seed list, paired statistical tests
+and evaluation budget unchanged but repeat the *entire same experiment*
+under the independently validated environmental controls.
+The new raw CSV will be versioned separately, rather than silently
+replacing any original trial, and results described as a reproducibility
+sensitivity check, not a pristine independent data split.
+French RTE1888 is repeated under the same controls; violation remains
+the primary honest outcome when physical feasibility is absent.
