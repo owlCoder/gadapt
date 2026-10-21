@@ -1,0 +1,44 @@
+name: Iteration 7 static topology eligibility and redispatch audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/iteration7_rte_topology.py"
+      - ".github/workflows/iteration7-rte-topology.yml"
+  workflow_dispatch:
+
+jobs:
+  static-network-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e . 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Compute published network topology and eligible redispatch candidates
+        run: python -m research.iteration7_rte_topology --output rte1888_topology.json
+      - name: Print exact file bytes for subsequent archiving
+        if: always()
+        run: |
+          python - <<'PY'
+          import base64
+          from pathlib import Path
+          if Path("rte1888_topology.json").exists():
+              s=base64.b64encode(Path("rte1888_topology.json").read_bytes()).decode()
+              for off in range(0,len(s),2048):
+                  print("I7_TOPO_B64",off//2048,s[off:off+2048],flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iteration7-rte1888-static-topology
+          path: rte1888_topology.json
