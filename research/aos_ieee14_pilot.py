@@ -55,7 +55,7 @@ class AccountedObjective:
         info = self.cache.get(tuple(float(t) for t in x))
         if info is None:
             self.feedback_misses += 1
-            return 1e12
+            return None  # no physical evaluation: no operator credit
         if not info["converged"]:
             return 1e12
         # Excess over the SAME declared feasibility tolerances, normalized
