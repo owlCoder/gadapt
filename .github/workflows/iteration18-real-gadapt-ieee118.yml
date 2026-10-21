@@ -1,0 +1,57 @@
+name: Iteration 18 real GAdapt original IEEE118 transfer pilot (864 AC max)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION18_PROTOCOL.md"
+      - "research/iteration18_ieee118_gadapt_transfer.py"
+      - "research/test_iteration18_ieee118_gadapt_transfer.py"
+      - ".github/workflows/iteration18-real-gadapt-ieee118.yml"
+  workflow_dispatch:
+
+jobs:
+  real-gadapt-ieee118-physical-subset:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned real GAdapt and native PYPOWER IEEE118 dependencies
+        run: python -m pip install -e . 'pypower==5.1.19' 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Verify all 54 source generator boundaries and real solver call accounting
+        run: python -m unittest -v research.test_iteration18_ieee118_gadapt_transfer research.test_iteration17_ieee14_gadapt_economic_pf
+      - name: True 3-seed GAdapt DE random comparison on same 9D original IEEE118 PV-controlled subset
+        run: python -m research.iteration18_ieee118_gadapt_transfer --seeds 2026 2027 2028 --budget 96 --population 16 --json iteration18_ieee118_real_gadapt.json --csv iteration18_ieee118_real_gadapt.csv
+      - name: Emit raw results for GitHub main science archive
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          for kind,fn in (("CSV","iteration18_ieee118_real_gadapt.csv"),
+                          ("JSON","iteration18_ieee118_real_gadapt.json")):
+              p=Path(fn)
+              if p.exists():
+                  data=base64.b64encode(p.read_bytes()).decode("ascii")
+                  for i,k in enumerate(range(0,len(data),2048)):
+                      print("I18_ARCHIVE",kind,i,data[k:k+2048],flush=True)
+              else:
+                  print("I18_MISSING",kind,flush=True)
+          PY
+      - name: Archive both successful and unsuccessful IEEE118 real AC search results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration18-original-IEEE118-true-GAdapt-DE-random
+          path: |
+            iteration18_ieee118_real_gadapt.csv
+            iteration18_ieee118_real_gadapt.json
