@@ -1,3 +1,68 @@
+# NAJNOVIJE I19–I23: IEEE118 izvorno fizički izvodljive kontrolne tačke kroz 35 pravih AC proba (21.10.2026)
+
+**Prvi put je u ranije neuspešnom IEEE118, ograničenom
+fiksni-P/PV-kontrolisanom istraživačkom podskupu pronađena potpuno
+izvorno fizički izvodljiva tačka**, ali **NE pomoću novog GAdapt-a**.
+Ovo je transparentan domenski deterministički Q/VG
+*feasibility-repair* dijagnostički niz: **I19 = 10, I20 = 8,
+I21 = 8, I22 = 5, I23 = 4, ukupno 35 NOVIH stvarnih AC PF poziva**,
+svaki brojan na stvarnoj NR solver granici, sa unapred registrovanim
+protokolom pre svakog fizičkog eksperimenta, bez besplatnih
+simulacija ili prikrivanja neizvodljivih rezultata.
+
+- **I19:** originalni IEEE118 PG/VG imao 6 Q-offendera,
+  zbir **78,099195 MVAr**, dominantno BUS103 i BUS105; devet starih
+  I18 best-penalized vektora je fizički replayovano bez promene scores.
+- **I20:** source BUS103 VG 1,01→0,99 rešio obe trajne Q
+  povrede BUS103/BUS105, Qtotal smanjen na **32,345808 MVAr**
+  sa još 4 druga QMIN offender-a.
+- **I21:** source BUS32 VG 0,963→0,973 smanjio Qtotal na
+  **30,525901 MVAr**, ostala BUS34/BUS92/BUS19;
+  ostali veliki `±0,01` VG koraci uglavnom pogoršavali Q.
+- **I22:** mala originalna Q/VG korekcija iz *ranije zaista
+  izmerenih konačnih razlika* dovela do **2,464456 MVAr**
+  jednog QMIN prekršaja BUS92 na polovičnoj zajedničkoj korekciji,
+  ili **3,642855 MVAr** QMIN prekršaja BUS36 na punoj korekciji,
+  oboje još neizvodljivi.
+- **I23:** sva četiri unapred zamrznuta međukoraka α=0,6/0,7/0,8/0,9
+  stvarno rešena; **α=0,7 i α=0,8 su kompletno source-feasible**
+  prema individualnim **svih 54 generatora PG/QG**, svih
+  **118 naponskih VMIN/VMAX**, originalnim pozitivnim `RATE_A` MVA
+  oba kraja, sa kompleksnim AC bilansom max ≈**1,6·10⁻¹⁰ MVA**.
+  Bolji takav izvorni fizički izvodljiv ekonomični candidate ima
+  `gencost` **131.198,797575**, ali **NIJE** pun
+  globalni AC-OPF optimum, poboljšani GAdapt ili statistički dokaz.
+  α=0,6 i 0,9 su ostali Q-neizvodljivi i nisu izostavljeni.
+
+Ovi nalazi pokazuju **izbor fizički relevantnih kontrola i malih
+proračunatih VG koraka** kao mogući istraživački pravac. **NE SME**
+se porediti “35 dijagnostičkih AC” sa “864 GA/DE/random I18 AC”
+kao fer nadmetanje: drugačije reprezentacije, uzastopno
+data-guided izabrane kontrole i različiti ciljevi. Originalni
+puni IEEE118 AC-OPF je već bio lokalno source-feasible u I16,
+sa širim PG/Q/V kontrolama. Originalan algoritamski doprinos
+unutar stvarnog GAdapt-a i industrijska primena **nisu dokazani**.
+
+[Izveštaj I23 i detaljni dve feasible tačke](ITERATION23_REPORT_SR.md) ·
+[I23 raw JSON četiri realna AC](results/ieee118_iteration23_qbracket_4_real_ac_20261021.json) ·
+[I23 CI uspešan #39656195300](https://github.com/owlCoder/gadapt/actions/runs/39656195300) ·
+[Izveštaj I22](ITERATION22_REPORT_SR.md) ·
+[Izveštaj I21](ITERATION21_REPORT_SR.md) ·
+[Izveštaj I20](ITERATION20_REPORT_SR.md) ·
+[Izveštaj I19](ITERATION19_REPORT_SR.md).
+
+**Sledeći doktorski rad:** zamrznuti istu izvorno
+relevantnu PV kontrolnu reprezentaciju i fizički budžet za
+legacy GAdapt, DE, random, jaku lokalnu bazu i eventualni
+novi *feasibility/sensitivity-aware* GAdapt sa potpuno naplaćenim
+dodatnim AC merenjima; pre tvrdnje o novosti pregledati AOS,
+constraint-handling, sensitivity-guided repair literaturu i
+testirati na mnogo uparenih semena i više domena. Dati broj
+samo dokumentuje klasičnu inženjersku korigovanu fiziku,
+ne rezultat novih GA poređenja.
+
+---
+
 # NOVO — Iteracije 17 i 18: realan GAdapt, 1.728 pravih IEEE AC PF poziva (21.10.2026)
 
 **Prva stvarna, strogo fizički budžetirana provera originalnog
