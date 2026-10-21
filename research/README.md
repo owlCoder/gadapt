@@ -1,3 +1,32 @@
+# NOVO — Iteracija 9: proverena generatorska ograničenja i neslaganje slack-a (21.10.2026)
+
+**Kritičan nalaz pre bilo kakvog narednog industrijski relevantnog GAdapt benchmarka:**
+MATPOWER original 2019 ima referentnu/slack sabirnicu **1320**, dok
+`pandapower.networks.case1888rte()` postavlja `ext_grid` na originalnu
+sabirnicu **1268**. Izvorni generator na sabirnici 1320 nije
+prenet kao aktivni `gen`, `sgen` niti `ext_grid`. Stoga
+**dosadašnji AC rezultati nisu validacija izvorno identičnog MATPOWER
+AC-OPF slučaja**, već konvertovane mreže sa eksplicitno navedenim
+ograničenjima. **Nije dokazano** da ta razlika objašnjava sve neuspehe
+pri uspostavljanju fizičke izvodljivosti.
+
+Pozitivno: **264/264** nedvosmislena originalna/konvertovana
+generatorska para imaju identičnih svih šest polja PG, PMIN,
+PMAX, QMIN, QMAX, VG; sve **1888/1888** naponske granice i
+nominalni kV odgovaraju originalnom izvoru. Za 17 preostalih
+generatorskih sabirnica mapiranje je složenije. Original ima 298
+redova generatora, 291 aktivan. Ova iteracija je **statički audit,
+sa 0 fizičkih AC proračuna**, ne novo algoritamsko poboljšanje.
+
+[Izveštaj](ITERATION9_REPORT_SR.md) ·
+[Pre-registracija](ITERATION9_PROTOCOL.md) ·
+[Potpuni JSON](results/rte1888_iteration9_source_generator_conversion_audit_20261021.json) ·
+[298 izvornih gen redova](results/rte1888_iteration9_original_matpower_generator_rows_2019.csv) ·
+[1888 izvornih bus redova](results/rte1888_iteration9_original_matpower_bus_rows_2019.csv) ·
+[Uspešan CI #39624498771](https://github.com/owlCoder/gadapt/actions/runs/39624498771).
+
+---
+
 # NOVO — Iteracija 8: reaktivno-naponski screening RTE1888 (21.10.2026)
 
 Završeno je novo, **eksploratorno** fizičko merenje sa osam
