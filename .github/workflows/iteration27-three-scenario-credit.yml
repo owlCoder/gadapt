@@ -1,0 +1,57 @@
+name: Iteration 27 3-scenario native IEEE118 true-AC GAdapt operator-credit ablation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION27_PROTOCOL.md"
+      - "research/iteration27_real_scenario_credit_benchmark.py"
+      - "research/test_iteration27_real_scenario_credit_benchmark.py"
+      - ".github/workflows/iteration27-three-scenario-credit.yml"
+  workflow_dispatch:
+
+jobs:
+  native-three-load-scenario-GAdapt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install original IEEE118 source AC plus actual GAdapt dependencies
+        run: python -m pip install -e . 'pypower==5.1.19' 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Validate core GAdapt scenario reward, physical batch counter, and previous code
+        run: python -m unittest -v research.test_iteration27_real_scenario_credit_benchmark tests.test_scenario_feasibility_credit tests.test_operator_credit tests.test_paired_operator_credit
+      - name: Execute 6 method x 3 seed three-load-source ablation with max 3240 genuine AC PF
+        run: python -m research.iteration27_real_scenario_credit_benchmark --seeds 2026 2027 2028 --budget 180 --population 12 --json iteration27_three_load_gadapt.json --csv iteration27_three_load_gadapt.csv
+      - name: Emit exact raw physical result files for main science archive
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          for kind,path in (("CSV","iteration27_three_load_gadapt.csv"),
+                            ("JSON","iteration27_three_load_gadapt.json")):
+              p=Path(path)
+              if p.is_file():
+                  b=base64.b64encode(p.read_bytes()).decode("ascii")
+                  for j,k in enumerate(range(0,len(b),2048)):
+                      print("I27_ARCHIVE",kind,j,b[k:k+2048],flush=True)
+              else:
+                  print("I27_MISSING",kind,flush=True)
+          PY
+      - name: Archive every real AC result including negative scenario-feasibility evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration27-original-IEEE118-3-load-new-core-GAdapt-vs-controls
+          path: |
+            iteration27_three_load_gadapt.csv
+            iteration27_three_load_gadapt.json
