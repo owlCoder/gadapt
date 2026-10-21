@@ -57,6 +57,12 @@ def candidate(net,trafo_id,terminal_bus):
     if not ("min_p_mw" in gens and
             all(pd.notna(x) and math.isfinite(float(x)) for x in gens.min_p_mw)):
         return {"eligible":False,"reason":"missing finite minimum generator active power"}
+    if "scaling" in gens and any(pd.isna(z) or abs(float(z)-1.)>1e-10
+                                 for z in gens.scaling):
+        return {"eligible":False,"reason":"non-unity or unknown generator P scaling"}
+    if "scaling" in loads and any(pd.isna(z) or not math.isfinite(float(z)) or
+                                  float(z)<0 for z in loads.scaling):
+        return {"eligible":False,"reason":"missing or invalid load scaling"}
     load_p=float((loads.p_mw*loads.scaling).sum()) if "scaling" in loads else float(loads.p_mw.sum())
     min_gen_p=float(gens.min_p_mw.sum())
     p_bound=min_gen_p-load_p
