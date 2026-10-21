@@ -69,6 +69,30 @@ class CreditTests(unittest.TestCase):
         self.assertGreater(calls["feedback"], 0)
         self.assertLessEqual(calls["feedback"], calls["fitness"])
 
+    def test_missing_physical_sample_cannot_receive_credit(self):
+        """None marks a withheld evaluation, NOT a feasible observation."""
+        random.seed(10)
+        controller = CreditBasedDecisionVariableMutator(
+            policy="ucb", credit="feasibility",
+            violation_function=lambda x, cost: None)
+        controller.append(RandomDecisionVariableMutator())
+        var = type("Var", (), {
+            "min_value": 0.0, "max_value": 1.0,
+            "step": None, "decimal_places": -1,
+            "make_random_value": lambda _: 0.3,
+        })()
+        entry = type("Entry", (), {})()
+        entry.value = 0.2
+        entry.decision_variable = var
+        candidate = [entry]
+        controller.begin_generation([type("Incumbent", (), {"cost_value": 2.0})()])
+        controller.mutate(entry)
+        evaluated = type("Evaluated", (list,), {"_succ": True, "cost_value": 1.0})
+        controller.observe(evaluated(candidate))
+        stats = controller.summary()
+        self.assertEqual(sum(x["observations"] for x in stats), 0)
+        self.assertEqual(sum(x["selections"] for x in stats), 1)
+
     def test_old_default_is_unchanged(self):
         ga = GA(cost_function=lambda v: float(sum(x*x for x in v)),
                 population_size=10, number_of_generations=3,
