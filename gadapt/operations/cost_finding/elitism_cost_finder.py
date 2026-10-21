@@ -25,9 +25,16 @@ class ElitismCostFinder(BaseCostFinder):
             )
         ]
         for c in candidate_solutions_for_execution:
-            self._execute_function(self.population.options.cost_function, c)
             controller = getattr(self.population.options, "operator_credit_controller", None)
-            if controller is not None:
+            paired = controller is not None and getattr(controller, "assignment", None) == "paired"
+            before = controller._counter_value() if paired else None
+            self._execute_function(self.population.options.cost_function, c)
+            if paired:
+                after = controller._counter_value()
+                if after < before or after > before + 1:
+                    raise ValueError("Invalid physical evaluation counter change")
+                controller.observe(c, physically_evaluated=(after == before + 1))
+            elif controller is not None:
                 controller.observe(c)
         if not any(getattr(c, "_succ", False) for c in self.population):
             raise ValueError("All evaluated candidate costs were invalid or nonfinite")
