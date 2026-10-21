@@ -1,0 +1,59 @@
+name: Iteration 17 real GAdapt original IEEE14 economic AC PF pilot (864 AC max)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION17_PROTOCOL.md"
+      - "research/iteration17_ieee14_gadapt_economic_pf.py"
+      - "research/test_iteration17_ieee14_gadapt_economic_pf.py"
+      - ".github/workflows/iteration17-real-gadapt-ieee14.yml"
+  workflow_dispatch:
+
+jobs:
+  real-gadapt-ieee14-ac:
+    runs-on: ubuntu-latest
+    timeout-minutes: 28
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned real GAdapt and original IEEE AC PF environment
+        run: python -m pip install -e . 'pypower==5.1.19' 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Zero-AC tests for generator P and VG bounds and actual solver-call accounting
+        run: |
+          python -m unittest -v research.test_iteration17_ieee14_gadapt_economic_pf research.test_iteration16_ieee_original_acopf
+      - name: Run preregistered 3-seed GAdapt / DE / random benchmark with real PF budget
+        run: |
+          python -m research.iteration17_ieee14_gadapt_economic_pf --seeds 2026 2027 2028 --budget 96 --population 16 --json iteration17_ieee14_real_gadapt.json --csv iteration17_ieee14_real_gadapt.csv
+      - name: Emit exact result files for checked-in scientific evidence
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          for kind,path in (("CSV","iteration17_ieee14_real_gadapt.csv"),
+                            ("JSON","iteration17_ieee14_real_gadapt.json")):
+              f=Path(path)
+              if f.exists():
+                  encoded=base64.b64encode(f.read_bytes()).decode("ascii")
+                  for i,start in enumerate(range(0,len(encoded),2048)):
+                      print("I17_ARCHIVE",kind,i,encoded[start:start+2048],flush=True)
+              else:
+                  print("I17_MISSING",kind,flush=True)
+          PY
+      - name: Archive all raw real IEEE14 AC search outcomes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration17-IEEE14-original-economy-real-gadapt-de-random
+          path: |
+            iteration17_ieee14_real_gadapt.csv
+            iteration17_ieee14_real_gadapt.json
