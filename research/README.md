@@ -1,3 +1,26 @@
+# NAJNOVIJE I33 — drugi domen GÉANT: 8.580 STVARNIH routing evaluacija, jedno Holm-značajno poređenje SAMO pod hipotetičkim cap-om (22.10.2026)
+
+**5 uzastopnih koraka na `main` završeno:** (1) revizija javnog GÉANT osnovnog modela i njegovih neograničenih kupovina modula; (2) protokol unapred pre realnih poziva; (3) implementacija stvarnog GAdapt/DE sa brojanjem NetworkX Dijkstra/modularnih routing evaluacija i sintetički no-route testovi; (4) uspešna 72-run CI serija na originalnom 22-node/36-link/462-demand SNDlib izvoru; (5) izvorni rezultati, statistika, 2013–2026 prior-art audit i naredna konkretna doktorska hipoteza.
+
+**6 metoda × 12 novih uparenih semena 2200–2211 × max120 stvarnih ruting simulacija = 8.580/8.640** stvarno izvršenih evaluacija, **0 elektroenergetskih AC** i 0 numerical failure. **I33 hipotetičko, NE IZVORNO FINANSIJSKO OGRANIČENJE:** `cost ≤ 145000` SNDlib price units za svaku od 3 **veštačka** nominal/odd-source-heavy/even-source-heavy scenarija. Ovo NIJE stvarno ograničenje telekom operatera, a funkcija cilja mean 3 scenario-specific module purchases NIJE jedan trajni hardverski plan.
+
+| GÉANT metod | Semena sa ≥1 potvrđeno feasible POD NAŠIM HIPOTETIČKIM cap-om | Potpuno provereni cap-feasible kandidati | Realno brojane ruting evaluacije |
+|---|---:|---:|---:|
+| Originalni GAdapt full true | 3/12 | 4 | 1440 |
+| Originalni GAdapt full censored (sva tri scenarija stvarno plaćena) | 2/12 | 2 | 1440 |
+| **GAdapt first-failure `stop_fixed`** | **10/12** | **54** | 1423 |
+| GAdapt `stop_adaptive` | 11/12 | 59 | 1421 |
+| DE full true | 5/12 | 5 | 1440 |
+| DE first-failure `stop_fixed` | 6/12 | 10 | 1416 |
+
+**Tačno jedan od pet unapred definisanih statističkih kontrasta je značajan:** `GA full_censored` **2/12** vs `GA stop_fixed` **10/12**, 8 discordantnih seedova u korist rane evaluacione uštede, nijedan u obrnutoj strani. **Egzaktni dvostrani p=0,0078125; Holm(5) p=0,0390625**. Ovo podržava rezultat **unutar našeg sintetičkog GÉANT cap modela**, ne potvrđuje univerzalnu superiornost, industrijski nivo izvodljivosti ili naučnu novinu first-failure metode. Adaptivni redosled ima 11/12 prema 10/12 fixed, p=1, **nema dokaza dodatne koristi**. Analogni I31 i I32 budžetsko-score kontrasti na drugim elektroenergetskim mrežama imaju isti smer, ali p=0,125 i p=0,25, statistički nisu značajni.
+
+[Kompletan I33 izveštaj](ITERATION33_REPORT_SR.md) · [I33 originalni protokol](ITERATION33_PROTOCOL.md) · [audit izvornosti finansijskog limita](ITERATION33_GEANT_MODEL_AUDIT_SR.md) · [I33 svi 72 originalno stvarno rutirana JSON zapisa](results/geant_iteration33_12seeds_6arms_8580_true_routings_20261022.json) · [CSV](results/geant_iteration33_12seeds_6arms_8580_true_routings_20261022.csv) · [stvarno zeleni CI run](https://github.com/owlCoder/gadapt/actions/runs/39689108919) · [prior art i precizna otvorena hipoteza](ITERATION33_PRIOR_ART_AND_NEXT_HYPOTHESIS_SR.md).
+
+**Doktorski sledeći naučni pravac:** tek sada testirati literaturom razlikovanu `censor-aware + cost-normalized mutation operator credit` metodu **unutar izvornog GAdapt-a** (sa neizmerеним scenarijima kao unknown, ne nulom), uz I26 negativne operator-baseline rezultate, snažne domenske bazne optimizatore, novu potpuno netaknutu mrežnu instancu i veći broj stvarno nezavisnih seedova. Ne praviti novost od običnog UCB, prve povrede ili proizvoljnog cap-a. Upstream `bpzoran/gadapt` NIJE menjan.
+
+---
+
 # I31 prethodni krug sada objedinjен na main (22.10.2026)
 
 **Kontrolisana I31 ablacija IEEE118**: 48 stvarnih GA izvođenja i **8.611 realnih originalnih PYPOWER AC**, četiri evaluacione opcije, 12 uparenih semena. Uspešno i potpuno tri-scenario fizički izvodljiv kandidat na 9/12 originalnom GAdapt-u sa punom ocenom, 7/12 punom/cenzurisanom kontrolom, 11/12 GAdapt-u sa fiksnim ranim odbijanjem i 10/12 adaptivnom redosledu. Ključni upareni kontrast cenzurisanih punih troškova prema ranom prekidu p=0,125, **bez dokazane statističke superiornosti**. Originalni workflow fizički je bio FAILED samo pri CSV izvozu nakon 48 kompletiranih runova; svih 48 sirovih log redova i stvarni JSON/CSV su sačuvani na main *bez nove fizičke ponovne simulacije*.
