@@ -1,0 +1,3 @@
+scenario,actual_native_ac_call,enforce_q_lims,solver_converged,solver_error,control_verified_against_iteration11,original_slack_bus_final_type,original_slack_q_mvar,all_explicit_checked_constraints_feasible,v_under_pu,v_over_pu,generator_p_below_mw,generator_q_below_mvar,generator_q_above_mvar,source_rate_a_sum_excess
+patched_control_without_Q_enforce,1,False,True,,True,3,-2.086912999268173,False,0.05400669746674791,0.0,54.949999999999996,31.43911681713329,6.942439863314989,0.0
+patched_native_source_Q_enforcement,2,True,False,"IndexError: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices",,,,,,,,,,
