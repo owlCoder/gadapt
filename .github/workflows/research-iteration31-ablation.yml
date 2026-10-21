@@ -55,6 +55,9 @@ jobs:
           python -m unittest -v research.test_iteration30_spatial_load_holdout
 
   preregistered-real-ieee118-ac:
+    # The original 48-run preregistered experiment is archived in PR #3.
+    # Rerunning 8,640 costly AC solves requires an explicit manual dispatch.
+    if: github.event_name == 'workflow_dispatch'
     needs: zero-ac-tests
     runs-on: ubuntu-latest
     timeout-minutes: 120
