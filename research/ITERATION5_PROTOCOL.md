@@ -1,0 +1,62 @@
+# Iteration 5 — budget-matched local refinement and near-optimality audit
+Date: 2026-10-21. **Frozen before the experimental program was written/executed.**
+Direct development in `owlCoder/gadapt:main` by explicit owner authorization. `bpzoran/gadapt` remains unchanged.
+
+## Target research question
+The previous credit-based UCB/paired-credit mechanisms were not demonstrably superior
+and spent a large fraction of the *physical* evaluation budget on controls.
+Test whether a simple, known **memetic** (GA + local search) approach provides
+a better accuracy/reliability trade-off in an exactly counted IEEE14 nonlinear
+AC generator-voltage setpoint benchmark. This is a strong existing-method
+baseline, not proposed as an original dissertation contribution.
+
+Published optimization research on IEEE14 reactive power dispatch reports
+lower losses under *different control variables/constraints* (e.g. JAYA,
+DEPSO). Those published MW figures must **not** be compared numerically to
+this narrower 5-variable, fixed tap/shunt/active-generator IEEE14 problem.
+A local minimum, even with tiny apparent improvement, is NOT a certified
+global optimum. We do not use PYPOWER `runopf` as an interchangeable global
+optimum because its decision variables/objective differ.
+
+## Frozen comparison and resource budget
+Reference: GAdapt real installed package + PYPOWER `case14`, PV/slack voltage
+setpoints with the exact physical voltage, reactive power and existing RATE_A
+constraints defined in `research/ieee14_voltage.py`. Load factors 1.00 and
+1.10. Seeds 100–111 (12 fixed paired trials per method per load; distinct from
+prior 0–7). Budget: exactly 360 *true PYPOWER runpf executions per trial*.
+Population 24, GA->local hybrid split: 180 GA physical evaluations followed
+by up to 180 local-search evaluations. One genuine PF call is one unit, even
+when objective is queried repeatedly. If a solver stops early, the unused
+allocation is spent on explicitly labelled restarts/random-search fills.
+All post-budget solver requests are recorded, never run physically, and
+cannot improve the physical incumbent.
+
+Methods:
+- `legacy_gadapt`: standard unmodified GAdapt with 360 PF evaluations.
+- `affine_gadapt`: opt-in affine cost diversity only, 360 PF evaluations.
+- `slsqp_multistart`: scipy.optimize.minimize(SLSQP) initialized from
+  published reference plus seeded randomized restarts, bounded voltage
+  setpoints, **penalized** objective and independent feasibility auditing.
+  This is NOT an AC-OPF solver nor a feasibility-guaranteeing SLSQP.
+- `hybrid_gadapt_slsqp`: original GAdapt for 180 PF calls, then starts
+  SLSQP from the BEST physically evaluated feasible state if one exists,
+  else from the best penalized state; seeded bounded restarts to exhaust
+  the full 360-call total. GA and SLSQP see the same objective, constraints
+  and physical counter; no hidden optimizer calls.
+- `scipy_de`: differential evolution with 360 PF evaluations, polish off.
+
+Primary exploratory outcome: physical feasibility fraction including all
+failed/invalid run statuses; among successful physically feasible runs report
+true loss MW, median and 90th percentile, worst observed. Paired outcomes:
+feasible beats infeasible, lower feasible loss beats higher feasible loss, both
+infeasible ties; exact sign test and Holm correction for 4 comparisons
+against `legacy_gadapt` per load. Additional paired feasibility discordance
+exact test, conditional paired median difference with bootstrap 95% interval.
+Log physical solver count, total requests, time, restarts and wasted
+post-budget calls, seed, environment. Report partial runs as failures.
+
+**Predeclared decision rule:** n=12 is an exploratory mechanistic pilot.
+No statistically confirmed superiority or rare-event reliability claim
+will be made without an independent, adequately powered replication and
+larger cases (IEEE118, RTE) plus non-grid domain. Full blown AC OPF / global
+optimality certification is NOT addressed.
