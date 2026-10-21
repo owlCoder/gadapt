@@ -141,3 +141,65 @@ claim. No automatic critical-infrastructure control is justified.
 UCB-objective nor UCB-feasibility is a demonstrated replacement for the
 original GAdapt. Any successor must be supported by stronger evidence or
 the hypothesis must be rejected.
+
+
+## Frozen GÉANT chronological pilot — actual completed run
+
+Source: https://github.com/owlCoder/gadapt/actions/runs/39564291412
+Benchmark SHA: `430bbeb0a746c0f9893c1b3d0a795bb6a30cf169`.
+All 44 selected archive members were found, SHA256-verified and successfully
+parsed: 12 development matrices from May/June/July plus 32 later August
+evaluation matrices, frozen before execution. SNDlib historical archive SHA
+`92d72a808d6de9d26be66844c098d3f32d5b9bb6c69af170e82b73118faef0df`;
+network source SHA
+`ff316c23220ff4485deafcb8701d49c353db0c80072152df3ed9023ed4b4f4ff`.
+Calibration from development only: `49.569816117149394`.
+The observed 15-minute traffic **is not original industry load in unscaled
+absolute units**, nor is the modular plan an operator-approved engineering
+design.
+
+8 paired seeds × 5 methods × 240 true development objective calls.
+All 40 method-runs completed successfully; all true evaluation counts=240.
+Results below are in assumed SNDlib capacity-module *cost units*, not MW:
+
+| Method | median training cost | median late-Aug cost | median 44-period plan cost | worst 44-period cost | median run time (s) |
+|---|---:|---:|---:|---:|---:|
+| legacy | 198585.0 | 159721.5 | 204067.0 | 221859.0 | 5.4822 |
+| affine | 198329.5 | 159973.0 | 207516.5 | 224636.0 | 5.5065 |
+| uniform objective | 194357.5 | 156292.5 | 195765.0 | 218723.0 | 5.5299 |
+| UCB objective | 198997.0 | 157708.5 | 211204.0 | 222755.0 | 5.4868 |
+| SciPy DE | 198974.5 | 158680.0 | 201612.5 | 218773.0 | 5.4327 |
+
+Compared with paired legacy plans on 44-period cost:
+- Affine: 2 wins, 4 losses, 2 ties; sign p=0.6875, Holm p=1.0.
+- Uniform objective: **7 wins, 1 loss**; exact sign p=0.0703125,
+  Holm p=0.28125. Median paired difference -2538.5, percentile-bootstrap
+  95% [-16192, -934] cost units, secondary Wilcoxon p=0.078125.
+  The bootstrap percentile interval excluding zero does **not** override
+  the preregistered family of small-sample exact tests (bootstrap CI
+  coverage at n=8 can be unreliable).
+- UCB objective: **1 win, 7 losses**; exact sign p=0.0703125,
+  Holm p=0.28125. Median paired difference +3174.0,
+  bootstrap 95% [896, 9046], Wilcoxon p=0.1484375.
+- SciPy DE: 3 wins, 5 losses; exact sign p=0.7265625, Holm p=1.0.
+
+The **direction** of the UCB result is unfavorable on this frozen
+historical scenario. An AOS policy using population-median offspring credit
+is not validated and should *not* be proposed as a final replacement.
+The uniform-control signal is worthy of independent replication, not
+exploitation via post hoc cherry-picking. The model has no independent
+hard feasibility criterion because capacity modules may increase without
+bounds; thus only objective and temporal robustness are valid outcomes.
+
+Benchmark objective budgets were identical, but the recorded count of
+no-solver post-budget *requests* differed: 112 extra across 8 runs per GA
+variant versus 960 for SciPy DE. They are NOT physical objective evaluations;
+they must be reported whenever comparing computational overhead. The
+holdout scoring itself entails additional independent evaluation of the
+single selected plan against 32 archived matrices per run; it is identical
+across methods and was not used for adaptation.
+
+The correct scientific decision at the end of this iteration is
+**not to accept UCB1 + observational offspring credit as an improvement**.
+Future work should first isolate credit assignment causally or by randomized
+matched offspring comparisons before adding further heuristics.
