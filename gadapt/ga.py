@@ -118,6 +118,9 @@ class GA:
         factory: Optional[BaseGAFactory] = None,
         normal_distribution_mutation_min_std_dev_decay_generations: Optional[float] = None,
         cost_diversity_metric: str = "log_relative",
+        adaptive_immigration_patience: Optional[int] = None,
+        adaptive_immigration_percentage: float = 20.0,
+        adaptive_immigration_diversity_threshold: float = 0.25,
         **deprecated_kwargs,
     ) -> None:
         """
@@ -276,6 +279,13 @@ class GA:
 
             cost_diversity_metric: 'log_relative' (legacy default) or
                 'affine_invariant' (experimental, scale/offset-invariant measure).
+            adaptive_immigration_patience: None (disabled by default) or a
+                positive number of stagnant generations between conditional
+                population refreshes.
+            adaptive_immigration_percentage: percentage of kept candidates
+                to replace during an adaptive refresh (0-100, default 20).
+            adaptive_immigration_diversity_threshold: refresh only when cost
+                diversity coefficient is below this threshold (0-1).
 
             deprecated_kwargs: Previous names of the parameters (see
             DEPRECATED_PARAMETER_NAMES), e.g. number_of_mutation_chromosomes.
@@ -322,6 +332,17 @@ class GA:
         )
         self.ensure_unique_individuals = ensure_unique_individuals
         self.cost_diversity_metric = cost_diversity_metric
+        if (adaptive_immigration_patience is not None and
+                (type(adaptive_immigration_patience) is not int or
+                 adaptive_immigration_patience < 1)):
+            raise ValueError("adaptive_immigration_patience must be a positive int or None")
+        if not (0.0 <= adaptive_immigration_percentage <= 100.0):
+            raise ValueError("adaptive_immigration_percentage must be in [0, 100]")
+        if not (0.0 <= adaptive_immigration_diversity_threshold <= 1.0):
+            raise ValueError("adaptive_immigration_diversity_threshold must be in [0, 1]")
+        self.adaptive_immigration_patience = adaptive_immigration_patience
+        self.adaptive_immigration_percentage = float(adaptive_immigration_percentage)
+        self.adaptive_immigration_diversity_threshold = float(adaptive_immigration_diversity_threshold)
         self.normal_distribution_mutation_max_std_dev = normal_distribution_mutation_max_std_dev
         self.normal_distribution_mutation_min_std_dev = normal_distribution_mutation_min_std_dev
         self.normal_distribution_mutation_min_std_dev_decay_generations = normal_distribution_mutation_min_std_dev_decay_generations
