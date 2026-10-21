@@ -1,0 +1,81 @@
+name: I36 IEEE14 True AC In-Core Censor-Safe Operator Credit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'research/ITERATION36_PROTOCOL.md'
+      - 'research/iteration36_censor_credit_ieee14.py'
+      - 'research/test_iteration36_censor_credit_ieee14.py'
+      - '.github/workflows/research-iteration36-ieee14-credit.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/ITERATION36_PROTOCOL.md'
+      - 'research/iteration36_censor_credit_ieee14.py'
+      - 'research/test_iteration36_censor_credit_ieee14.py'
+      - '.github/workflows/research-iteration36-ieee14-credit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  OPENBLAS_NUM_THREADS: '1'
+  OMP_NUM_THREADS: '1'
+  MKL_NUM_THREADS: '1'
+  NUMEXPR_NUM_THREADS: '1'
+  PYTHONHASHSEED: '0'
+
+jobs:
+  preflight-no-real-ac:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned source physics and actual GAdapt
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'pandas==2.2.3' 'networkx==3.4.2' 'pypower==5.1.19' 'pandapower==2.14.11'
+          python -m pip install -e .
+      - name: Syntax original source parity and no-solver core tests first
+        run: |
+          python -m py_compile research/iteration36_censor_credit_ieee14.py
+          python -m unittest -v research.test_iteration36_censor_credit_ieee14
+          python -m unittest -v research.test_iteration35_censor_credit_ieee118
+          python -m unittest -v tests.test_censored_verified_per_cost_credit tests.test_scenario_feasibility_credit tests.test_operator_credit
+
+  source-ieee14-48-real-native-ac:
+    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+    needs: preflight-no-real-ac
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install identical actual source stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'pandas==2.2.3' 'networkx==3.4.2' 'pypower==5.1.19' 'pandapower==2.14.11'
+          python -m pip install -e .
+      - name: Run exactly 48 original IEEE14 native AC optimizer runs
+        run: |
+          mkdir -p research/results
+          python -m research.iteration36_censor_credit_ieee14 \
+            --json research/results/i36_ieee14_48runs_original_native_ac.json \
+            --csv research/results/i36_ieee14_48runs_original_native_ac.csv
+      - name: Preserve auditable raw source solver results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: i36-ieee14-real-AC-48runs-in-core-operator-credit
+          path: |
+            research/results/i36_ieee14_48runs_original_native_ac.json
+            research/results/i36_ieee14_48runs_original_native_ac.csv
+          if-no-files-found: warn
+          retention-days: 90
