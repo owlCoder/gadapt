@@ -1,0 +1,313 @@
+{
+  "metadata": {
+    "actual_native_ac_pf_calls": 4,
+    "alphas_fixed_in_preregistration": [
+      0.6,
+      0.7,
+      0.8,
+      0.9
+    ],
+    "fixed_all_54_original_generators_pg": true,
+    "num_ac_opf_calls": 0,
+    "num_optimizer_gadapt_calls": 0,
+    "original_ieee118_source": "unchanged PYPOWER case118",
+    "pandas": "2.2.3",
+    "preregistered_native_ac_pf_calls": 4,
+    "previous_full_source_Q_excess_mvar": 3.642855096077252,
+    "previous_half_source_Q_excess_mvar": 2.4644560480222957,
+    "previous_source_vg_repair_deltas": {
+      "19": 0.004619105395208329,
+      "34": 0.004016033221868577,
+      "92": 0.003533199035653122
+    },
+    "prior_real_I22_baselines_reused_not_new_pf_calls": true,
+    "protocol": "research/ITERATION23_PROTOCOL.md",
+    "public_ieee_case_not_operational_data": true,
+    "python": "3.12.15",
+    "scipy": "1.13.1"
+  },
+  "states": [
+    {
+      "actual_native_ac_pf_call": 1,
+      "all_checked_original_constraints_feasible": false,
+      "alpha": 0.6,
+      "original_positive_rate_a": {
+        "maximum_excess_mva": 0.0,
+        "rated_active_branches": 186,
+        "top_12": [],
+        "total_excess_mva": 0.0,
+        "unrated_active_branches": 0,
+        "violated_branches": 0
+      },
+      "physical_metrics": {
+        "actual_economic_cost": 131200.5119168619,
+        "converged": true,
+        "feasible": false,
+        "max_branch_terminal_mva_excess": 0.0,
+        "max_generator_p_excess_mw": 0.0,
+        "max_generator_q_excess_mvar": 0.7616373283120907,
+        "max_nodal_mismatch_mva": 1.603369318711696e-10,
+        "max_voltage_excess_pu": 0.0,
+        "original_generators_online": 54,
+        "p_sum_excess_mw": 0.0,
+        "penalized_objective": 131962.14924546282,
+        "q_sum_excess_mvar": 0.7616373283120907,
+        "source_normalized_violation": 0.007616373286009057,
+        "thermal_sum_excess_mva": 0.0,
+        "voltage_sum_excess_pu": 0.0
+      },
+      "reached_feasible_original_economic_cost": null,
+      "scenario": "alpha_0.6",
+      "solver_converged": true,
+      "solver_error": "",
+      "source_bus_v": {
+        "above_count": 0,
+        "below_count": 0,
+        "count": 0,
+        "max_excess_pu": 0.0,
+        "top_12": [],
+        "total_excess_pu": 0
+      },
+      "source_generator_p": {
+        "above_count": 0,
+        "below_count": 0,
+        "count": 0,
+        "max_excess": 0.0,
+        "top_12": [],
+        "total_excess": 0
+      },
+      "source_generator_q": {
+        "above_count": 0,
+        "below_count": 1,
+        "count": 1,
+        "max_excess": 0.7616373283120907,
+        "top_12": [
+          {
+            "above": 0.0,
+            "below": 0.7616373283120907,
+            "bus_id": 92,
+            "generator_row_1based": 43,
+            "source_max": 9.0,
+            "source_min": -3.0,
+            "total_excess": 0.7616373283120907,
+            "value_mw_or_mvar": -3.7616373283120907
+          }
+        ],
+        "total_excess": 0.7616373283120907
+      },
+      "source_original_vg_changes_pu": {
+        "bus103": -0.02,
+        "bus19": 0.002771463237124997,
+        "bus32": 0.01,
+        "bus34": 0.002409619933121146,
+        "bus92": 0.002119919421391873
+      }
+    },
+    {
+      "actual_native_ac_pf_call": 2,
+      "all_checked_original_constraints_feasible": true,
+      "alpha": 0.7,
+      "original_positive_rate_a": {
+        "maximum_excess_mva": 0.0,
+        "rated_active_branches": 186,
+        "top_12": [],
+        "total_excess_mva": 0.0,
+        "unrated_active_branches": 0,
+        "violated_branches": 0
+      },
+      "physical_metrics": {
+        "actual_economic_cost": 131199.62315695197,
+        "converged": true,
+        "feasible": true,
+        "max_branch_terminal_mva_excess": 0.0,
+        "max_generator_p_excess_mw": 0.0,
+        "max_generator_q_excess_mvar": 0.0,
+        "max_nodal_mismatch_mva": 1.598350759569558e-10,
+        "max_voltage_excess_pu": 0.0,
+        "original_generators_online": 54,
+        "p_sum_excess_mw": 0.0,
+        "penalized_objective": 131199.62315724997,
+        "q_sum_excess_mvar": 0.0,
+        "source_normalized_violation": 2.9799343290564928e-12,
+        "thermal_sum_excess_mva": 0.0,
+        "voltage_sum_excess_pu": 0.0
+      },
+      "reached_feasible_original_economic_cost": 131199.62315695197,
+      "scenario": "alpha_0.7",
+      "solver_converged": true,
+      "solver_error": "",
+      "source_bus_v": {
+        "above_count": 0,
+        "below_count": 0,
+        "count": 0,
+        "max_excess_pu": 0.0,
+        "top_12": [],
+        "total_excess_pu": 0
+      },
+      "source_generator_p": {
+        "above_count": 0,
+        "below_count": 0,
+        "count": 0,
+        "max_excess": 0.0,
+        "top_12": [],
+        "total_excess": 0
+      },
+      "source_generator_q": {
+        "above_count": 0,
+        "below_count": 0,
+        "count": 0,
+        "max_excess": 0.0,
+        "top_12": [],
+        "total_excess": 0
+      },
+      "source_original_vg_changes_pu": {
+        "bus103": -0.02,
+        "bus19": 0.00323337377664583,
+        "bus32": 0.01,
+        "bus34": 0.0028112232553080038,
+        "bus92": 0.002473239324957185
+      }
+    },
+    {
+      "actual_native_ac_pf_call": 3,
+      "all_checked_original_constraints_feasible": true,
+      "alpha": 0.8,
+      "original_positive_rate_a": {
+        "maximum_excess_mva": 0.0,
+        "rated_active_branches": 186,
+        "top_12": [],
+        "total_excess_mva": 0.0,
+        "unrated_active_branches": 0,
+        "violated_branches": 0
+      },
+      "physical_metrics": {
+        "actual_economic_cost": 131198.7975746236,
+        "converged": true,
+        "feasible": true,
+        "max_branch_terminal_mva_excess": 0.0,
+        "max_generator_p_excess_mw": 0.0,
+        "max_generator_q_excess_mvar": 0.0,
+        "max_nodal_mismatch_mva": 1.6174309241382332e-10,
+        "max_voltage_excess_pu": 0.0,
+        "original_generators_online": 54,
+        "p_sum_excess_mw": 0.0,
+        "penalized_objective": 131198.797574905,
+        "q_sum_excess_mvar": 0.0,
+        "source_normalized_violation": 2.814184226721699e-12,
+        "thermal_sum_excess_mva": 0.0,
+        "voltage_sum_excess_pu": 0.0
+      },
+      "reached_feasible_original_economic_cost": 131198.7975746236,
+      "scenario": "alpha_0.8",
+      "solver_converged": true,
+      "solver_error": "",
+      "source_bus_v": {
+        "above_count": 0,
+        "below_count": 0,
+        "count": 0,
+        "max_excess_pu": 0.0,
+        "top_12": [],
+        "total_excess_pu": 0
+      },
+      "source_generator_p": {
+        "above_count": 0,
+        "below_count": 0,
+        "count": 0,
+        "max_excess": 0.0,
+        "top_12": [],
+        "total_excess": 0
+      },
+      "source_generator_q": {
+        "above_count": 0,
+        "below_count": 0,
+        "count": 0,
+        "max_excess": 0.0,
+        "top_12": [],
+        "total_excess": 0
+      },
+      "source_original_vg_changes_pu": {
+        "bus103": -0.02,
+        "bus19": 0.0036952843161666632,
+        "bus32": 0.01,
+        "bus34": 0.0032128265774948616,
+        "bus92": 0.0028265592285224976
+      }
+    },
+    {
+      "actual_native_ac_pf_call": 4,
+      "all_checked_original_constraints_feasible": false,
+      "alpha": 0.9,
+      "original_positive_rate_a": {
+        "maximum_excess_mva": 0.0,
+        "rated_active_branches": 186,
+        "top_12": [],
+        "total_excess_mva": 0.0,
+        "unrated_active_branches": 0,
+        "violated_branches": 0
+      },
+      "physical_metrics": {
+        "actual_economic_cost": 131198.03516742695,
+        "converged": true,
+        "feasible": false,
+        "max_branch_terminal_mva_excess": 0.0,
+        "max_generator_p_excess_mw": 0.0,
+        "max_generator_q_excess_mvar": 1.7065986335577996,
+        "max_nodal_mismatch_mva": 1.6088351798066077e-10,
+        "max_voltage_excess_pu": 0.0,
+        "original_generators_online": 54,
+        "p_sum_excess_mw": 0.0,
+        "penalized_objective": 132904.6338012834,
+        "q_sum_excess_mvar": 1.7065986335577996,
+        "source_normalized_violation": 0.017065986338564425,
+        "thermal_sum_excess_mva": 0.0,
+        "voltage_sum_excess_pu": 0.0
+      },
+      "reached_feasible_original_economic_cost": null,
+      "scenario": "alpha_0.9",
+      "solver_converged": true,
+      "solver_error": "",
+      "source_bus_v": {
+        "above_count": 0,
+        "below_count": 0,
+        "count": 0,
+        "max_excess_pu": 0.0,
+        "top_12": [],
+        "total_excess_pu": 0
+      },
+      "source_generator_p": {
+        "above_count": 0,
+        "below_count": 0,
+        "count": 0,
+        "max_excess": 0.0,
+        "top_12": [],
+        "total_excess": 0
+      },
+      "source_generator_q": {
+        "above_count": 0,
+        "below_count": 1,
+        "count": 1,
+        "max_excess": 1.7065986335577996,
+        "top_12": [
+          {
+            "above": 0.0,
+            "below": 1.7065986335577996,
+            "bus_id": 36,
+            "generator_row_1based": 17,
+            "source_max": 24.0,
+            "source_min": -8.0,
+            "total_excess": 1.7065986335577996,
+            "value_mw_or_mvar": -9.7065986335578
+          }
+        ],
+        "total_excess": 1.7065986335577996
+      },
+      "source_original_vg_changes_pu": {
+        "bus103": -0.02,
+        "bus19": 0.004157194855687496,
+        "bus32": 0.01,
+        "bus34": 0.0036144298996817195,
+        "bus92": 0.00317987913208781
+      }
+    }
+  ]
+}
