@@ -56,6 +56,7 @@ from gadapt.operations.mutation.candidate_solution_mutation.strict_decision_vari
     StrictDecisionVariableMutationRateDeterminator,
 )
 from gadapt.operations.mutation.decision_variable_mutation.base_decision_variable_mutator import BaseDecisionVariableMutator
+from gadapt.operations.mutation.decision_variable_mutation.credit_based_decision_variable_mutator import CreditBasedDecisionVariableMutator
 from gadapt.operations.mutation.decision_variable_mutation.extreme_pointed_decision_variable_mutator import (
     ExtremePointedDecisionVariableMutator,
 )
@@ -197,6 +198,15 @@ class GAFactory(BaseGAFactory):
         if len(decision_variable_mutators) == 0:
             decision_variable_mutators.append(NormalDistributionDecisionVariableMutator())
             decision_variable_mutators.append(RandomDecisionVariableMutator())
+        if self._options.mutation_operator_policy != "legacy":
+            controller = CreditBasedDecisionVariableMutator(
+                policy=self._options.mutation_operator_policy,
+                credit=self._options.mutation_operator_credit,
+                violation_function=self._options.mutation_violation_function,
+            )
+            for operator in decision_variable_mutators:
+                controller.append(operator)
+            return controller
         if len(decision_variable_mutators) == 1:
             return decision_variable_mutators[0]
         else:
