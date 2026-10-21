@@ -33,6 +33,23 @@ reference i 16 okolnih vektora:
 Na 110% opterećenja je 17/17 AC proračuna bilo nekonvergentno,
 bez tvrdnje da ne postoji matematičko rešenje.
 
+**Završni algoritamski pilot** na ispravljenoj formulaciji:
+5 metoda (GAdapt-penalitet, GAdapt-feasibility-first, SLSQP,
+fiksni hibrid i DE) × 3 semena (350–352) × 72 stvarne AC
+simulacije = **15 pokretanja, 1.080 stvarnih PF evaluacija**.
+Sve metode imaju 0/3 fizički izvodljiva pokretanja. Medijalni
+minimumi mera kršenja: GAdapt 1,073343, feasibility-first 1,073343,
+SLSQP 1,078234, fiksni hibrid 1,078234, DE 1,073555.
+Nema valjanog uporednog MW cilja među izvodljivima.
+Holm-korigovan sign test četiri poređenja prema GAdapt: p=1,0
+svuda; uz n=3 ovo NIJE statistička potvrda ekvivalencije.
+Ostao je naponski problem i problem suviše uskog
+kontrolnog prostora, ne izvorni termički overload.
+[Sirova optimizaciona tabela](results/rte1888_iteration7_source_rated_pilot_20261021.csv),
+[statistika](results/rte1888_iteration7_source_rated_stats_20261021.json),
+[SVG grafikon](figures/rte1888_iteration7_source_rated_violation.svg),
+[GitHub Actions 1080 AC](https://github.com/owlCoder/gadapt/actions/runs/39608967519).
+
 Svi dokazi i sirovi podaci su na `owlCoder/gadapt:main`;
 [izveštaj](ITERATION7_REPORT_SR.md),
 [protokol](ITERATION7_PROTOCOL.md),
