@@ -120,6 +120,8 @@ class GA:
         cost_diversity_metric: str = "log_relative",
         mutation_operator_policy: str = "legacy",
         mutation_operator_credit: str = "objective",
+        mutation_credit_assignment: str = "offspring",
+        mutation_evaluation_counter: Optional[Callable] = None,
         mutation_violation_function: Optional[Callable] = None,
         adaptive_immigration_patience: Optional[int] = None,
         adaptive_immigration_percentage: float = 20.0,
@@ -341,6 +343,21 @@ class GA:
             raise ValueError("mutation_operator_credit must be objective/feasibility")
         if mutation_operator_policy != "legacy" and mutation_operator_credit == "feasibility" and not callable(mutation_violation_function):
             raise ValueError("feasibility credit needs mutation_violation_function")
+        if mutation_credit_assignment not in ("offspring", "paired"):
+            raise ValueError("mutation_credit_assignment must be offspring/paired")
+        if mutation_credit_assignment == "paired":
+            if mutation_operator_policy == "legacy":
+                raise ValueError("paired credit requires an active operator policy")
+            if not callable(mutation_evaluation_counter):
+                raise ValueError("paired credit needs mutation_evaluation_counter")
+            if ensure_unique_individuals is not False:
+                raise ValueError("paired credit requires ensure_unique_individuals=False")
+            if number_of_mutation_decision_variables != 1:
+                raise ValueError("paired credit requires number_of_mutation_decision_variables=1")
+            if candidate_solution_mutation != "random":
+                raise ValueError("paired credit requires candidate_solution_mutation='random'")
+        self.mutation_credit_assignment = mutation_credit_assignment
+        self.mutation_evaluation_counter = mutation_evaluation_counter
         self.mutation_operator_policy = mutation_operator_policy
         self.mutation_operator_credit = mutation_operator_credit
         self.mutation_violation_function = mutation_violation_function
@@ -998,7 +1015,7 @@ class GA:
         new_instance = self.__class__.__new__(self.__class__)
         attributes = dict(self.__dict__)
         callbacks = {}
-        for name in ("_cost_function", "_exit_function", "mutation_violation_function"):
+        for name in ("_cost_function", "_exit_function", "mutation_violation_function", "mutation_evaluation_counter"):
             if name in attributes:
                 callbacks[name] = attributes.pop(name)
         new_instance.__dict__ = copy.deepcopy(attributes)
