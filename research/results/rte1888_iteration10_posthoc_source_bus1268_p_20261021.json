@@ -1,0 +1,35 @@
+{
+  "new_ac_powerflow_calls": 0,
+  "note": "An ext_grid-only minimum P bound is NOT equivalent to a two-source-generator aggregate bound. This arithmetic preserves one measured ext and one preflight-verified sgen at source BUS1268. No independent source Q reconstruction or full OPF claim.",
+  "original_physical_ac_calls_used": 2,
+  "rows": [
+    {
+      "added_source_bus_gen_p_mw": 0.0,
+      "observed_source_bus_pg_total_mw": 99.50583800688405,
+      "p_above_original_aggregate_pmax_mw": 9.505838006884048,
+      "p_below_original_aggregate_pmin_mw": 0.0,
+      "p_within_original_aggregate_bounds": false,
+      "retained_source_bus_sgen_p_mw": 44.5,
+      "scenario": "original_converted_pandapower",
+      "source_bus_ext_grid_p_mw": 55.00583800688405
+    },
+    {
+      "added_source_bus_gen_p_mw": 44.5,
+      "observed_source_bus_pg_total_mw": 89.0,
+      "p_above_original_aggregate_pmax_mw": 0.0,
+      "p_below_original_aggregate_pmin_mw": 0.0,
+      "p_within_original_aggregate_bounds": true,
+      "retained_source_bus_sgen_p_mw": 44.5,
+      "scenario": "experimental_source_slack_relocated",
+      "source_bus_ext_grid_p_mw": 0.0
+    }
+  ],
+  "source_bus": {
+    "active_original_generators": 2,
+    "source_bus_id": 1268,
+    "source_initial_pg_sum_mw": 89.0,
+    "source_pmax_sum_mw": 90.0,
+    "source_pmin_sum_mw": 88.0
+  },
+  "status": "POST_HOC_no_AC_original_aggregate_P_check"
+}
