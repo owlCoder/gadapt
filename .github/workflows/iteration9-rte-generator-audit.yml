@@ -1,0 +1,55 @@
+name: Iteration 9 RTE1888 original generator and bus conversion audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION9_PROTOCOL.md"
+      - "research/iteration9_source_generators.py"
+      - "research/test_iteration9_source_generators.py"
+      - "research/results/rte1888_iteration9_original_matpower_generator_rows_2019.csv"
+      - "research/results/rte1888_iteration9_original_matpower_bus_rows_2019.csv"
+      - ".github/workflows/iteration9-rte-generator-audit.yml"
+  workflow_dispatch:
+
+jobs:
+  original-generator-conversion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned static audit environment
+        run: python -m pip install -e . 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Validate source data and converter field rules
+        run: python -m unittest -v research.test_iteration9_source_generators research.test_iteration7_rate_source
+      - name: Run static bus and original generator conversion audit (ZERO AC)
+        run: python -m research.iteration9_source_generators --output iteration9_static_generator_audit.json
+      - name: Emit exact archived numerical JSON as b64 logs for permanent versioning
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          p=Path("iteration9_static_generator_audit.json")
+          if p.exists():
+              data=base64.b64encode(p.read_bytes()).decode("ascii")
+              for n, i in enumerate(range(0,len(data),2048)):
+                  print("I9_ARCHIVE",n,data[i:i+2048],flush=True)
+          else:
+              print("I9_MISSING_JSON",flush=True)
+          PY
+      - name: Retain audit artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration9-static-source-generator-audit
+          path: iteration9_static_generator_audit.json
