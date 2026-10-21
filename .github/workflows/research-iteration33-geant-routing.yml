@@ -1,4 +1,5 @@
 name: I33 GÉANT Real Routing Six-Arm Transfer
+# I33 single preregistered PR verification event; none of the six arms or metrics changed
 
 on:
   push:
