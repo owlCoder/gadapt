@@ -1,0 +1,31 @@
+name: IEEE14 CMA-ES fair AC benchmark
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ieee14_cma_es.py"
+      - ".github/workflows/ieee14-cma-es.yml"
+  workflow_dispatch:
+
+jobs:
+  cma-independent-physical-baseline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e . 'scipy>=1.11,<1.16' 'pypower>=5.1,<6' 'cma>=4,<5'
+      - run: |
+          set -o pipefail
+          python -m research.ieee14_cma_es --seeds 12 --seed-start 100 --budget 360 --output ieee14_cma_es.csv | tee ieee14_cma_es_log.txt
+          test -s ieee14_cma_es.csv
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ieee14-CMA-ES-true-360-solver-call-baseline
+          path: |
+            ieee14_cma_es.csv
+            ieee14_cma_es_log.txt
