@@ -1,3 +1,76 @@
+# NOVO I26–I27 — prva stvarna izmena GAdapt algoritma i 3.240 realnih IEEE118 AC kontrola (21.10.2026)
+
+**PRVI PUT smo direktno izmenili izvorni `gadapt/...` algoritamski
+kod** u `owlCoder/gadapt:main`. **I26:** potpuno opcioni
+`GA(mutation_operator_policy='ucb',
+mutation_operator_credit='scenario_feasibility',
+mutation_scenario_count=3,mutation_evaluation_counter=...,
+mutation_violation_function=...)` u **stvarnom** GA mutation operator
+credit controlleru, koji koristi već postojeći UCB za izbor
+mutatora i novi unapred definisan reward iz tri pojedinačne
+izvorne scene/constraint violation vrednosti. Svaki postbudget
+candidate bez stvarno plaćena **sva 3 solver AC** ne dobija
+operator nagradu; delimičan batch fail-closed. **Legacy default
+GA ostao nepromenjen; stari i novi testovi uspešni na Python
+3.10, 3.11, 3.12.** Ovo je inženjerski istraživački prototip;
+postojeći UCB, feasibility credit, AOS i robust constraint
+reward **nisu naše originalne naučne ideje**.
+
+**I27:** prvi unapred registrovani direktni fizički benchmark:
+**6 metoda × 3 semena × 180 stvarnih originalnih IEEE118 AC
+poziva = 3.240 pravih simulacija**, 60 u celosti izmerenih
+tri-load kandidata za svaki optimizer run. Svaki jedinstveni
+6D PV VG vektor testiran je pod **PD/QD load 98%, 100% i
+102%**, source P/Q svih 54 gen, V svih 118 bus, oba terminala
+pozitivno rated RATE_A i kompleksni KCL svake scene. Šest PV
+gen BUS103/32/34/92/19/**74**, ovaj poslednji uveden po
+prethodno poznatom Q stresu, **isti za sve metode**, pa je
+benchmark u **već informisanom in-sample prostoru**, ne
+out-of-sample dokaz.
+
+| Metod | Realni AC | Broj all-3 source-feasible kompleta | Broj uspešnih od 3 seed-runova |
+|---|---:|---:|---:|
+| Legacy GAdapt | 540 | 0 | 0/3 |
+| Existing GAdapt UCB objective credit | 540 | 0 | 0/3 |
+| Existing GAdapt UCB scalar worst-scenario feasibility | 540 | 0 | 0/3 |
+| **NOVI GAdapt UCB scenario-feasibility** | **540** | **1** | **1/3** |
+| SciPy DE | 540 | 0 | 0/3 |
+| Bounded Powell (ponovljen centriran deterministički) | 540 | 0 | 0/3 |
+
+Jedini kandidat koji zadovoljava **SVA TRI** izvorna
+fizička režima je novog GA moda seed2028, stvarni AC
+poziv #177, 6 PV controls
+`[0.9898506009,0.9700322306,0.9865841207,0.9944308972,0.9643283682,0.9601205052]`,
+originalni tri-load economic cost srednja **131.314,640348**,
+source max Q violation **0** u sva tri, KCL rezidual max
+~**2,02e-10 MVA**. Ostalih **17/18** run-ova nije našlo
+all-three feasible, iako mnogi kandidati jesu izvodljivi za
+1–2 load režima. Ovo je **samo jedna pilot naznaka**,
+nipošto statistički dokaz superiornosti, uzročne zasluge
+operator-credit nagrade, globalnog optimuma ili naučne
+originalnosti. Problem i PG/VG prostor unapred su
+fizički kalibrisani pomoću ranijih iteracija I19–I25.
+
+[I26 izveštaj implementacije novog core GAdapt-a](ITERATION26_REPORT_SR.md) ·
+[I26 pre-registracija](ITERATION26_PROTOCOL.md) ·
+[I26 CI 3x Python zelen #39662796544](https://github.com/owlCoder/gadapt/actions/runs/39662796544).
+
+[I27 kompletni izveštaj pravih novih/legacy GA ablation AC](ITERATION27_REPORT_SR.md) ·
+[I27 pre-registracija](ITERATION27_PROTOCOL.md) ·
+[I27 sva 18-run realna raw JSON evidence](results/ieee118_iteration27_3load_scenario_GAdapt_ablation_20261021.json) ·
+[I27 zelen CI stvarnih 3240 AC #39663741753](https://github.com/owlCoder/gadapt/actions/runs/39663741753).
+
+**Sledeći korak:** veće pre-registrirane originalne
+domenske kontrolne uporedne studije, više seedova,
+više izvornih multi-scenario problema, detaljni literature
+review AOS/robust-constraint/feasibility-credit, ablation
+reward komponenti, pa tek onda dokazivati doktorski
+doprinos. **Sada IMAMO novu funkcionalnu izmenu
+GAdapt-a i prvi stvarni pozitivan kandidat, ali nemamo
+dokaz originalne ili statistički bolje naučne metode.**
+
+---
+
 # NOVO I25 — test robusnosti pet source-feasible IEEE118 VG odluka pri veštačkom PD/QD stresu ±2% (21.10.2026)
 
 **I25: tačno 10 NOVIH stvarnih originalnih IEEE118 AC NR PF proračuna**,
