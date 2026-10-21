@@ -1,4 +1,5 @@
 name: I36 IEEE14 True AC In-Core Censor-Safe Operator Credit
+# One previously frozen I36 IEEE14 physical-series PR trigger; no new search hyperparameters
 
 on:
   push:
