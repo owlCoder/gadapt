@@ -1,0 +1,61 @@
+name: Iteration 14 original MATPOWER economic AC-OPF reference (max 2 real solves)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION14_PROTOCOL.md"
+      - "research/iteration14_original_acopf.py"
+      - "research/test_iteration14_original_acopf.py"
+      - "research/results/rte1888_iteration14_original_matpower_gencost_full7_2019.csv"
+      - ".github/workflows/iteration14-original-acopf.yml"
+  workflow_dispatch:
+
+jobs:
+  native-source-matpower-ac-opf:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned native original OPF environment
+        run: |
+          python -m pip install -e . 'pypower==5.1.19' 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Check original gencost and independent AC nodal KCL and physical limits
+        run: |
+          python -m unittest -v research.test_iteration14_original_acopf research.test_iteration11_native_pf
+      - name: Run small case9 AC OPF and at most one large original RTE1888 economic AC OPF
+        run: |
+          python -m research.iteration14_original_acopf --json iteration14_source_acopf.json --csv iteration14_source_acopf.csv
+      - name: Expose exact native real solver outputs for checked-in raw archive
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          for kind,fn in (("CSV","iteration14_source_acopf.csv"),
+                          ("JSON","iteration14_source_acopf.json")):
+              p=Path(fn)
+              if p.is_file():
+                  payload=base64.b64encode(p.read_bytes()).decode("ascii")
+                  for n,pos in enumerate(range(0,len(payload),2048)):
+                      print("I14_ARCHIVE",kind,n,payload[pos:pos+2048],flush=True)
+              else:
+                  print("I14_MISSING",kind,flush=True)
+          PY
+      - name: Preserve complete trial including nonconvergence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration14-original-MATPOWER-economic-ACOPF
+          path: |
+            iteration14_source_acopf.csv
+            iteration14_source_acopf.json
