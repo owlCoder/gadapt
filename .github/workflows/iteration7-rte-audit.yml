@@ -1,0 +1,39 @@
+name: Iteration 7 RTE1888 structural physical-feasibility audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION7_PROTOCOL.md"
+      - "research/iteration7_rte_audit.py"
+      - ".github/workflows/iteration7-rte-audit.yml"
+  workflow_dispatch:
+
+jobs:
+  audit-real-ac:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install fixed environment
+        run: python -m pip install -e . 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Run preregistered 17+17 actual AC solver audits
+        run: |
+          python -m research.iteration7_rte_audit --loads 1.0 1.1 --csv rte1888_audit.csv --json rte1888_audit.json
+      - name: Store full provenance including failure artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iteration7-rte1888-controls-and-limits
+          path: |
+            rte1888_audit.csv
+            rte1888_audit.json
