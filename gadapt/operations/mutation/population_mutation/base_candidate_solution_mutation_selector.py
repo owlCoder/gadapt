@@ -64,6 +64,13 @@ class BaseCandidateSolutionMutationSelector(ABC):
             candidate_solutions_added = False
             while (not candidate_solutions_added) and number_of_attempts < 10:
                 number_of_attempts += 1
+                controller = getattr(self.population.options, "operator_credit_controller", None)
+                if controller is not None and getattr(controller, "assignment", None) == "paired":
+                    # A physical baseline evaluation is deliberately charged to
+                    # the SAME objective counter/budget as the mutated offspring.
+                    controller.before_candidate_mutation(
+                        c, self.population.options.cost_function
+                    )
                 self._decision_variable_mutation_selector.mutate(
                     c, self.population.options.number_of_mutation_decision_variables
                 )
