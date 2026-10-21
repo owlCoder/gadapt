@@ -27,7 +27,7 @@ jobs:
           python-version: "3.12"
       - name: Install pinned original IEEE118, GA and physical solver dependencies
         run: python -m pip install -e . 'pypower==5.1.19' 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
-      - name: Zero-AC unit tests: exact five source gen PV controls, identical bounds, physical budgets
+      - name: "Zero-AC unit tests: exact five source gen PV controls, identical bounds, physical budgets"
         run: python -m unittest -v research.test_iteration24_ieee118_fivepv_real_gadapt research.test_iteration23_ieee118_qbracket research.test_iteration17_ieee14_gadapt_economic_pf
       - name: Execute 12 seeded original GAdapt DE random Powell searches with 96 real AC cap each
         run: python -m research.iteration24_ieee118_fivepv_real_gadapt --seeds 2026 2027 2028 --budget 96 --population 16 --json iteration24_ieee118_fivepv.json --csv iteration24_ieee118_fivepv.csv
