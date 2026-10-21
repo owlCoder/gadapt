@@ -1,0 +1,79 @@
+{
+  "attempts": [
+    {
+      "actual_native_ac_call": 1,
+      "enforce_q_lims": true,
+      "limited_traceback": "",
+      "metrics": {
+        "active_bus_count": 1888,
+        "actual_pq_bus_count": 1627,
+        "actual_pv_bus_count": 260,
+        "actual_ref_bus_count": 1,
+        "actual_ref_bus_ids": [
+          89
+        ],
+        "all_explicit_checked_constraints_feasible": false,
+        "branch_original_rate_a_mva": {
+          "max_source_rate_a_loading_percent": 83.65223860555827,
+          "overloaded_branches": 0,
+          "rated_active_branches": 2076,
+          "sum_relative_rating_excess": 0.0,
+          "unrated_active_branches": 455
+        },
+        "complete_checked_residual_mixed_units_not_opf_objective": 55.00237319105983,
+        "online_original_generator_count": 291,
+        "original_source_slack_bus_id": 1320,
+        "original_source_slack_final_bus_type": 1,
+        "original_source_slack_pg_mw": 0.32313828461281974,
+        "original_source_slack_qg_mvar": -1.0,
+        "original_source_slack_qmax_excess_mvar": 0.0,
+        "original_source_slack_row_1based": 298,
+        "original_source_slack_source_qmax_mvar": 1.0,
+        "original_source_slack_source_qmin_mvar": -1.0,
+        "p_generator_bounds_mw": {
+          "above_limit_count": 0,
+          "above_limit_total": 0.0,
+          "below_limit_count": 10,
+          "below_limit_total": 54.949999999999996,
+          "max_above_limit": 0.0,
+          "max_below_limit": 14.69
+        },
+        "q_generator_bounds_mvar": {
+          "above_limit_count": 0,
+          "above_limit_total": 1.1639189612111522e-10,
+          "below_limit_count": 0,
+          "below_limit_total": 2.1266322036694874e-11,
+          "max_above_limit": 1.0368161884599658e-10,
+          "max_below_limit": 7.44915240602495e-12
+        },
+        "sum_branch_real_losses_mw_not_feasible_optimum": 980.5586599510045,
+        "voltage": {
+          "above_limit_count": 0,
+          "above_limit_total": 0.0,
+          "below_limit_count": 41,
+          "below_limit_total": 0.052373190922173074,
+          "max_above_limit": 0.0,
+          "max_below_limit": 0.008529402022240617
+        }
+      },
+      "scenario": "iteration13_native_original_matpower_q_enforced",
+      "solver_converged": true,
+      "solver_error": ""
+    }
+  ],
+  "metadata": {
+    "actual_native_ac_calls": 1,
+    "full_ac_opf": false,
+    "gadapt_algorithm_tested": false,
+    "original_matpower_source_not_for_real_operation": true,
+    "original_slack_bus_id": 1320,
+    "pandas": "2.2.3",
+    "preregistered": "research/ITERATION13_PROTOCOL.md",
+    "pypower_vendor_commit": "c7f1cf50bedd34012b92fae4f092ec55617546a8",
+    "python": "3.12.15",
+    "scipy": "1.13.1",
+    "source": "MATPOWER 2019 original case1888rte",
+    "source_commit": "80b6e16f760f58721ad31221c7287c28259cd4ad",
+    "upstream_no_q_control_ran_in_iteration11_and12": true
+  }
+}
