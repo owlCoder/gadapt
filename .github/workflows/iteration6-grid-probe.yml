@@ -1,0 +1,29 @@
+name: Iteration 6 real IEEE118/RTE physical feasibility diagnostic
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/iteration6_grid_probe.py"
+      - ".github/workflows/iteration6-grid-probe.yml"
+  workflow_dispatch:
+
+jobs:
+  physical-ac-baseline-diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e . 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - run: |
+          set -o pipefail
+          python -m research.iteration6_grid_probe --rte | tee iteration6_grid_probe.log
+          grep -q "DIAGNOSTIC" iteration6_grid_probe.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iteration6-real-ieee118-rte-physical-diagnostic
+          path: iteration6_grid_probe.log
