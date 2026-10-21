@@ -1,0 +1,17 @@
+# Iteracija 12 — reproducibilna tehnička ispravka PYPOWER Q-limit enforcement za originalni RTE1888
+
+**Pre-registracija:** 21.10.2026. Registrovano **pre novih AC poziva** iteracije 12; nastavak neuspešnog drugog izvornog poziva iz iteracije 11. Ne menjati upstream bpzoran/gadapt ni instaliranu biblioteku PYPOWER. Ovo NIJE nova GAdapt adaptacija.
+
+## Poznati uzrok koji testiramo
+
+Izvršenje izvornog MATPOWER 2019 case1888rte kroz instalirani PYPOWER 5.1.19 daje konvergentan AC PF bez Q nametanja, ali sa uključenim ENFORCE_Q_LIMS=1 baca IndexError (float vrednosti sabirničkih ID koriste se kao indeksi niza u upstream runpf grani za Q limit). Provera otvorenog izvornog PYPOWER koda otkriva rizičnu konstrukciju `bus[gen[:, GEN_BUS], BUS_TYPE]` uz pogrešno grupisanje operatora `&` i `|` i poređenje nejednakih vektora. Ova greška je implementaciona i ne dokazuje matematičku neizvodljivost modela.
+
+## Zamrznuti tehnički postupak
+
+1. Kod direktnog PF evaluatora, sirove izvorne matrice MATPOWER iz iteracije 11: 1888 bus / 298 gen / 2531 branch, verzija 2019, case commit `80b6e16f760f58721ad31221c7287c28259cd4ad`. Novi nezavisni `runpf` kod je lokalna transparentna BSD licenci pripisana kopija open-source PYPOWER `rwl/PYPOWER` commita `c7f1cf50bedd34012b92fae4f092ec55617546a8`, bez izmena izvornog instaliranog PYPOWER paketa.
+2. **Minimalne dopuštene izmene** lokalne kopije: u Q enforcement grani sabirnički indeksi `gen[:, GEN_BUS]` konvertuju se u integer pre numpy indeksiranja, parenthesized bool PV/REF izrazi i bezbedno poređenje jednakosti skupa `infeas` i `remaining` samo ako su iste dužine. Drugi float bus indeks u Q-limit proveri takođe se konvertuje. Ne menjati numerički NR solver, početni MATPOWER podaci, grid loss, oroginalne izvorne min/max, bad-OPF result safety.
+3. Čuvati rezultat i potpunu poruku neuspeha iz realno izmerenih PF poziva u sirovom JSON i CSV. **Tačno 2 nova native AC poziva:** A kontrolni lokalno-patched `ENFORCE_Q_LIMS=0`; B isti lokalno-patched `ENFORCE_Q_LIMS=1`. Prvi mora se poklopiti sa čistim nepatchevanim originalnim no-Q rezultatom iz iteracije 11 u preciznim proverljivim glavnim vrednostima (uz ne više 1e-5 toleranciju), ili eksperiment prekida zbog neprihvatljive numeričke izmene (ta 1 AC se i dalje broji).
+4. Na oba proračuna meriti identične originalne P/Q/bus V/RATE_A oba kraja originalnih grana, source BUS1320 PG/QG/REF identitet i poruku solver neuspeha. **Rezultati neograničenog režima nisu izvodljivi optimumi**; uz nametnute Q granice proveriti i Pmin/Pmax, naponske limite, RATE_A i slack reference. Ako Q enforcement nije konvergentan ili dođe do drugog exception, objaviti `solver_converged=false`, sa svim rezultatima `null`.
+5. Testovi: statički proveriti da originalni 2019 podaci imaju **10 aktivnih PG ispod PMIN pre solvera**, ukupno **54,95 MW**, i da su isti redovi prijavljeni u uspešnom PF iteracije 11; testovi lokalnog runpf koda tačno specificiraju tri dozvoljene modifikacije (uz dokumentovano zasebno komparativno poređenje verzija). Bez spekulacije da PYPOWER Q-limit korekcija automatski stvara izvodljiv OPF.
+6. Pinovati Python3.12, pypower==5.1.19, pandapower==2.14.11, scipy==1.13.1, pandas==2.2.3, jedan BLAS thread. Izvorni RTE model ostaje isključivo javni istraživački reper; ne koristiti za upravljanje francuskom/EU mrežom.
+7. CI + svi testovi + sirovi JSON/CSV kao artefakt i verzionisani fajlovi. Bez statističkih tvrdnji, bez originalnosti GA, bez novog algoritamskog poboljšanja.
