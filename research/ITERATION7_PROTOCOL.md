@@ -117,3 +117,87 @@ Poređenje se odnosi na pretpostavljenu termičku granicu iz
 pandapower konverzije; validnost izvornog RATE_A kao operativnog
 limita ostaje **odvojeno otvoreno pitanje**. Nema potrebe za novim
 AC pozivima u ovom matematičkom skriningu.
+
+## Dodatak C — izvornim podacima verna termička ograničenja i pilot (PRE novih AC poziva)
+**Fiksirano pre pokretanja novog AC eksperimenta, nakon strukturne
+dijagnostike i transparentnog razotkrivanja RATE_A=0.**
+Izvor MATPOWER `case1888rte.m`:
+`MATPOWER/matpower@80b6e16f760f58721ad31221c7287c28259cd4ad`,
+blob SHA `820bd317167381baf819d67eab7d886013e8b05a`;
+CC BY 4.0, citirati Josz i saradnici 2016.
+Originalni RATE_A=0 znači **neograničeno**.
+Sirova matrica 2531 izvorna reda i redosled trajno su sačuvani u
+`research/results/rte1888_matpower_original_branch_ratings_2019.csv`.
+Izvršeni nezavisni CI #39607656391 potvrdio je 2531/2531 preslikanih
+elemenata (1976 vodova, 555 transformatora) po `net.bus.name+1`,
+krajnjim sabirnicama i očuvanom redosledu; 69 paralelnih grupa ima
+različite RATE_A pa je provereno slaganje redosleda sa nezavisnim
+preslikavanjem impedansi. Potvrđeno je 455 RATE_A=0, među kojima
+233 transformatora i 222 voda. Konverzija ekvivalentnih impedansi
+75 transformatora ima veće normalizovano odstupanje, pa je to
+zaseban metodološki rezidual, ne dokaz bitovskog identiteta
+svih električnih parametara originalnog i konvertovanog modela.
+
+### Nova izdvojena AC formulacija (NIJE ekvivalentna iteraciji 6)
+- Ista topologija/dispatch/pandapower `case1888rte` i
+  `runpp(init="dc", algorithm="nr", calculate_voltage_angles=True,
+  numba=False, enforce_q_lims=True, max_iteration=40,
+  tolerance_mva=1e-8)`.
+- Samo prvi osam `net.gen.vm_pu`, [0.95,1.08], opterećenje 100%
+  za optimizacioni pilot; eksplicitno ne puni OPF niti N-1.
+- Bus voltage limits `net.bus.min_vm_pu/max_vm_pu`.
+- Svaka originalna RATE_A>0 uvodi **MVA limit** na oba kraja
+  `max(hypot(P_from,Q_from),hypot(P_to,Q_to)) <= RATE_A`.
+  Za RATE_A=0 NEMA termičkog ograničenja te grane.
+  Ponovo proveriti 2531 match pair identifikatora pri konstrukciji.
+- Normalizovana mera reziduala =
+  zbir magnituda naponskih prekoračenja p.u. + zbir
+  `max(S_from,S_to)/RATE_A -1` pozitivnih prekoračenja
+  samo za pozitivne RATE_A. Ovo je eksperimentalna skala, NE
+  metrika sigurnosti ili industrijske pouzdanosti.
+- Solver nekonvergencija je neuspeh, nikada izvodljiv rezultat.
+  Reaktivna ograničenja `pp.runpp(enforce_q_lims=True)` su primenjena,
+  ali ovaj test ne dokazuje potpunu OPF izvodljivost sa svim
+  generator P/Q obavezama, slack ograničenjima i operativnim režimima.
+- Cilj samo za izvodljiva rešenja: gubici u MW. U neuspehu:
+  minimalna fizička mera kršenja; nikada ne predstavljati
+  penalizovani score kao izvodljiv optimum.
+
+### Fiksni dijagnostički AC pilot
+Referentna tačka + šesnaest +/-0.02 pomeranja prvih osam
+napona, kao u originalnom auditu, 17 pravih PF poziva pri 100%
+plus 17 pri 110% opterećenja. Služi validaciji nove formulacije;
+110% ima poznate nekonvergencije iz prethodnog eksperimenta.
+Svi pozivi računaju se i čuvaju, originalna matrica i verzije pinovane.
+
+### Fiksni nezavisni optimizacioni mehanistički pilot (samo 100% opterećenje)
+Ako novo mapiranje svih 2531 source RATE_A prođe bez nepodudaranja,
+uporediti sledećih pet metoda na potpuno identičnoj novoj formulaciji:
+1. postojeći stvarni GAdapt sa konvencionalnim `loss + 1e5*violation`;
+2. stvarni GAdapt sa poznatim feasibility-first leksikografskim
+   skalarnim rangiranjem (ne tvrditi novost);
+3. samostalni multistart SciPy SLSQP sa standardnim penalitetom;
+4. fiksni GAdapt→SLSQP sa polovinama fizičkog budžeta;
+5. SciPy differential evolution sa istim penalitetom i bez polish.
+Svi koriste fizičku proveru svakog predloženog vektora.
+Seme 350,351,352 (3 nova uparena semena), population=12,
+budžet **72 stvarna NR solver poziva po metodi i semenu**
+(ukupno 15 pokretanja i 1080 PF poziva). Standardna procedura
+GA/SLSQP/DE i punjenje budžeta iz `research.ieee118_allocation`,
+uz istu zamrznutu numeričku konfiguraciju.
+Pobednik samo po stvarno izvodljivom cilju; kada niko nije
+izvodljiv, rangirati DESKRIPTIVNO minimalno kršenje i propale
+pozive. Izveštavati medijanu, maksimum, svaku replikaciju, uparene
+razlike. Sa n=3 **bez tvrdnje statističke superiornosti**;
+Holm korekcija, ako se računa, ne može učiniti pilot potvrdom.
+Negativan rezultat posebno znači da raspoložive promene samo
+osam kontrola nisu dovoljne u testiranom budžetu, a ne
+dokaz da kompletan RTE AC OPF nema izvodljivo rešenje.
+Nema adaptivnog nameštanja parametara prema ovih 15 ishoda.
+
+### Novost
+Feasibility-first GA (Deb), standardni constraint handling, lokalna
+restauracija i memetički hibridi su dobro poznati. Ovo je samo
+mehanistička pilotska kontrola nad *ispravljenom formulacijom*.
+Originalan doktorски mehanizam niti njegova superiornost još
+nisu potvrđeni.
