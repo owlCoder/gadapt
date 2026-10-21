@@ -57,3 +57,35 @@ Poređenje sa standardnim solverom iz **iste** formulacije je obavezno.
 Python 3.12, pandapower 2.14.11, scipy 1.13.1, pandas 2.2.3,
 `PYTHONHASHSEED=0` i jednonitni OPENBLAS/OMP/MKL/NUMEXPR.
 Ovo nije potvrda potpunog numeričkog identiteta van proverenog CI.
+
+## Dodatak A (2026-10-21): statička topološka provera pre širenja promenljivih
+Posle prvog AC audita ustanovljeno je da svih 29 prema modelu
+preopterećenih grana pripadaju transformatorima. `net.trafo` nema
+kompletne `tap_min/tap_max/tap_step_percent` opsege, a svih 45
+šantova imaju `step=max_step=1`; zato se tapovi i šant koraci
+**ne tretiraju kao slobodne kontrole** bez novog modela.
+
+Bez dodatnih AC poziva proveriti veze tih transformatora sa
+generatorima, vrednosti fiksnog P dispatch-a, nominalne snage,
+stvarne konverzije limita i stepen susedstva. Tražiti nove P
+kontrole **samo** među `net.gen` sa konačnim objavljenim
+`min_p_mw/max_p_mw`, važećim opsegom i bar 5 MW raspoloživog
+smanjenja snage. Prioritet: najmanje topološko rastojanje od
+krajeva 15 preopterećenih transformatora, zatim veći raspoloživi
+raspon smanjenja, zatim indeks generatora; najviše osam.
+Izbor iz ovog razvoja NIJE nezavisan holdout.
+
+Ako postoji radijalna grana, prisustvo fiksne aktivne
+injekcije veće od nazivne snage je samo **indikacija**
+ograničenog prostora restauracije; dokaz bi dodatno zahtevao
+proveru svih razmena, šantova, ugla/tapa i precizne definicije
+strujnog ograničenja na odgovarajućem terminalu.
+Nema predviđanja uspjeha novog algoritma pre testa.
+
+Zasebna potencijalna proširena formulacija: prvih osam
+generatorskih napona plus do osam tako odabranih P setpointa,
+uz automatsko aktivno balansiranje spoljne mreže. Ova formulacija
+ima drugačiju raspoloživu fleksibilnost od istorijskih 8 napona,
+pa se ne sme direktno porediti sa istorijskim optima.
+Eksperimentalne metode i budžet dodatno će se zamrznuti
+pre novih optimizacionih izvršavanja.
