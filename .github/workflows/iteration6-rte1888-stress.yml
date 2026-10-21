@@ -11,6 +11,12 @@ on:
 jobs:
   actual-rte-overload-audit:
     runs-on: ubuntu-latest
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
@@ -27,7 +33,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: iteration6-rte1888-french-real-NR-physical-negative-stress
+          name: iteration6-rte1888-pinned-thread1-physical-negative-stress
           path: |
             rte1888_iteration6.csv
             rte1888_iteration6.log
