@@ -5,6 +5,7 @@ on:
       - "research/feasibility-credit-aos"
     paths:
       - "research/aos_ieee14_pilot.py"
+      - "research/analyze_aos_ieee14.py"
       - ".github/workflows/aos-ieee14.yml"
       - "gadapt/**"
   workflow_dispatch:
@@ -23,6 +24,9 @@ jobs:
           set -o pipefail
           python research/aos_ieee14_pilot.py --runs 8 --budget 240 --output aos_ieee14_pilot.csv | tee aos_ieee14_log.txt
           test -s aos_ieee14_pilot.csv
+      - run: |
+          set -o pipefail
+          python research/analyze_aos_ieee14.py aos_ieee14_pilot.csv | tee aos_ieee14_stats.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -30,3 +34,4 @@ jobs:
           path: |
             aos_ieee14_pilot.csv
             aos_ieee14_log.txt
+            aos_ieee14_stats.txt
