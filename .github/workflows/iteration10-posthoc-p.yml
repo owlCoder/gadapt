@@ -1,0 +1,51 @@
+name: Iteration 10 posthoc original source P aggregation (zero AC)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/iteration10_posthoc_source_p.py"
+      - "research/test_iteration10_posthoc_source_p.py"
+      - ".github/workflows/iteration10-posthoc-p.yml"
+  workflow_dispatch:
+
+jobs:
+  source-p-aggregation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned environment
+        run: python -m pip install -e . 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Test limits and aggregate arithmetic
+        run: python -m unittest -v research.test_iteration10_posthoc_source_p research.test_iteration9_source_generators
+      - name: Pure source-bus P aggregation — ZERO new AC calls
+        run: |
+          python -m research.iteration10_posthoc_source_p --input research/results/rte1888_iteration10_source_slack_ac_20261021.json --output iteration10_posthoc_source_p.json
+      - name: Emit exact source aggregate data for versioned repository result
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          f=Path("iteration10_posthoc_source_p.json")
+          if f.exists():
+              data=base64.b64encode(f.read_bytes()).decode("ascii")
+              for ix, start in enumerate(range(0,len(data),2048)):
+                  print("I10_POSTHOC_ARCHIVE",ix,data[start:start+2048],flush=True)
+          PY
+      - name: Archive posthoc aggregation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration10-posthoc-original-source-p
+          path: iteration10_posthoc_source_p.json
