@@ -1,0 +1,90 @@
+name: I34 In-Core GAdapt Censored Credit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'research/ITERATION34_PROTOCOL.md'
+      - 'research/iteration34_censor_credit_geant.py'
+      - 'research/test_iteration34_censor_credit_geant.py'
+      - 'gadapt/ga.py'
+      - 'gadapt/operations/mutation/decision_variable_mutation/credit_based_decision_variable_mutator.py'
+      - 'gadapt/operations/cost_finding/elitism_cost_finder.py'
+      - 'tests/test_censored_verified_per_cost_credit.py'
+      - '.github/workflows/research-iteration34-censored-credit.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/ITERATION34_PROTOCOL.md'
+      - 'research/iteration34_censor_credit_geant.py'
+      - 'research/test_iteration34_censor_credit_geant.py'
+      - 'gadapt/ga.py'
+      - 'gadapt/operations/mutation/decision_variable_mutation/credit_based_decision_variable_mutator.py'
+      - 'gadapt/operations/cost_finding/elitism_cost_finder.py'
+      - 'tests/test_censored_verified_per_cost_credit.py'
+      - '.github/workflows/research-iteration34-censored-credit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  OPENBLAS_NUM_THREADS: '1'
+  OMP_NUM_THREADS: '1'
+  MKL_NUM_THREADS: '1'
+  NUMEXPR_NUM_THREADS: '1'
+  PYTHONHASHSEED: '0'
+
+jobs:
+  before-real-routing-core-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Pinned dependencies for new, old and default GA
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'pandas==2.2.3' 'networkx==3.4.2' 'pypower==5.1.19' 'pandapower==2.14.11'
+          python -m pip install -e .
+      - name: Syntax check and all old/new zero-real-solver regressions
+        run: |
+          python -m py_compile gadapt/ga.py gadapt/operations/cost_finding/elitism_cost_finder.py gadapt/operations/mutation/decision_variable_mutation/credit_based_decision_variable_mutator.py research/iteration34_censor_credit_geant.py
+          python -m unittest -v tests.test_censored_verified_per_cost_credit
+          python -m unittest -v research.test_iteration34_censor_credit_geant
+          python -m unittest -v tests.test_scenario_feasibility_credit tests.test_operator_credit tests.test_paired_operator_credit tests.test_affine_cost_diversity
+          python -m unittest discover -s tests -v
+
+  real-geant-operator-experiment:
+    needs: before-real-routing-core-regression
+    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install identical pinned model
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'pandas==2.2.3' 'networkx==3.4.2' 'pypower==5.1.19' 'pandapower==2.14.11'
+          python -m pip install -e .
+      - name: Exactly 60 preregistered optimizer runs on real SNDlib Dijkstra/module evaluator
+        run: |
+          mkdir -p research/results
+          python -m research.iteration34_censor_credit_geant \
+            --json research/results/geant_i34_raw_60_runs_real_dijkstra.json \
+            --csv research/results/geant_i34_raw_60_runs_real_dijkstra.csv
+      - name: Preserve raw data including incomplete/failure observations
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: i34-censored-safe-gadapt-60runs-real-geant-routing
+          path: |
+            research/results/geant_i34_raw_60_runs_real_dijkstra.json
+            research/results/geant_i34_raw_60_runs_real_dijkstra.csv
+          if-no-files-found: warn
+          retention-days: 90
