@@ -1,0 +1,5482 @@
+{
+  "metadata": {
+    "actually_executed_native_PYPOWER_AC": 8585,
+    "already_known_IEEE14_topology_NOT_blind_test": true,
+    "max_registered_actual_AC": 8640,
+    "methods": [
+      "legacy_fixed",
+      "ucb_objective_fixed",
+      "uniform_censor_safe_fixed",
+      "ucb_censor_safe_fixed"
+    ],
+    "numpy": "1.26.4",
+    "original_source": "pypower.case14() original native source NR AC",
+    "original_spatial_synthetic_load_profiles": [
+      "nominal",
+      "odd_bus_plus1pct",
+      "even_bus_plus1pct"
+    ],
+    "pandas": "2.2.3",
+    "preregistration": "research/ITERATION36_PROTOCOL.md",
+    "python": "3.11.17",
+    "scipy": "1.13.1",
+    "seeds": [
+      2500,
+      2501,
+      2502,
+      2503,
+      2504,
+      2505,
+      2506,
+      2507,
+      2508,
+      2509,
+      2510,
+      2511
+    ],
+    "source_limit_verification": "all generator source PG/QG, BUS VMIN/VMAX, positive original RATE_A both ends and complex KCL",
+    "true_AC_budget_per_run": 180
+  },
+  "runs": [
+    {
+      "actual_AC_per_scenario": [
+        94,
+        43,
+        43
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        51,
+        0,
+        1
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        43,
+        43,
+        42
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000026.9817293,
+      "best_fully_measured_penalized_score_or_null": 8565.702825541304,
+      "best_verified_robust_mean_economic_cost_or_null": 8565.702825541304,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          4.304258277188961e-12,
+          4.531822122009782e-12,
+          4.280070808645067e-12
+        ],
+        "per_scenario_original_cost": [
+          8565.689913009175,
+          8577.830040969484,
+          8553.588522645256
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        27.478883733718348,
+        46.135587543165244,
+        12.167233258935635,
+        68.91220546890261,
+        0.9770472640103056,
+        0.9581977017389188,
+        0.9438763584654031,
+        1.0059178084489877,
+        1.0235041426130553
+      ],
+      "candidates_stopped_after_1_real_AC": 51,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 42,
+      "early_screened_physically_infeasible_candidates": 52,
+      "elapsed_seconds": 1.79428,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.5416666666666666,
+        0.022222222222222223,
+        0.044444444444444446
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 45,
+      "max_native_AC_budget": 180,
+      "method": "legacy_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "operator_credit_summary": [],
+      "operator_observations": 0,
+      "operator_selections": 0,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 4,
+      "rewarded_operator_trials": 0,
+      "seed": 2500,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 102,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 42
+    },
+    {
+      "actual_AC_per_scenario": [
+        98,
+        40,
+        40
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        58,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000640.2960709,
+      "best_fully_measured_penalized_score_or_null": 8429.474009125719,
+      "best_verified_robust_mean_economic_cost_or_null": 8429.474009125719,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          9.474627046636785e-13,
+          7.484439860639642e-13,
+          1.4110318809537825e-12
+        ],
+        "per_scenario_original_cost": [
+          8429.460774182508,
+          8442.075093692274,
+          8416.886159502379
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        27.53226004599733,
+        51.73673773554286,
+        12.167052188752198,
+        49.448741432885704,
+        0.9770473449569861,
+        0.9582029458932174,
+        0.943320211032627,
+        1.0059178084489877,
+        1.0235041426130553
+      ],
+      "candidates_stopped_after_1_real_AC": 58,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "early_screened_physically_infeasible_candidates": 58,
+      "elapsed_seconds": 1.75206,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.59,
+        0.023809523809523808,
+        0.023809523809523808
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 45,
+      "max_native_AC_budget": 180,
+      "method": "ucb_objective_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 11,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.0000011671667281664905,
+          "rewarded": 3,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 11,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 9,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 4.126768981084155e-7,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 10,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 20,
+      "operator_selections": 21,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 0,
+      "rewarded_operator_trials": 4,
+      "seed": 2500,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 116,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 40
+    },
+    {
+      "actual_AC_per_scenario": [
+        96,
+        42,
+        42
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        54,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        42,
+        42,
+        42
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000576.5365555,
+      "best_fully_measured_penalized_score_or_null": 8276.32732316867,
+      "best_verified_robust_mean_economic_cost_or_null": 8276.32732316867,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.2735123836738907e-12,
+          9.926346631064703e-13,
+          5.014204328903801e-13
+        ],
+        "per_scenario_original_cost": [
+          8276.31336266053,
+          8289.8555261143,
+          8262.813080731179
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        27.862093759115723,
+        53.87981678735107,
+        12.082331088329289,
+        25.090663541788494,
+        0.9770647637335936,
+        0.9582026783895496,
+        0.9438516553467566,
+        1.0059178084489877,
+        1.0235041426130553
+      ],
+      "candidates_stopped_after_1_real_AC": 54,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 42,
+      "early_screened_physically_infeasible_candidates": 54,
+      "elapsed_seconds": 1.78982,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.5612244897959183,
+        0.022727272727272728,
+        0.022727272727272728
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 45,
+      "max_native_AC_budget": 180,
+      "method": "uniform_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 12,
+          "censor_safe_verified_feedback": 4,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 11,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.045454545454545456,
+          "rewarded": 2,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 12,
+          "withheld_unpaid_credits": 1
+        },
+        {
+          "censor_safe_measured_failures": 12,
+          "censor_safe_verified_feedback": 4,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 16,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.05208333333333333,
+          "rewarded": 5,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 16,
+          "withheld_unpaid_credits": 1
+        }
+      ],
+      "operator_observations": 27,
+      "operator_selections": 28,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 2,
+      "rewarded_operator_trials": 7,
+      "seed": 2500,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 108,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 42
+    },
+    {
+      "actual_AC_per_scenario": [
+        100,
+        40,
+        40
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        60,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000357.8320484,
+      "best_fully_measured_penalized_score_or_null": 8471.969960977147,
+      "best_verified_robust_mean_economic_cost_or_null": 8471.969960977147,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.2814279145680724e-12,
+          5.391230318648463e-13,
+          1.274594728943721e-12
+        ],
+        "per_scenario_original_cost": [
+          8471.956992472242,
+          8484.288742339435,
+          8459.664148119766
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        27.862093759115723,
+        54.27825253455819,
+        12.082331088329289,
+        51.86272936858656,
+        0.9770473449569861,
+        0.960532664644928,
+        0.9438516553467566,
+        1.0059178084489877,
+        1.0234543267030007
+      ],
+      "candidates_stopped_after_1_real_AC": 60,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "early_screened_physically_infeasible_candidates": 60,
+      "elapsed_seconds": 1.77434,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.5980392156862745,
+        0.023809523809523808,
+        0.023809523809523808
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 45,
+      "max_native_AC_budget": 180,
+      "method": "ucb_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 104,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 15,
+          "censor_safe_verified_feedback": 4,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 14,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.011904761904761904,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 15,
+          "withheld_unpaid_credits": 2
+        },
+        {
+          "censor_safe_measured_failures": 15,
+          "censor_safe_verified_feedback": 4,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 16,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.07291666666666666,
+          "rewarded": 5,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 18,
+          "withheld_unpaid_credits": 2
+        }
+      ],
+      "operator_observations": 30,
+      "operator_selections": 33,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 4,
+      "rewarded_operator_trials": 6,
+      "seed": 2500,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 120,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 40
+    },
+    {
+      "actual_AC_per_scenario": [
+        94,
+        42,
+        42
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        52,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        42,
+        42,
+        42
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000088.3131526,
+      "best_fully_measured_penalized_score_or_null": 10201.548105537875,
+      "best_verified_robust_mean_economic_cost_or_null": 10201.548105537875,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          4.6522100761686784e-8,
+          4.6453207620704906e-8,
+          4.660648141153053e-8
+        ],
+        "per_scenario_original_cost": [
+          10201.537537790759,
+          10211.73853829009,
+          10191.368240532776
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        106.4053571180149,
+        45.38858849803196,
+        21.89451893182693,
+        29.419156225579677,
+        1.0451408293566318,
+        1.0394744190467504,
+        1.020245425177014,
+        1.0459378327059246,
+        1.0372402019298264
+      ],
+      "candidates_stopped_after_1_real_AC": 52,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 42,
+      "early_screened_physically_infeasible_candidates": 52,
+      "elapsed_seconds": 1.63248,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.5520833333333334,
+        0.022727272727272728,
+        0.022727272727272728
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 33,
+      "max_native_AC_budget": 180,
+      "method": "legacy_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "operator_credit_summary": [],
+      "operator_observations": 0,
+      "operator_selections": 0,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 4,
+      "rewarded_operator_trials": 0,
+      "seed": 2501,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 104,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 42
+    },
+    {
+      "actual_AC_per_scenario": [
+        93,
+        44,
+        43
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        49,
+        1,
+        1
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        44,
+        43,
+        42
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000006.4693753,
+      "best_fully_measured_penalized_score_or_null": 10059.140995453154,
+      "best_verified_robust_mean_economic_cost_or_null": 10059.140995453154,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          4.374652865475394e-8,
+          4.378500518919053e-8,
+          4.3723116151900157e-8
+        ],
+        "per_scenario_original_cost": [
+          10059.13024281216,
+          10069.504131807198,
+          10048.788611740103
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        102.9181890143001,
+        42.19202351846833,
+        33.2973983907158,
+        22.342886258269502,
+        1.046016024661382,
+        1.0394744190467504,
+        1.0183312890633127,
+        1.0379699078627462,
+        1.030177244674213
+      ],
+      "candidates_stopped_after_1_real_AC": 49,
+      "candidates_stopped_after_2_real_AC": 1,
+      "completely_evaluated_candidates": 42,
+      "early_screened_physically_infeasible_candidates": 51,
+      "elapsed_seconds": 1.67106,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.5263157894736842,
+        0.043478260869565216,
+        0.044444444444444446
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 29,
+      "max_native_AC_budget": 180,
+      "method": "ucb_objective_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 6,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 6,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 6,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 6,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 12,
+      "operator_selections": 12,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 5,
+      "rewarded_operator_trials": 0,
+      "seed": 2501,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 99,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 42
+    },
+    {
+      "actual_AC_per_scenario": [
+        93,
+        44,
+        43
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        49,
+        1,
+        1
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        44,
+        43,
+        42
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000006.4693753,
+      "best_fully_measured_penalized_score_or_null": 10059.140995453154,
+      "best_verified_robust_mean_economic_cost_or_null": 10059.140995453154,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          4.374652865475394e-8,
+          4.378500518919053e-8,
+          4.3723116151900157e-8
+        ],
+        "per_scenario_original_cost": [
+          10059.13024281216,
+          10069.504131807198,
+          10048.788611740103
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        102.9181890143001,
+        42.19202351846833,
+        33.2973983907158,
+        22.342886258269502,
+        1.046016024661382,
+        1.0394744190467504,
+        1.0183312890633127,
+        1.0379699078627462,
+        1.030177244674213
+      ],
+      "candidates_stopped_after_1_real_AC": 49,
+      "candidates_stopped_after_2_real_AC": 1,
+      "completely_evaluated_candidates": 42,
+      "early_screened_physically_infeasible_candidates": 51,
+      "elapsed_seconds": 1.64577,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.5263157894736842,
+        0.043478260869565216,
+        0.044444444444444446
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 29,
+      "max_native_AC_budget": 180,
+      "method": "uniform_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 4,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 6,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 6,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 4,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 6,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 6,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 12,
+      "operator_selections": 12,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 5,
+      "rewarded_operator_trials": 0,
+      "seed": 2501,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 99,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 42
+    },
+    {
+      "actual_AC_per_scenario": [
+        93,
+        44,
+        43
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        49,
+        1,
+        1
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        44,
+        43,
+        42
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000006.4693753,
+      "best_fully_measured_penalized_score_or_null": 10059.140995453154,
+      "best_verified_robust_mean_economic_cost_or_null": 10059.140995453154,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          4.374652865475394e-8,
+          4.378500518919053e-8,
+          4.3723116151900157e-8
+        ],
+        "per_scenario_original_cost": [
+          10059.13024281216,
+          10069.504131807198,
+          10048.788611740103
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        102.9181890143001,
+        42.19202351846833,
+        33.2973983907158,
+        22.342886258269502,
+        1.046016024661382,
+        1.0394744190467504,
+        1.0183312890633127,
+        1.0379699078627462,
+        1.030177244674213
+      ],
+      "candidates_stopped_after_1_real_AC": 49,
+      "candidates_stopped_after_2_real_AC": 1,
+      "completely_evaluated_candidates": 42,
+      "early_screened_physically_infeasible_candidates": 51,
+      "elapsed_seconds": 1.55072,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.5263157894736842,
+        0.043478260869565216,
+        0.044444444444444446
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 29,
+      "max_native_AC_budget": 180,
+      "method": "ucb_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 4,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 6,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 6,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 4,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 6,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 6,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 12,
+      "operator_selections": 12,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 5,
+      "rewarded_operator_trials": 0,
+      "seed": 2501,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 99,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 42
+    },
+    {
+      "actual_AC_per_scenario": [
+        86,
+        46,
+        46
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        40,
+        0,
+        1
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        46,
+        46,
+        45
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000051.5544136,
+      "best_fully_measured_penalized_score_or_null": 8441.32361805743,
+      "best_verified_robust_mean_economic_cost_or_null": 8441.32361805743,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          8.70848670224553e-13,
+          1.1444060044374004e-12,
+          1.1410208772874279e-12
+        ],
+        "per_scenario_original_cost": [
+          8441.309865256031,
+          8455.299641407282,
+          8427.361347508977
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        7.6486939041700825,
+        39.913323240327074,
+        15.589955529839827,
+        47.887396988101436,
+        1.0271293684639609,
+        1.0106611730186046,
+        0.9763837631782465,
+        0.9915375000789982,
+        0.9722962782247586
+      ],
+      "candidates_stopped_after_1_real_AC": 40,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 45,
+      "early_screened_physically_infeasible_candidates": 41,
+      "elapsed_seconds": 1.76187,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.4659090909090909,
+        0.020833333333333332,
+        0.041666666666666664
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 29,
+      "max_native_AC_budget": 180,
+      "method": "legacy_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 86,
+      "operator_credit_summary": [],
+      "operator_observations": 0,
+      "operator_selections": 0,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 0,
+      "rewarded_operator_trials": 0,
+      "seed": 2502,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 80,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 45
+    },
+    {
+      "actual_AC_per_scenario": [
+        87,
+        46,
+        46
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        41,
+        0,
+        1
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        46,
+        46,
+        45
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000038.1416018,
+      "best_fully_measured_penalized_score_or_null": 8364.23058302063,
+      "best_verified_robust_mean_economic_cost_or_null": 8364.23058302063,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          7.236402569444429e-13,
+          1.1945858052203046e-12,
+          9.408712839599919e-13
+        ],
+        "per_scenario_original_cost": [
+          8364.215598293405,
+          8379.59697680472,
+          8348.879173963764
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        8.781035101208632,
+        19.47933485698052,
+        15.825825099442103,
+        47.88739698810144,
+        1.0271293684639609,
+        1.007772623038056,
+        0.9821979305569359,
+        0.9915375000789981,
+        0.9722962782247586
+      ],
+      "candidates_stopped_after_1_real_AC": 41,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 45,
+      "early_screened_physically_infeasible_candidates": 42,
+      "elapsed_seconds": 1.7959,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.47191011235955055,
+        0.020833333333333332,
+        0.041666666666666664
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 29,
+      "max_native_AC_budget": 180,
+      "method": "ucb_objective_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 92,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 9,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.0000012693197219571194,
+          "rewarded": 3,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 10,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 10,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.000025249379586609037,
+          "rewarded": 2,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 11,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 19,
+      "operator_selections": 21,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 5,
+      "rewarded_operator_trials": 5,
+      "seed": 2502,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 82,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 45
+    },
+    {
+      "actual_AC_per_scenario": [
+        90,
+        44,
+        44
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        46,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        44,
+        44,
+        44
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000151.6549025,
+      "best_fully_measured_penalized_score_or_null": 8365.669795436386,
+      "best_verified_robust_mean_economic_cost_or_null": 8365.669795436386,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          9.465750048924608e-13,
+          6.948660462708935e-13,
+          6.618738250949368e-13
+        ],
+        "per_scenario_original_cost": [
+          8365.654816781145,
+          8381.053669467256,
+          8350.30090006076
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        8.57404104175576,
+        19.2224113966961,
+        15.825825099442103,
+        47.88739698810144,
+        1.0271293684639609,
+        1.0090055788479804,
+        0.9821979305569359,
+        0.9915375000789981,
+        0.9786389038814329
+      ],
+      "candidates_stopped_after_1_real_AC": 46,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 44,
+      "early_screened_physically_infeasible_candidates": 46,
+      "elapsed_seconds": 1.77972,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.5108695652173914,
+        0.021739130434782608,
+        0.021739130434782608
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 29,
+      "max_native_AC_budget": 180,
+      "method": "uniform_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 92,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 5,
+          "censor_safe_verified_feedback": 5,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 13,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.02564102564102564,
+          "rewarded": 2,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 14,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 5,
+          "censor_safe_verified_feedback": 5,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 10,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.13333333333333333,
+          "rewarded": 5,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 11,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 23,
+      "operator_selections": 25,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 2,
+      "rewarded_operator_trials": 7,
+      "seed": 2502,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 92,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 44
+    },
+    {
+      "actual_AC_per_scenario": [
+        87,
+        46,
+        46
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        41,
+        0,
+        1
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        46,
+        46,
+        45
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000038.1416018,
+      "best_fully_measured_penalized_score_or_null": 8364.23058302063,
+      "best_verified_robust_mean_economic_cost_or_null": 8364.23058302063,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          7.236402569444429e-13,
+          1.1945858052203046e-12,
+          9.408712839599919e-13
+        ],
+        "per_scenario_original_cost": [
+          8364.215598293405,
+          8379.59697680472,
+          8348.879173963764
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        8.781035101208632,
+        19.47933485698052,
+        15.825825099442103,
+        47.88739698810144,
+        1.0271293684639609,
+        1.007772623038056,
+        0.9821979305569359,
+        0.9915375000789981,
+        0.9722962782247586
+      ],
+      "candidates_stopped_after_1_real_AC": 41,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 45,
+      "early_screened_physically_infeasible_candidates": 42,
+      "elapsed_seconds": 1.76655,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.47191011235955055,
+        0.020833333333333332,
+        0.041666666666666664
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 29,
+      "max_native_AC_budget": 180,
+      "method": "ucb_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 92,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 5,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 9,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 10,
+          "withheld_unpaid_credits": 1
+        },
+        {
+          "censor_safe_measured_failures": 5,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 9,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.037037037037037035,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 11,
+          "withheld_unpaid_credits": 1
+        }
+      ],
+      "operator_observations": 18,
+      "operator_selections": 21,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 5,
+      "rewarded_operator_trials": 1,
+      "seed": 2502,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 82,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 45
+    },
+    {
+      "actual_AC_per_scenario": [
+        97,
+        41,
+        41
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        56,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        41,
+        41,
+        41
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000028.4758095,
+      "best_fully_measured_penalized_score_or_null": 9571.937957519243,
+      "best_verified_robust_mean_economic_cost_or_null": 9571.937957519243,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          5.287616656202168e-13,
+          5.927525495152486e-13,
+          5.685491024229602e-13
+        ],
+        "per_scenario_original_cost": [
+          9571.926873385222,
+          9582.233544902536,
+          9561.653454269976
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        84.59033094076676,
+        50.21724102119913,
+        37.638738040119776,
+        28.468933558239268,
+        1.0104706790597549,
+        1.0002378773394445,
+        0.9854202876334643,
+        1.0279795696691678,
+        0.9826440120704925
+      ],
+      "candidates_stopped_after_1_real_AC": 56,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 41,
+      "early_screened_physically_infeasible_candidates": 56,
+      "elapsed_seconds": 1.79703,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.5757575757575758,
+        0.023255813953488372,
+        0.023255813953488372
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 24,
+      "max_native_AC_budget": 180,
+      "method": "legacy_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "operator_credit_summary": [],
+      "operator_observations": 0,
+      "operator_selections": 0,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 1,
+      "rewarded_operator_trials": 0,
+      "seed": 2503,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 112,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 41
+    },
+    {
+      "actual_AC_per_scenario": [
+        97,
+        41,
+        41
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        56,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        41,
+        41,
+        41
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000028.4758095,
+      "best_fully_measured_penalized_score_or_null": 9571.937957519243,
+      "best_verified_robust_mean_economic_cost_or_null": 9571.937957519243,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          5.287616656202168e-13,
+          5.927525495152486e-13,
+          5.685491024229602e-13
+        ],
+        "per_scenario_original_cost": [
+          9571.926873385222,
+          9582.233544902536,
+          9561.653454269976
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        84.59033094076676,
+        50.21724102119913,
+        37.638738040119776,
+        28.468933558239268,
+        1.0104706790597549,
+        1.0002378773394445,
+        0.9854202876334643,
+        1.0279795696691678,
+        0.9826440120704925
+      ],
+      "candidates_stopped_after_1_real_AC": 56,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 41,
+      "early_screened_physically_infeasible_candidates": 56,
+      "elapsed_seconds": 1.80515,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.5757575757575758,
+        0.023255813953488372,
+        0.023255813953488372
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 24,
+      "max_native_AC_budget": 180,
+      "method": "ucb_objective_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 7,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.000001961464521584222,
+          "rewarded": 2,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 8,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 8,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 8.581407281930971e-7,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 8,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 15,
+      "operator_selections": 16,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 1,
+      "rewarded_operator_trials": 3,
+      "seed": 2503,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 112,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 41
+    },
+    {
+      "actual_AC_per_scenario": [
+        97,
+        41,
+        41
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        56,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        41,
+        41,
+        41
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000028.4758095,
+      "best_fully_measured_penalized_score_or_null": 9571.926409246742,
+      "best_verified_robust_mean_economic_cost_or_null": 9571.926409246742,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.0974717891104122e-12,
+          9.72093468970891e-13,
+          8.364807101455506e-13
+        ],
+        "per_scenario_original_cost": [
+          9571.915324358859,
+          9582.22318684727,
+          9561.640716534095
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        84.59033094076676,
+        50.21724102119913,
+        37.638738040119776,
+        28.468933558239268,
+        1.0102770784563193,
+        1.0002378773394445,
+        0.9856185208020433,
+        1.0279805745827868,
+        0.9826440120704925
+      ],
+      "candidates_stopped_after_1_real_AC": 56,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 41,
+      "early_screened_physically_infeasible_candidates": 56,
+      "elapsed_seconds": 1.78799,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.5757575757575758,
+        0.023255813953488372,
+        0.023255813953488372
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 24,
+      "max_native_AC_budget": 180,
+      "method": "uniform_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 4,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 6,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 7,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 4,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 9,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.037037037037037035,
+          "rewarded": 2,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 9,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 15,
+      "operator_selections": 16,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 1,
+      "rewarded_operator_trials": 2,
+      "seed": 2503,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 112,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 41
+    },
+    {
+      "actual_AC_per_scenario": [
+        98,
+        41,
+        41
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        57,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        41,
+        41,
+        41
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000028.4758095,
+      "best_fully_measured_penalized_score_or_null": 9571.937957519243,
+      "best_verified_robust_mean_economic_cost_or_null": 9571.937957519243,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          5.287616656202168e-13,
+          5.927525495152486e-13,
+          5.685491024229602e-13
+        ],
+        "per_scenario_original_cost": [
+          9571.926873385222,
+          9582.233544902536,
+          9561.653454269976
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        84.59033094076676,
+        50.21724102119913,
+        37.638738040119776,
+        28.468933558239268,
+        1.0104706790597549,
+        1.0002378773394445,
+        0.9854202876334643,
+        1.0279795696691678,
+        0.9826440120704925
+      ],
+      "candidates_stopped_after_1_real_AC": 57,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 41,
+      "early_screened_physically_infeasible_candidates": 57,
+      "elapsed_seconds": 1.83626,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.58,
+        0.023255813953488372,
+        0.023255813953488372
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 24,
+      "max_native_AC_budget": 180,
+      "method": "ucb_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 5,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 7,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 8,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 5,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 8,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 8,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 15,
+      "operator_selections": 16,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 0,
+      "rewarded_operator_trials": 0,
+      "seed": 2503,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 114,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 41
+    },
+    {
+      "actual_AC_per_scenario": [
+        109,
+        35,
+        35
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        74,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        35,
+        35,
+        35
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000417.9425318,
+      "best_fully_measured_penalized_score_or_null": 10225.557546605283,
+      "best_verified_robust_mean_economic_cost_or_null": 10225.557546605283,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.91865366716889e-11,
+          1.9400178394081676e-11,
+          1.9367800646774986e-11
+        ],
+        "per_scenario_original_cost": [
+          10225.548686781214,
+          10233.485343728307,
+          10217.638609306327
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        73.6836160427629,
+        89.7113843729728,
+        1.5385006380322253,
+        83.57554866910507,
+        1.0101206037165253,
+        1.0087402196305533,
+        1.0195784451314958,
+        1.02727214371366,
+        0.9676491585722804
+      ],
+      "candidates_stopped_after_1_real_AC": 74,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 35,
+      "early_screened_physically_infeasible_candidates": 74,
+      "elapsed_seconds": 1.81266,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.6756756756756757,
+        0.02702702702702703,
+        0.02702702702702703
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 54,
+      "max_native_AC_budget": 180,
+      "method": "legacy_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "operator_credit_summary": [],
+      "operator_observations": 0,
+      "operator_selections": 0,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 1,
+      "rewarded_operator_trials": 0,
+      "seed": 2504,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 148,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 35
+    },
+    {
+      "actual_AC_per_scenario": [
+        108,
+        35,
+        35
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        73,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        35,
+        35,
+        35
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000192.4734379,
+      "best_fully_measured_penalized_score_or_null": 9935.648717410633,
+      "best_verified_robust_mean_economic_cost_or_null": 9935.648717410633,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          3.3972248465551877e-12,
+          3.296113994484146e-12,
+          3.385215461303011e-12
+        ],
+        "per_scenario_original_cost": [
+          9935.639671503613,
+          9943.745744234013,
+          9927.560736494273
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        62.495864534962394,
+        86.98618835188367,
+        17.32492084758533,
+        75.95510355321863,
+        1.0081539694587822,
+        1.0068259232294972,
+        0.9954482430675093,
+        1.023198811367372,
+        0.9954757372015818
+      ],
+      "candidates_stopped_after_1_real_AC": 73,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 35,
+      "early_screened_physically_infeasible_candidates": 73,
+      "elapsed_seconds": 1.76996,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.6727272727272727,
+        0.02702702702702703,
+        0.02702702702702703
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 63,
+      "max_native_AC_budget": 180,
+      "method": "ucb_objective_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 20,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.0000013583766155373384,
+          "rewarded": 2,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 21,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 21,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 5.187362226723526e-7,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 21,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 41,
+      "operator_selections": 42,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 2,
+      "rewarded_operator_trials": 3,
+      "seed": 2504,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 146,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 35
+    },
+    {
+      "actual_AC_per_scenario": [
+        112,
+        34,
+        33
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        78,
+        1,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        34,
+        33,
+        33
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000246.2565093,
+      "best_fully_measured_penalized_score_or_null": 9916.90409571487,
+      "best_verified_robust_mean_economic_cost_or_null": 9916.90409571487,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          8.858827891342061e-12,
+          9.584904808989358e-12,
+          9.733280429411481e-12
+        ],
+        "per_scenario_original_cost": [
+          9916.894987927277,
+          9925.163555704876,
+          9908.653743512457
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        64.91012054827067,
+        88.94004032712054,
+        1.5385006380322253,
+        83.57554866910507,
+        1.0078053040164945,
+        1.0032852203552365,
+        1.0150505879743077,
+        1.02727214371366,
+        0.9876937551755802
+      ],
+      "candidates_stopped_after_1_real_AC": 78,
+      "candidates_stopped_after_2_real_AC": 1,
+      "completely_evaluated_candidates": 33,
+      "early_screened_physically_infeasible_candidates": 79,
+      "elapsed_seconds": 1.69192,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.6929824561403509,
+        0.05555555555555555,
+        0.02857142857142857
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 47,
+      "max_native_AC_budget": 180,
+      "method": "uniform_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 116,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 10,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 11,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 12,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 10,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 14,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.023809523809523808,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 15,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 25,
+      "operator_selections": 27,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 4,
+      "rewarded_operator_trials": 1,
+      "seed": 2504,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 157,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 33
+    },
+    {
+      "actual_AC_per_scenario": [
+        108,
+        35,
+        35
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        73,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        35,
+        35,
+        35
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000192.4734379,
+      "best_fully_measured_penalized_score_or_null": 9935.648717410633,
+      "best_verified_robust_mean_economic_cost_or_null": 9935.648717410633,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          3.3972248465551877e-12,
+          3.296113994484146e-12,
+          3.385215461303011e-12
+        ],
+        "per_scenario_original_cost": [
+          9935.639671503613,
+          9943.745744234013,
+          9927.560736494273
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        62.495864534962394,
+        86.98618835188367,
+        17.32492084758533,
+        75.95510355321863,
+        1.0081539694587822,
+        1.0068259232294972,
+        0.9954482430675093,
+        1.023198811367372,
+        0.9954757372015818
+      ],
+      "candidates_stopped_after_1_real_AC": 73,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 35,
+      "early_screened_physically_infeasible_candidates": 73,
+      "elapsed_seconds": 1.7656,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.6727272727272727,
+        0.02702702702702703,
+        0.02702702702702703
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 63,
+      "max_native_AC_budget": 180,
+      "method": "ucb_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 17,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 20,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 21,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 17,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 21,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 21,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 41,
+      "operator_selections": 42,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 2,
+      "rewarded_operator_trials": 0,
+      "seed": 2504,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 146,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 35
+    },
+    {
+      "actual_AC_per_scenario": [
+        98,
+        40,
+        40
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        58,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000368.7203763,
+      "best_fully_measured_penalized_score_or_null": 10752.233355245997,
+      "best_verified_robust_mean_economic_cost_or_null": 10752.233355245997,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          8.638391330149285e-13,
+          1.0540764536404654e-12,
+          1.1677843031748163e-12
+        ],
+        "per_scenario_original_cost": [
+          10752.222709901962,
+          10761.52296010273,
+          10742.954395733299
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        111.07462856729786,
+        49.33953919561539,
+        37.5288295787044,
+        29.345445381967068,
+        0.9877384516383613,
+        0.9861760831116844,
+        0.9583928514616664,
+        0.9932243094086055,
+        0.9938013424627583
+      ],
+      "candidates_stopped_after_1_real_AC": 58,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "early_screened_physically_infeasible_candidates": 58,
+      "elapsed_seconds": 1.76864,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.59,
+        0.023809523809523808,
+        0.023809523809523808
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 47,
+      "max_native_AC_budget": 180,
+      "method": "legacy_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "operator_credit_summary": [],
+      "operator_observations": 0,
+      "operator_selections": 0,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 0,
+      "rewarded_operator_trials": 0,
+      "seed": 2505,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 116,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 40
+    },
+    {
+      "actual_AC_per_scenario": [
+        178,
+        0,
+        0
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        178,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000466.5368392,
+      "best_fully_measured_penalized_score_or_null": null,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 178,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 0,
+      "early_screened_physically_infeasible_candidates": 178,
+      "elapsed_seconds": 1.76989,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9944444444444445,
+        0.5,
+        0.5
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 180,
+      "method": "ucb_objective_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 182,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 64,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 4.938130699075596e-7,
+          "rewarded": 10,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 67,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 65,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 1.7428416795312644e-7,
+          "rewarded": 21,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 66,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 129,
+      "operator_selections": 133,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 4,
+      "rewarded_operator_trials": 31,
+      "seed": 2505,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 356,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 0
+    },
+    {
+      "actual_AC_per_scenario": [
+        99,
+        40,
+        40
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        59,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000600.3560143,
+      "best_fully_measured_penalized_score_or_null": 10874.461078256885,
+      "best_verified_robust_mean_economic_cost_or_null": 10874.461078256885,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          2.1661823090732243e-12,
+          2.2596291860885807e-12,
+          1.8518231033897153e-12
+        ],
+        "per_scenario_original_cost": [
+          10874.449196950898,
+          10884.779954455933,
+          10864.154083363826
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        117.23681466573457,
+        7.231860581850374,
+        38.36501610775489,
+        56.03501025969587,
+        0.9947591960673188,
+        0.99123064266074,
+        0.9583928514616664,
+        1.0051762176595636,
+        0.9771474731766963
+      ],
+      "candidates_stopped_after_1_real_AC": 59,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "early_screened_physically_infeasible_candidates": 59,
+      "elapsed_seconds": 1.79538,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.594059405940594,
+        0.023809523809523808,
+        0.023809523809523808
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 41,
+      "max_native_AC_budget": 180,
+      "method": "uniform_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 104,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 16,
+          "censor_safe_verified_feedback": 3,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 20,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.016666666666666666,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 20,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 16,
+          "censor_safe_verified_feedback": 3,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 13,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.05128205128205128,
+          "rewarded": 3,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 14,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 33,
+      "operator_selections": 34,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 5,
+      "rewarded_operator_trials": 4,
+      "seed": 2505,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 118,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 40
+    },
+    {
+      "actual_AC_per_scenario": [
+        124,
+        28,
+        28
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        96,
+        0,
+        1
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        28,
+        28,
+        27
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000011.5130103,
+      "best_fully_measured_penalized_score_or_null": 11651.145186926282,
+      "best_verified_robust_mean_economic_cost_or_null": 11651.145186926282,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          7.680625271978757e-13,
+          6.342923343242401e-13,
+          1.0405289608264915e-12
+        ],
+        "per_scenario_original_cost": [
+          11651.13531004676,
+          11659.37800319098,
+          11642.922247541112
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        120.2756790694813,
+        49.37952453639275,
+        62.04875399235851,
+        24.69848089712322,
+        0.9900942785629443,
+        0.9912306426607401,
+        0.9583958322720517,
+        0.9976512035001123,
+        0.9771528294054516
+      ],
+      "candidates_stopped_after_1_real_AC": 96,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 27,
+      "early_screened_physically_infeasible_candidates": 97,
+      "elapsed_seconds": 1.86107,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.7698412698412699,
+        0.03333333333333333,
+        0.06666666666666667
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 91,
+      "max_native_AC_budget": 180,
+      "method": "ucb_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 128,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 33,
+          "censor_safe_verified_feedback": 2,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 31,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.01075268817204301,
+          "rewarded": 2,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 32,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 33,
+          "censor_safe_verified_feedback": 2,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 30,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.01111111111111111,
+          "rewarded": 2,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 32,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 61,
+      "operator_selections": 64,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 4,
+      "rewarded_operator_trials": 4,
+      "seed": 2505,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 192,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 27
+    },
+    {
+      "actual_AC_per_scenario": [
+        102,
+        38,
+        38
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        64,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        38,
+        38,
+        38
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000010009.5610843,
+      "best_fully_measured_penalized_score_or_null": 12264.31615339335,
+      "best_verified_robust_mean_economic_cost_or_null": 12264.31615339335,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          7.270265616723972e-13,
+          1.1942145348698672e-12,
+          2.046811866136361e-12
+        ],
+        "per_scenario_original_cost": [
+          12264.305434249818,
+          12273.287220002483,
+          12255.355805927753
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        134.3165634706657,
+        3.61570151169186,
+        71.7430820935018,
+        45.00624754933504,
+        1.009948028249005,
+        1.0055041460977319,
+        0.9846216444665963,
+        1.0327335986078046,
+        1.0131938359993156
+      ],
+      "candidates_stopped_after_1_real_AC": 64,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 38,
+      "early_screened_physically_infeasible_candidates": 64,
+      "elapsed_seconds": 1.82296,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.625,
+        0.025,
+        0.025
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 31,
+      "max_native_AC_budget": 180,
+      "method": "legacy_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 104,
+      "operator_credit_summary": [],
+      "operator_observations": 0,
+      "operator_selections": 0,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 2,
+      "rewarded_operator_trials": 0,
+      "seed": 2506,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 128,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 38
+    },
+    {
+      "actual_AC_per_scenario": [
+        127,
+        26,
+        26
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        101,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        26,
+        26,
+        26
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000437.2641062,
+      "best_fully_measured_penalized_score_or_null": 8690.784537222395,
+      "best_verified_robust_mean_economic_cost_or_null": 8690.784537222395,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.556403124287965e-7,
+          1.5655708951990532e-7,
+          1.5476677134891697e-7
+        ],
+        "per_scenario_original_cost": [
+          8690.772192273744,
+          8703.134049535349,
+          8678.44736985809
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        58.40656747827628,
+        23.183764264627833,
+        61.37670955772147,
+        17.43598087724014,
+        1.0520660588554616,
+        1.0419355940959854,
+        1.004469459772234,
+        1.0331318320287017,
+        1.008262998500534
+      ],
+      "candidates_stopped_after_1_real_AC": 101,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 26,
+      "early_screened_physically_infeasible_candidates": 101,
+      "elapsed_seconds": 1.64382,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.7906976744186046,
+        0.03571428571428571,
+        0.03571428571428571
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 97,
+      "max_native_AC_budget": 180,
+      "method": "ucb_objective_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 128,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 40,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.012500299707588442,
+          "rewarded": 5,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 41,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 37,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.0135150158330146,
+          "rewarded": 7,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 41,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 77,
+      "operator_selections": 82,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 1,
+      "rewarded_operator_trials": 12,
+      "seed": 2506,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 202,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 26
+    },
+    {
+      "actual_AC_per_scenario": [
+        119,
+        30,
+        30
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        89,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        30,
+        30,
+        30
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000003.923146,
+      "best_fully_measured_penalized_score_or_null": 8696.060863588233,
+      "best_verified_robust_mean_economic_cost_or_null": 8696.060863588233,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          4.548077715100702e-7,
+          4.564178299222883e-7,
+          4.532819638902385e-7
+        ],
+        "per_scenario_original_cost": [
+          8696.048656689438,
+          8708.177173394552,
+          8683.956760680707
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        46.56559171190363,
+        20.522235662446757,
+        71.75117309658762,
+        28.02609319066101,
+        1.0520660588554616,
+        1.0419355940959854,
+        1.0000579243656416,
+        1.0435434182534085,
+        1.007953624942896
+      ],
+      "candidates_stopped_after_1_real_AC": 89,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 30,
+      "early_screened_physically_infeasible_candidates": 89,
+      "elapsed_seconds": 1.64106,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.743801652892562,
+        0.03125,
+        0.03125
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 74,
+      "max_native_AC_budget": 180,
+      "method": "uniform_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 122,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 19,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 31,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.005376344086021505,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 34,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 19,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 23,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.007246376811594202,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 24,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 54,
+      "operator_selections": 58,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 3,
+      "rewarded_operator_trials": 2,
+      "seed": 2506,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 178,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 30
+    },
+    {
+      "actual_AC_per_scenario": [
+        108,
+        35,
+        35
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        73,
+        0,
+        2
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        35,
+        35,
+        33
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000170.0600916,
+      "best_fully_measured_penalized_score_or_null": 8865.24464178597,
+      "best_verified_robust_mean_economic_cost_or_null": 8865.24464178597,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          2.339439379086803e-7,
+          2.3323778774711052e-7,
+          2.3471617512170534e-7
+        ],
+        "per_scenario_original_cost": [
+          8865.232638532163,
+          8877.20114145298,
+          8853.300145372767
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        61.42307561020321,
+        23.183764264627833,
+        71.22377029871524,
+        16.58788585169797,
+        1.0518042008837034,
+        1.041188193911467,
+        1.0273299920391092,
+        1.0418439551018275,
+        1.007953624942896
+      ],
+      "candidates_stopped_after_1_real_AC": 73,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 33,
+      "early_screened_physically_infeasible_candidates": 75,
+      "elapsed_seconds": 1.67487,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.6727272727272727,
+        0.02702702702702703,
+        0.08108108108108109
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 68,
+      "max_native_AC_budget": 180,
+      "method": "ucb_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 19,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 29,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.011494252873563218,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 31,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 19,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 29,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 30,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 58,
+      "operator_selections": 61,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 2,
+      "rewarded_operator_trials": 1,
+      "seed": 2506,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 146,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 33
+    },
+    {
+      "actual_AC_per_scenario": [
+        107,
+        36,
+        36
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        71,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        36,
+        36,
+        36
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000005.0519599,
+      "best_fully_measured_penalized_score_or_null": 8958.825467965851,
+      "best_verified_robust_mean_economic_cost_or_null": 8958.825467965851,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          8.984670138545701e-13,
+          5.537867752151214e-13,
+          9.393932382505066e-13
+        ],
+        "per_scenario_original_cost": [
+          8958.813402356966,
+          8970.290966354842,
+          8947.37203518575
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        10.606167567089274,
+        48.27604474041842,
+        66.83485119151445,
+        47.754388464019854,
+        0.9990708922619634,
+        0.980981562951662,
+        0.972404279647578,
+        1.037172364836,
+        0.9907128261480382
+      ],
+      "candidates_stopped_after_1_real_AC": 71,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 36,
+      "early_screened_physically_infeasible_candidates": 71,
+      "elapsed_seconds": 1.8498,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.6605504587155964,
+        0.02631578947368421,
+        0.02631578947368421
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 62,
+      "max_native_AC_budget": 180,
+      "method": "legacy_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "operator_credit_summary": [],
+      "operator_observations": 0,
+      "operator_selections": 0,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 3,
+      "rewarded_operator_trials": 0,
+      "seed": 2507,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 142,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 36
+    },
+    {
+      "actual_AC_per_scenario": [
+        98,
+        40,
+        40
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        58,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000278.3607213,
+      "best_fully_measured_penalized_score_or_null": 8392.364565761396,
+      "best_verified_robust_mean_economic_cost_or_null": 8392.364565761396,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.834555041368092e-12,
+          1.8021880376779114e-12,
+          1.8173523483105562e-12
+        ],
+        "per_scenario_original_cost": [
+          8392.34936298148,
+          8407.433972468474,
+          8377.310361834236
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        8.821075662558739,
+        24.88971298941256,
+        17.041048064841934,
+        48.28855122379404,
+        0.9991454228642725,
+        0.9745862112566537,
+        0.9602368307626953,
+        1.0076665007681211,
+        0.9657715268432994
+      ],
+      "candidates_stopped_after_1_real_AC": 58,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "early_screened_physically_infeasible_candidates": 58,
+      "elapsed_seconds": 1.81282,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.59,
+        0.023809523809523808,
+        0.023809523809523808
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 29,
+      "max_native_AC_budget": 180,
+      "method": "ucb_objective_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 15,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.033334541454963465,
+          "rewarded": 3,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 15,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 15,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.033334900950609266,
+          "rewarded": 4,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 15,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 30,
+      "operator_selections": 30,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 0,
+      "rewarded_operator_trials": 7,
+      "seed": 2507,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 116,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 40
+    },
+    {
+      "actual_AC_per_scenario": [
+        111,
+        34,
+        34
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        77,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        34,
+        34,
+        34
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000797.480992,
+      "best_fully_measured_penalized_score_or_null": 8534.861546838967,
+      "best_verified_robust_mean_economic_cost_or_null": 8534.861546838967,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          6.738470765715281e-13,
+          1.112347762451774e-12,
+          1.2079976577151345e-12
+        ],
+        "per_scenario_original_cost": [
+          8534.847553050819,
+          8548.3565016942,
+          8521.380585771883
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        12.616816136650925,
+        39.29789391169315,
+        64.33384322653862,
+        14.010680793666275,
+        0.9952984105356263,
+        0.9745862112566537,
+        0.9468780966819407,
+        1.0074124857631015,
+        0.967404237077798
+      ],
+      "candidates_stopped_after_1_real_AC": 77,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 34,
+      "early_screened_physically_infeasible_candidates": 77,
+      "elapsed_seconds": 1.80505,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.6902654867256637,
+        0.027777777777777776,
+        0.027777777777777776
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 67,
+      "max_native_AC_budget": 180,
+      "method": "uniform_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 116,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 23,
+          "censor_safe_verified_feedback": 5,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 31,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 35,
+          "withheld_unpaid_credits": 5
+        },
+        {
+          "censor_safe_measured_failures": 23,
+          "censor_safe_verified_feedback": 5,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 25,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.06666666666666667,
+          "rewarded": 6,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 27,
+          "withheld_unpaid_credits": 5
+        }
+      ],
+      "operator_observations": 56,
+      "operator_selections": 62,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 5,
+      "rewarded_operator_trials": 6,
+      "seed": 2507,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 154,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 34
+    },
+    {
+      "actual_AC_per_scenario": [
+        143,
+        18,
+        18
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        125,
+        0,
+        1
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        18,
+        18,
+        17
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000017.7137067,
+      "best_fully_measured_penalized_score_or_null": 8330.485512977573,
+      "best_verified_robust_mean_economic_cost_or_null": 8330.485512977573,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          6.64272530487919e-13,
+          7.076994867317531e-13,
+          7.921582415669946e-13
+        ],
+        "per_scenario_original_cost": [
+          8330.47060787012,
+          8345.357382619248,
+          8315.628548443352
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        12.616816136650925,
+        38.40590829092689,
+        31.85222432263034,
+        14.89314996078211,
+        0.9990708922619636,
+        0.9746150916203029,
+        0.9598964689599057,
+        1.0164486299210043,
+        0.9762267311081922
+      ],
+      "candidates_stopped_after_1_real_AC": 125,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 17,
+      "early_screened_physically_infeasible_candidates": 126,
+      "elapsed_seconds": 1.78445,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.8689655172413793,
+        0.05,
+        0.1
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 107,
+      "max_native_AC_budget": 180,
+      "method": "ucb_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 146,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 42,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 40,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 42,
+          "withheld_unpaid_credits": 4
+        },
+        {
+          "censor_safe_measured_failures": 42,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 41,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.008130081300813007,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 44,
+          "withheld_unpaid_credits": 4
+        }
+      ],
+      "operator_observations": 81,
+      "operator_selections": 86,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 3,
+      "rewarded_operator_trials": 1,
+      "seed": 2507,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 250,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 17
+    },
+    {
+      "actual_AC_per_scenario": [
+        112,
+        33,
+        33
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        79,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        33,
+        33,
+        33
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000463.1845342,
+      "best_fully_measured_penalized_score_or_null": 9693.116949167232,
+      "best_verified_robust_mean_economic_cost_or_null": 9693.116949167232,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          7.884198923245994e-13,
+          1.9570457399885636e-12,
+          9.085235580685191e-13
+        ],
+        "per_scenario_original_cost": [
+          9693.107008886096,
+          9701.965560737575,
+          9684.278277878027
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        69.48734149162955,
+        85.48177866114209,
+        27.324198036564702,
+        42.88501266205518,
+        0.9787499849041816,
+        0.9731673337499295,
+        0.9758591654421503,
+        1.0056324108809387,
+        0.9714255826354988
+      ],
+      "candidates_stopped_after_1_real_AC": 79,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 33,
+      "early_screened_physically_infeasible_candidates": 79,
+      "elapsed_seconds": 1.77737,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.7017543859649122,
+        0.02857142857142857,
+        0.02857142857142857
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 69,
+      "max_native_AC_budget": 180,
+      "method": "legacy_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 116,
+      "operator_credit_summary": [],
+      "operator_observations": 0,
+      "operator_selections": 0,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 4,
+      "rewarded_operator_trials": 0,
+      "seed": 2508,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 158,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 33
+    },
+    {
+      "actual_AC_per_scenario": [
+        109,
+        35,
+        35
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        74,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        35,
+        35,
+        35
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000240.6315941,
+      "best_fully_measured_penalized_score_or_null": 8811.346856824797,
+      "best_verified_robust_mean_economic_cost_or_null": 8811.346856824797,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          8.086357243644102e-13,
+          6.326083436745034e-13,
+          7.920743592090014e-13
+        ],
+        "per_scenario_original_cost": [
+          8811.334469793554,
+          8823.43247571967,
+          8799.27362496117
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        1.7794986563114459,
+        59.99943176591903,
+        31.259622721107576,
+        54.7449437280358,
+        0.998005582735667,
+        0.9818003746427708,
+        0.9576700686359307,
+        1.0351167549511529,
+        1.0190953962640386
+      ],
+      "candidates_stopped_after_1_real_AC": 74,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 35,
+      "early_screened_physically_infeasible_candidates": 74,
+      "elapsed_seconds": 1.83412,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.6756756756756757,
+        0.02702702702702703,
+        0.02702702702702703
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 55,
+      "max_native_AC_budget": 180,
+      "method": "ucb_objective_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 18,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.0000012780926388914252,
+          "rewarded": 7,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 21,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 22,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.0000023692152577941966,
+          "rewarded": 8,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 22,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 40,
+      "operator_selections": 43,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 1,
+      "rewarded_operator_trials": 15,
+      "seed": 2508,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 148,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 35
+    },
+    {
+      "actual_AC_per_scenario": [
+        132,
+        23,
+        23
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        109,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        23,
+        23,
+        23
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000481.499263,
+      "best_fully_measured_penalized_score_or_null": 8910.446246438494,
+      "best_verified_robust_mean_economic_cost_or_null": 8910.446246438494,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.7142522995008117e-12,
+          1.4414532925392432e-12,
+          1.4291675777985611e-12
+        ],
+        "per_scenario_original_cost": [
+          8910.43498030061,
+          8921.150096327687,
+          8899.753662687188
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        16.031784412336233,
+        76.1173893489222,
+        27.75157150416311,
+        57.02926643185272,
+        0.9924332075979276,
+        0.9783654738658555,
+        0.9719262847784882,
+        0.9949419381071165,
+        1.0191362818234757
+      ],
+      "candidates_stopped_after_1_real_AC": 109,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 23,
+      "early_screened_physically_infeasible_candidates": 109,
+      "elapsed_seconds": 1.76024,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.8208955223880597,
+        0.04,
+        0.04
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 88,
+      "max_native_AC_budget": 180,
+      "method": "uniform_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 134,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 29,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 37,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 38,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 29,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 27,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.012345679012345678,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 27,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 64,
+      "operator_selections": 65,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 2,
+      "rewarded_operator_trials": 1,
+      "seed": 2508,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 218,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 23
+    },
+    {
+      "actual_AC_per_scenario": [
+        108,
+        41,
+        31
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        67,
+        10,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        41,
+        31,
+        31
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000009.8617213,
+      "best_fully_measured_penalized_score_or_null": 8655.709308488631,
+      "best_verified_robust_mean_economic_cost_or_null": 8655.709308488631,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          9.014411050399467e-13,
+          4.572953511458934e-13,
+          1.6436341531355365e-12
+        ],
+        "per_scenario_original_cost": [
+          8655.697470759433,
+          8666.917770742666,
+          8644.512683963792
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        41.739258829229165,
+        75.86077366004372,
+        27.365393630374932,
+        21.98711594042129,
+        0.9820341454439119,
+        0.9710225615042642,
+        0.9682062593507155,
+        0.9883831228449445,
+        0.9896148001941676
+      ],
+      "candidates_stopped_after_1_real_AC": 67,
+      "candidates_stopped_after_2_real_AC": 10,
+      "completely_evaluated_candidates": 31,
+      "early_screened_physically_infeasible_candidates": 77,
+      "elapsed_seconds": 1.80281,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.6181818181818182,
+        0.2558139534883721,
+        0.030303030303030304
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 39,
+      "max_native_AC_budget": 180,
+      "method": "ucb_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 7,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 8,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 8,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 7,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 8,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 8,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 16,
+      "operator_selections": 16,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 2,
+      "rewarded_operator_trials": 0,
+      "seed": 2508,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 144,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 31
+    },
+    {
+      "actual_AC_per_scenario": [
+        111,
+        34,
+        34
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        77,
+        0,
+        2
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        34,
+        34,
+        32
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000028.5719774,
+      "best_fully_measured_penalized_score_or_null": 9076.754471366183,
+      "best_verified_robust_mean_economic_cost_or_null": 9076.754471366183,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          9.14524104466143e-13,
+          5.29975709549062e-13,
+          1.5846082055521979e-12
+        ],
+        "per_scenario_original_cost": [
+          9076.743651759149,
+          9086.761262565324,
+          9066.758499774078
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        27.485180850996656,
+        76.52378961278184,
+        41.79611829912516,
+        51.41124576744562,
+        0.9829955638414116,
+        0.9713427308601192,
+        0.9729937983609527,
+        1.006648187533803,
+        1.0093856400597234
+      ],
+      "candidates_stopped_after_1_real_AC": 77,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 32,
+      "early_screened_physically_infeasible_candidates": 79,
+      "elapsed_seconds": 1.78872,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.6902654867256637,
+        0.027777777777777776,
+        0.08333333333333333
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 70,
+      "max_native_AC_budget": 180,
+      "method": "legacy_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 116,
+      "operator_credit_summary": [],
+      "operator_observations": 0,
+      "operator_selections": 0,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 5,
+      "rewarded_operator_trials": 0,
+      "seed": 2509,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 154,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 32
+    },
+    {
+      "actual_AC_per_scenario": [
+        121,
+        29,
+        29
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        92,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        29,
+        29,
+        29
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000020.1085719,
+      "best_fully_measured_penalized_score_or_null": 9048.27151807245,
+      "best_verified_robust_mean_economic_cost_or_null": 9048.27151807245,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          9.27584072696667e-13,
+          4.248326105049101e-13,
+          1.2865076541234552e-12
+        ],
+        "per_scenario_original_cost": [
+          9048.260948242214,
+          9058.27103206165,
+          9038.282573913486
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        27.621604807197784,
+        78.0016702546848,
+        30.513202017655367,
+        59.11891396684308,
+        1.0019751041006342,
+        0.9943540864859117,
+        0.9900578795219572,
+        0.9954351525758087,
+        1.0200744587739232
+      ],
+      "candidates_stopped_after_1_real_AC": 92,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 29,
+      "early_screened_physically_infeasible_candidates": 92,
+      "elapsed_seconds": 1.77188,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.7560975609756098,
+        0.03225806451612903,
+        0.03225806451612903
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 78,
+      "max_native_AC_budget": 180,
+      "method": "ucb_objective_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 122,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 25,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 9.874665127747918e-7,
+          "rewarded": 4,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 26,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 23,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 25,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 48,
+      "operator_selections": 51,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 1,
+      "rewarded_operator_trials": 4,
+      "seed": 2509,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 184,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 29
+    },
+    {
+      "actual_AC_per_scenario": [
+        109,
+        35,
+        35
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        74,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        35,
+        35,
+        35
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000805.0469791,
+      "best_fully_measured_penalized_score_or_null": 9550.96283939071,
+      "best_verified_robust_mean_economic_cost_or_null": 9550.96283939071,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          3.6917541907252164e-11,
+          3.6959598229027294e-11,
+          3.697793196739053e-11
+        ],
+        "per_scenario_original_cost": [
+          9550.9529690888,
+          9559.833638982986,
+          9542.101910100342
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        33.908832370762994,
+        74.65612890174201,
+        40.2080839924098,
+        79.21276877881772,
+        0.9968181078877595,
+        0.9905613004347686,
+        0.9905432287660854,
+        0.996582297624619,
+        0.979556002072075
+      ],
+      "candidates_stopped_after_1_real_AC": 74,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 35,
+      "early_screened_physically_infeasible_candidates": 74,
+      "elapsed_seconds": 1.79852,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.6756756756756757,
+        0.02702702702702703,
+        0.02702702702702703
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 54,
+      "max_native_AC_budget": 180,
+      "method": "uniform_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 15,
+          "censor_safe_verified_feedback": 2,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 14,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.011904761904761904,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 16,
+          "withheld_unpaid_credits": 1
+        },
+        {
+          "censor_safe_measured_failures": 15,
+          "censor_safe_verified_feedback": 2,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 24,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.020833333333333332,
+          "rewarded": 2,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 27,
+          "withheld_unpaid_credits": 1
+        }
+      ],
+      "operator_observations": 38,
+      "operator_selections": 43,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 1,
+      "rewarded_operator_trials": 3,
+      "seed": 2509,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 148,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 35
+    },
+    {
+      "actual_AC_per_scenario": [
+        109,
+        36,
+        35
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        73,
+        1,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        36,
+        35,
+        35
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000007.6262383,
+      "best_fully_measured_penalized_score_or_null": 8862.69128156549,
+      "best_verified_robust_mean_economic_cost_or_null": 8862.69128156549,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          6.542681553378774e-13,
+          8.615602946839505e-13,
+          1.2419945562673066e-12
+        ],
+        "per_scenario_original_cost": [
+          8862.680237124663,
+          8873.200241330605,
+          8852.193366241201
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        29.44165187094553,
+        72.42358544024269,
+        27.18489962799601,
+        53.7479402473724,
+        1.0028106924704716,
+        0.9943540864859117,
+        0.9755686130681208,
+        0.9922538062441661,
+        1.0200744587739232
+      ],
+      "candidates_stopped_after_1_real_AC": 73,
+      "candidates_stopped_after_2_real_AC": 1,
+      "completely_evaluated_candidates": 35,
+      "early_screened_physically_infeasible_candidates": 74,
+      "elapsed_seconds": 1.80742,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.6666666666666666,
+        0.05263157894736842,
+        0.02702702702702703
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 67,
+      "max_native_AC_budget": 180,
+      "method": "ucb_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 19,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 19,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.017543859649122806,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 19,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 19,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 19,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 19,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 38,
+      "operator_selections": 38,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 1,
+      "rewarded_operator_trials": 1,
+      "seed": 2509,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 147,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 35
+    },
+    {
+      "actual_AC_per_scenario": [
+        102,
+        40,
+        37
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        62,
+        3,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        40,
+        37,
+        37
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000219.3444928,
+      "best_fully_measured_penalized_score_or_null": 8766.279456094226,
+      "best_verified_robust_mean_economic_cost_or_null": 8766.279456094226,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.0858533156523483e-12,
+          2.1016969232270022e-12,
+          7.513921845860569e-13
+        ],
+        "per_scenario_original_cost": [
+          8766.267094998619,
+          8778.49733860229,
+          8754.073934681768
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        63.94987131783704,
+        20.37459639181153,
+        22.182878121517202,
+        57.597300709098306,
+        1.033030962647131,
+        1.0212857519089629,
+        1.0112836326720587,
+        1.036071913835149,
+        1.0245115051538125
+      ],
+      "candidates_stopped_after_1_real_AC": 62,
+      "candidates_stopped_after_2_real_AC": 3,
+      "completely_evaluated_candidates": 37,
+      "early_screened_physically_infeasible_candidates": 65,
+      "elapsed_seconds": 1.7669,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.6057692307692307,
+        0.09523809523809523,
+        0.02564102564102564
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 54,
+      "max_native_AC_budget": 180,
+      "method": "legacy_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 104,
+      "operator_credit_summary": [],
+      "operator_observations": 0,
+      "operator_selections": 0,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 2,
+      "rewarded_operator_trials": 0,
+      "seed": 2510,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 127,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 37
+    },
+    {
+      "actual_AC_per_scenario": [
+        178,
+        0,
+        0
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        178,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000001667.6210883,
+      "best_fully_measured_penalized_score_or_null": null,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 178,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 0,
+      "early_screened_physically_infeasible_candidates": 178,
+      "elapsed_seconds": 1.78052,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9944444444444445,
+        0.5,
+        0.5
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 180,
+      "method": "ucb_objective_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 182,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 64,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.0000012115479956158674,
+          "rewarded": 6,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 65,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 63,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 3.2872354084038435e-7,
+          "rewarded": 18,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 65,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 127,
+      "operator_selections": 130,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 4,
+      "rewarded_operator_trials": 24,
+      "seed": 2510,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 356,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 0
+    },
+    {
+      "actual_AC_per_scenario": [
+        110,
+        35,
+        34
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        75,
+        1,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        35,
+        34,
+        34
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000009.2928559,
+      "best_fully_measured_penalized_score_or_null": 8908.600574285529,
+      "best_verified_robust_mean_economic_cost_or_null": 8908.600574285529,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.5644534589653222e-12,
+          5.568168365834752e-13,
+          1.498068505565514e-12
+        ],
+        "per_scenario_original_cost": [
+          8908.587986205439,
+          8920.922898293647,
+          8896.290838357501
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        75.4717321081294,
+        19.572650564272386,
+        19.38747666957453,
+        46.77256409249647,
+        1.032067002441766,
+        1.0212857519089629,
+        0.9900886063062471,
+        1.0392984895141912,
+        0.9916704233079494
+      ],
+      "candidates_stopped_after_1_real_AC": 75,
+      "candidates_stopped_after_2_real_AC": 1,
+      "completely_evaluated_candidates": 34,
+      "early_screened_physically_infeasible_candidates": 76,
+      "elapsed_seconds": 1.68655,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.6785714285714286,
+        0.05405405405405406,
+        0.027777777777777776
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 62,
+      "max_native_AC_budget": 180,
+      "method": "uniform_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 20,
+          "censor_safe_verified_feedback": 7,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 24,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.006944444444444444,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 25,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 20,
+          "censor_safe_verified_feedback": 7,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 26,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.08333333333333333,
+          "rewarded": 12,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 26,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 50,
+      "operator_selections": 51,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 0,
+      "rewarded_operator_trials": 13,
+      "seed": 2510,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 151,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 34
+    },
+    {
+      "actual_AC_per_scenario": [
+        109,
+        38,
+        32
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        71,
+        6,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        38,
+        32,
+        32
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000042.9194999,
+      "best_fully_measured_penalized_score_or_null": 9190.67037425014,
+      "best_verified_robust_mean_economic_cost_or_null": 9190.67037425014,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.235629978956268e-12,
+          1.0974484195938519e-12,
+          1.5433486822758198e-12
+        ],
+        "per_scenario_original_cost": [
+          9190.65853036677,
+          9201.954379620765,
+          9179.398212762879
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        70.70134021653128,
+        14.242912094794768,
+        48.520465557570574,
+        57.027290727852616,
+        1.0305861437640635,
+        1.0179510913271959,
+        1.007117285496432,
+        1.0388815593286678,
+        1.0429917488052356
+      ],
+      "candidates_stopped_after_1_real_AC": 71,
+      "candidates_stopped_after_2_real_AC": 6,
+      "completely_evaluated_candidates": 32,
+      "early_screened_physically_infeasible_candidates": 77,
+      "elapsed_seconds": 1.77846,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.6486486486486487,
+        0.175,
+        0.029411764705882353
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 74,
+      "max_native_AC_budget": 180,
+      "method": "ucb_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 22,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 19,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.017543859649122806,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 20,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 22,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 20,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 20,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 39,
+      "operator_selections": 40,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 1,
+      "rewarded_operator_trials": 1,
+      "seed": 2510,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 148,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 32
+    },
+    {
+      "actual_AC_per_scenario": [
+        114,
+        32,
+        32
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        82,
+        0,
+        1
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        32,
+        32,
+        31
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000043.121089,
+      "best_fully_measured_penalized_score_or_null": 8564.398516166519,
+      "best_verified_robust_mean_economic_cost_or_null": 8564.398516166519,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          6.737519483400931e-13,
+          1.4983409896592599e-12,
+          1.3107746902462366e-12
+        ],
+        "per_scenario_original_cost": [
+          8564.384820876332,
+          8577.279814955738,
+          8551.530912667484
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        57.52535034638714,
+        25.710239114348894,
+        27.51756226708462,
+        39.260471585040285,
+        0.9816999084569987,
+        0.9630737490389961,
+        0.9501182150626635,
+        1.0066419205538126,
+        1.038641192840876
+      ],
+      "candidates_stopped_after_1_real_AC": 82,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 31,
+      "early_screened_physically_infeasible_candidates": 83,
+      "elapsed_seconds": 1.76452,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.7155172413793104,
+        0.029411764705882353,
+        0.058823529411764705
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 64,
+      "max_native_AC_budget": 180,
+      "method": "legacy_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 116,
+      "operator_credit_summary": [],
+      "operator_observations": 0,
+      "operator_selections": 0,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 2,
+      "rewarded_operator_trials": 0,
+      "seed": 2511,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 164,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 31
+    },
+    {
+      "actual_AC_per_scenario": [
+        102,
+        38,
+        38
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        64,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        38,
+        38,
+        38
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000121.0085219,
+      "best_fully_measured_penalized_score_or_null": 8455.799287884352,
+      "best_verified_robust_mean_economic_cost_or_null": 8455.799287884352,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          6.109253766072344e-13,
+          3.904766597855097e-13,
+          6.895166861738083e-13
+        ],
+        "per_scenario_original_cost": [
+          8455.784083411403,
+          8470.118404926292,
+          8441.495375315366
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        58.34563597763051,
+        3.395797390371511,
+        27.517562267084617,
+        41.14253631471432,
+        0.9810251611186532,
+        0.9599910317069515,
+        0.9417663522371769,
+        1.0160048133510533,
+        1.0232272533215714
+      ],
+      "candidates_stopped_after_1_real_AC": 64,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 38,
+      "early_screened_physically_infeasible_candidates": 64,
+      "elapsed_seconds": 1.79082,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.625,
+        0.025,
+        0.025
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 47,
+      "max_native_AC_budget": 180,
+      "method": "ucb_objective_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 104,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 12,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.04166992565338873,
+          "rewarded": 8,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 12,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 0,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 11,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.04546172796267667,
+          "rewarded": 9,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 12,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 23,
+      "operator_selections": 24,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 2,
+      "rewarded_operator_trials": 17,
+      "seed": 2511,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 128,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 38
+    },
+    {
+      "actual_AC_per_scenario": [
+        103,
+        38,
+        38
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 179,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        65,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        38,
+        38,
+        38
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000503.7785552,
+      "best_fully_measured_penalized_score_or_null": 8607.067551438699,
+      "best_verified_robust_mean_economic_cost_or_null": 8607.067551438699,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.619809691753528e-12,
+          1.5254586571275282e-12,
+          2.1059131461914767e-12
+        ],
+        "per_scenario_original_cost": [
+          8607.05504258298,
+          8619.004216557969,
+          8595.143395175144
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        57.513989849459655,
+        62.86554357603668,
+        27.585738092114802,
+        6.268379612172714,
+        0.9914118085974862,
+        0.9758941135899113,
+        0.9599032864503123,
+        0.9892460960022571,
+        1.005075040351901
+      ],
+      "candidates_stopped_after_1_real_AC": 65,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 38,
+      "early_screened_physically_infeasible_candidates": 65,
+      "elapsed_seconds": 1.78861,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.6285714285714286,
+        0.025,
+        0.025
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 40,
+      "max_native_AC_budget": 180,
+      "method": "uniform_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 104,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 6,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 5,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 5,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 6,
+          "censor_safe_verified_feedback": 1,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 11,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.0303030303030303,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 12,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 16,
+      "operator_selections": 17,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 1,
+      "rewarded_operator_trials": 1,
+      "seed": 2511,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 130,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 38
+    },
+    {
+      "actual_AC_per_scenario": [
+        97,
+        41,
+        40
+      ],
+      "actual_evaluation_kind": "genuine source PYPOWER NR AC (not GÉANT)",
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        56,
+        1,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        41,
+        40,
+        40
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000014.2479203,
+      "best_fully_measured_penalized_score_or_null": 8893.206203625932,
+      "best_verified_robust_mean_economic_cost_or_null": 8893.206203625932,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.0279048003828809e-12,
+          6.341162018975265e-13,
+          7.386582113839283e-13
+        ],
+        "per_scenario_original_cost": [
+          8893.193991423948,
+          8904.440557925578,
+          8881.98406152827
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        59.54108720806917,
+        40.20754790039812,
+        27.80216663932827,
+        52.507961864585575,
+        0.9824209793307044,
+        0.9700635580472784,
+        0.9451820039117432,
+        1.024863372079494,
+        1.021298095929501
+      ],
+      "candidates_stopped_after_1_real_AC": 56,
+      "candidates_stopped_after_2_real_AC": 1,
+      "completely_evaluated_candidates": 40,
+      "early_screened_physically_infeasible_candidates": 57,
+      "elapsed_seconds": 1.78415,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.5757575757575758,
+        0.046511627906976744,
+        0.023809523809523808
+      ],
+      "error_or_stop_reason": "",
+      "first_verified_robust_true_AC_number": 41,
+      "max_native_AC_budget": 180,
+      "method": "ucb_censor_safe_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "operator_credit_summary": [
+        {
+          "censor_safe_measured_failures": 10,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 11,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 11,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "censor_safe_measured_failures": 10,
+          "censor_safe_verified_feedback": 0,
+          "censor_safe_withheld_unknown": 0,
+          "credit_assignment": "offspring",
+          "observations": 9,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 10,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "operator_observations": 20,
+      "operator_selections": 21,
+      "optimizer_success_not_source_feasible": true,
+      "original_case": "IEEE14 case14 14 bus, 5 generators; 4PG+5VG controlled",
+      "post_budget_requests_without_AC": 1,
+      "rewarded_operator_trials": 0,
+      "seed": 2511,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_plus1pct",
+        "even_bus_plus1pct"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 113,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 40
+    }
+  ],
+  "summary": {
+    "legacy_fixed": {
+      "actual_original_native_AC": 2143,
+      "best_source_verified_mean_economic_cost_or_null": 8441.32361805743,
+      "median_cost_conditional_on_seed_success_or_null": 9324.346214442714,
+      "numerically_unknown_candidates": 0,
+      "operator_feedback_observations": 0,
+      "operator_selections": 0,
+      "physically_measured_early_failures": 774,
+      "positive_operator_rewards": 0,
+      "runs": 12,
+      "source_verified_all_three_candidates": 452,
+      "true_source_robust_seed_success": 12,
+      "truly_completed_three_source_scenarios": 452,
+      "unobserved_skipped_source_scenarios": 1535
+    },
+    "ucb_censor_safe_fixed": {
+      "actual_original_native_AC": 2151,
+      "best_source_verified_mean_economic_cost_or_null": 8330.485512977573,
+      "median_cost_conditional_on_seed_success_or_null": 8879.225422705951,
+      "numerically_unknown_candidates": 0,
+      "operator_feedback_observations": 429,
+      "operator_selections": 450,
+      "physically_measured_early_failures": 866,
+      "positive_operator_rewards": 15,
+      "runs": 12,
+      "source_verified_all_three_candidates": 418,
+      "true_source_robust_seed_success": 12,
+      "truly_completed_three_source_scenarios": 418,
+      "unobserved_skipped_source_scenarios": 1701
+    },
+    "ucb_objective_fixed": {
+      "actual_original_native_AC": 2143,
+      "best_source_verified_mean_economic_cost_or_null": 8364.23058302063,
+      "median_cost_conditional_on_seed_success_or_null": 8751.065697023596,
+      "numerically_unknown_candidates": 0,
+      "operator_feedback_observations": 581,
+      "operator_selections": 605,
+      "physically_measured_early_failures": 1025,
+      "positive_operator_rewards": 125,
+      "runs": 12,
+      "source_verified_all_three_candidates": 371,
+      "true_source_robust_seed_success": 10,
+      "truly_completed_three_source_scenarios": 371,
+      "unobserved_skipped_source_scenarios": 2045
+    },
+    "uniform_censor_safe_fixed": {
+      "actual_original_native_AC": 2148,
+      "best_source_verified_mean_economic_cost_or_null": 8276.32732316867,
+      "median_cost_conditional_on_seed_success_or_null": 8909.523410362011,
+      "numerically_unknown_candidates": 0,
+      "operator_feedback_observations": 413,
+      "operator_selections": 438,
+      "physically_measured_early_failures": 835,
+      "positive_operator_rewards": 47,
+      "runs": 12,
+      "source_verified_all_three_candidates": 436,
+      "true_source_robust_seed_success": 12,
+      "truly_completed_three_source_scenarios": 436,
+      "unobserved_skipped_source_scenarios": 1665
+    }
+  },
+  "paired_seed_contrasts": [
+    {
+      "both": 12,
+      "exact_two_sided_p_unadjusted": 1,
+      "first": "ucb_censor_safe_fixed",
+      "first_only": 0,
+      "holm_three_p_adjusted": 1,
+      "neither": 0,
+      "second": "legacy_fixed",
+      "second_only": 0
+    },
+    {
+      "both": 10,
+      "exact_two_sided_p_unadjusted": 0.5,
+      "first": "ucb_censor_safe_fixed",
+      "first_only": 2,
+      "holm_three_p_adjusted": 1,
+      "neither": 0,
+      "second": "ucb_objective_fixed",
+      "second_only": 0
+    },
+    {
+      "both": 12,
+      "exact_two_sided_p_unadjusted": 1,
+      "first": "ucb_censor_safe_fixed",
+      "first_only": 0,
+      "holm_three_p_adjusted": 1,
+      "neither": 0,
+      "second": "uniform_censor_safe_fixed",
+      "second_only": 0
+    }
+  ],
+  "audit_provenance": {
+    "original_workflow_url": "https://github.com/owlCoder/gadapt/actions/runs/39693907117",
+    "original_native_source_AC_job": 119546729567,
+    "original_artifact_url": "https://github.com/owlCoder/gadapt/actions/runs/39693907117/artifacts/12389128774",
+    "original_artifact_digest": "sha256:acd37d3008dafe453ffbc6caee7bbb3d12d96984f9db8eddc9f5abba5d29f977",
+    "preserved_original_48_I36_TRUE_AC_stdout_JSON_rows": true,
+    "verified_true_AC_sum_each_method_by_seed_unique_and_robust_all_three_criteria": true,
+    "no_replay_or_unobserved_solver_results_fabricated": true,
+    "synthetic_no_native_AC_preflight_tests_excluded_from_physical_count": true
+  }
+}
