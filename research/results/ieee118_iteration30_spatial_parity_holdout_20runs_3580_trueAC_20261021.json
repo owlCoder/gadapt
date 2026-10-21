@@ -1,0 +1,1594 @@
+{
+  "metadata": {
+    "actual_true_source_AC": 3580,
+    "engineering_early_reject_known_prior_art": true,
+    "environment": {
+      "pandas": "2.2.3",
+      "python": "3.12.15",
+      "scipy": "1.13.1"
+    },
+    "fixed_legacy_ga_and_I29_sequential_scenario_cost_UNMODIFIED": true,
+    "methods": [
+      "gadapt_full",
+      "gadapt_stop_fixed",
+      "gadapt_stop_adaptive",
+      "scipy_de_full",
+      "scipy_de_stop_fixed"
+    ],
+    "new_ac_opf_calls": 0,
+    "new_unseen_spatial_scenarios_not_new_grid": true,
+    "no_physics_solved_in_preflight": 0,
+    "original_source_load_construction": "PD QD original BUS_I odd/even factors 1.02/0.98",
+    "preregistered_max_true_source_AC": 3600,
+    "protocol": "research/ITERATION30_PROTOCOL.md",
+    "public_ieee118_not_real_industry": true,
+    "real_AC_per_run_max": 180,
+    "same_six_original_PV_buses": [
+      103,
+      32,
+      34,
+      92,
+      19,
+      74
+    ],
+    "seeds": [
+      2070,
+      2071,
+      2072,
+      2073
+    ],
+    "spatial_profiles": [
+      "nominal",
+      "odd_bus_heavier",
+      "even_bus_heavier"
+    ]
+  },
+  "runs": [
+    {
+      "actual_AC_per_scenario": [
+        60,
+        60,
+        60
+      ],
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        55,
+        48,
+        55
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        5,
+        12,
+        5
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 131196.8721640974,
+      "best_verified_robust_mean_economic_cost_or_null": 131196.8721640974,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.5738512758418245e-10,
+          1.5599522356714656e-10,
+          1.626866845073339e-10
+        ],
+        "per_scenario_original_cost": [
+          131193.01752154873,
+          130596.7803940769,
+          131800.8185766666
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        0.9887370311770605,
+        0.9707866277041741,
+        0.9866355671192373,
+        0.9941773999752935,
+        0.9680038080893487,
+        0.9635478517766722
+      ],
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 60,
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9032258064516129,
+        0.7903225806451613,
+        0.9032258064516129
+      ],
+      "first_verified_robust_true_AC_number": 138,
+      "max_native_AC_budget": 180,
+      "method": "gadapt_full",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 62,
+      "optimizer_stop_reason": "",
+      "optimizer_success_flag": true,
+      "post_budget_requests_without_AC": 2,
+      "runtime_seconds": 1.73916,
+      "seed": 2070,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 5
+    },
+    {
+      "actual_AC_per_scenario": [
+        174,
+        2,
+        2
+      ],
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        172,
+        0,
+        2
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        2,
+        2,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000101.1612474,
+      "best_fully_measured_penalized_score_or_null": null,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 172,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 0,
+      "early_screened_physically_infeasible_candidates": 174,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9829545454545454,
+        0.25,
+        0.75
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 180,
+      "method": "gadapt_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 176,
+      "optimizer_stop_reason": "",
+      "optimizer_success_flag": true,
+      "post_budget_requests_without_AC": 2,
+      "runtime_seconds": 1.7276,
+      "seed": 2070,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 344,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 0
+    },
+    {
+      "actual_AC_per_scenario": [
+        175,
+        1,
+        2
+      ],
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        173,
+        0,
+        2
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        2,
+        1,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000101.1612474,
+      "best_fully_measured_penalized_score_or_null": null,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 173,
+      "candidates_stopped_after_2_real_AC": 1,
+      "completely_evaluated_candidates": 0,
+      "early_screened_physically_infeasible_candidates": 175,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9830508474576272,
+        0.3333333333333333,
+        0.75
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 180,
+      "method": "gadapt_stop_adaptive",
+      "mode": "stop_adaptive",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 176,
+      "optimizer_stop_reason": "",
+      "optimizer_success_flag": true,
+      "post_budget_requests_without_AC": 1,
+      "runtime_seconds": 1.72979,
+      "seed": 2070,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 347,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 0
+    },
+    {
+      "actual_AC_per_scenario": [
+        60,
+        60,
+        60
+      ],
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        59,
+        58,
+        59
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        2,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 131197.53564404047,
+      "best_verified_robust_mean_economic_cost_or_null": 131197.53564404047,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.5842001007630134e-10,
+          1.575348508238588e-10,
+          1.5900538035266096e-10
+        ],
+        "per_scenario_original_cost": [
+          131193.68081767633,
+          130597.41582683264,
+          131801.5102876125
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        0.988885481108667,
+        0.9722990461368965,
+        0.9865644862831957,
+        0.9943805502156038,
+        0.9655667847695582,
+        0.9632560245596166
+      ],
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 60,
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.967741935483871,
+        0.9516129032258065,
+        0.967741935483871
+      ],
+      "first_verified_robust_true_AC_number": 138,
+      "max_native_AC_budget": 180,
+      "method": "scipy_de_full",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 390,
+      "optimizer_stop_reason": "Maximum number of iterations has been exceeded.",
+      "optimizer_success_flag": false,
+      "post_budget_requests_without_AC": 330,
+      "runtime_seconds": 1.75614,
+      "seed": 2070,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 1
+    },
+    {
+      "actual_AC_per_scenario": [
+        146,
+        16,
+        16
+      ],
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        130,
+        0,
+        1
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        16,
+        16,
+        15
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000053.9596227,
+      "best_fully_measured_penalized_score_or_null": 131196.96540277274,
+      "best_verified_robust_mean_economic_cost_or_null": 131196.96540277274,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.613670436437733e-10,
+          1.5828946309641197e-10,
+          1.620822705796588e-10
+        ],
+        "per_scenario_original_cost": [
+          131193.11115265498,
+          130596.90303298632,
+          131800.88202267693
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        0.9914867429780436,
+        0.9712622124278594,
+        0.9870189894024178,
+        0.9931767551688016,
+        0.96755136732672,
+        0.9632672354205334
+      ],
+      "candidates_stopped_after_1_real_AC": 130,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 15,
+      "early_screened_physically_infeasible_candidates": 131,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.8851351351351351,
+        0.05555555555555555,
+        0.1111111111111111
+      ],
+      "first_verified_robust_true_AC_number": 48,
+      "max_native_AC_budget": 180,
+      "method": "scipy_de_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 390,
+      "optimizer_stop_reason": "Maximum number of iterations has been exceeded.",
+      "optimizer_success_flag": false,
+      "post_budget_requests_without_AC": 244,
+      "runtime_seconds": 1.72253,
+      "seed": 2070,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 260,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 15
+    },
+    {
+      "actual_AC_per_scenario": [
+        60,
+        60,
+        60
+      ],
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        41,
+        44,
+        46
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        19,
+        16,
+        14
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 131197.73651089077,
+      "best_verified_robust_mean_economic_cost_or_null": 131197.73651089077,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.611296101254727e-10,
+          1.5887009785052578e-10,
+          1.6091161322923505e-10
+        ],
+        "per_scenario_original_cost": [
+          131193.88238913583,
+          130597.67846629384,
+          131801.6486772426
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        0.9915864211470559,
+        0.969269156810368,
+        0.9871502151667627,
+        0.9939007262720381,
+        0.9673645250266764,
+        0.9616498859517656
+      ],
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 60,
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.6774193548387096,
+        0.7258064516129032,
+        0.7580645161290323
+      ],
+      "first_verified_robust_true_AC_number": 111,
+      "max_native_AC_budget": 180,
+      "method": "gadapt_full",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 62,
+      "optimizer_stop_reason": "",
+      "optimizer_success_flag": true,
+      "post_budget_requests_without_AC": 2,
+      "runtime_seconds": 1.73386,
+      "seed": 2071,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 9
+    },
+    {
+      "actual_AC_per_scenario": [
+        83,
+        48,
+        47
+      ],
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        35,
+        1,
+        6
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        48,
+        47,
+        41
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000013.6358967,
+      "best_fully_measured_penalized_score_or_null": 131196.41119054295,
+      "best_verified_robust_mean_economic_cost_or_null": 131196.41119054295,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.625921024092642e-10,
+          1.6313435779181819e-10,
+          1.6462816172301117e-10
+        ],
+        "per_scenario_original_cost": [
+          131192.55657520465,
+          130596.30466326769,
+          131800.37233315644
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        0.9917606583007856,
+        0.97662254014037,
+        0.9871393100549295,
+        0.9941662513851476,
+        0.967572543966513,
+        0.9619295034688575
+      ],
+      "candidates_stopped_after_1_real_AC": 35,
+      "candidates_stopped_after_2_real_AC": 1,
+      "completely_evaluated_candidates": 41,
+      "early_screened_physically_infeasible_candidates": 42,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.4235294117647059,
+        0.04,
+        0.14285714285714285
+      ],
+      "first_verified_robust_true_AC_number": 31,
+      "max_native_AC_budget": 180,
+      "method": "gadapt_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 86,
+      "optimizer_stop_reason": "",
+      "optimizer_success_flag": true,
+      "post_budget_requests_without_AC": 3,
+      "runtime_seconds": 1.72448,
+      "seed": 2071,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 71,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 41
+    },
+    {
+      "actual_AC_per_scenario": [
+        85,
+        45,
+        50
+      ],
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        35,
+        1,
+        6
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        50,
+        44,
+        44
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000013.6358967,
+      "best_fully_measured_penalized_score_or_null": 131196.41119054295,
+      "best_verified_robust_mean_economic_cost_or_null": 131196.41119054295,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.625921024092642e-10,
+          1.6313435779181819e-10,
+          1.6462816172301117e-10
+        ],
+        "per_scenario_original_cost": [
+          131192.55657520465,
+          130596.30466326769,
+          131800.37233315644
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        0.9917606583007856,
+        0.97662254014037,
+        0.9871393100549295,
+        0.9941662513851476,
+        0.967572543966513,
+        0.9619295034688575
+      ],
+      "candidates_stopped_after_1_real_AC": 35,
+      "candidates_stopped_after_2_real_AC": 5,
+      "completely_evaluated_candidates": 43,
+      "early_screened_physically_infeasible_candidates": 42,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.41379310344827586,
+        0.0425531914893617,
+        0.1346153846153846
+      ],
+      "first_verified_robust_true_AC_number": 31,
+      "max_native_AC_budget": 180,
+      "method": "gadapt_stop_adaptive",
+      "mode": "stop_adaptive",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 86,
+      "optimizer_stop_reason": "",
+      "optimizer_success_flag": true,
+      "post_budget_requests_without_AC": 1,
+      "runtime_seconds": 1.74755,
+      "seed": 2071,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 75,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 43
+    },
+    {
+      "actual_AC_per_scenario": [
+        60,
+        60,
+        60
+      ],
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        59,
+        59,
+        59
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        1,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 131196.5833806692,
+      "best_verified_robust_mean_economic_cost_or_null": 131196.5833806692,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.6275323104651957e-10,
+          1.536345325262776e-10,
+          1.6053583795153242e-10
+        ],
+        "per_scenario_original_cost": [
+          131192.72882155894,
+          130596.48607831734,
+          131800.53524213133
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        0.9919013845981492,
+        0.9738305548266515,
+        0.9866477503314135,
+        0.9940497650524067,
+        0.9650799019659233,
+        0.9634131339191804
+      ],
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 60,
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.967741935483871,
+        0.967741935483871,
+        0.967741935483871
+      ],
+      "first_verified_robust_true_AC_number": 63,
+      "max_native_AC_budget": 180,
+      "method": "scipy_de_full",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 390,
+      "optimizer_stop_reason": "Maximum number of iterations has been exceeded.",
+      "optimizer_success_flag": false,
+      "post_budget_requests_without_AC": 330,
+      "runtime_seconds": 1.74216,
+      "seed": 2071,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 1
+    },
+    {
+      "actual_AC_per_scenario": [
+        153,
+        13,
+        12
+      ],
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        140,
+        1,
+        2
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        13,
+        12,
+        10
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000088.3627355,
+      "best_fully_measured_penalized_score_or_null": 131196.3383881967,
+      "best_verified_robust_mean_economic_cost_or_null": 131196.3383881967,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.60434516604361e-10,
+          1.570362728241337e-10,
+          1.5822909796275393e-10
+        ],
+        "per_scenario_original_cost": [
+          131192.48354723965,
+          130596.22819526939,
+          131800.30342208102
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        0.9892344769962399,
+        0.9725076798709097,
+        0.9861274112511952,
+        0.9943470780202611,
+        0.966028958481785,
+        0.9646698544339943
+      ],
+      "candidates_stopped_after_1_real_AC": 140,
+      "candidates_stopped_after_2_real_AC": 1,
+      "completely_evaluated_candidates": 10,
+      "early_screened_physically_infeasible_candidates": 143,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9096774193548387,
+        0.13333333333333333,
+        0.21428571428571427
+      ],
+      "first_verified_robust_true_AC_number": 23,
+      "max_native_AC_budget": 180,
+      "method": "scipy_de_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 390,
+      "optimizer_stop_reason": "Maximum number of iterations has been exceeded.",
+      "optimizer_success_flag": false,
+      "post_budget_requests_without_AC": 237,
+      "runtime_seconds": 1.71997,
+      "seed": 2071,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 281,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 10
+    },
+    {
+      "actual_AC_per_scenario": [
+        60,
+        60,
+        60
+      ],
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        60,
+        60,
+        60
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 146633.0138621317,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 60,
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9838709677419355,
+        0.9838709677419355,
+        0.9838709677419355
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 180,
+      "method": "gadapt_full",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 62,
+      "optimizer_stop_reason": "",
+      "optimizer_success_flag": true,
+      "post_budget_requests_without_AC": 2,
+      "runtime_seconds": 1.73602,
+      "seed": 2072,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0
+    },
+    {
+      "actual_AC_per_scenario": [
+        136,
+        25,
+        17
+      ],
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        111,
+        8,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        25,
+        17,
+        17
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000151.2505912,
+      "best_fully_measured_penalized_score_or_null": 131198.93668400773,
+      "best_verified_robust_mean_economic_cost_or_null": 131198.93668400773,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.566660022863992e-10,
+          1.6109867296588725e-10,
+          1.6124160956139657e-10
+        ],
+        "per_scenario_original_cost": [
+          131195.08166638442,
+          130598.78752966193,
+          131802.94085597686
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        0.9881489966553056,
+        0.9752976977866815,
+        0.9861960715869166,
+        0.9930757023020045,
+        0.9669702626920041,
+        0.9635249467623932
+      ],
+      "candidates_stopped_after_1_real_AC": 111,
+      "candidates_stopped_after_2_real_AC": 8,
+      "completely_evaluated_candidates": 17,
+      "early_screened_physically_infeasible_candidates": 119,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.8115942028985508,
+        0.3333333333333333,
+        0.05263157894736842
+      ],
+      "first_verified_robust_true_AC_number": 103,
+      "max_native_AC_budget": 180,
+      "method": "gadapt_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 140,
+      "optimizer_stop_reason": "",
+      "optimizer_success_flag": true,
+      "post_budget_requests_without_AC": 4,
+      "runtime_seconds": 1.73113,
+      "seed": 2072,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 230,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 17
+    },
+    {
+      "actual_AC_per_scenario": [
+        136,
+        25,
+        17
+      ],
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        111,
+        8,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        25,
+        17,
+        17
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000151.2505912,
+      "best_fully_measured_penalized_score_or_null": 131198.93668400773,
+      "best_verified_robust_mean_economic_cost_or_null": 131198.93668400773,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.566660022863992e-10,
+          1.6109867296588725e-10,
+          1.6124160956139657e-10
+        ],
+        "per_scenario_original_cost": [
+          131195.08166638442,
+          130598.78752966193,
+          131802.94085597686
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        0.9881489966553056,
+        0.9752976977866815,
+        0.9861960715869166,
+        0.9930757023020045,
+        0.9669702626920041,
+        0.9635249467623932
+      ],
+      "candidates_stopped_after_1_real_AC": 111,
+      "candidates_stopped_after_2_real_AC": 8,
+      "completely_evaluated_candidates": 17,
+      "early_screened_physically_infeasible_candidates": 119,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.8115942028985508,
+        0.3333333333333333,
+        0.05263157894736842
+      ],
+      "first_verified_robust_true_AC_number": 103,
+      "max_native_AC_budget": 180,
+      "method": "gadapt_stop_adaptive",
+      "mode": "stop_adaptive",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 140,
+      "optimizer_stop_reason": "",
+      "optimizer_success_flag": true,
+      "post_budget_requests_without_AC": 4,
+      "runtime_seconds": 1.75942,
+      "seed": 2072,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 230,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 17
+    },
+    {
+      "actual_AC_per_scenario": [
+        60,
+        60,
+        60
+      ],
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        60,
+        60,
+        60
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 136305.7576289466,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 60,
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9838709677419355,
+        0.9838709677419355,
+        0.9838709677419355
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 180,
+      "method": "scipy_de_full",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 390,
+      "optimizer_stop_reason": "Maximum number of iterations has been exceeded.",
+      "optimizer_success_flag": false,
+      "post_budget_requests_without_AC": 330,
+      "runtime_seconds": 1.73166,
+      "seed": 2072,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0
+    },
+    {
+      "actual_AC_per_scenario": [
+        148,
+        17,
+        15
+      ],
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        131,
+        2,
+        3
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        17,
+        15,
+        12
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000054.793218,
+      "best_fully_measured_penalized_score_or_null": 131197.5574992654,
+      "best_verified_robust_mean_economic_cost_or_null": 131197.5574992654,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.594538104581426e-10,
+          1.5384875232060196e-10,
+          1.5981928315222179e-10
+        ],
+        "per_scenario_original_cost": [
+          131193.70266908105,
+          130597.44105336194,
+          131801.52877535313
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        0.9885556647231865,
+        0.9734290004937497,
+        0.986373736614145,
+        0.9932072962937422,
+        0.9676148815052755,
+        0.9644338825723393
+      ],
+      "candidates_stopped_after_1_real_AC": 131,
+      "candidates_stopped_after_2_real_AC": 2,
+      "completely_evaluated_candidates": 12,
+      "early_screened_physically_infeasible_candidates": 136,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.88,
+        0.15789473684210525,
+        0.23529411764705882
+      ],
+      "first_verified_robust_true_AC_number": 67,
+      "max_native_AC_budget": 180,
+      "method": "scipy_de_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 390,
+      "optimizer_stop_reason": "Maximum number of iterations has been exceeded.",
+      "optimizer_success_flag": false,
+      "post_budget_requests_without_AC": 242,
+      "runtime_seconds": 1.74284,
+      "seed": 2072,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 264,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 12
+    },
+    {
+      "actual_AC_per_scenario": [
+        60,
+        60,
+        60
+      ],
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        60,
+        60,
+        60
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 135917.2840435481,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 60,
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9838709677419355,
+        0.9838709677419355,
+        0.9838709677419355
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 180,
+      "method": "gadapt_full",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 62,
+      "optimizer_stop_reason": "",
+      "optimizer_success_flag": true,
+      "post_budget_requests_without_AC": 2,
+      "runtime_seconds": 1.72423,
+      "seed": 2073,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0
+    },
+    {
+      "actual_AC_per_scenario": [
+        178,
+        0,
+        0
+      ],
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        178,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000610.2292058,
+      "best_fully_measured_penalized_score_or_null": null,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 178,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 0,
+      "early_screened_physically_infeasible_candidates": 178,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9944444444444445,
+        0.5,
+        0.5
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 180,
+      "method": "gadapt_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 182,
+      "optimizer_stop_reason": "",
+      "optimizer_success_flag": true,
+      "post_budget_requests_without_AC": 4,
+      "runtime_seconds": 1.74328,
+      "seed": 2073,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 356,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 0
+    },
+    {
+      "actual_AC_per_scenario": [
+        178,
+        0,
+        0
+      ],
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        178,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000610.2292058,
+      "best_fully_measured_penalized_score_or_null": null,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 178,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 0,
+      "early_screened_physically_infeasible_candidates": 178,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9944444444444445,
+        0.5,
+        0.5
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 180,
+      "method": "gadapt_stop_adaptive",
+      "mode": "stop_adaptive",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 182,
+      "optimizer_stop_reason": "",
+      "optimizer_success_flag": true,
+      "post_budget_requests_without_AC": 4,
+      "runtime_seconds": 1.72747,
+      "seed": 2073,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 356,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 0
+    },
+    {
+      "actual_AC_per_scenario": [
+        60,
+        60,
+        60
+      ],
+      "actual_native_AC_calls": 180,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        59,
+        59,
+        59
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        1,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 131199.69596843317,
+      "best_verified_robust_mean_economic_cost_or_null": 131199.69596843317,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.5888839136917145e-10,
+          1.5971936240666215e-10,
+          1.6514244900023507e-10
+        ],
+        "per_scenario_original_cost": [
+          131195.84162310854,
+          130599.59966166224,
+          131803.6466205287
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        0.9909149418028167,
+        0.9734246735633785,
+        0.9871398225356233,
+        0.9924054598087709,
+        0.9674457441004107,
+        0.9607377822421369
+      ],
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 60,
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.967741935483871,
+        0.967741935483871,
+        0.967741935483871
+      ],
+      "first_verified_robust_true_AC_number": 117,
+      "max_native_AC_budget": 180,
+      "method": "scipy_de_full",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 390,
+      "optimizer_stop_reason": "Maximum number of iterations has been exceeded.",
+      "optimizer_success_flag": false,
+      "post_budget_requests_without_AC": 330,
+      "runtime_seconds": 1.73241,
+      "seed": 2073,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 1
+    },
+    {
+      "actual_AC_per_scenario": [
+        161,
+        9,
+        8
+      ],
+      "actual_native_AC_calls": 178,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        152,
+        1,
+        1
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        9,
+        8,
+        7
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000195.2553344,
+      "best_fully_measured_penalized_score_or_null": 131197.44611656124,
+      "best_verified_robust_mean_economic_cost_or_null": 131197.44611656124,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          1.605595462271409e-10,
+          1.5520737514170378e-10,
+          1.624182119216473e-10
+        ],
+        "per_scenario_original_cost": [
+          131193.59108008834,
+          130597.29260517575,
+          131801.45466441964
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        0.9901879513176659,
+        0.9765734203714754,
+        0.9864471098770036,
+        0.9944295400538059,
+        0.9645073703335488,
+        0.9638526024114669
+      ],
+      "candidates_stopped_after_1_real_AC": 152,
+      "candidates_stopped_after_2_real_AC": 1,
+      "completely_evaluated_candidates": 7,
+      "early_screened_physically_infeasible_candidates": 154,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9386503067484663,
+        0.18181818181818182,
+        0.2
+      ],
+      "first_verified_robust_true_AC_number": 107,
+      "max_native_AC_budget": 180,
+      "method": "scipy_de_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 390,
+      "optimizer_stop_reason": "Maximum number of iterations has been exceeded.",
+      "optimizer_success_flag": false,
+      "post_budget_requests_without_AC": 229,
+      "runtime_seconds": 1.71633,
+      "seed": 2073,
+      "solver_original_bus_parity_scenario_holdout": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_bus_heavier",
+        "even_bus_heavier"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 305,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 7
+    }
+  ],
+  "summary": {
+    "gadapt_full": {
+      "actually_all_three_source_feasible_cases": 14,
+      "best_verified_original_mean_cost_or_null": 131196.8721640974,
+      "complete_all_three_scenario_cases": 240,
+      "median_verified_cost_conditional_only": 131197.30433749408,
+      "partial_verified_physical_infeasible_screens": 0,
+      "runs": 4,
+      "runs_with_actual_all_spatial_scenarios_feasible": 2,
+      "total_truly_attempted_original_AC": 720,
+      "true_objective_requests": 248,
+      "true_observed_AC_per_spatial_profile": [
+        240,
+        240,
+        240
+      ],
+      "unobserved_original_ac_that_were_NEVER_run": 0
+    },
+    "gadapt_stop_adaptive": {
+      "actually_all_three_source_feasible_cases": 60,
+      "best_verified_original_mean_cost_or_null": 131196.41119054295,
+      "complete_all_three_scenario_cases": 60,
+      "median_verified_cost_conditional_only": 131197.67393727534,
+      "partial_verified_physical_infeasible_screens": 514,
+      "runs": 4,
+      "runs_with_actual_all_spatial_scenarios_feasible": 2,
+      "total_truly_attempted_original_AC": 714,
+      "true_objective_requests": 584,
+      "true_observed_AC_per_spatial_profile": [
+        574,
+        71,
+        69
+      ],
+      "unobserved_original_ac_that_were_NEVER_run": 1008
+    },
+    "gadapt_stop_fixed": {
+      "actually_all_three_source_feasible_cases": 58,
+      "best_verified_original_mean_cost_or_null": 131196.41119054295,
+      "complete_all_three_scenario_cases": 58,
+      "median_verified_cost_conditional_only": 131197.67393727534,
+      "partial_verified_physical_infeasible_screens": 513,
+      "runs": 4,
+      "runs_with_actual_all_spatial_scenarios_feasible": 2,
+      "total_truly_attempted_original_AC": 712,
+      "true_objective_requests": 584,
+      "true_observed_AC_per_spatial_profile": [
+        571,
+        75,
+        66
+      ],
+      "unobserved_original_ac_that_were_NEVER_run": 1001
+    },
+    "scipy_de_full": {
+      "actually_all_three_source_feasible_cases": 3,
+      "best_verified_original_mean_cost_or_null": 131196.5833806692,
+      "complete_all_three_scenario_cases": 240,
+      "median_verified_cost_conditional_only": 131197.53564404047,
+      "partial_verified_physical_infeasible_screens": 0,
+      "runs": 4,
+      "runs_with_actual_all_spatial_scenarios_feasible": 3,
+      "total_truly_attempted_original_AC": 720,
+      "true_objective_requests": 1560,
+      "true_observed_AC_per_spatial_profile": [
+        240,
+        240,
+        240
+      ],
+      "unobserved_original_ac_that_were_NEVER_run": 0
+    },
+    "scipy_de_stop_fixed": {
+      "actually_all_three_source_feasible_cases": 44,
+      "best_verified_original_mean_cost_or_null": 131196.3383881967,
+      "complete_all_three_scenario_cases": 44,
+      "median_verified_cost_conditional_only": 131197.20575966698,
+      "partial_verified_physical_infeasible_screens": 564,
+      "runs": 4,
+      "runs_with_actual_all_spatial_scenarios_feasible": 4,
+      "total_truly_attempted_original_AC": 714,
+      "true_objective_requests": 1560,
+      "true_observed_AC_per_spatial_profile": [
+        608,
+        55,
+        51
+      ],
+      "unobserved_original_ac_that_were_NEVER_run": 1110
+    }
+  }
+}
