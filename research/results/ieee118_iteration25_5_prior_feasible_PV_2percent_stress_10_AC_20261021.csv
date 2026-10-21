@@ -1,0 +1,11 @@
+load_factor,prior_controller_name,prior_source_seed,actual_original_ac_pf_call,solver_converged,solver_error,source_stress_feasible,original_Q_offender_count,original_Q_total_excess_mvar,original_P_offender_count,original_P_total_excess_mw,original_V_bus_offender_count,original_positive_Rate_A_overloads,maximum_AC_KCL_mva,stress_feasible_economic_cost
+0.98,historic_i23_alpha08,,1,True,,False,2,2.2840545014287663,0,0,0,0,2.083840333366938e-10,
+0.98,gadapt_legacy,2026,2,True,,False,3,2.446490955400197,0,0,0,0,2.071250065388404e-10,
+0.98,scipy_de,2027,3,True,,False,2,2.092576371088878,0,0,0,0,2.0274722705923226e-10,
+0.98,random_search,2028,4,True,,False,1,1.5516834518164728,0,0,0,0,2.0563089460915388e-10,
+0.98,bounded_powell,2026,5,True,,False,3,4.538300119513632,0,0,0,0,2.0807160372850268e-10,
+1.02,historic_i23_alpha08,,6,True,,True,0,0,0,0,0,0,1.5896207983163607e-10,134993.69846238446
+1.02,gadapt_legacy,2026,7,True,,False,1,0.22184456318284873,0,0,0,0,1.613756032506713e-10,
+1.02,scipy_de,2027,8,True,,False,1,0.7611442942377593,0,0,0,0,1.59126492636339e-10,
+1.02,random_search,2028,9,True,,True,0,0,0,0,0,0,1.60203123160311e-10,134991.35517546165
+1.02,bounded_powell,2026,10,True,,False,1,0.9474327311313964,0,0,0,0,1.6038484541067578e-10,
