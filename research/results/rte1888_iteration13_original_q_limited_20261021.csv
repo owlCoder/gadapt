@@ -1,0 +1,2 @@
+scenario,actual_native_ac_call,solver_converged,solver_error,limited_traceback,physically_feasible,original_slack_q_mvar,voltage_under_pu,generator_p_below_mw,generator_q_violation_mvar,source_rate_a_violation
+iteration13_native_original_matpower_q_enforced,1,True,,,False,-1.0,0.052373190922173074,54.949999999999996,1.376582181578101e-10,0.0
