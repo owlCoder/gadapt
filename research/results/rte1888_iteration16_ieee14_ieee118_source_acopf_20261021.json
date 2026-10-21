@@ -1,0 +1,177 @@
+{
+  "metadata": {
+    "algorithm": "PYPOWER native PIPS AC OPF 560",
+    "gadapt_algorithm_evaluated": false,
+    "limits": "per-generator PG QG, bus VM, both terminal MVA RATE_A and complex KCL",
+    "pandas": "2.2.3",
+    "protocol": "research/ITERATION16_PROTOCOL.md",
+    "python": "3.12.15",
+    "real_native_ac_opf_calls": 2,
+    "scipy": "1.13.1",
+    "source": "PYPOWER 5.1.19 case14 and case118",
+    "source_data_changed": false,
+    "target": "two original public IEEE test cases, NOT original RTE1888"
+  },
+  "runs": [
+    {
+      "actual_ac_opf_call": 1,
+      "elapsed_seconds": 0.29587,
+      "physical_validation": {
+        "AC_nodal_balance": {
+          "buses_nodal_mismatch_over_1e_3_mva": 0,
+          "max_bus_nodal_mismatch_mva": 3.610444949709616e-08,
+          "total_bus_nodal_mismatch_mva": 9.022453939802353e-08
+        },
+        "bus_voltage_bounds_pu": {
+          "above_limit_count": 0,
+          "above_limit_total": 0.0,
+          "below_limit_count": 0,
+          "below_limit_total": 0.0,
+          "max_above_limit": 0.0,
+          "max_below_limit": 0.0
+        },
+        "independently_verified_ac_opf": true,
+        "individual_generator_p_bounds_mw": {
+          "above_limit_count": 0,
+          "above_limit_total": 0.0,
+          "below_limit_count": 0,
+          "below_limit_total": 0.0,
+          "max_above_limit": 0.0,
+          "max_below_limit": 0.0
+        },
+        "individual_generator_q_bounds_mvar": {
+          "above_limit_count": 0,
+          "above_limit_total": 0.0,
+          "below_limit_count": 0,
+          "below_limit_total": 0.0,
+          "max_above_limit": 0.0,
+          "max_below_limit": 0.0
+        },
+        "max_original_rate_a_terminal_mva_excess": 0.0,
+        "original_source_economic_cost": {
+          "absolute_objective_recomputation_disagreement": 0.0,
+          "objective_native_reported": 8081.526392989456,
+          "objective_original_gencost_recomputed": 8081.526392989456,
+          "original_economic_objective_matches": true
+        },
+        "posthoc_constraint_checks": {
+          "AC_nodal_complex_balance": true,
+          "both_branch_ends_positive_RATE_A": true,
+          "bus_voltage_bounds": true,
+          "generator_P": true,
+          "generator_Q": true,
+          "original_bus_gen_branch_ids": true,
+          "original_polynomial_cost": true
+        },
+        "source": {
+          "original_active_gen_count": 5,
+          "original_branch_count": 20,
+          "original_bus_count": 14,
+          "original_gen_count": 5,
+          "original_positive_rated_branches": 20,
+          "original_unrated_branches": 0
+        },
+        "source_rating_both_ends": {
+          "max_source_rate_a_loading_percent": 1.311366071093445,
+          "overloaded_branches": 0,
+          "rated_active_branches": 20,
+          "sum_relative_rating_excess": 0.0,
+          "unrated_active_branches": 0
+        },
+        "sum_branch_real_losses_MW_not_optimization_objective": 9.287193112537587
+      },
+      "posthoc_validator_error": "",
+      "scenario": "case14",
+      "solver_error": "",
+      "solver_success": true,
+      "source": {
+        "original_active_gen_count": 5,
+        "original_branch_count": 20,
+        "original_bus_count": 14,
+        "original_gen_count": 5,
+        "original_positive_rated_branches": 20,
+        "original_unrated_branches": 0
+      }
+    },
+    {
+      "actual_ac_opf_call": 2,
+      "elapsed_seconds": 0.5407,
+      "physical_validation": {
+        "AC_nodal_balance": {
+          "buses_nodal_mismatch_over_1e_3_mva": 0,
+          "max_bus_nodal_mismatch_mva": 6.593449309514048e-05,
+          "total_bus_nodal_mismatch_mva": 0.0002471287235209728
+        },
+        "bus_voltage_bounds_pu": {
+          "above_limit_count": 0,
+          "above_limit_total": 0.0,
+          "below_limit_count": 0,
+          "below_limit_total": 0.0,
+          "max_above_limit": 0.0,
+          "max_below_limit": 0.0
+        },
+        "independently_verified_ac_opf": true,
+        "individual_generator_p_bounds_mw": {
+          "above_limit_count": 0,
+          "above_limit_total": 0.0,
+          "below_limit_count": 0,
+          "below_limit_total": 0.0,
+          "max_above_limit": 0.0,
+          "max_below_limit": 0.0
+        },
+        "individual_generator_q_bounds_mvar": {
+          "above_limit_count": 0,
+          "above_limit_total": 0.0,
+          "below_limit_count": 0,
+          "below_limit_total": 0.0,
+          "max_above_limit": 0.0,
+          "max_below_limit": 0.0
+        },
+        "max_original_rate_a_terminal_mva_excess": 0.0,
+        "original_source_economic_cost": {
+          "absolute_objective_recomputation_disagreement": 0.0,
+          "objective_native_reported": 129660.68639034468,
+          "objective_original_gencost_recomputed": 129660.68639034468,
+          "original_economic_objective_matches": true
+        },
+        "posthoc_constraint_checks": {
+          "AC_nodal_complex_balance": true,
+          "both_branch_ends_positive_RATE_A": true,
+          "bus_voltage_bounds": true,
+          "generator_P": true,
+          "generator_Q": true,
+          "original_bus_gen_branch_ids": true,
+          "original_polynomial_cost": true
+        },
+        "source": {
+          "original_active_gen_count": 54,
+          "original_branch_count": 186,
+          "original_bus_count": 118,
+          "original_gen_count": 54,
+          "original_positive_rated_branches": 186,
+          "original_unrated_branches": 0
+        },
+        "source_rating_both_ends": {
+          "max_source_rate_a_loading_percent": 4.182310130345804,
+          "overloaded_branches": 0,
+          "rated_active_branches": 186,
+          "sum_relative_rating_excess": 0.0,
+          "unrated_active_branches": 0
+        },
+        "sum_branch_real_losses_MW_not_optimization_objective": 77.40099065782852
+      },
+      "posthoc_validator_error": "",
+      "scenario": "case118",
+      "solver_error": "",
+      "solver_success": true,
+      "source": {
+        "original_active_gen_count": 54,
+        "original_branch_count": 186,
+        "original_bus_count": 118,
+        "original_gen_count": 54,
+        "original_positive_rated_branches": 186,
+        "original_unrated_branches": 0
+      }
+    }
+  ]
+}
