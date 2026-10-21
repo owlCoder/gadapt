@@ -1,0 +1,3 @@
+load_factor,seed,search_evaluations,extra_validation_pf_calls,feasible,independently_verified_MW,best_penalized,verified_voltage_excess,verified_reactive_excess_MVAr,verified_branch_excess_MVA,chosen_gen_VG_vector,attempts_after_budget,local_starts,local_termination_warnings,random_filler_evaluations,first_stage_error,seconds
+1,20261021,3600,1,true,13.497263522715254,13.497492685578857,0,0.06851489594520999,0,1.060000000000;1.037610890960;1.005427857706;1.060000000000;1.060000000000,2,20,0,0,,43.3545
+1.1,20261021,3600,1,true,16.791946841097882,16.792376475595592,0,0.09494591363122674,0,1.060000000000;1.035674879741;1.001241617423;1.060000000000;1.060000000000,2,15,0,0,,43.6601
