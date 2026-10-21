@@ -14,12 +14,12 @@ Unapred registrovani eksperiment: [ITERATION10_PROTOCOL.md](ITERATION10_PROTOCOL
 | Prekoračenja pozitivnih izv. RATE_A MVA | 0 | 0 |
 | Ostvareni slack P (MW) | 55,005838 | 0,855064 |
 | Ostvareni slack Q (MVAr) | 13,303711 | **1.384,477357** |
-| Izmereni P deficit ispod sopstvenog prijavljenog Pmin (MW) | **32,994162** | 0 |
+| Ext-grid-only P deficit prema njegovoj pandapower min granici (MW) | **32,994162** | 0 |
 | Izmereni Q višak iznad sopstvenog prijavljenog Qmax (MVAr) | 0 | **1.383,477357** |
 | Suma gubitaka (MW; nije izvodljiv optimum) | 990,915838 | 981,265064 |
 | Broj fizičkih AC poziva | 1 | 1 |
 
-**Kritično:** oba Newton–Raphson postupka konvergiraju, ali nijedna varijanta nije izvodljiv potpuni AC-OPF. Prva krši čak i prijavljeno pandapower ograničenje minimalnog slack P (naznačeno 88 MW naspram ostvareno 55,005838 MW), uz naponska kršenja. Alternativna varijanta na originalnom izvoru BUS1320 mora da obezbedi **1.384,477 MVAr**, dok jedini originalni generator na tom bus-u (2019, red #298) ima izvorno zadat QMAX=**1 MVAr**; kršenje iznosi 1.383,477 MVAr. Ove dve formulacije imaju različit ext/grid uređaj i ne smeju se neposredno porediti kao dva validna, izvodljiva optimuma.
+**Kritično:** oba Newton–Raphson postupka konvergiraju, ali nijedna varijanta nije izvodljiv potpuni AC-OPF. Prva ima pandapower ext_grid-only P=55,005838 MW, što je 32,994162 MW manje od *njegovog* prijavljenog minimuma 88 MW; **ali to nije izvorni agregatni Pmin dva generatora na BUS1268**. Naknadna (jasno označena post-hoc) provera izvornog zbirnog bus P nalazi **99,505838 MW prema originalnom dozvoljenom intervalu [88, 90] MW**, dakle originalni agregatni **Pmax prekoračen je za 9,505838 MW**, uz naponska kršenja. Alternativna varijanta na originalnom izvoru BUS1320 mora da obezbedi **1.384,477 MVAr**, dok jedini originalni generator na tom bus-u (2019, red #298) ima izvorno zadat QMAX=**1 MVAr**; kršenje iznosi 1.383,477 MVAr. Ove dve formulacije imaju različit ext/grid uređaj i ne smeju se neposredno porediti kao dva validna, izvodljiva optimuma.
 
 ## Kako je scenario konstruisan
 
@@ -47,6 +47,19 @@ CI je uspešan i čuva rezultate čak i kod potencijalnog neuspeha solvera. Inst
 
 ## Nepristrasan naučni zaključak za mentora
 
-Za disertaciju o **stvarnom GAdapt-u prilagođenom industrijski relevantnim problemima** potrebno je, pre bilo kakve tvrdnje o superiornosti, uvesti puna fizička P/Q ograničenja i proveriti originalnost/konverziju OPF modela. Numerički konvergentna AC simulacija nije dokaz fizičke izvodljivosti; obostrani pomak reference rešio je neke naponske povrede ali izazvao ogromno prekoračenje Q na originalnom slack generatoru. U originalnom konvertovanom slučaju postoji i Pmin kršenje eksternog uređaja.
+Za disertaciju o **stvarnom GAdapt-u prilagođenom industrijski relevantnim problemima** potrebno je, pre bilo kakve tvrdnje o superiornosti, uvesti puna fizička P/Q ograničenja i proveriti originalnost/konverziju OPF modela. Numerički konvergentna AC simulacija nije dokaz fizičke izvodljivosti; obostrani pomak reference rešio je neke naponske povrede ali izazvao ogromno prekoračenje Q na originalnom slack generatoru. U originalnom konvertovanom slučaju eksterni uređaj samostalno odstupa od sopstvenog Pmin, ali za poređenje sa **izvornim MATPOWER agregatom dva generatora** relevantan je zbir sa preostalim sgen: taj zbir premašuje originalni Pmax za 9,505838 MW.
 
 Samo na osnovu dva slučaja ne postoji dokaz da originalni MATPOWER AC-OPF nema rešenje — preraspodela aktivne/reaktivne snage, svi kontrolni resursi, sve konverzije i nezavisan OPF solver nisu istraženi. Nije pronađen originalan poboljšan GAdapt, ostvareni izvodljivi optimum, globalno optimalan režim, niti dokaz industrijske pouzdanosti.
+
+## Dopuna — post-hoc ispravka interpretacije agregatnih P granica (bez novih AC poziva)
+
+Nakon uvida u dva stvarna izlaza posebno je provereno da originalna MATPOWER sabirnica **1268** ima **dva** aktivna generatora, svaki PMIN=44 MW, PMAX=45 MW i početni PG=44,5 MW. Zato se **konvertovani ext_grid P ne sme sam porediti sa originalnom zbirnom Pmin=88 MW** bez preostalog generatora/sgen.
+
+- Originalni konvertovani AC slučaj: ext_grid P=55,005838 + već postojeći sgen P=44,5 daje **99,505838 MW**; prema izvornom zbirnom opsegu **[88, 90] MW** to je **9,505838 MW iznad Pmax**. Prethodno navedeni deficit ext-grid-only prema njegovoj zasebnoj pandapower granici je tačan kao odit konverzije, ali nije pravilan izvorni agregatni test.
+- Alternativni slučaj sa originalnom slack lokacijom: novi gen P=44,5 + zadržani sgen P=44,5 daje **89,0 MW**, unutar izvornog opsega BUS1268; istovremeno **slack BUS1320 Q=1.384,477 MVAr** i dalje krši izvorni QMAX=1 MVAr za 1.383,477 MVAr.
+
+Ova dopuna je **post-hoc interpretativna korekcija, a ne preregistrovan treći eksperiment**. Zasnovana je isključivo na dva već arhivirana AC merenja, izvornom generator CSV-u i preflight-u aktivnog sgen od 44,5 MW: **0 dodatnih AC poziva**.
+
+[Izvorni agregatni P JSON](results/rte1888_iteration10_posthoc_source_bus1268_p_20261021.json) · [Reproduktivni analizator](iteration10_posthoc_source_p.py) · [unit testovi](test_iteration10_posthoc_source_p.py) · [uspešan CI #39626732201](https://github.com/owlCoder/gadapt/actions/runs/39626732201).
+
+I ovaj agregat je samo deo fizičkog modela; nisu proverene sve moguće naponske, Q, PV/PQ, konverzione i originalne jednačine. **Ni jedno stanje nije validirani puni izvodljivi AC-OPF.**
