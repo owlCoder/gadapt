@@ -14,6 +14,12 @@ on:
 jobs:
   counted-physical-ac:
     runs-on: ubuntu-latest
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
@@ -36,7 +42,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: iteration6-ieee118-physical-budget-six-arm-raw
+          name: iteration6-ieee118-seeded-thread1-six-arm-raw
           path: |
             iteration6_ieee118.csv
             iteration6_ieee118.log
