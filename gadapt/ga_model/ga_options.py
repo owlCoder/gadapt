@@ -25,6 +25,7 @@ class GAOptions:
         self.mutation_credit_assignment = ga.mutation_credit_assignment
         self.mutation_evaluation_counter = ga.mutation_evaluation_counter
         self.mutation_violation_function = ga.mutation_violation_function
+        self.mutation_scenario_count = ga.mutation_scenario_count
         self.operator_credit_controller = None
         self.adaptive_immigration_patience = ga.adaptive_immigration_patience
         self.adaptive_immigration_percentage = ga.adaptive_immigration_percentage
