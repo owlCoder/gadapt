@@ -1,0 +1,56 @@
+name: Iteration 15 original MATPOWER AC-OPF PIPS step-control diagnostics
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION15_PROTOCOL.md"
+      - "research/iteration15_source_opf_solver_diagnostics.py"
+      - "research/test_iteration15_source_opf_solver_diagnostics.py"
+      - ".github/workflows/iteration15-original-acopf-diagnostics.yml"
+  workflow_dispatch:
+
+jobs:
+  native-source-opf-step-control:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install identical pinned AC-OPF solver dependencies
+        run: python -m pip install -e . 'pypower==5.1.19' 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Unit test PIPS failure codes and source physical acceptance conditions
+        run: python -m unittest -v research.test_iteration15_source_opf_solver_diagnostics research.test_iteration14_original_acopf
+      - name: Run at most two real AC-OPF calls with PIPS step-control 565
+        run: python -m research.iteration15_source_opf_solver_diagnostics --json iteration15_native_opf.json --csv iteration15_native_opf.csv
+      - name: Emit raw CSV and JSON for independent exact archive on main
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          for kind,path in (("CSV","iteration15_native_opf.csv"),("JSON","iteration15_native_opf.json")):
+              f=Path(path)
+              if f.is_file():
+                  payload=base64.b64encode(f.read_bytes()).decode("ascii")
+                  for n,pos in enumerate(range(0,len(payload),2048)):
+                      print("I15_ARCHIVE",kind,n,payload[pos:pos+2048],flush=True)
+              else:
+                  print("I15_MISSING",kind,flush=True)
+          PY
+      - name: Archive original OPF solver attempt even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration15-original-RTE1888-PIPS-step-controlled-OPF
+          path: |
+            iteration15_native_opf.csv
+            iteration15_native_opf.json
