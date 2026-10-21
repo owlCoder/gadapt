@@ -61,9 +61,9 @@ contribution.
 Source (corrected no-physical-evaluation credit): https://github.com/owlCoder/gadapt/actions/runs/39564353477
 Earlier uncorrected pilot: https://github.com/owlCoder/gadapt/actions/runs/39563682707
 SHA of corrected run: `e51785314c650c2afda6717df2a468857b9d850b`
-(its feasibility callback originally returned a large finite penalty for
-post-budget candidates; later code now uses `None` to explicitly withhold
-credit for those non-evaluations; corrected rerun produced the same selected vectors and numeric medians).
+The first pilot returned a large violation for non-evaluated post-budget
+requests. The corrected run instead returns `None` and withholds credit;
+the output vectors and numeric medians were unchanged by this fix.
 
 8 paired seeds × 2 loads × 6 methods × 240 physical PF solves.
 Median loss is conditional on physically feasible runs only.
@@ -78,14 +78,14 @@ Median loss is conditional on physically feasible runs only.
 | SciPy DE | 8/8 | 14.255971 | 6/8 | 17.446616 |
 
 All six methods used exactly 240 true PF evaluations in each run. Per-run
-median computation time ranged roughly 2.02–2.14 sec and the recorder
+median computation time in the corrected run ranged roughly 1.31–1.39 sec and the recorder
 reports additional *post-budget objective requests* (GA 16 aggregated per
 condition vs SciPy DE 280 per condition). These requests returned a sentinel
 without physical solve: they are distinguished from actual PF calls.
-Feasibility callback attempted to read 9 uncached samples at 100% and 8
-at 110% in the initial pilot. This is a **real measurement-accounting
-defect**, now explicitly skipped in the implementation using `None`; those 17
-missing post-budget observations receive no credit in the corrected run.
+The corrected run logged 9 unscored feasibility callback requests at 100%
+and 8 at 110%. The prior version's reward attribution was a **real measurement-accounting
+defect**; those 17 physically missing post-budget observations now receive
+no operator reward in the corrected run.
 
 At 1.0, UCB feasibility vs legacy: 4 wins/4 losses; exact sign p=1.0,
 Holm-adjusted p=1.0; conditional paired median difference -0.004794 MW,
