@@ -1,0 +1,14 @@
+# Iteracija 13 — poslednja ograničena provera dodatnih PYPOWER Q-limit indeksnih grešaka
+
+**Preregistracija:** 21.10.2026, pre bilo kog novog izvornog AC pokušaja ove iteracije. Polazno: direktni originalni MATPOWER PF bez Q enforcement konvergira i repro se proverava u iteracijama 11/12; dve uzastopne varijante Q enforcement (upstream i prva lokalno patch) daju Python IndexError.
+
+## Fiksirani hipoteza i metoda
+
+Hipoteza ovog isključivo tehničkog, **ne-algoritamskog** eksperimenta: dodatni necelobrojni sabirnički indeks na putanji vraćanja injekcije nakon Q-limit iteracije i pogrešna dodela PV tipa sabirnice sprečavaju korektno izvršenje lokalnog PYPOWER Q enforcementa. To se može testirati, ali nije unapred dokazano da su jedini uzrok.
+
+1. Iz prethodno kontrolisane, BSD-pripisane lokalne PYPOWER kopije (`research/iteration12_local_pypower_qlim_patch.py`, original `rwl/PYPOWER` commit `c7f1cf50bedd34012b92fae4f092ec55617546a8`) napraviti **novu** kopiju. Tačno dve nove izmene: `bi = gen[limited[i], GEN_BUS].astype(int)` pri povratku Q-limit injekcija i `bus[pv, BUS_TYPE] = PV` umesto upisa liste PV indeksa kao bus_type. Ne menjati NR numeričku metodu, orignalne izvore niti prethodni patched copy.
+2. Jedan (i najviše jedan) novi pravi **originalni** MATPOWER 2019 AC poziv sa `ENFORCE_Q_LIMS=1`, PF_ALG=1, PF_TOL=1e-8, PF_MAX_IT=40, PF_DC=0. Ulaz: istih 1888 x 13 bus, 298 x 21 gen i 2531 x 13 branch, source reference BUS1320. Prethodna bez-Q kontrola iz iteracije 12 sačuvana je i poklapa se sa izvornim pozivom iz iteracije 11 (tolerancija 1e-5); ne ponavljati kontrolu radi čuvanja budžeta.
+3. Bez obzira na ishod `success` ili exception zabeležiti jedan stvarni poziv, kompletnu poruku greške i **ograničen traceback** (lokalne putanje/bez poverljivih podataka). Ako ne konvergira, svi fizički rezultat metrički null. Ako konvergira, merenje P/Q, volt/bus i original RATE_A sa oba kraja identično iteraciji 11 (uključiti novi bus REF, original slack generator red298).
+4. Statički test da nova kopija sadrži **samo** navedene dodatne promene i prethodne tri iz iteracije 12; statički test originalnih deset aktivnih PG ispod PMIN i 54,95 MW nedostatka; sistematski razlikovati Q enforcement softverske probleme od nefizičkog originalnog PG dispečinga. Pinovan Python 3.12, PYPOWER 5.1.19, pandapower 2.14.11, SciPy 1.13.1, pandas2.2.3, BLAS single-thread.
+5. Originalni javni MATPOWER model nije namenjen stvarnom upravljanju ili planiranju francuske/EU mreže. **Nema dokaza pune OPF izvodljivosti čak ni ako solver konvergira**, jer deset originalnih PMIN povreda zahteva redispečing. Nema algoritamskog GAdapt poređenja, novih statističkih tvrdnji ili prijavljene inovacije.
+6. Trajno sačuvati kod, testove, stvarni JSON/CSV, CI, negativne rezultate i srpski izveštaj na owlCoder/gadapt:main. Ne dirati bpzoran/gadapt.
