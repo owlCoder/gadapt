@@ -1,3 +1,45 @@
+# NAJNOVIJE — Iteracije 11–13: originalni MATPOWER AC model direktno validiran (21.10.2026)
+
+**Važan napredak pre algoritamskog GAdapt rada:** više se ne oslanjamo
+isključivo na različitu pandapower konverziju velikog RTE1888 modela.
+Direktno smo arhivirali **1888 izv. BUS / 298 GEN / 2531 BRANCH**
+MATPOWER 2019 ulaza i pokrenuli **5 stvarnih originalnih native AC PF
+pokušaja**: dva iz iteracije 11, dva iz iteracije 12 i jedan iz
+iteracije 13. Svaki poziv je evidentiran, uključujući softverske
+`IndexError` neuspehe. Izvedeni lokalni PYPOWER Q-enforcement repair
+je reproducibilan, sa minimalnim unapred registrovanim izmenama,
+zasebnom kontrolom i regresionim testovima.
+
+**Poslednji rezultat (iteracija 13):** nativni originalni AC PF **uz
+nametnute generator Q limite konvergirao**; međutim, originalna
+slack BUS1320 postala je PQ, dok je solver novu referencu postavio na
+**BUS89**. Ostaće **41** bus ispod VMIN sa ukupno **0,052373 p.u.**
+nedostatka i **10** izvornih aktivnih generatora sa ukupno
+**54,95 MW ispod PMIN**; ista desetorica već krše PMIN u izvornoj
+ulaznoj datoteci, pre bilo kog AC proračuna. Prekoračenje izvornih
+pozitivnih RATE_A nema, a Q kršenja su nakon enforcementa praktično nula.
+**To još nije fizički izvodljiv originalni AC-OPF niti rezultat
+optimizacije GAdapt-om.** Matematička neizvodljivost punog AC-OPF
+nije dokazana, pošto P-dispečing nije optimizovan.
+
+[Izveštaj iteracije 13](ITERATION13_REPORT_SR.md) ·
+[pre-registracija](ITERATION13_PROTOCOL.md) ·
+[izvorni Q-enforced JSON](results/rte1888_iteration13_original_q_limited_20261021.json) ·
+[uspešan CI #39631108812](https://github.com/owlCoder/gadapt/actions/runs/39631108812) ·
+[izveštaj iteracije 12 (dokumentovan neuspešan pokušaj)](ITERATION12_REPORT_SR.md) ·
+[izveštaj iteracije 11 (direktni originalni native PF)](ITERATION11_REPORT_SR.md) ·
+[originalni 298x21 GEN](results/rte1888_iteration11_original_matpower_gen_full21_2019.csv) ·
+[originalni 2531x13 BRANCH](results/rte1888_iteration11_original_matpower_branch_full13_2019.csv) ·
+[istraživačka mapa doktorskog rada](DOCTORAL_GADAPT_INDUSTRY_ROADMAP_SR.md).
+
+**Sledeće:** nezavisna izvorna AC-OPF formulacija sa slobodnim P
+dispečingom i proverenim P/Q/V/RATE_A ograničenjima, zatim
+naučno novo, literaturom provereno poboljšanje **stvarnog** GAdapt-a
+poređeno na istom fizičkom problemu. Bez preuranjenih tvrdnji o
+superiornosti ili industrijskoj sertifikaciji.
+
+---
+
 # NOVO — Iteracija 10: AC slack P/Q granice — dva prava fizička proračuna (21.10.2026)
 
 **Presudan negativan nalaz za formulaciju velikog industrijskog benchmarka:**
