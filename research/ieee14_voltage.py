@@ -113,13 +113,18 @@ def evaluate_method(system, method, seed, budget=480, pop=24):
     else:
         random.seed(seed)
         np.random.seed(seed)
+        extra = (dict(adaptive_immigration_patience=4,
+                      adaptive_immigration_percentage=25.0,
+                      adaptive_immigration_diversity_threshold=0.25)
+                 if method == "affine_restart" else {})
         ga = GA(
             cost_function=lambda values: recorder([values[i] for i in range(system.n)]),
-            population_size=pop, cost_diversity_metric=method,
+            population_size=pop, cost_diversity_metric=("affine_invariant" if method == "affine_restart" else method),
             exit_check="generations",
             number_of_generations=math.ceil(3 * budget / pop) + 10,
             population_mutation="cost_diversity,parent_diversity",
             timeout=240,
+            **extra,
         )
         for lower, upper in system.bounds:
             ga.add(lower, upper)
@@ -149,9 +154,9 @@ def main():
         print("REFERENCE", factor,
               system.evaluate(system.base["gen"][:, VG]), flush=True)
         for seed in range(args.runs):
-            for method in ("log_relative", "affine_invariant", "scipy_de"):
+            for method in ("log_relative", "affine_invariant", "affine_restart", "scipy_de"):
                 rows.append(evaluate_method(system, method, seed, args.budget, args.population))
-        for method in ("log_relative", "affine_invariant", "scipy_de"):
+        for method in ("log_relative", "affine_invariant", "affine_restart", "scipy_de"):
             selected = [r for r in rows if r["load_factor"] == factor and r["algorithm"] == method]
             feasible = [r["feasible_loss_MW"] for r in selected if r["feasible_loss_MW"] != ""]
             print("SUMMARY", "load=", factor, "method=", method,
