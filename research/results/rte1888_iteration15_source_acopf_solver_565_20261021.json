@@ -1,0 +1,62 @@
+{
+  "metadata": {
+    "environment": {
+      "pandas": "2.2.3",
+      "python": "3.12.15",
+      "scipy": "1.13.1"
+    },
+    "gadapt_algorithm_touched": false,
+    "maximum_allowed_ac_opf_calls": 2,
+    "native_solver": "PYPOWER 5.1.19 runopf OPF_ALG=565 step-controlled PIPS",
+    "original_line_cost_not_loss_MW": true,
+    "protocol": "research/ITERATION15_PROTOCOL.md",
+    "research_only_not_usable_for_real_french_eu_grid": true,
+    "source_matpower_commit": "80b6e16f760f58721ad31221c7287c28259cd4ad",
+    "source_slack_bus_id": 1320,
+    "total_actual_ac_opf_calls": 2,
+    "unmodified_MATPOWER_original_source": true
+  },
+  "runs": [
+    {
+      "actual_ac_opf_call": 1,
+      "attempted": true,
+      "control_cost_only": 5296.687785471361,
+      "elapsed_seconds": 0.55296,
+      "posthoc": null,
+      "posthoc_validated": false,
+      "scenario": "control_case9_opf_565",
+      "solver_diagnostics": {
+        "first": {
+          "compcond": 57.14830941176471,
+          "costcond": 0.0,
+          "feascond": 0.155,
+          "gradcond": 0.1765
+        },
+        "iterations": 12,
+        "last": {
+          "compcond": 7.948554273615318e-07,
+          "costcond": 4.131366172099071e-07,
+          "feascond": 4.323811315710679e-07,
+          "gradcond": 1.511886585539812e-07
+        },
+        "message": "Converged",
+        "raw_info": 1.0
+      },
+      "solver_error": "",
+      "solver_success": true,
+      "validator_error": ""
+    },
+    {
+      "actual_ac_opf_call": 2,
+      "attempted": true,
+      "elapsed_seconds": 780.07039,
+      "posthoc": null,
+      "posthoc_validated": false,
+      "scenario": "original_rte1888_opf_565",
+      "solver_diagnostics": null,
+      "solver_error": "TimeoutError: Preregistered solver wall timeout exceeded",
+      "solver_success": false,
+      "validator_error": ""
+    }
+  ]
+}
