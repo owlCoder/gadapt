@@ -310,3 +310,27 @@ Dodatni bibliografski pregled:
 `research/ITERATION7_LITERATURE.md` (Deb, Runarsson/Yao,
 Coello Coello, pregled memetike, AC-OPF, skupe simulacije
 i multiverodostojna optimizacija).
+
+
+## 10. Konačna arhiva podataka i kontrolni trag
+
+Trajni repozitorijumski artefakti glavnog poređenja:
+- [Sirovi CSV — 15 pokretanja × 72 stvarna AC poziva](results/rte1888_iteration7_source_rated_pilot_20261021.csv)
+- [Vremenski označeni zapisi svih 15 pokretanja](results/rte1888_iteration7_source_rated_pilot_20261021.log)
+- [Nezavisno ponovo izračunati Holm, Wilson, medijane, Q90, najgori slučajevi](results/rte1888_iteration7_source_rated_stats_20261021.json)
+- [SVG grafikon](figures/rte1888_iteration7_source_rated_violation.svg)
+  i [PNG grafikon](figures/rte1888_iteration7_source_rated_violation.png)
+- [Sirovi izvorno MVA ocenjeni PF dijagnostički podaci](results/rte1888_iteration7_source_rated_ac_probe_20261021.csv)
+  i [vremenski označeni dijagnostički log](results/rte1888_iteration7_source_rated_ac_probe_20261021.log)
+- [Kompletno izvorno MVA ograničenje po granama](results/rte1888_matpower_original_branch_ratings_2019.csv),
+  [mapiranje na pandapower elemente](results/rte1888_iteration7_matpower_to_pandapower_thermal_map_20261021.csv)
+  i [podaci o poreklu](results/rte1888_iteration7_matpower_provenance_20261021.json).
+
+Sve slike potiču samo od arhiviranog CSV, ne od
+novih semena ili nezavisne validacije. Uzorak ostaje
+**n=3**, a ne n=6 nakon dva statistička čitanja.
+Kompletni GitHub Actions logovi su:
+[mapiranje 2531 grane](https://github.com/owlCoder/gadapt/actions/runs/39607656391),
+[novi fizički evaluator](https://github.com/owlCoder/gadapt/actions/runs/39608593545),
+[algoritamski pilot](https://github.com/owlCoder/gadapt/actions/runs/39608967519),
+[nezavisna statistika i SVG/PNG](https://github.com/owlCoder/gadapt/actions/runs/39611147372).
