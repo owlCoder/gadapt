@@ -1,0 +1,3 @@
+scenario,actual_native_ac_call,enforce_q_lims,solver_converged,solver_error,checked_feasible,voltage_violation,thermal_violation,p_generator_violation_mw,q_generator_violation_mvar,original_slack_q_mvar
+source_matpower_original_no_q_enforcement,1,False,True,,False,0.05400669746664677,0.0,54.949999999999996,38.381556680608625,-2.0869129994111946
+source_matpower_q_enforcement,2,True,False,IndexError: arrays used as indices must be of integer (or boolean) type,,,,,,
