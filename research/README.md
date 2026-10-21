@@ -30,6 +30,8 @@ python research/aos_ieee14_pilot.py --runs 8 --budget 240 --output aos_ieee14_pi
 python research/analyze_aos_ieee14.py aos_ieee14_pilot.csv
 python -m research.aos_geant_temporal --runs 8 --budget 240 --output aos_geant_temporal.csv
 python -m research.analyze_aos_geant_temporal aos_geant_temporal.csv
+python research/plot_aos.py --kind ieee14 --csv aos_ieee14_pilot.csv --prefix aos_ieee14_figure
+python research/plot_aos.py --kind geant --csv aos_geant_temporal.csv --prefix aos_geant_figure
 ```
 
 - [AOS protocol: scientific prior art and frozen chronological timestamps](AOS_ITERATION_PROTOCOL.md)
