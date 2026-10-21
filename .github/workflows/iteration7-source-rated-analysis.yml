@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "research/results/rte1888_iteration7_source_rated_pilot_20261021.csv"
+      - ".github/workflows/iteration7-source-rated-analysis.yml"
   workflow_dispatch:
 
 jobs:
@@ -34,7 +35,7 @@ jobs:
           python - <<'PY'
           import base64
           from pathlib import Path
-          for name in ("rte1888_iteration7_stats.json","rte1888_iteration7_violation.svg"):
+          for name in ("rte1888_iteration7_stats.json","rte1888_iteration7_violation.svg","rte1888_iteration7_violation.png"):
               p=Path(name)
               if p.exists():
                   val=base64.b64encode(p.read_bytes()).decode()
