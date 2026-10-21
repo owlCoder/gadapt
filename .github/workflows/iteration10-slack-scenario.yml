@@ -1,0 +1,57 @@
+name: Iteration 10 RTE1888 slack source sensitivity (2 real AC runs)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION10_PROTOCOL.md"
+      - "research/iteration10_slack_scenario.py"
+      - "research/test_iteration10_slack_scenario.py"
+      - ".github/workflows/iteration10-slack-scenario.yml"
+  workflow_dispatch:
+
+jobs:
+  source-slack-reference:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned full network simulation environment
+        run: python -m pip install -e . 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Validate preflight, slack P/Q constraints and source rating map
+        run: python -m unittest -v research.test_iteration10_slack_scenario research.test_iteration9_source_generators research.test_iteration7_source_physics
+      - name: Run two preregistered genuine source-rated AC NR solves
+        run: |
+          python -m research.iteration10_slack_scenario --csv iteration10_slack_ac.csv --json iteration10_slack_ac.json
+      - name: Expose exact raw output for permanent main-branch archive
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          for kind, name in (("CSV","iteration10_slack_ac.csv"),("JSON","iteration10_slack_ac.json")):
+              p=Path(name)
+              if not p.exists():
+                  print("I10_MISSING",kind,flush=True)
+                  continue
+              data=base64.b64encode(p.read_bytes()).decode("ascii")
+              for n, i in enumerate(range(0,len(data),2048)):
+                  print("I10_ARCHIVE",kind,n,data[i:i+2048],flush=True)
+          PY
+      - name: Archive all electrical outcomes, including solver failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration10-source-slack-2-ac-diagnostic
+          path: |
+            iteration10_slack_ac.csv
+            iteration10_slack_ac.json
