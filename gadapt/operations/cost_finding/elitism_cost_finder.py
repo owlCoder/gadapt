@@ -26,6 +26,9 @@ class ElitismCostFinder(BaseCostFinder):
         ]
         for c in candidate_solutions_for_execution:
             self._execute_function(self.population.options.cost_function, c)
+            controller = getattr(self.population.options, "operator_credit_controller", None)
+            if controller is not None:
+                controller.observe(c)
         if not any(getattr(c, "_succ", False) for c in self.population):
             raise ValueError("All evaluated candidate costs were invalid or nonfinite")
         better_candidate_solutions: List[CandidateSolution] = self.population.get_sorted(

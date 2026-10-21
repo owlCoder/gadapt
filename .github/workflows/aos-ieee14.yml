@@ -1,0 +1,40 @@
+name: Experimental IEEE14 mutation-credit AOS
+on:
+  push:
+    branches:
+      - "research/feasibility-credit-aos"
+    paths:
+      - "research/aos_ieee14_pilot.py"
+      - "research/analyze_aos_ieee14.py"
+      - "research/plot_aos.py"
+      - ".github/workflows/aos-ieee14.yml"
+      - "gadapt/**"
+  workflow_dispatch:
+
+jobs:
+  ieee14-credit-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e . 'scipy>=1.11,<1.16' 'pypower>=5.1,<6' 'matplotlib>=3.8,<4'
+      - run: |
+          set -o pipefail
+          python research/aos_ieee14_pilot.py --runs 8 --budget 240 --output aos_ieee14_pilot.csv | tee aos_ieee14_log.txt
+          test -s aos_ieee14_pilot.csv
+      - run: |
+          set -o pipefail
+          python research/analyze_aos_ieee14.py aos_ieee14_pilot.csv | tee aos_ieee14_stats.txt
+      - run: python research/plot_aos.py --kind ieee14 --csv aos_ieee14_pilot.csv --prefix aos_ieee14_figure
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: aos-ieee14-direct-ga-raw
+          path: |
+            aos_ieee14_pilot.csv
+            aos_ieee14_log.txt
+            aos_ieee14_stats.txt
+            aos_ieee14_figure_*.png

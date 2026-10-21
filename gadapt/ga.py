@@ -118,6 +118,9 @@ class GA:
         factory: Optional[BaseGAFactory] = None,
         normal_distribution_mutation_min_std_dev_decay_generations: Optional[float] = None,
         cost_diversity_metric: str = "log_relative",
+        mutation_operator_policy: str = "legacy",
+        mutation_operator_credit: str = "objective",
+        mutation_violation_function: Optional[Callable] = None,
         adaptive_immigration_patience: Optional[int] = None,
         adaptive_immigration_percentage: float = 20.0,
         adaptive_immigration_diversity_threshold: float = 0.25,
@@ -332,6 +335,15 @@ class GA:
         )
         self.ensure_unique_individuals = ensure_unique_individuals
         self.cost_diversity_metric = cost_diversity_metric
+        if mutation_operator_policy not in ("legacy", "uniform", "ucb"):
+            raise ValueError("mutation_operator_policy must be legacy/uniform/ucb")
+        if mutation_operator_credit not in ("objective", "feasibility"):
+            raise ValueError("mutation_operator_credit must be objective/feasibility")
+        if mutation_operator_policy != "legacy" and mutation_operator_credit == "feasibility" and not callable(mutation_violation_function):
+            raise ValueError("feasibility credit needs mutation_violation_function")
+        self.mutation_operator_policy = mutation_operator_policy
+        self.mutation_operator_credit = mutation_operator_credit
+        self.mutation_violation_function = mutation_violation_function
         if (adaptive_immigration_patience is not None and
                 (type(adaptive_immigration_patience) is not int or
                  adaptive_immigration_patience < 1)):
@@ -986,7 +998,7 @@ class GA:
         new_instance = self.__class__.__new__(self.__class__)
         attributes = dict(self.__dict__)
         callbacks = {}
-        for name in ("_cost_function", "_exit_function"):
+        for name in ("_cost_function", "_exit_function", "mutation_violation_function"):
             if name in attributes:
                 callbacks[name] = attributes.pop(name)
         new_instance.__dict__ = copy.deepcopy(attributes)
