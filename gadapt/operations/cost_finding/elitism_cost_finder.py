@@ -28,7 +28,8 @@ class ElitismCostFinder(BaseCostFinder):
             controller = getattr(self.population.options, "operator_credit_controller", None)
             paired = controller is not None and getattr(controller, "assignment", None) == "paired"
             scenario_mode = controller is not None and getattr(controller, "credit", None) == "scenario_feasibility"
-            tracked = paired or scenario_mode
+            censored_mode = controller is not None and getattr(controller, "credit", None) == "censored_verified_per_cost"
+            tracked = paired or scenario_mode or censored_mode
             before = controller._counter_value() if tracked else None
             self._execute_function(self.population.options.cost_function, c)
             if tracked:
@@ -38,6 +39,15 @@ class ElitismCostFinder(BaseCostFinder):
                     if delta not in (0, 1):
                         raise ValueError("Invalid paired physical evaluation counter change")
                     controller.observe(c, physically_evaluated=(delta == 1))
+                elif censored_mode:
+                    # Preserve an exact, externally counter-charged 1..N trial.
+                    # A known early constraint failure is NOT a robust success.
+                    # The cached feedback must match delta exactly; missing
+                    # post-budget evaluations get no credit, and no callback.
+                    if delta < 0 or delta > controller.scenario_count:
+                        raise ValueError("Corrupt censored-feedback physical counter change")
+                    controller.observe(c, physically_evaluated=(delta > 0),
+                                       measured_scenarios=delta)
                 else:
                     # All N real scenario solves or NONE: never reward a partial
                     # load-scenario sample as robustly physically evaluated.
