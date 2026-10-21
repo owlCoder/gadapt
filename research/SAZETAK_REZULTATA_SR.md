@@ -5,8 +5,11 @@ izvorna MATPOWER 2019 slack sabirnica jeste 1320, a stara
 pandapower konverzija koristi 1268. Preregistrovane **2 stvarne AC
 Newton–Raphson evaluacije** obe su konvergirale, ali nijedna nije
 potpuno fizički izvodljiva: u konvertovanom originalnom stanju
-slack ima P=55,006 MW, **32,994 MW ispod minimalnog prijavljenog
-P limita**; u izolovanom scenariju sa vraćenom slack lokacijom
+slack ima P=55,006 MW, **32,994 MW ispod sopstvenog konvertovanog
+ext-grid-only Pmin**. To NIJE originalni agregatni test: dodatni
+sgen na istom bus-u ima 44,5 MW, pa originalni zbir BUS1268 iznosi
+**99,506 MW, odnosno 9,506 MW iznad izvornog zbira Pmax=90 MW**;
+post-hoc korekcija urađena bez ijednog novog AC poziva. u izolovanom scenariju sa vraćenom slack lokacijom
 1320 slack Q=**1.384,477 MVAr**, a originalni QMAX=**1 MVAr**,
 tj. preko limita za **1.383,477 MVAr**. Naponske povrede ostaju,
 a originalna pozitivna termička RATE_A ograničenja nisu prekoračena
@@ -22,6 +25,7 @@ ili kao dokaz da je originalna MATPOWER mreža matematički neizvodljiva.
 [Pre-registracija](ITERATION10_PROTOCOL.md) ·
 [CSV dve stvarne AC simulacije](results/rte1888_iteration10_source_slack_ac_20261021.csv) ·
 [JSON](results/rte1888_iteration10_source_slack_ac_20261021.json) ·
+[post-hoc izvorni zbir P](results/rte1888_iteration10_posthoc_source_bus1268_p_20261021.json) ·
 [Uspesan CI #39625839475](https://github.com/owlCoder/gadapt/actions/runs/39625839475).
 
 ---
