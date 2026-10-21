@@ -1,4 +1,5 @@
 name: I34 In-Core GAdapt Censored Credit
+# Preflight syntax fixed before ANY I34 Dijkstra; no seed/budget/method changes
 
 on:
   push:
