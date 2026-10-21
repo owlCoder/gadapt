@@ -1,0 +1,56 @@
+name: Iteration 30 IEEE118 independent parity-load scenario holdout with real AC
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION30_PROTOCOL.md"
+      - "research/iteration30_spatial_load_holdout.py"
+      - "research/test_iteration30_spatial_load_holdout.py"
+      - ".github/workflows/iteration30-spatial-load-source.yml"
+  workflow_dispatch:
+
+jobs:
+  source-I30-frozen-physical-spatial-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 36
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pin-locked GAdapt original IEEE118 native AC dependencies
+        run: python -m pip install -e . 'pypower==5.1.19' 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Validate spatial original PD QD factors and same source physical GA controls without AC
+        run: python -m unittest -v research.test_iteration30_spatial_load_holdout tests.test_sequential_scenario_budget_cost research.test_iteration29_earlystop_protocol
+      - name: Run five fixed methods and four frozen new seeds with 3600 genuine IEEE118 spatial AC cap
+        run: python -m research.iteration30_spatial_load_holdout --json iteration30_spatial.json --csv iteration30_spatial.csv
+      - name: Emit real data for permanent science archive including negative results
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          for kind,fn in (("CSV","iteration30_spatial.csv"),("JSON","iteration30_spatial.json")):
+              p=Path(fn)
+              if p.exists():
+                  d=base64.b64encode(p.read_bytes()).decode("ascii")
+                  for i,k in enumerate(range(0,len(d),2048)):
+                      print("I30_ARCHIVE",kind,i,d[k:k+2048],flush=True)
+              else:
+                  print("I30_MISSING",kind,flush=True)
+          PY
+      - name: Archive all 20 spatial IEEE source GA DE AC outcomes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration30-IEEE118-unseen-parity-PD-QD-physical-screens
+          path: |
+            iteration30_spatial.csv
+            iteration30_spatial.json
