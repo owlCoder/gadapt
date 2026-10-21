@@ -1,0 +1,1255 @@
+{
+  "actual_ac_powerflow_calls": 0,
+  "bus": {
+    "converted": 1888,
+    "converted_ext_grid_original_bus_ids": [
+      1268
+    ],
+    "counts": {
+      "base_kv_compared": 1888,
+      "vmax_pu_compared": 1888,
+      "vmin_pu_compared": 1888
+    },
+    "original": 1888,
+    "original_slack_ids": [
+      1320
+    ],
+    "top_absolute_mismatches": []
+  },
+  "caveat": "One-to-one comparisons exclude all buses with multiple source or converted generators/sgen/ext grid. No equivalence of AC equations or full OPF constraints; not an optimizer benchmark.",
+  "converted_elements": {
+    "ext_grid": {
+      "active_distinct_source_buses": 1,
+      "active_elements": 1,
+      "all_elements": 1,
+      "missing_max_p": 0,
+      "missing_max_q": 0,
+      "missing_min_p": 0,
+      "missing_min_q": 0
+    },
+    "gen": {
+      "active_distinct_source_buses": 271,
+      "active_elements": 271,
+      "all_elements": 271,
+      "missing_max_p": 0,
+      "missing_max_q": 0,
+      "missing_min_p": 0,
+      "missing_min_q": 0
+    },
+    "sgen": {
+      "active_distinct_source_buses": 69,
+      "active_elements": 75,
+      "all_elements": 82,
+      "missing_max_p": 57,
+      "missing_max_q": 57,
+      "missing_min_p": 57,
+      "missing_min_q": 57
+    }
+  },
+  "crosswalk": {
+    "converted_gen_without_online_source_bus_count": 0,
+    "converted_sgen_without_online_source_bus_count": 53,
+    "many_to_one_or_ambiguous_bus_count": 17,
+    "many_to_one_or_ambiguous_examples": [
+      {
+        "ext_grid": 0,
+        "gen": 0,
+        "sgen": 2,
+        "source_bus_id": 14,
+        "source_online_generators": 2
+      },
+      {
+        "ext_grid": 0,
+        "gen": 0,
+        "sgen": 1,
+        "source_bus_id": 82,
+        "source_online_generators": 1
+      },
+      {
+        "ext_grid": 0,
+        "gen": 1,
+        "sgen": 3,
+        "source_bus_id": 241,
+        "source_online_generators": 4
+      },
+      {
+        "ext_grid": 0,
+        "gen": 1,
+        "sgen": 1,
+        "source_bus_id": 396,
+        "source_online_generators": 2
+      },
+      {
+        "ext_grid": 0,
+        "gen": 0,
+        "sgen": 1,
+        "source_bus_id": 448,
+        "source_online_generators": 1
+      },
+      {
+        "ext_grid": 0,
+        "gen": 0,
+        "sgen": 2,
+        "source_bus_id": 858,
+        "source_online_generators": 1
+      },
+      {
+        "ext_grid": 0,
+        "gen": 0,
+        "sgen": 2,
+        "source_bus_id": 876,
+        "source_online_generators": 1
+      },
+      {
+        "ext_grid": 0,
+        "gen": 0,
+        "sgen": 2,
+        "source_bus_id": 885,
+        "source_online_generators": 2
+      },
+      {
+        "ext_grid": 0,
+        "gen": 1,
+        "sgen": 1,
+        "source_bus_id": 897,
+        "source_online_generators": 2
+      },
+      {
+        "ext_grid": 0,
+        "gen": 1,
+        "sgen": 1,
+        "source_bus_id": 921,
+        "source_online_generators": 2
+      },
+      {
+        "ext_grid": 0,
+        "gen": 0,
+        "sgen": 1,
+        "source_bus_id": 1005,
+        "source_online_generators": 1
+      },
+      {
+        "ext_grid": 0,
+        "gen": 0,
+        "sgen": 1,
+        "source_bus_id": 1118,
+        "source_online_generators": 1
+      },
+      {
+        "ext_grid": 1,
+        "gen": 0,
+        "sgen": 1,
+        "source_bus_id": 1268,
+        "source_online_generators": 2
+      },
+      {
+        "ext_grid": 0,
+        "gen": 0,
+        "sgen": 0,
+        "source_bus_id": 1320,
+        "source_online_generators": 1
+      },
+      {
+        "ext_grid": 0,
+        "gen": 1,
+        "sgen": 1,
+        "source_bus_id": 1321,
+        "source_online_generators": 2
+      },
+      {
+        "ext_grid": 0,
+        "gen": 1,
+        "sgen": 1,
+        "source_bus_id": 1714,
+        "source_online_generators": 1
+      },
+      {
+        "ext_grid": 0,
+        "gen": 1,
+        "sgen": 1,
+        "source_bus_id": 1757,
+        "source_online_generators": 1
+      }
+    ],
+    "one_to_one_all_six_fields_match_count": 264,
+    "one_to_one_any_mismatch_count": 0,
+    "one_to_one_compared_count": 264,
+    "one_to_one_top_20_mismatch_candidates": [
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1650,
+        "converted_gen_index": 56,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 0.0,
+            "converted": 892.0,
+            "difference": 0.0,
+            "source": 892.0,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 0.0,
+            "converted": 924.28,
+            "difference": 0.0,
+            "source": 924.28,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 5.684341886080802e-14,
+            "converted": 274.28000000000003,
+            "difference": 5.684341886080802e-14,
+            "source": 274.28,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 1.1368683772161603e-13,
+            "converted": 537.6800000000001,
+            "difference": 1.1368683772161603e-13,
+            "source": 537.68,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 0.0,
+            "converted": -152.82,
+            "difference": 0.0,
+            "source": -152.82,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.964,
+            "difference": 0.0,
+            "source": 0.964,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 1.1368683772161603e-13,
+        "source_row_1based": 80
+      },
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1651,
+        "converted_gen_index": 57,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 0.0,
+            "converted": 890.0,
+            "difference": 0.0,
+            "source": 890.0,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 1.1368683772161603e-13,
+            "converted": 922.8000000000001,
+            "difference": 1.1368683772161603e-13,
+            "source": 922.8,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 0.0,
+            "converted": 272.8,
+            "difference": 0.0,
+            "source": 272.8,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 0.0,
+            "converted": 529.89,
+            "difference": 0.0,
+            "source": 529.89,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 2.842170943040401e-14,
+            "converted": -160.89000000000001,
+            "difference": -2.842170943040401e-14,
+            "source": -160.89,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.946,
+            "difference": 0.0,
+            "source": 0.946,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 1.1368683772161603e-13,
+        "source_row_1based": 81
+      },
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1667,
+        "converted_gen_index": 79,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 0.0,
+            "converted": 1283.0,
+            "difference": 0.0,
+            "source": 1283.0,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 0.0,
+            "converted": 1330.0,
+            "difference": 0.0,
+            "source": 1330.0,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 0.0,
+            "converted": 337.0,
+            "difference": 0.0,
+            "source": 337.0,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 1.1368683772161603e-13,
+            "converted": 656.0600000000001,
+            "difference": 1.1368683772161603e-13,
+            "source": 656.06,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 2.842170943040401e-14,
+            "converted": -184.89000000000001,
+            "difference": -2.842170943040401e-14,
+            "source": -184.89,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.947,
+            "difference": 0.0,
+            "source": 0.947,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 1.1368683772161603e-13,
+        "source_row_1based": 103
+      },
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1749,
+        "converted_gen_index": 207,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 1.1368683772161603e-13,
+            "converted": 804.4300000000001,
+            "difference": 1.1368683772161603e-13,
+            "source": 804.43,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 0.0,
+            "converted": 1380.0,
+            "difference": 0.0,
+            "source": 1380.0,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 0.0,
+            "converted": 340.0,
+            "difference": 0.0,
+            "source": 340.0,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 1.1368683772161603e-13,
+            "converted": 629.9300000000001,
+            "difference": 1.1368683772161603e-13,
+            "source": 629.93,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 0.0,
+            "converted": -160.06,
+            "difference": 0.0,
+            "source": -160.06,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.959,
+            "difference": 0.0,
+            "source": 0.959,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 1.1368683772161603e-13,
+        "source_row_1based": 233
+      },
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1629,
+        "converted_gen_index": 27,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 5.684341886080802e-14,
+            "converted": 450.03000000000003,
+            "difference": 5.684341886080802e-14,
+            "source": 450.03,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 0.0,
+            "converted": 700.0,
+            "difference": 0.0,
+            "source": 700.0,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 0.0,
+            "converted": 140.0,
+            "difference": 0.0,
+            "source": 140.0,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 2.842170943040401e-14,
+            "converted": 231.39000000000001,
+            "difference": 2.842170943040401e-14,
+            "source": 231.39,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 0.0,
+            "converted": -190.58,
+            "difference": 0.0,
+            "source": -190.58,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.95,
+            "difference": 0.0,
+            "source": 0.95,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 5.684341886080802e-14,
+        "source_row_1based": 51
+      },
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1682,
+        "converted_gen_index": 100,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 0.0,
+            "converted": 588.0,
+            "difference": 0.0,
+            "source": 588.0,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 0.0,
+            "converted": 610.0,
+            "difference": 0.0,
+            "source": 610.0,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 0.0,
+            "converted": 310.0,
+            "difference": 0.0,
+            "source": 310.0,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 5.684341886080802e-14,
+            "converted": 330.28000000000003,
+            "difference": 5.684341886080802e-14,
+            "source": 330.28,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 0.0,
+            "converted": -165.24,
+            "difference": 0.0,
+            "source": -165.24,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.928,
+            "difference": 0.0,
+            "source": 0.928,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 5.684341886080802e-14,
+        "source_row_1based": 124
+      },
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1684,
+        "converted_gen_index": 102,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 0.0,
+            "converted": 205.0,
+            "difference": 0.0,
+            "source": 205.0,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 0.0,
+            "converted": 700.0,
+            "difference": 0.0,
+            "source": 700.0,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 0.0,
+            "converted": 205.0,
+            "difference": 0.0,
+            "source": 205.0,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 0.0,
+            "converted": 254.82,
+            "difference": 0.0,
+            "source": 254.82,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 5.684341886080802e-14,
+            "converted": -293.65000000000003,
+            "difference": -5.684341886080802e-14,
+            "source": -293.65,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.954,
+            "difference": 0.0,
+            "source": 0.954,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 5.684341886080802e-14,
+        "source_row_1based": 126
+      },
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1690,
+        "converted_gen_index": 113,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 5.684341886080802e-14,
+            "converted": 420.09000000000003,
+            "difference": 5.684341886080802e-14,
+            "source": 420.09,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 0.0,
+            "converted": 451.0,
+            "difference": 0.0,
+            "source": 451.0,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 0.0,
+            "converted": 239.0,
+            "difference": 0.0,
+            "source": 239.0,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 0.0,
+            "converted": 219.77,
+            "difference": 0.0,
+            "source": 219.77,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 0.0,
+            "converted": -155.72,
+            "difference": 0.0,
+            "source": -155.72,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.922,
+            "difference": 0.0,
+            "source": 0.922,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 5.684341886080802e-14,
+        "source_row_1based": 138
+      },
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1732,
+        "converted_gen_index": 183,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 0.0,
+            "converted": 201.9,
+            "difference": 0.0,
+            "source": 201.9,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 5.684341886080802e-14,
+            "converted": 419.90000000000003,
+            "difference": 5.684341886080802e-14,
+            "source": 419.9,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 0.0,
+            "converted": 201.9,
+            "difference": 0.0,
+            "source": 201.9,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 0.0,
+            "converted": 198.93,
+            "difference": 0.0,
+            "source": 198.93,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 0.0,
+            "converted": -170.35,
+            "difference": 0.0,
+            "source": -170.35,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.988,
+            "difference": 0.0,
+            "source": 0.988,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 5.684341886080802e-14,
+        "source_row_1based": 209
+      },
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1783,
+        "converted_gen_index": 257,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 0.0,
+            "converted": 950.0,
+            "difference": 0.0,
+            "source": 950.0,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 0.0,
+            "converted": 985.0,
+            "difference": 0.0,
+            "source": 985.0,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 0.0,
+            "converted": 275.0,
+            "difference": 0.0,
+            "source": 275.0,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 5.684341886080802e-14,
+            "converted": 414.21000000000004,
+            "difference": 5.684341886080802e-14,
+            "source": 414.21,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 0.0,
+            "converted": -99.12,
+            "difference": 0.0,
+            "source": -99.12,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.992,
+            "difference": 0.0,
+            "source": 0.992,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 5.684341886080802e-14,
+        "source_row_1based": 284
+      },
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1784,
+        "converted_gen_index": 258,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 0.0,
+            "converted": 950.0,
+            "difference": 0.0,
+            "source": 950.0,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 0.0,
+            "converted": 985.0,
+            "difference": 0.0,
+            "source": 985.0,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 0.0,
+            "converted": 275.0,
+            "difference": 0.0,
+            "source": 275.0,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 5.684341886080802e-14,
+            "converted": 403.28000000000003,
+            "difference": 5.684341886080802e-14,
+            "source": 403.28,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 0.0,
+            "converted": -110.08,
+            "difference": 0.0,
+            "source": -110.08,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.994,
+            "difference": 0.0,
+            "source": 0.994,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 5.684341886080802e-14,
+        "source_row_1based": 285
+      },
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1646,
+        "converted_gen_index": 51,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 0.0,
+            "converted": 133.0,
+            "difference": 0.0,
+            "source": 133.0,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 0.0,
+            "converted": 263.0,
+            "difference": 0.0,
+            "source": 263.0,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 0.0,
+            "converted": 133.0,
+            "difference": 0.0,
+            "source": 133.0,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 2.842170943040401e-14,
+            "converted": 146.45000000000002,
+            "difference": 2.842170943040401e-14,
+            "source": 146.45,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 0.0,
+            "converted": -90.18,
+            "difference": 0.0,
+            "source": -90.18,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.95,
+            "difference": 0.0,
+            "source": 0.95,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 2.842170943040401e-14,
+        "source_row_1based": 75
+      },
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1680,
+        "converted_gen_index": 98,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 0.0,
+            "converted": 4.2,
+            "difference": 0.0,
+            "source": 4.2,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 2.842170943040401e-14,
+            "converted": 148.20000000000002,
+            "difference": 2.842170943040401e-14,
+            "source": 148.2,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 0.0,
+            "converted": 4.2,
+            "difference": 0.0,
+            "source": 4.2,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 0.0,
+            "converted": 86.67,
+            "difference": 0.0,
+            "source": 86.67,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 0.0,
+            "converted": -10.65,
+            "difference": 0.0,
+            "source": -10.65,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.961,
+            "difference": 0.0,
+            "source": 0.961,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 2.842170943040401e-14,
+        "source_row_1based": 122
+      },
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1693,
+        "converted_gen_index": 116,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 0.0,
+            "converted": 81.81,
+            "difference": 0.0,
+            "source": 81.81,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 2.842170943040401e-14,
+            "converted": 168.17000000000002,
+            "difference": 2.842170943040401e-14,
+            "source": 168.17,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 0.0,
+            "converted": 81.81,
+            "difference": 0.0,
+            "source": 81.81,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 1.4210854715202004e-14,
+            "converted": 71.21000000000001,
+            "difference": 1.4210854715202004e-14,
+            "source": 71.21,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 0.0,
+            "converted": -44.25,
+            "difference": 0.0,
+            "source": -44.25,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.95,
+            "difference": 0.0,
+            "source": 0.95,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 2.842170943040401e-14,
+        "source_row_1based": 141
+      },
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1740,
+        "converted_gen_index": 195,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 0.0,
+            "converted": 305.0,
+            "difference": 0.0,
+            "source": 305.0,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 0.0,
+            "converted": 316.0,
+            "difference": 0.0,
+            "source": 316.0,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 0.0,
+            "converted": 168.0,
+            "difference": 0.0,
+            "source": 168.0,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 0.0,
+            "converted": 175.05,
+            "difference": 0.0,
+            "source": 175.05,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 2.842170943040401e-14,
+            "converted": -169.39000000000001,
+            "difference": -2.842170943040401e-14,
+            "source": -169.39,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.95,
+            "difference": 0.0,
+            "source": 0.95,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 2.842170943040401e-14,
+        "source_row_1based": 221
+      },
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1741,
+        "converted_gen_index": 196,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 0.0,
+            "converted": 156.0,
+            "difference": 0.0,
+            "source": 156.0,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 0.0,
+            "converted": 304.0,
+            "difference": 0.0,
+            "source": 304.0,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 0.0,
+            "converted": 156.0,
+            "difference": 0.0,
+            "source": 156.0,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 2.842170943040401e-14,
+            "converted": 158.67000000000002,
+            "difference": 2.842170943040401e-14,
+            "source": 158.67,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 0.0,
+            "converted": -184.58,
+            "difference": 0.0,
+            "source": -184.58,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.946,
+            "difference": 0.0,
+            "source": 0.946,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 2.842170943040401e-14,
+        "source_row_1based": 222
+      },
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1753,
+        "converted_gen_index": 211,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 0.0,
+            "converted": 175.0,
+            "difference": 0.0,
+            "source": 175.0,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 0.0,
+            "converted": 585.0,
+            "difference": 0.0,
+            "source": 585.0,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 0.0,
+            "converted": 175.0,
+            "difference": 0.0,
+            "source": 175.0,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 2.842170943040401e-14,
+            "converted": 231.39000000000001,
+            "difference": 2.842170943040401e-14,
+            "source": 231.39,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 0.0,
+            "converted": -116.61,
+            "difference": 0.0,
+            "source": -116.61,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.952,
+            "difference": 0.0,
+            "source": 0.952,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 2.842170943040401e-14,
+        "source_row_1based": 237
+      },
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1755,
+        "converted_gen_index": 214,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 0.0,
+            "converted": 582.74,
+            "difference": 0.0,
+            "source": 582.74,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 0.0,
+            "converted": 605.0,
+            "difference": 0.0,
+            "source": 605.0,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 0.0,
+            "converted": 295.0,
+            "difference": 0.0,
+            "source": 295.0,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 2.842170943040401e-14,
+            "converted": 219.39000000000001,
+            "difference": 2.842170943040401e-14,
+            "source": 219.39,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 0.0,
+            "converted": -168.09,
+            "difference": 0.0,
+            "source": -168.09,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.927,
+            "difference": 0.0,
+            "source": 0.927,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 2.842170943040401e-14,
+        "source_row_1based": 240
+      },
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1773,
+        "converted_gen_index": 239,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 0.0,
+            "converted": 150.0,
+            "difference": 0.0,
+            "source": 150.0,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 0.0,
+            "converted": 285.0,
+            "difference": 0.0,
+            "source": 285.0,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 0.0,
+            "converted": 150.0,
+            "difference": 0.0,
+            "source": 150.0,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 2.842170943040401e-14,
+            "converted": 164.14000000000001,
+            "difference": 2.842170943040401e-14,
+            "source": 164.14,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 0.0,
+            "converted": 14.19,
+            "difference": 0.0,
+            "source": 14.19,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.97,
+            "difference": 0.0,
+            "source": 0.97,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 2.842170943040401e-14,
+        "source_row_1based": 265
+      },
+      {
+        "all_within_tolerance": true,
+        "bus_id": 1774,
+        "converted_gen_index": 240,
+        "fields": {
+          "pg_mw": {
+            "absolute_difference": 0.0,
+            "converted": 225.0,
+            "difference": 0.0,
+            "source": 225.0,
+            "within_tolerance": true
+          },
+          "pmax_mw": {
+            "absolute_difference": 0.0,
+            "converted": 595.0,
+            "difference": 0.0,
+            "source": 595.0,
+            "within_tolerance": true
+          },
+          "pmin_mw": {
+            "absolute_difference": 0.0,
+            "converted": 225.0,
+            "difference": 0.0,
+            "source": 225.0,
+            "within_tolerance": true
+          },
+          "qmax_mvar": {
+            "absolute_difference": 0.0,
+            "converted": 221.3,
+            "difference": 0.0,
+            "source": 221.3,
+            "within_tolerance": true
+          },
+          "qmin_mvar": {
+            "absolute_difference": 2.842170943040401e-14,
+            "converted": -146.70000000000002,
+            "difference": -2.842170943040401e-14,
+            "source": -146.7,
+            "within_tolerance": true
+          },
+          "vg_pu": {
+            "absolute_difference": 0.0,
+            "converted": 0.961,
+            "difference": 0.0,
+            "source": 0.961,
+            "within_tolerance": true
+          }
+        },
+        "max_absolute_deviation": 2.842170943040401e-14,
+        "source_row_1based": 266
+      }
+    ],
+    "original_online_bus_class_coverage": {
+      "gen": 264,
+      "gen+sgen": 7,
+      "none": 1,
+      "sgen": 8,
+      "sgen+ext_grid": 1
+    },
+    "original_online_buses_without_converted_source": [
+      1320
+    ],
+    "source_online_buses_without_gen_but_with_sgen": [
+      14,
+      82,
+      448,
+      858,
+      876,
+      885,
+      1005,
+      1118,
+      1268
+    ]
+  },
+  "runtime": {
+    "pandapower_reported": "2.14.10",
+    "pandas": "2.2.3",
+    "python": "3.12.15",
+    "scipy": "1.13.1"
+  },
+  "source": {
+    "license": "CC BY 4.0; cannot be used to operate or plan real French/EU grid",
+    "pinned_matpower_commit": "80b6e16f760f58721ad31221c7287c28259cd4ad",
+    "source_blob_sha": "820bd317167381baf819d67eab7d886013e8b05a"
+  },
+  "source_generators": {
+    "counts": {
+      "all": 298,
+      "offline": 7,
+      "offline_distinct_buses": 6,
+      "offline_fixed_q_limits": 1,
+      "online": 291,
+      "online_at_min_p_in_source": 92,
+      "online_distinct_buses": 281,
+      "online_fixed_q_limits": 9,
+      "online_multiple_units_buses": 8
+    },
+    "original_online_multiunit_different_vg_bus_count": 0,
+    "sum": {
+      "pg_mw_online": 60090.91,
+      "pmax_mw_online": 90364.51,
+      "pmin_mw_online": 24847.06,
+      "qg_mvar_online": 2496.2799999999997,
+      "qmax_mvar_online": 42898.64,
+      "qmin_mvar_online": -18133.63
+    }
+  },
+  "status": "static_generator_conversion_audit"
+}
