@@ -1,0 +1,81 @@
+name: I35 IEEE118 True AC Censor-Aware GAdapt Credit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'research/ITERATION35_PROTOCOL.md'
+      - 'research/iteration35_censor_credit_ieee118.py'
+      - 'research/test_iteration35_censor_credit_ieee118.py'
+      - '.github/workflows/research-iteration35-ieee118-credit.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/ITERATION35_PROTOCOL.md'
+      - 'research/iteration35_censor_credit_ieee118.py'
+      - 'research/test_iteration35_censor_credit_ieee118.py'
+      - '.github/workflows/research-iteration35-ieee118-credit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  OPENBLAS_NUM_THREADS: '1'
+  OMP_NUM_THREADS: '1'
+  MKL_NUM_THREADS: '1'
+  NUMEXPR_NUM_THREADS: '1'
+  PYTHONHASHSEED: '0'
+
+jobs:
+  preflight-without-native-ac:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned PYPOWER/GAdapt stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'pandas==2.2.3' 'networkx==3.4.2' 'pypower==5.1.19' 'pandapower==2.14.11'
+          python -m pip install -e .
+      - name: Syntax and synthetic count tests BEFORE real PYPOWER
+        run: |
+          python -m py_compile research/iteration35_censor_credit_ieee118.py
+          python -m unittest -v research.test_iteration35_censor_credit_ieee118
+          python -m unittest -v research.test_iteration34_censor_credit_geant
+          python -m unittest -v tests.test_censored_verified_per_cost_credit tests.test_scenario_feasibility_credit tests.test_operator_credit
+
+  measured-original-ieee118:
+    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+    needs: preflight-without-native-ac
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install identical PYPOWER AC source stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'pandas==2.2.3' 'networkx==3.4.2' 'pypower==5.1.19' 'pandapower==2.14.11'
+          python -m pip install -e .
+      - name: Run exactly 48 registered GAdapt method by paired seed real source AC evaluations
+        run: |
+          mkdir -p research/results
+          python -m research.iteration35_censor_credit_ieee118 \
+            --json research/results/i35_ieee118_raw_48_true_original_AC.json \
+            --csv research/results/i35_ieee118_raw_48_true_original_AC.csv
+      - name: Preserve raw real native source physics outcomes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: i35-ieee118-source-native-AC-48-GAdapt-runs
+          path: |
+            research/results/i35_ieee118_raw_48_true_original_AC.json
+            research/results/i35_ieee118_raw_48_true_original_AC.csv
+          if-no-files-found: warn
+          retention-days: 90
