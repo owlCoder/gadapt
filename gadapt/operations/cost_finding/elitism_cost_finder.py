@@ -27,13 +27,23 @@ class ElitismCostFinder(BaseCostFinder):
         for c in candidate_solutions_for_execution:
             controller = getattr(self.population.options, "operator_credit_controller", None)
             paired = controller is not None and getattr(controller, "assignment", None) == "paired"
-            before = controller._counter_value() if paired else None
+            scenario_mode = controller is not None and getattr(controller, "credit", None) == "scenario_feasibility"
+            tracked = paired or scenario_mode
+            before = controller._counter_value() if tracked else None
             self._execute_function(self.population.options.cost_function, c)
-            if paired:
+            if tracked:
                 after = controller._counter_value()
-                if after < before or after > before + 1:
-                    raise ValueError("Invalid physical evaluation counter change")
-                controller.observe(c, physically_evaluated=(after == before + 1))
+                delta = after - before
+                if paired:
+                    if delta not in (0, 1):
+                        raise ValueError("Invalid paired physical evaluation counter change")
+                    controller.observe(c, physically_evaluated=(delta == 1))
+                else:
+                    # All N real scenario solves or NONE: never reward a partial
+                    # load-scenario sample as robustly physically evaluated.
+                    if delta not in (0, controller.scenario_count):
+                        raise ValueError("Incomplete scenario batch or corrupt physical AC counter")
+                    controller.observe(c, physically_evaluated=(delta == controller.scenario_count))
             elif controller is not None:
                 controller.observe(c)
         if not any(getattr(c, "_succ", False) for c in self.population):
