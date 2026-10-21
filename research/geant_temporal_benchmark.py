@@ -80,16 +80,37 @@ def main():
     parser.add_argument("--runs", type=int, default=12)
     parser.add_argument("--budget", type=int, default=240)
     parser.add_argument("--output", default="geant_temporal.csv")
+    parser.add_argument("--raw-volumes", action="store_true",
+                        help="Use published anonymized measured Mbps unchanged; default scales to the published SNDlib peak matrix")
     args = parser.parse_args()
     published = GeantCapacity.download()
     obs = load_scenarios()
     training = {timestamp: obs[timestamp] for timestamp in TIMESTAMPS[:-1]}
-    heldout = {TIMESTAMPS[-1]: obs[TIMESTAMPS[-1]]}
+    # The published default SNDlib GÉANT matrix is explicitly a scaled
+    # directed peak matrix (~3 Tbit/s). Absolute 15-minute traffic records
+    # are anonymized/scaled differently. In a stress DESIGN scenario, bring
+    # the largest TRAINING observed sum to the published peak; apply ONE
+    # fixed factor to all timestamps, with no information from August.
+    published_peak = sum(d[2] for d in published.demands)
+    training_max = max(sum(d[2] for d in demand) for demand in training.values())
+    factor = 1.0 if args.raw_volumes else published_peak / training_max
+    if not math.isfinite(factor) or factor <= 0:
+        raise ValueError("Invalid traffic calibration from archived data")
+    normalized = {stamp: [(a, b, demand * factor) for a, b, demand in matrix]
+                  for stamp, matrix in obs.items()}
+    training = {timestamp: normalized[timestamp] for timestamp in TIMESTAMPS[:-1]}
+    heldout = {TIMESTAMPS[-1]: normalized[TIMESTAMPS[-1]]}
     train = ChronologicalCapacity(published, training)
     out_of_period = ChronologicalCapacity(published, heldout)
-    validation_all = ChronologicalCapacity(published, obs)
+    validation_all = ChronologicalCapacity(published, normalized)
     print("DATA", "train=", list(training), "validation=", list(heldout),
-          "archive_sha256=", EXPECTED_ARCHIVE_SHA256, flush=True)
+          "archive_sha256=", EXPECTED_ARCHIVE_SHA256,
+          "published_peak_mbps=", round(published_peak, 3),
+          "training_peak_mbps=", round(training_max, 3),
+          "applied_scaling=", round(factor, 8),
+          "scenario=", ("anonymized_measured_raw" if args.raw_volumes else
+                        "measured_pattern_calibrated_to_published_peak"),
+          flush=True)
 
     # Baselines use the same admissible integer weight bounds as optimizers.
     prices = [edge[2] for edge in published.edges]
@@ -109,9 +130,7 @@ def main():
             # In order to evaluate a training-selected design out of period,
             # evaluate_method needs to return its BEST CONTROL VECTOR.
             # The dedicated Recorder in this benchmark captures it below.
-            from research.geant_capacity import Recorder
-            monitor = Recorder(train, args.budget)
-            # Run original method but substitute a recorder with vector capture
+            # Run original method but capture the chosen design for evaluation
             # through a minimal wrapper that tracks each objective evaluation.
             original_evaluate = train.evaluate
             best = {"cost": float("inf"), "weights": None}
@@ -130,7 +149,8 @@ def main():
                 raise RuntimeError("Optimizer did not evaluate a training candidate")
             validation = out_of_period.evaluate(best["weights"])
             total = validation_all.evaluate(best["weights"])
-            row = dict(method=method, seed=seed, train_cost=result["cost"],
+            row = dict(method=method, seed=seed, scenario_scale=factor,
+                       train_cost=result["cost"],
                        august_cost=validation["cost"], all_four_cost=total["cost"],
                        objective_evaluations=result["evaluations"],
                        seconds=result["seconds"],
