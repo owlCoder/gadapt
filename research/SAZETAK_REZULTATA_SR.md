@@ -1,3 +1,24 @@
+# Najnovije I32 — druga topologija IEEE14: 12.913 STVARNIH source AC, transfer signala ali NE i dokaz originalne metode (22.10.2026)
+
+**Preregistrovano pre simulacija i završeno 72/72 run-a (6 metoda × 12 novih semena 2104–2115) na originalnoj IEEE14 mreži**, različitoj od ranije IEEE118. **12.913/12.960 stvarnih PYPOWER runpf AC**, nula numeričkih neuspeha, proverene originalne individualne PG/QG, sabirničke naponske granice, originalne pozitivne RATE_A oba kraja i KCL **u sva tri** sintetička originalna PD/QD scenarija. To je 9D PV-kontrolisani *podskup*, ne pun AC-OPF ili industrijska mreža.
+
+| Originalni problem IEEE14, tri scenarija | Semena sa ≥1 potpuno verified source-feasible | Broj verificiranih kandidata | Stvarni native AC |
+|---|---:|---:|---:|
+| Legacy GA full_true | 8/12 | 47 | 2160 |
+| Legacy GA full_censored (sva tri AC plaćena, cenzurisana selekcija) | 9/12 | 82 | 2160 |
+| **Legacy GA stop_fixed** | **12/12** | **404** | **2149** |
+| Legacy GA stop_adaptive | 12/12 | 403 | 2146 |
+| SciPy DE full_true | 3/12 | 3 | 2160 |
+| SciPy DE stop_fixed | 7/12 | 13 | 2138 |
+
+**Glavni upareni kontrast:** GA fixed screening 12/12 naspram potpuno fizički plaćenog GA censored 9/12, 3 diskordantna semena, **egzaktni dvostrani p=0,25**. Fixed GA naspram fixed DE 12/12 vs 7/12, p=0,0625. **NEMA statistički značajnog testa na 0,05** niti prenosa na industriju; adaptivno ređanje nije dokazano korisnije od fiksnog. Na prethodnoj IEEE118 topologiji I31 u drugoj grani analogan GA censored/fixed rezultat bio je 7/12 vs 11/12, p=0,125: smer signala se ponavlja, ali pozitivna „algoritamska novina“ ne postoji i nije dokazana generalna prednost. I32 korigovano razdvaja *selekcioni score* od broja zaista fizički ispitanih kandidata.
+
+[Kompletan izveštaj I32](ITERATION32_REPORT_SR.md) · [protokol pre stvarnog AC](ITERATION32_PROTOCOL.md) · [72 stvarna individualna raw JSON zapisa](results/ieee14_iteration32_12seed_6arms_12913_real_AC_20261022.json) · [72 CSV](results/ieee14_iteration32_12seed_6arms_12913_real_AC_20261022.csv) · [stvarno uspešan GitHub Actions run 39686171613](https://github.com/owlCoder/gadapt/actions/runs/39686171613) · [originalni fizički artifacts](https://github.com/owlCoder/gadapt/actions/runs/39686171613/artifacts/12386702402).
+
+**Dalje:** novi preregistrirani kapacitetni/telekom GÉANT domen, odvojeno računanje stvarnih mrežnih evaluacija (NE električnih AC poziva), jaka nezavisna bazna metoda, prior-art pregled scenario racing i adaptivnog GAdapt budget kontrolera. **Nema još dokazanog doktoratskog originalnog doprinosa.**
+
+---
+
 # NAJNOVIJE I29–I30 — opipljiva ušteda AC evaluacija kroz opt-in GAdapt screening, ALI naučna originalnost NIJE dokazana (21.10.2026)
 
 **I29: pravi opt-in source code evaluator UNUTAR GAdapt paketa**:
