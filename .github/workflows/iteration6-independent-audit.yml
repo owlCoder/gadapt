@@ -1,0 +1,49 @@
+name: Iteration 6 independent persisted IEEE118 RTE audit and plots
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/results/ieee118_allocation_20261021.csv"
+      - "research/results/rte1888_stress_20261021.csv"
+      - "research/analyze_ieee118_allocation.py"
+      - "research/analyze_iteration6_rte.py"
+      - "research/plot_iteration6_ieee118.py"
+      - ".github/workflows/iteration6-independent-audit.yml"
+  workflow_dispatch:
+
+jobs:
+  reproduce-from-versioned-csv:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e . 'scipy==1.13.1' 'pandapower==2.14.11' 'pandas==2.2.3' 'matplotlib>=3.8,<4'
+      - name: Independently recalculate all corrected IEEE118 paired tests
+        run: |
+          set -o pipefail
+          python -m research.analyze_ieee118_allocation research/results/ieee118_allocation_20261021.csv --budget 180 | tee iteration6_persisted_ieee118_stats.txt
+          test -s iteration6_persisted_ieee118_stats.txt
+      - name: Independently inspect French RTE physical infeasibility
+        run: |
+          set -o pipefail
+          python -m research.analyze_iteration6_rte research/results/rte1888_stress_20261021.csv | tee iteration6_persisted_rte_stats.txt
+          test -s iteration6_persisted_rte_stats.txt
+      - name: Render reproducible IEEE118 plots with no imputed MW
+        run: |
+          set -o pipefail
+          python -m research.plot_iteration6_ieee118 research/results/ieee118_allocation_20261021.csv --output-dir iteration6_figures | tee iteration6_plot_log.txt
+          test -s iteration6_figures/ieee118_load100.png
+          test -s iteration6_figures/ieee118_load110.png
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iteration6-independent-statistics-and-feasible-MW-figures
+          path: |
+            iteration6_persisted_ieee118_stats.txt
+            iteration6_persisted_rte_stats.txt
+            iteration6_plot_log.txt
+            iteration6_figures/*
