@@ -1,0 +1,48 @@
+name: Iteration 7 source-rated RTE AC feasibility audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/iteration7_rte_source_physics.py"
+      - "research/test_iteration7_source_physics.py"
+      - ".github/workflows/iteration7-source-rated-ac.yml"
+  workflow_dispatch:
+
+jobs:
+  source-rated-ac:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e . 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Verify source-bus mapping and exact limit handling
+        run: python -m unittest -v research.test_iteration7_source_physics
+      - name: Execute frozen source-rated 17+17 physical AC pilot
+        run: python -m research.iteration7_rte_source_physics --loads 1.0 1.1 --output rte1888_source_rated_17x2.csv
+      - name: Preserve raw CSV for versioning
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          p=Path("rte1888_source_rated_17x2.csv")
+          if p.exists():
+              encoded=base64.b64encode(p.read_bytes()).decode()
+              for i in range(0,len(encoded),2048):
+                  print("I7_SOURCE_AC_CSV_B64",i//2048,encoded[i:i+2048],flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iteration7-source-faithful-34-ac-calls
+          path: rte1888_source_rated_17x2.csv
