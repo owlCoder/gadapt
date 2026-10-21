@@ -1,0 +1,61 @@
+name: Iteration 6 IEEE118 actual randomness versus PF numerical replay
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/iteration6_repro_probe.py"
+      - ".github/workflows/iteration6-repro-probe.yml"
+  workflow_dispatch:
+
+jobs:
+  separate-process-replay:
+    strategy:
+      fail-fast: false
+      matrix:
+        replica: [1, 2]
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e . 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Compare fixed 16 AC vectors across independent interpreters
+        run: |
+          set -o pipefail
+          python -m research.iteration6_repro_probe --mode ac > ac_first.json
+          python -m research.iteration6_repro_probe --mode ac > ac_second.json
+          if cmp -s ac_first.json ac_second.json; then
+            echo "REPLAY AC bitwise identical within runner"
+          else
+            echo "REPLAY AC differs: independent processes disagree"
+            diff -u ac_first.json ac_second.json || true
+          fi
+      - name: Compare actual GA proposals and real AC results
+        run: |
+          set -o pipefail
+          python -m research.iteration6_repro_probe --mode ga > ga_first.json
+          python -m research.iteration6_repro_probe --mode ga > ga_second.json
+          if cmp -s ga_first.json ga_second.json; then
+            echo "REPLAY GA input and output hashes identical within runner"
+          else
+            echo "REPLAY GA differs between fresh interpreters"
+            diff -u ga_first.json ga_second.json || true
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ieee118-repro-seeded-thread1-replica-${{ matrix.replica }}
+          path: |
+            ac_first.json
+            ac_second.json
+            ga_first.json
+            ga_second.json
