@@ -1,0 +1,90 @@
+{
+  "attempts": [
+    {
+      "actual_native_ac_call": 1,
+      "enforce_q_lims": false,
+      "metrics": {
+        "active_bus_count": 1888,
+        "actual_pq_bus_count": 1611,
+        "actual_pv_bus_count": 276,
+        "actual_ref_bus_count": 1,
+        "actual_ref_bus_ids": [
+          1320
+        ],
+        "all_explicit_checked_constraints_feasible": false,
+        "branch_original_rate_a_mva": {
+          "max_source_rate_a_loading_percent": 83.65207045827286,
+          "overloaded_branches": 0,
+          "rated_active_branches": 2076,
+          "sum_relative_rating_excess": 0.0,
+          "unrated_active_branches": 455
+        },
+        "complete_checked_residual_mixed_units_not_opf_objective": 93.38556337807526,
+        "online_original_generator_count": 291,
+        "original_source_slack_bus_id": 1320,
+        "original_source_slack_final_bus_type": 3,
+        "original_source_slack_pg_mw": 0.3231382835022072,
+        "original_source_slack_qg_mvar": -2.0869129994111946,
+        "original_source_slack_qmax_excess_mvar": 0.0,
+        "original_source_slack_row_1based": 298,
+        "original_source_slack_source_qmax_mvar": 1.0,
+        "original_source_slack_source_qmin_mvar": -1.0,
+        "p_generator_bounds_mw": {
+          "above_limit_count": 0,
+          "above_limit_total": 0.0,
+          "below_limit_count": 10,
+          "below_limit_total": 54.949999999999996,
+          "max_above_limit": 0.0,
+          "max_below_limit": 14.69
+        },
+        "q_generator_bounds_mvar": {
+          "above_limit_count": 4,
+          "above_limit_total": 6.942439863500308,
+          "below_limit_count": 12,
+          "below_limit_total": 31.439116817108314,
+          "max_above_limit": 3.5599907850913013,
+          "max_below_limit": 7.9076118771106465
+        },
+        "sum_branch_real_losses_mw_not_feasible_optimum": 980.7331382859218,
+        "voltage": {
+          "above_limit_count": 0,
+          "above_limit_total": 0.0,
+          "below_limit_count": 45,
+          "below_limit_total": 0.05400669746664677,
+          "max_above_limit": 0.0,
+          "max_below_limit": 0.008732109276589961
+        }
+      },
+      "scenario": "source_matpower_original_no_q_enforcement",
+      "solver_converged": true,
+      "solver_error": ""
+    },
+    {
+      "actual_native_ac_call": 2,
+      "enforce_q_lims": true,
+      "metrics": null,
+      "scenario": "source_matpower_q_enforcement",
+      "solver_converged": false,
+      "solver_error": "IndexError: arrays used as indices must be of integer (or boolean) type"
+    }
+  ],
+  "metadata": {
+    "actual_native_ac_calls": 2,
+    "license": "CC BY 4.0; NOT for real French/EU grid operations or planning",
+    "native_solver": "PYPOWER 5.1.19 runpf (no pandapower conversion)",
+    "runtime": {
+      "pandas": "2.2.3",
+      "pypower": "not exposed",
+      "python": "3.12.15",
+      "scipy": "1.13.1"
+    },
+    "scope": "AC power flow diagnostic ONLY; not AC-OPF, no GAdapt comparison",
+    "source": "MATPOWER/matpower/data/case1888rte.m",
+    "source_baseMVA": 100,
+    "source_branch_count": 2531,
+    "source_bus_count": 1888,
+    "source_commit": "80b6e16f760f58721ad31221c7287c28259cd4ad",
+    "source_gen_count": 298,
+    "source_slack_bus_id": 1320
+  }
+}
