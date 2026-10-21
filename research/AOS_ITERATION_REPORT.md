@@ -203,3 +203,7 @@ The correct scientific decision at the end of this iteration is
 **not to accept UCB1 + observational offspring credit as an improvement**.
 Future work should first isolate credit assignment causally or by randomized
 matched offspring comparisons before adding further heuristics.
+
+## Reproducible plots
+
+The corrected GÉANT 44-period pilot was repeated with the plotting step and completed successfully at https://github.com/owlCoder/gadapt/actions/runs/39565100540 ; artifact https://github.com/owlCoder/gadapt/actions/runs/39565100540/artifacts/12329223499 includes raw CSV, console logs, statistical results, and `aos_geant_figure_all_44.png` / `aos_geant_figure_heldout_32.png`. All method medians and exact tests were reproduced; runtime medians on the second runner were ~2.83–2.92 s per method, versus ~5.43–5.53 s on the earlier runner. This reinforces that runner timings are hardware/noise dependent, **not** evidence of method speedup. Figure code is `research/plot_aos.py` and labels denominators explicitly.
