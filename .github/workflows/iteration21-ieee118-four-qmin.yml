@@ -1,0 +1,57 @@
+name: Iteration 21 IEEE118 four original QMIN PV screens (8 real AC)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION21_PROTOCOL.md"
+      - "research/iteration21_ieee118_four_qmin_controls.py"
+      - "research/test_iteration21_ieee118_four_qmin_controls.py"
+      - ".github/workflows/iteration21-ieee118-four-qmin.yml"
+  workflow_dispatch:
+
+jobs:
+  source-ieee118-four-qmin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned original IEEE AC dependencies
+        run: python -m pip install -e . 'pypower==5.1.19' 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Verify original four QMIN PV generator identities and I20 source baseline
+        run: python -m unittest -v research.test_iteration21_ieee118_four_qmin_controls research.test_iteration20_ieee118_reactive_sensitivity
+      - name: Run eight source IEEE118 NR AC QMIN one-factor sensitivity probes
+        run: python -m research.iteration21_ieee118_four_qmin_controls --json iteration21_ieee118_qmin_source.json --csv iteration21_ieee118_qmin_source.csv
+      - name: Expose raw data for permanent GitHub science archive
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          for kind,name in (("CSV","iteration21_ieee118_qmin_source.csv"),
+                            ("JSON","iteration21_ieee118_qmin_source.json")):
+              p=Path(name)
+              if p.exists():
+                  s=base64.b64encode(p.read_bytes()).decode("ascii")
+                  for i,pos in enumerate(range(0,len(s),2048)):
+                      print("I21_ARCHIVE",kind,i,s[pos:pos+2048],flush=True)
+              else:
+                  print("I21_MISSING",kind,flush=True)
+          PY
+      - name: Archive exact source reactive control effects including failure cases
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration21-IEEE118-8-source-QMIN-VG-sensitivities
+          path: |
+            iteration21_ieee118_qmin_source.csv
+            iteration21_ieee118_qmin_source.json
