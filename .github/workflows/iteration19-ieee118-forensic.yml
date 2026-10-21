@@ -1,0 +1,57 @@
+name: Iteration 19 IEEE118 ten source AC forensic replays
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION19_PROTOCOL.md"
+      - "research/iteration19_ieee118_forensic_diagnostic.py"
+      - "research/test_iteration19_ieee118_forensic_diagnostic.py"
+      - ".github/workflows/iteration19-ieee118-forensic.yml"
+  workflow_dispatch:
+
+jobs:
+  ten-source-ac-replays:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned original IEEE118 scientific dependencies
+        run: python -m pip install -e . 'pypower==5.1.19' 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Test exact historical preflight and source Q P V RATE_A physical metrics
+        run: python -m unittest -v research.test_iteration19_ieee118_forensic_diagnostic research.test_iteration18_ieee118_gadapt_transfer
+      - name: Replay exact ten previously fixed IEEE118 source AC states
+        run: python -m research.iteration19_ieee118_forensic_diagnostic --json iteration19_ieee118_forensic.json --csv iteration19_ieee118_forensic.csv
+      - name: Expose exact raw AC data for repository archive
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          for kind,name in (("CSV","iteration19_ieee118_forensic.csv"),
+                            ("JSON","iteration19_ieee118_forensic.json")):
+              p=Path(name)
+              if p.exists():
+                  encoded=base64.b64encode(p.read_bytes()).decode("ascii")
+                  for i,k in enumerate(range(0,len(encoded),2048)):
+                      print("I19_ARCHIVE",kind,i,encoded[k:k+2048],flush=True)
+              else:
+                  print("I19_MISSING",kind,flush=True)
+          PY
+      - name: Archive complete ten-run original physical diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration19-IEEE118-10-original-AC-Q-P-V-offenders
+          path: |
+            iteration19_ieee118_forensic.csv
+            iteration19_ieee118_forensic.json
