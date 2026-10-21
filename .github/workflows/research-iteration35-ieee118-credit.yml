@@ -49,7 +49,9 @@ jobs:
           python -m unittest -v tests.test_censored_verified_per_cost_credit tests.test_scenario_feasibility_credit tests.test_operator_credit
 
   measured-original-ieee118:
-    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+    # One original I35 true-AC analytical series completed in Actions #39693170701.
+    # Require explicit manual action for any nonindependent physics rerun.
+    if: github.event_name == 'workflow_dispatch'
     needs: preflight-without-native-ac
     runs-on: ubuntu-latest
     timeout-minutes: 120
