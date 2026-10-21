@@ -1,0 +1,3 @@
+scenario,attempted,actual_ac_opf_call,solver_success,solver_error,elapsed_seconds,raw_info,solver_message,iteration_count,start_feascond,last_feascond,last_gradcond,last_compcond,posthoc_validated,validator_error,source_economic_cost,max_nodal_mismatch_mva
+control_case9_opf_565,True,1,True,,0.55296,1.0,Converged,12,0.155,4.323811315710679e-07,1.511886585539812e-07,7.948554273615318e-07,False,,,
+original_rte1888_opf_565,True,2,False,TimeoutError: Preregistered solver wall timeout exceeded,780.07039,,,,,,,,False,,,
