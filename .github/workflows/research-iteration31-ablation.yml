@@ -44,7 +44,7 @@ jobs:
       - name: Install frozen scientific Python dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'pandas==2.2.3' 'pypower==5.1.19'
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'pandas==2.2.3' 'pypower==5.1.19' 'pandapower==2.14.11'
           python -m pip install -e .
       - name: Compile I31 protocol implementation
         run: python -m py_compile research/iteration31_fitness_budget_ablation.py research/test_iteration31_fitness_budget_ablation.py
@@ -66,7 +66,7 @@ jobs:
       - name: Install same frozen physical simulator
         run: |
           python -m pip install --upgrade pip
-          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'pandas==2.2.3' 'pypower==5.1.19'
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'pandas==2.2.3' 'pypower==5.1.19' 'pandapower==2.14.11'
           python -m pip install -e .
       - name: Run 48 preregistered experiments and archive complete source evidence
         run: |
