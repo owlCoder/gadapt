@@ -99,3 +99,30 @@ independent chronological test remain indispensable before publication.
 
 **Caveat:** Unit tests are not equivalent to running real engineering
 problems. IEEE14 is a standardized test network, not production data.
+
+## Extension frozen before execution: GÉANT chronological replication
+
+This second pilot is *exploratory*, using the same 12 development and 32
+out-of-period August snapshots and published SNDlib/GÉANT archive SHA as
+`research/aos_geant_temporal.py`. That sample was already inspected in
+iteration 3 and **must never be relabelled as a fresh independent holdout**.
+It tests transport of a mechanism from an AC model to an unrelated 36-link
+capacity-planning model with 462 recorded directed demands and assumed OSPF
+routing. The model has no separately justified hard capacity constraints;
+therefore no feasibility reward is used.
+
+8 paired seeds, 240 true GÉANT training cost calls, population 36,
+methods `legacy`, `legacy_single`, `uniform_offspring`, `ucb_offspring`,
+`uniform_paired`, `ucb_paired`, `scipy_de`. Single-gene arms use affine
+diversity, one variable mutation, randomized variable choice and no
+uniqueness enforcement. `legacy` retains original log relative
+and variable mutation configuration. All methods use same published
+integer link weights [1,25].
+
+Primary outcome is the final best *physically evaluated* static plan's
+investment cost covering all 44 demand matrices, with independent
+32-August-matrix cost reported separately. Compare to `legacy_single`
+via paired exact sign test; six Holm-corrected comparisons. All costs
+are model module-cost units, NOT operator invoices or actual installed
+equipment. Do not treat rerunning the same holdout as new confirmatory
+data or choose algorithm based on its August test result.
