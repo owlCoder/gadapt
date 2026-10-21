@@ -5,7 +5,10 @@ on:
     branches: [main]
     paths:
       - "research/results/ieee118_allocation_20261021.csv"
+      - "research/results/ieee118_allocation_pinned_20261021.csv"
       - "research/results/rte1888_stress_20261021.csv"
+      - "research/results/rte1888_stress_pinned_20261021.csv"
+      - "research/compare_iteration6_replications.py"
       - "research/analyze_ieee118_allocation.py"
       - "research/analyze_iteration6_rte.py"
       - "research/plot_iteration6_ieee118.py"
@@ -38,6 +41,24 @@ jobs:
           python -m research.plot_iteration6_ieee118 research/results/ieee118_allocation_20261021.csv --output-dir iteration6_figures | tee iteration6_plot_log.txt
           test -s iteration6_figures/ieee118_load100.png
           test -s iteration6_figures/ieee118_load110.png
+      - name: Verify 72 physics-budgeted environment-pinned IEEE118 trials
+        run: |
+          set -o pipefail
+          python -m research.analyze_ieee118_allocation research/results/ieee118_allocation_pinned_20261021.csv --budget 180 | tee iteration6_pinned_ieee118_stats.txt
+      - name: Audit RTE under environment-pinned solver
+        run: |
+          set -o pipefail
+          python -m research.analyze_iteration6_rte research/results/rte1888_stress_pinned_20261021.csv | tee iteration6_pinned_rte_stats.txt
+      - name: Quantify changes between original and pinned paired outcomes
+        run: |
+          set -o pipefail
+          python -m research.compare_iteration6_replications research/results/ieee118_allocation_20261021.csv research/results/ieee118_allocation_pinned_20261021.csv | tee iteration6_original_vs_pinned.txt
+      - name: Render pinned IEEE118 figures
+        run: |
+          set -o pipefail
+          python -m research.plot_iteration6_ieee118 research/results/ieee118_allocation_pinned_20261021.csv --output-dir iteration6_pinned_figures | tee iteration6_pinned_plot_log.txt
+          test -s iteration6_pinned_figures/ieee118_load100.png
+          test -s iteration6_pinned_figures/ieee118_load110.png
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -47,3 +68,8 @@ jobs:
             iteration6_persisted_rte_stats.txt
             iteration6_plot_log.txt
             iteration6_figures/*
+            iteration6_pinned_ieee118_stats.txt
+            iteration6_pinned_rte_stats.txt
+            iteration6_original_vs_pinned.txt
+            iteration6_pinned_plot_log.txt
+            iteration6_pinned_figures/*
