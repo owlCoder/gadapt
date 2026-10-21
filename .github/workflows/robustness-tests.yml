@@ -3,6 +3,7 @@ name: Robustness regression tests
 on:
   push:
     branches:
+      - main
       - "research/**"
   pull_request:
 
