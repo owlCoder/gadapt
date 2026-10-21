@@ -125,7 +125,10 @@ class AllocationSwitch:
                     self.decision, fraction = "feasible_improving", .55
                 else:
                     self.decision, fraction = "feasible_stalled", .30
-            self.target = math.ceil(fraction * rec.budget)
+            # Exact integer percentage avoids 55%*180 = 99.00000000000001
+            # accidentally consuming a 100th GA physical evaluation.
+            percent = int(round(fraction * 100))
+            self.target = (percent * rec.budget + 99) // 100
             rec.stage_cap = self.target
         return rec.calls >= self.target
 
