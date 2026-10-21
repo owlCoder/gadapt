@@ -1,5 +1,22 @@
 ## Iteracija 6 — IEEE118 i RTE: stvarni fizički rezultati, bez lažnog optimuma
 
+**Provera ponovljivosti (naknadna korekcija okruženja):** dva prvobitna
+IEEE118 izvršavanja sa istim semenom nisu bila bitovski identična.
+Nakon fiksiranja `PYTHONHASHSEED=0` i jednonitnog BLAS/OMP/MKL
+okruženja, [dva ponovljena puna izvršavanja IEEE118](https://github.com/owlCoder/gadapt/actions/runs/39584858314)
+postigla su tačno iste izvodljive MW vrednosti za GAdapt, SLSQP,
+oba hibrida i DE (60/60 metoda-seme-opterećenje zapisa), a CMA-ES
+se razlikovao maksimalno ~1,03e-11 MW.
+[RTE ponavljanje](https://github.com/owlCoder/gadapt/actions/runs/39584806628)
+potvrdilo je 0/12 izvodljivih kandidata.
+[Nezavisna analiza iz trajno sačuvanog CSV i slike](https://github.com/owlCoder/gadapt/actions/runs/39586016114)
+prošla je u CI. Originalni i pinovani sirovi CSV su odvojeni;
+**ista semena ne broje se kao nezavisne replikacije**.
+Detaljan metodološki dodatak nalazi se u
+[ITERATION6_REPORT_SR.md](ITERATION6_REPORT_SR.md).
+
+
+
 **Završeno i reprodukovano na `main`:**
 [Izveštaj na srpskom](ITERATION6_REPORT_SR.md) ·
 [Unapred fiksiran protokol](ITERATION6_PROTOCOL.md) ·
