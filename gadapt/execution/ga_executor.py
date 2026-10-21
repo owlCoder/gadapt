@@ -35,6 +35,9 @@ class GAExecutor:
         self.population_updater = self.factory.get_population_updater()
         self.candidate_solution_updater = self.factory.get_candidate_solution_updater()
         self.decision_variable_mutator = self.factory.get_decision_variable_mutator()
+        self.ga_options.operator_credit_controller = (
+            self.decision_variable_mutator if hasattr(self.decision_variable_mutator, "begin_generation") else None
+        )
         self.initial_population: Optional[Population] = None
 
     def execute(self) -> GAResults:
@@ -78,6 +81,8 @@ class GAExecutor:
         except Exception as ex:
             results.success = False
             results.messages.append((message_levels.ERROR, str(ex)))
+        if self.ga_options.operator_credit_controller is not None:
+            results.operator_credit_summary = self.ga_options.operator_credit_controller.summary()
         return results
 
     def exit(self) -> bool:
@@ -117,6 +122,8 @@ class GAExecutor:
         """
         Mutates candidate solutions in the population
         """
+        if self.ga_options.operator_credit_controller is not None:
+            self.ga_options.operator_credit_controller.begin_generation(self.population)
         self.population_mutator.mutate(self.population)
 
     def select_mates(self) -> List[Tuple[CandidateSolution, CandidateSolution]]:
