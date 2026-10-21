@@ -1,0 +1,13 @@
+case,load_factor,method,seed,dimension,optimizer_success,error,physically_feasible,feasible_loss_mw,min_observed_violation,best_penalized,actual_solver_calls,rejected_solver_requests,converged_solver_failures,physically_feasible_calls,ga_physical_calls,local_physical_calls,local_starts,local_failed_terminations,cma_generations,random_filler_evaluations,adaptive_decision,adaptive_decision_at_call,adaptive_progress,elapsed_sec,best_physical_feasible_voltages
+rte1888,1,gadapt_legacy,300,8,True,,False,,16.23710922266211,1624701.51484095,72,2,2,0,72,0,0,0,0,0,full_ga,,,31.08,
+rte1888,1,slsqp_multistart,300,8,True,,False,,16.240392720216423,1625029.9294442039,72,1,1,0,0,72,2,0,0,0,,,,30.402,
+rte1888,1,hybrid_adaptive,300,8,True,,False,,16.237109243769304,1624701.516948807,72,3,3,0,54,18,1,0,0,0,infeasible_explore,20,,32.098,
+rte1888,1,scipy_de,300,8,True,,False,,16.235587376090926,1624549.3271996467,72,1,0,0,0,0,0,0,0,0,,,,25.983,
+rte1888,1,gadapt_legacy,301,8,True,,False,,16.2350199203089,1624492.57806637,72,2,2,0,72,0,0,0,0,0,full_ga,,,31.48,
+rte1888,1,slsqp_multistart,301,8,True,,False,,16.269197747517385,1627910.6905896738,72,1,3,0,0,72,2,0,0,0,,,,39.728,
+rte1888,1,hybrid_adaptive,301,8,True,,False,,16.235024233705907,1624493.0100736064,72,3,2,0,54,18,1,0,0,0,infeasible_explore,20,,30.864,
+rte1888,1,scipy_de,301,8,True,,False,,16.235587376089754,1624549.3271995273,72,1,0,0,0,0,0,0,0,0,,,,25.514,
+rte1888,1,gadapt_legacy,302,8,True,,False,,16.235587355011237,1624549.3250945385,72,2,3,0,72,0,0,0,0,0,full_ga,,,30.914,
+rte1888,1,slsqp_multistart,302,8,True,,False,,16.26664194955578,1627654.6185109648,72,1,3,0,0,72,2,0,0,0,,,,27.289,
+rte1888,1,hybrid_adaptive,302,8,True,,False,,16.23558735501166,1624549.3250945818,72,3,3,0,54,18,1,0,0,0,infeasible_explore,20,,30.511,
+rte1888,1,scipy_de,302,8,True,,False,,16.235587376090788,1624549.3271996323,72,1,1,0,0,0,0,0,0,0,,,,27.975,
