@@ -1,0 +1,57 @@
+name: Iteration 24 real GAdapt DE random Powell on IEEE118 five PV (1152 AC max)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION24_PROTOCOL.md"
+      - "research/iteration24_ieee118_fivepv_real_gadapt.py"
+      - "research/test_iteration24_ieee118_fivepv_real_gadapt.py"
+      - ".github/workflows/iteration24-fivepv-gadapt-ieee118.yml"
+  workflow_dispatch:
+
+jobs:
+  benchmark-real-original-IEEE118:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned original IEEE118, GA and physical solver dependencies
+        run: python -m pip install -e . 'pypower==5.1.19' 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Zero-AC unit tests: exact five source gen PV controls, identical bounds, physical budgets
+        run: python -m unittest -v research.test_iteration24_ieee118_fivepv_real_gadapt research.test_iteration23_ieee118_qbracket research.test_iteration17_ieee14_gadapt_economic_pf
+      - name: Execute 12 seeded original GAdapt DE random Powell searches with 96 real AC cap each
+        run: python -m research.iteration24_ieee118_fivepv_real_gadapt --seeds 2026 2027 2028 --budget 96 --population 16 --json iteration24_ieee118_fivepv.json --csv iteration24_ieee118_fivepv.csv
+      - name: Emit exact raw experiment for reproducible GitHub archive
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          for kind,path in (("CSV","iteration24_ieee118_fivepv.csv"),
+                            ("JSON","iteration24_ieee118_fivepv.json")):
+              p=Path(path)
+              if p.is_file():
+                  s=base64.b64encode(p.read_bytes()).decode("ascii")
+                  for i,j in enumerate(range(0,len(s),2048)):
+                      print("I24_ARCHIVE",kind,i,s[j:j+2048],flush=True)
+              else:
+                  print("I24_MISSING",kind,flush=True)
+          PY
+      - name: Preserve raw physical GA benchmark, including negative feasible outcomes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration24-IEEE118-fivePV-real-GAdapt-DE-random-Powell
+          path: |
+            iteration24_ieee118_fivepv.csv
+            iteration24_ieee118_fivepv.json
