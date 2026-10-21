@@ -1,4 +1,5 @@
 name: I35 IEEE118 True AC Censor-Aware GAdapt Credit
+# Intentional single-run PR trigger; zero changes to physical methods or frozen seeds
 
 on:
   push:
