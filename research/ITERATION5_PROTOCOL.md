@@ -60,3 +60,25 @@ No statistically confirmed superiority or rare-event reliability claim
 will be made without an independent, adequately powered replication and
 larger cases (IEEE118, RTE) plus non-grid domain. Full blown AC OPF / global
 optimality certification is NOT addressed.
+
+## Frozen secondary cross-domain probe: GÉANT (NOT a new holdout)
+The archive had already been inspected in iterations 2–4. We use exactly
+the prior 12 training and 32 later evaluation snapshots, with SHA256
+verification and a scaling factor calibrated exclusively on earlier traffic.
+Hence **no claim of independent temporal test**.
+
+Methods: `legacy_gadapt`, `coordinate_multistart`,
+`hybrid_gadapt_coordinate` and `scipy_de`; seeds 100–107, each
+with 360 true objective evaluations, population 36; 180/180 split for hybrid.
+The local search changes one published integer route weight by randomly
+chosen +/-1, +/-2, +/-4, or +/-8 (clipped to bounds), accepts ONLY a strict
+training-cost improvement, and restarts after 3*n unsuccessful attempts.
+Control local search uses seeded random initial route-weight vectors.
+This is a standard discrete coordinate hill climber, not novel.
+All temporary objective calls and early stops are counted; postbudget
+requests never improve the saved plan. Evaluate the physically recorded
+best development plan on the unmodified test block only after optimization.
+Primary exploratory metric: all-44-period installed capacity module
+cost, failure counted; the held-out August cost is secondary and
+previously inspected. Paired rank exact p with Holm across three
+comparisons against legacy, n=8 no confirmatory superiority.
