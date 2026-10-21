@@ -40,7 +40,7 @@ def small_network():
 class Iteration8StructuralTests(unittest.TestCase):
     def test_nearest_control_excludes_first_eight_legacy_subset(self):
         net=small_network()
-        measured=np.array([0.90,1.,1.10,1.,1.,1.])
+        measured=np.array([0.88,1.,1.10,1.,1.,1.])
         targets,count=select_nearest_controls(
             net,measured,np.array([0.95]*6),np.array([1.05]*6),
             excluded={0},n=2)
