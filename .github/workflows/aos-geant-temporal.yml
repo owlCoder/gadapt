@@ -1,0 +1,39 @@
+name: Experimental GÉANT chronological AOS holdout
+
+on:
+  push:
+    branches:
+      - "research/feasibility-credit-aos"
+    paths:
+      - "research/aos_geant_temporal.py"
+      - "research/analyze_aos_geant_temporal.py"
+      - ".github/workflows/aos-geant-temporal.yml"
+  workflow_dispatch:
+
+jobs:
+  frozen-temporal-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e . 'scipy>=1.11,<1.16' 'networkx>=3.2,<4'
+      - name: Frozen timestamp direct-GAdapt benchmark
+        run: |
+          set -o pipefail
+          python -m research.aos_geant_temporal --runs 8 --budget 240 --output aos_geant_temporal.csv | tee aos_geant_log.txt
+          test -s aos_geant_temporal.csv
+      - name: Failure-aware paired statistics
+        run: |
+          set -o pipefail
+          python -m research.analyze_aos_geant_temporal aos_geant_temporal.csv | tee aos_geant_stats.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: aos-geant-temporal-44-matrix-raw
+          path: |
+            aos_geant_temporal.csv
+            aos_geant_log.txt
+            aos_geant_stats.txt
