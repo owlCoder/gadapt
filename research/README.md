@@ -1,3 +1,45 @@
+## Paired physical mutation-credit experiment — current `main`
+
+`mutation_credit_assignment="paired"` is a STRICT opt-in research setting
+for full GAdapt. Unlike ordinary adaptive mutation, it evaluates the same
+offspring once BEFORE a one-variable mutation and once AFTER. **Both solver
+calls consume the optimization budget.** This is a local effect comparison,
+not a proof of improved final optimization or a new AOS theorem. The callback
+must report a monotonically increasing number of genuine physical evaluations;
+post-budget sentinel objective calls must NOT advance that counter.
+
+```python
+ga = GA(
+    cost_function=physical_objective,
+    mutation_operator_policy="ucb",  # or "uniform"
+    mutation_operator_credit="objective",  # or "feasibility"
+    mutation_credit_assignment="paired",
+    mutation_evaluation_counter=lambda: actual_simulator_calls,
+    ensure_unique_individuals=False,
+    number_of_mutation_decision_variables=1,
+    candidate_solution_mutation="random",
+)
+# For feasibility mode, also set mutation_violation_function to a
+# cached metadata reader returning >=0 normalized physical violation,
+# and None if that particular physical evaluation never occurred.
+```
+
+Regenerate raw CSV and paired tests on *both* public infrastructure models:
+
+```bash
+python -m research.paired_credit_ieee14 --runs 8 --budget 240 --output paired_ieee14.csv
+python -m research.analyze_paired_credit_ieee14 paired_ieee14.csv
+python -m research.paired_credit_geant --runs 8 --budget 240 --output paired_geant.csv
+python -m research.analyze_paired_credit_geant paired_geant.csv
+```
+
+The older GÉANT August block is **reused** (not a new independent holdout).
+Full protocol: [PAIRED_CREDIT_PROTOCOL.md](PAIRED_CREDIT_PROTOCOL.md).
+No method may be asserted scientifically superior on 8 seeds. Failures and
+different counts of unscored objective wrapper requests remain reported.
+
+---
+
 ## Experimental mutation-benefit AOS (branch `research/feasibility-credit-aos`)
 
 **Do not interpret this as a dissertation-ready method.** The original
