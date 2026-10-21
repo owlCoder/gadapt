@@ -1,3 +1,37 @@
+# NAJNOVIJI PROVERENI DOMENSKI REZULTAT: originalni AC-OPF IEEE14 i IEEE118 (21.10.2026)
+
+**Iteracija 16** donela je dve originalne javne IEEE AC-OPF reference sa
+stvarnim PYPOWER `runopf` pozivima i nezavisno ponovo izračunatim
+fizičkim rezultatima: oba solvera prijavila `success=True`, oba
+prošla ograničenja **originalnih pojedinačnih PG/QG, VMIN/VMAX,
+pozitivnih RATE_A na oba kraja, složenog AC bilansa i izvornog
+polinomnog troška**. IEEE14 ekonomska vrednost: **8.081,526393**;
+IEEE118: **129.660,686390**. Gubici u MW nisu ista ciljna funkcija.
+Kontrolni originalni RATE_A limiti su labavi (max iskorišćenost
+1,31% i 4,18%). Ovo **nisu** rezultati GAdapt-a, dokaz globalnog
+optimuma, stvarna industrijska merenja ili validacija RTE1888.
+
+[Izveštaj I16](ITERATION16_REPORT_SR.md) ·
+[originalni IEEE AC-OPF JSON](results/ieee14_ieee118_iteration16_native_acopf_20261021.json) ·
+[protokol I16](ITERATION16_PROTOCOL.md) ·
+[potvrđeni CI #39642073586](https://github.com/owlCoder/gadapt/actions/runs/39642073586).
+
+**Iteracija 14:** prvi direktni originalni RTE1888 *ekonomski*
+AC-OPF sa slobodnim PG, originalnim generatorskim `gencost` i
+native PYPOWER solverom; kontrolni `case9` uspešan, ali originalni
+RTE1888 `success=False`, **nema prihvaćenog izvodljivog rešenja**.
+Ta činjenica **ne dokazuje** matematičku neizvodljivost celog problema.
+[Izveštaj I14](ITERATION14_REPORT_SR.md) ·
+[originalni source OPF sirovi JSON](results/rte1888_iteration14_original_acopf_20261021.json) ·
+[CI #39640202591](https://github.com/owlCoder/gadapt/actions/runs/39640202591).
+
+Sledeći doprinos za mentora mora biti nova, literaturom opravdana
+adaptacija **stvarnog GAdapt** algoritma, sa istom fizičkom formulacijom
+i budžetima stvarnih AC poziva u odnosu na relevantne metode.
+Dosadašnji rezultati to **još ne dokazuju**.
+
+---
+
 # NAJNOVIJE — Iteracije 11–13: originalni MATPOWER AC model direktno validiran (21.10.2026)
 
 **Važan napredak pre algoritamskog GAdapt rada:** više se ne oslanjamo
