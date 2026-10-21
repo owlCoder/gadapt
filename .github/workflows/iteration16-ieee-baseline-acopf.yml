@@ -1,0 +1,56 @@
+name: Iteration 16 verified original IEEE14 and IEEE118 AC-OPF baselines
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION16_PROTOCOL.md"
+      - "research/iteration16_ieee_original_acopf.py"
+      - "research/test_iteration16_ieee_original_acopf.py"
+      - ".github/workflows/iteration16-ieee-baseline-acopf.yml"
+  workflow_dispatch:
+
+jobs:
+  baseline-native-ieee-acopf:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned PYPOWER and scientific dependencies
+        run: python -m pip install -e . 'pypower==5.1.19' 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Static unit tests for two-end thermal MVA and all P/Q/V limits
+        run: python -m unittest -v research.test_iteration16_ieee_original_acopf research.test_iteration14_original_acopf
+      - name: Solve and independently validate TWO original IEEE AC-OPF controls
+        run: python -m research.iteration16_ieee_original_acopf --json iteration16_ieee_acopf.json --csv iteration16_ieee_acopf.csv
+      - name: Emit raw results for check-in to main
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          for kind,path in (("CSV","iteration16_ieee_acopf.csv"),("JSON","iteration16_ieee_acopf.json")):
+              f=Path(path)
+              if f.is_file():
+                  enc=base64.b64encode(f.read_bytes()).decode("ascii")
+                  for n,pos in enumerate(range(0,len(enc),2048)):
+                      print("I16_ARCHIVE",kind,n,enc[pos:pos+2048],flush=True)
+              else:
+                  print("I16_MISSING",kind,flush=True)
+          PY
+      - name: Retain all physical validation outcomes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration16-native-ieee14-ieee118-verified-acopf
+          path: |
+            iteration16_ieee_acopf.csv
+            iteration16_ieee_acopf.json
