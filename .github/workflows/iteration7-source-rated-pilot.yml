@@ -1,0 +1,50 @@
+name: Iteration 7 source-rated RTE GAdapt feasibility-first pilot
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/iteration7_source_rated_pilot.py"
+      - "research/test_iteration7_source_pilot.py"
+      - ".github/workflows/iteration7-source-rated-pilot.yml"
+  workflow_dispatch:
+
+jobs:
+  preregistered-five-method-ac:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e . 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Check frozen protocol and source-correct physical constraints
+        run: |
+          python -m unittest -v research.test_iteration7_source_pilot research.test_iteration7_source_physics research.test_iteration6_policy
+      - name: Execute 15 independent method-seed trials with 1080 actual AC calls
+        run: |
+          python -m research.iteration7_source_rated_pilot --seed-start 350 --seeds 3 --budget 72 --population 12 --output rte1888_source_rated_pilot.csv
+      - name: Expose exact CSV to durable GitHub repository
+        if: always()
+        run: |
+          python - <<'PY'
+          import base64
+          from pathlib import Path
+          p=Path("rte1888_source_rated_pilot.csv")
+          if p.exists():
+              s=base64.b64encode(p.read_bytes()).decode()
+              for j in range(0,len(s),2048):
+                  print("I7_PILOT_B64",j//2048,s[j:j+2048],flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iteration7-source-rated-GAdapt-5-methods-3-seeds
+          path: rte1888_source_rated_pilot.csv
