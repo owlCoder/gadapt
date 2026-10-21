@@ -145,6 +145,7 @@ class IEEE14EconomicPFFeasibleSubset:
         if len(self.bounds)!=9 or any(hi<=lo for lo,hi in self.bounds):
             raise ValueError("IEEE14 source optimizer bounds changed")
         self.n=len(self.bounds)
+        self.real_ac_calls=0
         self.settings=ppoption(PF_ALG=1,PF_DC=0,PF_TOL=1e-8,
              PF_MAX_IT=40,ENFORCE_Q_LIMS=0,VERBOSE=0,OUT_ALL=0)
 
@@ -162,8 +163,9 @@ class IEEE14EconomicPFFeasibleSubset:
         for i,value in zip(self.all_gen_ids,x[len(self.non_slack_gen_ids):]):
             case["gen"][i,VG]=float(value)
         # This is the one and only physical AC solve per evaluated candidate.
-        # The recorder increments its counter immediately BEFORE calling us.
+        # Instrument the physical solver boundary, even on an exception.
         try:
+            self.real_ac_calls+=1
             solved,success=runpf(case,self.settings)
             if not success:
                 return {"converged":False,"feasible":False,"solver_error":
@@ -203,9 +205,13 @@ class PhysicalBudgetRecorder:
         if self.calls>=self.budget:
             self.post_budget_requests+=1
             return FAILED_SCORE
-        self.calls+=1
         values=tuple(float(z) for z in x)
+        before=int(self.system.real_ac_calls)
         measured=self.system.evaluate(values)
+        physical_delta=int(self.system.real_ac_calls)-before
+        if physical_delta != 1:
+            raise RuntimeError('Expected exactly one actual runpf attempt for this objective request')
+        self.calls+=physical_delta
         score=float(measured["penalized_objective"])
         if not math.isfinite(score):
             raise ValueError("Nonfinite objective from real AC solve")
