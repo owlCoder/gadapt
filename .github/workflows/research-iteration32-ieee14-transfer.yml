@@ -1,0 +1,71 @@
+name: I32 IEEE14 Independent-Topology Source-AC Transfer
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'research/ITERATION32_PROTOCOL.md'
+      - 'research/iteration32_ieee14_topology_transfer.py'
+      - 'research/test_iteration32_ieee14_topology_transfer.py'
+      - '.github/workflows/research-iteration32-ieee14-transfer.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  OPENBLAS_NUM_THREADS: '1'
+  OMP_NUM_THREADS: '1'
+  MKL_NUM_THREADS: '1'
+  NUMEXPR_NUM_THREADS: '1'
+  PYTHONHASHSEED: '0'
+
+jobs:
+  zero-native-ac:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install scientific stack pinned prior to I32 real AC
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'pandas==2.2.3' 'pypower==5.1.19' 'pandapower==2.14.11'
+          python -m pip install -e .
+      - name: Syntax and source-only no-solver tests BEFORE I32 physical run
+        run: |
+          python -m py_compile research/iteration32_ieee14_topology_transfer.py research/test_iteration32_ieee14_topology_transfer.py
+          python -m unittest -v research.test_iteration32_ieee14_topology_transfer
+          python -m unittest -v tests.test_sequential_scenario_budget_cost
+  preregistered-real-ieee14:
+    needs: zero-native-ac
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install identical pinned physical source
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'pandas==2.2.3' 'pypower==5.1.19' 'pandapower==2.14.11'
+          python -m pip install -e .
+      - name: Run exactly 72 preregistered method-by-seed real native IEEE14 AC experiments
+        run: |
+          mkdir -p research/results
+          python -m research.iteration32_ieee14_topology_transfer \
+            --json research/results/ieee14_i32_12seed_6arm_raw_real_AC.json \
+            --csv research/results/ieee14_i32_12seed_6arm_raw_real_AC.csv
+      - name: Archive unaltered per-run source diagnostics and summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: i32-ieee14-source-physical-12seed-6arm
+          path: |
+            research/results/ieee14_i32_12seed_6arm_raw_real_AC.json
+            research/results/ieee14_i32_12seed_6arm_raw_real_AC.csv
+          if-no-files-found: warn
+          retention-days: 90
