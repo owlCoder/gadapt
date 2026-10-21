@@ -1,0 +1,59 @@
+name: Iteration 11 native original MATPOWER RTE1888 AC (2 PYPOWER solves)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION11_PROTOCOL.md"
+      - "research/iteration11_original_matpower_native_pf.py"
+      - "research/test_iteration11_native_pf.py"
+      - "research/results/rte1888_iteration11_original_matpower_gen_full21_2019.csv"
+      - "research/results/rte1888_iteration11_original_matpower_branch_full13_2019.csv"
+      - ".github/workflows/iteration11-native-original-matpower.yml"
+  workflow_dispatch:
+
+jobs:
+  original-matpower-ac:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install frozen MATPOWER native solver environment
+        run: python -m pip install -e . 'pandapower==2.14.11' 'pypower==5.1.19' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Test raw source and independent original P/Q and two-end thermal rules
+        run: python -m unittest -v research.test_iteration11_native_pf research.test_iteration9_source_generators
+      - name: Run at most two real native original MATPOWER AC power flows
+        run: python -m research.iteration11_original_matpower_native_pf --json iteration11_original_native_ac.json --csv iteration11_original_native_ac.csv
+      - name: Emit raw CSV/JSON in base64 for permanent commit to main
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          for kind, path in (("CSV","iteration11_original_native_ac.csv"),
+                             ("JSON","iteration11_original_native_ac.json")):
+              file=Path(path)
+              if not file.is_file():
+                  print("I11_MISSING",kind,flush=True)
+                  continue
+              data=base64.b64encode(file.read_bytes()).decode("ascii")
+              for n,i in enumerate(range(0,len(data),2048)):
+                  print("I11_ARCHIVE",kind,n,data[i:i+2048],flush=True)
+          PY
+      - name: Store complete original native solver outcomes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration11-direct-original-matpower-ac
+          path: |
+            iteration11_original_native_ac.csv
+            iteration11_original_native_ac.json
