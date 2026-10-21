@@ -311,10 +311,11 @@ def main():
             subset=[v for v in rows if v["load_factor"]==factor and v["method"]==method]
             good=[v["feasible_loss_mw"] for v in subset if
                   v["physically_feasible"] and v["optimizer_success"]]
+            violations=[v["min_observed_violation"] for v in subset
+                        if v["min_observed_violation"] != ""]
             print("SUMMARY",factor,method,"feasible",len(good),"/",len(subset),
                   "median_loss_mw",statistics.median(good) if good else "NA",
-                  "median_min_violation",statistics.median(v["min_observed_violation"]
-                      for v in subset if v["min_observed_violation"] != ""),
+                  "median_min_violation",statistics.median(violations) if violations else "NA",
                   "actual_solver_calls_range",(min(v["actual_solver_calls"] for v in subset),
                                                max(v["actual_solver_calls"] for v in subset)),
                   "median_runtime_sec",statistics.median(v["elapsed_sec"] for v in subset),
