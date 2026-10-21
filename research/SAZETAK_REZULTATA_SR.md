@@ -1,3 +1,54 @@
+## NOVO — Iteracija 5, 21. oktobar 2026: provera ostvarive preciznosti IEEE14
+
+Završena je opširnija studija na stvarnom GAdapt paketu i PYPOWER AC solveru.
+Za dve instance (100% i 110% opterećenja), 12 novih uparenih semena
+(100–111) i 360 stvarnih AC evaluacija po metodi postignuto je sledeće:
+
+| Metod | Medijalni gubici 100% | Medijalni gubici 110% |
+|---|---:|---:|
+| Originalni GAdapt | 14,318710 MW | 17,735386 MW |
+| Affine GAdapt | 14,458830 MW | 17,875307 MW |
+| SLSQP (više početaka) | **13,497284 MW** | **16,792139 MW** |
+| GAdapt→SLSQP | 13,497333 MW | 16,792250 MW |
+| SciPy DE | 13,651538 MW | 17,529568 MW |
+| CMA-ES | 13,498865 MW | 16,794541 MW |
+
+SLSQP, GAdapt→SLSQP i CMA-ES imaju 12/12 pobeda naspram originalnog
+GAdapt-a za oba opterećenja; egzaktno sign p=0,00048828125,
+Holm p=0,00244140625 po opterećenju za pet primarnih poređenja.
+To je snažan **problem-specifičan** signal, ali SLSQP samostalno daje
+bar jednako kvalitetna rešenja kao GAdapt→SLSQP, pa to NIJE
+originalan doprinos genetskom algoritmu.
+
+Odvojena pretraga sa 3600 fizičkih evaluacija po opterećenju, uz
+još jedan nezavisan AC proračun po najboljem kandidatu, ostvarila je
+13,497263522715254 MW (100%) i 16,791946841097882 MW (110%).
+Oba rešenja ispunjavaju implementirane tolerancije. To su
+**najbolje ostvarene izvodljive vrednosti, NE dokazani globalni optimumi**
+ili garantovano minimalne vrednosti za kompletnu AC-OPF formulaciju.
+Postojeća šira literatura optimizuje i tapove, šantove ili drugi aktivni
+dispečing, pa njeni gubici nisu direktno uporedivi sa našom užom
+petodimenzionalnom formulacijom.
+
+Na GÉANT planiranju sa 44 već poznate vremenske matrice (8 semena,
+360 pravih evaluacija) GAdapt→diskretna koordinatna pretraga imao je
+medijalni trošak 194.553 prema 197.526 kod originalnog GAdapt-a,
+ali najgori 219.202 prema 206.526, uz 5:3 pobeda/poraza i
+Holm p=0,7265625. Dakle nema statistički potvrđene koristi niti
+poboljšanja repa distribucije.
+
+Naučni zaključak: u IEEE14 sa pet promenljivih GAdapt ne koristi
+lokalnu strukturu kao jaki standardni optimizatori; prosto dodavanje
+SLSQP-a kao poslednje faze poznata je memetička tehnika, ne doktorat.
+Originalni doprinos još mora biti razvijen i proveren na većim,
+nezavisnim infrastrukturnim zadacima, sa korektno uračunatim budžetima.
+
+Detalji i sirovi CSV: [ITERATION5_REPORT_SR.md](ITERATION5_REPORT_SR.md).
+Prijavljen validiran CI sa statistikama/grafikonima:
+https://github.com/owlCoder/gadapt/actions/runs/39579649231
+
+---
+
 # GAdapt — istraživački status za mentora (21. oktobar 2026)
 
 **Radni naslov:** Unapređenje stabilnosti, pouzdanosti i tačnosti GAdapt algoritma za optimizaciju infrastrukturnih sistema.
