@@ -52,6 +52,8 @@ def wilson_95(success,n):
 
 def summarize(rows):
     """Summarize every pair, including zero feasibility and negative results."""
+    if len(rows)!=len(SEEDS)*len(METHODS):
+        raise ValueError("Missing or duplicated preregistered run rows")
     pair={(int(r["seed"]),r["method"]):r for r in rows}
     if len(pair)!=len(SEEDS)*len(METHODS) or set(pair)!={
         (s,m) for s in SEEDS for m in METHODS}:
