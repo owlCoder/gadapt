@@ -1,0 +1,51 @@
+name: Iteration 7 source-faithful RTE branch rating trace
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/iteration7_source_rating_map.py"
+      - "research/test_iteration7_rate_source.py"
+      - ".github/workflows/iteration7-source-rating-map.yml"
+  workflow_dispatch:
+
+jobs:
+  rating-provenance-no-ac:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e . 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - run: python -m unittest -v research.test_iteration7_rate_source
+      - name: Match all original MATPOWER branches to converted elements
+        run: |
+          python -m research.iteration7_source_rating_map --compact rte1888_source_rating_map.csv --output rte1888_source_rating_map.json
+      - name: Archive reproducible complete compact mapping
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          for title,file in (("CSV","rte1888_source_rating_map.csv"),):
+              path=Path(file)
+              if path.exists():
+                  s=base64.b64encode(path.read_bytes()).decode()
+                  for j in range(0,len(s),2048):
+                      print("I7_RATEMAP_B64",title,j//2048,s[j:j+2048],flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iteration7-source-rating-map
+          path: |
+            rte1888_source_rating_map.json
+            rte1888_source_rating_map.csv
