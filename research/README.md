@@ -1,3 +1,55 @@
+# NOVO I24 — pravi GAdapt naspram DE, random i Powell na istih 5 originalnih IEEE118 PV kontrola (21.10.2026)
+
+**1.152 NOVA stvarna AC PF poziva** izvršena na originalnom
+`pypower.case118()` kroz stvarni **neizmenjeni `gadapt.ga.GA`**,
+SciPy differential evolution (bez `polish`), uniform random i
+lokalni bounded Powell, **4 metode × 3 semena × 96 pravih AC poziva**.
+Sve individualne originalne generator PG/QG, 118 bus VMIN/VMAX,
+pozitivni source RATE_A MVA na oba kraja i kompleksni AC nodalni
+bilans provereni za svaki stvarni kandidat. Svih **12/12**
+optimizatorskih pokretanja imaju fizički izvodljivog kandidata;
+0/1152 numerički neuspešnih AC.
+
+**Sva 4 metoda koriste ISTIH 5 fizički relevantnih VG kontrola**:
+BUS103, BUS32, BUS34, BUS92 i BUS19. Lokalni box
+`centar ±0.005 p.u.` je **izabran na osnovu ranijih stvarnih
+I19–I23 AC dijagnostika**: ovo je unapred preregistrovan
+**in-sample kalibracioni** eksperiment, **NIJE** nezavisna potvrda
+na novom mrežnom scenariju i NIJE pokazana algoritamska novina.
+
+| Metod | Realni AC | Izvorno fizički izvodljivi kandidati | Najbolji stvarno izvodljiv originalni ekonomski cost |
+|---|---:|---:|---:|
+| **Neizmenjeni originalni GAdapt** | 288 | **106** | **131.195,131546** |
+| Differential evolution | 288 | **18** | **131.194,777680** |
+| Uniform random | 288 | **7** | **131.196,562290** |
+| **Bounded Powell** | 288 | **201** (67 ponovljena × 3 identične determinističke putanje) | **131.193,636506** |
+
+Lokalni Powell ima **najbolji ostvareni fizički validiran cost**,
+ali uz deklarisani **informisani centralni `x0`**; njegove 3
+seme-putanje nisu 3 nezavisne stohastičke replikacije. Njegov
+`OptimizeResult.success=False` znači samo **potrošenih 96
+`maxfev`** bez formalne konvergencije, ne neizvodljivost —
+67/96 AC evaluacija po putanji prošlo je proveru svih source uslova.
+GAdapt ima više izvodljivih uzoraka od DE/random, ali **NIJE**
+ostvario najbolji ekonomični cost. Samo 3 seed-a, **nema dokaza
+statističke superiornosti**. Ponovljeni originalni I23 izvodljivi
+candidate i I16 širi izvorni ekonomski AC-OPF nisu besplatno
+uračunati u ove AC pozive.
+
+[Celovit izveštaj I24](ITERATION24_REPORT_SR.md) ·
+[preregistrovani protokol I24](ITERATION24_PROTOCOL.md) ·
+[raw JSON svih 12 optimizer run-ova](results/ieee118_iteration24_legacy_gadapt_de_random_powell_20261021.json) ·
+[uspešan GitHub Actions #39659382865](https://github.com/owlCoder/gadapt/actions/runs/39659382865).
+
+**Sledeći disertacijski uslov:** slepi izlazni test na izmenjenim
+load/P/Q/naponskim scenarijima sa istim kontrolama i jednako
+naplaćenim AC pozivima, zatim tek literaturom potkrepljen
+nov GAdapt feasibility-aware mehanizam i ablation; rezultati
+I24 su dobar metodološki baseline, NE doktoratski dokaz
+originalnog algoritamskog doprinosa ni industrijski field test.
+
+---
+
 # NAJNOVIJE I19–I23: IEEE118 izvorno fizički izvodljive kontrolne tačke kroz 35 pravih AC proba (21.10.2026)
 
 **Prvi put je u ranije neuspešnom IEEE118, ograničenom
