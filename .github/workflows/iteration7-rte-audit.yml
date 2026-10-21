@@ -29,6 +29,20 @@ jobs:
       - name: Run preregistered 17+17 actual AC solver audits
         run: |
           python -m research.iteration7_rte_audit --loads 1.0 1.1 --csv rte1888_audit.csv --json rte1888_audit.json
+      - name: Print exact UTF-8 output as chunked base64 for provenance archiving
+        if: always()
+        run: |
+          python - <<'PY'
+          import base64
+          from pathlib import Path
+          for name, path in (("CSV","rte1888_audit.csv"),("JSON","rte1888_audit.json")):
+              if not Path(path).exists():
+                  print("I7_MISSING",name,flush=True)
+                  continue
+              encoded=base64.b64encode(Path(path).read_bytes()).decode("ascii")
+              for offset in range(0,len(encoded),2048):
+                  print("I7_ARCHIVE",name,offset//2048,encoded[offset:offset+2048],flush=True)
+          PY
       - name: Store full provenance including failure artifacts
         uses: actions/upload-artifact@v4
         if: always()
