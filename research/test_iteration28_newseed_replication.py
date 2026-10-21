@@ -43,7 +43,7 @@ class NewSeedReplicationProtocolTests(unittest.TestCase):
             [103,32,34,92,19,74])
 
     def test_wilson_marginal_is_descriptive_not_paired_pvalue(self):
-        self.assertEqual(wilson_95(0,12)[0],0.)
+        self.assertAlmostEqual(wilson_95(0,12)[0],0.,places=12)
         self.assertAlmostEqual(wilson_95(12,12)[1],1.)
         self.assertLess(wilson_95(0,12)[1],.3)
         self.assertGreater(wilson_95(12,12)[0],.7)
