@@ -241,7 +241,7 @@ def main():
     flat=[{k:(json.dumps(v,sort_keys=True) if isinstance(v,(dict,list)) else v)
           for k,v in record.items()} for record in out["runs"]]
     with open(args.csv,"w",encoding="utf-8",newline="") as f:
-        w=csv.DictWriter(f,fieldnames=list(flat[0]))
+        w=csv.DictWriter(f,fieldnames=list(dict.fromkeys(k for record in flat for k in record)))
         w.writeheader()
         w.writerows(flat)
     print("I31_SUMMARY",json.dumps(out["summary"],sort_keys=True,allow_nan=False),flush=True)
