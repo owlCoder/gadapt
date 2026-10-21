@@ -1,0 +1,57 @@
+name: Iteration 13 native original RTE1888 Q-limit technical diagnostic (1 AC)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION13_PROTOCOL.md"
+      - "research/iteration13_local_pypower_qlim_patch.py"
+      - "research/iteration13_native_q_diagnostic.py"
+      - "research/test_iteration13_native_q_diagnostic.py"
+      - ".github/workflows/iteration13-original-qlim.yml"
+  workflow_dispatch:
+
+jobs:
+  one-original-native-q-ac:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install identical original source PF environment
+        run: python -m pip install -e . 'pypower==5.1.19' 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Validate exactly two additional Q restoration fixes
+        run: python -m unittest -v research.test_iteration13_native_q_diagnostic research.test_iteration12_native_q_repair
+      - name: One genuine direct original MATPOWER AC Q-limited solve
+        run: python -m research.iteration13_native_q_diagnostic --csv iteration13_source_q.csv --json iteration13_source_q.json
+      - name: Expose raw results for versioned repository archive
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          for kind,name in (("CSV","iteration13_source_q.csv"),("JSON","iteration13_source_q.json")):
+              p=Path(name)
+              if not p.is_file():
+                  print("I13_MISSING",kind,flush=True)
+                  continue
+              payload=base64.b64encode(p.read_bytes()).decode("ascii")
+              for n,pos in enumerate(range(0,len(payload),2048)):
+                  print("I13_ARCHIVE",kind,n,payload[pos:pos+2048],flush=True)
+          PY
+      - name: Preserve real AC outcome or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration13-direct-source-Q-limited-AC
+          path: |
+            iteration13_source_q.csv
+            iteration13_source_q.json
