@@ -1,3 +1,64 @@
+# NOVO I25 — test robusnosti pet source-feasible IEEE118 VG odluka pri veštačkom PD/QD stresu ±2% (21.10.2026)
+
+**I25: tačno 10 NOVIH stvarnih originalnih IEEE118 AC NR PF proračuna**,
+pre-registriranih PRE simulatora, bez novog GAdapt/DE/random/Powell
+optimiserskog pokušaja. Izveštaj se odnosi na **veštački nametnuti
+faktor 0,98 ili 1,02 za PD i QD svih sabirnica** i pet unapred
+selektovanih, ranije fizički izvodljivih VG vektora (I23 α=.8 i
+najbolji originalni GAdapt, DE, random, Powell iz I24).
+
+- Na **98% originalnog PD/QD: 0/5 source-feasible** kandidata.
+  Svih pet konvergira u AC, ali svi krše individualne originalne
+  generator Q granice, uključujući uporan BUS74 Q exces oko
+  **1,552 MVAr**. Nijedan P/V/izvorni RATE_A overload.
+- Na **102% originalnog PD/QD: 2/5 source-feasible**:
+  prethodna I23 deterministička tačka sa stres-ekonomskom cenom
+  **134.993,698462** i prethodni najbolji `random_search`
+  source kandidat **134.991,355175**. Prethodni GAdapt, DE
+  i Powell best 100%-load tačke nisu source-feasible na 102%
+  zbog originalnog BUS92 Q prekoračenja. Njihove **feasible
+  economic cene su null**. Niti jedan stres AC nije numerički fail.
+- To **NE ZNAČI** da su GAdapt/DE/Powell kao algoritmi
+  robusno lošiji od random ili da puna IEEE118 mreža nema
+  izvodljiv AC-OPF na stresu: **metode nisu ponovo pokrenute**,
+  svega jedan najbolji istorijski source kandidatski vektor
+  po metodi je naknadno fizički proveravan; svi 0,98/1,02
+  su veštački javni scenariji, nisu stvarni pogonski podaci.
+
+**I24:** originalni legacy GA, DE, random i centered Powell
+imali su **1.152 STVARNA AC PF** u in-sample kalibrisanom
+pet-generator PV prostoru. Svaka metoda ima 3/3 source-feasible
+run-a, originalni GAdapt ukupno 106/288 feasible AC,
+DE 18/288, random 7/288, Powell 201/288 (67 ponovljenih
+puta tri potpuno identične determinističke putanje).
+**Powell** ima najniži originalni fizički feasible source cost
+**131.193,636506**, uz istorijski informed start. Originalni
+GAdapt: **131.195,131546** najbolji. Nema dokazane
+algoritamske novine ili statističke superiornosti.
+
+[Izveštaj I25](ITERATION25_REPORT_SR.md) ·
+[raw JSON 10 pravih stres AC](results/ieee118_iteration25_5_prior_feasible_PV_2percent_stress_10_AC_20261021.json) ·
+[protokol I25](ITERATION25_PROTOCOL.md) ·
+[uspešan CI I25 #39660714312](https://github.com/owlCoder/gadapt/actions/runs/39660714312).
+
+[Izveštaj I24](ITERATION24_REPORT_SR.md) ·
+[raw JSON 12 real optimizer run-ova I24](results/ieee118_iteration24_legacy_gadapt_de_random_powell_20261021.json) ·
+[protokol I24](ITERATION24_PROTOCOL.md) ·
+[uspešan CI I24 #39659382865](https://github.com/owlCoder/gadapt/actions/runs/39659382865).
+
+**Sledeća rigorozna faza disertacije:** sprovesti zajednički
+scenario-aware **GAdapt, DE i strong local** benchmark, pri kojem
+*svaki* kandidat preko N nezavisnih izvornim PD/QD scenarija
+košta tačno **N STVARNIH AC** i čuva pojedinačne izvorne
+P/Q/V/positive RATE_A/KCL povrede. Nakon literature o
+feasibility-aware selection, AOS, sensitivity repair i robust AC OPF
+formulisati potencijalno novu mehaniku *unutar stvarnog GAdapt-a*,
+ablaciju, jače bazne metode i znatno više uparenih semena.
+Sadašnji izvorni javni IEEE rezultati **ne dokazuju
+originalnost doktorata ni industrijsku validaciju**.
+
+---
+
 # NOVO I24 — pravi GAdapt naspram DE, random i Powell na istih 5 originalnih IEEE118 PV kontrola (21.10.2026)
 
 **1.152 NOVA stvarna AC PF poziva** izvršena na originalnom
