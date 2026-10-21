@@ -1,0 +1,74 @@
+name: I31 Preregistered Fitness Budget Ablation
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: i31-fitness-budget-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+env:
+  OPENBLAS_NUM_THREADS: '1'
+  OMP_NUM_THREADS: '1'
+  MKL_NUM_THREADS: '1'
+  NUMEXPR_NUM_THREADS: '1'
+  PYTHONHASHSEED: '0'
+
+jobs:
+  zero-ac-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install frozen scientific Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'pandas==2.2.3' 'pypower==5.1.19' 'pandapower==2.14.11'
+          python -m pip install -e .
+      - name: Compile I31 protocol implementation
+        run: python -m py_compile research/iteration31_fitness_budget_ablation.py research/test_iteration31_fitness_budget_ablation.py
+      - name: No-AC unit and physics-source preflight checks
+        run: |
+          python -m unittest -v research.test_iteration31_fitness_budget_ablation
+          python -m unittest -v tests.test_sequential_scenario_budget_cost
+          python -m unittest -v research.test_iteration30_spatial_load_holdout
+
+  preregistered-real-ieee118-ac:
+    # The original 48-run preregistered experiment is archived in PR #3.
+    # Rerunning 8,640 costly AC solves requires an explicit manual dispatch.
+    if: github.event_name == 'workflow_dispatch'
+    needs: zero-ac-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install same frozen physical simulator
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'pandas==2.2.3' 'pypower==5.1.19' 'pandapower==2.14.11'
+          python -m pip install -e .
+      - name: Run 48 preregistered experiments and archive complete source evidence
+        run: |
+          mkdir -p research/results
+          python -m research.iteration31_fitness_budget_ablation \
+            --json research/results/ieee118_iteration31_12seeds_4arms_realAC.json \
+            --csv research/results/ieee118_iteration31_12seeds_4arms_realAC.csv
+      - name: Upload run-by-run source physics and counters
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: i31-preregistered-real-source-ac
+          path: |
+            research/results/ieee118_iteration31_12seeds_4arms_realAC.json
+            research/results/ieee118_iteration31_12seeds_4arms_realAC.csv
+          if-no-files-found: warn
+          retention-days: 90
