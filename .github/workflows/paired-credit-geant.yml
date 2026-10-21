@@ -1,0 +1,38 @@
+name: Physically paired GÉANT chronological AOS pilot
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/paired_credit_geant.py"
+      - "research/analyze_paired_credit_geant.py"
+      - ".github/workflows/paired-credit-geant.yml"
+  workflow_dispatch:
+
+jobs:
+  paired-historical-model:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e . 'scipy>=1.11,<1.16' 'networkx>=3.2,<4'
+      - name: Run previously inspected GÉANT development and chronological test
+        run: |
+          set -o pipefail
+          python -m research.paired_credit_geant --runs 8 --budget 240 --output paired_geant.csv | tee paired_geant_log.txt
+          test -s paired_geant.csv
+      - name: Apply failure-aware paired statistics
+        run: |
+          set -o pipefail
+          python -m research.analyze_paired_credit_geant paired_geant.csv | tee paired_geant_stats.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: paired-geant-chronological-pilot-raw
+          path: |
+            paired_geant.csv
+            paired_geant_log.txt
+            paired_geant_stats.txt
