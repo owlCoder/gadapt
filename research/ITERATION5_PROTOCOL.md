@@ -82,3 +82,16 @@ Primary exploratory metric: all-44-period installed capacity module
 cost, failure counted; the held-out August cost is secondary and
 previously inspected. Paired rank exact p with Holm across three
 comparisons against legacy, n=8 no confirmatory superiority.
+
+## Frozen non-comparable high-budget best-known-feasible reference
+To measure *distance from a credible achieved reference*, independently
+run one deterministic, reproducible 3600-solver-call search per IEEE14
+load (1.00 and 1.10): 2000 true AC-PF calls with SciPy DE, then 1600
+true AC-PF calls with multistart SLSQP initialized from the best
+physically feasible control, or the best penalized vector when no feasible
+control exists. Fixed seed `20261021`. Check the final chosen voltage
+vector by a fresh independent PYPOWER solve **outside** the search budget,
+report the extra verification call transparently. This returns only an
+EMPIRICAL BEST-KNOWN FEASIBLE objective from these searches — NOT a lower
+bound or globally certified optimum. Do not use the result for tuning any
+earlier fixed-budget method; absolute loss gaps are descriptive only.
