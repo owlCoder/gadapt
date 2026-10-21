@@ -95,3 +95,16 @@ report the extra verification call transparently. This returns only an
 EMPIRICAL BEST-KNOWN FEASIBLE objective from these searches — NOT a lower
 bound or globally certified optimum. Do not use the result for tuning any
 earlier fixed-budget method; absolute loss gaps are descriptive only.
+
+## Frozen CMA-ES supplemental benchmark (separate run)
+Use public `pycma` ask/tell covariance matrix adaptation as a stronger
+existing black-box baseline (CMA-ES is well established, NOT new).
+For IEEE14 loads 1.00 and 1.10 use exactly the same 12 seeds (100–111)
+and 360 real AC-PF calls per trial as the five-arm primary pilot.
+Population lambda=8, initial standard deviation 0.035 p.u., initial mean
+the published case generator-voltage vector clipped into declared bounds.
+If the strategy terminates early, restart from best actually observed
+penalized vector with sigma=0.035; any remaining evaluations are genuine
+random physical samples, all explicitly marked. Objective, independent
+feasibility and PF counter match original pilot. This is a separate
+exploratory control, with no new claim of statistical validation.
