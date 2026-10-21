@@ -116,14 +116,15 @@ class GAExecutor:
         Mates candidate solutions
         """
         candidate_solution_pairs = self.select_mates()
+        # Begin tracing before crossover: duplicate-avoidance can mutate offspring.
+        if self.ga_options.operator_credit_controller is not None:
+            self.ga_options.operator_credit_controller.begin_generation(self.population)
         self.crossover.mate(candidate_solution_pairs, self.population)
 
     def mutate(self):
         """
         Mutates candidate solutions in the population
         """
-        if self.ga_options.operator_credit_controller is not None:
-            self.ga_options.operator_credit_controller.begin_generation(self.population)
         self.population_mutator.mutate(self.population)
 
     def select_mates(self) -> List[Tuple[CandidateSolution, CandidateSolution]]:
