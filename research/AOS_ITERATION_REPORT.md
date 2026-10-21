@@ -58,12 +58,12 @@ contribution.
 
 ## IEEE14 numerical pilot — actual completed run
 
-Source: https://github.com/owlCoder/gadapt/actions/runs/39563682707
-SHA of this run: `135bdc23419b7d16b7a628bdf4272c73cc5a891c`
+Source (corrected no-physical-evaluation credit): https://github.com/owlCoder/gadapt/actions/runs/39564353477
+Earlier uncorrected pilot: https://github.com/owlCoder/gadapt/actions/runs/39563682707
+SHA of corrected run: `e51785314c650c2afda6717df2a468857b9d850b`
 (its feasibility callback originally returned a large finite penalty for
 post-budget candidates; later code now uses `None` to explicitly withhold
-credit for those non-evaluations; rerun should replace these numbers as the
-final implementation's pilot).
+credit for those non-evaluations; corrected rerun produced the same selected vectors and numeric medians).
 
 8 paired seeds × 2 loads × 6 methods × 240 physical PF solves.
 Median loss is conditional on physically feasible runs only.
@@ -84,8 +84,8 @@ condition vs SciPy DE 280 per condition). These requests returned a sentinel
 without physical solve: they are distinguished from actual PF calls.
 Feasibility callback attempted to read 9 uncached samples at 100% and 8
 at 110% in the initial pilot. This is a **real measurement-accounting
-defect**, now explicitly skipped in the implementation; cannot claim
-clean feasibility learning from the older run.
+defect**, now explicitly skipped in the implementation using `None`; those 17
+missing post-budget observations receive no credit in the corrected run.
 
 At 1.0, UCB feasibility vs legacy: 4 wins/4 losses; exact sign p=1.0,
 Holm-adjusted p=1.0; conditional paired median difference -0.004794 MW,
