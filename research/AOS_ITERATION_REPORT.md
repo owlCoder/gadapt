@@ -207,3 +207,27 @@ matched offspring comparisons before adding further heuristics.
 ## Reproducible plots
 
 The corrected GÉANT 44-period pilot was repeated with the plotting step and completed successfully at https://github.com/owlCoder/gadapt/actions/runs/39565100540 ; artifact https://github.com/owlCoder/gadapt/actions/runs/39565100540/artifacts/12329223499 includes raw CSV, console logs, statistical results, and `aos_geant_figure_all_44.png` / `aos_geant_figure_heldout_32.png`. All method medians and exact tests were reproduced; runtime medians on the second runner were ~2.83–2.92 s per method, versus ~5.43–5.53 s on the earlier runner. This reinforces that runner timings are hardware/noise dependent, **not** evidence of method speedup. Figure code is `research/plot_aos.py` and labels denominators explicitly.
+
+## Archived primary results in the research fork
+
+Authoritative original CI CSV, runtime logs, paired-statistics text and
+graphical PNG distributions are in these successful Actions artifacts:
+- [IEEE14, 96 trials and two labelled boxplots](https://github.com/owlCoder/gadapt/actions/runs/39565100519/artifacts/12329935661).
+- [GÉANT, 40 trials and two labelled boxplots](https://github.com/owlCoder/gadapt/actions/runs/39565100540/artifacts/12329223499).
+
+For protection against finite Actions artifact retention, all measured numeric
+trial records were also committed in source control as
+`research/results/aos_ieee14_20261021.csv` (96 records) and
+`research/results/aos_geant_44_20261021.csv` (40 records). These were
+recovered from the complete structured `RUN {...}` lines of the successful
+corresponding CI logs and checked for correct run count, unique
+method/seed/load keys, complete columns and exactly 240 true evaluations
+per row. The original Actions CSV remains canonical for exact textual
+reproduction (e.g., floating-number formatting); the committed copies
+preserve the measured numeric values.
+
+The plot-rendering CI was itself verified successful (with archive uploads),
+including `aos_ieee14_figure_load_1p0.png`,
+`aos_ieee14_figure_load_1p1.png`,
+`aos_geant_figure_all_44.png`, and
+`aos_geant_figure_heldout_32.png`.
