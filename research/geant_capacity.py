@@ -27,6 +27,7 @@ from gadapt.ga import GA
 from scipy.optimize import differential_evolution
 
 SOURCE = "https://sndlib.put.poznan.pl/download/sndlib-networks-native/geant.txt"
+EXPECTED_SHA256 = "ff316c23220ff4485deafcb8701d49c353db0c80072152df3ed9023ed4b4f4ff"
 
 
 def extract_section(text, name):
@@ -41,6 +42,8 @@ def extract_section(text, name):
 class GeantCapacity:
     def __init__(self, text):
         self.data_sha256 = hashlib.sha256(text.encode("utf-8")).hexdigest()
+        if self.data_sha256 != EXPECTED_SHA256:
+            raise ValueError("SNDlib GÉANT source changed; validate before rerunning")
         nodes = extract_section(text, "NODES")
         links = extract_section(text, "LINKS")
         demands = extract_section(text, "DEMANDS")
@@ -132,7 +135,12 @@ class Recorder:
 def evaluate_method(problem, method, seed, budget=360, population=36):
     monitor = Recorder(problem, budget)
     started = time.perf_counter()
-    if method == "scipy_de":
+    if method == "random_search":
+        rng = np.random.default_rng(seed)
+        for _ in range(budget):
+            monitor(rng.integers(1, 26, size=problem.n))
+        success = True
+    elif method == "scipy_de":
         differential_evolution(
             monitor, problem.bounds, popsize=1,
             maxiter=math.ceil(budget / problem.n),
@@ -170,12 +178,16 @@ def main():
     problem = GeantCapacity.download()
     print("DATASET", "nodes=",len(problem.graph), "edges=",len(problem.edges),
           "demands=",len(problem.demands), "sha256=",problem.data_sha256, flush=True)
-    print("REFERENCE", "equal_weights=",problem.evaluate([1]*problem.n),
-          "cost_weighted=",problem.evaluate([x[2] for x in problem.edges]),
+    raw_costs = [edge[2] for edge in problem.edges]
+    minimum, maximum = min(raw_costs), max(raw_costs)
+    cost_heuristic = [1 + round(24*(price-minimum)/(maximum-minimum))
+                      for price in raw_costs]
+    print("REFERENCE", "equal_weights=", problem.evaluate([1]*problem.n),
+          "cost_weighted_in_bounds=", problem.evaluate(cost_heuristic),
           flush=True)
     rows = []
     for seed in range(args.runs):
-        for method in ("log_relative", "affine_invariant", "scipy_de"):
+        for method in ("log_relative", "affine_invariant", "scipy_de", "random_search"):
             row = evaluate_method(problem, method, seed, args.budget, args.population)
             rows.append(row)
             print("RUN", row, flush=True)
@@ -183,7 +195,7 @@ def main():
         writer = csv.DictWriter(f, fieldnames=list(rows[0]))
         writer.writeheader()
         writer.writerows(rows)
-    for method in ("log_relative", "affine_invariant", "scipy_de"):
+    for method in ("log_relative", "affine_invariant", "scipy_de", "random_search"):
         found = [r["cost"] for r in rows if r["method"] == method]
         print("SUMMARY", method, "median=",statistics.median(found),
               "worst=",max(found), "best=",min(found),
