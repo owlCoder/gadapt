@@ -123,6 +123,7 @@ class GA:
         mutation_credit_assignment: str = "offspring",
         mutation_evaluation_counter: Optional[Callable] = None,
         mutation_violation_function: Optional[Callable] = None,
+        mutation_scenario_count: Optional[int] = None,
         adaptive_immigration_patience: Optional[int] = None,
         adaptive_immigration_percentage: float = 20.0,
         adaptive_immigration_diversity_threshold: float = 0.25,
@@ -339,10 +340,21 @@ class GA:
         self.cost_diversity_metric = cost_diversity_metric
         if mutation_operator_policy not in ("legacy", "uniform", "ucb"):
             raise ValueError("mutation_operator_policy must be legacy/uniform/ucb")
-        if mutation_operator_credit not in ("objective", "feasibility"):
-            raise ValueError("mutation_operator_credit must be objective/feasibility")
-        if mutation_operator_policy != "legacy" and mutation_operator_credit == "feasibility" and not callable(mutation_violation_function):
+        if mutation_operator_credit not in ("objective", "feasibility", "scenario_feasibility"):
+            raise ValueError("mutation_operator_credit must be objective/feasibility/scenario_feasibility")
+        if mutation_operator_policy != "legacy" and mutation_operator_credit in ("feasibility", "scenario_feasibility") and not callable(mutation_violation_function):
             raise ValueError("feasibility credit needs mutation_violation_function")
+        if mutation_operator_credit == "scenario_feasibility":
+            if mutation_operator_policy == "legacy":
+                raise ValueError("scenario feasibility requires an active operator policy")
+            if mutation_credit_assignment != "offspring":
+                raise ValueError("scenario feasibility currently supports offspring credit only")
+            if type(mutation_scenario_count) is not int or mutation_scenario_count < 2:
+                raise ValueError("scenario feasibility requires mutation_scenario_count >= 2")
+            if not callable(mutation_evaluation_counter):
+                raise ValueError("scenario feasibility requires a real physical evaluation counter")
+        elif mutation_scenario_count is not None:
+            raise ValueError("mutation_scenario_count is only valid for scenario_feasibility credit")
         if mutation_credit_assignment not in ("offspring", "paired"):
             raise ValueError("mutation_credit_assignment must be offspring/paired")
         if mutation_credit_assignment == "paired":
@@ -361,6 +373,7 @@ class GA:
         self.mutation_operator_policy = mutation_operator_policy
         self.mutation_operator_credit = mutation_operator_credit
         self.mutation_violation_function = mutation_violation_function
+        self.mutation_scenario_count = mutation_scenario_count
         if (adaptive_immigration_patience is not None and
                 (type(adaptive_immigration_patience) is not int or
                  adaptive_immigration_patience < 1)):
