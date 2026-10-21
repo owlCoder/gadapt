@@ -24,18 +24,29 @@ class CreditBasedDecisionVariableMutator(ComposedDecisionVariableMutator):
     """
 
     def __init__(self, policy="ucb", credit="objective", violation_function=None,
-                 window=64, assignment="offspring", evaluation_counter=None):
+                 window=64, assignment="offspring", evaluation_counter=None,
+                 scenario_count=None):
         super().__init__()
         if policy not in ("uniform", "ucb"):
             raise ValueError("policy must be 'uniform' or 'ucb'")
-        if credit not in ("objective", "feasibility"):
-            raise ValueError("credit must be 'objective' or 'feasibility'")
-        if credit == "feasibility" and not callable(violation_function):
+        if credit not in ("objective", "feasibility", "scenario_feasibility"):
+            raise ValueError("credit must be objective/feasibility/scenario_feasibility")
+        if credit in ("feasibility", "scenario_feasibility") and not callable(violation_function):
             raise ValueError("feasibility credit needs a violation callback")
         if assignment not in ("offspring", "paired"):
             raise ValueError("assignment must be offspring/paired")
         if assignment == "paired" and not callable(evaluation_counter):
             raise ValueError("paired credit requires monotone evaluation counter")
+        if credit == "scenario_feasibility":
+            if type(scenario_count) is not int or scenario_count < 2:
+                raise ValueError("scenario credit requires scenario_count >= 2")
+            if not callable(evaluation_counter):
+                raise ValueError("scenario credit requires physical evaluation counter")
+            if assignment != "offspring":
+                raise ValueError("scenario credit currently requires offspring assignment")
+        elif scenario_count is not None:
+            raise ValueError("scenario_count only applies to scenario_feasibility")
+        self.scenario_count = scenario_count
         self.assignment = assignment
         self.evaluation_counter = evaluation_counter
         self._paired_baselines = {}
@@ -52,6 +63,7 @@ class CreditBasedDecisionVariableMutator(ComposedDecisionVariableMutator):
         self._traces = {}
         self._reference_cost = None
         self._unevaluated_traces = 0
+        self._scenario_fully_feasible_observations = 0
 
     def append(self, mutator):
         super().append(mutator)
@@ -143,12 +155,43 @@ class CreditBasedDecisionVariableMutator(ComposedDecisionVariableMutator):
         self._paired_baselines[id(candidate)] = (float(cost), violation)
         self.paired_evaluations += 1
 
+    def _scenario_reward(self, values, objective_score, improvement):
+        """Use ONLY a cached full scenario violation vector; never run a solver.
+
+        A completely source-feasible N-scenario design gets more reward than
+        any incomplete one. This is a heuristic AOS credit, not causal proof.
+        """
+        signal = self.violation_function(values, objective_score)
+        if signal is None:
+            return None
+        if isinstance(signal, (str, bytes)):
+            raise ValueError("scenario feedback must be a sequence, not text")
+        try:
+            violations = list(signal)
+        except TypeError:
+            raise ValueError("scenario feedback must be a sequence of violations")
+        if len(violations) != self.scenario_count:
+            raise ValueError("scenario feedback length must equal scenario_count")
+        if any(isinstance(v, bool) or not isinstance(v, (int, float))
+               or not math.isfinite(v) or v < 0 for v in violations):
+            raise ValueError("scenario violations must be finite nonnegative numbers")
+        if all(v == 0 for v in violations):
+            self._scenario_fully_feasible_observations += 1
+            return 0.75 + 0.25 * improvement
+        coverage = sum(v == 0 for v in violations) / self.scenario_count
+        return (0.5 * coverage +
+                0.125 / (1.0 + max(violations)) +
+                0.125 / (1.0 + sum(violations) / self.scenario_count))
+
     def observe(self, candidate, physically_evaluated=None):
         indices = [self._traces.pop(id(v)) for v in candidate
                    if id(v) in self._traces]
         if not indices:
             return
         baseline = self._paired_baselines.pop(id(candidate), None)
+        if self.credit == "scenario_feasibility" and physically_evaluated is not True:
+            self._unevaluated_traces += len(indices)
+            return
         if self.assignment == "paired":
             # No rewards for incomplete physical pairs; calling an objective
             # after its hard budget is NOT the same as evaluating an offspring.
@@ -163,7 +206,17 @@ class CreditBasedDecisionVariableMutator(ComposedDecisionVariableMutator):
                 and math.isfinite(candidate.cost_value)):
             improvement = min(1.0, max(0.0, (reference - candidate.cost_value)
                                       / (1.0 + abs(reference))))
-        if self.credit == "feasibility" and getattr(candidate, "_succ", False):
+        if self.credit == "scenario_feasibility":
+            if not getattr(candidate, "_succ", False):
+                self._unevaluated_traces += len(indices)
+                return
+            values = [v.value for v in sorted(
+                candidate, key=lambda v: v.decision_variable.variable_id)]
+            reward = self._scenario_reward(values, candidate.cost_value, improvement)
+            if reward is None:
+                self._unevaluated_traces += len(indices)
+                return
+        elif self.credit == "feasibility" and getattr(candidate, "_succ", False):
             values = [v.value for v in sorted(
                 candidate, key=lambda v: v.decision_variable.variable_id)]
             violation = self.violation_function(values, candidate.cost_value)
@@ -205,7 +258,10 @@ class CreditBasedDecisionVariableMutator(ComposedDecisionVariableMutator):
                  credit_assignment=self.assignment,
                  paired_physical_baselines=self.paired_evaluations,
                  paired_incomplete_trials=self.paired_abandoned,
-                 rewarded=r, recent_mean_reward=(
+                 rewarded=r,
+                 withheld_unpaid_credits=self._unevaluated_traces,
+                 scenario_complete_feasible_feedback=self._scenario_fully_feasible_observations,
+                 recent_mean_reward=(
                      sum(h) / len(h) if h else 0.0))
             for m, n, o, r, h in zip(self.mutators, self._counts,
                                     self._observed, self._positive, self._history)
