@@ -1,3 +1,51 @@
+## NOVO — Iteracija 6: IEEE118 i francuski RTE1888, 21. oktobar 2026
+
+**Ovo su završeni stvarni AC-eksperimenti, a ne planirani rezultati.**
+Fiksni istraživački protokol: [ITERATION6_PROTOCOL.md](ITERATION6_PROTOCOL.md).
+Potpun izveštaj: [ITERATION6_REPORT_SR.md](ITERATION6_REPORT_SR.md).
+
+IEEE118, dva opterećenja, šest novih uparenih semena, tačno 180 stvarnih
+Newton–Raphson AC proračuna po metod–seme–opterećenje slučaju:
+
+| Metod | Medijalni izvodljivi gubici 100% | Medijalni izvodljivi gubici 110% |
+|---|---:|---:|
+| Originalni GAdapt | 131,841563 MW | 172,760037 MW |
+| **Samostalni SLSQP** | **131,553953 MW** | **172,554719 MW** |
+| Fiksni GAdapt→SLSQP | 131,720128 MW | 172,675001 MW |
+| Adaptivni GAdapt→SLSQP | 131,677102 MW | 172,695446 MW |
+| SciPy DE | 131,834761 MW | 172,812701 MW |
+| CMA-ES | 131,960103 MW | 172,949908 MW |
+
+Novi kontroler je unapred propisanim signalima odlučivao između 30%,
+55% i 75% GA budžeta; zabeleženo je po četiri `feasible_stalled` i
+dve `feasible_improving` odluke po opterećenju. Ipak, adaptivni
+hibrid imao je samo 1/6 pobeda nad fiksnim pri 100% i 2/6 pri 110%.
+Samostalni SLSQP je pobedio originalni GAdapt u 6/6 pokretanja, ali
+sa pet Holm-korigovanih poređenja p=0,15625.
+**Nema potvrđene prednosti adaptivnog hibrida**. Svi metodi našli su
+fizički izvodljiv rezultat 6/6, što uz Wilson 95% interval
+[0,6097; 1] nije dokaz visoke industrijske pouzdanosti.
+
+RTE1888, četiri metode × tri semena × 72 stvarna AC proračuna:
+**nula fizički izvodljivih rešenja u svih 12 pokretanja.**
+Fiksni model sa samo osam upravljivih napona ne eliminiše
+početna prekoračenja termičkih granica: minimum ukupnog kršenja
+oko 16,24–16,27. Nema legitimiteta tvrditi ostvareni izvodljivi
+optimum gubitaka ove RTE formulacije.
+
+Sirovi podaci, statistika i SVG/PNG grafikoni su sačuvani direktno
+u `owlCoder/gadapt:main`. 
+[IEEE118 test](https://github.com/owlCoder/gadapt/actions/runs/39582074680),
+[RTE test](https://github.com/owlCoder/gadapt/actions/runs/39582153291),
+[nezavisna verifikacija statistike](https://github.com/owlCoder/gadapt/actions/runs/39583243300).
+
+**Naučna preporuka:** nastaviti istraživanje formulacije i restauracije
+fizičke izvodljivosti (kontrolni resursi, ograničenja, OPF), pre
+dodavanja novih heurističkih pragova. Trenutna adaptivna strategija
+nije dokazani originalni doktorski doprinos.
+
+---
+
 ## NOVO — Iteracija 5, 21. oktobar 2026: provera ostvarive preciznosti IEEE14
 
 Završena je opširnija studija na stvarnom GAdapt paketu i PYPOWER AC solveru.
