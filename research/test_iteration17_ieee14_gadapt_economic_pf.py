@@ -16,8 +16,10 @@ from research.iteration17_ieee14_gadapt_economic_pf import (
 class SyntheticPhysicalGrid:
     def __init__(self):
         self.evaluations=0
+        self.real_ac_calls=0
     def evaluate(self,vector):
         self.evaluations+=1
+        self.real_ac_calls+=1
         if self.evaluations==1:
             return {"converged":False,"feasible":False,
                     "penalized_objective":FAILED_SCORE,
@@ -85,7 +87,9 @@ class GenuineIEEE14PilotTests(unittest.TestCase):
 
     def test_nonfinite_score_from_fake_grid_is_rejected(self):
         class Broken:
+            real_ac_calls=0
             def evaluate(self,_):
+                self.real_ac_calls+=1
                 return {"converged":True,"feasible":True,
                         "penalized_objective":float("nan"),
                         "actual_economic_cost":10}
