@@ -1,0 +1,6567 @@
+{
+  "metadata": {
+    "actual_real_routing_evaluations": 8580,
+    "hypothetical_price_cap_per_scenario": 145000,
+    "max_real_routing_evaluations": 8640,
+    "methods": [
+      "ga_full_true",
+      "ga_full_censored",
+      "ga_stop_fixed",
+      "ga_stop_adaptive",
+      "de_full_true",
+      "de_stop_fixed"
+    ],
+    "model_audit": "research/ITERATION33_GEANT_MODEL_AUDIT_SR.md",
+    "numpy": "1.26.4",
+    "original_network": "22 nodes, 36 links, 462 directed demands",
+    "pandas": "2.2.3",
+    "preregistration": "research/ITERATION33_PROTOCOL.md",
+    "prior_art_scenario_racing_not_novel": true,
+    "python": "3.11.17",
+    "real_AC_physics_calls": 0,
+    "recourse_three_scenario_mean_cost_not_common_robust_installation": true,
+    "same_previously_used_GÉANT_topology_not_blind_new_industry": true,
+    "scenarios": [
+      "nominal",
+      "odd_source_heavy",
+      "even_source_heavy"
+    ],
+    "scipy": "1.13.1",
+    "seeds": [
+      2200,
+      2201,
+      2202,
+      2203,
+      2204,
+      2205,
+      2206,
+      2207,
+      2208,
+      2209,
+      2210,
+      2211
+    ],
+    "source_SNDlib_GEANT_sha256": "ff316c23220ff4485deafcb8701d49c353db0c80072152df3ed9023ed4b4f4ff",
+    "source_original_capacity_constraint_is_NOT_145000": true
+  },
+  "runs": [
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        39,
+        38,
+        38
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        2,
+        2
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 143811.29885057473,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9523809523809523,
+        0.9285714285714286,
+        0.9285714285714286
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2200,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.1734
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        40,
+        38,
+        39
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        0,
+        2,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000588.9655173,
+      "best_fully_measured_penalized_score_or_null": 143811.29885057473,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "complete_true_physical_score_retained_separately": true,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9761904761904762,
+        0.9285714285714286,
+        0.9523809523809523
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "fully_paid_candidates_with_censored_selection_score": 40,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_censored",
+      "mode": "full_censored",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2200,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.2015
+    },
+    {
+      "actual_AC_per_scenario": [
+        110,
+        5,
+        3
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        105,
+        2,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        5,
+        3,
+        3
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000072.4137931,
+      "best_fully_measured_penalized_score_or_null": 139409,
+      "best_verified_robust_mean_economic_cost_or_null": 139409,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          141600,
+          136965,
+          139662
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        18,
+        16,
+        4,
+        21,
+        13,
+        10,
+        17,
+        4,
+        3,
+        2,
+        2,
+        17,
+        18,
+        3,
+        6,
+        19,
+        19,
+        6,
+        16,
+        24,
+        3,
+        14,
+        12,
+        5,
+        16,
+        23,
+        19,
+        8,
+        21,
+        2,
+        22,
+        19,
+        13,
+        6,
+        12,
+        13
+      ],
+      "candidates_stopped_after_1_real_AC": 105,
+      "candidates_stopped_after_2_real_AC": 2,
+      "completely_evaluated_candidates": 3,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 107,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9464285714285714,
+        0.42857142857142855,
+        0.2
+      ],
+      "first_verified_robust_true_AC_number": 67,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 0,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2200,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 212,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 3,
+      "wall_seconds": 0.1885
+    },
+    {
+      "actual_AC_per_scenario": [
+        110,
+        5,
+        3
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        105,
+        2,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        5,
+        3,
+        3
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000072.4137931,
+      "best_fully_measured_penalized_score_or_null": 139409,
+      "best_verified_robust_mean_economic_cost_or_null": 139409,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          141600,
+          136965,
+          139662
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        18,
+        16,
+        4,
+        21,
+        13,
+        10,
+        17,
+        4,
+        3,
+        2,
+        2,
+        17,
+        18,
+        3,
+        6,
+        19,
+        19,
+        6,
+        16,
+        24,
+        3,
+        14,
+        12,
+        5,
+        16,
+        23,
+        19,
+        8,
+        21,
+        2,
+        22,
+        19,
+        13,
+        6,
+        12,
+        13
+      ],
+      "candidates_stopped_after_1_real_AC": 105,
+      "candidates_stopped_after_2_real_AC": 2,
+      "completely_evaluated_candidates": 3,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 107,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9464285714285714,
+        0.42857142857142855,
+        0.2
+      ],
+      "first_verified_robust_true_AC_number": 67,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_adaptive",
+      "mode": "stop_adaptive",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 0,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2200,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 212,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 3,
+      "wall_seconds": 0.1877
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        39,
+        38,
+        39
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        2,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 143787.66666666666,
+      "best_verified_robust_mean_economic_cost_or_null": 143787.66666666666,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          144042,
+          144656,
+          142665
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        8,
+        20,
+        23,
+        24,
+        24,
+        6,
+        6,
+        10,
+        5,
+        6,
+        21,
+        7,
+        16,
+        13,
+        12,
+        24,
+        4,
+        10,
+        17,
+        24,
+        9,
+        18,
+        14,
+        4,
+        7,
+        8,
+        20,
+        5,
+        2,
+        7,
+        17,
+        13,
+        1,
+        14,
+        10,
+        16
+      ],
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9523809523809523,
+        0.9285714285714286,
+        0.9523809523809523
+      ],
+      "first_verified_robust_true_AC_number": 96,
+      "max_native_AC_budget": 120,
+      "method": "de_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2300,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2200,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 1,
+      "wall_seconds": 0.3033
+    },
+    {
+      "actual_AC_per_scenario": [
+        116,
+        1,
+        1
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        115,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        1,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000610.3448275,
+      "best_fully_measured_penalized_score_or_null": 143787.66666666666,
+      "best_verified_robust_mean_economic_cost_or_null": 143787.66666666666,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          144042,
+          144656,
+          142665
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        8,
+        20,
+        23,
+        24,
+        24,
+        6,
+        6,
+        10,
+        5,
+        6,
+        21,
+        7,
+        16,
+        13,
+        12,
+        24,
+        4,
+        10,
+        17,
+        24,
+        9,
+        18,
+        14,
+        4,
+        7,
+        8,
+        20,
+        5,
+        2,
+        7,
+        17,
+        13,
+        1,
+        14,
+        10,
+        16
+      ],
+      "candidates_stopped_after_1_real_AC": 115,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 1,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 115,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9830508474576272,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "first_verified_robust_true_AC_number": 34,
+      "max_native_AC_budget": 120,
+      "method": "de_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2224,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2200,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 230,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 1,
+      "wall_seconds": 0.2321
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        38,
+        39,
+        40
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        2,
+        1,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 147678.28735632182,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9285714285714286,
+        0.9523809523809523,
+        0.9761904761904762
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2201,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.1723
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        39,
+        40,
+        40
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        0,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000857.2413793,
+      "best_fully_measured_penalized_score_or_null": 148276.7471264368,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "complete_true_physical_score_retained_separately": true,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9523809523809523,
+        0.9761904761904762,
+        0.9761904761904762
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "fully_paid_candidates_with_censored_selection_score": 40,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_censored",
+      "mode": "full_censored",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2201,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.2103
+    },
+    {
+      "actual_AC_per_scenario": [
+        104,
+        11,
+        5
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        93,
+        6,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        11,
+        5,
+        5
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000180.6896552,
+      "best_fully_measured_penalized_score_or_null": 142307.66666666666,
+      "best_verified_robust_mean_economic_cost_or_null": 142307.66666666666,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          142600,
+          144631,
+          139692
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        22,
+        12,
+        7,
+        20,
+        21,
+        16,
+        14,
+        7,
+        13,
+        18,
+        4,
+        12,
+        8,
+        20,
+        4,
+        4,
+        6,
+        9,
+        17,
+        21,
+        9,
+        20,
+        20,
+        22,
+        21,
+        20,
+        12,
+        15,
+        20,
+        18,
+        25,
+        16,
+        17,
+        3,
+        12,
+        19
+      ],
+      "candidates_stopped_after_1_real_AC": 93,
+      "candidates_stopped_after_2_real_AC": 6,
+      "completely_evaluated_candidates": 5,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 99,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.8867924528301887,
+        0.5384615384615384,
+        0.14285714285714285
+      ],
+      "first_verified_robust_true_AC_number": 70,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 6,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2201,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 192,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 5,
+      "wall_seconds": 0.1876
+    },
+    {
+      "actual_AC_per_scenario": [
+        104,
+        11,
+        5
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        93,
+        6,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        11,
+        5,
+        5
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000180.6896552,
+      "best_fully_measured_penalized_score_or_null": 142307.66666666666,
+      "best_verified_robust_mean_economic_cost_or_null": 142307.66666666666,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          142600,
+          144631,
+          139692
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        22,
+        12,
+        7,
+        20,
+        21,
+        16,
+        14,
+        7,
+        13,
+        18,
+        4,
+        12,
+        8,
+        20,
+        4,
+        4,
+        6,
+        9,
+        17,
+        21,
+        9,
+        20,
+        20,
+        22,
+        21,
+        20,
+        12,
+        15,
+        20,
+        18,
+        25,
+        16,
+        17,
+        3,
+        12,
+        19
+      ],
+      "candidates_stopped_after_1_real_AC": 93,
+      "candidates_stopped_after_2_real_AC": 6,
+      "completely_evaluated_candidates": 5,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 99,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.8867924528301887,
+        0.5384615384615384,
+        0.14285714285714285
+      ],
+      "first_verified_robust_true_AC_number": 70,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_adaptive",
+      "mode": "stop_adaptive",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 6,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2201,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 192,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 5,
+      "wall_seconds": 0.1895
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        39,
+        39,
+        40
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        1,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 148590.5977011494,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9523809523809523,
+        0.9523809523809523,
+        0.9761904761904762
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "de_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2300,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2201,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.2399
+    },
+    {
+      "actual_AC_per_scenario": [
+        113,
+        3,
+        2
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        110,
+        1,
+        2
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        3,
+        2,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000290.3448275,
+      "best_fully_measured_penalized_score_or_null": null,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 110,
+      "candidates_stopped_after_2_real_AC": 1,
+      "completely_evaluated_candidates": 0,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 113,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9652173913043478,
+        0.4,
+        0.75
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "de_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2227,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2201,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 221,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.2321
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        39,
+        40,
+        40
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        0,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 153369.06896551725,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9523809523809523,
+        0.9761904761904762,
+        0.9761904761904762
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2202,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.1728
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        39,
+        40,
+        40
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        0,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000040,
+      "best_fully_measured_penalized_score_or_null": 156002.02298850575,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "complete_true_physical_score_retained_separately": true,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9523809523809523,
+        0.9761904761904762,
+        0.9761904761904762
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "fully_paid_candidates_with_censored_selection_score": 40,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_censored",
+      "mode": "full_censored",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2202,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.2031
+    },
+    {
+      "actual_AC_per_scenario": [
+        109,
+        8,
+        1
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        101,
+        7,
+        1
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        8,
+        1,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000040,
+      "best_fully_measured_penalized_score_or_null": null,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 101,
+      "candidates_stopped_after_2_real_AC": 7,
+      "completely_evaluated_candidates": 0,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 109,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.918918918918919,
+        0.8,
+        0.6666666666666666
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 1,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2202,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 209,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.1867
+    },
+    {
+      "actual_AC_per_scenario": [
+        109,
+        8,
+        1
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        101,
+        7,
+        1
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        8,
+        1,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000040,
+      "best_fully_measured_penalized_score_or_null": null,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 101,
+      "candidates_stopped_after_2_real_AC": 7,
+      "completely_evaluated_candidates": 0,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 109,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.918918918918919,
+        0.8,
+        0.6666666666666666
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_adaptive",
+      "mode": "stop_adaptive",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 1,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2202,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 209,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.1878
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        39,
+        37,
+        39
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        3,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 140936.33333333334,
+      "best_verified_robust_mean_economic_cost_or_null": 140936.33333333334,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          138794,
+          139539,
+          144476
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        18,
+        20,
+        17,
+        11,
+        7,
+        17,
+        13,
+        10,
+        8,
+        4,
+        14,
+        15,
+        12,
+        23,
+        21,
+        13,
+        9,
+        8,
+        18,
+        4,
+        21,
+        6,
+        19,
+        16,
+        3,
+        24,
+        14,
+        10,
+        22,
+        7,
+        24,
+        15,
+        11,
+        24,
+        16,
+        19
+      ],
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9523809523809523,
+        0.9047619047619048,
+        0.9523809523809523
+      ],
+      "first_verified_robust_true_AC_number": 12,
+      "max_native_AC_budget": 120,
+      "method": "de_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2300,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2202,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 1,
+      "wall_seconds": 0.2403
+    },
+    {
+      "actual_AC_per_scenario": [
+        105,
+        7,
+        6
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        98,
+        1,
+        2
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        7,
+        6,
+        4
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000147.5862069,
+      "best_fully_measured_penalized_score_or_null": 140275.66666666666,
+      "best_verified_robust_mean_economic_cost_or_null": 140275.66666666666,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          138205,
+          140222,
+          142400
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        7,
+        21,
+        19,
+        18,
+        23,
+        18,
+        23,
+        19,
+        10,
+        20,
+        6,
+        18,
+        12,
+        19,
+        13,
+        9,
+        2,
+        4,
+        17,
+        12,
+        18,
+        21,
+        14,
+        17,
+        5,
+        10,
+        25,
+        22,
+        20,
+        2,
+        23,
+        4,
+        3,
+        6,
+        18,
+        20
+      ],
+      "candidates_stopped_after_1_real_AC": 98,
+      "candidates_stopped_after_2_real_AC": 1,
+      "completely_evaluated_candidates": 4,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 101,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9252336448598131,
+        0.2222222222222222,
+        0.375
+      ],
+      "first_verified_robust_true_AC_number": 6,
+      "max_native_AC_budget": 120,
+      "method": "de_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2235,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2202,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 197,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 4,
+      "wall_seconds": 0.2328
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        37,
+        39,
+        40
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        3,
+        1,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 147642.37931034484,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9047619047619048,
+        0.9523809523809523,
+        0.9761904761904762
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2203,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.1704
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        39,
+        38,
+        38
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        2,
+        2
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000061.3793104,
+      "best_fully_measured_penalized_score_or_null": 141665,
+      "best_verified_robust_mean_economic_cost_or_null": 141665,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          140696,
+          141300,
+          142999
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        16,
+        18,
+        18,
+        16,
+        21,
+        23,
+        25,
+        2,
+        18,
+        11,
+        7,
+        9,
+        14,
+        24,
+        6,
+        17,
+        2,
+        11,
+        15,
+        10,
+        20,
+        16,
+        11,
+        8,
+        13,
+        3,
+        9,
+        11,
+        9,
+        15,
+        1,
+        15,
+        19,
+        7,
+        7,
+        11
+      ],
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "complete_true_physical_score_retained_separately": true,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9523809523809523,
+        0.9285714285714286,
+        0.9285714285714286
+      ],
+      "first_verified_robust_true_AC_number": 87,
+      "fully_paid_candidates_with_censored_selection_score": 39,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_censored",
+      "mode": "full_censored",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2203,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 1,
+      "wall_seconds": 0.2094
+    },
+    {
+      "actual_AC_per_scenario": [
+        92,
+        14,
+        12
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        78,
+        2,
+        5
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        14,
+        12,
+        7
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000061.3793104,
+      "best_fully_measured_penalized_score_or_null": 139594.33333333334,
+      "best_verified_robust_mean_economic_cost_or_null": 139594.33333333334,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          137756,
+          138946,
+          142081
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        21,
+        18,
+        18,
+        21,
+        17,
+        21,
+        25,
+        9,
+        18,
+        14,
+        7,
+        9,
+        14,
+        20,
+        21,
+        17,
+        2,
+        7,
+        15,
+        10,
+        17,
+        16,
+        8,
+        16,
+        13,
+        3,
+        7,
+        4,
+        18,
+        15,
+        1,
+        13,
+        13,
+        8,
+        7,
+        11
+      ],
+      "candidates_stopped_after_1_real_AC": 78,
+      "candidates_stopped_after_2_real_AC": 2,
+      "completely_evaluated_candidates": 7,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 85,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.8404255319148937,
+        0.1875,
+        0.42857142857142855
+      ],
+      "first_verified_robust_true_AC_number": 31,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 6,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2203,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 158,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 7,
+      "wall_seconds": 0.1799
+    },
+    {
+      "actual_AC_per_scenario": [
+        96,
+        8,
+        14
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        82,
+        0,
+        7
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        14,
+        8,
+        7
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000061.3793104,
+      "best_fully_measured_penalized_score_or_null": 139594.33333333334,
+      "best_verified_robust_mean_economic_cost_or_null": 139594.33333333334,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          137756,
+          138946,
+          142081
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        21,
+        18,
+        18,
+        21,
+        17,
+        21,
+        25,
+        9,
+        18,
+        14,
+        7,
+        9,
+        14,
+        20,
+        21,
+        17,
+        2,
+        7,
+        15,
+        10,
+        17,
+        16,
+        8,
+        16,
+        13,
+        3,
+        7,
+        4,
+        18,
+        15,
+        1,
+        13,
+        13,
+        8,
+        7,
+        11
+      ],
+      "candidates_stopped_after_1_real_AC": 82,
+      "candidates_stopped_after_2_real_AC": 6,
+      "completely_evaluated_candidates": 7,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 89,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.8469387755102041,
+        0.1,
+        0.5
+      ],
+      "first_verified_robust_true_AC_number": 31,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_adaptive",
+      "mode": "stop_adaptive",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 2,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2203,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 170,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 7,
+      "wall_seconds": 0.1789
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        39,
+        38,
+        37
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        2,
+        3
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 144187.85057471265,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9523809523809523,
+        0.9285714285714286,
+        0.9047619047619048
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "de_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2300,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2203,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.2371
+    },
+    {
+      "actual_AC_per_scenario": [
+        116,
+        1,
+        1
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        115,
+        0,
+        1
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        1,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000085.5172414,
+      "best_fully_measured_penalized_score_or_null": null,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 115,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 0,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 116,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9830508474576272,
+        0.3333333333333333,
+        0.6666666666666666
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "de_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2224,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2203,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 230,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.2322
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        38,
+        38,
+        40
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        2,
+        2,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 145448.8275862069,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9761904761904762
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2204,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.174
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        39,
+        39,
+        39
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        1,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000984.8275862,
+      "best_fully_measured_penalized_score_or_null": 147657.2643678161,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "complete_true_physical_score_retained_separately": true,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9523809523809523,
+        0.9523809523809523,
+        0.9523809523809523
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "fully_paid_candidates_with_censored_selection_score": 40,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_censored",
+      "mode": "full_censored",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2204,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.172
+    },
+    {
+      "actual_AC_per_scenario": [
+        105,
+        10,
+        3
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        95,
+        7,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        10,
+        3,
+        3
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000064.8275862,
+      "best_fully_measured_penalized_score_or_null": 141521.33333333334,
+      "best_verified_robust_mean_economic_cost_or_null": 141521.33333333334,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          139388,
+          142121,
+          143055
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        24,
+        15,
+        20,
+        24,
+        5,
+        7,
+        9,
+        17,
+        18,
+        15,
+        15,
+        21,
+        5,
+        16,
+        23,
+        6,
+        14,
+        4,
+        17,
+        3,
+        19,
+        20,
+        20,
+        19,
+        9,
+        21,
+        9,
+        21,
+        25,
+        11,
+        8,
+        13,
+        14,
+        25,
+        10,
+        24
+      ],
+      "candidates_stopped_after_1_real_AC": 95,
+      "candidates_stopped_after_2_real_AC": 7,
+      "completely_evaluated_candidates": 3,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 102,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.897196261682243,
+        0.6666666666666666,
+        0.2
+      ],
+      "first_verified_robust_true_AC_number": 97,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 5,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2204,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 197,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 3,
+      "wall_seconds": 0.2268
+    },
+    {
+      "actual_AC_per_scenario": [
+        105,
+        10,
+        3
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        95,
+        7,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        10,
+        3,
+        3
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000064.8275862,
+      "best_fully_measured_penalized_score_or_null": 141521.33333333334,
+      "best_verified_robust_mean_economic_cost_or_null": 141521.33333333334,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          139388,
+          142121,
+          143055
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        24,
+        15,
+        20,
+        24,
+        5,
+        7,
+        9,
+        17,
+        18,
+        15,
+        15,
+        21,
+        5,
+        16,
+        23,
+        6,
+        14,
+        4,
+        17,
+        3,
+        19,
+        20,
+        20,
+        19,
+        9,
+        21,
+        9,
+        21,
+        25,
+        11,
+        8,
+        13,
+        14,
+        25,
+        10,
+        24
+      ],
+      "candidates_stopped_after_1_real_AC": 95,
+      "candidates_stopped_after_2_real_AC": 7,
+      "completely_evaluated_candidates": 3,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 102,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.897196261682243,
+        0.6666666666666666,
+        0.2
+      ],
+      "first_verified_robust_true_AC_number": 97,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_adaptive",
+      "mode": "stop_adaptive",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 5,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2204,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 197,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 3,
+      "wall_seconds": 0.1914
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        37,
+        39,
+        39
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        3,
+        1,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 144153.6551724138,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9047619047619048,
+        0.9523809523809523,
+        0.9523809523809523
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "de_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2300,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2204,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.2373
+    },
+    {
+      "actual_AC_per_scenario": [
+        112,
+        4,
+        2
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        108,
+        2,
+        2
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        4,
+        2,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000005.5172414,
+      "best_fully_measured_penalized_score_or_null": null,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 108,
+      "candidates_stopped_after_2_real_AC": 2,
+      "completely_evaluated_candidates": 0,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 112,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.956140350877193,
+        0.5,
+        0.75
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "de_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2228,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2204,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 218,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.2332
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        37,
+        38,
+        39
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        3,
+        2,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 142121.66666666666,
+      "best_verified_robust_mean_economic_cost_or_null": 142121.66666666666,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          140854,
+          142045,
+          143466
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        16,
+        20,
+        14,
+        24,
+        5,
+        9,
+        22,
+        12,
+        6,
+        24,
+        12,
+        1,
+        17,
+        13,
+        16,
+        9,
+        11,
+        6,
+        11,
+        7,
+        12,
+        12,
+        22,
+        24,
+        3,
+        10,
+        18,
+        15,
+        19,
+        16,
+        21,
+        9,
+        20,
+        25,
+        7,
+        16
+      ],
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9047619047619048,
+        0.9285714285714286,
+        0.9523809523809523
+      ],
+      "first_verified_robust_true_AC_number": 120,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2205,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 1,
+      "wall_seconds": 0.1755
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        37,
+        39,
+        40
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        3,
+        1,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000370.3448275,
+      "best_fully_measured_penalized_score_or_null": 146601.36781609195,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "complete_true_physical_score_retained_separately": true,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9047619047619048,
+        0.9523809523809523,
+        0.9761904761904762
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "fully_paid_candidates_with_censored_selection_score": 40,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_censored",
+      "mode": "full_censored",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2205,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.1735
+    },
+    {
+      "actual_AC_per_scenario": [
+        91,
+        17,
+        11
+      ],
+      "actual_native_AC_calls": 119,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        74,
+        6,
+        11
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        17,
+        11,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000117.9310344,
+      "best_fully_measured_penalized_score_or_null": null,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 74,
+      "candidates_stopped_after_2_real_AC": 6,
+      "completely_evaluated_candidates": 0,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 91,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.8064516129032258,
+        0.3684210526315789,
+        0.9230769230769231
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 7,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2205,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 154,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.2211
+    },
+    {
+      "actual_AC_per_scenario": [
+        91,
+        6,
+        23
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        71,
+        0,
+        18
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        20,
+        6,
+        5
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000000.6896552,
+      "best_fully_measured_penalized_score_or_null": 138771.33333333334,
+      "best_verified_robust_mean_economic_cost_or_null": 138771.33333333334,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          136698,
+          139285,
+          140331
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        20,
+        16,
+        18,
+        17,
+        15,
+        11,
+        7,
+        18,
+        22,
+        16,
+        9,
+        14,
+        12,
+        13,
+        22,
+        10,
+        10,
+        3,
+        7,
+        17,
+        20,
+        15,
+        7,
+        23,
+        9,
+        16,
+        19,
+        15,
+        13,
+        8,
+        23,
+        8,
+        19,
+        22,
+        23,
+        14
+      ],
+      "candidates_stopped_after_1_real_AC": 74,
+      "candidates_stopped_after_2_real_AC": 14,
+      "completely_evaluated_candidates": 5,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 89,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.7741935483870968,
+        0.125,
+        0.76
+      ],
+      "first_verified_robust_true_AC_number": 69,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_adaptive",
+      "mode": "stop_adaptive",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 4,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2205,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 162,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 5,
+      "wall_seconds": 0.1866
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        35,
+        39,
+        38
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        5,
+        1,
+        2
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 141485.66666666666,
+      "best_verified_robust_mean_economic_cost_or_null": 141485.66666666666,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          141689,
+          144247,
+          138521
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        21,
+        10,
+        11,
+        13,
+        25,
+        5,
+        22,
+        11,
+        2,
+        7,
+        8,
+        5,
+        2,
+        23,
+        12,
+        17,
+        16,
+        22,
+        11,
+        19,
+        10,
+        5,
+        11,
+        4,
+        15,
+        5,
+        11,
+        6,
+        15,
+        9,
+        13,
+        22,
+        17,
+        14,
+        11,
+        20
+      ],
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.8571428571428571,
+        0.9523809523809523,
+        0.9285714285714286
+      ],
+      "first_verified_robust_true_AC_number": 33,
+      "max_native_AC_budget": 120,
+      "method": "de_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2300,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2205,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 1,
+      "wall_seconds": 0.2391
+    },
+    {
+      "actual_AC_per_scenario": [
+        111,
+        6,
+        1
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        105,
+        5,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        6,
+        1,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000157.9310344,
+      "best_fully_measured_penalized_score_or_null": 141485.66666666666,
+      "best_verified_robust_mean_economic_cost_or_null": 141485.66666666666,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          141689,
+          144247,
+          138521
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        21,
+        10,
+        11,
+        13,
+        25,
+        5,
+        22,
+        11,
+        2,
+        7,
+        8,
+        5,
+        2,
+        23,
+        12,
+        17,
+        16,
+        22,
+        11,
+        19,
+        10,
+        5,
+        11,
+        4,
+        15,
+        5,
+        11,
+        6,
+        15,
+        9,
+        13,
+        22,
+        17,
+        14,
+        11,
+        20
+      ],
+      "candidates_stopped_after_1_real_AC": 105,
+      "candidates_stopped_after_2_real_AC": 5,
+      "completely_evaluated_candidates": 1,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 110,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9380530973451328,
+        0.75,
+        0.3333333333333333
+      ],
+      "first_verified_robust_true_AC_number": 13,
+      "max_native_AC_budget": 120,
+      "method": "de_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2229,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2205,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 215,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 1,
+      "wall_seconds": 0.2326
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        39,
+        39,
+        40
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        1,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 146575.5172413793,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9523809523809523,
+        0.9523809523809523,
+        0.9761904761904762
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2206,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.1725
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000362.7586207,
+      "best_fully_measured_penalized_score_or_null": 153366,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "complete_true_physical_score_retained_separately": true,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9761904761904762,
+        0.9761904761904762,
+        0.9761904761904762
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "fully_paid_candidates_with_censored_selection_score": 40,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_censored",
+      "mode": "full_censored",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2206,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.1731
+    },
+    {
+      "actual_AC_per_scenario": [
+        102,
+        10,
+        6
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        92,
+        4,
+        3
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        10,
+        6,
+        3
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000002.7586207,
+      "best_fully_measured_penalized_score_or_null": 140473.33333333334,
+      "best_verified_robust_mean_economic_cost_or_null": 140473.33333333334,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          138491,
+          140808,
+          142121
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        17,
+        12,
+        11,
+        18,
+        12,
+        16,
+        24,
+        12,
+        10,
+        15,
+        9,
+        11,
+        12,
+        6,
+        6,
+        11,
+        9,
+        6,
+        8,
+        8,
+        11,
+        10,
+        8,
+        14,
+        17,
+        9,
+        17,
+        11,
+        6,
+        12,
+        18,
+        2,
+        11,
+        18,
+        22,
+        21
+      ],
+      "candidates_stopped_after_1_real_AC": 92,
+      "candidates_stopped_after_2_real_AC": 4,
+      "completely_evaluated_candidates": 3,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 99,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.8942307692307693,
+        0.4166666666666667,
+        0.5
+      ],
+      "first_verified_robust_true_AC_number": 70,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 8,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2206,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 188,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 3,
+      "wall_seconds": 0.2207
+    },
+    {
+      "actual_AC_per_scenario": [
+        101,
+        3,
+        14
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        87,
+        0,
+        12
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        14,
+        3,
+        2
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000020.6896552,
+      "best_fully_measured_penalized_score_or_null": 140957.33333333334,
+      "best_verified_robust_mean_economic_cost_or_null": 140957.33333333334,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          139143,
+          140152,
+          143577
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        18,
+        21,
+        9,
+        17,
+        19,
+        16,
+        4,
+        8,
+        13,
+        12,
+        7,
+        5,
+        7,
+        20,
+        13,
+        9,
+        8,
+        17,
+        8,
+        6,
+        14,
+        13,
+        20,
+        7,
+        17,
+        16,
+        12,
+        19,
+        25,
+        14,
+        22,
+        10,
+        12,
+        18,
+        10,
+        21
+      ],
+      "candidates_stopped_after_1_real_AC": 87,
+      "candidates_stopped_after_2_real_AC": 11,
+      "completely_evaluated_candidates": 2,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 99,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.8543689320388349,
+        0.2,
+        0.8125
+      ],
+      "first_verified_robust_true_AC_number": 70,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_adaptive",
+      "mode": "stop_adaptive",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 9,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2206,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 185,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 2,
+      "wall_seconds": 0.1877
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        38,
+        39,
+        39
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        2,
+        1,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 146640.89655172414,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9285714285714286,
+        0.9523809523809523,
+        0.9523809523809523
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "de_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2300,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2206,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.2399
+    },
+    {
+      "actual_AC_per_scenario": [
+        114,
+        4,
+        0
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        110,
+        4,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        4,
+        0,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000246.2068965,
+      "best_fully_measured_penalized_score_or_null": null,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 110,
+      "candidates_stopped_after_2_real_AC": 4,
+      "completely_evaluated_candidates": 0,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 114,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9568965517241379,
+        0.8333333333333334,
+        0.5
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "de_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2226,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2206,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 224,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.2326
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        39,
+        37,
+        39
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        3,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 144399.0459770115,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9523809523809523,
+        0.9047619047619048,
+        0.9523809523809523
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2207,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.1714
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        38,
+        38,
+        40
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        2,
+        2,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000405.5172414,
+      "best_fully_measured_penalized_score_or_null": 144399.0459770115,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "complete_true_physical_score_retained_separately": true,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9761904761904762
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "fully_paid_candidates_with_censored_selection_score": 40,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_censored",
+      "mode": "full_censored",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2207,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.2041
+    },
+    {
+      "actual_AC_per_scenario": [
+        93,
+        19,
+        7
+      ],
+      "actual_native_AC_calls": 119,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        74,
+        12,
+        4
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        19,
+        7,
+        3
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000020,
+      "best_fully_measured_penalized_score_or_null": 143103.66666666666,
+      "best_verified_robust_mean_economic_cost_or_null": 143103.66666666666,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          143640,
+          144144,
+          141527
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        8,
+        13,
+        20,
+        15,
+        11,
+        19,
+        18,
+        8,
+        5,
+        14,
+        1,
+        4,
+        14,
+        19,
+        12,
+        24,
+        4,
+        20,
+        23,
+        20,
+        12,
+        11,
+        13,
+        8,
+        18,
+        4,
+        3,
+        16,
+        1,
+        8,
+        12,
+        14,
+        17,
+        6,
+        19,
+        14
+      ],
+      "candidates_stopped_after_1_real_AC": 74,
+      "candidates_stopped_after_2_real_AC": 12,
+      "completely_evaluated_candidates": 3,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 90,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.7894736842105263,
+        0.6190476190476191,
+        0.5555555555555556
+      ],
+      "first_verified_robust_true_AC_number": 46,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 5,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2207,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 160,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 3,
+      "wall_seconds": 0.1828
+    },
+    {
+      "actual_AC_per_scenario": [
+        93,
+        6,
+        19
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        74,
+        1,
+        14
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        19,
+        5,
+        5
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000015.862069,
+      "best_fully_measured_penalized_score_or_null": 141774.33333333334,
+      "best_verified_robust_mean_economic_cost_or_null": 141774.33333333334,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          140673,
+          141500,
+          143150
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        17,
+        15,
+        20,
+        15,
+        15,
+        9,
+        16,
+        10,
+        4,
+        9,
+        2,
+        13,
+        16,
+        20,
+        2,
+        24,
+        10,
+        20,
+        21,
+        20,
+        22,
+        10,
+        14,
+        5,
+        21,
+        3,
+        8,
+        15,
+        7,
+        7,
+        17,
+        16,
+        17,
+        21,
+        24,
+        14
+      ],
+      "candidates_stopped_after_1_real_AC": 74,
+      "candidates_stopped_after_2_real_AC": 13,
+      "completely_evaluated_candidates": 4,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 89,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.7894736842105263,
+        0.25,
+        0.7142857142857143
+      ],
+      "first_verified_robust_true_AC_number": 47,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_adaptive",
+      "mode": "stop_adaptive",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 5,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2207,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 161,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 4,
+      "wall_seconds": 0.1821
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        38,
+        39,
+        40
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        2,
+        1,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 147417.3448275862,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9285714285714286,
+        0.9523809523809523,
+        0.9761904761904762
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "de_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2300,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2207,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.239
+    },
+    {
+      "actual_AC_per_scenario": [
+        114,
+        3,
+        1
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        111,
+        2,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        3,
+        1,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000233.7931035,
+      "best_fully_measured_penalized_score_or_null": 142881.33333333334,
+      "best_verified_robust_mean_economic_cost_or_null": 142881.33333333334,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          140880,
+          142882,
+          144882
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        13,
+        11,
+        12,
+        24,
+        13,
+        10,
+        20,
+        13,
+        14,
+        12,
+        14,
+        15,
+        9,
+        7,
+        13,
+        16,
+        4,
+        23,
+        22,
+        8,
+        21,
+        11,
+        24,
+        14,
+        21,
+        13,
+        12,
+        5,
+        24,
+        17,
+        7,
+        15,
+        14,
+        16,
+        21,
+        23
+      ],
+      "candidates_stopped_after_1_real_AC": 111,
+      "candidates_stopped_after_2_real_AC": 2,
+      "completely_evaluated_candidates": 1,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 113,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9655172413793104,
+        0.6,
+        0.3333333333333333
+      ],
+      "first_verified_robust_true_AC_number": 72,
+      "max_native_AC_budget": 120,
+      "method": "de_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2226,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2207,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 224,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 1,
+      "wall_seconds": 0.2326
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        37,
+        37,
+        38
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        3,
+        3,
+        2
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 140481,
+      "best_verified_robust_mean_economic_cost_or_null": 140481,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          138722,
+          139721,
+          143000
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        15,
+        23,
+        4,
+        19,
+        14,
+        12,
+        17,
+        1,
+        8,
+        6,
+        22,
+        14,
+        11,
+        16,
+        10,
+        16,
+        3,
+        5,
+        16,
+        21,
+        17,
+        17,
+        15,
+        5,
+        5,
+        16,
+        9,
+        17,
+        14,
+        15,
+        16,
+        12,
+        19,
+        20,
+        23,
+        12
+      ],
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9047619047619048,
+        0.9047619047619048,
+        0.9285714285714286
+      ],
+      "first_verified_robust_true_AC_number": 60,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2208,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 2,
+      "wall_seconds": 0.1718
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        37,
+        37,
+        39
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        3,
+        3,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000431.0344827,
+      "best_fully_measured_penalized_score_or_null": 143001.66666666666,
+      "best_verified_robust_mean_economic_cost_or_null": 143001.66666666666,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          144876,
+          140183,
+          143946
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        15,
+        12,
+        5,
+        24,
+        1,
+        25,
+        13,
+        16,
+        14,
+        6,
+        1,
+        5,
+        13,
+        5,
+        21,
+        13,
+        14,
+        10,
+        13,
+        10,
+        4,
+        16,
+        22,
+        2,
+        14,
+        4,
+        2,
+        16,
+        20,
+        21,
+        21,
+        8,
+        19,
+        12,
+        16,
+        13
+      ],
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "complete_true_physical_score_retained_separately": true,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9047619047619048,
+        0.9047619047619048,
+        0.9523809523809523
+      ],
+      "first_verified_robust_true_AC_number": 60,
+      "fully_paid_candidates_with_censored_selection_score": 39,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_censored",
+      "mode": "full_censored",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2208,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 1,
+      "wall_seconds": 0.1709
+    },
+    {
+      "actual_AC_per_scenario": [
+        82,
+        19,
+        17
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        63,
+        2,
+        8
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        19,
+        17,
+        9
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000011.7241379,
+      "best_fully_measured_penalized_score_or_null": 137497,
+      "best_verified_robust_mean_economic_cost_or_null": 137497,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          136155,
+          138965,
+          137371
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        23,
+        11,
+        6,
+        23,
+        8,
+        9,
+        13,
+        4,
+        20,
+        12,
+        10,
+        22,
+        23,
+        13,
+        9,
+        11,
+        1,
+        9,
+        13,
+        15,
+        21,
+        11,
+        8,
+        7,
+        9,
+        18,
+        4,
+        8,
+        14,
+        21,
+        19,
+        11,
+        14,
+        22,
+        23,
+        16
+      ],
+      "candidates_stopped_after_1_real_AC": 63,
+      "candidates_stopped_after_2_real_AC": 2,
+      "completely_evaluated_candidates": 9,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 73,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.7619047619047619,
+        0.14285714285714285,
+        0.47368421052631576
+      ],
+      "first_verified_robust_true_AC_number": 22,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 86,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 4,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2208,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 128,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 9,
+      "wall_seconds": 0.2198
+    },
+    {
+      "actual_AC_per_scenario": [
+        86,
+        11,
+        21
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        65,
+        0,
+        11
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        21,
+        11,
+        10
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000011.7241379,
+      "best_fully_measured_penalized_score_or_null": 137497,
+      "best_verified_robust_mean_economic_cost_or_null": 137497,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          136155,
+          138965,
+          137371
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        23,
+        11,
+        6,
+        23,
+        8,
+        9,
+        13,
+        4,
+        20,
+        12,
+        10,
+        22,
+        23,
+        13,
+        9,
+        11,
+        1,
+        9,
+        13,
+        15,
+        21,
+        11,
+        8,
+        7,
+        9,
+        18,
+        4,
+        8,
+        14,
+        21,
+        19,
+        11,
+        14,
+        22,
+        23,
+        16
+      ],
+      "candidates_stopped_after_1_real_AC": 65,
+      "candidates_stopped_after_2_real_AC": 10,
+      "completely_evaluated_candidates": 10,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 76,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.75,
+        0.07692307692307693,
+        0.5217391304347826
+      ],
+      "first_verified_robust_true_AC_number": 22,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_adaptive",
+      "mode": "stop_adaptive",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 86,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 0,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2208,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 140,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 10,
+      "wall_seconds": 0.1758
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        38,
+        38,
+        39
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        2,
+        2,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 140484.66666666666,
+      "best_verified_robust_mean_economic_cost_or_null": 140484.66666666666,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          140853,
+          142446,
+          138155
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        4,
+        23,
+        7,
+        21,
+        22,
+        1,
+        23,
+        9,
+        15,
+        4,
+        4,
+        20,
+        3,
+        10,
+        22,
+        7,
+        1,
+        1,
+        9,
+        13,
+        12,
+        14,
+        13,
+        17,
+        19,
+        2,
+        7,
+        6,
+        6,
+        22,
+        2,
+        9,
+        1,
+        24,
+        17,
+        24
+      ],
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9523809523809523
+      ],
+      "first_verified_robust_true_AC_number": 69,
+      "max_native_AC_budget": 120,
+      "method": "de_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2300,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2208,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 1,
+      "wall_seconds": 0.2375
+    },
+    {
+      "actual_AC_per_scenario": [
+        112,
+        4,
+        2
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        108,
+        2,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        4,
+        2,
+        2
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000286.8965517,
+      "best_fully_measured_penalized_score_or_null": 140484.66666666666,
+      "best_verified_robust_mean_economic_cost_or_null": 140484.66666666666,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          140853,
+          142446,
+          138155
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        4,
+        23,
+        7,
+        21,
+        22,
+        1,
+        23,
+        9,
+        15,
+        4,
+        4,
+        20,
+        3,
+        10,
+        22,
+        7,
+        1,
+        1,
+        9,
+        13,
+        12,
+        14,
+        13,
+        17,
+        19,
+        2,
+        7,
+        6,
+        6,
+        22,
+        2,
+        9,
+        1,
+        24,
+        17,
+        24
+      ],
+      "candidates_stopped_after_1_real_AC": 108,
+      "candidates_stopped_after_2_real_AC": 2,
+      "completely_evaluated_candidates": 2,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 110,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.956140350877193,
+        0.5,
+        0.25
+      ],
+      "first_verified_robust_true_AC_number": 26,
+      "max_native_AC_budget": 120,
+      "method": "de_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2228,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2208,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 218,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 2,
+      "wall_seconds": 0.2331
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        37,
+        38,
+        39
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        3,
+        2,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 142031,
+      "best_verified_robust_mean_economic_cost_or_null": 142031,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          142713,
+          143488,
+          139892
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        20,
+        12,
+        24,
+        14,
+        8,
+        23,
+        18,
+        22,
+        12,
+        12,
+        5,
+        3,
+        10,
+        22,
+        15,
+        17,
+        6,
+        7,
+        8,
+        4,
+        14,
+        5,
+        21,
+        18,
+        3,
+        23,
+        8,
+        11,
+        8,
+        17,
+        21,
+        6,
+        21,
+        23,
+        16,
+        14
+      ],
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9047619047619048,
+        0.9285714285714286,
+        0.9523809523809523
+      ],
+      "first_verified_robust_true_AC_number": 111,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2209,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 1,
+      "wall_seconds": 0.1723
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        38,
+        40,
+        39
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        2,
+        0,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000037.9310344,
+      "best_fully_measured_penalized_score_or_null": 145531.72413793104,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "complete_true_physical_score_retained_separately": true,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9285714285714286,
+        0.9761904761904762,
+        0.9523809523809523
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "fully_paid_candidates_with_censored_selection_score": 40,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_censored",
+      "mode": "full_censored",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2209,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.1726
+    },
+    {
+      "actual_AC_per_scenario": [
+        83,
+        20,
+        16
+      ],
+      "actual_native_AC_calls": 119,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        63,
+        4,
+        5
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        20,
+        16,
+        11
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000037.9310344,
+      "best_fully_measured_penalized_score_or_null": 137720.33333333334,
+      "best_verified_robust_mean_economic_cost_or_null": 137720.33333333334,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          138229,
+          139859,
+          135073
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        23,
+        21,
+        20,
+        20,
+        11,
+        18,
+        17,
+        18,
+        7,
+        1,
+        11,
+        5,
+        12,
+        12,
+        6,
+        19,
+        8,
+        4,
+        12,
+        25,
+        4,
+        13,
+        11,
+        15,
+        25,
+        6,
+        12,
+        23,
+        4,
+        2,
+        17,
+        10,
+        11,
+        18,
+        17,
+        21
+      ],
+      "candidates_stopped_after_1_real_AC": 63,
+      "candidates_stopped_after_2_real_AC": 4,
+      "completely_evaluated_candidates": 11,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 72,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.7529411764705882,
+        0.22727272727272727,
+        0.3333333333333333
+      ],
+      "first_verified_robust_true_AC_number": 51,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 86,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 3,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2209,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 130,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 11,
+      "wall_seconds": 0.214
+    },
+    {
+      "actual_AC_per_scenario": [
+        86,
+        16,
+        16
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        67,
+        5,
+        6
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        19,
+        11,
+        10
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000014.4827586,
+      "best_fully_measured_penalized_score_or_null": 137720.33333333334,
+      "best_verified_robust_mean_economic_cost_or_null": 137720.33333333334,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          138229,
+          139859,
+          135073
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        23,
+        21,
+        20,
+        20,
+        11,
+        18,
+        17,
+        18,
+        7,
+        1,
+        11,
+        5,
+        12,
+        12,
+        6,
+        19,
+        8,
+        4,
+        12,
+        25,
+        4,
+        13,
+        11,
+        15,
+        25,
+        6,
+        12,
+        23,
+        4,
+        2,
+        17,
+        10,
+        11,
+        18,
+        17,
+        21
+      ],
+      "candidates_stopped_after_1_real_AC": 67,
+      "candidates_stopped_after_2_real_AC": 6,
+      "completely_evaluated_candidates": 8,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 78,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.7727272727272727,
+        0.3333333333333333,
+        0.3888888888888889
+      ],
+      "first_verified_robust_true_AC_number": 51,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_adaptive",
+      "mode": "stop_adaptive",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 86,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 0,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2209,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 140,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 8,
+      "wall_seconds": 0.1785
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        39,
+        39,
+        39
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        1,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 141822.33333333334,
+      "best_verified_robust_mean_economic_cost_or_null": 141822.33333333334,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          139730,
+          142144,
+          143593
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        19,
+        6,
+        4,
+        13,
+        11,
+        14,
+        16,
+        10,
+        17,
+        14,
+        21,
+        3,
+        15,
+        5,
+        24,
+        10,
+        8,
+        8,
+        18,
+        11,
+        9,
+        14,
+        10,
+        20,
+        7,
+        24,
+        20,
+        10,
+        25,
+        25,
+        8,
+        7,
+        13,
+        23,
+        8,
+        23
+      ],
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9523809523809523,
+        0.9523809523809523,
+        0.9523809523809523
+      ],
+      "first_verified_robust_true_AC_number": 42,
+      "max_native_AC_budget": 120,
+      "method": "de_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2300,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2209,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 1,
+      "wall_seconds": 0.2375
+    },
+    {
+      "actual_AC_per_scenario": [
+        114,
+        2,
+        2
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        112,
+        0,
+        1
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        2,
+        2,
+        1
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000819.3103448,
+      "best_fully_measured_penalized_score_or_null": 141822.33333333334,
+      "best_verified_robust_mean_economic_cost_or_null": 141822.33333333334,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          139730,
+          142144,
+          143593
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        19,
+        6,
+        4,
+        13,
+        11,
+        14,
+        16,
+        10,
+        17,
+        14,
+        21,
+        3,
+        15,
+        5,
+        24,
+        10,
+        8,
+        8,
+        18,
+        11,
+        9,
+        14,
+        10,
+        20,
+        7,
+        24,
+        20,
+        10,
+        25,
+        25,
+        8,
+        7,
+        13,
+        23,
+        8,
+        23
+      ],
+      "candidates_stopped_after_1_real_AC": 112,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 1,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 113,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9741379310344828,
+        0.25,
+        0.5
+      ],
+      "first_verified_robust_true_AC_number": 16,
+      "max_native_AC_budget": 120,
+      "method": "de_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2226,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2209,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 224,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 1,
+      "wall_seconds": 0.2314
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        38,
+        39,
+        40
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        2,
+        1,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 146039,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9285714285714286,
+        0.9523809523809523,
+        0.9761904761904762
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2210,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.1721
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        38,
+        39,
+        40
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        2,
+        1,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000182.0689656,
+      "best_fully_measured_penalized_score_or_null": 146039,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "complete_true_physical_score_retained_separately": true,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9285714285714286,
+        0.9523809523809523,
+        0.9761904761904762
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "fully_paid_candidates_with_censored_selection_score": 40,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_censored",
+      "mode": "full_censored",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2210,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.1713
+    },
+    {
+      "actual_AC_per_scenario": [
+        87,
+        20,
+        12
+      ],
+      "actual_native_AC_calls": 119,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        67,
+        8,
+        4
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        20,
+        12,
+        8
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000027.5862069,
+      "best_fully_measured_penalized_score_or_null": 141970.66666666666,
+      "best_verified_robust_mean_economic_cost_or_null": 141970.66666666666,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          139657,
+          142113,
+          144142
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        17,
+        13,
+        17,
+        13,
+        7,
+        2,
+        12,
+        5,
+        11,
+        13,
+        14,
+        4,
+        14,
+        19,
+        19,
+        13,
+        10,
+        5,
+        8,
+        16,
+        3,
+        20,
+        8,
+        11,
+        21,
+        1,
+        12,
+        13,
+        4,
+        19,
+        21,
+        6,
+        13,
+        18,
+        6,
+        15
+      ],
+      "candidates_stopped_after_1_real_AC": 67,
+      "candidates_stopped_after_2_real_AC": 8,
+      "completely_evaluated_candidates": 8,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 79,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.7640449438202247,
+        0.4090909090909091,
+        0.35714285714285715
+      ],
+      "first_verified_robust_true_AC_number": 47,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 98,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 11,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2210,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 142,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 8,
+      "wall_seconds": 0.2144
+    },
+    {
+      "actual_AC_per_scenario": [
+        85,
+        15,
+        19
+      ],
+      "actual_native_AC_calls": 119,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        64,
+        2,
+        8
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        21,
+        13,
+        11
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000139.3103448,
+      "best_fully_measured_penalized_score_or_null": 139681.33333333334,
+      "best_verified_robust_mean_economic_cost_or_null": 139681.33333333334,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          137742,
+          139818,
+          141484
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        19,
+        15,
+        15,
+        13,
+        14,
+        4,
+        2,
+        6,
+        17,
+        14,
+        15,
+        4,
+        14,
+        18,
+        10,
+        10,
+        7,
+        5,
+        11,
+        13,
+        3,
+        19,
+        7,
+        11,
+        19,
+        5,
+        12,
+        18,
+        21,
+        14,
+        14,
+        3,
+        14,
+        18,
+        10,
+        21
+      ],
+      "candidates_stopped_after_1_real_AC": 64,
+      "candidates_stopped_after_2_real_AC": 8,
+      "completely_evaluated_candidates": 11,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 74,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.7471264367816092,
+        0.17647058823529413,
+        0.42857142857142855
+      ],
+      "first_verified_robust_true_AC_number": 47,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_adaptive",
+      "mode": "stop_adaptive",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 86,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 1,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2210,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 136,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 11,
+      "wall_seconds": 0.1795
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        39,
+        40,
+        40
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        0,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 149991.52873563216,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9523809523809523,
+        0.9761904761904762,
+        0.9761904761904762
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "de_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2300,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2210,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.2379
+    },
+    {
+      "actual_AC_per_scenario": [
+        115,
+        2,
+        1
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        113,
+        1,
+        1
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        2,
+        1,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000445.5172414,
+      "best_fully_measured_penalized_score_or_null": null,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 113,
+      "candidates_stopped_after_2_real_AC": 1,
+      "completely_evaluated_candidates": 0,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 115,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9743589743589743,
+        0.5,
+        0.6666666666666666
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "de_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2225,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2210,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 227,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.2337
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        39,
+        40,
+        40
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        0,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 146890.89655172414,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9523809523809523,
+        0.9761904761904762,
+        0.9761904761904762
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2211,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.1749
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        39,
+        39,
+        40
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        1,
+        1,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000791.0344827,
+      "best_fully_measured_penalized_score_or_null": 144645.70114942527,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "complete_true_physical_score_retained_separately": true,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9523809523809523,
+        0.9523809523809523,
+        0.9761904761904762
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "fully_paid_candidates_with_censored_selection_score": 40,
+      "max_native_AC_budget": 120,
+      "method": "ga_full_censored",
+      "mode": "full_censored",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 50,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 10,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2211,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.1746
+    },
+    {
+      "actual_AC_per_scenario": [
+        103,
+        10,
+        6
+      ],
+      "actual_native_AC_calls": 119,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        93,
+        4,
+        4
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        10,
+        6,
+        2
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000016.5517242,
+      "best_fully_measured_penalized_score_or_null": 142308,
+      "best_verified_robust_mean_economic_cost_or_null": 142308,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          140167,
+          142374,
+          144383
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        14,
+        4,
+        17,
+        13,
+        8,
+        11,
+        9,
+        15,
+        14,
+        6,
+        12,
+        20,
+        17,
+        7,
+        4,
+        18,
+        10,
+        2,
+        14,
+        19,
+        4,
+        8,
+        15,
+        7,
+        23,
+        17,
+        8,
+        13,
+        8,
+        23,
+        9,
+        1,
+        11,
+        6,
+        14,
+        13
+      ],
+      "candidates_stopped_after_1_real_AC": 93,
+      "candidates_stopped_after_2_real_AC": 4,
+      "completely_evaluated_candidates": 2,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 101,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.8952380952380953,
+        0.4166666666666667,
+        0.625
+      ],
+      "first_verified_robust_true_AC_number": 82,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 7,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2211,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 190,
+      "unused_due_to_reserving_complete_validation": 1,
+      "verified_all_scenario_feasible_candidates": 2,
+      "wall_seconds": 0.1875
+    },
+    {
+      "actual_AC_per_scenario": [
+        108,
+        3,
+        7
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        101,
+        1,
+        5
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        7,
+        2,
+        2
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000081.3793104,
+      "best_fully_measured_penalized_score_or_null": 143238,
+      "best_verified_robust_mean_economic_cost_or_null": 143238,
+      "best_verified_robust_source_physics_or_null": {
+        "per_scenario_max_KCL_mva": [
+          null,
+          null,
+          null
+        ],
+        "per_scenario_original_cost": [
+          143027,
+          144607,
+          142080
+        ],
+        "per_scenario_real_source_normalized_violation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "best_verified_robust_vector_or_null": [
+        17,
+        6,
+        13,
+        16,
+        8,
+        7,
+        19,
+        19,
+        14,
+        11,
+        7,
+        9,
+        9,
+        16,
+        6,
+        14,
+        8,
+        13,
+        15,
+        22,
+        14,
+        14,
+        8,
+        11,
+        23,
+        15,
+        19,
+        6,
+        8,
+        20,
+        8,
+        3,
+        2,
+        6,
+        14,
+        14
+      ],
+      "candidates_stopped_after_1_real_AC": 101,
+      "candidates_stopped_after_2_real_AC": 4,
+      "completely_evaluated_candidates": 1,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 107,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9272727272727272,
+        0.4,
+        0.6666666666666666
+      ],
+      "first_verified_robust_true_AC_number": 117,
+      "max_native_AC_budget": 120,
+      "method": "ga_stop_adaptive",
+      "mode": "stop_adaptive",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 110,
+      "optimizer_reported_success_not_domain_budget_feasible": true,
+      "optimizer_stop_message": "",
+      "post_budget_requests_without_AC": 2,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2211,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 206,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 1,
+      "wall_seconds": 0.2215
+    },
+    {
+      "actual_AC_per_scenario": [
+        40,
+        40,
+        40
+      ],
+      "actual_native_AC_calls": 120,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        40,
+        37,
+        37
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        0,
+        3,
+        3
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": null,
+      "best_fully_measured_penalized_score_or_null": 145176.9195402299,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 0,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 40,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 0,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9761904761904762,
+        0.9047619047619048,
+        0.9047619047619048
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "de_full_true",
+      "mode": "full",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2300,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2211,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 0,
+      "unused_due_to_reserving_complete_validation": 0,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.2387
+    },
+    {
+      "actual_AC_per_scenario": [
+        118,
+        0,
+        0
+      ],
+      "actual_native_AC_calls": 118,
+      "actually_observed_numerical_unknown_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "actually_observed_physical_source_failures_per_scenario": [
+        118,
+        0,
+        0
+      ],
+      "actually_observed_source_feasible_per_scenario": [
+        0,
+        0,
+        0
+      ],
+      "best_censored_heuristic_score_not_true_objective_or_null": 1000000151.7241379,
+      "best_fully_measured_penalized_score_or_null": null,
+      "best_verified_robust_mean_economic_cost_or_null": null,
+      "best_verified_robust_source_physics_or_null": null,
+      "best_verified_robust_vector_or_null": null,
+      "candidates_stopped_after_1_real_AC": 118,
+      "candidates_stopped_after_2_real_AC": 0,
+      "completely_evaluated_candidates": 0,
+      "domain": "GÉANT_22node_36edge_SNDlib_hypothetical_cap_recourse",
+      "early_screened_physically_infeasible_candidates": 118,
+      "empirical_fail_probability_for_NEXT_sample": [
+        0.9916666666666667,
+        0.5,
+        0.5
+      ],
+      "first_verified_robust_true_AC_number": null,
+      "max_native_AC_budget": 120,
+      "method": "de_stop_fixed",
+      "mode": "stop_fixed",
+      "numerically_unknown_candidates": 0,
+      "objective_requests": 2340,
+      "optimizer_reported_success_not_domain_budget_feasible": false,
+      "optimizer_stop_message": "Maximum number of iterations has been exceeded.",
+      "post_budget_requests_without_AC": 2222,
+      "real_routing_exceptions": [],
+      "real_simulator_kind": "networkx_dijkstra_462_demands_plus_source_module_pricing",
+      "seed": 2211,
+      "source_cap_is_NOT_SNDlib_physical": true,
+      "source_scenarios": [
+        "nominal",
+        "odd_source_heavy",
+        "even_source_heavy"
+      ],
+      "unobserved_missing_results_are_never_source_feasible": true,
+      "unobserved_scenarios_NOT_counted_as_feasible_or_infeasible": 236,
+      "unused_due_to_reserving_complete_validation": 2,
+      "verified_all_scenario_feasible_candidates": 0,
+      "wall_seconds": 0.2338
+    }
+  ],
+  "summary": {
+    "de_full_true": {
+      "actual_Dijkstra_module_routing_evaluations": 1440,
+      "all_three_verified_hypothetically_feasible_candidates": 5,
+      "best_true_recoursed_module_mean_cost_verified_only_or_null": 140484.66666666666,
+      "fully_paid_three_scenario_candidates": 480,
+      "median_true_recoursed_module_mean_cost_conditional_on_success_or_null": 141485.66666666666,
+      "numerically_unknown_candidates": 0,
+      "optimizer_objective_requests_not_physical_measurements": 28080,
+      "proven_hypothetical_budget_rejects": 0,
+      "runs": 12,
+      "seeds_with_all_three_hypothetical_budget_feasible": 5,
+      "unobserved_never_routed_scenarios": 0
+    },
+    "de_stop_fixed": {
+      "actual_Dijkstra_module_routing_evaluations": 1416,
+      "all_three_verified_hypothetically_feasible_candidates": 10,
+      "best_true_recoursed_module_mean_cost_verified_only_or_null": 140275.66666666666,
+      "fully_paid_three_scenario_candidates": 10,
+      "median_true_recoursed_module_mean_cost_conditional_on_success_or_null": 141654,
+      "numerically_unknown_candidates": 0,
+      "optimizer_objective_requests_not_physical_measurements": 28080,
+      "proven_hypothetical_budget_rejects": 1350,
+      "runs": 12,
+      "seeds_with_all_three_hypothetical_budget_feasible": 6,
+      "unobserved_never_routed_scenarios": 2664
+    },
+    "ga_full_censored": {
+      "actual_Dijkstra_module_routing_evaluations": 1440,
+      "all_three_verified_hypothetically_feasible_candidates": 2,
+      "best_true_recoursed_module_mean_cost_verified_only_or_null": 141665,
+      "fully_paid_three_scenario_candidates": 480,
+      "median_true_recoursed_module_mean_cost_conditional_on_success_or_null": 142333.3333333333,
+      "numerically_unknown_candidates": 0,
+      "optimizer_objective_requests_not_physical_measurements": 600,
+      "proven_hypothetical_budget_rejects": 0,
+      "runs": 12,
+      "seeds_with_all_three_hypothetical_budget_feasible": 2,
+      "unobserved_never_routed_scenarios": 0
+    },
+    "ga_full_true": {
+      "actual_Dijkstra_module_routing_evaluations": 1440,
+      "all_three_verified_hypothetically_feasible_candidates": 4,
+      "best_true_recoursed_module_mean_cost_verified_only_or_null": 140481,
+      "fully_paid_three_scenario_candidates": 480,
+      "median_true_recoursed_module_mean_cost_conditional_on_success_or_null": 142031,
+      "numerically_unknown_candidates": 0,
+      "optimizer_objective_requests_not_physical_measurements": 600,
+      "proven_hypothetical_budget_rejects": 0,
+      "runs": 12,
+      "seeds_with_all_three_hypothetical_budget_feasible": 3,
+      "unobserved_never_routed_scenarios": 0
+    },
+    "ga_stop_adaptive": {
+      "actual_Dijkstra_module_routing_evaluations": 1421,
+      "all_three_verified_hypothetically_feasible_candidates": 59,
+      "best_true_recoursed_module_mean_cost_verified_only_or_null": 137497,
+      "fully_paid_three_scenario_candidates": 59,
+      "median_true_recoursed_module_mean_cost_conditional_on_success_or_null": 139681.33333333334,
+      "numerically_unknown_candidates": 0,
+      "optimizer_objective_requests_not_physical_measurements": 1212,
+      "proven_hypothetical_budget_rejects": 1118,
+      "runs": 12,
+      "seeds_with_all_three_hypothetical_budget_feasible": 11,
+      "unobserved_never_routed_scenarios": 2110
+    },
+    "ga_stop_fixed": {
+      "actual_Dijkstra_module_routing_evaluations": 1423,
+      "all_three_verified_hypothetically_feasible_candidates": 54,
+      "best_true_recoursed_module_mean_cost_verified_only_or_null": 137497,
+      "fully_paid_three_scenario_candidates": 54,
+      "median_true_recoursed_module_mean_cost_conditional_on_success_or_null": 140997.33333333334,
+      "numerically_unknown_candidates": 0,
+      "optimizer_objective_requests_not_physical_measurements": 1224,
+      "proven_hypothetical_budget_rejects": 1107,
+      "runs": 12,
+      "seeds_with_all_three_hypothetical_budget_feasible": 10,
+      "unobserved_never_routed_scenarios": 2060
+    }
+  },
+  "paired_seed_contrasts": [
+    {
+      "both": 1,
+      "exact_two_sided_discordant_binomial_p_unadjusted": 1,
+      "first": "ga_full_true",
+      "first_only": 2,
+      "holm_five_contrasts_p_adjusted": 1,
+      "neither": 8,
+      "second": "ga_full_censored",
+      "second_only": 1
+    },
+    {
+      "both": 2,
+      "exact_two_sided_discordant_binomial_p_unadjusted": 0.0078125,
+      "first": "ga_full_censored",
+      "first_only": 0,
+      "holm_five_contrasts_p_adjusted": 0.0390625,
+      "neither": 2,
+      "second": "ga_stop_fixed",
+      "second_only": 8
+    },
+    {
+      "both": 10,
+      "exact_two_sided_discordant_binomial_p_unadjusted": 1,
+      "first": "ga_stop_fixed",
+      "first_only": 0,
+      "holm_five_contrasts_p_adjusted": 1,
+      "neither": 1,
+      "second": "ga_stop_adaptive",
+      "second_only": 1
+    },
+    {
+      "both": 4,
+      "exact_two_sided_discordant_binomial_p_unadjusted": 0.2890625,
+      "first": "ga_stop_fixed",
+      "first_only": 6,
+      "holm_five_contrasts_p_adjusted": 1,
+      "neither": 0,
+      "second": "de_stop_fixed",
+      "second_only": 2
+    },
+    {
+      "both": 3,
+      "exact_two_sided_discordant_binomial_p_unadjusted": 0.5,
+      "first": "ga_full_true",
+      "first_only": 0,
+      "holm_five_contrasts_p_adjusted": 1,
+      "neither": 7,
+      "second": "de_full_true",
+      "second_only": 2
+    }
+  ],
+  "archive_provenance": {
+    "source_workflow_run_url": "https://github.com/owlCoder/gadapt/actions/runs/39689108919",
+    "source_job_id": 119530765246,
+    "original_artifact_url": "https://github.com/owlCoder/gadapt/actions/runs/39689108919/artifacts/12386884323",
+    "original_artifact_zip_SHA256": "726de0d72a2b1404b23c462c1d7e92dd02ea72ebc36a4584ebf309866fc81187",
+    "rows_recovered_from_unaltered_72_I33_TRUE_ROUTE_stdout_json": true,
+    "metadata_summary_paired_rechecked_from_same_original_stdout": true,
+    "one_analytical_run_series_no_new_routing_simulations_for_archive": true
+  }
+}
