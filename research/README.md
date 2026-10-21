@@ -1,3 +1,48 @@
+## Experimental mutation-benefit AOS (branch `research/feasibility-credit-aos`)
+
+**Do not interpret this as a dissertation-ready method.** The original
+`GA()` behavior is unchanged; AOS is opt-in:
+
+```python
+from gadapt.ga import GA
+ga = GA(cost_function=my_cost,
+        mutation_operator_policy="ucb",
+        mutation_operator_credit="objective")
+# Add variables as usual, then ga.execute().
+```
+
+For physical feasibility credit, set `mutation_operator_credit="feasibility"`
+and provide `mutation_violation_function=lambda values, penalized_cost: ...`.
+This callback must return a finite nonnegative *normalized* violation (zero
+if physically feasible), or `None` when an objective request did not receive
+an actual physical evaluation because the hard budget expired. For rigorous
+budget accounting, the callback should only read an evaluation cache; any
+new simulations inside it must be separately counted. This API is research-only
+and does not replace domain verification, nor provide a general hard-constraint
+solver.
+
+Replicate on the actual package:
+
+```bash
+python -m pip install -e . 'scipy>=1.11,<1.16' 'pypower>=5.1,<6' 'networkx>=3.2,<4'
+python -m unittest discover -s tests -v
+python research/aos_ieee14_pilot.py --runs 8 --budget 240 --output aos_ieee14_pilot.csv
+python research/analyze_aos_ieee14.py aos_ieee14_pilot.csv
+python -m research.aos_geant_temporal --runs 8 --budget 240 --output aos_geant_temporal.csv
+python -m research.analyze_aos_geant_temporal aos_geant_temporal.csv
+```
+
+- [AOS protocol: scientific prior art and frozen chronological timestamps](AOS_ITERATION_PROTOCOL.md)
+- [AOS iteration report: numeric evidence, failures, limitations](AOS_ITERATION_REPORT.md)
+- [Original dissertation protocol](DISSERTATION_PROTOCOL.md)
+
+The IEEE14 case is a public AC reference model; GÉANT is archival
+anonymized/scaled data with an assumed module planning model, not live
+infrastructure. Archive SHA, software dependencies, true evaluations, extra
+calls, failures and selection telemetry are captured in GitHub Actions.
+
+---
+
 # Research: robust cost-diversity baseline
 
 This branch contains a deliberately **opt-in** change to GAdapt:
