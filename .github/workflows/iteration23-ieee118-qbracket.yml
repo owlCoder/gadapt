@@ -1,0 +1,57 @@
+name: Iteration 23 IEEE118 fixed Q-feasibility bracket (4 real AC)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION23_PROTOCOL.md"
+      - "research/iteration23_ieee118_qbracket.py"
+      - "research/test_iteration23_ieee118_qbracket.py"
+      - ".github/workflows/iteration23-ieee118-qbracket.yml"
+  workflow_dispatch:
+
+jobs:
+  original-source-qbracket:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned original IEEE118 power flow environment
+        run: python -m pip install -e . 'pypower==5.1.19' 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Validate prior Q endpoints and exact four interpolated source steps
+        run: python -m unittest -v research.test_iteration23_ieee118_qbracket research.test_iteration22_ieee118_qmidpoint_repair
+      - name: Execute four fixed real AC PV source physical feasibility checks
+        run: python -m research.iteration23_ieee118_qbracket --json iteration23_ieee118_qbracket.json --csv iteration23_ieee118_qbracket.csv
+      - name: Emit exact raw state for permanent repository archive
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          for kind,p in (("CSV","iteration23_ieee118_qbracket.csv"),
+                         ("JSON","iteration23_ieee118_qbracket.json")):
+              f=Path(p)
+              if f.exists():
+                  d=base64.b64encode(f.read_bytes()).decode("ascii")
+                  for i,k in enumerate(range(0,len(d),2048)):
+                      print("I23_ARCHIVE",kind,i,d[k:k+2048],flush=True)
+              else:
+                  print("I23_MISSING",kind,flush=True)
+          PY
+      - name: Archive each true AC and all source physical metrics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration23-IEEE118-four-original-Q-bracket-AC
+          path: |
+            iteration23_ieee118_qbracket.csv
+            iteration23_ieee118_qbracket.json
