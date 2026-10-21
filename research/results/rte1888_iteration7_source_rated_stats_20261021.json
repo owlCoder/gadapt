@@ -1,0 +1,125 @@
+{
+  "comparison_family": "4 explorative paired methods versus original GAdapt",
+  "comparisons": [
+    {
+      "comparison": "gadapt_feasibility_first vs gadapt_penalty",
+      "holm_4_p": 1.0,
+      "losses": 0,
+      "median_paired_numeric_delta": -1.1576828384818327e-10,
+      "ties": 2,
+      "unadjusted_exact_sign_p": 1.0,
+      "wins": 1
+    },
+    {
+      "comparison": "slsqp_penalty vs gadapt_penalty",
+      "holm_4_p": 1.0,
+      "losses": 2,
+      "median_paired_numeric_delta": 0.004891424585827808,
+      "ties": 0,
+      "unadjusted_exact_sign_p": 1.0,
+      "wins": 1
+    },
+    {
+      "comparison": "hybrid_fixed vs gadapt_penalty",
+      "holm_4_p": 1.0,
+      "losses": 1,
+      "median_paired_numeric_delta": -2.013944566670034e-13,
+      "ties": 2,
+      "unadjusted_exact_sign_p": 1.0,
+      "wins": 0
+    },
+    {
+      "comparison": "scipy_de vs gadapt_penalty",
+      "holm_4_p": 1.0,
+      "losses": 2,
+      "median_paired_numeric_delta": 1.4284458060842553e-09,
+      "ties": 0,
+      "unadjusted_exact_sign_p": 1.0,
+      "wins": 1
+    }
+  ],
+  "n_independent_seeds": 3,
+  "n_method_seed_runs": 15,
+  "novelty_claim": false,
+  "protocol": "research/ITERATION7_PROTOCOL.md addendum C",
+  "raw_csv": "research/results/rte1888_iteration7_source_rated_pilot_20261021.csv",
+  "significance_claim": false,
+  "summary": [
+    {
+      "median_best_feasible_loss_mw": "",
+      "median_min_violation": 1.0733427997693878,
+      "median_runtime_sec": 31.141,
+      "method": "gadapt_penalty",
+      "optimizer_completed_runs": 3,
+      "physically_feasible_runs": 0,
+      "q90_min_violation": 1.0795212334505346,
+      "runs": 3,
+      "total_solver_failures": 7,
+      "total_true_ac_calls": 216,
+      "wilson_95_high": 0.5614970317550454,
+      "wilson_95_low": 5.551115123125783e-17,
+      "worst_min_violation": 1.0810658418708214
+    },
+    {
+      "median_best_feasible_loss_mw": "",
+      "median_min_violation": 1.0733427997693878,
+      "median_runtime_sec": 30.756,
+      "method": "gadapt_feasibility_first",
+      "optimizer_completed_runs": 3,
+      "physically_feasible_runs": 0,
+      "q90_min_violation": 1.0762181449650081,
+      "runs": 3,
+      "total_solver_failures": 7,
+      "total_true_ac_calls": 216,
+      "wilson_95_high": 0.5614970317550454,
+      "wilson_95_low": 5.551115123125783e-17,
+      "worst_min_violation": 1.0769369812639131
+    },
+    {
+      "median_best_feasible_loss_mw": "",
+      "median_min_violation": 1.0782342243552157,
+      "median_runtime_sec": 33.439,
+      "method": "slsqp_penalty",
+      "optimizer_completed_runs": 3,
+      "physically_feasible_runs": 0,
+      "q90_min_violation": 1.0782342243552157,
+      "runs": 3,
+      "total_solver_failures": 15,
+      "total_true_ac_calls": 216,
+      "wilson_95_high": 0.5614970317550454,
+      "wilson_95_low": 5.551115123125783e-17,
+      "worst_min_violation": 1.0782342243552157
+    },
+    {
+      "median_best_feasible_loss_mw": "",
+      "median_min_violation": 1.0782342228288075,
+      "median_runtime_sec": 32.085,
+      "method": "hybrid_fixed",
+      "optimizer_completed_runs": 3,
+      "physically_feasible_runs": 0,
+      "q90_min_violation": 1.0804995180622576,
+      "runs": 3,
+      "total_solver_failures": 11,
+      "total_true_ac_calls": 216,
+      "wilson_95_high": 0.5614970317550454,
+      "wilson_95_low": 5.551115123125783e-17,
+      "worst_min_violation": 1.08106584187062
+    },
+    {
+      "median_best_feasible_loss_mw": "",
+      "median_min_violation": 1.0735545289288102,
+      "median_runtime_sec": 26.852,
+      "method": "scipy_de",
+      "optimizer_completed_runs": 3,
+      "physically_feasible_runs": 0,
+      "q90_min_violation": 1.074366979130258,
+      "runs": 3,
+      "total_solver_failures": 3,
+      "total_true_ac_calls": 216,
+      "wilson_95_high": 0.5614970317550454,
+      "wilson_95_low": 5.551115123125783e-17,
+      "worst_min_violation": 1.0745700916806198
+    }
+  ],
+  "total_actual_ac_calls": 1080
+}
