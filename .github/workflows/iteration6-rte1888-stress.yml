@@ -1,0 +1,33 @@
+name: Iteration 6 French RTE1888 physical infeasibility stress test
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/iteration6_rte_stress.py"
+      - ".github/workflows/iteration6-rte1888-stress.yml"
+  workflow_dispatch:
+
+jobs:
+  actual-rte-overload-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e . 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3' 'cma>=4,<5'
+      - run: python -m unittest -v research.test_iteration6_policy
+      - name: Do not confuse reduced penalty with physical feasibility
+        run: |
+          set -o pipefail
+          python -m research.iteration6_rte_stress --output rte1888_iteration6.csv | tee rte1888_iteration6.log
+          test -s rte1888_iteration6.csv
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iteration6-rte1888-french-real-NR-physical-negative-stress
+          path: |
+            rte1888_iteration6.csv
+            rte1888_iteration6.log
