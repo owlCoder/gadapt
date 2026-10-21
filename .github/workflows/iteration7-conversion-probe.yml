@@ -1,0 +1,44 @@
+name: Iteration 7 pandapower MATPOWER conversion metadata
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/iteration7_conversion_probe.py"
+      - ".github/workflows/iteration7-conversion-probe.yml"
+  workflow_dispatch:
+
+jobs:
+  static-conversion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e . 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - run: python -m research.iteration7_conversion_probe --output rte1888_conversion_probe.json
+      - name: Print exact JSON for versioned archival
+        if: always()
+        run: |
+          python - <<'PY'
+          import base64
+          from pathlib import Path
+          p=Path("rte1888_conversion_probe.json")
+          if p.exists():
+              content=base64.b64encode(p.read_bytes()).decode()
+              for i in range(0,len(content),2048):
+                  print("I7_CONVERT_B64",i//2048,content[i:i+2048],flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iteration7-rte1888-conversion-probe
+          path: rte1888_conversion_probe.json
