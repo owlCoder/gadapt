@@ -59,3 +59,33 @@ jobs:
             ac_second.json
             ga_first.json
             ga_second.json
+
+  compare-across-independent-runners:
+    needs: separate-process-replay
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: replay
+          pattern: ieee118-repro-seeded-thread1-replica-*
+          merge-multiple: false
+      - name: Require identical candidate inputs and PF outcomes across runners
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for name in ('ac_first.json','ga_first.json'):
+              files=sorted(Path('replay').glob('*/'+name))
+              if len(files)!=2:
+                  raise ValueError('Expected two independent runner artifacts: '+name)
+              rows=[json.loads(f.read_text()) for f in files]
+              print('CROSS_RUN',name,'input_hashes',
+                    [x['input_sha256'] for x in rows],
+                    'output_hashes',[x['output_sha256'] for x in rows],
+                    'true_ac_calls',[x['n_physical'] for x in rows],flush=True)
+              if (rows[0]['input_sha256']!=rows[1]['input_sha256'] or
+                  rows[0]['output_sha256']!=rows[1]['output_sha256']):
+                  raise RuntimeError('Full deterministic IEEE118 replay failed: '+name)
+          print('PASS: byte-identical 16 AC and 48 real GAdapt proposals across runners')
+          PY
