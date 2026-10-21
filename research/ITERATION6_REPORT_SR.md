@@ -177,3 +177,78 @@ constraint-/cost-aware upravljač resursima pretrage donosi prednost preko
 jakih lokalnih algoritama bez prepravljanja praga nakon posmatranih
 rezultata. Potrebni su nezavisni i veći uzorci, više fizičkih domena,
 realni sigurnosni/operativni limiti i eksperimenti sa repnim rizikom.
+
+
+## Dodatak: stvarna međupokretačka ponovljivost, bez povećavanja uzorka
+
+**Otkrivena greška u pretpostavci:** dva uspešna prvobitna,
+nekontrolisana IEEE118 workflow-a
+[39582000049](https://github.com/owlCoder/gadapt/actions/runs/39582000049)
+i [39582074680](https://github.com/owlCoder/gadapt/actions/runs/39582074680)
+koristila su isto stablo koda (između njih je bila samo izmena protokola),
+ista semena, iste budžete i iste adaptivne odluke, ali su izgubila
+BITOVSKU ponovljivost rezultata. U 12/12 uparenih pokretanja svakog
+metoda završna vrednost se donekle promenila; kod CMA-ES skoro nula
+(~10^(-12) MW), kod SLSQP do oko 0,000296 MW, kod GA/DE/hibrida
+sve do ~0,25 MW. Zato originalne izlaze NE predstavljamo kao
+bitovski deterministične i ne prepisujemo izvorni CSV.
+
+**Kontrolisani uslovi:** postavljen je
+`PYTHONHASHSEED=0`, `OPENBLAS_NUM_THREADS=1`,
+`OMP_NUM_THREADS=1`, `MKL_NUM_THREADS=1` i
+`NUMEXPR_NUM_THREADS=1`, uz pinovane Python/pandapower/SciPy verzije.
+Ovo je naknadna ISPRAVKA NUMERIČKOG OKRUŽENJA, ne promena
+metoda, objektiva, semena, statistike, algoritamskih pragova ili
+stvarnog broja evaluacija.
+Koje je pojedinačno podešavanje izazvalo prethodne varijacije
+NIJE izolovano i zato mu se ne pripisuje uzročna tvrdnja.
+
+- [Dva računara: hash-probe od 16 identičnih AC i 48 stvarnih GA AC
+  evaluacija](https://github.com/owlCoder/gadapt/actions/runs/39584533666)
+  — oba procesna ponavljanja i oba nezavisna runner-a dala su identične
+  SHA256 hash-vrednosti ulaza i fizičkog izlaza.
+- [Kompletno kontrolisano IEEE118 izvođenje A
+  (72 pokretanja)](https://github.com/owlCoder/gadapt/actions/runs/39584783286)
+  i [B (ponovljenih istih 72 pokretanja)]
+  (https://github.com/owlCoder/gadapt/actions/runs/39584858314):
+  **GAdapt, SLSQP, fiksni hibrid, adaptivni hibrid i DE imaju
+  bitovski identične ostvarene MW vrednosti u 60/60 odgovarajućih
+  slučajeva**; CMA-ES ima maksimalno samo
+  `1.0317080523236655e-11` MW apsolutne razlike u 12/12 slučajeva.
+  Ostala detaljna očitavanja algoritamskih odluka i pravih PF budžeta
+  su podudarna. To pokazuje visoku reproduktivnost NA OVOM
+  PINOVANOM SISTEMU, ali ne univerzalnu determinističnost.
+- Ponavljeni francuski
+  [RTE1888 stres-test](https://github.com/owlCoder/gadapt/actions/runs/39584806628)
+  opet je imao **0/12 fizički izvodljivih kandidata**, uz isti
+  raspon minimalnih kršenja ograničenja.
+- Zaseban [CI koji ponovo čita CSV, analizira poređenja i
+  generiše SVG/PNG iz fizičkih podataka]
+  (https://github.com/owlCoder/gadapt/actions/runs/39586016114)
+  uspešno je nezavisno ponovio statistiku. Za svih 72 originalnih
+  redova naspram prve kontrolisane replike: `same_incumbent_vector=12`,
+  `exact_same_feasible_loss=12` za SVAKI od šest metoda na 12
+  kombinacija semenâ i opterećenjâ; znači i originalno korišćeno
+  izvođenje 39582074680 slučajno se već poklapalo bitovski sa
+  kontrolisanim rezultatima, ali drugo nekontrolisano nije.
+
+**Izvori nisu pseudoreplikovani.** Replikacije imaju ISTE semena
+200–205, iste javne fizičke slučajeve i iste metode, te statistički
+broj nezavisnih semenâ ostaje n=6, a ne n=12 ili n=18.
+Nisu ponovo računati povoljniji p-testovi iz tri kopije.
+Ponavljanje dokazuje preciznost procedure pod kontrolisanim
+okruženjem, ali ne validaciju na novoj infrastrukturi.
+
+Verzionisane originalne i dodatne datoteke (sve `main`):
+`research/results/ieee118_allocation_20261021.csv`,
+`research/results/ieee118_allocation_pinned_20261021.csv`,
+`research/results/rte1888_stress_20261021.csv`,
+`research/results/rte1888_stress_pinned_20261021.csv`.
+Alat za proveru stabilnosti:
+`research/compare_iteration6_replications.py`.
+Izvorni ZIP artefakti svakog workflow-a ostaju kanonski zapis.
+
+**I nakon stabilizovanja numerike glavni zaključak ostaje NEGATIVAN:**
+adaptivna raspodela ne nadmašuje jednostavne postojeće optimizatore.
+Metodološka pouzdanost eksperimenta se povećala; originalna doktorska
+superiorna optimizaciona metoda nije potvrđena.
