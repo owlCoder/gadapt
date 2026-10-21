@@ -1,3 +1,44 @@
+# NOVO — Iteracija 7: RTE1888 izvor ograničenja pre heuristike (21.10.2026)
+
+**Presudna metodološka korekcija:** u ranijem RTE1888 modelu
+proveravali smo svaki pandapower transformator i vod prema
+`loading_percent <= 100`, ali originalni MATPOWER `case1888rte`
+ima **455 grana sa `RATE_A=0` (bez zadatog MVA termičkog limita)**.
+U njihovom skupu nalazi se **233 transformatora** i 222 voda.
+Stoga raniji rezultat 0/12 izvodljivih kandidata iz iteracije 6
+ostaje tačan **samo za staru dodatno ograničenu formulaciju**;
+nije dokaz matematičke neizvodljivosti mreže sa izvornim limitima.
+
+Napravljen je audit **svih 2531 grana**, uključujući paralelne
+grane sa različitim rating-om. U početnom stanju pri 100% opterećenja
+0 grana krši pozitivne izvorne RATE_A MVA granice, ali 120 sabirnica
+krši naponske granice i zbir naponskih reziduala je **1,091786 p.u.**
+Na 110% opterećenja svih 17 determinističkih pokušaja iz
+izdvojenog AC audita bilo je nekonvergentno.
+Pri nominalnom opterećenju 17/17 stvarnih AC poziva konvergira,
+ali 0/17 daje potpuno izvodljiv vektor.
+
+**Doktorски algoritam sa potvrđenom originalnošću/superiornošću
+još nije pronađen.** Revidirani eksperimentalni cilj i dalje
+sadrži samo osam napona, nije puni AC-OPF niti potvrđena
+industrijska formulacija. Ovde ne treba porediti rezultate
+sa drugačijim formulacijama.
+
+Detalji, izvori, uslovni matematički dokazi, limitacije i kod:
+[Izveštaj iteracije 7](ITERATION7_REPORT_SR.md),
+[zamrznut protokol](ITERATION7_PROTOCOL.md),
+[izvorni MATPOWER rating](results/rte1888_matpower_original_branch_ratings_2019.csv),
+[kompletno 2531 mapiranje](results/rte1888_iteration7_matpower_to_pandapower_thermal_map_20261021.csv),
+[novi stvarni AC CSV](results/rte1888_iteration7_source_rated_ac_probe_20261021.csv),
+[GitHub Actions stvarni AC](https://github.com/owlCoder/gadapt/actions/runs/39608593545).
+
+Ovo ažuriranje **ne menja** sirove rezultate ni istorijske
+zaključke o ponašanju optimizatora unutar stare formulacije.
+Samo precizira da ona nije adekvatno predstavljala izvornu
+termičku izvodljivost.
+
+---
+
 ## Iteracija 6 — IEEE118 i RTE: stvarni fizički rezultati, bez lažnog optimuma
 
 **Provera ponovljivosti (naknadna korekcija okruženja):** dva prvobitna
