@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "max_allowed_ac_opf_calls": 2,
+    "no_gadapt_algorithm_comparison": true,
+    "objective": "original MATPOWER linear generator economic cost, NOT MW line losses",
+    "opf_flow_limit": "original positive RATE_A apparent MVA",
+    "opfalgo": 560,
+    "original_gencost_rows": 298,
+    "original_source": "MATPOWER/matpower/data/case1888rte.m",
+    "pandas": "2.2.3",
+    "protocol": "research/ITERATION14_PROTOCOL.md",
+    "python": "3.12.15",
+    "real_ac_opf_calls": 2,
+    "scipy": "1.13.1",
+    "solver": "native PYPOWER 5.1.19 runopf",
+    "source_commit": "80b6e16f760f58721ad31221c7287c28259cd4ad",
+    "source_license": "CC BY 4.0, strictly not for real French/EU operations or planning",
+    "source_slack_bus_id": 1320
+  },
+  "runs": [
+    {
+      "attempted": true,
+      "call_number": 1,
+      "elapsed_wall_seconds": 0.15238,
+      "posthoc": null,
+      "scenario": "small_case9_solver_smoke",
+      "small_case9_solver_reported_cost": 5296.686523629813,
+      "solver_error": "",
+      "solver_reported_success": true
+    },
+    {
+      "attempted": true,
+      "call_number": 2,
+      "elapsed_wall_seconds": 5.1993,
+      "posthoc": null,
+      "scenario": "original_2019_case1888rte",
+      "solver_error": "Native PYPOWER runopf reported success=False",
+      "solver_reported_success": false
+    }
+  ]
+}
