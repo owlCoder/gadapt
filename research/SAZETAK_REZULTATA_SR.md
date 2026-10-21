@@ -1,3 +1,49 @@
+# NOVO — Iteracija 7: revizija izvodljivosti RTE1888 (21.10.2026)
+
+Izvršena je nezavisna provera stvarnog porekla termičkih
+ograničenja iz originalnog MATPOWER `case1888rte`.
+**455/2531 izvorne grane imaju `RATE_A=0`, što znači
+da MATPOWER ne propisuje termičku MVA granicu za te grane.**
+Mapirane su na 233 transformatora i 222 voda u pandapower.
+Konkretno, istorijski „209% opterećen trafo404“ ima
+`sn_mva=99,999` u konvertovanom modelu, ali njegov
+izvorni MATPOWER branch453→1699 ima `RATE_A=0`.
+
+Prethodni stres-test iteracije 6 (0/12 fizički izvodljivih)
+bio je ispravno izmeren **za istorijsku formulaciju sa
+našim nametnutim 100% granicama**, ali ne može biti dokaz
+neizvodljivosti izvorne francuske test-mreže.
+Uslovni radijalni dokazi 14 preopterećenih transformatora
+važe samo pod veštački dodatom MVA granicom;
+ta pretpostavka nije ispunjena u izvoru.
+Ovaj rezultat je značajan **negativan metodološki nalaz**,
+ne algoritamska superiornost.
+
+Nova verzionisana formulacija koristi originalni RATE_A
+u MVA na oba kraja grane i nema termičke granice kada
+je RATE_A=0. U 17 stvarnih AC evaluacija nominalne
+reference i 16 okolnih vektora:
+- 0 stvarnih prekoračenja pozitivnih izvornih MVA limita
+  u referentnom stanju;
+- početni zbir naponskih povreda **1,091786 p.u.**,
+  na 120 sabirnica;
+- 17/17 proračuna konvergira, ali 0/17 potpuno
+  izvodljivih kandidata, minimum naponskog reziduala
+  **1,079486 p.u.**.
+Na 110% opterećenja je 17/17 AC proračuna bilo nekonvergentno,
+bez tvrdnje da ne postoji matematičko rešenje.
+
+Svi dokazi i sirovi podaci su na `owlCoder/gadapt:main`;
+[izveštaj](ITERATION7_REPORT_SR.md),
+[protokol](ITERATION7_PROTOCOL.md),
+[34 stvarna AC poziva](https://github.com/owlCoder/gadapt/actions/runs/39608593545),
+[2531 izvorna granica](results/rte1888_matpower_original_branch_ratings_2019.csv).
+Nov metod zasnovan na poznatoj feasibility-first ideji
+ne može biti predstavljen kao originalni doprinos doktoratu.
+Nema potvrde industrijske pouzdanosti ili globalnog optimuma.
+
+---
+
 ## NOVO — Iteracija 6: IEEE118 i francuski RTE1888, 21. oktobar 2026
 
 **Ovo su završeni stvarni AC-eksperimenti, a ne planirani rezultati.**
