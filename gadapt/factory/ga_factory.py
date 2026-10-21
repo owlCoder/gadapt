@@ -202,6 +202,8 @@ class GAFactory(BaseGAFactory):
             controller = CreditBasedDecisionVariableMutator(
                 policy=self._options.mutation_operator_policy,
                 credit=self._options.mutation_operator_credit,
+                assignment=self._options.mutation_credit_assignment,
+                evaluation_counter=self._options.mutation_evaluation_counter,
                 violation_function=self._options.mutation_violation_function,
             )
             for operator in decision_variable_mutators:
