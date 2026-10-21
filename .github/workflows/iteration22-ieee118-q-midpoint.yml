@@ -1,0 +1,57 @@
+name: Iteration 22 IEEE118 measured Q finite-difference repair (5 real AC)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION22_PROTOCOL.md"
+      - "research/iteration22_ieee118_qmidpoint_repair.py"
+      - "research/test_iteration22_ieee118_qmidpoint_repair.py"
+      - ".github/workflows/iteration22-ieee118-q-midpoint.yml"
+  workflow_dispatch:
+
+jobs:
+  five-source-qmidpoint-ac:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned original IEEE118 native solver
+        run: python -m pip install -e . 'pypower==5.1.19' 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Test source finite-difference Q baseline, trust region and prior real source controls
+        run: python -m unittest -v research.test_iteration22_ieee118_qmidpoint_repair research.test_iteration21_ieee118_four_qmin_controls
+      - name: Exactly five genuine original IEEE118 AC NR Q feasibility repairs
+        run: python -m research.iteration22_ieee118_qmidpoint_repair --json iteration22_q_midpoint.json --csv iteration22_q_midpoint.csv
+      - name: Emit raw results for permanent checked-in source benchmark archive
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          for kind,path in (("CSV","iteration22_q_midpoint.csv"),
+                            ("JSON","iteration22_q_midpoint.json")):
+              f=Path(path)
+              if f.exists():
+                  s=base64.b64encode(f.read_bytes()).decode("ascii")
+                  for i,k in enumerate(range(0,len(s),2048)):
+                      print("I22_ARCHIVE",kind,i,s[k:k+2048],flush=True)
+              else:
+                  print("I22_MISSING",kind,flush=True)
+          PY
+      - name: Preserve all five real source AC results even when infeasible
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration22-IEEE118-five-Qmidpoint-AC-repairs
+          path: |
+            iteration22_q_midpoint.csv
+            iteration22_q_midpoint.json
