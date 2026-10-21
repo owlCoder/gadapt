@@ -1,0 +1,6 @@
+scenario,actual_native_ac_pf_call,converged,solver_error,original_generator_q_offenders,total_Q_excess_mvar,delta_Q_excess_from_prev_baseline_mvar,original_generator_p_offenders,voltage_bus_offenders,source_rated_thermal_overloads,all_checked_physical_source_constraints_satisfied,complex_ac_balance_max_mva,economic_cost_only_if_source_feasible
+bus34_predicted,1,True,,3,22.887627785841705,-7.638272747320151,0,0,0,False,1.6257081164101712e-10,
+bus92_predicted,2,True,,2,19.565943504813234,-10.959957028348622,0,0,0,False,1.518955536420359e-10,
+bus19_predicted,3,True,,2,25.642154162466056,-4.8837463706958,0,0,0,False,1.489416380074866e-10,
+all_three_half,4,True,,1,2.4644560480222957,-28.06144448513956,0,0,0,False,1.5795276352085907e-10,
+all_three_full,5,True,,1,3.642855096077252,-26.883045437084604,0,0,0,False,1.638455646285641e-10,
