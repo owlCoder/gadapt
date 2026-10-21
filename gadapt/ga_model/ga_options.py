@@ -19,6 +19,10 @@ class GAOptions:
         self._keep_elitism_percentage = ga.keep_elitism_percentage
         self._number_of_crossover_parents = ga.number_of_crossover_parents
         self._cost_function = ga.cost_function
+        self.cost_diversity_metric = ga.cost_diversity_metric
+        self.adaptive_immigration_patience = ga.adaptive_immigration_patience
+        self.adaptive_immigration_percentage = ga.adaptive_immigration_percentage
+        self.adaptive_immigration_diversity_threshold = ga.adaptive_immigration_diversity_threshold
         self._cost_diversity_coefficient_function = None
         self._immigration_number = ga.immigration_number
         self._crossover_probability = ga.crossover_probability

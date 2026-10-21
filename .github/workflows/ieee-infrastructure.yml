@@ -1,0 +1,41 @@
+name: IEEE infrastructure powerflow benchmark
+
+on:
+  push:
+    branches:
+      - "research/**"
+    paths:
+      - "research/ieee_grid_benchmark.py"
+      - ".github/workflows/ieee-infrastructure.yml"
+      - "gadapt/**"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ieee-grid-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install GAdapt and a real AC power-flow simulator
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+          python -m pip install "pandapower==2.14.11" "scipy==1.13.1" "pandas==2.2.3"
+      - name: Run IEEE 14/118 AC feasibility comparisons
+        run: |
+          set -o pipefail
+          python research/ieee_grid_benchmark.py --runs 2 --ga-generations 12 --require-ac-success --output ieee_grid_results.csv | tee ieee_grid_log.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ieee-grid-benchmark
+          path: |
+            ieee_grid_results.csv
+            ieee_grid_log.txt

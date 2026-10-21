@@ -117,6 +117,10 @@ class GA:
         timeout=600,
         factory: Optional[BaseGAFactory] = None,
         normal_distribution_mutation_min_std_dev_decay_generations: Optional[float] = None,
+        cost_diversity_metric: str = "log_relative",
+        adaptive_immigration_patience: Optional[int] = None,
+        adaptive_immigration_percentage: float = 20.0,
+        adaptive_immigration_diversity_threshold: float = 0.25,
         **deprecated_kwargs,
     ) -> None:
         """
@@ -273,6 +277,16 @@ class GA:
                 variables, the lower bound never goes below one step. A good starting point is
                 2.5, together with normal_distribution_mutation_min_std_dev of 1e-4.
 
+            cost_diversity_metric: 'log_relative' (legacy default) or
+                'affine_invariant' (experimental, scale/offset-invariant measure).
+            adaptive_immigration_patience: None (disabled by default) or a
+                positive number of stagnant generations between conditional
+                population refreshes.
+            adaptive_immigration_percentage: percentage of kept candidates
+                to replace during an adaptive refresh (0-100, default 20).
+            adaptive_immigration_diversity_threshold: refresh only when cost
+                diversity coefficient is below this threshold (0-1).
+
             deprecated_kwargs: Previous names of the parameters (see
             DEPRECATED_PARAMETER_NAMES), e.g. number_of_mutation_chromosomes.
             They are still accepted, but emit a DeprecationWarning.
@@ -317,6 +331,18 @@ class GA:
             parent_diversity_mutation_candidate_solution_sampling
         )
         self.ensure_unique_individuals = ensure_unique_individuals
+        self.cost_diversity_metric = cost_diversity_metric
+        if (adaptive_immigration_patience is not None and
+                (type(adaptive_immigration_patience) is not int or
+                 adaptive_immigration_patience < 1)):
+            raise ValueError("adaptive_immigration_patience must be a positive int or None")
+        if not (0.0 <= adaptive_immigration_percentage <= 100.0):
+            raise ValueError("adaptive_immigration_percentage must be in [0, 100]")
+        if not (0.0 <= adaptive_immigration_diversity_threshold <= 1.0):
+            raise ValueError("adaptive_immigration_diversity_threshold must be in [0, 1]")
+        self.adaptive_immigration_patience = adaptive_immigration_patience
+        self.adaptive_immigration_percentage = float(adaptive_immigration_percentage)
+        self.adaptive_immigration_diversity_threshold = float(adaptive_immigration_diversity_threshold)
         self.normal_distribution_mutation_max_std_dev = normal_distribution_mutation_max_std_dev
         self.normal_distribution_mutation_min_std_dev = normal_distribution_mutation_min_std_dev
         self.normal_distribution_mutation_min_std_dev_decay_generations = normal_distribution_mutation_min_std_dev_decay_generations
@@ -856,6 +882,18 @@ class GA:
         self._ensure_unique_individuals = ga_utils.try_get_bool(value)
 
     @property
+    def cost_diversity_metric(self) -> str:
+        return self._cost_diversity_metric
+
+    @cost_diversity_metric.setter
+    def cost_diversity_metric(self, value: str) -> None:
+        if value not in ("log_relative", "affine_invariant"):
+            raise ValueError(
+                "cost_diversity_metric must be 'log_relative' or 'affine_invariant'"
+            )
+        self._cost_diversity_metric = value
+
+    @property
     def normal_distribution_mutation_max_std_dev(self) -> float:
         return self._normal_distribution_mutation_max_std_dev
 
@@ -935,12 +973,24 @@ class GA:
         self._timeout = ga_utils.try_get_int(value)
 
     def clone(self):
-        # Create a new instance of the class
+        """Copy GA configuration without cloning external callback state.
+
+        A bound cost function may point to an expensive/stateful simulator,
+        database interface or objective-evaluation counter. Deep-copying
+        such a bound method also deep-copies its owner, silently splitting
+        the optimization from the original simulator.
+
+        Deep-copy internal GA options and decision variables as before,
+        but preserve the identities of the user-supplied callbacks.
+        """
         new_instance = self.__class__.__new__(self.__class__)
-
-        # Copy the attributes from the current instance to the new instance
-        new_instance.__dict__ = copy.deepcopy(self.__dict__)
-
+        attributes = dict(self.__dict__)
+        callbacks = {}
+        for name in ("_cost_function", "_exit_function"):
+            if name in attributes:
+                callbacks[name] = attributes.pop(name)
+        new_instance.__dict__ = copy.deepcopy(attributes)
+        new_instance.__dict__.update(callbacks)
         return new_instance
 
 
