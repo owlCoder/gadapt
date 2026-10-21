@@ -13,7 +13,7 @@ import time
 
 import numpy as np
 from gadapt.ga import GA
-from research.ieee14_voltage import IEEE14VoltageDispatch
+from ieee14_voltage import IEEE14VoltageDispatch
 from scipy.optimize import differential_evolution
 
 
