@@ -1,3 +1,27 @@
+# NAJNOVIJE I34 — prvi NOVI cenzurom zaštićeni operator-credit u core GAdapt, 7.126 STVARNIH GÉANT rutina; NIJE nadmašio legacy značajno (22.10.2026)
+
+**NAUČNO BITNO:** realizovan je `GA(mutation_operator_policy="ucb", mutation_operator_credit="censored_verified_per_cost", mutation_scenario_count=3, mutation_evaluation_counter=..., mutation_violation_function=...)` **unutar samog GAdapt-a**, sa strogom poslednjom stvarnom 1–3 scenario evidencijom. Samo 3/3 stvarno pozvane i potpuno potvrđene source/hypothetical-cap izvodljive scene imaju `1/3` credit; 1/2/3 stvarno izmerene narušene scene reward `0`, numeric unknown i neizvršene scene **nemaju credit**. Izvorni default GA nije promenjen. **Poznate** AOS/credit/bandit/budget ideje nisu dokazano nove.
+
+**PREREGISTROVAN, stvarno završen benchmark:** 5 GAdapt politika × 12 NOVIH uparenih seedova **2300–2311**, 120 stvarnih domen routing poziva po run plafon = **7.126/7.200 pravih Dijkstra+462 zahteva+module-price evaluacija**; **0 AC**, 0 numerički neuspešnih. Isti već viđeni javni GÉANT 22-node/36-edge/462-demand iz I33, isti **hipotetički ne-source cost cap 145000 po scenariju**, ista 3 **veštačka** spatial demand profila; ovo NIJE nezavisan operativni industrijski validation.
+
+| GAdapt policy | Semena sa ≥1 stvarno 3-scenario cap-feasible | Potpuno potvrđeni kandidati | Prave ruting evaluacije |
+|---|---:|---:|---:|
+| **Legacy GA, postojeći fixed early stop** | **11/12** | **62** | 1423 |
+| Existing objective-UCB, fixed stop | 9/12 | 57 | 1422 |
+| Uniform NEW safe-credit, fixed stop | 11/12 | 58 | 1421 |
+| **NEW cost-verified/censored-safe UCB, fixed stop** | **12/12** | **60** | **1420** |
+| Existing I26 scenario-feasibility-UCB, FULL 3 routing | 3/12 | 3 | 1440 |
+
+**Primarno novo naspram legacy:** 12/12 prema 11/12, samo **1 diskordantan seed**, **exact two-sided p=1, Holm p=1** — **nema potvrde superiornosti**. Jedino significant poređenje novog fixed naspram **starog full-scenario UCB** (12/12 prema 3/12), corrected p=0,01953125, **nije izolovan efekat novog reward-a** jer se istovremeno menja full vs stop broj kandidata i selekcioni fitness. Best verified mean module cost **136143 isti u sve četiri fixed politike**; novi UCB nije ostvario bolji best-source-recourse cost. Nužan novel literature and third unseen domain test.
+
+**Prvobitni preflight CI** [#39691771826](https://github.com/owlCoder/gadapt/actions/runs/39691771826) je imao samo Python sintaksnu grešku u reporteru PRE prvog domen solver poziva; ovo je ispravljeno bez menjanja semena i protokola. Novi zero-routing i svi stari regression testovi prošli; **[originalni uspešni I34 pravi domain job #39691941881](https://github.com/owlCoder/gadapt/actions/runs/39691941881)** sa 60/60 runova.
+
+[I34 kompletan kritički izveštaj](ITERATION34_REPORT_SR.md) · [preregistracija](ITERATION34_PROTOCOL.md) · [core implementaciona revizija](ITERATION34_IMPLEMENTATION_REPORT_SR.md) · [60 sirovih stvarnih GÉANT JSON rezultata](results/geant_iteration34_12seeds_5arms_7126_actual_routing_20261022.json) · [CSV](results/geant_iteration34_12seeds_5arms_7126_actual_routing_20261022.csv) · [prethodni I33 GÉANT 8580 ruting benchmark](ITERATION33_REPORT_SR.md).
+
+**Doktorski zaključak:** metodološka i inženjerska sposobnost i stroga fizička računovodstvena bezbednost su proširene, ali nova core operator-credit hipoteza **nije dokazano efikasnija** od već postojećeg originalnog GAdapt-a sa fiksnim ranim screeningom. Ne podešavati operator reward na istom domenu samo da postignemo pozitive. Sledeća potvrda mora biti slepa/nezavisna topologija i novo fizičko domensko ograničenje, uz pravi novelty gap.
+
+---
+
 # NAJNOVIJE I33 — drugi domen GÉANT: 8.580 STVARNIH routing evaluacija, jedno Holm-značajno poređenje SAMO pod hipotetičkim cap-om (22.10.2026)
 
 **5 uzastopnih koraka na `main` završeno:** (1) revizija javnog GÉANT osnovnog modela i njegovih neograničenih kupovina modula; (2) protokol unapred pre realnih poziva; (3) implementacija stvarnog GAdapt/DE sa brojanjem NetworkX Dijkstra/modularnih routing evaluacija i sintetički no-route testovi; (4) uspešna 72-run CI serija na originalnom 22-node/36-link/462-demand SNDlib izvoru; (5) izvorni rezultati, statistika, 2013–2026 prior-art audit i naredna konkretna doktorska hipoteza.
