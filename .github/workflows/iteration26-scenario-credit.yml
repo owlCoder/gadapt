@@ -1,0 +1,34 @@
+name: Iteration 26 in-core GAdapt scenario feasibility credit regression
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION26_PROTOCOL.md"
+      - "gadapt/ga.py"
+      - "gadapt/ga_model/ga_options.py"
+      - "gadapt/factory/ga_factory.py"
+      - "gadapt/operations/mutation/decision_variable_mutation/credit_based_decision_variable_mutator.py"
+      - "gadapt/operations/cost_finding/elitism_cost_finder.py"
+      - "tests/test_scenario_feasibility_credit.py"
+      - ".github/workflows/iteration26-scenario-credit.yml"
+  workflow_dispatch:
+
+jobs:
+  real-core-GAdapt-regression:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install editable GAdapt plus pinned SciPy stack for integration imports
+        run: python -m pip install -e . 'numpy<2' 'scipy==1.13.1'
+      - name: Validate new opt-in robust multi-scenario UCB credit and all existing GA credit regressions
+        run: |
+          python -m unittest -v tests.test_scenario_feasibility_credit tests.test_operator_credit tests.test_paired_operator_credit tests.test_affine_cost_diversity
