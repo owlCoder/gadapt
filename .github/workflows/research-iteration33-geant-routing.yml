@@ -51,7 +51,9 @@ jobs:
           python -m unittest -v tests.test_sequential_scenario_budget_cost
 
   measured-sndlib-geant:
-    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+    # Historical I33 preregistered real-routing study completed in #39689108919.
+    # Any extra physical-domain run is intentional, manual, nonindependent replication.
+    if: github.event_name == 'workflow_dispatch'
     needs: preflight-no-routing
     runs-on: ubuntu-latest
     timeout-minutes: 120
