@@ -1,6 +1,6 @@
 # Iteracija 7 — revizija RTE1888 izvora ograničenja i fizičke izvodljivosti
 **Datum:** 21.10.2026. **Rep:** `owlCoder/gadapt:main`. Bez izmena u upstream `bpzoran/gadapt`.
-**Status:** dijagnostička studija izvršena; novi source-rated GA pilot registrovan pre merenja.
+**Status:** kompletna dijagnostika i petometodni stvarni AC pilot izvršeni; statistika nezavisno proverena i arhivirana.
 **Nema originalnog niti statistički superiornog doktorskog algoritma.**
 
 ## 1. Ključno novo otkriće: problem je delom posledica naše formulacije
@@ -221,3 +221,92 @@ MATPOWER user manual, definicija nultog RATE_A.
 Za feasibility-first princip videti:
 Deb (2000), *An efficient constraint handling method
 for genetic algorithms*, Comput. Methods Appl. Mech. Engrg.
+
+
+## 9. Završni ishodi uporednog algoritamskog pilota
+
+[Uspešan CI eksperiment #39608967519](https://github.com/owlCoder/gadapt/actions/runs/39608967519)
+izvršio je **svih 15 zamrznutih metod–seme pokretanja**:
+5 metoda × semena 350, 351, 352 × 72 prave fizičke NR
+evaluacije = **1.080 stvarnih AC poziva**. U svakoj metodi
+izvršen je isti `SourceRatedRTEGrid` sa izvornim MVA
+ograničenjima. Stvarna implementacija GAdapt-a pozvana je
+kroz postojeći `ga_stage`, ne putem alternativne simulacije GA.
+
+Sirovi podaci, uključujući stvarne fizičke pozive,
+broj nekonvergentnih poziva, vreme, najbolje izvodljive
+i najbolja fizička neizvodljiva rešenja, arhivirani su u
+`research/results/rte1888_iteration7_source_rated_pilot_20261021.csv`.
+
+| Metod | Izvodljivi runovi /3 | Medijana najmanjeg kršenja | Najgore najmanje kršenje | Nekonvergentni PF /216 |
+|---|---:|---:|---:|---:|
+| GAdapt (penalitet) | 0/3 | 1,073343 | 1,081066 | 7 |
+| GAdapt (feasibility-first) | 0/3 | 1,073343 | 1,076937 | 7 |
+| Samostalni SLSQP | 0/3 | 1,078234 | 1,078234 | 15 |
+| Fiksni GAdapt→SLSQP | 0/3 | 1,078234 | 1,081066 | 11 |
+| SciPy DE | 0/3 | 1,073555 | 1,074570 | 3 |
+
+**Nijedna metoda nije ostvarila stvarno izvodljiv rezultat.
+Gubici u MW se zato ne porede kao izvodljivi optimumi.**
+Leksičko rangiranje feasibility-first nije potvrdilo
+superiornost nad originalnim GAdapt-om;
+uparenim odnosom uz prag `1e-9` postignuto je
+1 pobeda, 0 poraza i 2 praktične nerešene replikacije.
+Mogućnost različitog najgoreg ishoda na samo 3 semena
+nije robustan zaključak.
+
+### Nezavisna statistička kontrola
+
+[GitHub Actions #39610466327](https://github.com/owlCoder/gadapt/actions/runs/39610466327)
+uspešno je ponovo pročitao već sačuvani sirovi CSV
+bez novih PF simulacija; proverio je izvornu formulaciju,
+3 tačno planirana semena po metodi, svih 72 fizička poziva
+po runu, i odbacio implicitne gubitke u MW kod
+neizvodljivih kandidata. Svaki izvodljivosti negativan
+uzorak 0/3 daje Wilson 95% opseg stope uspeha
+približno **[0, 0,5615]**, veoma širok.
+Četiri uparena poređenja po minimumu fizičkog kršenja
+prema GAdapt-penalitet baseline daju, uz definisanu
+porodicu Holm korigovanih dvosmernih egzaktnоg sign testa,
+**p=1,0 za svako poređenje**. Sa n=3 to nije dokaz jednakosti
+metoda niti superiornosti bilo kog pristupa.
+
+Ponovna analiza ne generiše novi statistički uzorak:
+upotrebljava ISTE rezultate i ISTA tri semena.
+Dodatni proverljivi fajlovi:
+- `research/results/rte1888_iteration7_source_rated_stats_20261021.json`;
+- `research/figures/rte1888_iteration7_source_rated_violation.svg`;
+- PNG i SVG u istom GitHub Actions artefaktu
+  `iteration7-rte-source-rated-verified-statistics`.
+
+U ograničenju od osam napona fizika je i dalje teško
+izvodljiva u testiranom malom budžetu, ali sada znamo
+da je dominantno ostalo **naponsko**, ne lažno
+nametnuto **termičko** kršenje. Ne zaključujemo da
+puni izvorni AC-OPF nema rešenje niti da je
+treba nekritički menjati sve generatore.
+Sledeći naučni korak je posebno modelovan
+reaktivni/naponski feasibility-restoration benchmark
+sa raspoloživim kontrolama, izvorno definisanim Q
+granicama i domenskim referentnim solverom.
+
+### Naučna interpretacija
+
+**Dokazani rezultat iteracije 7:** otkrivanje,
+reprodukcija i ispravka pogrešnog tumačenja RATE_A=0,
+potkrepljena celovitim mapiranjem 2.531 grane,
+pravim AC simulacijama i analitičkom revizijom 14
+uslovnih neizvodljivosti.
+**Negativan algoritamski rezultat:** feasibility-first
+GAdapt nije pokazao potvrđenu prednost; n=3 nije
+potvrdni eksperiment.
+**Nerešeno:** originalan doktorски doprinos, puna
+AC OPF izvodljivost, brojne nezavisne mreže, N-1
+i industrijski relevantni operativni rizici.
+Predhodni pozitivan rezultat ne sme biti
+rekonstruisan post hoc iz ovih 15 pokretanja.
+
+Dodatni bibliografski pregled:
+`research/ITERATION7_LITERATURE.md` (Deb, Runarsson/Yao,
+Coello Coello, pregled memetike, AC-OPF, skupe simulacije
+i multiverodostojna optimizacija).
