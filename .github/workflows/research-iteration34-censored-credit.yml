@@ -59,7 +59,9 @@ jobs:
 
   real-geant-operator-experiment:
     needs: before-real-routing-core-regression
-    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+    # I34 completed exactly one preregistered genuine-routing analytical series #39691941881.
+    # New costly domain-solver calls must be manually requested and are NOT new independent seeds.
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
