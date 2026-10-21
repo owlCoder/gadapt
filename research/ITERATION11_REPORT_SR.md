@@ -62,3 +62,11 @@ CI izveštava Python 3.12.15, SciPy 1.13.1, pandas 2.2.3, izvorni runtime PYPOWE
 ## ImplIkacija za mentorski doktorat
 
 Sada postoji dokazni native original izvorni RTE1888 PF, koji **nije zavisan od pandapower konverzije** i koji otkriva konkretne nedozvoljene P/Q i naponske vrednosti, umesto nagađanja. Sledeće: izolovati PYPOWER Q-enforce indeksnu grešku bez menjanja naučnih pretpostavki; nezavisno proveriti validnost native source OPF ograničenja, zatim odvojeno zamrznuti i testirati novi, potencijalno originalni mehanizam GAdapt adaptacije pod zajedničkim budžetima. Ova iteracija **ne dokazuje novost, izvodljiv optimum, upotrebljivost u stvarnoj industriji niti superiornost GAdapt-a**.
+
+## Naknadna statička provera: deset Pmin povreda postoji već u originalnim ulaznim podacima
+
+Iz punog originalnog `mpc.gen` reda iz ove iteracije, **pre ikakvog pokretanja solvera**, izdvojeno je svih deset **aktivnih** generatora čiji je originalni PG manji od izvornog PMIN. To su izvorni redovi **17, 25, 26, 27, 35, 39, 43, 46, 48 i 49**, a zbir njihovih početnih nedostataka iznosi tačno **54,95 MW** — isto kao u nativnom, konvergentnom PF izlazu bez Q enforcementa. Na izvoru postoji i nekoliko *isključenih* redova čiji PG ne zadovoljava Pmin, ali se pravilno ne računaju kao aktivna OPF ograničenja.
+
+**Interpretacija:** ovih deset Pmin povreda nije posledica lošeg algoritma GAdapt niti nuspojava promene pandapower slack-a. Početno fiksni dispečing u samom originalnom MATPOWER PF testnom slučaju krši deset izvornih granica; stvarni AC-OPF mora dopustiti P redispečing i zatim dokazati nezavisnu izvodljivost. Ovo ne pokazuje da je zadatak matematički neizvodljiv.
+
+Opažanje je naknadni deterministički audit izvornih podataka, a **ne** dodatni PF poziv. Reproduktivni test i korekcija tumačenja beleže se u [ITERATION12_PROTOCOL.md](ITERATION12_PROTOCOL.md) i [test_iteration12_native_q_repair.py](test_iteration12_native_q_repair.py).
