@@ -1,0 +1,43 @@
+name: Iteration 6 IEEE118 adaptive local budget experiment
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ieee118_allocation.py"
+      - "research/analyze_ieee118_allocation.py"
+      - "research/test_iteration6_policy.py"
+      - "research/ITERATION6_PROTOCOL.md"
+      - ".github/workflows/iteration6-ieee118-allocation.yml"
+  workflow_dispatch:
+
+jobs:
+  counted-physical-ac:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e . 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3' 'cma>=4,<5'
+      - name: Validate frozen allocation and physical budget invariants
+        run: python -m unittest -v research.test_iteration6_policy
+      - name: Run 72 real-GAdapt IEEE118 trials with exactly 180 PF calls
+        run: |
+          set -o pipefail
+          python -m research.ieee118_allocation --seeds 6 --seed-start 200 --budget 180 --output iteration6_ieee118.csv | tee iteration6_ieee118.log
+          test -s iteration6_ieee118.csv
+      - name: Analyze all success and failures with exact paired statistics
+        run: |
+          set -o pipefail
+          python -m research.analyze_ieee118_allocation iteration6_ieee118.csv --budget 180 | tee iteration6_ieee118_stats.txt
+          test -s iteration6_ieee118_stats.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iteration6-ieee118-physical-budget-six-arm-raw
+          path: |
+            iteration6_ieee118.csv
+            iteration6_ieee118.log
+            iteration6_ieee118_stats.txt
