@@ -71,8 +71,9 @@ That budget tradeoff is intentional and essential to measure, not hide.
 24, both 100% and 110% load. Fixed method family (8 methods):
 
 1. `legacy` — original package defaults.
-2. `legacy_single` — original operators, but one-variable randomized
-   mutation and uniqueness disabled, matching paired-mode constraints.
+2. `legacy_single` — original operator composition with affine diversity,
+   one-variable randomized mutation and uniqueness disabled, matching the
+   alternative methods. The separate `legacy` arm retains log-relative default.
 3. `uniform_offspring` — unpaired credit with same single-variable constraints.
 4. `ucb_offspring` — population-median unpaired credit with same constraints.
 5. `uniform_paired` — equal probability, paired local evaluation/credit.
