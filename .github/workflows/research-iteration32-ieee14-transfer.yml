@@ -8,6 +8,8 @@ on:
       - 'research/iteration32_ieee14_topology_transfer.py'
       - 'research/test_iteration32_ieee14_topology_transfer.py'
       - '.github/workflows/research-iteration32-ieee14-transfer.yml'
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
