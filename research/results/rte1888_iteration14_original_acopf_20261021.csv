@@ -1,0 +1,3 @@
+scenario,attempted,call_number,solver_reported_success,solver_error,elapsed_wall_seconds,independently_verified_source_opf,original_reported_cost,max_kcl_mismatch_mva,voltage_under_pu,generator_p_below_mw,generator_q_below_mvar,positive_rate_a_mva_excess
+small_case9_solver_smoke,True,1,True,,0.15238,,,,,,,
+original_2019_case1888rte,True,2,False,Native PYPOWER runopf reported success=False,5.1993,,,,,,,
