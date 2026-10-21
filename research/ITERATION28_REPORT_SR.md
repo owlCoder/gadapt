@@ -1,4 +1,4 @@
-# Iteracija 28 — 12 novih semena OPVRGAVA prethodnu naznaku prednosti scenario-aware UCB GAdapt-a
+# Iteracija 28 — 12 novih semena NIJE POTVRDILA prethodnu naznaku prednosti scenario-aware UCB GAdapt-a
 
 **Datum:** 21.10.2026. **Repo:** `owlCoder/gadapt:main`. **Status:** I28 U CELINI ZAVRŠEN, 48/48 realnih GAdapt run-ova, **8.640 stvarnih originalnih IEEE118 AC NR PF poziva u PRE-REGISTROVANOJ ANALITIČKOJ SERIJI**, nula numeričkih AC failure. Uspešan prvi kompletan [GitHub Actions #39666171453](https://github.com/owlCoder/gadapt/actions/runs/39666171453). Zbog izmene isključivo fluktuirajućih testnih asercija, GitHub Actions je automatski izvršio i **drugu fizičku CI replikaciju #39666251610** sa još **8.640 stvarnih originalnih AC**; oba skupa 48 run-ova dala su **bitno identične sirove numeričke ishode/physical fitness/opportunity operator selections** (razlikuje se samo runtime). Dakle, **ukupno 17.280 stvarno izvršenih I28 AC PF poziva u dva CI izvršavanja**, ali statistička/primarna analiza uključuje SAMO **jednu** unapred registrovanu seriju od 8.640 AC sa **12 jedinstvenih semena**. NIKAD ne brojati drugi CI kao još 12 nezavisnih seeds ili asimptotski veći dokaz.
 
@@ -16,7 +16,7 @@
 
 ## 2. Rezultati PO METODI — sva 12 nova semena, ne cherry-pick
 
-| Stvarna GAdapt varijanta | Seemena sa ≥1 izvodljivim za SVA 3 režima (od 12) | All-three feasible kompletnih 3-AC kandidata (od 720) | Realnih AC | Najbolji source all-three-feasible mean economic cost |
+| Stvarna GAdapt varijanta | Semena sa ≥1 izvodljivim za SVA 3 režima (od 12) | All-three feasible kompletnih 3-AC kandidata (od 720) | Realnih AC | Najbolji source all-three-feasible mean economic cost |
 |---|---:|---:|---:|---:|
 | **Originalni legacy GAdapt** | **8/12 (66,7%)** | **73** | **2160** | 131.311,282048 |
 | Postojeći UCB objective reward | **6/12 (50,0%)** | **65** | 2160 | 131.311,385721 |
@@ -49,7 +49,7 @@ Nova varijanta ima **70** uspešnih stvarnih kompletnih source 3-scenario kandid
 
 ## 5. Naučna implikacija — šta da promenimo u nastavku
 
-**I27 pozitivni pilot (1/3 yeni UCB, 0/3 ostali) bio je prerano mali da bi podržao bilo kakvu tvrdnju efikasnosti. I28 sa 12 novih uparenih seeds ne podržava superiornost novog reward-a i na primarnom uspehu više ide u korist legacy GA (8/12 vs 6/12), bez statističke potvrde razlike.** Zato nastavak **NE SME** biti još 10 iteracija dotjerivanja heurističkih nagradnih težina na istom IEEE118 slučaju i onda proglašenje publikabilnosti. Nova opcija ostaje funkcionalni, potpuno opt-in **negativno testirani istraživački prototip** u fork-u.
+**I27 pozitivni pilot (1/3 novi UCB, 0/3 ostali) bio je prerano mali da bi podržao bilo kakvu tvrdnju efikasnosti. I28 sa 12 novih uparenih seeds ne podržava superiornost novog reward-a i na primarnom uspehu više ide u korist legacy GA (8/12 vs 6/12), bez statističke potvrde razlike.** Zato nastavak **NE SME** biti još 10 iteracija dotjerivanja heurističkih nagradnih težina na istom IEEE118 slučaju i onda proglašenje publikabilnosti. Nova opcija ostaje funkcionalni, potpuno opt-in **negativno testirani istraživački prototip** u fork-u.
 
 [Preliminarni pregled literature i matrica preklapanja](ITERATION28_LITERATURE_NOVELTY_AUDIT_SR.md) dodatno otkriva **vrlo slične prethodne radove**: već 2008. AOS+MAB, 2024. DRL operator selection sa feasibility stanjem, 2026. DRL-AEOSF adaptivno ograničena evolucija; opšti scenario-aware reward u GAdapt-u **nije odbranjivo originalan samo zato što se pojavio kao novo ime u našem kodu**.
 
