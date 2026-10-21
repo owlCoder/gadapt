@@ -1,3 +1,37 @@
+## Iteracija 6 — IEEE118 i RTE: stvarni fizički rezultati, bez lažnog optimuma
+
+**Završeno i reprodukovano na `main`:**
+[Izveštaj na srpskom](ITERATION6_REPORT_SR.md) ·
+[Unapred fiksiran protokol](ITERATION6_PROTOCOL.md) ·
+[Pravi IEEE118 benchmark](ieee118_allocation.py) ·
+[Odvojeni RTE stres-test](iteration6_rte_stress.py).
+
+IEEE118 (osam generatorskih napona, dva faktora opterećenja,
+šest novih semena × šest metoda × 180 stvarnih AC evaluacija = **72 pokretanja**):
+standardni samostalni SLSQP ostaje najbolji po medijalnim izvodljivim
+gubicima (131,553953 MW na 100%, 172,554719 MW na 110%).
+Fiksni i eksperimentalni adaptivni GAdapt→SLSQP daju samo mešovite
+rezultate. Ni jedna primarna razlika nije statistički potvrđena posle
+Holm korekcije (n=6). Nema dokaza da je unapred zamrznuti
+adaptivni kontroler bolji od fiksnog hibrida.
+[Verifikovan IEEE118 CI](https://github.com/owlCoder/gadapt/actions/runs/39582074680).
+
+Francuski RTE1888, 12 metod–seme slučajeva × 72 stvarna NR poziva:
+**0/12 fizički izvodljivih rešenja** u modelu koji menja samo osam napona;
+prijavljeno je minimalno kršenje mrežnih ograničenja, a ne
+nepostojeći optimum izvodljivih gubitaka.
+[Verifikovan RTE1888 CI](https://github.com/owlCoder/gadapt/actions/runs/39582153291).
+
+Sirovi CSV: `results/ieee118_allocation_20261021.csv` (72 reda),
+`results/rte1888_stress_20261021.csv` (12 redova).
+[Nezavisno uspešno ponovno analiziranje i SVG/PNG grafikoni](https://github.com/owlCoder/gadapt/actions/runs/39583243300)
+validira broj pravih poziva, svih šest metoda, 12 RTE redova i
+ne imputira izvodljive MW rezultate kada fizičke granice nisu zadovoljene.
+Svi detalji u [ITERATION6_REPORT_SR.md](ITERATION6_REPORT_SR.md).
+**Kontroler je eksperimentalni research modul, ne promena GAdapt podrazumevane metode.**
+
+---
+
 ## Iteracija 5: provera najboljeg ostvarenog rešenja, ne dokaz globalnog optimuma
 
 Pregled **izvršenih eksperimenata, 360 objektivnih AC evaluacija po metodi,
