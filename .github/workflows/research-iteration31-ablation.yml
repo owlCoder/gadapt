@@ -9,14 +9,21 @@ on:
       - 'research/iteration31_fitness_budget_ablation.py'
       - 'research/test_iteration31_fitness_budget_ablation.py'
       - '.github/workflows/research-iteration31-ablation.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/ITERATION31_PROTOCOL.md'
+      - 'research/iteration31_fitness_budget_ablation.py'
+      - 'research/test_iteration31_fitness_budget_ablation.py'
+      - '.github/workflows/research-iteration31-ablation.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: i31-fitness-budget-${{ github.ref }}
-  cancel-in-progress: false
+  group: i31-fitness-budget-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
 
 env:
   OPENBLAS_NUM_THREADS: '1'
