@@ -1,3 +1,17 @@
+# NAJNOVIJE I31 — 8.611 STVARNIH AC, kontrola razdvaja selekcioni fitness od simulacionog budgeta (21.10.2026)
+
+**48 run-ova na 12 NOVIH uparenih semena 2080–2091, četiri legacy GAdapt evaluacione politike; ista IEEE118 mreža i ISTI I30 prostorni režimi, NIJE nova topologija/industrija.**
+- `full_true` (3 stvarna AC + potpuno izmeren source fitness): **9/12** semena sa >=1 potpuno confirmed all-three source feasible kandidatom; **127** verified kandidata; 2160 AC.
+- `full_censored` (3 stvarna AC + **isti cenzurisani score** kao screening, ali NE preskače preostale simulacije): **7/12**, **149**, 2160 AC. Promena rangirajućeg fitnesa SAMA PO SEBI nije poboljšala stopu seed uspeha.
+- `stop_fixed`: **11/12**, **375**, 2148 AC. Naspram identično rangirajućeg fully paid `full_censored` uspeh na **četiri dodatna uparena semena**, nula gubitaka; mali broj diskordantnih semena znači egzaktni dvostrani p=0.125, **nema dokazane statističke superiornosti**.
+- `stop_adaptive`: **10/12**, **371**, 2143 AC. Empirijski redosled opet nije nadmašio fiksni.
+- 8611 ZAISTA izvršenih native PYPOWER source AC, **0 numeričkih nepoznatih**, svih 48 individualnih runova arhivirano. Originalni CI fizički job je formalno failed TEK na CSV export koraku (različite kolone `full_censored`) **nakon** stvarnih AC i punog JSON-a; bez ponovnih AC rezultati su sačuvani iz auditabilnih `I31_TRUE_AC` logova, exporter je popravljen; kasniji zero-AC testovi prošli. NIKADA ne tvrditi da je originalni CI eksperiment potpuno zelen.
+
+**[I31 detaljan izveštaj](ITERATION31_REPORT_SR.md) · [preregistracija](ITERATION31_PROTOCOL.md) · [svi 48 raw source zapisa](results/ieee118_iteration31_12seeds_4arms_8611_real_AC_20261021.json) · [CSV](results/ieee118_iteration31_12seeds_4arms_8611_real_AC_20261021.csv) · [izvorni CI run](https://github.com/owlCoder/gadapt/actions/runs/39681669407).**
+**Nalaz se odnosi na evaluacionu efikasnost postojećeg GAdapt-a, ne predstavlja originalan novi algoritam.** Sledeća ozbiljna provera: nezavisna IEEE14 topologija ili industrijski infrastrukturni problem sa unapred definisanim novim režimima i fer AC baseline-ovima.
+
+---
+
 # NAJNOVIJE I29–I30 — opipljiva ušteda AC evaluacija kroz opt-in GAdapt screening, ALI naučna originalnost NIJE dokazana (21.10.2026)
 
 **I29: pravi opt-in source code evaluator UNUTAR GAdapt paketa**:
