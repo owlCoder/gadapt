@@ -1,0 +1,3385 @@
+{
+  "metadata": {
+    "actual_total_real_AC": 8640,
+    "environment": {
+      "pandas": "2.2.3",
+      "python": "3.12.15",
+      "scipy": "1.13.1"
+    },
+    "historical_i27_seed_list": [
+      2026,
+      2027,
+      2028
+    ],
+    "max_real_native_ac_pf_per_seed_method": 180,
+    "max_total_preregistered_real_AC": 8640,
+    "new_source_AC_OPF_calls": 0,
+    "operator_selection_causal_effect_not_established": true,
+    "original_public_ieee118_in_sample_physical_problem": true,
+    "original_source_generator_bus_ids": [
+      103,
+      32,
+      34,
+      92,
+      19,
+      74
+    ],
+    "preflight_0_real_AC": 0,
+    "preregistered_method_list": [
+      "gadapt_legacy",
+      "gadapt_ucb_objective",
+      "gadapt_ucb_scalar_feasibility",
+      "gadapt_ucb_scenario_feasibility"
+    ],
+    "preregistered_new_seed_list": [
+      2040,
+      2041,
+      2042,
+      2043,
+      2044,
+      2045,
+      2046,
+      2047,
+      2048,
+      2049,
+      2050,
+      2051
+    ],
+    "protocol": "research/ITERATION28_PROTOCOL.md",
+    "real_native_ac_per_full_fitness": 3,
+    "same_frozen_original_source_PQ_V_RateA_KCL_constraints": true,
+    "scientific_novelty_not_established": true,
+    "source_chosen_by_earlier_IEEE_Q_diagnostics": true,
+    "strictly_new_seed_holdout_not_new_scenario_holdout": true,
+    "synthetic_source_load_factors": [
+      0.98,
+      1.0,
+      1.02
+    ],
+    "total_optimizers_executed": 48,
+    "unmodified_i27_physical_implementation": "research/iteration27_real_scenario_credit_benchmark.py"
+  },
+  "new_vs_old_paired_binary": {
+    "gadapt_legacy": {
+      "both_no": 4,
+      "both_yes": 6,
+      "n_matched_seeds": 12,
+      "new_no_control_yes": 2,
+      "new_yes_control_no": 0
+    },
+    "gadapt_ucb_objective": {
+      "both_no": 6,
+      "both_yes": 6,
+      "n_matched_seeds": 12,
+      "new_no_control_yes": 0,
+      "new_yes_control_no": 0
+    },
+    "gadapt_ucb_scalar_feasibility": {
+      "both_no": 6,
+      "both_yes": 6,
+      "n_matched_seeds": 12,
+      "new_no_control_yes": 0,
+      "new_yes_control_no": 0
+    }
+  },
+  "runs": [
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 25,
+      "best_all_three_feasible_mean_original_economic_cost": 131311.282048043,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.032521542712493e-10,
+          1.6178754375657385e-10,
+          1.5947551853136654e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127752.80277184426,
+          131193.27260512806,
+          134987.77076715676
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.990379455719911,
+        0.9737250826681207,
+        0.9865966057605791,
+        0.9943149399748074,
+        0.9664441358148418,
+        0.9616742893059973
+      ],
+      "best_penalized_three_scenario_score": 131311.282048043,
+      "best_penalized_three_scenario_vector": [
+        0.990379455719911,
+        0.9737250826681207,
+        0.9865966057605791,
+        0.9943149399748074,
+        0.9664441358148418,
+        0.9616742893059973
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 24,
+      "method": "gadapt_legacy",
+      "objective_requests": 62,
+      "operator_credit_summary": [],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        25,
+        31,
+        31
+      ],
+      "real_elapsed_seconds": 2.68216,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2040,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 25,
+      "best_all_three_feasible_mean_original_economic_cost": 131311.72961118337,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0616924906068106e-10,
+          1.5990074572937118e-10,
+          1.6122394259372344e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127753.21368766559,
+          131193.72014961118,
+          134988.2549962733
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.9903794557199112,
+        0.9740945717910128,
+        0.98660033761238,
+        0.9943400237228187,
+        0.966435561067386,
+        0.9609892185002867
+      ],
+      "best_penalized_three_scenario_score": 131311.72961118337,
+      "best_penalized_three_scenario_vector": [
+        0.9903794557199112,
+        0.9740945717910128,
+        0.98660033761238,
+        0.9943400237228187,
+        0.966435561067386,
+        0.9609892185002867
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 24,
+      "method": "gadapt_ucb_objective",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 9,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 2.3205616254003875e-07,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 9,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 10,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 1.4564591341926072e-06,
+          "rewarded": 4,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 10,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        25,
+        32,
+        32
+      ],
+      "real_elapsed_seconds": 2.67295,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2040,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 25,
+      "best_all_three_feasible_mean_original_economic_cost": 131311.72961118337,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0616924906068106e-10,
+          1.5990074572937118e-10,
+          1.6122394259372344e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127753.21368766559,
+          131193.72014961118,
+          134988.2549962733
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.9903794557199112,
+        0.9740945717910128,
+        0.98660033761238,
+        0.9943400237228187,
+        0.966435561067386,
+        0.9609892185002867
+      ],
+      "best_penalized_three_scenario_score": 131311.72961118337,
+      "best_penalized_three_scenario_vector": [
+        0.9903794557199112,
+        0.9740945717910128,
+        0.98660033761238,
+        0.9943400237228187,
+        0.966435561067386,
+        0.9609892185002867
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 24,
+      "method": "gadapt_ucb_scalar_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 9,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.4497287247838185,
+          "rewarded": 9,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 9,
+          "withheld_unpaid_credits": 2
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 8,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.4613481144514556,
+          "rewarded": 8,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 10,
+          "withheld_unpaid_credits": 2
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        25,
+        32,
+        32
+      ],
+      "real_elapsed_seconds": 2.66784,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2040,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 24,
+      "best_all_three_feasible_mean_original_economic_cost": 131311.72961118337,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0616924906068106e-10,
+          1.5990074572937118e-10,
+          1.6122394259372344e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127753.21368766559,
+          131193.72014961118,
+          134988.2549962733
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.9903794557199112,
+        0.9740945717910128,
+        0.98660033761238,
+        0.9943400237228187,
+        0.966435561067386,
+        0.9609892185002867
+      ],
+      "best_penalized_three_scenario_score": 131311.72961118337,
+      "best_penalized_three_scenario_vector": [
+        0.9903794557199112,
+        0.9740945717910128,
+        0.98660033761238,
+        0.9943400237228187,
+        0.966435561067386,
+        0.9609892185002867
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 24,
+      "method": "gadapt_ucb_scenario_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 8,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.4107549764748885,
+          "rewarded": 8,
+          "scenario_complete_feasible_feedback": 7,
+          "selections": 8,
+          "withheld_unpaid_credits": 2
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 9,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.5472135185397845,
+          "rewarded": 9,
+          "scenario_complete_feasible_feedback": 7,
+          "selections": 11,
+          "withheld_unpaid_credits": 2
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        24,
+        31,
+        32
+      ],
+      "real_elapsed_seconds": 2.67734,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2040,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 2,
+      "best_all_three_feasible_mean_original_economic_cost": 131314.3183578949,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.029104306996324e-10,
+          1.58759114268554e-10,
+          1.6022865470605367e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127755.52510662972,
+          131196.30415432216,
+          134991.12581273276
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.9866949275611903,
+        0.974142087853894,
+        0.9863670119463155,
+        0.9933021763482275,
+        0.9669001438101167,
+        0.9626323321085679
+      ],
+      "best_penalized_three_scenario_score": 131314.3183578949,
+      "best_penalized_three_scenario_vector": [
+        0.9866949275611903,
+        0.974142087853894,
+        0.9863670119463155,
+        0.9933021763482275,
+        0.9669001438101167,
+        0.9626323321085679
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 162,
+      "method": "gadapt_legacy",
+      "objective_requests": 62,
+      "operator_credit_summary": [],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        2,
+        30,
+        36
+      ],
+      "real_elapsed_seconds": 2.67336,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2041,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 10,
+      "best_all_three_feasible_mean_original_economic_cost": 131311.3857206401,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.055082798782925e-10,
+          1.5896939160522e-10,
+          1.5909621996269026e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127752.87634465519,
+          131193.37487418266,
+          134987.90594308244
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.9890564286224185,
+        0.9730522638360247,
+        0.9865970756246258,
+        0.9936576268949798,
+        0.9665206388914986,
+        0.9641916606746086
+      ],
+      "best_penalized_three_scenario_score": 131311.3857206401,
+      "best_penalized_three_scenario_vector": [
+        0.9890564286224185,
+        0.9730522638360247,
+        0.9865970756246258,
+        0.9936576268949798,
+        0.9665206388914986,
+        0.9641916606746086
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 93,
+      "method": "gadapt_ucb_objective",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 14,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.003626303423241185,
+          "rewarded": 3,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 14,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 12,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.0004218462025281477,
+          "rewarded": 3,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 13,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        10,
+        26,
+        33
+      ],
+      "real_elapsed_seconds": 2.67305,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2041,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 18,
+      "best_all_three_feasible_mean_original_economic_cost": 131311.33860872607,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0484835550147309e-10,
+          1.6307516826509176e-10,
+          1.6100882327307408e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127752.85194165063,
+          131193.3291650702,
+          134987.83471945737
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.9906375389697178,
+        0.9734610735365483,
+        0.986608401031328,
+        0.9931285503301828,
+        0.9664207412648887,
+        0.9640886399251721
+      ],
+      "best_penalized_three_scenario_score": 131311.33860872607,
+      "best_penalized_three_scenario_vector": [
+        0.9906375389697178,
+        0.9734610735365483,
+        0.986608401031328,
+        0.9931285503301828,
+        0.9664207412648887,
+        0.9640886399251721
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 93,
+      "method": "gadapt_ucb_scalar_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 11,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.37827178382457216,
+          "rewarded": 11,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 12,
+          "withheld_unpaid_credits": 2
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 11,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.4087177619103134,
+          "rewarded": 11,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 13,
+          "withheld_unpaid_credits": 2
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        19,
+        31,
+        35
+      ],
+      "real_elapsed_seconds": 2.6745,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2041,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 10,
+      "best_all_three_feasible_mean_original_economic_cost": 131311.0520078639,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0231602517797968e-10,
+          1.5784067059264524e-10,
+          1.5831659427133526e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127752.55804190667,
+          131193.04018824347,
+          134987.55779344164
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.9889843314543187,
+        0.9731761806209391,
+        0.9863953838029645,
+        0.9941082572094093,
+        0.966326431400917,
+        0.963984440064982
+      ],
+      "best_penalized_three_scenario_score": 131311.0520078639,
+      "best_penalized_three_scenario_vector": [
+        0.9889843314543187,
+        0.9731761806209391,
+        0.9863953838029645,
+        0.9941082572094093,
+        0.966326431400917,
+        0.963984440064982
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 93,
+      "method": "gadapt_ucb_scenario_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 12,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.35987115498307526,
+          "rewarded": 12,
+          "scenario_complete_feasible_feedback": 4,
+          "selections": 12,
+          "withheld_unpaid_credits": 2
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 10,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.41207569417334405,
+          "rewarded": 10,
+          "scenario_complete_feasible_feedback": 4,
+          "selections": 13,
+          "withheld_unpaid_credits": 2
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        10,
+        29,
+        36
+      ],
+      "real_elapsed_seconds": 2.68627,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2041,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 2,
+      "best_all_three_feasible_mean_original_economic_cost": 131313.59550881226,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0846266402606468e-10,
+          1.6102699951138342e-10,
+          1.6109619144978408e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127754.96236849108,
+          131195.58860115462,
+          134990.2355567911
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.9901479361132808,
+        0.972430853914675,
+        0.9870531829871347,
+        0.9926768487561864,
+        0.967424964701014,
+        0.9611962527866122
+      ],
+      "best_penalized_three_scenario_score": 131313.59550881226,
+      "best_penalized_three_scenario_vector": [
+        0.9901479361132808,
+        0.972430853914675,
+        0.9870531829871347,
+        0.9926768487561864,
+        0.967424964701014,
+        0.9611962527866122
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 147,
+      "method": "gadapt_legacy",
+      "objective_requests": 62,
+      "operator_credit_summary": [],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        2,
+        15,
+        17
+      ],
+      "real_elapsed_seconds": 2.6786,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2042,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 132700.63465289786,
+      "best_penalized_three_scenario_vector": [
+        0.9925349248344266,
+        0.9719792741290469,
+        0.9871151679650598,
+        0.9933709063456787,
+        0.9671306555666737,
+        0.9604385690828816
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_ucb_objective",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 10,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.012606468299184704,
+          "rewarded": 2,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 11,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 9,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.005044637185223788,
+          "rewarded": 3,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 10,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        2,
+        5
+      ],
+      "real_elapsed_seconds": 2.67288,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2042,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 136025.99080604868,
+      "best_penalized_three_scenario_vector": [
+        0.9906297098318015,
+        0.9720590893292328,
+        0.9871193516202047,
+        0.9943096227956385,
+        0.9673344146337576,
+        0.9660080962986375
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_ucb_scalar_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 13,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.3685472562122758,
+          "rewarded": 13,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 16,
+          "withheld_unpaid_credits": 3
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 9,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.2701772873311428,
+          "rewarded": 9,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 11,
+          "withheld_unpaid_credits": 3
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        0,
+        0
+      ],
+      "real_elapsed_seconds": 2.69002,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2042,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 132700.63465289786,
+      "best_penalized_three_scenario_vector": [
+        0.9925349248344266,
+        0.9719792741290469,
+        0.9871151679650598,
+        0.9933709063456787,
+        0.9671306555666737,
+        0.9604385690828816
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_ucb_scenario_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 9,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.18213770996420733,
+          "rewarded": 9,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 10,
+          "withheld_unpaid_credits": 2
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 8,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.18279221180197214,
+          "rewarded": 8,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 11,
+          "withheld_unpaid_credits": 2
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        2,
+        5
+      ],
+      "real_elapsed_seconds": 2.68251,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2042,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 7,
+      "best_all_three_feasible_mean_original_economic_cost": 131311.7489062573,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0615761534826446e-10,
+          1.6066553587442693e-10,
+          1.577776711444383e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127753.23100468327,
+          131193.7397541043,
+          134988.27595998437
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.9905468599035576,
+        0.9742370789645294,
+        0.9867403166304195,
+        0.9929821970602988,
+        0.9666291613318019,
+        0.9635951828915249
+      ],
+      "best_penalized_three_scenario_score": 131311.7489062573,
+      "best_penalized_three_scenario_vector": [
+        0.9905468599035576,
+        0.9742370789645294,
+        0.9867403166304195,
+        0.9929821970602988,
+        0.9666291613318019,
+        0.9635951828915249
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 120,
+      "method": "gadapt_legacy",
+      "objective_requests": 62,
+      "operator_credit_summary": [],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        10,
+        14,
+        18
+      ],
+      "real_elapsed_seconds": 2.67812,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2043,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 131561.35679858277,
+      "best_penalized_three_scenario_vector": [
+        0.9908524808347052,
+        0.9690233883077259,
+        0.9870899997360116,
+        0.9942945130568888,
+        0.9639826896222102,
+        0.9617700579088055
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_ucb_objective",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 11,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.007152542909588763,
+          "rewarded": 4,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 11,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 12,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.010846466721368157,
+          "rewarded": 4,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 12,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        21,
+        22
+      ],
+      "real_elapsed_seconds": 2.67703,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2043,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 131561.35679858277,
+      "best_penalized_three_scenario_vector": [
+        0.9908524808347052,
+        0.9690233883077259,
+        0.9870899997360116,
+        0.9942945130568888,
+        0.9639826896222102,
+        0.9617700579088055
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_ucb_scalar_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 10,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.39142379906575153,
+          "rewarded": 10,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 11,
+          "withheld_unpaid_credits": 3
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 10,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.41327442164573663,
+          "rewarded": 10,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 12,
+          "withheld_unpaid_credits": 3
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        21,
+        22
+      ],
+      "real_elapsed_seconds": 2.66934,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2043,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 131346.07904118672,
+      "best_penalized_three_scenario_vector": [
+        0.9879228452981352,
+        0.9686161947132474,
+        0.9870675305240573,
+        0.9931214995728195,
+        0.965260379357391,
+        0.9633385808365019
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_ucb_scenario_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 8,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.2716931150376768,
+          "rewarded": 8,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 9,
+          "withheld_unpaid_credits": 2
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 13,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.4027846105686115,
+          "rewarded": 13,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 14,
+          "withheld_unpaid_credits": 2
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        1,
+        22,
+        23
+      ],
+      "real_elapsed_seconds": 2.68123,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2043,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 133816.58409698983,
+      "best_penalized_three_scenario_vector": [
+        0.9900662020244057,
+        0.9718310330332421,
+        0.9874203457376888,
+        0.993898784922429,
+        0.9664576254105516,
+        0.9592375804296933
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_legacy",
+      "objective_requests": 62,
+      "operator_credit_summary": [],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        0,
+        2
+      ],
+      "real_elapsed_seconds": 2.67198,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2044,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 147503.05943260543,
+      "best_penalized_three_scenario_vector": [
+        0.9910777516751479,
+        0.9718333378797585,
+        0.9881386314744718,
+        0.9931372707824085,
+        0.9687776529626541,
+        0.9594692193267691
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_ucb_objective",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 8,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.0074975236489778704,
+          "rewarded": 4,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 8,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 8,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.000247045037199371,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 8,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        0,
+        0
+      ],
+      "real_elapsed_seconds": 2.67671,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2044,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 144492.72386259338,
+      "best_penalized_three_scenario_vector": [
+        0.9907002840128409,
+        0.9725336544559503,
+        0.9881386314744718,
+        0.9946631822789025,
+        0.9673272201134222,
+        0.9594692193267691
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_ucb_scalar_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 6,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.41456358421058775,
+          "rewarded": 6,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 7,
+          "withheld_unpaid_credits": 1
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 8,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.42572570227083767,
+          "rewarded": 8,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 8,
+          "withheld_unpaid_credits": 1
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        0,
+        0
+      ],
+      "real_elapsed_seconds": 2.66904,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2044,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 144492.72386259338,
+      "best_penalized_three_scenario_vector": [
+        0.9907002840128409,
+        0.9725336544559503,
+        0.9881386314744718,
+        0.9946631822789025,
+        0.9673272201134222,
+        0.9594692193267691
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_ucb_scenario_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 6,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.20877310180779216,
+          "rewarded": 6,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 7,
+          "withheld_unpaid_credits": 1
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 8,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.21469720869762837,
+          "rewarded": 8,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 8,
+          "withheld_unpaid_credits": 1
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        0,
+        0
+      ],
+      "real_elapsed_seconds": 2.67025,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2044,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 136435.21074159627,
+      "best_penalized_three_scenario_vector": [
+        0.9901814990334561,
+        0.9755417135781805,
+        0.9876159523205292,
+        0.9937560180118267,
+        0.9649463658006945,
+        0.9636386272248756
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_legacy",
+      "objective_requests": 62,
+      "operator_credit_summary": [],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        0,
+        0
+      ],
+      "real_elapsed_seconds": 2.66771,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2045,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 137429.75476291566,
+      "best_penalized_three_scenario_vector": [
+        0.9882118147363222,
+        0.9758999086378747,
+        0.9876178921578915,
+        0.9922735519928649,
+        0.9671882474767811,
+        0.964397875309068
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_ucb_objective",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 14,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.0020801696642386218,
+          "rewarded": 4,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 15,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 15,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.006818503376206645,
+          "rewarded": 5,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 15,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        0,
+        0
+      ],
+      "real_elapsed_seconds": 2.66781,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2045,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 137429.75476291566,
+      "best_penalized_three_scenario_vector": [
+        0.9882118147363222,
+        0.9758999086378747,
+        0.9876178921578915,
+        0.9922735519928649,
+        0.9671882474767811,
+        0.964397875309068
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_ucb_scalar_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 13,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.28823875057840037,
+          "rewarded": 13,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 15,
+          "withheld_unpaid_credits": 3
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 13,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.29790040584059924,
+          "rewarded": 13,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 15,
+          "withheld_unpaid_credits": 3
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        0,
+        0
+      ],
+      "real_elapsed_seconds": 2.69429,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2045,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 137429.75476291566,
+      "best_penalized_three_scenario_vector": [
+        0.9882118147363222,
+        0.9758999086378747,
+        0.9876178921578915,
+        0.9922735519928649,
+        0.9671882474767811,
+        0.964397875309068
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_ucb_scenario_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 13,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.14535071172048378,
+          "rewarded": 13,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 15,
+          "withheld_unpaid_credits": 3
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 13,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.1498378069705944,
+          "rewarded": 13,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 15,
+          "withheld_unpaid_credits": 3
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        0,
+        0
+      ],
+      "real_elapsed_seconds": 2.68507,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2045,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 4,
+      "best_all_three_feasible_mean_original_economic_cost": 131314.05659330447,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0531015638813775e-10,
+          1.5929555965010837e-10,
+          1.592590260155632e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127755.33640563363,
+          131196.04612370877,
+          134990.78725057098
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.9878437593964975,
+        0.9737411657780226,
+        0.986863595934201,
+        0.9943530054364189,
+        0.966715085900568,
+        0.9597109463787805
+      ],
+      "best_penalized_three_scenario_score": 131314.05659330447,
+      "best_penalized_three_scenario_vector": [
+        0.9878437593964975,
+        0.9737411657780226,
+        0.986863595934201,
+        0.9943530054364189,
+        0.966715085900568,
+        0.9597109463787805
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 141,
+      "method": "gadapt_legacy",
+      "objective_requests": 62,
+      "operator_credit_summary": [],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        4,
+        16,
+        16
+      ],
+      "real_elapsed_seconds": 2.68904,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2046,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 4,
+      "best_all_three_feasible_mean_original_economic_cost": 131312.8996381569,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0503787583456373e-10,
+          1.6221350497993056e-10,
+          1.5667033014548448e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127754.29301754115,
+          131194.89041134174,
+          134989.5154855878
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.989624025000264,
+        0.9737411657780226,
+        0.9867151343226632,
+        0.9943530054364189,
+        0.9668617349235549,
+        0.9596223227738692
+      ],
+      "best_penalized_three_scenario_score": 131312.8996381569,
+      "best_penalized_three_scenario_vector": [
+        0.989624025000264,
+        0.9737411657780226,
+        0.9867151343226632,
+        0.9943530054364189,
+        0.9668617349235549,
+        0.9596223227738692
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 141,
+      "method": "gadapt_ucb_objective",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 12,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.0010983360279041478,
+          "rewarded": 2,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 12,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 12,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.0004705486212902576,
+          "rewarded": 3,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 12,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        4,
+        7,
+        7
+      ],
+      "real_elapsed_seconds": 2.68157,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2046,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 2,
+      "best_all_three_feasible_mean_original_economic_cost": 131314.03959672246,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0637881343746995e-10,
+          1.5902054752541806e-10,
+          1.5978024065206878e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127755.32154367432,
+          131196.0291680169,
+          134990.76807847616
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.9878437593964975,
+        0.9737411657780226,
+        0.986863595934201,
+        0.9943530054364189,
+        0.9669205131882549,
+        0.9596023944386862
+      ],
+      "best_penalized_three_scenario_score": 131314.03959672246,
+      "best_penalized_three_scenario_vector": [
+        0.9878437593964975,
+        0.9737411657780226,
+        0.986863595934201,
+        0.9943530054364189,
+        0.9669205131882549,
+        0.9596023944386862
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 141,
+      "method": "gadapt_ucb_scalar_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 11,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.3098057396515163,
+          "rewarded": 11,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 12,
+          "withheld_unpaid_credits": 1
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 12,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.33363012664977454,
+          "rewarded": 12,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 12,
+          "withheld_unpaid_credits": 1
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        2,
+        10,
+        11
+      ],
+      "real_elapsed_seconds": 2.67958,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2046,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 4,
+      "best_all_three_feasible_mean_original_economic_cost": 131313.84555216986,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.043607482529902e-10,
+          1.6189448153458162e-10,
+          1.6223825432609992e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127755.15287066577,
+          131195.83588940097,
+          134990.54789644285
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.9881156319126173,
+        0.9737411657780226,
+        0.9869878645189514,
+        0.994356878466846,
+        0.9669205131882549,
+        0.9595866013257466
+      ],
+      "best_penalized_three_scenario_score": 131313.84555216986,
+      "best_penalized_three_scenario_vector": [
+        0.9881156319126173,
+        0.9737411657780226,
+        0.9869878645189514,
+        0.994356878466846,
+        0.9669205131882549,
+        0.9595866013257466
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 141,
+      "method": "gadapt_ucb_scenario_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 10,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.14624807126350972,
+          "rewarded": 10,
+          "scenario_complete_feasible_feedback": 1,
+          "selections": 10,
+          "withheld_unpaid_credits": 2
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 12,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.29586704652905443,
+          "rewarded": 12,
+          "scenario_complete_feasible_feedback": 1,
+          "selections": 14,
+          "withheld_unpaid_credits": 2
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        5,
+        12,
+        11
+      ],
+      "real_elapsed_seconds": 2.67419,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2046,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 15,
+      "best_all_three_feasible_mean_original_economic_cost": 131313.4182092041,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.067051382061721e-10,
+          1.5889584873972252e-10,
+          1.5956924193406077e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127754.76571741211,
+          131195.40854830522,
+          134990.080361895
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.9900182662684532,
+        0.9722621017381587,
+        0.9864847548222999,
+        0.9935838260682799,
+        0.9654357593250589,
+        0.9613280768304514
+      ],
+      "best_penalized_three_scenario_score": 131313.4182092041,
+      "best_penalized_three_scenario_vector": [
+        0.9900182662684532,
+        0.9722621017381587,
+        0.9864847548222999,
+        0.9935838260682799,
+        0.9654357593250589,
+        0.9613280768304514
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 99,
+      "method": "gadapt_legacy",
+      "objective_requests": 62,
+      "operator_credit_summary": [],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        15,
+        25,
+        26
+      ],
+      "real_elapsed_seconds": 2.68291,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2047,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 11,
+      "best_all_three_feasible_mean_original_economic_cost": 131313.3724797772,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0519655663870808e-10,
+          1.585895849702241e-10,
+          1.6211385692750495e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127754.70816226836,
+          131195.3619954106,
+          134990.04728165266
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.9900182662684532,
+        0.9744854219241903,
+        0.9864847548222999,
+        0.9934403739337464,
+        0.9655516776704303,
+        0.9614471145682184
+      ],
+      "best_penalized_three_scenario_score": 131313.3724797772,
+      "best_penalized_three_scenario_vector": [
+        0.9900182662684532,
+        0.9744854219241903,
+        0.9864847548222999,
+        0.9934403739337464,
+        0.9655516776704303,
+        0.9614471145682184
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 108,
+      "method": "gadapt_ucb_objective",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 16,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.00030541252737171045,
+          "rewarded": 1,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 16,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 17,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.00028802210741268126,
+          "rewarded": 4,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 17,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        11,
+        20,
+        21
+      ],
+      "real_elapsed_seconds": 2.67825,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2047,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 12,
+      "best_all_three_feasible_mean_original_economic_cost": 131313.4562429716,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0710406914775638e-10,
+          1.6233128179633536e-10,
+          1.6049769971953788e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127754.79352330859,
+          131195.44659360385,
+          134990.12861200233
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.98947788854416,
+        0.9744911731783372,
+        0.986804840752231,
+        0.9931751850774222,
+        0.9660501491363571,
+        0.9618332223530643
+      ],
+      "best_penalized_three_scenario_score": 131313.4562429716,
+      "best_penalized_three_scenario_vector": [
+        0.98947788854416,
+        0.9744911731783372,
+        0.986804840752231,
+        0.9931751850774222,
+        0.9660501491363571,
+        0.9618332223530643
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 108,
+      "method": "gadapt_ucb_scalar_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 17,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.2707388024821421,
+          "rewarded": 17,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 17,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 15,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.252633741162145,
+          "rewarded": 15,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 16,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        14,
+        21,
+        22
+      ],
+      "real_elapsed_seconds": 2.68351,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2047,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 12,
+      "best_all_three_feasible_mean_original_economic_cost": 131313.4562429716,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0710406914775638e-10,
+          1.6233128179633536e-10,
+          1.6049769971953788e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127754.79352330859,
+          131195.44659360385,
+          134990.12861200233
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.98947788854416,
+        0.9744911731783372,
+        0.986804840752231,
+        0.9931751850774222,
+        0.9660501491363571,
+        0.9618332223530643
+      ],
+      "best_penalized_three_scenario_score": 131313.4562429716,
+      "best_penalized_three_scenario_vector": [
+        0.98947788854416,
+        0.9744911731783372,
+        0.986804840752231,
+        0.9931751850774222,
+        0.9660501491363571,
+        0.9618332223530643
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 108,
+      "method": "gadapt_ucb_scenario_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 17,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.21442119782064656,
+          "rewarded": 17,
+          "scenario_complete_feasible_feedback": 4,
+          "selections": 17,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 15,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.23789909607420218,
+          "rewarded": 15,
+          "scenario_complete_feasible_feedback": 4,
+          "selections": 16,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        14,
+        21,
+        22
+      ],
+      "real_elapsed_seconds": 2.68001,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2047,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 15,
+      "best_all_three_feasible_mean_original_economic_cost": 131313.05512134245,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.087686276035309e-10,
+          1.5783589781566827e-10,
+          1.6081132455142747e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127754.41239627547,
+          131195.04483728626,
+          134989.70813046562
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.9892628729612565,
+        0.9738680737047551,
+        0.9868804997176879,
+        0.9932970587057903,
+        0.9646491653800948,
+        0.963946135473903
+      ],
+      "best_penalized_three_scenario_score": 131313.05512134245,
+      "best_penalized_three_scenario_vector": [
+        0.9892628729612565,
+        0.9738680737047551,
+        0.9868804997176879,
+        0.9932970587057903,
+        0.9646491653800948,
+        0.963946135473903
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 105,
+      "method": "gadapt_legacy",
+      "objective_requests": 62,
+      "operator_credit_summary": [],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        16,
+        17,
+        18
+      ],
+      "real_elapsed_seconds": 2.69519,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2048,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 13,
+      "best_all_three_feasible_mean_original_economic_cost": 131313.06726832755,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0342129161151336e-10,
+          1.557848025658924e-10,
+          1.6074609053856473e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127754.40903906168,
+          131195.05538619187,
+          134989.73737972902
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.9888756406217583,
+        0.9739678400354213,
+        0.9863737334062306,
+        0.9933268463918277,
+        0.966012343971223,
+        0.9627482879506295
+      ],
+      "best_penalized_three_scenario_score": 131313.06726832755,
+      "best_penalized_three_scenario_vector": [
+        0.9888756406217583,
+        0.9739678400354213,
+        0.9863737334062306,
+        0.9933268463918277,
+        0.966012343971223,
+        0.9627482879506295
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 99,
+      "method": "gadapt_ucb_objective",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 11,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.00983344245929383,
+          "rewarded": 4,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 11,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 12,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.011559056815631614,
+          "rewarded": 4,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 12,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        13,
+        16,
+        18
+      ],
+      "real_elapsed_seconds": 2.68556,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2048,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 12,
+      "best_all_three_feasible_mean_original_economic_cost": 131313.1532570014,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0593996012011584e-10,
+          1.6044177491492557e-10,
+          1.586684142154188e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127754.49390715838,
+          131195.14206010505,
+          134989.8238037407
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.98924438270414,
+        0.974560836409972,
+        0.9865436585636375,
+        0.9926844503179,
+        0.9663206892349567,
+        0.9634945418405646
+      ],
+      "best_penalized_three_scenario_score": 131313.1532570014,
+      "best_penalized_three_scenario_vector": [
+        0.98924438270414,
+        0.974560836409972,
+        0.9865436585636375,
+        0.9926844503179,
+        0.9663206892349567,
+        0.9634945418405646
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 105,
+      "method": "gadapt_ucb_scalar_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 10,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.31712876255701683,
+          "rewarded": 10,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 11,
+          "withheld_unpaid_credits": 2
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 10,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.32391155445346975,
+          "rewarded": 10,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 11,
+          "withheld_unpaid_credits": 2
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        12,
+        14,
+        17
+      ],
+      "real_elapsed_seconds": 2.68526,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2048,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 13,
+      "best_all_three_feasible_mean_original_economic_cost": 131312.68109271358,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0441411335151424e-10,
+          1.5831807030245116e-10,
+          1.5869721235764728e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127754.0477574412,
+          131194.6691217237,
+          134989.32639897577
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.9892477509067155,
+        0.9752699465569166,
+        0.9865011222440494,
+        0.993296784365241,
+        0.9657775292315685,
+        0.9634945418405646
+      ],
+      "best_penalized_three_scenario_score": 131312.68109271358,
+      "best_penalized_three_scenario_vector": [
+        0.9892477509067155,
+        0.9752699465569166,
+        0.9865011222440494,
+        0.993296784365241,
+        0.9657775292315685,
+        0.9634945418405646
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 105,
+      "method": "gadapt_ucb_scenario_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 10,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.1962041524818308,
+          "rewarded": 10,
+          "scenario_complete_feasible_feedback": 3,
+          "selections": 10,
+          "withheld_unpaid_credits": 2
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 10,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.3106386492027207,
+          "rewarded": 10,
+          "scenario_complete_feasible_feedback": 3,
+          "selections": 12,
+          "withheld_unpaid_credits": 2
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        13,
+        15,
+        18
+      ],
+      "real_elapsed_seconds": 2.68975,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2048,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 3,
+      "best_all_three_feasible_mean_original_economic_cost": 131316.15916410336,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0681999737456926e-10,
+          1.5884847480562567e-10,
+          1.61098671699593e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127757.25091555226,
+          131198.1473571334,
+          134993.0792196244
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.986289590321922,
+        0.9705212553320121,
+        0.9868218242718849,
+        0.9929288497837722,
+        0.966691832478785,
+        0.9620525864177363
+      ],
+      "best_penalized_three_scenario_score": 131316.15916410336,
+      "best_penalized_three_scenario_vector": [
+        0.986289590321922,
+        0.9705212553320121,
+        0.9868218242718849,
+        0.9929288497837722,
+        0.966691832478785,
+        0.9620525864177363
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 138,
+      "method": "gadapt_legacy",
+      "objective_requests": 62,
+      "operator_credit_summary": [],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        3,
+        16,
+        27
+      ],
+      "real_elapsed_seconds": 2.68982,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2049,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 2,
+      "best_all_three_feasible_mean_original_economic_cost": 131317.01076924623,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0352580216527463e-10,
+          1.6228097210391283e-10,
+          1.6340156732020328e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127758.03015499652,
+          131198.99867253355,
+          134994.0034802086
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.9861749532233544,
+        0.9685506955555492,
+        0.9868218242718849,
+        0.9929288497837722,
+        0.966691832478785,
+        0.9622302856969676
+      ],
+      "best_penalized_three_scenario_score": 131317.01076924623,
+      "best_penalized_three_scenario_vector": [
+        0.9861749532233544,
+        0.9685506955555492,
+        0.9868218242718849,
+        0.9929288497837722,
+        0.966691832478785,
+        0.9622302856969676
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 138,
+      "method": "gadapt_ucb_objective",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 11,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.000771116622202261,
+          "rewarded": 2,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 13,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 12,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.0007967212344182242,
+          "rewarded": 2,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 12,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        2,
+        15,
+        27
+      ],
+      "real_elapsed_seconds": 2.69889,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2049,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 1,
+      "best_all_three_feasible_mean_original_economic_cost": 131315.27340037384,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0331733659724678e-10,
+          1.5913093167579219e-10,
+          1.5804385939689968e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127756.42985454964,
+          131197.2607988893,
+          134992.12954768256
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.987024979438982,
+        0.9715904055260394,
+        0.9864082233389779,
+        0.9929789160574991,
+        0.966750006183579,
+        0.9619052672835791
+      ],
+      "best_penalized_three_scenario_score": 131315.27340037384,
+      "best_penalized_three_scenario_vector": [
+        0.987024979438982,
+        0.9715904055260394,
+        0.9864082233389779,
+        0.9929789160574991,
+        0.966750006183579,
+        0.9619052672835791
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 180,
+      "method": "gadapt_ucb_scalar_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 12,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.35372009981138913,
+          "rewarded": 12,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 14,
+          "withheld_unpaid_credits": 3
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 10,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.3252046774010372,
+          "rewarded": 10,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 13,
+          "withheld_unpaid_credits": 3
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        1,
+        16,
+        26
+      ],
+      "real_elapsed_seconds": 2.6871,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2049,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 7,
+      "best_all_three_feasible_mean_original_economic_cost": 131313.84295379987,
+      "best_all_three_feasible_physical_metrics": {
+        "per_load_max_kcl_mva": [
+          2.0407463176886326e-10,
+          1.5837108102026713e-10,
+          1.5936853369981216e-10
+        ],
+        "per_load_max_original_q_excess_mvar": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_normalized_violation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "per_load_original_economic_cost": [
+          127755.17963265166,
+          131195.8348662827,
+          134990.51436246527
+        ]
+      },
+      "best_all_three_feasible_vector": [
+        0.9906372938683397,
+        0.9715904055260394,
+        0.9865789186667985,
+        0.9930370854023096,
+        0.9667503605617334,
+        0.9604657368618463
+      ],
+      "best_penalized_three_scenario_score": 131313.84295379987,
+      "best_penalized_three_scenario_vector": [
+        0.9906372938683397,
+        0.9715904055260394,
+        0.9865789186667985,
+        0.9930370854023096,
+        0.9667503605617334,
+        0.9604657368618463
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": 135,
+      "method": "gadapt_ucb_scenario_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 11,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.24492728214947102,
+          "rewarded": 11,
+          "scenario_complete_feasible_feedback": 3,
+          "selections": 12,
+          "withheld_unpaid_credits": 1
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 13,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.3761171466021996,
+          "rewarded": 13,
+          "scenario_complete_feasible_feedback": 3,
+          "selections": 15,
+          "withheld_unpaid_credits": 1
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        8,
+        22,
+        28
+      ],
+      "real_elapsed_seconds": 2.67176,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2049,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 138691.06723135657,
+      "best_penalized_three_scenario_vector": [
+        0.9893491061134261,
+        0.9698401931993801,
+        0.9877720335605966,
+        0.9938984232426441,
+        0.9663562265184542,
+        0.9611830171105058
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_legacy",
+      "objective_requests": 62,
+      "operator_credit_summary": [],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        0,
+        0
+      ],
+      "real_elapsed_seconds": 2.68403,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2050,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 138588.06961713097,
+      "best_penalized_three_scenario_vector": [
+        0.990836418082339,
+        0.9705861837497548,
+        0.9877580787840239,
+        0.9934360188910984,
+        0.9670358835954056,
+        0.9601917029575362
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_ucb_objective",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 7,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.0027077523472601927,
+          "rewarded": 3,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 7,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 7,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.0011591168408374693,
+          "rewarded": 4,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 7,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        0,
+        0
+      ],
+      "real_elapsed_seconds": 2.68139,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2050,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 138537.10570518544,
+      "best_penalized_three_scenario_vector": [
+        0.9891145833190591,
+        0.9710245503279398,
+        0.9877613716592984,
+        0.9940448903651757,
+        0.9669674341082665,
+        0.9604681695380727
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_ucb_scalar_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 6,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.41821782490466686,
+          "rewarded": 6,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 7,
+          "withheld_unpaid_credits": 1
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 7,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.43929566589568986,
+          "rewarded": 7,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 7,
+          "withheld_unpaid_credits": 1
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        0,
+        0
+      ],
+      "real_elapsed_seconds": 2.6804,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2050,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 138537.10570518544,
+      "best_penalized_three_scenario_vector": [
+        0.9891145833190591,
+        0.9710245503279398,
+        0.9877613716592984,
+        0.9940448903651757,
+        0.9669674341082665,
+        0.9604681695380727
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_ucb_scenario_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 6,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.21096056268152438,
+          "rewarded": 6,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 7,
+          "withheld_unpaid_credits": 1
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 7,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.22117470229755937,
+          "rewarded": 7,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 7,
+          "withheld_unpaid_credits": 1
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        0,
+        0
+      ],
+      "real_elapsed_seconds": 2.68346,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2050,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 135895.67135965583,
+      "best_penalized_three_scenario_vector": [
+        0.9885498004145856,
+        0.9742430906631686,
+        0.9857733518980718,
+        0.9943710918275006,
+        0.9647980391618068,
+        0.9629952242775626
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_legacy",
+      "objective_requests": 62,
+      "operator_credit_summary": [],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        0,
+        7
+      ],
+      "real_elapsed_seconds": 2.69005,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2051,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 136172.81543128757,
+      "best_penalized_three_scenario_vector": [
+        0.9885498004145856,
+        0.9742430906631686,
+        0.9857541271545024,
+        0.9944120742063599,
+        0.9647980662880357,
+        0.9628443034981493
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_ucb_objective",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 9,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.0,
+          "rewarded": 0,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 9,
+          "withheld_unpaid_credits": 0
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 9,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.0039113497665084615,
+          "rewarded": 3,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 10,
+          "withheld_unpaid_credits": 0
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        0,
+        6
+      ],
+      "real_elapsed_seconds": 2.68004,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2051,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 133603.55587658883,
+      "best_penalized_three_scenario_vector": [
+        0.988282299405782,
+        0.9748632706501194,
+        0.9860134235426045,
+        0.9946956168910353,
+        0.9647933509545388,
+        0.9630855238260231
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_ucb_scalar_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 6,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.28030170584324776,
+          "rewarded": 6,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 7,
+          "withheld_unpaid_credits": 1
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 9,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.3863039429346439,
+          "rewarded": 9,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 9,
+          "withheld_unpaid_credits": 1
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        3,
+        7
+      ],
+      "real_elapsed_seconds": 2.68992,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2051,
+      "true_real_ac_pf_calls": 180
+    },
+    {
+      "actual_ac_max_budget": 180,
+      "all_three_original_source_feasible_batches": 0,
+      "best_all_three_feasible_mean_original_economic_cost": null,
+      "best_all_three_feasible_physical_metrics": null,
+      "best_all_three_feasible_vector": null,
+      "best_penalized_three_scenario_score": 133603.55587658883,
+      "best_penalized_three_scenario_vector": [
+        0.988282299405782,
+        0.9748632706501194,
+        0.9860134235426045,
+        0.9946956168910353,
+        0.9647933509545388,
+        0.9630855238260231
+      ],
+      "complete_three_source_scenario_batches": 60,
+      "failed_real_ac_nr_calls": 0,
+      "first_all_three_feasible_true_ac_call": null,
+      "method": "gadapt_ucb_scenario_feasibility",
+      "objective_requests": 62,
+      "operator_credit_summary": [
+        {
+          "credit_assignment": "offspring",
+          "observations": 7,
+          "operator": "RandomDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.17233665378538873,
+          "rewarded": 7,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 7,
+          "withheld_unpaid_credits": 1
+        },
+        {
+          "credit_assignment": "offspring",
+          "observations": 8,
+          "operator": "NormalDistributionVariableColumnarDiversityDecisionVariableMutator",
+          "paired_incomplete_trials": 0,
+          "paired_physical_baselines": 0,
+          "recent_mean_reward": 0.2512544521694873,
+          "rewarded": 8,
+          "scenario_complete_feasible_feedback": 0,
+          "selections": 9,
+          "withheld_unpaid_credits": 1
+        }
+      ],
+      "optimizer_error_or_stop_reason": "",
+      "optimizer_success_flag": true,
+      "per_load_source_feasible_batch_counts": [
+        0,
+        3,
+        6
+      ],
+      "real_elapsed_seconds": 2.68462,
+      "requests_after_real_ac_budget": 2,
+      "seed": 2051,
+      "true_real_ac_pf_calls": 180
+    }
+  ],
+  "summary": {
+    "gadapt_legacy": {
+      "all_three_feasible_complete_batches": 73,
+      "all_three_feasible_mean_cost_best_or_null": 131311.282048043,
+      "all_three_feasible_run_cost_median_conditional_only": 131313.50685900816,
+      "descriptive_marginal_wilson_95": [
+        0.39062208887279953,
+        0.8618799089087867
+      ],
+      "not_independent_grid_problems": true,
+      "per_scenario_feasible_completed_batches": [
+        77,
+        164,
+        198
+      ],
+      "run_success_fraction": 0.6666666666666666,
+      "runs": 12,
+      "runs_with_at_least_one_all_three_feasible": 8,
+      "sum_numerically_failed_real_AC": 0,
+      "sum_true_actual_native_AC_pf_calls": 2160,
+      "sum_true_three_scenario_complete_batches": 720
+    },
+    "gadapt_ucb_objective": {
+      "all_three_feasible_complete_batches": 65,
+      "all_three_feasible_mean_cost_best_or_null": 131311.3857206401,
+      "all_three_feasible_run_cost_median_conditional_only": 131312.98345324222,
+      "descriptive_marginal_wilson_95": [
+        0.2537815976337061,
+        0.7462184023662939
+      ],
+      "not_independent_grid_problems": true,
+      "per_scenario_feasible_completed_batches": [
+        65,
+        139,
+        171
+      ],
+      "run_success_fraction": 0.5,
+      "runs": 12,
+      "runs_with_at_least_one_all_three_feasible": 6,
+      "sum_numerically_failed_real_AC": 0,
+      "sum_true_actual_native_AC_pf_calls": 2160,
+      "sum_true_three_scenario_complete_batches": 720
+    },
+    "gadapt_ucb_scalar_feasibility": {
+      "all_three_feasible_complete_batches": 70,
+      "all_three_feasible_mean_cost_best_or_null": 131311.33860872607,
+      "all_three_feasible_run_cost_median_conditional_only": 131313.3047499865,
+      "descriptive_marginal_wilson_95": [
+        0.2537815976337061,
+        0.7462184023662939
+      ],
+      "not_independent_grid_problems": true,
+      "per_scenario_feasible_completed_batches": [
+        73,
+        148,
+        172
+      ],
+      "run_success_fraction": 0.5,
+      "runs": 12,
+      "runs_with_at_least_one_all_three_feasible": 6,
+      "sum_numerically_failed_real_AC": 0,
+      "sum_true_actual_native_AC_pf_calls": 2160,
+      "sum_true_three_scenario_complete_batches": 720
+    },
+    "gadapt_ucb_scenario_feasibility": {
+      "all_three_feasible_complete_batches": 70,
+      "all_three_feasible_mean_cost_best_or_null": 131311.0520078639,
+      "all_three_feasible_run_cost_median_conditional_only": 131313.0686678426,
+      "descriptive_marginal_wilson_95": [
+        0.2537815976337061,
+        0.7462184023662939
+      ],
+      "not_independent_grid_problems": true,
+      "per_scenario_feasible_completed_batches": [
+        75,
+        157,
+        181
+      ],
+      "run_success_fraction": 0.5,
+      "runs": 12,
+      "runs_with_at_least_one_all_three_feasible": 6,
+      "sum_numerically_failed_real_AC": 0,
+      "sum_true_actual_native_AC_pf_calls": 2160,
+      "sum_true_three_scenario_complete_batches": 720
+    }
+  }
+}
