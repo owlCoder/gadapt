@@ -1,3 +1,55 @@
+# NOVO — Iteracije 17 i 18: realan GAdapt, 1.728 pravih IEEE AC PF poziva (21.10.2026)
+
+**Prva stvarna, strogo fizički budžetirana provera originalnog
+`gadapt.ga.GA` naspram SciPy DE i random search na *izvornim
+MATPOWER/PYPOWER* javnim testnim mrežama.** Ukupno izvršeno
+**1.728/1.728 stvarnih Newton–Raphson AC proračuna** (864 IEEE14 +
+864 IEEE118), plus jasno izdvojeni virtualni optimizer zahtevi
+posle fizičkog limita koji nisu proračuni. Originalni upstream
+`bpzoran/gadapt` nije menjan. Algoritam legacy GAdapt **nije
+modifikovan**; ovo je bazni pilot za buduću disertacijsku inovaciju.
+
+**IEEE14 — izvorno opravdan fizički izvodljiv *devetodimenzionalni
+PV-kontrolisan podskup* AC-OPF sa originalnom ekonomskom funkcijom:**
+GAdapt je našao bar jedan fizički izvodljiv kandidat u **2/3**
+uparena semena; DE u **1/3**, random u **1/3**. Najbolja fizički
+izvodljiva cena među sva 9 izvršavanja bila je **8.892,350877**
+za **DE**; najbolja GAdapt **9.575,672226**.
+Ova tri semena **ne dokazuju superiornost** niti jednog metoda.
+Izvorni puni AC-OPF referentni lokalni ekonomski cost iz I16 je
+**8.081,526393**, ali on rešava **širi optimizacioni problem**,
+te direktno poređenje performansi pod istim budžetom nije moguće.
+
+**IEEE118 — devet promenljivih, četiri najveća originalna non-slack
+PG, pet VG, ostalih 49 PG/VG generatora nepromenjeno:** svih **864**
+AC proračuna numerički je konvergiralo, ali **0 fizički izvodljivih
+kandidata** kroz 9 metoda/seme pokretanja; GAdapt, DE i random
+jednako nisu našli feasible. Ovo ne znači da puna IEEE118 mreža
+nema izvodljiv OPF: iteracija 16 ima proverenu punu AC-OPF tačku,
+ali sadašnji pilot ima bitno **uži** prostor i mali budžet.
+
+[Izveštaj I17 IEEE14](ITERATION17_REPORT_SR.md) ·
+[protokol I17](ITERATION17_PROTOCOL.md) ·
+[kompletni I17 JSON](results/ieee14_iteration17_real_gadapt_de_random_20261021.json) ·
+[uspešan I17 CI #39645834755](https://github.com/owlCoder/gadapt/actions/runs/39645834755).
+
+[Izveštaj I18 IEEE118](ITERATION18_REPORT_SR.md) ·
+[protokol I18](ITERATION18_PROTOCOL.md) ·
+[kompletni I18 JSON](results/ieee118_iteration18_real_gadapt_de_random_20261021.json) ·
+[uspešan I18 CI #39646983369](https://github.com/owlCoder/gadapt/actions/runs/39646983369).
+
+**Zaključak za doktorat:** potvrđena izvršiva i ponovljiva bazna
+metodologija na dva javna infrastrukturna problema; u
+sadašnjoj verziji algoritma nema dokazanog originalnog adaptivnog
+doprinosa, nema statističke superiornosti, nema validacije
+industrijske operacije niti transfera izvodljivosti na IEEE118.
+Sledeća naučno smislenija faza mora prvo objasniti koji izvorni
+Q/V/P resursi sprečavaju izvodljivost na većem sistemu, a potom
+formulisati *nov* mehanizam sa nezavisnim i snažnim bazama, ne
+slučajno dodavati heuristike.
+
+---
+
 # ZAVRŠENA ITERACIJA 15: originalni veliki RTE1888 AC-OPF ostaje nepotvrđen (21.10.2026)
 
 Posle izvornog PYPOWER ekonomski AC-OPF pokušaja sa strategijom 560 iz
