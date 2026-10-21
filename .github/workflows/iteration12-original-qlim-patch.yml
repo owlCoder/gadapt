@@ -1,0 +1,58 @@
+name: Iteration 12 original MATPOWER local Q-limit repair (max 2 real AC)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION12_PROTOCOL.md"
+      - "research/iteration12_local_pypower_qlim_patch.py"
+      - "research/iteration12_native_q_repair.py"
+      - "research/test_iteration12_native_q_repair.py"
+      - ".github/workflows/iteration12-original-qlim-patch.yml"
+  workflow_dispatch:
+
+jobs:
+  native-original-Q-limit-repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install same pinned native PYPOWER environment as iteration 11
+        run: python -m pip install -e . 'pandapower==2.14.11' 'pypower==5.1.19' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Validate unchanged original source, local patch, and historical 10 Pmin conflicts
+        run: python -m unittest -v research.test_iteration12_native_q_repair research.test_iteration11_native_pf
+      - name: Two source AC calls (control then Q-limited only if control matches)
+        run: python -m research.iteration12_native_q_repair --json iteration12_original_q_repaired.json --csv iteration12_original_q_repaired.csv
+      - name: Emit full archived output in test job logs
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          for kind, path in (("CSV","iteration12_original_q_repaired.csv"),
+                             ("JSON","iteration12_original_q_repaired.json")):
+              file=Path(path)
+              if not file.is_file():
+                  print("I12_MISSING",kind,flush=True)
+                  continue
+              payload=base64.b64encode(file.read_bytes()).decode("ascii")
+              for idx,pos in enumerate(range(0,len(payload),2048)):
+                  print("I12_ARCHIVE",kind,idx,payload[pos:pos+2048],flush=True)
+          PY
+      - name: Preserve all outcomes, even nonconvergence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration12-native-MATPOWER-Q-local-patch
+          path: |
+            iteration12_original_q_repaired.csv
+            iteration12_original_q_repaired.json
