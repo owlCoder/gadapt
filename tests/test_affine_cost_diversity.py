@@ -3,12 +3,14 @@ import math
 import random
 import unittest
 from types import SimpleNamespace
+from types import SimpleNamespace
 
 import numpy as np
 
 from gadapt.ga import GA
 from gadapt.ga_model.ga_options import GAOptions
 from gadapt.utils.affine_cost_diversity import affine_cost_diversity
+from gadapt.operations.immigration.population_immigration.common_population_immigrator import CommonPopulationImmigrator
 from gadapt.operations.population_update.cost_diversity_population_updater import CostDiversityPopulationUpdater
 
 
@@ -156,6 +158,46 @@ class AffineCostDiversityTest(unittest.TestCase):
                 result = ga.execute()
                 self.assertTrue(result.success, result.message)
                 self.assertTrue(math.isfinite(result.min_cost))
+
+
+    def test_adaptive_immigration_policy(self):
+        options = SimpleNamespace(
+            immigration_number=0, adaptive_immigration_patience=3,
+            adaptive_immigration_percentage=25.0,
+            adaptive_immigration_diversity_threshold=0.25,
+            keep_number=8)
+        population = SimpleNamespace(
+            options=options, generations_without_improvement=3,
+            get_relative_cost_diversity_coefficient=lambda: 0.10)
+        immigrant = CommonPopulationImmigrator(None)
+        immigrant.population = population
+        self.assertEqual(immigrant._immigration_count(), 2)
+        population.generations_without_improvement = 4
+        self.assertEqual(immigrant._immigration_count(), 0)
+        population.generations_without_improvement = 6
+        population.get_relative_cost_diversity_coefficient = lambda: 0.8
+        self.assertEqual(immigrant._immigration_count(), 0)
+        options.adaptive_immigration_patience = None
+        self.assertEqual(immigrant._immigration_count(), 0)
+
+    def test_adaptive_immigration_config_and_e2e(self):
+        with self.assertRaises(ValueError):
+            GA(cost_function=lambda x: 1.0, adaptive_immigration_patience=0)
+        random.seed(23)
+        np.random.seed(23)
+        ga = GA(
+            cost_function=lambda x: float(1.0),
+            population_size=12, exit_check="generations",
+            number_of_generations=8,
+            cost_diversity_metric="affine_invariant",
+            adaptive_immigration_patience=2,
+            adaptive_immigration_percentage=25.0,
+        )
+        ga.add(-5., 5.)
+        ga.add(-5., 5.)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertAlmostEqual(result.min_cost, 1.0)
 
 
 if __name__ == "__main__":
