@@ -1,3 +1,65 @@
+# NAJNOVIJE I28 — 12 novih uparenih semena NIJE potvrdilo prednost novog GAdapt scenario-UCB mehanizma (21.10.2026)
+
+**Novi direktni GAdapt mutator-credit iz I26 radi i testiran je**, ali
+**stvarni unapred registrovani eksperiment I28 POBIJA tvrdnju
+o njegovoj većoj ponovljivoj efikasnosti na dosadašnjem IEEE118
+problemu**. Nakon I27 samo jednog pozitivnog `scenario_feasibility`
+semena (1/3) i nula ostalih metoda, I28 zamrzava potpuno
+**NOVIH 12 uparenih semena 2040–2051**, **4 ista originalna
+core GAdapt moda**, isti 6D IEEE118 originalni PV kontrolni
+prostor, ista veštačka tri PD/QD opterećenja 98%/100%/102%,
+isti originalni izvorni PG/QG, bus V, source-positive RATE_A
+oba kraja i KCL limiti, **180 stvarnih AC po svakom
+method×seed**. **48 stvarnih GA run-ova = 8.640 originalnih
+PYPOWER AC PF** u zvaničnoj analitičkoj seriji,
+bez lažnih fizičkih poziva.
+
+| GAdapt opcija | Bar jedan potpuno source-feasible 3-load kandidat na 12 semena | Broj trostruko fizički izvodljivih kandidata (720 pokušaja po metodi) |
+|---|---:|---:|
+| **Originalni legacy GAdapt** | **8/12** | **73/720** |
+| Postojeći objective-UCB | **6/12** | **65/720** |
+| Postojeći scalar-feasibility-UCB | **6/12** | **70/720** |
+| **Novi I26 scenario-feasibility-UCB** | **6/12** | **70/720** |
+
+Za sva 12 uparenih seedova, **novi UCB nikada nije uspeo
+kada postojeći objective/scalar-UCB nisu**, i oba postojeća
+UCB moda imaju **identične binarne success/failure
+seme obrasce** kao novi. U poređenju sa originalnim
+GAdapt-om, legacy uspeva na dodatna 2 semena, novi ni na
+jednom dodatnom. **I28 ne pokazuje superiornost** novog
+reward-a; sa 12 semena ne tvrdimo statistički značajnu
+superiornost legacy modа, niti generalizaciju izvan istog
+prethodno fizički kalibrisanog IEEE118 zadatka.
+
+**Audit stvarnog broja AC:** zbog ispravke *samo*
+fluktuirajućih Python testnih očekivanja, GitHub Actions
+je izvršio dve **identične** uspešne serije sa po
+8.640 stvarnih AC; ukupno **17.280 fizičkih AC**
+u I28 CI istoriji, ali samo **12 jedinstvenih semena**
+u zvaničnoj analizi (ne lažnih 24). Oba CI loga sadrže
+istovetne numeričke rezultate, osim runtime-a.
+
+[Kompletni I28 negativni izveštaj](ITERATION28_REPORT_SR.md) ·
+[I28 protokol pre rezultata](ITERATION28_PROTOCOL.md) ·
+[raw JSON 48 run-ova i 8.640 realnih AC](results/ieee118_iteration28_12_newseed_4_GAdapt_credit_8640_real_AC_20261021.json) ·
+[zvanična puna realna CI serija #39666171453](https://github.com/owlCoder/gadapt/actions/runs/39666171453) ·
+[identična nezavisno tehnički ponovljena CI #39666251610](https://github.com/owlCoder/gadapt/actions/runs/39666251610) ·
+[preliminarni audit naučne originalnosti i literature 2000–2026](ITERATION28_LITERATURE_NOVELTY_AUDIT_SR.md).
+
+**Sledeća odluka je metodološka, a ne tuning:** ne
+podešavati nova reward weight podešavanja na istom
+IEEE118 slučaju dok se ne proveri precizna novina
+u robust AC-OPF, AOS, feasibility handling i
+scenario evaluation budget literaturi. Potom
+posebno unapred registrovati mehanizam koji je
+stvarno različit (npr. *budžetski svesno
+biranje AC scenarija* ili fizički potpuno naplaćen
+uparen-mutator credit) i out-of-sample više mrežnih
+scenarija i domena. **Originalni doktoratski
+algoritamski doprinos još nije dokazan.**
+
+---
+
 # NOVO I26–I27 — prva stvarna izmena GAdapt algoritma i 3.240 realnih IEEE118 AC kontrola (21.10.2026)
 
 **PRVI PUT smo direktno izmenili izvorni `gadapt/...` algoritamski
