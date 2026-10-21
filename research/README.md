@@ -1,3 +1,45 @@
+## Iteracija 5: provera najboljeg ostvarenog rešenja, ne dokaz globalnog optimuma
+
+Pregled **izvršenih eksperimenata, 360 objektivnih AC evaluacija po metodi,
+12 novih uparenih semena i CMA-ES baseline-a**:
+[ITERATION5_REPORT_SR.md](ITERATION5_REPORT_SR.md).
+Prethodno fiksiran protokol: [ITERATION5_PROTOCOL.md](ITERATION5_PROTOCOL.md).
+
+Na javnom IEEE14 AC referentnom sistemu potvrđena su rešenja sa gubicima
+13.497263522715254 MW (100% opterećenje) i 16.791946841097882 MW
+(110% opterećenje). Obe vrednosti dobijene su jednom visoko-budžetnom
+pretragom i ponovo proverene nezavisnim AC solve-om. **To nisu
+matematički sertifikovani globalni optimumi**, a IEEE14 nije industrijski
+operativni uzorak. Na jednakih 360 AC evaluacija SLSQP i CMA-ES
+pokazali su preciznost znatno bolju od originalnog GAdapt-a na ovoj
+konkretnoj niskodimenzionalnoj formulaciji. Sama hibridizacija nije
+originalan naučni rezultat.
+
+Reprodukcija iz `owlCoder/gadapt:main`:
+
+```bash
+python -m pip install -e . 'scipy>=1.11,<1.16' 'pypower>=5.1,<6' 'networkx>=3.2,<4' 'cma>=4,<5'
+python -m research.ieee14_local_refinement --seeds 12 --seed-start 100 --budget 360 --output ieee14_local_refinement.csv
+python -m research.ieee14_cma_es --seeds 12 --seed-start 100 --budget 360 --output ieee14_cma_es.csv
+python -m research.ieee14_best_known_reference --budget 3600 --de-stage 2000 --output ieee14_best_known_reference.csv
+python -m research.geant_local_refinement --seeds 8 --seed-start 100 --budget 360 --output geant_local_refinement.csv
+python -m research.analyze_geant_local_refinement geant_local_refinement.csv
+python -m research.analyze_ieee14_six_method_pilot
+```
+
+Uključene su trajno verzionisane sirove numeričke tablice
+`research/results/ieee14_local_refinement_20261021.csv`,
+`research/results/ieee14_cma_es_20261021.csv`,
+`research/results/ieee14_reference_3600_20261021.csv`,
+`research/results/geant_local_refinement_20261021.csv`,
+SVG grafikoni u `research/figures/` i svi izlazi GitHub Actions.
+Zapisi `True/False` očuvani su u Python CSV formatu radi
+reproduktivne statistike. Vremenski GÉANT blok je ranije pregledan;
+**nije nezavisan holdout**. Kodovi SLSQP/CMA-ES predstavljaju postojeće
+referentne metode, ne korisnikov originalni doktorski algoritam.
+
+---
+
 ## Paired physical mutation-credit experiment — current `main`
 
 `mutation_credit_assignment="paired"` is a STRICT opt-in research setting
