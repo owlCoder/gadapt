@@ -1,0 +1,56 @@
+name: Iteration 25 IEEE118 prior PV controller holdout under 2 percent load stress
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/ITERATION25_PROTOCOL.md"
+      - "research/iteration25_ieee118_stress_holdout.py"
+      - "research/test_iteration25_ieee118_stress_holdout.py"
+      - ".github/workflows/iteration25-ieee118-stress.yml"
+  workflow_dispatch:
+
+jobs:
+  original-source-load-robustness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      PYTHONHASHSEED: "0"
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned native IEEE118 original physical dependencies
+        run: python -m pip install -e . 'pypower==5.1.19' 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Preflight 5 source-feasible controller vectors and fixed 2 percent load deviations
+        run: python -m unittest -v research.test_iteration25_ieee118_stress_holdout research.test_iteration24_ieee118_fivepv_real_gadapt
+      - name: Execute exactly ten true stressed original IEEE118 AC PF checks
+        run: python -m research.iteration25_ieee118_stress_holdout --json iteration25_stress.json --csv iteration25_stress.csv
+      - name: Emit exact raw stressed IEEE118 AC data for permanent source archive
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          for kind,path in (("CSV","iteration25_stress.csv"),("JSON","iteration25_stress.json")):
+              f=Path(path)
+              if f.is_file():
+                  d=base64.b64encode(f.read_bytes()).decode("ascii")
+                  for i,k in enumerate(range(0,len(d),2048)):
+                      print("I25_ARCHIVE",kind,i,d[k:k+2048],flush=True)
+              else:
+                  print("I25_MISSING",kind,flush=True)
+          PY
+      - name: Archive all real AC outcomes on altered artificial PD and QD
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iteration25-IEEE118-ten-AC-PD-QD-load-stress
+          path: |
+            iteration25_stress.csv
+            iteration25_stress.json
