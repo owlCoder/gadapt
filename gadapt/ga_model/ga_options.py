@@ -22,6 +22,8 @@ class GAOptions:
         self.cost_diversity_metric = ga.cost_diversity_metric
         self.mutation_operator_policy = ga.mutation_operator_policy
         self.mutation_operator_credit = ga.mutation_operator_credit
+        self.mutation_credit_assignment = ga.mutation_credit_assignment
+        self.mutation_evaluation_counter = ga.mutation_evaluation_counter
         self.mutation_violation_function = ga.mutation_violation_function
         self.operator_credit_controller = None
         self.adaptive_immigration_patience = ga.adaptive_immigration_patience
