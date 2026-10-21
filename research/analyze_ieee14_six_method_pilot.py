@@ -31,6 +31,10 @@ def main():
     raw=read_csv(args.main)+read_csv(args.cma)
     ref={float(r["load_factor"]):float(r["independently_verified_MW"])
          for r in read_csv(args.reference) if r["feasible"]=="True"}
+    if set(ref) != {1.0, 1.1}:
+        raise ValueError("Missing two independently verified IEEE14 references")
+    if len(raw) != 144:
+        raise ValueError("Expected exactly 120 GA/SLSQP/DE rows and 24 CMA-ES rows")
     indexed={}
     for r in raw:
         key=(float(r["load_factor"]),r["method"],int(r["seed"]))
@@ -43,6 +47,8 @@ def main():
                           seconds=float(r["seconds"]),
                           requests=int(r["all_objective_requests"]),
                           calls=count,error=r["error"])
+    if len(indexed) != 144:
+        raise ValueError("Expected 144 unique paired observations")
     for load in sorted(ref):
         seeds=sorted(s for f,m,s in indexed if f==load and m=="legacy_gadapt")
         if seeds!=list(range(100,112)):raise ValueError("unmatched frozen seeds")
