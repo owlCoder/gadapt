@@ -1,3 +1,0 @@
-scenario,actual_ac_opf_call,solver_success,solver_error,elapsed_seconds,independently_verified_ac_opf,posthoc_validator_error,generator_P_above_mw,generator_P_below_mw,generator_Q_above_mvar,generator_Q_below_mvar,voltage_above_pu,voltage_below_pu,maximum_branch_rate_a_mva_excess,maximum_nodal_mismatch_mva,original_polynomial_cost,losses_mw_not_objective
-case14,1,True,,0.29587,True,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.610444949709616e-08,8081.526392989456,9.287193112537587
-case118,2,True,,0.5407,True,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,6.593449309514048e-05,129660.68639034468,77.40099065782852
