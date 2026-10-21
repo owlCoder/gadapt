@@ -1,0 +1,32 @@
+name: Six-method IEEE14 independent matched audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "research/analyze_ieee14_six_method_pilot.py"
+      - "research/results/ieee14_cma_es_20261021.csv"
+      - "research/results/ieee14_reference_3600_20261021.csv"
+      - "research/results/ieee14_local_refinement_20261021.csv"
+      - ".github/workflows/ieee14-six-method-analysis.yml"
+  workflow_dispatch:
+
+jobs:
+  independent-statistics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e . 'scipy>=1.11,<1.16'
+      - run: |
+          set -o pipefail
+          python -m research.analyze_ieee14_six_method_pilot | tee ieee14_six_method_statistics.txt
+          test -s ieee14_six_method_statistics.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ieee14-six-method-CMA-audited-paired-statistics
+          path: ieee14_six_method_statistics.txt
