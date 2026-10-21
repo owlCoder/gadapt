@@ -1,3 +1,24 @@
+# NOVO — Iteracija 8: reaktivno-naponski screening RTE1888 (21.10.2026)
+
+Završeno je novo, **eksploratorno** fizičko merenje sa osam
+dodatnih generatorskih naponskih setpointa (izabranih deterministički
+blizu referentno narušenih sabirnica) uz source-rated `RATE_A`
+formulaciju iz iteracije 7. [GitHub Actions #39619997942](https://github.com/owlCoder/gadapt/actions/runs/39619997942):
+**17/17 stvarnih AC proračuna konvergiralo**, najmanji rezidual
+pao je sa **1,091786** na **1,055456**, ali **0/17 kandidata
+nije potpuno izvodljivo**. Nema originalnog superiornog
+algoritma niti punog OPF rezultata. U referenci je
+11 generatora na Qmin, 14 na Qmax, bez eksplicitnih Q
+prekoračenja; izvorna verifikacija Q granica ostaje otvorena.
+
+[Izveštaj](ITERATION8_REPORT_SR.md) ·
+[Zamrznuti protokol pre AC testa](ITERATION8_PROTOCOL.md) ·
+[CSV svih 17 poziva](results/rte1888_iteration8_reactive_screen_20261021.csv) ·
+[JSON sa Q statistikama i selekcijom kontrola](results/rte1888_iteration8_reactive_screen_20261021.json) ·
+[Izvršni kod](iteration8_reactive_screen.py).
+
+---
+
 # NOVO — Iteracija 7: RTE1888 izvor ograničenja pre heuristike (21.10.2026)
 
 **Presudna metodološka korekcija:** u ranijem RTE1888 modelu
