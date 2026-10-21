@@ -150,12 +150,17 @@ def evaluate_method(problem, method, seed, budget=360, population=36):
     else:
         random.seed(seed)
         np.random.seed(seed)
+        extra = (dict(adaptive_immigration_patience=4,
+                      adaptive_immigration_percentage=25.0,
+                      adaptive_immigration_diversity_threshold=0.25)
+                 if method == "affine_restart" else {})
         optimizer = GA(
             cost_function=lambda x: monitor([x[i] for i in range(problem.n)]),
-            cost_diversity_metric=method, population_size=population,
+            cost_diversity_metric=("affine_invariant" if method == "affine_restart" else method), population_size=population,
             number_of_generations=math.ceil(3*budget/population)+10,
             exit_check="generations", timeout=240,
             population_mutation="cost_diversity,parent_diversity",
+            **extra,
         )
         for low, high in problem.bounds:
             optimizer.add(low, high, 1.0)
@@ -187,7 +192,7 @@ def main():
           flush=True)
     rows = []
     for seed in range(args.runs):
-        for method in ("log_relative", "affine_invariant", "scipy_de", "random_search"):
+        for method in ("log_relative", "affine_invariant", "affine_restart", "scipy_de", "random_search"):
             row = evaluate_method(problem, method, seed, args.budget, args.population)
             rows.append(row)
             print("RUN", row, flush=True)
@@ -195,7 +200,7 @@ def main():
         writer = csv.DictWriter(f, fieldnames=list(rows[0]))
         writer.writeheader()
         writer.writerows(rows)
-    for method in ("log_relative", "affine_invariant", "scipy_de", "random_search"):
+    for method in ("log_relative", "affine_invariant", "affine_restart", "scipy_de", "random_search"):
         found = [r["cost"] for r in rows if r["method"] == method]
         print("SUMMARY", method, "median=",statistics.median(found),
               "worst=",max(found), "best=",min(found),
