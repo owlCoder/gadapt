@@ -13,7 +13,12 @@ import time
 
 import numpy as np
 from gadapt.ga import GA
-from ieee14_voltage import IEEE14VoltageDispatch
+try:
+    from research.ieee14_voltage import IEEE14VoltageDispatch
+except ModuleNotFoundError as exc:
+    if exc.name != "research":
+        raise
+    from ieee14_voltage import IEEE14VoltageDispatch
 from scipy.optimize import differential_evolution
 
 
