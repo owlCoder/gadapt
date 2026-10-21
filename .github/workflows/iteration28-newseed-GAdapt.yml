@@ -28,7 +28,7 @@ jobs:
       - name: Install pinned genuine IEEE118 native powerflow dependencies
         run: python -m pip install -e . 'pypower==5.1.19' 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
       - name: "Verify frozen I28 new seeds, equal budgets, paired totals, and I26 core operator credit"
-        run: python -m unittest -v research.test_iteration28_newseed_replication research.test_iteration27_real_scenario_credit_benchmark tests.test_scenario_feasibility_credit
+        run: python -m unittest -v research.test_iteration28_newseed_replication research.test_iteration27_real_scenario_credit_benchmark tests.test_scenario_feasibility_credit tests.test_operator_credit tests.test_paired_operator_credit
       - name: Execute all forty-eight new seed real IEEE118 GA jobs with 8640 real AC maximum
         run: python -m research.iteration28_newseed_scenario_credit_replication --json iteration28_seed_holdout.json --csv iteration28_seed_holdout.csv
       - name: Emit raw 12 seed 4 method results for permanent GitHub research archive
