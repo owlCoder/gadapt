@@ -1,3 +1,30 @@
+# ZAVRŠENA ITERACIJA 15: originalni veliki RTE1888 AC-OPF ostaje nepotvrđen (21.10.2026)
+
+Posle izvornog PYPOWER ekonomski AC-OPF pokušaja sa strategijom 560 iz
+iteracije 14 (izvorni RTE1888 je vratio `success=False` za oko 5,20 s),
+**iteracija 15** je unapred registrovala i stvarno pokrenula
+step-controlled PIPS `OPF_ALG=565` sa identičnim originalnim
+MATPOWER P/Q/V/RATE_A i generator `gencost` podacima. Mali kontrolni
+`case9` je konvergirao za oko **0,553 s** i **12 iteracija**,
+ali originalni veliki **RTE1888 nije konvergirao u unapred dozvoljenih
+780 sekundi**; izvršavanje je prekinuto `TimeoutError`.
+Nema prihvaćene vrednosti originalne RTE ekonomske funkcije cilja,
+fizički izvodljivog rešenja niti statističkog rezultata o GAdapt-u.
+Ovaj timeout **nije dokaz da je originalni AC-OPF matematički neizvodljiv**.
+
+[Izveštaj I15](ITERATION15_REPORT_SR.md) ·
+[protokol I15](ITERATION15_PROTOCOL.md) ·
+[sirovi JSON I15](results/rte1888_iteration15_source_acopf_solver_565_20261021.json) ·
+[uspešan CI beleženja sa isteklim timeout-om #39641058963](https://github.com/owlCoder/gadapt/actions/runs/39641058963).
+
+**Prioritet ostaje fizički verifikovani IEEE14 i IEEE118 AC-OPF iz
+iteracije 16**, kao proverljiva osnovica za naredno strogo budžetirano
+testiranje pravog GAdapt algoritma. Napomena: IEEE testne mreže nemaju
+dokazani industrijski stres pri izvornim jako labavim termičkim
+granica; bez potvrdne fizičke provere nema tvrdnji o realnoj industriji.
+
+---
+
 # NAJNOVIJI PROVERENI DOMENSKI REZULTAT: originalni AC-OPF IEEE14 i IEEE118 (21.10.2026)
 
 **Iteracija 16** donela je dve originalne javne IEEE AC-OPF reference sa
