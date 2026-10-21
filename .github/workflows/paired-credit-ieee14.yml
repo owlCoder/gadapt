@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - "research/paired_credit_ieee14.py"
+      - "research/aos_ieee14_pilot.py"
+      - "research/ieee14_voltage.py"
       - "research/analyze_paired_credit_ieee14.py"
       - "research/PAIRED_CREDIT_PROTOCOL.md"
       - ".github/workflows/paired-credit-ieee14.yml"
