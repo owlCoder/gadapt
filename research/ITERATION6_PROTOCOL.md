@@ -89,3 +89,20 @@ Relevant sources:
 - https://pandapower.readthedocs.io/en/v2.14.11/networks/power_system_test_cases.html
 - https://doi.org/10.23919/CSMS.2024.0006 (existing adaptive memetic methods)
 - https://doi.org/10.1016/j.swevo.2024.101694 (existing learning-based memetic methods)
+
+## Frozen RTE1888 stress-only addendum (before experiment)
+Because the published French network is already severely infeasible
+under the pre-existing first-eight-setpoint model and nominal load,
+run a **minimal, purely exploratory constraint-reduction stress check**:
+same `GridProblem("rte1888",1.0)`, methods `gadapt_legacy`,
+`slsqp_multistart`, `hybrid_adaptive`, `scipy_de`,
+seeds 300–302, population 12, 72 actual pandapower AC PF solver calls
+per method-seed. This probes whether any method even finds independently
+feasible voltages from only these 8 control variables. Record minimum
+physical violation, best feasible MW only if one exists, all AC solver
+failure counts, incumbent vectors, and explicitly that the baseline is
+infeasible. Compare minimum violation *descriptively* if none is feasible;
+doing so is NOT a feasible optimal solution or an independent
+validated industrial OPF. This RTE subset has pre-existing line overload,
+so the measured violation may represent unrepairable structural
+constraints under voltage-only changes.
