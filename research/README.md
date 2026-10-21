@@ -1,3 +1,11 @@
+# I31 prethodni krug sada objedinjен na main (22.10.2026)
+
+**Kontrolisana I31 ablacija IEEE118**: 48 stvarnih GA izvođenja i **8.611 realnih originalnih PYPOWER AC**, četiri evaluacione opcije, 12 uparenih semena. Uspešno i potpuno tri-scenario fizički izvodljiv kandidat na 9/12 originalnom GAdapt-u sa punom ocenom, 7/12 punom/cenzurisanom kontrolom, 11/12 GAdapt-u sa fiksnim ranim odbijanjem i 10/12 adaptivnom redosledu. Ključni upareni kontrast cenzurisanih punih troškova prema ranom prekidu p=0,125, **bez dokazane statističke superiornosti**. Originalni workflow fizički je bio FAILED samo pri CSV izvozu nakon 48 kompletiranih runova; svih 48 sirovih log redova i stvarni JSON/CSV su sačuvani na main *bez nove fizičke ponovne simulacije*.
+
+[Potpuni I31 izveštaj](ITERATION31_REPORT_SR.md) · [preregistrovani I31 protokol](ITERATION31_PROTOCOL.md) · [I31 raw JSON 48 run-ova](results/ieee118_iteration31_12seeds_4arms_8611_real_AC_20261021.json) · [originalni fizički I31 job](https://github.com/owlCoder/gadapt/actions/runs/39681669407).
+
+---
+
 # Najnovije I32 — druga topologija IEEE14: 12.913 STVARNIH source AC, transfer signala ali NE i dokaz originalne metode (22.10.2026)
 
 **Preregistrovano pre simulacija i završeno 72/72 run-a (6 metoda × 12 novih semena 2104–2115) na originalnoj IEEE14 mreži**, različitoj od ranije IEEE118. **12.913/12.960 stvarnih PYPOWER runpf AC**, nula numeričkih neuspeha, proverene originalne individualne PG/QG, sabirničke naponske granice, originalne pozitivne RATE_A oba kraja i KCL **u sva tri** sintetička originalna PD/QD scenarija. To je 9D PV-kontrolisani *podskup*, ne pun AC-OPF ili industrijska mreža.
