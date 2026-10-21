@@ -1,0 +1,519 @@
+{
+  "conclusion": "All fourteen conditional radial certificates involve original MATPOWER source branches with RATE_A=0 among all matching source leaf candidates; hence those certificates do not establish infeasibility of the source-prescribed thermal constraints.",
+  "source_repo": "MATPOWER/matpower",
+  "source_git_commit": "80b6e16f760f58721ad31221c7287c28259cd4ad",
+  "source_blob_sha": "820bd317167381baf819d67eab7d886013e8b05a",
+  "source_path": "data/case1888rte.m",
+  "source_date": "2019-06-05",
+  "source_baseMVA": 100,
+  "source_convention": "MATPOWER zero RATE_A means branch has no MVA thermal rating; must not be treated as 100 percent of pandapower surrogate sn_mva",
+  "source_branch_total": 2531,
+  "source_branch_rateA_zero": 455,
+  "source_branch_rateA_positive": 2076,
+  "source_gen_total": 298,
+  "source_bus_total": 1888,
+  "matching_tolerance_mw": 0.000001,
+  "matching_rule": "For each pandapower leaf generator in prior conditional proof, match MATPOWER gen PG=PMIN=observed gen minimum, bus PD=observed local load, and exactly one incident source branch. For duplicates, retain ALL candidate source branches. All candidate RATE_A values must equal zero; this is evidence of correspondence, not formal connectivity mapping.",
+  "terminations_found": 14,
+  "conditional_cases": [
+    {
+      "pandapower_trafo_id": 404,
+      "pandapower_leaf_bus": 1705,
+      "pandapower_assumed_rating_MVA": 99.999,
+      "pandapower_assumed_percent_limit": 100,
+      "minimum_net_export_mw": 196.69,
+      "source_candidate_matches": [
+        {
+          "source_gen_bus_id": 1699,
+          "original_gen_PG_mw": 236.69,
+          "original_gen_PMIN_mw": 236.69,
+          "source_load_PD_mw": 40,
+          "sole_original_branch_from": 453,
+          "sole_original_branch_to": 1699,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.092105,
+          "source_branch_RX": [
+            0,
+            0.012685
+          ]
+        }
+      ],
+      "caution": "Gen output/min P and local load matching. Ambiguous duplicate buses remain candidates; every candidate RATE_A=0."
+    },
+    {
+      "pandapower_trafo_id": 466,
+      "pandapower_leaf_bus": 1767,
+      "pandapower_assumed_rating_MVA": 99.999,
+      "pandapower_assumed_percent_limit": 100,
+      "minimum_net_export_mw": 201.9,
+      "source_candidate_matches": [
+        {
+          "source_gen_bus_id": 1732,
+          "original_gen_PG_mw": 201.9,
+          "original_gen_PMIN_mw": 201.9,
+          "source_load_PD_mw": 0,
+          "sole_original_branch_from": 107,
+          "sole_original_branch_to": 1732,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.044444,
+          "source_branch_RX": [
+            0,
+            0.031723
+          ]
+        }
+      ],
+      "caution": "Gen output/min P and local load matching. Ambiguous duplicate buses remain candidates; every candidate RATE_A=0."
+    },
+    {
+      "pandapower_trafo_id": 402,
+      "pandapower_leaf_bus": 1703,
+      "pandapower_assumed_rating_MVA": 99.999,
+      "pandapower_assumed_percent_limit": 100,
+      "minimum_net_export_mw": 189.69,
+      "source_candidate_matches": [
+        {
+          "source_gen_bus_id": 1697,
+          "original_gen_PG_mw": 229.69,
+          "original_gen_PMIN_mw": 229.69,
+          "source_load_PD_mw": 40,
+          "sole_original_branch_from": 452,
+          "sole_original_branch_to": 1697,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.092105,
+          "source_branch_RX": [
+            0,
+            0.012685
+          ]
+        },
+        {
+          "source_gen_bus_id": 1698,
+          "original_gen_PG_mw": 229.69,
+          "original_gen_PMIN_mw": 229.69,
+          "source_load_PD_mw": 40,
+          "sole_original_branch_from": 451,
+          "sole_original_branch_to": 1698,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.092105,
+          "source_branch_RX": [
+            0,
+            0.012685
+          ]
+        }
+      ],
+      "caution": "Gen output/min P and local load matching. Ambiguous duplicate buses remain candidates; every candidate RATE_A=0."
+    },
+    {
+      "pandapower_trafo_id": 403,
+      "pandapower_leaf_bus": 1704,
+      "pandapower_assumed_rating_MVA": 99.999,
+      "pandapower_assumed_percent_limit": 100,
+      "minimum_net_export_mw": 189.69,
+      "source_candidate_matches": [
+        {
+          "source_gen_bus_id": 1697,
+          "original_gen_PG_mw": 229.69,
+          "original_gen_PMIN_mw": 229.69,
+          "source_load_PD_mw": 40,
+          "sole_original_branch_from": 452,
+          "sole_original_branch_to": 1697,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.092105,
+          "source_branch_RX": [
+            0,
+            0.012685
+          ]
+        },
+        {
+          "source_gen_bus_id": 1698,
+          "original_gen_PG_mw": 229.69,
+          "original_gen_PMIN_mw": 229.69,
+          "source_load_PD_mw": 40,
+          "sole_original_branch_from": 451,
+          "sole_original_branch_to": 1698,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.092105,
+          "source_branch_RX": [
+            0,
+            0.012685
+          ]
+        }
+      ],
+      "caution": "Gen output/min P and local load matching. Ambiguous duplicate buses remain candidates; every candidate RATE_A=0."
+    },
+    {
+      "pandapower_trafo_id": 493,
+      "pandapower_leaf_bus": 1794,
+      "pandapower_assumed_rating_MVA": 99.999,
+      "pandapower_assumed_percent_limit": 100,
+      "minimum_net_export_mw": 188,
+      "source_candidate_matches": [
+        {
+          "source_gen_bus_id": 1752,
+          "original_gen_PG_mw": 188,
+          "original_gen_PMIN_mw": 188,
+          "source_load_PD_mw": 0,
+          "sole_original_branch_from": 969,
+          "sole_original_branch_to": 1752,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.103079,
+          "source_branch_RX": [
+            0,
+            0.021485
+          ]
+        }
+      ],
+      "caution": "Gen output/min P and local load matching. Ambiguous duplicate buses remain candidates; every candidate RATE_A=0."
+    },
+    {
+      "pandapower_trafo_id": 380,
+      "pandapower_leaf_bus": 1681,
+      "pandapower_assumed_rating_MVA": 99.999,
+      "pandapower_assumed_percent_limit": 100,
+      "minimum_net_export_mw": 180,
+      "source_candidate_matches": [
+        {
+          "source_gen_bus_id": 1681,
+          "original_gen_PG_mw": 180,
+          "original_gen_PMIN_mw": 180,
+          "source_load_PD_mw": 0,
+          "sole_original_branch_from": 338,
+          "sole_original_branch_to": 1681,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.088844,
+          "source_branch_RX": [
+            0,
+            0.01954
+          ]
+        }
+      ],
+      "caution": "Gen output/min P and local load matching. Ambiguous duplicate buses remain candidates; every candidate RATE_A=0."
+    },
+    {
+      "pandapower_trafo_id": 491,
+      "pandapower_leaf_bus": 1792,
+      "pandapower_assumed_rating_MVA": 99.999,
+      "pandapower_assumed_percent_limit": 100,
+      "minimum_net_export_mw": 175,
+      "source_candidate_matches": [
+        {
+          "source_gen_bus_id": 1750,
+          "original_gen_PG_mw": 175,
+          "original_gen_PMIN_mw": 175,
+          "source_load_PD_mw": 0,
+          "sole_original_branch_from": 968,
+          "sole_original_branch_to": 1750,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.103079,
+          "source_branch_RX": [
+            0,
+            0.021485
+          ]
+        },
+        {
+          "source_gen_bus_id": 1751,
+          "original_gen_PG_mw": 175,
+          "original_gen_PMIN_mw": 175,
+          "source_load_PD_mw": 0,
+          "sole_original_branch_from": 970,
+          "sole_original_branch_to": 1751,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.103079,
+          "source_branch_RX": [
+            0,
+            0.021485
+          ]
+        },
+        {
+          "source_gen_bus_id": 1753,
+          "original_gen_PG_mw": 175,
+          "original_gen_PMIN_mw": 175,
+          "source_load_PD_mw": 0,
+          "sole_original_branch_from": 971,
+          "sole_original_branch_to": 1753,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.092105,
+          "source_branch_RX": [
+            0,
+            0.019737
+          ]
+        }
+      ],
+      "caution": "Gen output/min P and local load matching. Ambiguous duplicate buses remain candidates; every candidate RATE_A=0."
+    },
+    {
+      "pandapower_trafo_id": 492,
+      "pandapower_leaf_bus": 1793,
+      "pandapower_assumed_rating_MVA": 99.999,
+      "pandapower_assumed_percent_limit": 100,
+      "minimum_net_export_mw": 175,
+      "source_candidate_matches": [
+        {
+          "source_gen_bus_id": 1750,
+          "original_gen_PG_mw": 175,
+          "original_gen_PMIN_mw": 175,
+          "source_load_PD_mw": 0,
+          "sole_original_branch_from": 968,
+          "sole_original_branch_to": 1750,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.103079,
+          "source_branch_RX": [
+            0,
+            0.021485
+          ]
+        },
+        {
+          "source_gen_bus_id": 1751,
+          "original_gen_PG_mw": 175,
+          "original_gen_PMIN_mw": 175,
+          "source_load_PD_mw": 0,
+          "sole_original_branch_from": 970,
+          "sole_original_branch_to": 1751,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.103079,
+          "source_branch_RX": [
+            0,
+            0.021485
+          ]
+        },
+        {
+          "source_gen_bus_id": 1753,
+          "original_gen_PG_mw": 175,
+          "original_gen_PMIN_mw": 175,
+          "source_load_PD_mw": 0,
+          "sole_original_branch_from": 971,
+          "sole_original_branch_to": 1753,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.092105,
+          "source_branch_RX": [
+            0,
+            0.019737
+          ]
+        }
+      ],
+      "caution": "Gen output/min P and local load matching. Ambiguous duplicate buses remain candidates; every candidate RATE_A=0."
+    },
+    {
+      "pandapower_trafo_id": 494,
+      "pandapower_leaf_bus": 1795,
+      "pandapower_assumed_rating_MVA": 99.999,
+      "pandapower_assumed_percent_limit": 100,
+      "minimum_net_export_mw": 175,
+      "source_candidate_matches": [
+        {
+          "source_gen_bus_id": 1750,
+          "original_gen_PG_mw": 175,
+          "original_gen_PMIN_mw": 175,
+          "source_load_PD_mw": 0,
+          "sole_original_branch_from": 968,
+          "sole_original_branch_to": 1750,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.103079,
+          "source_branch_RX": [
+            0,
+            0.021485
+          ]
+        },
+        {
+          "source_gen_bus_id": 1751,
+          "original_gen_PG_mw": 175,
+          "original_gen_PMIN_mw": 175,
+          "source_load_PD_mw": 0,
+          "sole_original_branch_from": 970,
+          "sole_original_branch_to": 1751,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.103079,
+          "source_branch_RX": [
+            0,
+            0.021485
+          ]
+        },
+        {
+          "source_gen_bus_id": 1753,
+          "original_gen_PG_mw": 175,
+          "original_gen_PMIN_mw": 175,
+          "source_load_PD_mw": 0,
+          "sole_original_branch_from": 971,
+          "sole_original_branch_to": 1753,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.092105,
+          "source_branch_RX": [
+            0,
+            0.019737
+          ]
+        }
+      ],
+      "caution": "Gen output/min P and local load matching. Ambiguous duplicate buses remain candidates; every candidate RATE_A=0."
+    },
+    {
+      "pandapower_trafo_id": 479,
+      "pandapower_leaf_bus": 1780,
+      "pandapower_assumed_rating_MVA": 99.999,
+      "pandapower_assumed_percent_limit": 100,
+      "minimum_net_export_mw": 149.9,
+      "source_candidate_matches": [
+        {
+          "source_gen_bus_id": 1741,
+          "original_gen_PG_mw": 156,
+          "original_gen_PMIN_mw": 156,
+          "source_load_PD_mw": 6.1,
+          "sole_original_branch_from": 889,
+          "sole_original_branch_to": 1741,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.060526,
+          "source_branch_RX": [
+            0,
+            0.034269
+          ]
+        }
+      ],
+      "caution": "Gen output/min P and local load matching. Ambiguous duplicate buses remain candidates; every candidate RATE_A=0."
+    },
+    {
+      "pandapower_trafo_id": 522,
+      "pandapower_leaf_bus": 1823,
+      "pandapower_assumed_rating_MVA": 99.999,
+      "pandapower_assumed_percent_limit": 100,
+      "minimum_net_export_mw": 150,
+      "source_candidate_matches": [
+        {
+          "source_gen_bus_id": 1773,
+          "original_gen_PG_mw": 150,
+          "original_gen_PMIN_mw": 150,
+          "source_load_PD_mw": 0,
+          "sole_original_branch_from": 482,
+          "sole_original_branch_to": 1773,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.081023,
+          "source_branch_RX": [
+            0,
+            0.035942
+          ]
+        }
+      ],
+      "caution": "Gen output/min P and local load matching. Ambiguous duplicate buses remain candidates; every candidate RATE_A=0."
+    },
+    {
+      "pandapower_trafo_id": 322,
+      "pandapower_leaf_bus": 1623,
+      "pandapower_assumed_rating_MVA": 99.999,
+      "pandapower_assumed_percent_limit": 100,
+      "minimum_net_export_mw": 140,
+      "source_candidate_matches": [
+        {
+          "source_gen_bus_id": 1637,
+          "original_gen_PG_mw": 156,
+          "original_gen_PMIN_mw": 156,
+          "source_load_PD_mw": 16,
+          "sole_original_branch_from": 132,
+          "sole_original_branch_to": 1637,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.080978,
+          "source_branch_RX": [
+            0,
+            0.048207
+          ]
+        }
+      ],
+      "caution": "Gen output/min P and local load matching. Ambiguous duplicate buses remain candidates; every candidate RATE_A=0."
+    },
+    {
+      "pandapower_trafo_id": 323,
+      "pandapower_leaf_bus": 1624,
+      "pandapower_assumed_rating_MVA": 99.999,
+      "pandapower_assumed_percent_limit": 100,
+      "minimum_net_export_mw": 140,
+      "source_candidate_matches": [
+        {
+          "source_gen_bus_id": 1638,
+          "original_gen_PG_mw": 154,
+          "original_gen_PMIN_mw": 154,
+          "source_load_PD_mw": 14,
+          "sole_original_branch_from": 131,
+          "sole_original_branch_to": 1638,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.080978,
+          "source_branch_RX": [
+            0,
+            0.048207
+          ]
+        }
+      ],
+      "caution": "Gen output/min P and local load matching. Ambiguous duplicate buses remain candidates; every candidate RATE_A=0."
+    },
+    {
+      "pandapower_trafo_id": 324,
+      "pandapower_leaf_bus": 1625,
+      "pandapower_assumed_rating_MVA": 99.999,
+      "pandapower_assumed_percent_limit": 100,
+      "minimum_net_export_mw": 140.9,
+      "source_candidate_matches": [
+        {
+          "source_gen_bus_id": 1639,
+          "original_gen_PG_mw": 154,
+          "original_gen_PMIN_mw": 154,
+          "source_load_PD_mw": 13.1,
+          "sole_original_branch_from": 133,
+          "sole_original_branch_to": 1639,
+          "source_RATE_A_MVA": 0,
+          "source_RATE_B_MVA": 0,
+          "source_RATE_C_MVA": 0,
+          "tap": 1.065789,
+          "source_branch_RX": [
+            0,
+            0.043965
+          ]
+        }
+      ],
+      "caution": "Gen output/min P and local load matching. Ambiguous duplicate buses remain candidates; every candidate RATE_A=0."
+    }
+  ],
+  "caveats": [
+    "Upstream MATPOWER source may not exactly match pandapower 2.14.11 packaged data; independent topology/index mapping is recommended.",
+    "RATE_A=0 in original source does not set a 100 MVA ampacity; pandapower transformer sn_mva=99.999 is not validated as source operating limit.",
+    "The source has 2076 other branches with positive RATE_A and their constraints must be handled in any source-faithful benchmark.",
+    "The network reference baseline ALSO violates bus voltage bounds, so dropping unsupported transformer constraints alone does not certify feasibility.",
+    "Data expressly prohibit operating/planning real French and EU grids."
+  ]
+}
