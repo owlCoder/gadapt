@@ -1,3 +1,31 @@
+# NOVO — Iteracija 10: AC slack P/Q granice — dva prava fizička proračuna (21.10.2026)
+
+**Presudan negativan nalaz za formulaciju velikog industrijskog benchmarka:**
+izvorna MATPOWER 2019 slack sabirnica jeste 1320, a stara
+pandapower konverzija koristi 1268. Preregistrovane **2 stvarne AC
+Newton–Raphson evaluacije** obe su konvergirale, ali nijedna nije
+potpuno fizički izvodljiva: u konvertovanom originalnom stanju
+slack ima P=55,006 MW, **32,994 MW ispod minimalnog prijavljenog
+P limita**; u izolovanom scenariju sa vraćenom slack lokacijom
+1320 slack Q=**1.384,477 MVAr**, a originalni QMAX=**1 MVAr**,
+tj. preko limita za **1.383,477 MVAr**. Naponske povrede ostaju,
+a originalna pozitivna termička RATE_A ograničenja nisu prekoračena
+u ova dva slučaja. Sirovi **gubici u MW nisu izvodljivi optimumi**.
+
+Dosadašnji indikator source-rated iz iteracije 7 proverava napone i
+pozitivne izvorne RATE_A, ali **ne podrazumeva puno proverene P/Q
+granice slack izvora niti potpuni AC-OPF**. Ove dve različite
+formulacije ne smeju se predstavljati kao isti optimizacioni zadatak
+ili kao dokaz da je originalna MATPOWER mreža matematički neizvodljiva.
+
+[Izveštaj](ITERATION10_REPORT_SR.md) ·
+[Pre-registracija](ITERATION10_PROTOCOL.md) ·
+[CSV dve stvarne AC simulacije](results/rte1888_iteration10_source_slack_ac_20261021.csv) ·
+[JSON](results/rte1888_iteration10_source_slack_ac_20261021.json) ·
+[Uspesan CI #39625839475](https://github.com/owlCoder/gadapt/actions/runs/39625839475).
+
+---
+
 # NOVO — Iteracija 9: proverena generatorska ograničenja i neslaganje slack-a (21.10.2026)
 
 **Kritičan nalaz pre bilo kakvog narednog industrijski relevantnog GAdapt benchmarka:**
