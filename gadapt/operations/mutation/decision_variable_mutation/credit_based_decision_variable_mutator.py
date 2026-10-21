@@ -19,7 +19,7 @@ class CreditBasedDecisionVariableMutator(ComposedDecisionVariableMutator):
 
     No additional objective evaluations are performed by this class.
     In feasibility mode, the user must provide a *cached/pure* callback
-    returning a finite nonnegative NORMALIZED violation. Its physical
+    returning a finite nonnegative NORMALIZED violation (or None if the\n    trial was NOT physically evaluated, e.g. after a hard evaluation cap). Its physical
     evaluation cost (if any) must be separately counted by the experiment.
     """
 
@@ -42,6 +42,7 @@ class CreditBasedDecisionVariableMutator(ComposedDecisionVariableMutator):
         self._history = []
         self._traces = {}
         self._reference_cost = None
+        self._unevaluated_traces = 0
 
     def append(self, mutator):
         super().append(mutator)
@@ -108,6 +109,10 @@ class CreditBasedDecisionVariableMutator(ComposedDecisionVariableMutator):
             values = [v.value for v in sorted(
                 candidate, key=lambda v: v.decision_variable.variable_id)]
             violation = self.violation_function(values, candidate.cost_value)
+            if violation is None:
+                # Never reward/discredit trials without a real evaluation.
+                self._unevaluated_traces += len(indices)
+                return
             if (not isinstance(violation, (int, float))
                     or not math.isfinite(float(violation))
                     or violation < 0):
