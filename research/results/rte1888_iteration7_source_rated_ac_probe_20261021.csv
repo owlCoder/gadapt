@@ -1,0 +1,35 @@
+load_factor,trial,generator_index,requested_delta,actual_ac_call,solver_failed,physical_feasible,loss_mw,normalized_violation,voltage_under_pu,voltage_over_pu,source_line_excess_sum,source_trafo_excess_sum,source_line_overloads,source_trafo_overloads,max_line_source_loading_pct,max_trafo_source_loading_pct,solver_error
+1.0,reference,-1,0.0,1,False,False,990.9158380072602,1.0917864473473262,0.5123544871425832,0.5794319602047429,0.0,0.0,0,0,83.29114982944515,85.9269575493524,
+1.0,voltage_perturbation,0,-0.02,2,False,False,990.9158380078463,1.091786447346653,0.5123544871419846,0.5794319602046683,0.0,0.0,0,0,83.29114982946304,85.92695754935234,
+1.0,voltage_perturbation,0,0.02,3,False,False,990.9158380083313,1.091786447347213,0.5123544871425034,0.5794319602047096,0.0,0.0,0,0,83.29114982944526,85.92695754935137,
+1.0,voltage_perturbation,1,-0.02,4,False,False,990.8551409995307,1.0794857095443864,0.48560412435351485,0.5938815851908714,0.0,0.0,0,0,83.291224707537,85.90800091024528,
+1.0,voltage_perturbation,1,0.02,5,False,False,990.8585568306437,1.080049040590891,0.4837319158767651,0.5963171247141257,0.0,0.0,0,0,83.29123269641737,85.90614222519093,
+1.0,voltage_perturbation,2,-0.02,6,False,False,991.0244189021506,1.0993468502390824,0.5204690547325282,0.5788777955065543,0.0,0.0,0,0,83.29103279821256,85.93727350304317,
+1.0,voltage_perturbation,2,0.02,7,False,False,990.915838008863,1.0917864473067316,0.512354487100205,0.5794319602065265,0.0,0.0,0,0,83.2911498294545,85.92695754933445,
+1.0,voltage_perturbation,3,-0.02,8,False,False,990.7193183250965,1.0925856115061285,0.5098139189270842,0.5827716925790443,0.0,0.0,0,0,83.29174868306217,85.92427008654734,
+1.0,voltage_perturbation,3,0.02,9,False,False,990.9397866799236,1.0917237675898752,0.5125721174739006,0.5791516501159746,0.0,0.0,0,0,83.2911016487155,85.92718849693912,
+1.0,voltage_perturbation,4,-0.02,10,False,False,990.9158380074194,1.0917864473468135,0.5123544871421373,0.5794319602046762,0.0,0.0,0,0,83.2911498294578,85.92695754935245,
+1.0,voltage_perturbation,4,0.02,11,False,False,990.9158408843173,1.091786446971563,0.5123544868208518,0.5794319601507112,0.0,0.0,0,0,83.29114982989758,85.92695754875984,
+1.0,voltage_perturbation,5,-0.02,12,False,False,990.8585568300514,1.0800490405896508,0.4837319158755069,0.5963171247141439,0.0,0.0,0,0,83.29123269641696,85.90614222519025,
+1.0,voltage_perturbation,5,0.02,13,False,False,990.8551410002086,1.079485709543707,0.48560412435289846,0.5938815851908084,0.0,0.0,0,0,83.29122470754561,85.90800091024586,
+1.0,voltage_perturbation,6,-0.02,14,False,False,990.9158380087562,1.091786447347535,0.512354487142843,0.5794319602046918,0.0,0.0,0,0,83.2911498294524,85.92695754935279,
+1.0,voltage_perturbation,6,0.02,15,False,False,990.9158380076312,1.0917864473478214,0.5123544871430762,0.5794319602047453,0.0,0.0,0,0,83.29114982945741,85.92695754935146,
+1.0,voltage_perturbation,7,-0.02,16,False,False,990.9475784810954,1.0908212769381533,0.5140126099640246,0.5768086669741286,0.0,0.0,0,0,83.2905630197624,85.92834856348077,
+1.0,voltage_perturbation,7,0.02,17,False,False,990.8082823954617,1.097319481413352,0.506878821870289,0.5904406595430631,0.0,0.0,0,0,83.29360367504268,85.92100751306174,
+1.1,reference,-1,0.0,1,True,False,nan,inf,nan,nan,nan,nan,,,nan,nan,LoadflowNotConverged: Power Flow nr did not converge after 40 iterations!
+1.1,voltage_perturbation,0,-0.02,2,True,False,nan,inf,nan,nan,nan,nan,,,nan,nan,LoadflowNotConverged: Power Flow nr did not converge after 40 iterations!
+1.1,voltage_perturbation,0,0.02,3,True,False,nan,inf,nan,nan,nan,nan,,,nan,nan,LoadflowNotConverged: Power Flow nr did not converge after 40 iterations!
+1.1,voltage_perturbation,1,-0.02,4,True,False,nan,inf,nan,nan,nan,nan,,,nan,nan,LoadflowNotConverged: Power Flow nr did not converge after 40 iterations!
+1.1,voltage_perturbation,1,0.02,5,True,False,nan,inf,nan,nan,nan,nan,,,nan,nan,LoadflowNotConverged: Power Flow nr did not converge after 40 iterations!
+1.1,voltage_perturbation,2,-0.02,6,True,False,nan,inf,nan,nan,nan,nan,,,nan,nan,LoadflowNotConverged: Power Flow nr did not converge after 40 iterations!
+1.1,voltage_perturbation,2,0.02,7,True,False,nan,inf,nan,nan,nan,nan,,,nan,nan,LoadflowNotConverged: Power Flow nr did not converge after 40 iterations!
+1.1,voltage_perturbation,3,-0.02,8,True,False,nan,inf,nan,nan,nan,nan,,,nan,nan,LoadflowNotConverged: Power Flow nr did not converge after 40 iterations!
+1.1,voltage_perturbation,3,0.02,9,True,False,nan,inf,nan,nan,nan,nan,,,nan,nan,LoadflowNotConverged: Power Flow nr did not converge after 40 iterations!
+1.1,voltage_perturbation,4,-0.02,10,True,False,nan,inf,nan,nan,nan,nan,,,nan,nan,LoadflowNotConverged: Power Flow nr did not converge after 40 iterations!
+1.1,voltage_perturbation,4,0.02,11,True,False,nan,inf,nan,nan,nan,nan,,,nan,nan,LoadflowNotConverged: Power Flow nr did not converge after 40 iterations!
+1.1,voltage_perturbation,5,-0.02,12,True,False,nan,inf,nan,nan,nan,nan,,,nan,nan,LoadflowNotConverged: Power Flow nr did not converge after 40 iterations!
+1.1,voltage_perturbation,5,0.02,13,True,False,nan,inf,nan,nan,nan,nan,,,nan,nan,LoadflowNotConverged: Power Flow nr did not converge after 40 iterations!
+1.1,voltage_perturbation,6,-0.02,14,True,False,nan,inf,nan,nan,nan,nan,,,nan,nan,LoadflowNotConverged: Power Flow nr did not converge after 40 iterations!
+1.1,voltage_perturbation,6,0.02,15,True,False,nan,inf,nan,nan,nan,nan,,,nan,nan,LoadflowNotConverged: Power Flow nr did not converge after 40 iterations!
+1.1,voltage_perturbation,7,-0.02,16,True,False,nan,inf,nan,nan,nan,nan,,,nan,nan,LoadflowNotConverged: Power Flow nr did not converge after 40 iterations!
+1.1,voltage_perturbation,7,0.02,17,True,False,nan,inf,nan,nan,nan,nan,,,nan,nan,LoadflowNotConverged: Power Flow nr did not converge after 40 iterations!
