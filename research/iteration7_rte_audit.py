@@ -175,6 +175,19 @@ def audit(load):
     return rows,metadata
 
 
+def json_safe(value):
+    """Preserve missing/failed AC observations as JSON null, not Infinity."""
+    if isinstance(value, (float, np.floating)):
+        return float(value) if math.isfinite(value) else None
+    if isinstance(value, dict):
+        return {str(k): json_safe(v) for k,v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [json_safe(v) for v in value]
+    if isinstance(value, (np.integer,)):
+        return int(value)
+    return value
+
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("--loads",nargs="+",type=float,default=[1.,1.1])
@@ -196,14 +209,14 @@ def main():
         writer.writeheader()
         writer.writerows(allrows)
     with open(args.json,"w",encoding="utf-8") as f:
-        json.dump(metadata,f,indent=2,sort_keys=True,allow_nan=False)
+        json.dump(json_safe(metadata),f,indent=2,sort_keys=True,allow_nan=False)
     print("AUDIT",json.dumps({
         factor: {"ac_calls":info["actual_ac_calls"],
                  "reference_violation":info["reference_violation"],
                  "min_probe_violation":info["min_violation_17_probes"],
                  "baseline_top_offenders":info["reference_top_thermal_offenders"][:5],
                  "available_controls":info["counts"]}
-        for factor,info in metadata["loads"].items()},allow_nan=False),flush=True)
+        for factor,info in metadata["loads"].items()}),flush=True)
 
 
 if __name__=="__main__":
