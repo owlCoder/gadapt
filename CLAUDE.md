@@ -2,7 +2,9 @@
 
 ## Resume protocol (every new session, after crash/power loss)
 1. Read `research/PHD_PROGRESS.md` — the single source of truth for where work stopped. Continue from its "NEXT STEP".
-2. Update `research/PHD_PROGRESS.md` after every meaningful step and commit+push it immediately.
+2. Update `research/PHD_PROGRESS.md` after every meaningful step and commit it LOCALLY immediately (crash safety).
+   Push only in batches (end of a phase/session or when the user asks): every push to `main` triggers
+   `robustness-tests.yml` (no path filter) and burns CI minutes.
 3. Work directly on `main` of `owlCoder/gadapt` (clone: `~/Desktop/gadapt`); no feature branches, no PRs (user-authorized).
    Commit messages: no `Co-Authored-By` or other AI attribution.
 4. Python: `.venv/bin/python` (numpy, scipy, networkx, hypothesis, pytest). Tests: `.venv/bin/python -m pytest -q research/test_iteration41_*.py`.
