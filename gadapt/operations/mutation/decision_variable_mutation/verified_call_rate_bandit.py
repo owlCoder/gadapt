@@ -72,5 +72,5 @@ class VerifiedCallRateBandit:
                      certified_success_per_true_call=(
                          v["verified_successes"] / v["actual_calls"]
                          if v["actual_calls"] else None),
-                     optimistic_score=self.optimistic_score(i))
+                     optimistic_score=(self.optimistic_score(i) if v["trials"] else None))
                 for i, v in enumerate(self._arms)]
