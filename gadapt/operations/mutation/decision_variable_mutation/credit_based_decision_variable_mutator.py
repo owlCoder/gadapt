@@ -9,6 +9,10 @@ import random
 import sys
 from collections import deque
 
+from gadapt.operations.mutation.decision_variable_mutation.verified_call_rate_bandit import (
+    VerifiedCallRateBandit,
+)
+
 from gadapt.operations.mutation.decision_variable_mutation.composed_decision_variable_mutator import (
     ComposedDecisionVariableMutator,
 )
@@ -27,8 +31,10 @@ class CreditBasedDecisionVariableMutator(ComposedDecisionVariableMutator):
                  window=64, assignment="offspring", evaluation_counter=None,
                  scenario_count=None):
         super().__init__()
-        if policy not in ("uniform", "ucb"):
-            raise ValueError("policy must be 'uniform' or 'ucb'")
+        if policy not in ("uniform", "ucb", "ucb_true_call_rate"):
+            raise ValueError("policy must be uniform/ucb/ucb_true_call_rate")
+        if policy == "ucb_true_call_rate" and credit != "censored_verified_per_cost":
+            raise ValueError("true-call rate requires censored_verified_per_cost feedback")
         if credit not in ("objective", "feasibility", "scenario_feasibility", "censored_verified_per_cost"):
             raise ValueError("credit must be objective/feasibility/scenario_feasibility/censored_verified_per_cost")
         if credit in ("feasibility", "scenario_feasibility", "censored_verified_per_cost") and not callable(violation_function):
@@ -67,6 +73,9 @@ class CreditBasedDecisionVariableMutator(ComposedDecisionVariableMutator):
         self._censor_safe_verified_feedback = 0
         self._censor_safe_measured_failures = 0
         self._censor_safe_withheld_unknown = 0
+        self._last_censor_status = None
+        self._call_rate = (VerifiedCallRateBandit(scenario_count)
+                           if policy == "ucb_true_call_rate" else None)
 
     def append(self, mutator):
         super().append(mutator)
@@ -74,6 +83,8 @@ class CreditBasedDecisionVariableMutator(ComposedDecisionVariableMutator):
         self._observed.append(0)
         self._positive.append(0)
         self._history.append(deque(maxlen=self.window))
+        if self._call_rate is not None:
+            self._call_rate.add_operator()
 
     def begin_generation(self, population):
         # Reset temporary traces: a candidate rejected for lack of uniqueness
@@ -90,6 +101,8 @@ class CreditBasedDecisionVariableMutator(ComposedDecisionVariableMutator):
             raise ValueError("at least one operator is required")
         if self.policy == "uniform":
             selected = random.randrange(len(self.mutators))
+        elif self.policy == "ucb_true_call_rate":
+            selected = self._call_rate.choose()
         else:
             cold = [i for i, n in enumerate(self._counts) if n == 0]
             if cold:
@@ -196,6 +209,7 @@ class CreditBasedDecisionVariableMutator(ComposedDecisionVariableMutator):
         """
         if type(measured_calls) is not int or not 1 <= measured_calls <= self.scenario_count:
             raise ValueError("credit requires actual measured calls within scenario count")
+        self._last_censor_status = None
         feedback = self.violation_function(values, objective_score)
         if feedback is None:
             self._censor_safe_withheld_unknown += 1
@@ -217,6 +231,7 @@ class CreditBasedDecisionVariableMutator(ComposedDecisionVariableMutator):
                or not math.isfinite(float(v)) or v < 0 for v in values_seen):
             raise ValueError("censored feedback requires finite nonnegative measured violations")
         status = feedback["status"]
+        self._last_censor_status = status
         if status == "numerically_unknown":
             self._censor_safe_withheld_unknown += 1
             return None
@@ -237,6 +252,8 @@ class CreditBasedDecisionVariableMutator(ComposedDecisionVariableMutator):
                    if id(v) in self._traces]
         if not indices:
             return
+        if self._call_rate is not None and len(indices) != 1:
+            raise ValueError("true-call rate requires exactly one mutated operator per offspring")
         baseline = self._paired_baselines.pop(id(candidate), None)
         if self.credit in ("scenario_feasibility", "censored_verified_per_cost") and physically_evaluated is not True:
             self._unevaluated_traces += len(indices)
@@ -257,12 +274,24 @@ class CreditBasedDecisionVariableMutator(ComposedDecisionVariableMutator):
                                       / (1.0 + abs(reference))))
         if self.credit == "censored_verified_per_cost":
             if not getattr(candidate, "_succ", False):
+                # A paid but non-finite objective has UNKNOWN outcome. Its
+                # real physical calls must not disappear from throughput.
+                if self._call_rate is not None and physically_evaluated is True:
+                    self._call_rate.observe(
+                        indices[0], "numerically_unknown", measured_scenarios)
                 self._unevaluated_traces += len(indices)
                 return
             values = [v.value for v in sorted(
                 candidate, key=lambda v: v.decision_variable.variable_id)]
             reward = self._censored_verified_reward(
                 values, candidate.cost_value, measured_scenarios)
+            if self._call_rate is not None:
+                # Already validated by _censored_verified_reward; unknowns
+                # cost true calls, but never become certified successes.
+                self._call_rate.observe(
+                    indices[0], self._last_censor_status
+                    if reward is not None else "numerically_unknown",
+                    measured_scenarios)
             if reward is None:
                 self._unevaluated_traces += len(indices)
                 return
@@ -313,7 +342,7 @@ class CreditBasedDecisionVariableMutator(ComposedDecisionVariableMutator):
                 self._positive[i] += 1
 
     def summary(self):
-        return [
+        out = [
             dict(operator=type(m).__name__, selections=n, observations=o,
                  credit_assignment=self.assignment,
                  paired_physical_baselines=self.paired_evaluations,
@@ -329,3 +358,7 @@ class CreditBasedDecisionVariableMutator(ComposedDecisionVariableMutator):
             for m, n, o, r, h in zip(self.mutators, self._counts,
                                     self._observed, self._positive, self._history)
         ]
+        if self._call_rate is not None:
+            for item, paid in zip(out, self._call_rate.summary()):
+                item["verified_true_call_rate"] = paid
+        return out
