@@ -40,8 +40,12 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - Korisnik izabrao „C pa A“ (2026-10-23).
 - I48 GOTOVO → `research/ITERATION48_REPORT_SR.md`: DEFICIT_GADAPT (IPOP bolji 2/3), ali razlika samo 1,3–1,5×
   (naspram 10³–10⁵ na glatkom dispečingu). GAdapt bolji od DE 2/3.
-- A: nacrt `research/DIAGNOSTIC_STUDY_DRAFT_SR.md` popunjen (I42–I48). SLEDEĆE: pregled sa mentorom.
-  PhD originalna metoda i dalje NIJE utvrđena; studija je metodološki/empirijski doprinos.
+- A: nacrt `research/DIAGNOSTIC_STUDY_DRAFT_SR.md` popunjen (I42–I48); objavljen i kao Claude Docs dokument
+  „Dijagnostika GAdapt-a na infrastrukturnim problemima“ (https://claude.ai/artifact/1H1BBk1RUdJ7T6Gzc22CdM, privatan
+  dok ga korisnik ne podeli).
+- [U TOKU] H3 prior-art gate (literature-auditor agent): diversity-gated hand-off GAdapt → lokalni intenzifikator
+  (CMA-ES/(1+1)-ES) iniciran iz populacije. Izlaz → `research/H3_PRIOR_ART_AUDIT_SR.md`. Ako novost nije utvrđena → STOP
+  za PhD, eventualno samo opt-in praktična funkcija.
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
@@ -66,3 +70,4 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - 2026-10-23: I47: ispravka invarijantnosti ne poboljšava dispečing; dominantna slabost GAdapt-a je konvergencija (vs CMA-ES). Strateški gate.
 - 2026-10-23: Korisnik: C pa A. I48 pokrenut; nacrt dijagnostičke studije započet.
 - 2026-10-23: I48: DEFICIT_GADAPT (mala razlika na multimodalnom). Studija A popunjena. C pa A završeno.
+- 2026-10-23: Studija objavljena kao Docs dokument. Pokrenut H3 prior-art audit.
