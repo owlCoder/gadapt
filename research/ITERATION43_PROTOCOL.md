@@ -70,3 +70,10 @@ to se izveštava kao takvo.
 2.880.000 evaluacija jeftine numpy funkcije, multiprocessing lokalno, bez CI-a. Tvrdo ograničenje: 3 h ukupno.
 Izlaz: `research/results/iteration43/diagnostic.json` (po pokretanju sve kontrolne tačke, broj poziva, vreme, SHA-256
 izvora i ulaza, verzije paketa) + izveštaj `ITERATION43_REPORT_SR.md`, uključujući i negativan ishod.
+
+## Dodatak A1 (pre stvarnog pokretanja, 2026-10-22)
+Smoke test na **sintetičkom** grafu (slučajni 4-regularni, 30 čvorova; ne topohub) pokazao je da se GA-default sa
+podrazumevanim `exit_check` (avg_cost) zaustavlja posle 882 od 3000 poziva. To krši zahtev „isti izlaz po budžetu“ iz §3.
+Ispravka: GA-default koristi sve podrazumevane parametre, osim `exit_check="generations"`, `number_of_generations=10**6`
+i `timeout=3600` (isto kao GA-I39), pa je budžet jedino ograničenje. Nijedan rezultat na instancama iz §2 nije bio
+poznat u trenutku ove izmene.
