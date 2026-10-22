@@ -1,4 +1,5 @@
 name: I38 Frozen Joint SNDlib Capacity Plan — MILP versus GAdapt
+# Preregistered one-time original source data/solver PR trigger I38; no method/seed/constraint tuning
 
 on:
   push:
