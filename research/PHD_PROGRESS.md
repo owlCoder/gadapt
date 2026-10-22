@@ -30,9 +30,11 @@
 Odgovori korisnika 2026-10-22: cilj = PhD doprinos (prioritet) + praktično bolji GAdapt; domen ako je deficit generički =
 kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrzanja GAdapt-a dozvoljena (bit-identično).
 - I43–I45 GOTOVO. I45: deficit je SPECIFIČAN ZA GADAPT (udžbenički GA bolji 5/6; EA bolji od GAdapt-a 6/6).
-- SLEDEĆE: I46 preregistrovana ablacija komponenti GAdapt-a (selekcija, ukrštanje, mutacija populacije, elitizam) vs
-  udžbenički GA na binarnom izboru ruta → lokalizovati uzrok; zatim proveriti da li ista komponenta šteti i na
-  kontinualnim benchmark-ovima (domen za PhD).
+- I46 [U TOKU, pozadina]: protokol `research/ITERATION46_PROTOCOL.md` (`dcb54a1`), kod `907a124`.
+  Komanda: `.venv/bin/python -m research.iteration46_component_ablation` → `research/results/iteration46/ablation.json`.
+  Ako imenuje uzrok → preregistrovana potvrda (§6): `... -m research.iteration46_component_ablation confirm <ARM>`.
+  Ako pukne: ponovo isti kod (rezultat nije viđen).
+- Zatim: da li ista komponenta šteti i na kontinualnim benchmark-ovima (domen za PhD).
 - Push: serijski, poslednji komit sa `[skip ci]` kad serija dira `gadapt/` (inače bi se okinuo i34 workflow od 120 min).
 
 ### Nalazi o biblioteci GAdapt (korisnik: „sređuj“ → ispravljeno kao opt-in u `64b9c82`, default bit-identičan)
