@@ -1,0 +1,99 @@
+name: I40 Sealed Temporal Conformal Network Planning
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'research/ITERATION40_PROTOCOL.md'
+      - 'research/iteration40_temporal_calibrated_plan.py'
+      - 'research/test_iteration40_temporal_calibrated_plan.py'
+      - '.github/workflows/research-iteration40-temporal-calibration.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/research-iteration40-temporal-calibration.yml'
+
+permissions:
+  contents: read
+
+env:
+  OPENBLAS_NUM_THREADS: '1'
+  OMP_NUM_THREADS: '1'
+  MKL_NUM_THREADS: '1'
+  NUMEXPR_NUM_THREADS: '1'
+  PYTHONHASHSEED: '0'
+
+jobs:
+  zero-source-optimization-theorem-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'networkx==3.4.2'
+          python -m pip install -e .
+      - name: Check synthetic-only theorem, no holdout leakage and source module math
+        run: |
+          python -m py_compile research/iteration40_temporal_calibrated_plan.py
+          python -m unittest -v research.test_iteration40_temporal_calibrated_plan
+          python -m unittest -v research.test_iteration39_source_modular_capacity
+
+  verified-original-source-gate-no-milp:
+    needs: zero-source-optimization-theorem-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'networkx==3.4.2'
+          python -m pip install -e .
+      - name: Official source 288 timestamps and exact original 26 x 40 source module menu only
+        run: |
+          python - <<'PY'
+          import json
+          from research.iteration38_joint_capacity_experiment import source_data_gate
+          from research.iteration39_source_modular_capacity import verify_exact_source_module_equivalence,NETWORK_SHA,ARCHIVE_SHA
+          nodes,links,pairs,q,meta=source_data_gate()
+          if meta['source_network']['sha256']!=NETWORK_SHA or meta['source_matrices']['sha256']!=ARCHIVE_SHA or q.shape!=(288,272):
+              raise RuntimeError('Frozen source or 288x272 source matrix drift')
+          price=verify_exact_source_module_equivalence(links)
+          if len(price)!=26:raise RuntimeError('Native source menu drift')
+          print('I40_DATA_GATE',json.dumps(dict(nodes=len(nodes),links=len(links),source_pairs=len(pairs),
+            frames=len(q),module_menus=len(price),network_sha=NETWORK_SHA,traffic_sha=ARCHIVE_SHA),sort_keys=True),flush=True)
+          PY
+
+  one-predeclared-source-calibration-experiment:
+    # Never run on main pushes: one frozen CI-only PR trigger.
+    if: github.event_name == 'pull_request'
+    needs: verified-original-source-gate-no-milp
+    runs-on: ubuntu-latest
+    timeout-minutes: 85
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'networkx==3.4.2'
+          python -m pip install -e .
+      - name: One sealed chronological 128 FIT, 64 CAL, 96 untouched HOLDOUT original-source experiment
+        run: |
+          mkdir -p research/results
+          python -m research.iteration40_temporal_calibrated_plan \
+            --json research/results/iteration40_source_temporal_calibration_128_64_96.json \
+            --manifest research/results/iteration40_original_source_manifest.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: i40-leak-free-temporal-calibration-original-network
+          path: |
+            research/results/iteration40_source_temporal_calibration_128_64_96.json
+            research/results/iteration40_original_source_manifest.json
+          if-no-files-found: error
+          retention-days: 90
