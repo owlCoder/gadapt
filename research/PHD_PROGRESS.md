@@ -38,10 +38,10 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - I47 GOTOVO → `research/ITERATION47_REPORT_SR.md`: A1 NIJE PODRŽANO (1/4), `linear` tačno invarijantna, B1 OPOVRGNUTO
   (0/5). CMA-ES 3–5 redova veličine bolji od GAdapt-a na stvarnom AC dispečingu pri istom budžetu.
 - Korisnik izabrao „C pa A“ (2026-10-23).
-- I48 [U TOKU, pozadina]: protokol `research/ITERATION48_PROTOCOL.md` (`d61d796`), kod `646e881`, podaci
-  `research/data/pedroso_valve_2013/` (sertifikovani optimumi). `.venv/bin/python -m research.iteration48_valve_dispatch`.
-  Ako pukne: isti kod ponovo. Napomena: smoke test u testovima (eld13@1800, seme 1, B=3000, bez ispisa).
-- A: nacrt `research/DIAGNOSTIC_STUDY_DRAFT_SR.md` (popuniti §6 posle I48).
+- I48 GOTOVO → `research/ITERATION48_REPORT_SR.md`: DEFICIT_GADAPT (IPOP bolji 2/3), ali razlika samo 1,3–1,5×
+  (naspram 10³–10⁵ na glatkom dispečingu). GAdapt bolji od DE 2/3.
+- A: nacrt `research/DIAGNOSTIC_STUDY_DRAFT_SR.md` popunjen (I42–I48). SLEDEĆE: pregled sa mentorom.
+  PhD originalna metoda i dalje NIJE utvrđena; studija je metodološki/empirijski doprinos.
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
@@ -65,3 +65,4 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - 2026-10-23: I46 bez uzročne komponente. Otkrivena neinvarijantnost kolonske raznovrsnosti; opt-in `linear`. I47 pokrenut.
 - 2026-10-23: I47: ispravka invarijantnosti ne poboljšava dispečing; dominantna slabost GAdapt-a je konvergencija (vs CMA-ES). Strateški gate.
 - 2026-10-23: Korisnik: C pa A. I48 pokrenut; nacrt dijagnostičke studije započet.
+- 2026-10-23: I48: DEFICIT_GADAPT (mala razlika na multimodalnom). Studija A popunjena. C pa A završeno.

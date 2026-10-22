@@ -18,13 +18,14 @@ Rezultati:
   izgledaju kao rezultat pretrage. Mera kolonske raznovrsnosti nije invarijantna na jedinice promenljivih.
 - **Doprinos je metodološki i empirijski:** protokol jednakog budžeta sa udžbeničkim kontrolama i računovodstvom
   skrivenih evaluacija, kao i opt-in ispravke biblioteke, uz podrazumevano ponašanje bit-identično.
-- *[I48: multimodalni valve-point dispečing sa sertifikovanim optimumima — u toku.]*
+- **Multimodalni valve-point dispečing sa sertifikovanim optimumima (I48):** razlika prema IPOP-CMA-ES se smanjuje na
+  faktor 1,3–1,5, ali IPOP ostaje značajno bolji na 2/3 instance. GAdapt je bolji od SciPy DE na 2/3.
 
 ## 1. Uvod i pitanja
 - **P1.** Da li je GAdapt konkurentan jakim kontrolama pri jednakom broju stvarnih evaluacija?
 - **P2.** Ako nije, koja komponenta ili svojstvo to uzrokuje?
 - **P3.** Da li postoje artefakti merenja koji su ranije izveštavani kao rezultat pretrage?
-- **P4.** Da li GAdapt-ova raznovrsnost donosi prednost na multimodalnim problemima? *(I48)*
+- **P4.** Da li GAdapt-ova raznovrsnost donosi prednost na multimodalnim problemima? *(I48: ne, ali razlika je mala)*
 
 ## 2. Metodologija (zajednička)
 - **Preregistracija:** protokol, instance, semena, budžet i kriterijumi odluke komitovani su pre koda.
@@ -59,7 +60,18 @@ Rezultati:
 3. **Neinvarijantna mera raznovrsnosti** (`columnar_diversity_metric="linear"`).
 
 ## 6. Multimodalni dispečing (I48)
-*[Popuniti iz `ITERATION48_REPORT_SR.md`.]*
+Stvarni javni sistemi sa sertifikovanim globalnim optimumima (Pedroso, Kubo, Viana): eld13@1800, eld13@2520 i
+eld40@10500; B = 50.000; 25 semena ([izveštaj](ITERATION48_REPORT_SR.md)).
+
+| Instanca | GAdapt | IPOP-CMA-ES | SciPy DE |
+|---|---|---|---|
+| eld13 @ 1800 | 7,3e-3 | **5,5e-3** | 1,9e-2 |
+| eld13 @ 2520 | 4,2e-3 | 6,5e-3 | **5,0e-5** |
+| eld40 @ 10500 | 6,1e-3 | **4,0e-3** | 3,7e-2 |
+
+Vrednosti su medijane relativnog jaza. Ishod je DEFICIT_GADAPT (2/3). Odnos jaza prema IPOP-CMA-ES pada sa 10³–10⁵
+(glatki dispečing, I47) na 1,3–1,5 (multimodalni dispečing). Raznovrsnost pomaže upravo tamo gde je pejzaž
+multimodalan, ali ne nadoknađuje nedostatak intenzifikacije.
 
 ## 7. Diskusija
 - Zašto raznovrsnost bez intenzifikacije gubi na skoro linearnim i glatkim pejzažima (Droste, Jansen, Wegener 2002;

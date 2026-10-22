@@ -1,0 +1,4846 @@
+{
+ "protocol": "research/ITERATION48_PROTOCOL.md",
+ "protocol_commit": "d61d796",
+ "library_commit": "cc2f357",
+ "source_sha256": {
+  "iteration48_valve_dispatch.py": "38bfa9c45c2b018f40b4cb53047d8140d5dba12399135d1559cc4cc4c8546b46"
+ },
+ "data_sha256": "43ddc745aa5a984496e8762259af963cfeee02f510413000ffebbf648cb89feb",
+ "environment": {
+  "python": "3.14.3",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "cma": "4.5.0"
+ },
+ "runs": [
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5000,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18213.489780749605,
+    "20000": 18093.794815262765,
+    "50000": 18051.86516298747
+   },
+   "best_feasible": 18051.86516298747,
+   "seconds": 4.65
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5001,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18284.961004716144,
+    "20000": 18239.33001778511,
+    "50000": 18154.71799691649
+   },
+   "best_feasible": 18154.71799691649,
+   "seconds": 4.38
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5002,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18252.73398370502,
+    "20000": 18149.747083278962,
+    "50000": 18133.872047056917
+   },
+   "best_feasible": 18133.872047056917,
+   "seconds": 4.75
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5003,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18278.55965751482,
+    "20000": 18148.0021396505,
+    "50000": 18113.92327057809
+   },
+   "best_feasible": 18113.92327057809,
+   "seconds": 4.6
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5004,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18254.17389819297,
+    "20000": 18178.305799154445,
+    "50000": 18176.686892549653
+   },
+   "best_feasible": 18176.686892549653,
+   "seconds": 4.24
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5005,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18235.35212989154,
+    "20000": 18139.32643851422,
+    "50000": 18083.19841643119
+   },
+   "best_feasible": 18083.19841643119,
+   "seconds": 4.41
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5006,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18215.58238297494,
+    "20000": 18099.94390367945,
+    "50000": 18098.40745093258
+   },
+   "best_feasible": 18098.40745093258,
+   "seconds": 4.38
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5007,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18330.644818575474,
+    "20000": 18150.186546673176,
+    "50000": 18054.594786106485
+   },
+   "best_feasible": 18054.594786106485,
+   "seconds": 4.46
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5008,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18318.854498719884,
+    "20000": 18088.00797471328,
+    "50000": 18038.641233463404
+   },
+   "best_feasible": 18038.641233463404,
+   "seconds": 4.56
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5009,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18236.37830370562,
+    "20000": 18119.971610763692,
+    "50000": 18084.989684915417
+   },
+   "best_feasible": 18084.989684915417,
+   "seconds": 4.48
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5010,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18187.795026921427,
+    "20000": 18107.677349128815,
+    "50000": 18103.481756674784
+   },
+   "best_feasible": 18103.481756674784,
+   "seconds": 4.58
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5011,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18178.87856386407,
+    "20000": 18138.50226840778,
+    "50000": 18136.381690007605
+   },
+   "best_feasible": 18136.381690007605,
+   "seconds": 4.48
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5012,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18235.19682716128,
+    "20000": 18081.150357902465,
+    "50000": 18039.067490920534
+   },
+   "best_feasible": 18039.067490920534,
+   "seconds": 4.68
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5013,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18315.20662015233,
+    "20000": 18260.13252023493,
+    "50000": 18153.08640603478
+   },
+   "best_feasible": 18153.08640603478,
+   "seconds": 4.56
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5014,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18337.020090785234,
+    "20000": 18229.741678185408,
+    "50000": 18088.82683824361
+   },
+   "best_feasible": 18088.82683824361,
+   "seconds": 4.44
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5015,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18081.716973031336,
+    "20000": 18017.74273015182,
+    "50000": 18016.587937475757
+   },
+   "best_feasible": 18016.587937475757,
+   "seconds": 4.65
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5016,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18350.610470342122,
+    "20000": 18156.666880591965,
+    "50000": 18144.20085974176
+   },
+   "best_feasible": 18144.20085974176,
+   "seconds": 4.41
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5017,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18107.935040217464,
+    "20000": 18068.798163359916,
+    "50000": 18046.096237465106
+   },
+   "best_feasible": 18046.096237465106,
+   "seconds": 4.59
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5018,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18180.952896896088,
+    "20000": 18102.290418086573,
+    "50000": 18094.581502490055
+   },
+   "best_feasible": 18094.581502490055,
+   "seconds": 4.61
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5019,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18295.813098335446,
+    "20000": 18257.582158999478,
+    "50000": 18155.92824173651
+   },
+   "best_feasible": 18155.92824173651,
+   "seconds": 4.28
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5020,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18426.163757167473,
+    "20000": 18299.23422060748,
+    "50000": 18181.44486032379
+   },
+   "best_feasible": 18181.44486032379,
+   "seconds": 4.4
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5021,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18174.20949070355,
+    "20000": 18100.53117637427,
+    "50000": 18070.754216795365
+   },
+   "best_feasible": 18070.754216795365,
+   "seconds": 4.49
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5022,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18255.45673329015,
+    "20000": 18135.17868264683,
+    "50000": 18092.378566913816
+   },
+   "best_feasible": 18092.378566913816,
+   "seconds": 4.42
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5023,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18228.386489228713,
+    "20000": 18174.81351469831,
+    "50000": 18170.499142222016
+   },
+   "best_feasible": 18170.499142222016,
+   "seconds": 4.46
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_default",
+   "seed": 5024,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18207.472311831407,
+    "20000": 18089.171611420254,
+    "50000": 18088.794918469415
+   },
+   "best_feasible": 18088.794918469415,
+   "seconds": 4.49
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5000,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18139.34578178607,
+    "20000": 18129.110528388173,
+    "50000": 18123.760920148365
+   },
+   "best_feasible": 18123.760920148365,
+   "seconds": 4.69
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5001,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18330.086060572696,
+    "20000": 18177.743590353813,
+    "50000": 18138.8631083786
+   },
+   "best_feasible": 18138.8631083786,
+   "seconds": 4.76
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5002,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18194.112883628433,
+    "20000": 18146.13217961571,
+    "50000": 18072.49275791581
+   },
+   "best_feasible": 18072.49275791581,
+   "seconds": 4.81
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5003,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18403.70599485932,
+    "20000": 18137.304687516695,
+    "50000": 18110.85186813768
+   },
+   "best_feasible": 18110.85186813768,
+   "seconds": 4.68
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5004,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18304.053013999986,
+    "20000": 18213.003195957997,
+    "50000": 18175.025489487365
+   },
+   "best_feasible": 18175.025489487365,
+   "seconds": 4.65
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5005,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18320.87523553137,
+    "20000": 18284.476480224403,
+    "50000": 18220.10695137857
+   },
+   "best_feasible": 18220.10695137857,
+   "seconds": 4.72
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5006,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18295.311548363105,
+    "20000": 18263.689563465585,
+    "50000": 18179.41092096219
+   },
+   "best_feasible": 18179.41092096219,
+   "seconds": 4.63
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5007,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18433.099967623166,
+    "20000": 18305.62081173988,
+    "50000": 18193.620617064702
+   },
+   "best_feasible": 18193.620617064702,
+   "seconds": 4.56
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5008,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18356.00751008508,
+    "20000": 18296.20375712334,
+    "50000": 18164.346987310288
+   },
+   "best_feasible": 18164.346987310288,
+   "seconds": 4.66
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5009,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18235.41757194605,
+    "20000": 18118.99173000573,
+    "50000": 18094.940594369615
+   },
+   "best_feasible": 18094.940594369615,
+   "seconds": 4.67
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5010,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18280.67086137746,
+    "20000": 18259.309385038414,
+    "50000": 18214.681539906887
+   },
+   "best_feasible": 18214.681539906887,
+   "seconds": 4.72
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5011,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18272.85834547018,
+    "20000": 18170.358554602473,
+    "50000": 18109.684024531834
+   },
+   "best_feasible": 18109.684024531834,
+   "seconds": 4.72
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5012,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18207.654804482307,
+    "20000": 18177.101511719637,
+    "50000": 18118.99468692494
+   },
+   "best_feasible": 18118.99468692494,
+   "seconds": 4.8
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5013,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18281.20826984195,
+    "20000": 18230.46776552976,
+    "50000": 18200.345411373142
+   },
+   "best_feasible": 18200.345411373142,
+   "seconds": 4.67
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5014,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18151.572924967313,
+    "20000": 18139.476094355083,
+    "50000": 18121.889661450063
+   },
+   "best_feasible": 18121.889661450063,
+   "seconds": 4.69
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5015,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18203.816822975594,
+    "20000": 18150.248734749875,
+    "50000": 18122.604169730268
+   },
+   "best_feasible": 18122.604169730268,
+   "seconds": 4.91
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5016,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18245.611268263034,
+    "20000": 18233.595960420458,
+    "50000": 18130.10716704767
+   },
+   "best_feasible": 18130.10716704767,
+   "seconds": 4.91
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5017,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18292.547952225777,
+    "20000": 18263.523726019783,
+    "50000": 18108.401377355072
+   },
+   "best_feasible": 18108.401377355072,
+   "seconds": 4.98
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5018,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18379.035259479166,
+    "20000": 18187.390301569216,
+    "50000": 18171.972398710768
+   },
+   "best_feasible": 18171.972398710768,
+   "seconds": 4.52
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5019,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18319.159987279047,
+    "20000": 18254.709183548293,
+    "50000": 18217.55609642099
+   },
+   "best_feasible": 18217.55609642099,
+   "seconds": 4.67
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5020,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18224.85396864572,
+    "20000": 18210.29526214694,
+    "50000": 18188.545782331286
+   },
+   "best_feasible": 18188.545782331286,
+   "seconds": 4.92
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5021,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18438.11486351361,
+    "20000": 18182.67257052644,
+    "50000": 18160.193741582043
+   },
+   "best_feasible": 18160.193741582043,
+   "seconds": 4.61
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5022,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18389.534231165482,
+    "20000": 18243.847824645098,
+    "50000": 18202.5168220045
+   },
+   "best_feasible": 18202.5168220045,
+   "seconds": 4.98
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5023,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18321.20678428318,
+    "20000": 18247.290297569125,
+    "50000": 18106.11559198646
+   },
+   "best_feasible": 18106.11559198646,
+   "seconds": 4.98
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "gadapt_documented",
+   "seed": 5024,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 18229.80849736684,
+    "20000": 18222.77004873647,
+    "50000": 18120.271055923356
+   },
+   "best_feasible": 18120.271055923356,
+   "seconds": 4.89
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5000,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 2,
+   "best_at": {
+    "5000": 18123.188672537482,
+    "20000": 18122.44961626331,
+    "50000": 18054.071011636966
+   },
+   "best_feasible": 18054.071011636966,
+   "seconds": 3.3
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5001,
+   "calls": 50000,
+   "over_budget_requests": 6,
+   "restarts": 1,
+   "best_at": {
+    "5000": 18039.188454845476,
+    "20000": 18038.299342755377,
+    "50000": 18038.299006273264
+   },
+   "best_feasible": 18038.299006273264,
+   "seconds": 3.32
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5002,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 2,
+   "best_at": {
+    "5000": 18039.649290617104,
+    "20000": 18039.529407219277,
+    "50000": 18008.059371011295
+   },
+   "best_feasible": 18008.059371011295,
+   "seconds": 3.37
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5003,
+   "calls": 50000,
+   "over_budget_requests": 28,
+   "restarts": 3,
+   "best_at": {
+    "5000": 18056.783773854386,
+    "20000": 18056.75110948793,
+    "50000": 18037.61853824188
+   },
+   "best_feasible": 18037.61853824188,
+   "seconds": 2.91
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5004,
+   "calls": 50000,
+   "over_budget_requests": 39,
+   "restarts": 3,
+   "best_at": {
+    "5000": 18069.763485419233,
+    "20000": 18069.67827677759,
+    "50000": 18069.67827677759
+   },
+   "best_feasible": 18069.67827677759,
+   "seconds": 3.03
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5005,
+   "calls": 50000,
+   "over_budget_requests": 28,
+   "restarts": 3,
+   "best_at": {
+    "5000": 18158.947302890057,
+    "20000": 18158.70170954995,
+    "50000": 18083.62046880637
+   },
+   "best_feasible": 18083.62046880637,
+   "seconds": 3.11
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5006,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 3,
+   "best_at": {
+    "5000": 18144.982816231335,
+    "20000": 18084.170770555855,
+    "50000": 17991.457110011965
+   },
+   "best_feasible": 17991.457110011965,
+   "seconds": 2.69
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5007,
+   "calls": 50000,
+   "over_budget_requests": 6,
+   "restarts": 2,
+   "best_at": {
+    "5000": 18070.33941854912,
+    "20000": 17981.47926072143,
+    "50000": 17981.32332199853
+   },
+   "best_feasible": 17981.32332199853,
+   "seconds": 3.1
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5008,
+   "calls": 50000,
+   "over_budget_requests": 6,
+   "restarts": 2,
+   "best_at": {
+    "5000": 18132.953415569373,
+    "20000": 18130.088517542168,
+    "50000": 18130.087670382753
+   },
+   "best_feasible": 18130.087670382753,
+   "seconds": 3.51
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5009,
+   "calls": 50000,
+   "over_budget_requests": 6,
+   "restarts": 3,
+   "best_at": {
+    "5000": 18157.703530161816,
+    "20000": 18156.975103204182,
+    "50000": 18082.747336106673
+   },
+   "best_feasible": 18082.747336106673,
+   "seconds": 3.07
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5010,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 3,
+   "best_at": {
+    "5000": 18134.256834565298,
+    "20000": 18126.915840732898,
+    "50000": 18126.915840732898
+   },
+   "best_feasible": 18126.915840732898,
+   "seconds": 2.59
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5011,
+   "calls": 50000,
+   "over_budget_requests": 39,
+   "restarts": 3,
+   "best_at": {
+    "5000": 18105.815685038866,
+    "20000": 18105.56201337182,
+    "50000": 18105.56201337107
+   },
+   "best_feasible": 18105.56201337107,
+   "seconds": 3.15
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5012,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 3,
+   "best_at": {
+    "5000": 18079.134673348595,
+    "20000": 18078.727820691216,
+    "50000": 18076.319593249686
+   },
+   "best_feasible": 18076.319593249686,
+   "seconds": 3.28
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5013,
+   "calls": 50000,
+   "over_budget_requests": 6,
+   "restarts": 1,
+   "best_at": {
+    "5000": 18355.192980497133,
+    "20000": 18134.61166286939,
+    "50000": 18134.61066327678
+   },
+   "best_feasible": 18134.61066327678,
+   "seconds": 3.47
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5014,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 2,
+   "best_at": {
+    "5000": 18308.01993918211,
+    "20000": 18307.9513256397,
+    "50000": 17991.45702533711
+   },
+   "best_feasible": 17991.45702533711,
+   "seconds": 3.03
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5015,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 2,
+   "best_at": {
+    "5000": 18113.766322602158,
+    "20000": 18039.912470398573,
+    "50000": 18039.52934625814
+   },
+   "best_feasible": 18039.52934625814,
+   "seconds": 3.02
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5016,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 3,
+   "best_at": {
+    "5000": 17996.058967318462,
+    "20000": 17996.056480179403,
+    "50000": 17996.056480179403
+   },
+   "best_feasible": 17996.056480179403,
+   "seconds": 2.96
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5017,
+   "calls": 50000,
+   "over_budget_requests": 6,
+   "restarts": 2,
+   "best_at": {
+    "5000": 18062.408846618535,
+    "20000": 18061.988362736512,
+    "50000": 18061.98798192011
+   },
+   "best_feasible": 18061.98798192011,
+   "seconds": 3.58
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5018,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 2,
+   "best_at": {
+    "5000": 18001.446847673677,
+    "20000": 18001.17411186213,
+    "50000": 18001.173949461612
+   },
+   "best_feasible": 18001.173949461612,
+   "seconds": 3.01
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5019,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 3,
+   "best_at": {
+    "5000": 18211.384095361675,
+    "20000": 18211.328539622282,
+    "50000": 18062.742652005447
+   },
+   "best_feasible": 18062.742652005447,
+   "seconds": 2.68
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5020,
+   "calls": 50000,
+   "over_budget_requests": 28,
+   "restarts": 3,
+   "best_at": {
+    "5000": 18127.487659971302,
+    "20000": 18127.305366785597,
+    "50000": 18059.476621766724
+   },
+   "best_feasible": 18059.476621766724,
+   "seconds": 3.2
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5021,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 3,
+   "best_at": {
+    "5000": 18175.041697049404,
+    "20000": 18169.61842947515,
+    "50000": 18069.678276777588
+   },
+   "best_feasible": 18069.678276777588,
+   "seconds": 2.93
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5022,
+   "calls": 50000,
+   "over_budget_requests": 6,
+   "restarts": 3,
+   "best_at": {
+    "5000": 18128.59227504545,
+    "20000": 18128.583043272905,
+    "50000": 18048.28606721121
+   },
+   "best_feasible": 18048.28606721121,
+   "seconds": 3.18
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5023,
+   "calls": 50000,
+   "over_budget_requests": 6,
+   "restarts": 2,
+   "best_at": {
+    "5000": 18096.777513980604,
+    "20000": 18096.01266896357,
+    "50000": 18096.012668578598
+   },
+   "best_feasible": 18096.012668578598,
+   "seconds": 3.15
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "ipop_cma_es",
+   "seed": 5024,
+   "calls": 50000,
+   "over_budget_requests": 6,
+   "restarts": 3,
+   "best_at": {
+    "5000": 18262.69777247061,
+    "20000": 18096.954975487904,
+    "50000": 18062.355407516898
+   },
+   "best_feasible": 18062.355407516898,
+   "seconds": 3.01
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5000,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18544.78206146073,
+    "20000": 18452.288480748044,
+    "50000": 18348.407935894535
+   },
+   "best_feasible": 18348.407935894535,
+   "seconds": 1.43
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5001,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18450.628797219073,
+    "20000": 18434.258978502006,
+    "50000": 18095.06991075416
+   },
+   "best_feasible": 18095.06991075416,
+   "seconds": 1.46
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5002,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18569.6463629489,
+    "20000": 18401.10035390162,
+    "50000": 18259.817833566103
+   },
+   "best_feasible": 18259.817833566103,
+   "seconds": 1.34
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5003,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18605.23286557188,
+    "20000": 18467.031486182026,
+    "50000": 18288.53160884774
+   },
+   "best_feasible": 18288.53160884774,
+   "seconds": 1.34
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5004,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18534.79229879444,
+    "20000": 18498.115636352202,
+    "50000": 18367.125327473324
+   },
+   "best_feasible": 18367.125327473324,
+   "seconds": 1.3
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5005,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18555.34792904954,
+    "20000": 18407.29111576826,
+    "50000": 18223.001509365098
+   },
+   "best_feasible": 18223.001509365098,
+   "seconds": 1.32
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5006,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18609.307142794823,
+    "20000": 18437.283066429525,
+    "50000": 18323.55750782788
+   },
+   "best_feasible": 18323.55750782788,
+   "seconds": 1.33
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5007,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18673.097871639668,
+    "20000": 18379.821492682342,
+    "50000": 18325.100199981745
+   },
+   "best_feasible": 18325.100199981745,
+   "seconds": 1.35
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5008,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18580.670328054366,
+    "20000": 18420.37133375059,
+    "50000": 18390.739426225617
+   },
+   "best_feasible": 18390.739426225617,
+   "seconds": 1.31
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5009,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18513.334531869907,
+    "20000": 18355.47740216657,
+    "50000": 18224.538763656805
+   },
+   "best_feasible": 18224.538763656805,
+   "seconds": 1.31
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5010,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18517.53715355983,
+    "20000": 18501.334363684033,
+    "50000": 18353.926085821357
+   },
+   "best_feasible": 18353.926085821357,
+   "seconds": 1.3
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5011,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18564.658228934724,
+    "20000": 18400.15722305482,
+    "50000": 18245.371223862792
+   },
+   "best_feasible": 18245.371223862792,
+   "seconds": 1.35
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5012,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18613.977516267496,
+    "20000": 18422.6611227969,
+    "50000": 18266.830294358097
+   },
+   "best_feasible": 18266.830294358097,
+   "seconds": 1.29
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5013,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18557.097267435693,
+    "20000": 18410.301767905727,
+    "50000": 18209.02616015049
+   },
+   "best_feasible": 18209.02616015049,
+   "seconds": 1.35
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5014,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18571.434389326605,
+    "20000": 18453.14878371045,
+    "50000": 18293.556327015795
+   },
+   "best_feasible": 18293.556327015795,
+   "seconds": 1.29
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5015,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18605.085612688952,
+    "20000": 18489.828890131776,
+    "50000": 18296.39809267583
+   },
+   "best_feasible": 18296.39809267583,
+   "seconds": 1.32
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5016,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18650.148774875262,
+    "20000": 18450.530098544834,
+    "50000": 18312.032803036498
+   },
+   "best_feasible": 18312.032803036498,
+   "seconds": 1.31
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5017,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18498.22182364601,
+    "20000": 18471.418337217758,
+    "50000": 18275.38472624111
+   },
+   "best_feasible": 18275.38472624111,
+   "seconds": 1.25
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5018,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18593.00391131145,
+    "20000": 18417.311608015953,
+    "50000": 18291.33021080388
+   },
+   "best_feasible": 18291.33021080388,
+   "seconds": 1.27
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5019,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18483.94813536887,
+    "20000": 18457.24118339873,
+    "50000": 18301.03841745132
+   },
+   "best_feasible": 18301.03841745132,
+   "seconds": 1.24
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5020,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18631.853458332665,
+    "20000": 18447.71095828017,
+    "50000": 18418.30983135389
+   },
+   "best_feasible": 18418.30983135389,
+   "seconds": 1.16
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5021,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18650.101065690902,
+    "20000": 18474.881206746588,
+    "50000": 18355.64488995739
+   },
+   "best_feasible": 18355.64488995739,
+   "seconds": 1.07
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5022,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18577.13881279903,
+    "20000": 18475.352563889217,
+    "50000": 18402.85056007483
+   },
+   "best_feasible": 18402.85056007483,
+   "seconds": 1.06
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5023,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18560.33120685239,
+    "20000": 18443.358592507215,
+    "50000": 18367.971252541643
+   },
+   "best_feasible": 18367.971252541643,
+   "seconds": 0.99
+  },
+  {
+   "instance": "eld13@1800",
+   "method": "scipy_de",
+   "seed": 5024,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 18615.42611691944,
+    "20000": 18448.653546968784,
+    "50000": 18328.879539501137
+   },
+   "best_feasible": 18328.879539501137,
+   "seconds": 1.0
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5000,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24520.650798816914,
+    "20000": 24340.663575833554,
+    "50000": 24270.665236215715
+   },
+   "best_feasible": 24270.665236215715,
+   "seconds": 4.49
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5001,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24330.883385740824,
+    "20000": 24276.636098210383,
+    "50000": 24223.423624304218
+   },
+   "best_feasible": 24223.423624304218,
+   "seconds": 4.68
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5002,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24531.30701504352,
+    "20000": 24403.641276096565,
+    "50000": 24311.844646243382
+   },
+   "best_feasible": 24311.844646243382,
+   "seconds": 4.63
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5003,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24438.874617429712,
+    "20000": 24357.351791276622,
+    "50000": 24247.18208074638
+   },
+   "best_feasible": 24247.18208074638,
+   "seconds": 4.9
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5004,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24443.925398814405,
+    "20000": 24379.02445717598,
+    "50000": 24369.09010316216
+   },
+   "best_feasible": 24369.09010316216,
+   "seconds": 4.69
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5005,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24496.725624298288,
+    "20000": 24371.236613173503,
+    "50000": 24272.270737232237
+   },
+   "best_feasible": 24272.270737232237,
+   "seconds": 4.71
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5006,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24701.093900396543,
+    "20000": 24492.930532484188,
+    "50000": 24346.711985983122
+   },
+   "best_feasible": 24346.711985983122,
+   "seconds": 4.82
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5007,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24463.282030404265,
+    "20000": 24318.572434359274,
+    "50000": 24179.18065850986
+   },
+   "best_feasible": 24179.18065850986,
+   "seconds": 5.1
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5008,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24613.559313341266,
+    "20000": 24331.297275965466,
+    "50000": 24294.451017166728
+   },
+   "best_feasible": 24294.451017166728,
+   "seconds": 4.32
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5009,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24677.925169673534,
+    "20000": 24561.055366390807,
+    "50000": 24529.1472221414
+   },
+   "best_feasible": 24529.1472221414,
+   "seconds": 5.21
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5010,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24365.725256466994,
+    "20000": 24261.163119625267,
+    "50000": 24222.092111175436
+   },
+   "best_feasible": 24222.092111175436,
+   "seconds": 4.52
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5011,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24576.009938192026,
+    "20000": 24485.276511664193,
+    "50000": 24197.155507778112
+   },
+   "best_feasible": 24197.155507778112,
+   "seconds": 4.69
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5012,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24606.923591468265,
+    "20000": 24467.764090618108,
+    "50000": 24341.520543122344
+   },
+   "best_feasible": 24341.520543122344,
+   "seconds": 4.64
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5013,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24435.947900458752,
+    "20000": 24377.131727023247,
+    "50000": 24310.74316415382
+   },
+   "best_feasible": 24310.74316415382,
+   "seconds": 4.59
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5014,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24698.79775779972,
+    "20000": 24450.230319687682,
+    "50000": 24254.065283490047
+   },
+   "best_feasible": 24254.065283490047,
+   "seconds": 4.63
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5015,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24432.48482954449,
+    "20000": 24379.029429073595,
+    "50000": 24370.46642846152
+   },
+   "best_feasible": 24370.46642846152,
+   "seconds": 4.6
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5016,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24591.04044309815,
+    "20000": 24378.99796099959,
+    "50000": 24348.5156610708
+   },
+   "best_feasible": 24348.5156610708,
+   "seconds": 4.54
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5017,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24552.84045146316,
+    "20000": 24253.91683046622,
+    "50000": 24220.131968794223
+   },
+   "best_feasible": 24220.131968794223,
+   "seconds": 4.76
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5018,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24674.614527736227,
+    "20000": 24568.939938963395,
+    "50000": 24525.403916572835
+   },
+   "best_feasible": 24525.403916572835,
+   "seconds": 4.5
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5019,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24409.99999315354,
+    "20000": 24354.43744382508,
+    "50000": 24304.004416461634
+   },
+   "best_feasible": 24304.004416461634,
+   "seconds": 4.55
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5020,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24767.33408318884,
+    "20000": 24323.93955027905,
+    "50000": 24232.373611026323
+   },
+   "best_feasible": 24232.373611026323,
+   "seconds": 4.6
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5021,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24704.39116763902,
+    "20000": 24399.360180984768,
+    "50000": 24246.53048481205
+   },
+   "best_feasible": 24246.53048481205,
+   "seconds": 4.84
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5022,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24634.7760083815,
+    "20000": 24563.753801506577,
+    "50000": 24221.459347310105
+   },
+   "best_feasible": 24221.459347310105,
+   "seconds": 4.82
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5023,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24574.550732057298,
+    "20000": 24454.4352383933,
+    "50000": 24309.041262566676
+   },
+   "best_feasible": 24309.041262566676,
+   "seconds": 4.5
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_default",
+   "seed": 5024,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24459.35642113713,
+    "20000": 24304.125082868555,
+    "50000": 24230.876317379767
+   },
+   "best_feasible": 24230.876317379767,
+   "seconds": 4.66
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5000,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24556.50440192284,
+    "20000": 24496.450066431767,
+    "50000": 24421.21963589359
+   },
+   "best_feasible": 24421.21963589359,
+   "seconds": 4.74
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5001,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24602.247013649936,
+    "20000": 24424.479223125578,
+    "50000": 24302.912716423154
+   },
+   "best_feasible": 24302.912716423154,
+   "seconds": 4.71
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5002,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24563.72071957594,
+    "20000": 24445.460342038004,
+    "50000": 24403.426393862697
+   },
+   "best_feasible": 24403.426393862697,
+   "seconds": 4.87
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5003,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24666.876835183244,
+    "20000": 24649.1750486459,
+    "50000": 24388.166255310472
+   },
+   "best_feasible": 24388.166255310472,
+   "seconds": 4.64
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5004,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24549.933561017853,
+    "20000": 24421.6361997461,
+    "50000": 24409.096779580108
+   },
+   "best_feasible": 24409.096779580108,
+   "seconds": 4.79
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5005,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24331.242999521677,
+    "20000": 24311.96905552788,
+    "50000": 24292.529842307253
+   },
+   "best_feasible": 24292.529842307253,
+   "seconds": 4.73
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5006,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24507.550611328457,
+    "20000": 24490.380501029405,
+    "50000": 24384.431392866387
+   },
+   "best_feasible": 24384.431392866387,
+   "seconds": 4.8
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5007,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24527.394430341246,
+    "20000": 24365.41642507857,
+    "50000": 24363.181172667166
+   },
+   "best_feasible": 24363.181172667166,
+   "seconds": 4.65
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5008,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24609.121418852366,
+    "20000": 24558.677905704204,
+    "50000": 24527.213977508523
+   },
+   "best_feasible": 24527.213977508523,
+   "seconds": 4.82
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5009,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24662.794196368097,
+    "20000": 24582.00715120522,
+    "50000": 24560.545848375154
+   },
+   "best_feasible": 24560.545848375154,
+   "seconds": 4.76
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5010,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24564.743655761788,
+    "20000": 24321.300573343597,
+    "50000": 24291.485191726457
+   },
+   "best_feasible": 24291.485191726457,
+   "seconds": 4.81
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5011,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24671.53570504332,
+    "20000": 24366.04878380382,
+    "50000": 24345.944413708246
+   },
+   "best_feasible": 24345.944413708246,
+   "seconds": 4.57
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5012,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24591.45863623786,
+    "20000": 24530.60722463649,
+    "50000": 24530.31130706103
+   },
+   "best_feasible": 24530.31130706103,
+   "seconds": 4.66
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5013,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24505.61776993402,
+    "20000": 24406.495736962854,
+    "50000": 24380.577192734516
+   },
+   "best_feasible": 24380.577192734516,
+   "seconds": 4.61
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5014,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24468.77203283393,
+    "20000": 24359.89387720018,
+    "50000": 24339.04566359124
+   },
+   "best_feasible": 24339.04566359124,
+   "seconds": 4.85
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5015,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24664.60371155811,
+    "20000": 24509.20194283059,
+    "50000": 24291.101465886484
+   },
+   "best_feasible": 24291.101465886484,
+   "seconds": 4.69
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5016,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24755.728124856912,
+    "20000": 24577.881019803204,
+    "50000": 24385.951858372795
+   },
+   "best_feasible": 24385.951858372795,
+   "seconds": 4.69
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5017,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24647.453267475863,
+    "20000": 24513.23460110718,
+    "50000": 24374.19482933192
+   },
+   "best_feasible": 24374.19482933192,
+   "seconds": 4.58
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5018,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24540.460097248866,
+    "20000": 24514.8481530308,
+    "50000": 24389.153413866505
+   },
+   "best_feasible": 24389.153413866505,
+   "seconds": 4.64
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5019,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24546.966661227383,
+    "20000": 24533.8691413749,
+    "50000": 24482.877287556446
+   },
+   "best_feasible": 24482.877287556446,
+   "seconds": 4.73
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5020,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24541.43549123495,
+    "20000": 24509.32794151493,
+    "50000": 24385.77789696621
+   },
+   "best_feasible": 24385.77789696621,
+   "seconds": 4.6
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5021,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24568.444520796405,
+    "20000": 24374.27832668351,
+    "50000": 24355.380106250024
+   },
+   "best_feasible": 24355.380106250024,
+   "seconds": 4.72
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5022,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24583.055809649166,
+    "20000": 24495.25573691563,
+    "50000": 24240.076233452433
+   },
+   "best_feasible": 24240.076233452433,
+   "seconds": 4.62
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5023,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24579.4794231321,
+    "20000": 24447.891044901276,
+    "50000": 24361.057485109377
+   },
+   "best_feasible": 24361.057485109377,
+   "seconds": 4.68
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "gadapt_documented",
+   "seed": 5024,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 24812.006009236302,
+    "20000": 24481.34485311565,
+    "50000": 24378.516548157713
+   },
+   "best_feasible": 24378.516548157713,
+   "seconds": 4.82
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5000,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 3,
+   "best_at": {
+    "5000": 24317.741528382543,
+    "20000": 24172.91314374971,
+    "50000": 24169.917696806046
+   },
+   "best_feasible": 24169.917696806046,
+   "seconds": 2.81
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5001,
+   "calls": 50000,
+   "over_budget_requests": 28,
+   "restarts": 3,
+   "best_at": {
+    "5000": 24426.28346658457,
+    "20000": 24426.14595213818,
+    "50000": 24312.577255036063
+   },
+   "best_feasible": 24312.577255036063,
+   "seconds": 3.33
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5002,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 2,
+   "best_at": {
+    "5000": 24316.26794079885,
+    "20000": 24316.265560368545,
+    "50000": 24316.265560368545
+   },
+   "best_feasible": 24316.265560368545,
+   "seconds": 3.03
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5003,
+   "calls": 50000,
+   "over_budget_requests": 28,
+   "restarts": 3,
+   "best_at": {
+    "5000": 24316.265575346995,
+    "20000": 24309.39078257313,
+    "50000": 24174.076199121875
+   },
+   "best_feasible": 24174.076199121875,
+   "seconds": 2.66
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5004,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 3,
+   "best_at": {
+    "5000": 24388.883503221823,
+    "20000": 24387.69602000773,
+    "50000": 24330.027917005984
+   },
+   "best_feasible": 24330.027917005984,
+   "seconds": 2.95
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5005,
+   "calls": 50000,
+   "over_budget_requests": 6,
+   "restarts": 2,
+   "best_at": {
+    "5000": 24539.018669170353,
+    "20000": 24538.806767775397,
+    "50000": 24350.07458295597
+   },
+   "best_feasible": 24350.07458295597,
+   "seconds": 3.18
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5006,
+   "calls": 50000,
+   "over_budget_requests": 28,
+   "restarts": 3,
+   "best_at": {
+    "5000": 24331.97889534301,
+    "20000": 24331.223276479774,
+    "50000": 24328.0368035427
+   },
+   "best_feasible": 24328.0368035427,
+   "seconds": 3.12
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5007,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 3,
+   "best_at": {
+    "5000": 24460.298009471644,
+    "20000": 24454.502821038754,
+    "50000": 24277.29786878266
+   },
+   "best_feasible": 24277.29786878266,
+   "seconds": 3.17
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5008,
+   "calls": 50000,
+   "over_budget_requests": 6,
+   "restarts": 2,
+   "best_at": {
+    "5000": 24336.232331070787,
+    "20000": 24335.17109123263,
+    "50000": 24335.17109091964
+   },
+   "best_feasible": 24335.17109091964,
+   "seconds": 3.34
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5009,
+   "calls": 50000,
+   "over_budget_requests": 6,
+   "restarts": 2,
+   "best_at": {
+    "5000": 24280.131393726875,
+    "20000": 24279.95300376487,
+    "50000": 24279.952942882162
+   },
+   "best_feasible": 24279.952942882162,
+   "seconds": 3.62
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5010,
+   "calls": 50000,
+   "over_budget_requests": 28,
+   "restarts": 3,
+   "best_at": {
+    "5000": 24326.06879268382,
+    "20000": 24325.782454531673,
+    "50000": 24277.29786878147
+   },
+   "best_feasible": 24277.29786878147,
+   "seconds": 3.17
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5011,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 2,
+   "best_at": {
+    "5000": 24330.764807211297,
+    "20000": 24330.713497088524,
+    "50000": 24330.713480244347
+   },
+   "best_feasible": 24330.713480244347,
+   "seconds": 3.45
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5012,
+   "calls": 50000,
+   "over_budget_requests": 39,
+   "restarts": 3,
+   "best_at": {
+    "5000": 24506.93808996508,
+    "20000": 24506.711148006307,
+    "50000": 24179.42784508645
+   },
+   "best_feasible": 24179.42784508645,
+   "seconds": 3.29
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5013,
+   "calls": 50000,
+   "over_budget_requests": 6,
+   "restarts": 1,
+   "best_at": {
+    "5000": 24347.05121312156,
+    "20000": 24347.03510395975,
+    "50000": 24346.940219586693
+   },
+   "best_feasible": 24346.940219586693,
+   "seconds": 3.7
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5014,
+   "calls": 50000,
+   "over_budget_requests": 6,
+   "restarts": 3,
+   "best_at": {
+    "5000": 24335.940847065198,
+    "20000": 24330.02792443174,
+    "50000": 24330.027917005984
+   },
+   "best_feasible": 24330.027917005984,
+   "seconds": 3.04
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5015,
+   "calls": 50000,
+   "over_budget_requests": 6,
+   "restarts": 3,
+   "best_at": {
+    "5000": 24328.34724116507,
+    "20000": 24328.036803549912,
+    "50000": 24328.03680354983
+   },
+   "best_feasible": 24328.03680354983,
+   "seconds": 3.25
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5016,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 3,
+   "best_at": {
+    "5000": 24363.56168802617,
+    "20000": 24362.713448956994,
+    "50000": 24317.33570213003
+   },
+   "best_feasible": 24317.33570213003,
+   "seconds": 2.82
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5017,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 3,
+   "best_at": {
+    "5000": 24330.33589131561,
+    "20000": 24328.18918050622,
+    "50000": 24317.335731097337
+   },
+   "best_feasible": 24317.335731097337,
+   "seconds": 2.97
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5018,
+   "calls": 50000,
+   "over_budget_requests": 28,
+   "restarts": 3,
+   "best_at": {
+    "5000": 24428.258208371622,
+    "20000": 24426.791647457598,
+    "50000": 24332.795250636667
+   },
+   "best_feasible": 24332.795250636667,
+   "seconds": 3.37
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5019,
+   "calls": 50000,
+   "over_budget_requests": 28,
+   "restarts": 3,
+   "best_at": {
+    "5000": 24472.9389495579,
+    "20000": 24472.587724286583,
+    "50000": 24317.33570213006
+   },
+   "best_feasible": 24317.33570213006,
+   "seconds": 2.83
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5020,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 2,
+   "best_at": {
+    "5000": 24403.46576568638,
+    "20000": 24403.221351172262,
+    "50000": 24403.22066397842
+   },
+   "best_feasible": 24403.22066397842,
+   "seconds": 3.44
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5021,
+   "calls": 50000,
+   "over_budget_requests": 6,
+   "restarts": 2,
+   "best_at": {
+    "5000": 24279.41655036715,
+    "20000": 24277.297868797024,
+    "50000": 24277.297868797024
+   },
+   "best_feasible": 24277.297868797024,
+   "seconds": 3.12
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5022,
+   "calls": 50000,
+   "over_budget_requests": 6,
+   "restarts": 3,
+   "best_at": {
+    "5000": 24333.457786056148,
+    "20000": 24332.38480551939,
+    "50000": 24331.361257120265
+   },
+   "best_feasible": 24331.361257120265,
+   "seconds": 3.1
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5023,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 2,
+   "best_at": {
+    "5000": 24423.913432752008,
+    "20000": 24423.652434982152,
+    "50000": 24333.89995903896
+   },
+   "best_feasible": 24333.89995903896,
+   "seconds": 3.33
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "ipop_cma_es",
+   "seed": 5024,
+   "calls": 50000,
+   "over_budget_requests": 17,
+   "restarts": 2,
+   "best_at": {
+    "5000": 24594.551761222785,
+    "20000": 24584.026568511897,
+    "50000": 24353.958023838808
+   },
+   "best_feasible": 24353.958023838808,
+   "seconds": 2.96
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5000,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24689.030491262834,
+    "20000": 24219.434404365566,
+    "50000": 24216.693751117255
+   },
+   "best_feasible": 24216.693751117255,
+   "seconds": 1.35
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5001,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24750.95564504176,
+    "20000": 24325.52762163161,
+    "50000": 24170.79820537197
+   },
+   "best_feasible": 24170.79820537197,
+   "seconds": 1.3
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5002,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24682.4958869606,
+    "20000": 24220.679039198803,
+    "50000": 24216.620493739894
+   },
+   "best_feasible": 24216.620493739894,
+   "seconds": 1.3
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5003,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24723.87722057272,
+    "20000": 24172.33986235165,
+    "50000": 24170.75381228856
+   },
+   "best_feasible": 24170.75381228856,
+   "seconds": 1.26
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5004,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24687.219489995656,
+    "20000": 24173.587893307693,
+    "50000": 24170.287985774765
+   },
+   "best_feasible": 24170.287985774765,
+   "seconds": 1.26
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5005,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24493.76982412308,
+    "20000": 24221.29289430131,
+    "50000": 24216.587013284785
+   },
+   "best_feasible": 24216.587013284785,
+   "seconds": 1.33
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5006,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24559.748224537674,
+    "20000": 24172.382838356574,
+    "50000": 24170.407264017736
+   },
+   "best_feasible": 24170.407264017736,
+   "seconds": 1.32
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5007,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24853.934370785166,
+    "20000": 24356.474336266598,
+    "50000": 24316.296293508225
+   },
+   "best_feasible": 24316.296293508225,
+   "seconds": 1.29
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5008,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24693.872903285417,
+    "20000": 24178.11614526482,
+    "50000": 24174.5474823817
+   },
+   "best_feasible": 24174.5474823817,
+   "seconds": 1.3
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5009,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24503.524665027046,
+    "20000": 24180.741964748246,
+    "50000": 24177.90483390236
+   },
+   "best_feasible": 24177.90483390236,
+   "seconds": 1.32
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5010,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24630.676341409242,
+    "20000": 24172.19686926663,
+    "50000": 24170.09161815521
+   },
+   "best_feasible": 24170.09161815521,
+   "seconds": 1.31
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5011,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24637.58244683293,
+    "20000": 24218.567445862685,
+    "50000": 24216.416733617487
+   },
+   "best_feasible": 24216.416733617487,
+   "seconds": 1.25
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5012,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24773.667060987405,
+    "20000": 24247.935837728444,
+    "50000": 24171.13642854994
+   },
+   "best_feasible": 24171.13642854994,
+   "seconds": 1.31
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5013,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24698.409649858728,
+    "20000": 24220.541933933517,
+    "50000": 24216.59114152352
+   },
+   "best_feasible": 24216.59114152352,
+   "seconds": 1.21
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5014,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24748.551074825376,
+    "20000": 24173.488659435952,
+    "50000": 24170.86530449925
+   },
+   "best_feasible": 24170.86530449925,
+   "seconds": 1.14
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5015,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24603.042544707023,
+    "20000": 24219.29335721257,
+    "50000": 24216.637084716935
+   },
+   "best_feasible": 24216.637084716935,
+   "seconds": 1.3
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5016,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24667.8953364716,
+    "20000": 24173.550467273915,
+    "50000": 24170.314075738122
+   },
+   "best_feasible": 24170.314075738122,
+   "seconds": 1.29
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5017,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24634.20308201982,
+    "20000": 24223.087974160026,
+    "50000": 24216.61521052188
+   },
+   "best_feasible": 24216.61521052188,
+   "seconds": 1.32
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5018,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24727.124920888356,
+    "20000": 24177.16339699481,
+    "50000": 24170.597990940605
+   },
+   "best_feasible": 24170.597990940605,
+   "seconds": 1.31
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5019,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24449.067451221257,
+    "20000": 24172.760658548694,
+    "50000": 24170.760735284486
+   },
+   "best_feasible": 24170.760735284486,
+   "seconds": 1.34
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5020,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24467.635635962175,
+    "20000": 24171.506424297797,
+    "50000": 24170.039934766326
+   },
+   "best_feasible": 24170.039934766326,
+   "seconds": 1.33
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5021,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24734.785469343642,
+    "20000": 24172.390710278483,
+    "50000": 24170.491809074945
+   },
+   "best_feasible": 24170.491809074945,
+   "seconds": 1.29
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5022,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24633.53282773533,
+    "20000": 24220.5854760808,
+    "50000": 24216.840207474208
+   },
+   "best_feasible": 24216.840207474208,
+   "seconds": 1.31
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5023,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24756.00928495538,
+    "20000": 24240.471005313906,
+    "50000": 24170.816704223962
+   },
+   "best_feasible": 24170.816704223962,
+   "seconds": 1.44
+  },
+  {
+   "instance": "eld13@2520",
+   "method": "scipy_de",
+   "seed": 5024,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 24722.071808164423,
+    "20000": 24347.415131195303,
+    "50000": 24320.358602719207
+   },
+   "best_feasible": 24320.358602719207,
+   "seconds": 1.37
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5000,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123660.87550695018,
+    "20000": 122478.90674277178,
+    "50000": 121976.59745090935
+   },
+   "best_feasible": 121976.59745090935,
+   "seconds": 11.02
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5001,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123375.07963326524,
+    "20000": 122135.85536125569,
+    "50000": 121974.4547801453
+   },
+   "best_feasible": 121974.4547801453,
+   "seconds": 10.76
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5002,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123434.3781833933,
+    "20000": 122382.2712128433,
+    "50000": 122165.63357683911
+   },
+   "best_feasible": 122165.63357683911,
+   "seconds": 10.5
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5003,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123555.69846233599,
+    "20000": 122241.74556909742,
+    "50000": 121966.3372651255
+   },
+   "best_feasible": 121966.3372651255,
+   "seconds": 11.37
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5004,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 124780.6001682326,
+    "20000": 122412.98498204672,
+    "50000": 122147.10946791663
+   },
+   "best_feasible": 122147.10946791663,
+   "seconds": 10.98
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5005,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123351.2981967619,
+    "20000": 122366.48417145708,
+    "50000": 122205.8436986627
+   },
+   "best_feasible": 122205.8436986627,
+   "seconds": 11.29
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5006,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123519.96999850706,
+    "20000": 122346.03998999982,
+    "50000": 122107.37860922531
+   },
+   "best_feasible": 122107.37860922531,
+   "seconds": 11.2
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5007,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123654.34642839267,
+    "20000": 122361.20507375746,
+    "50000": 121975.43363710423
+   },
+   "best_feasible": 121975.43363710423,
+   "seconds": 11.14
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5008,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 124031.65885151357,
+    "20000": 122625.40845890336,
+    "50000": 122167.31041403844
+   },
+   "best_feasible": 122167.31041403844,
+   "seconds": 11.2
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5009,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123109.76930838292,
+    "20000": 122139.08057279923,
+    "50000": 121979.07462093141
+   },
+   "best_feasible": 121979.07462093141,
+   "seconds": 10.88
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5010,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123179.79763522121,
+    "20000": 122176.62327962765,
+    "50000": 122011.70329907049
+   },
+   "best_feasible": 122011.70329907049,
+   "seconds": 11.12
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5011,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 124060.20407516176,
+    "20000": 122499.01043103673,
+    "50000": 122254.2606294628
+   },
+   "best_feasible": 122254.2606294628,
+   "seconds": 11.16
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5012,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 124043.29789315988,
+    "20000": 122295.29554710162,
+    "50000": 122088.22377204688
+   },
+   "best_feasible": 122088.22377204688,
+   "seconds": 11.27
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5013,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123475.23979678962,
+    "20000": 122289.0445799982,
+    "50000": 122116.01989362342
+   },
+   "best_feasible": 122116.01989362342,
+   "seconds": 10.92
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5014,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 124065.32056630906,
+    "20000": 122536.55518701219,
+    "50000": 122269.18488264688
+   },
+   "best_feasible": 122269.18488264688,
+   "seconds": 11.01
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5015,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123414.65383766823,
+    "20000": 122511.36249066584,
+    "50000": 122274.59496446406
+   },
+   "best_feasible": 122274.59496446406,
+   "seconds": 11.31
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5016,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 124900.25660621788,
+    "20000": 122365.90450240814,
+    "50000": 122130.81714825724
+   },
+   "best_feasible": 122130.81714825724,
+   "seconds": 10.98
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5017,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123627.10462543831,
+    "20000": 122664.28433027465,
+    "50000": 122170.67263588402
+   },
+   "best_feasible": 122170.67263588402,
+   "seconds": 10.92
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5018,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123933.43637171554,
+    "20000": 122385.2645293054,
+    "50000": 121994.93604432786
+   },
+   "best_feasible": 121994.93604432786,
+   "seconds": 10.58
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5019,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123901.7109027349,
+    "20000": 122482.43662166363,
+    "50000": 122223.40808307577
+   },
+   "best_feasible": 122223.40808307577,
+   "seconds": 10.93
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5020,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123458.3041771666,
+    "20000": 122471.48985386555,
+    "50000": 121830.54385477955
+   },
+   "best_feasible": 121830.54385477955,
+   "seconds": 10.75
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5021,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123885.65349208022,
+    "20000": 122659.11726469391,
+    "50000": 122178.40133898292
+   },
+   "best_feasible": 122178.40133898292,
+   "seconds": 10.92
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5022,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123765.49295634552,
+    "20000": 122593.93752392281,
+    "50000": 122233.64731097178
+   },
+   "best_feasible": 122233.64731097178,
+   "seconds": 10.82
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5023,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 124240.94115280265,
+    "20000": 122396.15314742964,
+    "50000": 122188.82040017776
+   },
+   "best_feasible": 122188.82040017776,
+   "seconds": 10.8
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_default",
+   "seed": 5024,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123480.34950598955,
+    "20000": 122704.94776619034,
+    "50000": 122467.01133857787
+   },
+   "best_feasible": 122467.01133857787,
+   "seconds": 10.81
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5000,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123211.91744196182,
+    "20000": 122487.96370412767,
+    "50000": 122320.10761046149
+   },
+   "best_feasible": 122320.10761046149,
+   "seconds": 11.45
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5001,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 124228.11381391203,
+    "20000": 122709.05900603179,
+    "50000": 122442.55368070054
+   },
+   "best_feasible": 122442.55368070054,
+   "seconds": 11.55
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5002,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 124326.52322940942,
+    "20000": 122571.05209580802,
+    "50000": 122462.04921911209
+   },
+   "best_feasible": 122462.04921911209,
+   "seconds": 11.55
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5003,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123521.08951262268,
+    "20000": 122418.56529314995,
+    "50000": 122191.10520854307
+   },
+   "best_feasible": 122191.10520854307,
+   "seconds": 11.7
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5004,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123943.04232280671,
+    "20000": 122395.65197506134,
+    "50000": 122219.21635748306
+   },
+   "best_feasible": 122219.21635748306,
+   "seconds": 11.74
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5005,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123131.07342671361,
+    "20000": 122353.87251936764,
+    "50000": 122178.77371469536
+   },
+   "best_feasible": 122178.77371469536,
+   "seconds": 11.2
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5006,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 124262.98043804031,
+    "20000": 122506.6837488949,
+    "50000": 122207.4269126858
+   },
+   "best_feasible": 122207.4269126858,
+   "seconds": 11.52
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5007,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123564.3339576468,
+    "20000": 122536.59273304493,
+    "50000": 122232.41707608567
+   },
+   "best_feasible": 122232.41707608567,
+   "seconds": 11.96
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5008,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123688.62224034464,
+    "20000": 122899.1729226004,
+    "50000": 122443.60943896732
+   },
+   "best_feasible": 122443.60943896732,
+   "seconds": 10.99
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5009,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 124354.37569011343,
+    "20000": 123139.50688904044,
+    "50000": 122360.23464439121
+   },
+   "best_feasible": 122360.23464439121,
+   "seconds": 11.34
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5010,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 124134.04263606801,
+    "20000": 122711.02548171575,
+    "50000": 122485.77522454862
+   },
+   "best_feasible": 122485.77522454862,
+   "seconds": 11.87
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5011,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123734.23531848053,
+    "20000": 122352.02230624598,
+    "50000": 122157.75789181996
+   },
+   "best_feasible": 122157.75789181996,
+   "seconds": 12.0
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5012,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123877.31200297258,
+    "20000": 123018.96695179382,
+    "50000": 122304.57453851064
+   },
+   "best_feasible": 122304.57453851064,
+   "seconds": 11.69
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5013,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123247.2033638036,
+    "20000": 122890.91966431314,
+    "50000": 122318.99643728073
+   },
+   "best_feasible": 122318.99643728073,
+   "seconds": 11.71
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5014,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123439.36725343732,
+    "20000": 122573.5586914769,
+    "50000": 122291.40063902113
+   },
+   "best_feasible": 122291.40063902113,
+   "seconds": 11.7
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5015,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123370.89245662934,
+    "20000": 122774.46704324993,
+    "50000": 122476.77831203685
+   },
+   "best_feasible": 122476.77831203685,
+   "seconds": 11.63
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5016,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 124408.06980024702,
+    "20000": 122800.7608485461,
+    "50000": 122376.63741702058
+   },
+   "best_feasible": 122376.63741702058,
+   "seconds": 11.17
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5017,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123613.54270856,
+    "20000": 122618.51378352958,
+    "50000": 122103.01317409282
+   },
+   "best_feasible": 122103.01317409282,
+   "seconds": 11.76
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5018,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 124677.19091041053,
+    "20000": 122625.05338890501,
+    "50000": 122270.84678655426
+   },
+   "best_feasible": 122270.84678655426,
+   "seconds": 11.57
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5019,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123554.16635304928,
+    "20000": 122555.75390572779,
+    "50000": 122157.68776970822
+   },
+   "best_feasible": 122157.68776970822,
+   "seconds": 11.5
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5020,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 124034.21777411178,
+    "20000": 122552.15120455687,
+    "50000": 122144.16964938666
+   },
+   "best_feasible": 122144.16964938666,
+   "seconds": 11.49
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5021,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123709.43695330275,
+    "20000": 122893.23282982458,
+    "50000": 122512.09434594773
+   },
+   "best_feasible": 122512.09434594773,
+   "seconds": 10.99
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5022,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 124537.28498644225,
+    "20000": 123221.81061884339,
+    "50000": 122476.4692098831
+   },
+   "best_feasible": 122476.4692098831,
+   "seconds": 11.46
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5023,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 124024.93939172798,
+    "20000": 122716.88841383491,
+    "50000": 122292.27004247498
+   },
+   "best_feasible": 122292.27004247498,
+   "seconds": 11.44
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "gadapt_documented",
+   "seed": 5024,
+   "calls": 50000,
+   "over_budget_requests": 0,
+   "restarts": null,
+   "best_at": {
+    "5000": 123616.38287059027,
+    "20000": 122742.20084682897,
+    "50000": 122628.18688326357
+   },
+   "best_feasible": 122628.18688326357,
+   "seconds": 11.41
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5000,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122028.23186670727,
+    "20000": 121841.72772952484,
+    "50000": 121834.8034563949
+   },
+   "best_feasible": 121834.8034563949,
+   "seconds": 4.84
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5001,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122668.58257623916,
+    "20000": 122304.96315730445,
+    "50000": 122285.11757120918
+   },
+   "best_feasible": 122285.11757120918,
+   "seconds": 4.49
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5002,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122282.9879128864,
+    "20000": 122156.7706555677,
+    "50000": 122149.96373406342
+   },
+   "best_feasible": 122149.96373406342,
+   "seconds": 4.48
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5003,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122532.62889831612,
+    "20000": 122286.35143350984,
+    "50000": 122260.1458234173
+   },
+   "best_feasible": 122260.1458234173,
+   "seconds": 4.97
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5004,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122627.98428404365,
+    "20000": 122258.19010038632,
+    "50000": 121891.77606340335
+   },
+   "best_feasible": 121891.77606340335,
+   "seconds": 4.49
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5005,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122394.06547617969,
+    "20000": 121917.79063025257,
+    "50000": 121903.553257285
+   },
+   "best_feasible": 121903.553257285,
+   "seconds": 4.77
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5006,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122000.79481408343,
+    "20000": 121676.90604879675,
+    "50000": 121577.3190383726
+   },
+   "best_feasible": 121577.3190383726,
+   "seconds": 4.95
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5007,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 121944.46078415762,
+    "20000": 121787.90965610689,
+    "50000": 121533.15185211546
+   },
+   "best_feasible": 121533.15185211546,
+   "seconds": 5.05
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5008,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 121775.31157399139,
+    "20000": 121592.92656240084,
+    "50000": 121569.97648590684
+   },
+   "best_feasible": 121569.97648590684,
+   "seconds": 4.83
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5009,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122149.79459024382,
+    "20000": 121769.99219526426,
+    "50000": 121752.15822557756
+   },
+   "best_feasible": 121752.15822557756,
+   "seconds": 4.85
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5010,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122335.30456060795,
+    "20000": 122177.64058475582,
+    "50000": 122048.34733107712
+   },
+   "best_feasible": 122048.34733107712,
+   "seconds": 4.46
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5011,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122512.39014661076,
+    "20000": 122099.46087656505,
+    "50000": 121696.91823949914
+   },
+   "best_feasible": 121696.91823949914,
+   "seconds": 4.49
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5012,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122755.61332579728,
+    "20000": 121878.53010424014,
+    "50000": 121843.74091937646
+   },
+   "best_feasible": 121843.74091937646,
+   "seconds": 4.41
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5013,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122483.0393650025,
+    "20000": 122127.75656698713,
+    "50000": 122093.78769392827
+   },
+   "best_feasible": 122093.78769392827,
+   "seconds": 4.21
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5014,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122122.37327915103,
+    "20000": 122036.04332643021,
+    "50000": 122008.41822972876
+   },
+   "best_feasible": 122008.41822972876,
+   "seconds": 4.4
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5015,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122415.97144965973,
+    "20000": 122330.72878871963,
+    "50000": 122327.839045563
+   },
+   "best_feasible": 122327.839045563,
+   "seconds": 4.34
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5016,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122473.43499826174,
+    "20000": 122395.34759237169,
+    "50000": 122388.91248407532
+   },
+   "best_feasible": 122388.91248407532,
+   "seconds": 4.39
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5017,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122072.95152226841,
+    "20000": 121700.9861997724,
+    "50000": 121693.32424338971
+   },
+   "best_feasible": 121693.32424338971,
+   "seconds": 4.5
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5018,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 121805.57141699025,
+    "20000": 121619.28833761453,
+    "50000": 121595.15914541914
+   },
+   "best_feasible": 121595.15914541914,
+   "seconds": 4.44
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5019,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122447.4313303639,
+    "20000": 122328.58344744224,
+    "50000": 122265.74014978379
+   },
+   "best_feasible": 122265.74014978379,
+   "seconds": 4.55
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5020,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122193.39674111086,
+    "20000": 122083.7662136953,
+    "50000": 121990.46604133556
+   },
+   "best_feasible": 121990.46604133556,
+   "seconds": 4.35
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5021,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122808.10803718302,
+    "20000": 122521.5653224745,
+    "50000": 122487.3803340644
+   },
+   "best_feasible": 122487.3803340644,
+   "seconds": 4.47
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5022,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122317.59374998578,
+    "20000": 122162.61121060367,
+    "50000": 122093.09700289476
+   },
+   "best_feasible": 122093.09700289476,
+   "seconds": 4.46
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5023,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122127.98496453938,
+    "20000": 121705.974029628,
+    "50000": 121693.96218732314
+   },
+   "best_feasible": 121693.96218732314,
+   "seconds": 4.43
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "ipop_cma_es",
+   "seed": 5024,
+   "calls": 50000,
+   "over_budget_requests": 8,
+   "restarts": 1,
+   "best_at": {
+    "5000": 122102.39253077123,
+    "20000": 121737.6903065881,
+    "50000": 121576.02678604072
+   },
+   "best_feasible": 121576.02678604072,
+   "seconds": 4.25
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5000,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 134160.8238262905,
+    "20000": 129834.00946531513,
+    "50000": 126462.35040448265
+   },
+   "best_feasible": 126462.35040448265,
+   "seconds": 1.62
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5001,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 133238.83349863096,
+    "20000": 128339.27147723577,
+    "50000": 125844.02945854948
+   },
+   "best_feasible": 125844.02945854948,
+   "seconds": 1.65
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5002,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 132398.01923651394,
+    "20000": 129144.26080570929,
+    "50000": 126847.07862391941
+   },
+   "best_feasible": 126847.07862391941,
+   "seconds": 1.61
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5003,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 132298.8909281883,
+    "20000": 127944.44523928365,
+    "50000": 125240.80466189055
+   },
+   "best_feasible": 125240.80466189055,
+   "seconds": 1.64
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5004,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 135068.3647945732,
+    "20000": 127782.01769193982,
+    "50000": 125965.57688492828
+   },
+   "best_feasible": 125965.57688492828,
+   "seconds": 1.66
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5005,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 133953.65795274026,
+    "20000": 129131.61597474533,
+    "50000": 126153.9799919402
+   },
+   "best_feasible": 126153.9799919402,
+   "seconds": 1.76
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5006,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 132750.48452460644,
+    "20000": 129436.67877284797,
+    "50000": 125393.82587920237
+   },
+   "best_feasible": 125393.82587920237,
+   "seconds": 1.59
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5007,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 130726.28067089798,
+    "20000": 127737.07762329116,
+    "50000": 125990.78635945215
+   },
+   "best_feasible": 125990.78635945215,
+   "seconds": 1.72
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5008,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 134368.82218134918,
+    "20000": 128048.11735817918,
+    "50000": 124783.24245496445
+   },
+   "best_feasible": 124783.24245496445,
+   "seconds": 1.75
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5009,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 131080.4003764965,
+    "20000": 127560.0882653049,
+    "50000": 125145.23231856574
+   },
+   "best_feasible": 125145.23231856574,
+   "seconds": 1.7
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5010,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 136864.19416492735,
+    "20000": 129001.90447419048,
+    "50000": 125965.26072650022
+   },
+   "best_feasible": 125965.26072650022,
+   "seconds": 1.57
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5011,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 134112.58380606837,
+    "20000": 127845.38159643537,
+    "50000": 126459.91633401859
+   },
+   "best_feasible": 126459.91633401859,
+   "seconds": 1.6
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5012,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 132332.05237969116,
+    "20000": 127069.51348491551,
+    "50000": 124978.20342060122
+   },
+   "best_feasible": 124978.20342060122,
+   "seconds": 1.71
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5013,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 131357.19513772125,
+    "20000": 129661.6180585002,
+    "50000": 126323.97100483041
+   },
+   "best_feasible": 126323.97100483041,
+   "seconds": 1.5
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5014,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 132259.1068474073,
+    "20000": 128924.2747361555,
+    "50000": 125746.28542518456
+   },
+   "best_feasible": 125746.28542518456,
+   "seconds": 1.48
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5015,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 132834.2067953596,
+    "20000": 128330.72220253099,
+    "50000": 126522.04818730977
+   },
+   "best_feasible": 126522.04818730977,
+   "seconds": 1.68
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5016,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 131020.55042313787,
+    "20000": 127995.97317320431,
+    "50000": 125924.49978462928
+   },
+   "best_feasible": 125924.49978462928,
+   "seconds": 1.63
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5017,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 131980.77206600684,
+    "20000": 129404.28048113394,
+    "50000": 126476.56939972175
+   },
+   "best_feasible": 126476.56939972175,
+   "seconds": 1.75
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5018,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 131935.70388207093,
+    "20000": 128611.85901604514,
+    "50000": 125178.08077207173
+   },
+   "best_feasible": 125178.08077207173,
+   "seconds": 1.73
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5019,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 131496.50871498755,
+    "20000": 127976.346979633,
+    "50000": 126559.81976665664
+   },
+   "best_feasible": 126559.81976665664,
+   "seconds": 1.58
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5020,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 135045.9934616828,
+    "20000": 128385.32781777382,
+    "50000": 125582.11505781558
+   },
+   "best_feasible": 125582.11505781558,
+   "seconds": 1.51
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5021,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 131507.24621875654,
+    "20000": 128588.12490964646,
+    "50000": 126412.99822239953
+   },
+   "best_feasible": 126412.99822239953,
+   "seconds": 1.51
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5022,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 135168.0800653411,
+    "20000": 127839.1004763532,
+    "50000": 125648.38369790587
+   },
+   "best_feasible": 125648.38369790587,
+   "seconds": 1.54
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5023,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 132165.90842670423,
+    "20000": 128297.37380020513,
+    "50000": 125625.31067078911
+   },
+   "best_feasible": 125625.31067078911,
+   "seconds": 1.66
+  },
+  {
+   "instance": "eld40@10500",
+   "method": "scipy_de",
+   "seed": 5024,
+   "calls": 50000,
+   "over_budget_requests": 1,
+   "restarts": null,
+   "best_at": {
+    "5000": 136296.65295970847,
+    "20000": 128279.37374400458,
+    "50000": 126430.51601736445
+   },
+   "best_feasible": 126430.51601736445,
+   "seconds": 1.64
+  }
+ ],
+ "analysis": {
+  "primary": [
+   {
+    "instance": "eld13@1800",
+    "a": "gadapt_default",
+    "b": "ipop_cma_es",
+    "p": 0.0018156766891479492,
+    "median_gap_a": 0.007278665597810036,
+    "median_gap_b": 0.005464268403693545,
+    "p_holm": 0.005447030067443848,
+    "a_better": false,
+    "a_worse": true
+   },
+   {
+    "instance": "eld13@2520",
+    "a": "gadapt_default",
+    "b": "ipop_cma_es",
+    "p": 0.3665854334831238,
+    "median_gap_a": 0.0042347615777121135,
+    "median_gap_b": 0.006542012634347405,
+    "p_holm": 0.3665854334831238,
+    "a_better": false,
+    "a_worse": false
+   },
+   {
+    "instance": "eld40@10500",
+    "a": "gadapt_default",
+    "b": "ipop_cma_es",
+    "p": 0.023649930953979492,
+    "median_gap_a": 0.006050254718075551,
+    "median_gap_b": 0.00404423272695777,
+    "p_holm": 0.047299861907958984,
+    "a_better": false,
+    "a_worse": true
+   }
+  ],
+  "verdict": "GADAPT_DEFICIT",
+  "secondary": {
+   "documented_vs_ipop": [
+    {
+     "instance": "eld13@1800",
+     "a": "gadapt_documented",
+     "b": "ipop_cma_es",
+     "p": 5.960464477539063e-08,
+     "median_gap_a": 0.009743708344656783,
+     "median_gap_b": 0.005464268403693545,
+     "p_holm": 1.7881393432617188e-07,
+     "a_better": false,
+     "a_worse": true
+    },
+    {
+     "instance": "eld13@2520",
+     "a": "gadapt_documented",
+     "b": "ipop_cma_es",
+     "p": 0.0012963414192199707,
+     "median_gap_a": 0.008715805345562776,
+     "median_gap_b": 0.006542012634347405,
+     "p_holm": 0.0012963414192199707,
+     "a_better": false,
+     "a_worse": true
+    },
+    {
+     "instance": "eld40@10500",
+     "a": "gadapt_documented",
+     "b": "ipop_cma_es",
+     "p": 1.4901161193847656e-06,
+     "median_gap_a": 0.007347197192362416,
+     "median_gap_b": 0.00404423272695777,
+     "p_holm": 2.9802322387695312e-06,
+     "a_better": false,
+     "a_worse": true
+    }
+   ],
+   "default_vs_de": [
+    {
+     "instance": "eld13@1800",
+     "a": "gadapt_default",
+     "b": "scipy_de",
+     "p": 1.7881393432617188e-07,
+     "median_gap_a": 0.007278665597810036,
+     "median_gap_b": 0.018771589364906048,
+     "p_holm": 3.5762786865234375e-07,
+     "a_better": true,
+     "a_worse": false
+    },
+    {
+     "instance": "eld13@2520",
+     "a": "gadapt_default",
+     "b": "scipy_de",
+     "p": 0.00016230344772338867,
+     "median_gap_a": 0.0042347615777121135,
+     "median_gap_b": 5.0456389854206534e-05,
+     "p_holm": 0.00016230344772338867,
+     "a_better": false,
+     "a_worse": true
+    },
+    {
+     "instance": "eld40@10500",
+     "a": "gadapt_default",
+     "b": "scipy_de",
+     "p": 5.960464477539063e-08,
+     "median_gap_a": 0.006050254718075551,
+     "median_gap_b": 0.037498007047074455,
+     "p_holm": 1.7881393432617188e-07,
+     "a_better": true,
+     "a_worse": false
+    }
+   ]
+  },
+  "describe": {
+   "eld13@1800": {
+    "gadapt_default": {
+     "5000": {
+      "median_gap": 0.015172127665158611,
+      "worst_gap": 0.025736994185372036,
+      "success_rate": 0.0
+     },
+     "20000": {
+      "median_gap": 0.009723621314500866,
+      "worst_gap": 0.018671154381699064,
+      "success_rate": 0.0
+     },
+     "50000": {
+      "median_gap": 0.007278665597810036,
+      "worst_gap": 0.012114124608346969,
+      "success_rate": 0.0
+     }
+    },
+    "gadapt_documented": {
+     "5000": {
+      "median_gap": 0.018298947072432337,
+      "worst_gap": 0.026402281440072936,
+      "success_rate": 0.0
+     },
+     "20000": {
+      "median_gap": 0.013870895728018189,
+      "worst_gap": 0.019026679431707907,
+      "success_rate": 0.0
+     },
+     "50000": {
+      "median_gap": 0.009743708344656783,
+      "worst_gap": 0.014266343463561702,
+      "success_rate": 0.0
+     }
+    },
+    "ipop_cma_es": {
+     "5000": {
+      "median_gap": 0.008871152943700692,
+      "worst_gap": 0.021786234163035947,
+      "success_rate": 0.0
+     },
+     "20000": {
+      "median_gap": 0.007410790715695596,
+      "worst_gap": 0.019156413127446984,
+      "success_rate": 0.0
+     },
+     "50000": {
+      "median_gap": 0.005464268403693545,
+      "worst_gap": 0.009506985697763969,
+      "success_rate": 0.0
+     }
+    },
+    "scipy_de": {
+     "5000": {
+      "median_gap": 0.033823835458361096,
+      "worst_gap": 0.03948317921219349,
+      "success_rate": 0.0
+     },
+     "20000": {
+      "median_gap": 0.026936471276410582,
+      "worst_gap": 0.029921547899076813,
+      "success_rate": 0.0
+     },
+     "50000": {
+      "median_gap": 0.018771589364906048,
+      "worst_gap": 0.02529978639959811,
+      "success_rate": 0.0
+     }
+    }
+   },
+   "eld13@2520": {
+    "gadapt_default": {
+     "5000": {
+      "median_gap": 0.015842981637832678,
+      "worst_gap": 0.02471738665118667,
+      "success_rate": 0.0
+     },
+     "20000": {
+      "median_gap": 0.008650466613065587,
+      "worst_gap": 0.016509077742575064,
+      "success_rate": 0.0
+     },
+     "50000": {
+      "median_gap": 0.0042347615777121135,
+      "worst_gap": 0.014862703988636733,
+      "success_rate": 0.0
+     }
+    },
+    "gadapt_documented": {
+     "5000": {
+      "median_gap": 0.016488580437226355,
+      "worst_gap": 0.02656563156774794,
+      "success_rate": 0.0
+     },
+     "20000": {
+      "median_gap": 0.013258779520484834,
+      "worst_gap": 0.01982870478177803,
+      "success_rate": 0.0
+     },
+     "50000": {
+      "median_gap": 0.008715805345562776,
+      "worst_gap": 0.016161782771626453,
+      "success_rate": 0.0
+     }
+    },
+    "ipop_cma_es": {
+     "5000": {
+      "median_gap": 0.006881092307702628,
+      "worst_gap": 0.017568734768432816,
+      "success_rate": 0.0
+     },
+     "20000": {
+      "median_gap": 0.006837184840313806,
+      "worst_gap": 0.017133268119803022,
+      "success_rate": 0.0
+     },
+     "50000": {
+      "median_gap": 0.006542012634347405,
+      "worst_gap": 0.009652650570802989,
+      "success_rate": 0.04
+     }
+    },
+    "scipy_de": {
+     "5000": {
+      "median_gap": 0.02140274583058792,
+      "worst_gap": 0.02830036494392026,
+      "success_rate": 0.0
+     },
+     "20000": {
+      "median_gap": 0.002012855247303848,
+      "worst_gap": 0.007718579886913261,
+      "success_rate": 0.08
+     },
+     "50000": {
+      "median_gap": 5.0456389854206534e-05,
+      "worst_gap": 0.006224336704608351,
+      "success_rate": 0.52
+     }
+    }
+   },
+   "eld40@10500": {
+    "gadapt_default": {
+     "5000": {
+      "median_gap": 0.018464434100729815,
+      "worst_gap": 0.028726226272620108,
+      "success_rate": 0.0
+     },
+     "20000": {
+      "median_gap": 0.00810147359915598,
+      "worst_gap": 0.010644824041201224,
+      "success_rate": 0.0
+     },
+     "50000": {
+      "median_gap": 0.006050254718075551,
+      "worst_gap": 0.00868508872982975,
+      "success_rate": 0.0
+     }
+    },
+    "gadapt_documented": {
+     "5000": {
+      "median_gap": 0.019122429517667114,
+      "worst_gap": 0.02688897198913011,
+      "success_rate": 0.0
+     },
+     "20000": {
+      "median_gap": 0.009986783429609396,
+      "worst_gap": 0.014901903941258093,
+      "success_rate": 0.0
+     },
+     "50000": {
+      "median_gap": 0.007347197192362416,
+      "worst_gap": 0.010012592086165516,
+      "success_rate": 0.0
+     }
+    },
+    "ipop_cma_es": {
+     "5000": {
+      "median_gap": 0.00745442839151113,
+      "worst_gap": 0.011494491441118146,
+      "success_rate": 0.0
+     },
+     "20000": {
+      "median_gap": 0.0055285354786957916,
+      "worst_gap": 0.009134416181246129,
+      "success_rate": 0.0
+     },
+     "50000": {
+      "median_gap": 0.00404423272695777,
+      "worst_gap": 0.008852855557770553,
+      "success_rate": 0.0
+     }
+    },
+    "scipy_de": {
+     "5000": {
+      "median_gap": 0.09048066349903934,
+      "worst_gap": 0.12726578632280938,
+      "success_rate": 0.0
+     },
+     "20000": {
+      "median_gap": 0.056980851388238586,
+      "worst_gap": 0.06936249955188728,
+      "success_rate": 0.0
+     },
+     "50000": {
+      "median_gap": 0.037498007047074455,
+      "worst_gap": 0.0447609961114744,
+      "success_rate": 0.0
+     }
+    }
+   }
+  },
+  "certified_optimum": {
+   "eld13@1800": 17963.8287998,
+   "eld13@2520": 24169.9169018,
+   "eld40@10500": 121412.532719
+  }
+ },
+ "total_seconds": 141.6
+}
