@@ -26,5 +26,6 @@ class TextbookGaTest(unittest.TestCase):
         self.assertGreater(len(population_minima), 40)
         self.assertTrue(all(a >= b for a, b in zip(population_minima, population_minima[1:])))
 
+
 if __name__ == "__main__":
     unittest.main()

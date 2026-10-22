@@ -27,14 +27,15 @@
 
 ## SLEDEĆI KORAK
 
-Pravac (po mom savetu, korisnik: „to radi“): dijagnostika GAdapt-a na binarnom izboru ruta. Bez tvrdnje o novini.
-- I43 GOTOVO → `research/ITERATION43_REPORT_SR.md`: UNRESOLVED (3/6 deficit operatora, 0/6 artefakt budžeta).
-- I44 [U TOKU, pokretanje u pozadini] → protokol `research/ITERATION44_PROTOCOL.md` (+A1), kod `4c2b8cf`.
-  Posle završetka: `research/results/iteration44/mechanism.json` → `research/ITERATION44_REPORT_SR.md` → lokalni komit.
-  Ako pokretanje pukne zbog nestanka struje: ponovo pokrenuti ISTI kod (rezultat još nije viđen, to nije ponavljanje).
-- Zatim: push u jednoj seriji, i korisniku predstaviti odluku o nalazima o biblioteci (ispod).
+Pravac (moj savet, korisnik: „to radi“, „ne staj“): dijagnostika GAdapt-a na binarnom izboru ruta. Bez tvrdnje o novini.
+- I43 GOTOVO: UNRESOLVED (3/6 deficit, 0/6 budžet). I44 GOTOVO: H-mut opovrgnuta (0/6); deficit vs (1+1)-EA repliciran 5/6.
+- I45 [U TOKU, pozadina] → protokol `research/ITERATION45_PROTOCOL.md` (`7061d7f`), kod `f8dcb04`:
+  udžbenički GA kao kontrola → SPECIFIČAN_ZA_GADAPT / GENERIČKI / MEŠOVITO.
+  Posle: `research/ITERATION45_REPORT_SR.md`, lokalni komit, pa JEDAN push za ceo blok (I42–I45 + lib).
+  Ako pukne zbog struje: ponovo pokrenuti isti kod (rezultat još nije viđen).
+- Posle I45: strateška odluka korisnika (vidi izveštaj I45 §Odluka).
 
-### Nalazi o biblioteci GAdapt (čekaju odluku korisnika; biblioteka NIJE menjana)
+### Nalazi o biblioteci GAdapt (korisnik: „sređuj“ → ispravljeno kao opt-in u `64b9c82`, default bit-identičan)
 1. `CommonOptionsValidator._check_cost_function` poziva cost funkciju na vektoru svih min i svih max (2 skrivene stvarne
    evaluacije po `execute()`). Ovo je verovatno izvor „trivijalnog rešenja“ u I39 (vidi I43 izveštaj §2).
 2. `VariableColumnarDiversityDecisionVariableMutationRateDeterminator` prepisuje `number_of_mutation_decision_variables`
@@ -49,3 +50,4 @@ Pravac (po mom savetu, korisnik: „to radi“): dijagnostika GAdapt-a na binarn
 - 2026-10-22: I42 Faza 0 izvršena jednom (kod `57730b9`): H1 NO-GO (23/25 instanci sa medijanom k ≤ 2; ta2 neevaluirana zbog pop-limita, ne menja odluku). Korisnik traži autonomni rad kroz faze; zaustavljanje samo na pravim gate-ovima.
 - 2026-10-22: Na korisnikov zahtev („šta je tvoj savet, to radi“) izabran pravac I43: dijagnostika budžet vs operatori, sintetička cena nad topohub topologijama.
 - 2026-10-22: Push samo u serijama (CI minuti). I43 UNRESOLVED; otkrivena 2 nalaza o biblioteci. I44 preregistrovan na novim instancama.
+- 2026-10-22: Korisnik: „sređuj, radi dalje, ne staj“ → opt-in `probe_cost_function`, `strict_mutation_decision_variable_limit` (bit-identičnost proverena hešom niza poziva). I44: H-mut NO. I45 pokrenut.
