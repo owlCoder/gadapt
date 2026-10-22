@@ -45,7 +45,9 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   dok ga korisnik ne podeli).
 - H3 prior-art gate GOTOVO → `research/H3_PRIOR_ART_AUDIT_SR.md`: NO-GO kao PhD metoda (EMDE 2008, MA-LS-Chains 2010,
   HSES 2018 već sadrže suštinu). Moguće samo kao opt-in praktična funkcija (opcija B).
-- **ČEKA KORISNIKA/MENTORA:** nijedna otvorena hipoteza sa utvrđenom novinom. Studija (A) spremna za mentora.
+- Korisnik (2026-10-23): opcija 1 — studija I42–I48 = poglavlje teze; mentor cilja promenu prakse u industriji.
+- [U TOKU] H4 prior-art gate: automatski, biblioteka-nezavisan audit (skrivene evaluacije, invarijantnost na jedinice,
+  računovodstvo budžeta) + studija rasprostranjenosti na popularnim bibliotekama. Izlaz → `research/H4_PRIOR_ART_AUDIT_SR.md`.
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
@@ -72,3 +74,4 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - 2026-10-23: I48: DEFICIT_GADAPT (mala razlika na multimodalnom). Studija A popunjena. C pa A završeno.
 - 2026-10-23: Studija objavljena kao Docs dokument. Pokrenut H3 prior-art audit.
 - 2026-10-23: H3 NO-GO (prior art). Autonomni deo stao na pravom gate-u (CLAUDE.md: STOP bez novine).
+- 2026-10-23: Korisnik izabrao opciju 1 (studija kao poglavlje; industrijska praksa). Pokrenut H4 prior-art audit.
