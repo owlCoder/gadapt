@@ -1,0 +1,46 @@
+name: I41 Exact Binary-Route Time-Row Implication Regression
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'research/ITERATION41_PROTOCOL.md'
+      - 'research/iteration41_certified_temporal_rows.py'
+      - 'research/test_iteration41_certified_temporal_rows.py'
+      - 'research/iteration39_source_modular_capacity.py'
+      - '.github/workflows/research-iteration41-certificate-only.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/iteration41_certified_temporal_rows.py'
+      - 'research/test_iteration41_certified_temporal_rows.py'
+      - 'research/iteration39_source_modular_capacity.py'
+      - '.github/workflows/research-iteration41-certificate-only.yml'
+
+permissions:
+  contents: read
+
+env:
+  OPENBLAS_NUM_THREADS: '1'
+  OMP_NUM_THREADS: '1'
+  MKL_NUM_THREADS: '1'
+  NUMEXPR_NUM_THREADS: '1'
+  PYTHONHASHSEED: '0'
+
+jobs:
+  proof-and-exhaustive-synthetic-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'networkx==3.4.2'
+          python -m pip install -e .
+      - name: Syntax and finite synthetic exact source model proofs (NO ORIGINAL SNDlib fetch and NO physical experiment)
+        run: |
+          python -m py_compile research/iteration41_certified_temporal_rows.py research/iteration39_source_modular_capacity.py research/test_iteration41_certified_temporal_rows.py
+          python -m unittest -v research.test_iteration41_certified_temporal_rows
+          python -m unittest -v research.test_iteration39_source_modular_capacity
