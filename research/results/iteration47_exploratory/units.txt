@@ -1,0 +1,8 @@
+pos 0.5 R=     0.12: median 1.25e-10 worst 4.19e-10
+pos 0.5 R=      1.0: median 1.27e-10 worst 3.69e-10
+pos 0.5 R=   1000.0: median 2.57e-10 worst 1.07e-09
+pos 0.5 R=1000000.0: median 1.29e-10 worst 2.01e-10
+pos 0.999 R=     0.12: median 1.89e-08 worst 7.31e-07
+pos 0.999 R=      1.0: median 6.29e-09 worst 3.73e-07
+pos 0.999 R=   1000.0: median 5.40e-05 worst 2.26e-04
+pos 0.999 R=1000000.0: median 1.84e-05 worst 8.01e-05

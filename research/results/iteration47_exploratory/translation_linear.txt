@@ -1,0 +1,7 @@
+LINEAR optimum at    1.0: median 3.39e-09  worst 5.75e-08
+LINEAR optimum at   10.0: median 3.29e-09  worst 3.21e-08
+LINEAR optimum at  100.0: median 1.68e-10  worst 2.48e-09
+LINEAR optimum at  500.0: median 2.38e-10  worst 1.14e-09
+LINEAR optimum at  900.0: median 1.29e-10  worst 1.29e-09
+LINEAR optimum at  990.0: median 5.99e-10  worst 1.11e-05
+LINEAR optimum at  999.0: median 2.11e-09  worst 4.18e-09

@@ -1,0 +1,7 @@
+optimum at    1.0: median normalized sq. gap 3.78e-10  worst 1.74e-09
+optimum at   10.0: median normalized sq. gap 1.26e-09  worst 4.06e-09
+optimum at  100.0: median normalized sq. gap 1.55e-10  worst 1.34e-09
+optimum at  500.0: median normalized sq. gap 2.57e-10  worst 1.07e-09
+optimum at  900.0: median normalized sq. gap 1.17e-09  worst 1.79e-07
+optimum at  990.0: median normalized sq. gap 2.87e-08  worst 2.33e-06
+optimum at  999.0: median normalized sq. gap 5.40e-05  worst 2.26e-04
