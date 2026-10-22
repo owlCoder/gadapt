@@ -27,11 +27,18 @@
 
 ## SLEDEĆI KORAK
 
-H1 zatvoren (I42, NO-GO). Korisnik je tražio moj savet i da ga sprovedem → izabran pravac 1: **I43 dijagnostika
-„budžet ili operatori“** (bez tvrdnje o novini). Protokol: `research/ITERATION43_PROTOCOL.md` (zamrznut pre koda).
-1. [SLEDEĆE] Kod `research/iteration43_budget_operator_diagnostic.py` + testovi §6 → komit → JEDNO pokretanje →
-   `research/results/iteration43/diagnostic.json` → `research/ITERATION43_REPORT_SR.md`.
-2. Na osnovu klasifikacije (§5 protokola): DEFICIT_OPERATORA → prior-art audit diskretnih operatora; ARTEFAKT_BUDŽETA → zatvoriti.
+Pravac (po mom savetu, korisnik: „to radi“): dijagnostika GAdapt-a na binarnom izboru ruta. Bez tvrdnje o novini.
+- I43 GOTOVO → `research/ITERATION43_REPORT_SR.md`: UNRESOLVED (3/6 deficit operatora, 0/6 artefakt budžeta).
+- I44 [U TOKU, pokretanje u pozadini] → protokol `research/ITERATION44_PROTOCOL.md` (+A1), kod `4c2b8cf`.
+  Posle završetka: `research/results/iteration44/mechanism.json` → `research/ITERATION44_REPORT_SR.md` → lokalni komit.
+  Ako pokretanje pukne zbog nestanka struje: ponovo pokrenuti ISTI kod (rezultat još nije viđen, to nije ponavljanje).
+- Zatim: push u jednoj seriji, i korisniku predstaviti odluku o nalazima o biblioteci (ispod).
+
+### Nalazi o biblioteci GAdapt (čekaju odluku korisnika; biblioteka NIJE menjana)
+1. `CommonOptionsValidator._check_cost_function` poziva cost funkciju na vektoru svih min i svih max (2 skrivene stvarne
+   evaluacije po `execute()`). Ovo je verovatno izvor „trivijalnog rešenja“ u I39 (vidi I43 izveštaj §2).
+2. `VariableColumnarDiversityDecisionVariableMutationRateDeterminator` prepisuje `number_of_mutation_decision_variables`
+   vrednošću ≥ round(N/5) → dokumentovana gornja granica se tiho ignoriše u podrazumevanoj konfiguraciji.
 
 ## Dnevnik odluka
 
@@ -41,3 +48,4 @@ H1 zatvoren (I42, NO-GO). Korisnik je tražio moj savet i da ga sprovedem → iz
 - 2026-10-22: H1 audit: nema ekvivalenta; „high-arity“ diferencijator opovrgnut (Chicano 2024). Faza 0 preregistrovana kao čisto strukturno merenje.
 - 2026-10-22: I42 Faza 0 izvršena jednom (kod `57730b9`): H1 NO-GO (23/25 instanci sa medijanom k ≤ 2; ta2 neevaluirana zbog pop-limita, ne menja odluku). Korisnik traži autonomni rad kroz faze; zaustavljanje samo na pravim gate-ovima.
 - 2026-10-22: Na korisnikov zahtev („šta je tvoj savet, to radi“) izabran pravac I43: dijagnostika budžet vs operatori, sintetička cena nad topohub topologijama.
+- 2026-10-22: Push samo u serijama (CI minuti). I43 UNRESOLVED; otkrivena 2 nalaza o biblioteci. I44 preregistrovan na novim instancama.
