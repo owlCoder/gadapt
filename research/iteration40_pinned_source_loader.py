@@ -10,6 +10,7 @@ If replay fallback is not explicitly enabled, raise the original TLS failure.
 import hashlib
 import io
 import os
+from pathlib import Path
 import re
 import ssl
 import tarfile
@@ -57,9 +58,43 @@ def _verified_download(url, exact_digest, byte_limit):
                      verified_tls=not insecure_fallback,
                      authenticated_content_by_prior_SHA256_pin=True)
 
+def _pinned_asset_file(directory, filename, url, digest, max_bytes):
+    """Local ORIGINAL bytes only; never synthesize from archived optimizer JSON.
+
+    Offline copies from an archive/owner machine are acceptable only if
+    byte-for-byte identical to the two I39 recorded originals.
+    """
+    root=Path(directory).expanduser().resolve(strict=True)
+    if not root.is_dir():
+        raise ValueError("I40 original pinned source directory is not a directory")
+    f=(root/filename).resolve(strict=True)
+    if f.parent!=root or not f.is_file():
+        raise ValueError("I40 pinned original file must be a regular direct child")
+    with f.open("rb") as stream:
+        data=stream.read(max_bytes+1)
+    if len(data)>max_bytes:
+        raise ValueError("I40 local original source exceeds size cap")
+    got=hashlib.sha256(data).hexdigest()
+    if got!=digest:
+        raise RuntimeError("I40 LOCAL source SHA256 mismatch; refusing substituted data")
+    return data,dict(url=url,sha256=got,bytes=len(data),
+                     verified_tls=None,
+                     authenticated_content_by_prior_SHA256_pin=True,
+                     source_transport="offline_original_bytes_pin_verified")
+
+
 def source_data_gate_i40():
-    network,network_meta=_verified_download(SOURCE_NETWORK_URL,NETWORK_SHA,60_000)
-    archive,archive_meta=_verified_download(ARCHIVE_URL,ARCHIVE_SHA,1_200_000)
+    offline=os.environ.get("I40_PINNED_ASSET_DIR")
+    if offline:
+        # Failure to find either local original is FATAL: no live-source fallback.
+        network,network_meta=_pinned_asset_file(
+            offline,"nobel-germany.txt",SOURCE_NETWORK_URL,NETWORK_SHA,60_000)
+        archive,archive_meta=_pinned_asset_file(
+            offline,"directed-nobel-germany-DFN-aggregated-5min-over-1day-native.tgz",
+            ARCHIVE_URL,ARCHIVE_SHA,1_200_000)
+    else:
+        network,network_meta=_verified_download(SOURCE_NETWORK_URL,NETWORK_SHA,60_000)
+        archive,archive_meta=_verified_download(ARCHIVE_URL,ARCHIVE_SHA,1_200_000)
     nodes,links=parse_network(network.decode("utf-8-sig"))
     if len(nodes)!=17 or len(links)!=26 or len(parse_demands(network.decode("utf-8-sig"),nodes))!=121:
         raise RuntimeError("Historical source topology or native demand drift")
