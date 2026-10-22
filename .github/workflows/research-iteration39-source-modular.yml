@@ -1,4 +1,5 @@
 name: I39 Source-Equivalent MODULAR Capacity — Real Temporal GA vs MILP
+# One I39 source-module protocol-frozen PR CI trigger; do not tune methods or traffic after I38.
 
 on:
   push:
