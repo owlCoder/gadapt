@@ -35,11 +35,10 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - Novi nalaz (eksplorativno, `research/iteration47_exploratory_*`): kolonska raznovrsnost na log((v−min)+1) NIJE
   invarijantna na jedinice/položaj → optimum blizu gornje granice promenljive velikog opsega ~10^3 lošije.
   Opt-in ispravka `columnar_diversity_metric="linear"` (`cc2f357`, default bit-identičan).
-- I47 [U TOKU, pozadina]: protokol `research/ITERATION47_PROTOCOL.md` (`6588731`), kod `6dda81c`.
-  `.venv/bin/python -m research.iteration47_invariance all` → `research/results/iteration47/{synthetic,dispatch}.json`.
-  Ako pukne: isti kod ponovo (rezultat nije viđen). Napomena za izveštaj: pre-run smoke na case14, seme 1, budžet 120.
-- Posle I47: izveštaj; PhD pitanje ostaje otvoreno (invarijantnost/intenzifikacija su poznati principi → novost
-  metode nije utvrđena). Kandidat za PhD gate: vidi izveštaj I47 §Odluka.
+- I47 GOTOVO → `research/ITERATION47_REPORT_SR.md`: A1 NIJE PODRŽANO (1/4), `linear` tačno invarijantna, B1 OPOVRGNUTO
+  (0/5). CMA-ES 3–5 redova veličine bolji od GAdapt-a na stvarnom AC dispečingu pri istom budžetu.
+- **ČEKA ODLUKU KORISNIKA (strateški gate):** vidi poruku od 2026-10-23 i `research/STRATEGY_AFTER_I47_SR.md`.
+
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
 ### Nalazi o biblioteci GAdapt (korisnik: „sređuj“ → ispravljeno kao opt-in u `64b9c82`, default bit-identičan)
@@ -60,3 +59,4 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - 2026-10-22: Korisnik: „sređuj, radi dalje, ne staj“ → opt-in `probe_cost_function`, `strict_mutation_decision_variable_limit` (bit-identičnost proverena hešom niza poziva). I44: H-mut NO. I45 pokrenut.
 - 2026-10-22: I45: deficit SPECIFIČAN ZA GADAPT. Korisnik odgovorio na 4 pitanja (vidi gore). Push serije I42–I45 + lib sa [skip ci].
 - 2026-10-23: I46 bez uzročne komponente. Otkrivena neinvarijantnost kolonske raznovrsnosti; opt-in `linear`. I47 pokrenut.
+- 2026-10-23: I47: ispravka invarijantnosti ne poboljšava dispečing; dominantna slabost GAdapt-a je konvergencija (vs CMA-ES). Strateški gate.
