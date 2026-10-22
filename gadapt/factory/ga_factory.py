@@ -625,7 +625,7 @@ class GAFactory(BaseGAFactory):
             + crossover_strings
         )
         if definitions.VARIABLE_COLUMNAR_DIVERSITY in all_strings:
-            return ColumnarDiversityDecisionVariableUpdater()
+            return ColumnarDiversityDecisionVariableUpdater(self._options.columnar_diversity_metric)
         return BaseDecisionVariableUpdater()
 
     def _get_candidate_solution_updater(self):

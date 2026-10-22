@@ -95,6 +95,9 @@ Pure Python, no compiled code. `README.md` is also the PyPI long description.
 - `VariableColumnarDiversityDecisionVariableMutationRateDeterminator` raises the number of mutated decision variables to
   at least round(N/5), ignoring `number_of_mutation_decision_variables`; `strict_mutation_decision_variable_limit=True`
   (opt-in) caps it. Crossover duplicate repair (`BaseCrossover`) mutates separately with an attempt-based limit.
+- Columnar diversity is measured on log((v - min) + 1) by default: NOT invariant to units / position in the range
+  (optimum near the upper bound of a large-range variable is reached ~10^3-10^4 worse, research I46 notes).
+  `columnar_diversity_metric="linear"` (opt-in) is invariant.
 - Bit-identity check for library changes: seeded call-sequence hashes (every argument vector and cost) before/after.
 - `ParentDiversityCandidateSolutionUpdater` is a singleton (`__new__`), so its state is shared across `GA` instances.
 - Pure-Python per-decision-variable overhead dominates for cheap cost functions (~1 ms/generation at pop 32 x 10 decision variables,

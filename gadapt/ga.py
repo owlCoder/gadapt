@@ -129,6 +129,7 @@ class GA:
         adaptive_immigration_diversity_threshold: float = 0.25,
         probe_cost_function: bool = True,
         strict_mutation_decision_variable_limit: bool = False,
+        columnar_diversity_metric: str = "log_relative",
         **deprecated_kwargs,
     ) -> None:
         """
@@ -307,6 +308,15 @@ class GA:
                 value calculated from percentage_of_mutation_decision_variables): it is
                 at least one fifth of the decision variables. True makes that value a
                 strict upper bound for every candidate solution mutation.
+            columnar_diversity_metric: 'log_relative' (default) or 'linear'. The
+                variable columnar diversity coefficient compares the current spread of
+                the values of a decision variable in the population with the initial
+                spread. By default, the spread is measured on log((value - min_value) + 1),
+                so it depends on the units of the decision variable and on where the
+                values lie in its range: for variables with a large range, the
+                coefficient drops too early when the values gather near the upper bound.
+                'linear' measures the spread of the values relative to the range,
+                independently of the units and of the position in the range.
 
             deprecated_kwargs: Previous names of the parameters (see
             DEPRECATED_PARAMETER_NAMES), e.g. number_of_mutation_chromosomes.
@@ -355,6 +365,7 @@ class GA:
         self.cost_diversity_metric = cost_diversity_metric
         self.probe_cost_function = probe_cost_function
         self.strict_mutation_decision_variable_limit = strict_mutation_decision_variable_limit
+        self.columnar_diversity_metric = columnar_diversity_metric
         if mutation_operator_policy not in ("legacy", "uniform", "ucb", "ucb_true_call_rate"):
             raise ValueError("mutation_operator_policy must be legacy/uniform/ucb/ucb_true_call_rate")
         if (mutation_operator_policy == "ucb_true_call_rate" and
@@ -974,6 +985,16 @@ class GA:
         if not isinstance(value, bool):
             raise ValueError("strict_mutation_decision_variable_limit must be True or False")
         self._strict_mutation_decision_variable_limit = value
+
+    @property
+    def columnar_diversity_metric(self) -> str:
+        return self._columnar_diversity_metric
+
+    @columnar_diversity_metric.setter
+    def columnar_diversity_metric(self, value: str) -> None:
+        if value not in ("log_relative", "linear"):
+            raise ValueError("columnar_diversity_metric must be 'log_relative' or 'linear'")
+        self._columnar_diversity_metric = value
 
     @property
     def normal_distribution_mutation_max_std_dev(self) -> float:
