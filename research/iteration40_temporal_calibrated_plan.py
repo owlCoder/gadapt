@@ -16,7 +16,7 @@ import time
 
 import numpy as np
 import scipy
-from research.iteration38_joint_capacity_experiment import source_data_gate
+from research.iteration40_pinned_source_loader import source_data_gate_i40
 from research.iteration39_source_modular_capacity import (
     ARCHIVE_SHA, NETWORK_SHA, ModularCommonPlan, exact_modular_milp,
 )
@@ -155,7 +155,7 @@ def calibrated_policies(problem, choices, all_traffic, fit=FIT, cal=CAL,
 
 
 def run(output, manifest_path):
-    nodes, links, pairs, q, meta = source_data_gate()
+    nodes, links, pairs, q, meta = source_data_gate_i40()
     if (meta["source_network"]["sha256"] != NETWORK_SHA or
             meta["source_matrices"]["sha256"] != ARCHIVE_SHA or
             q.shape != (288, 272) or
