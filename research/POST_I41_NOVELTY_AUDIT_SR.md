@@ -111,7 +111,9 @@ dve putanje razlikuju na linku e; zahtevi koje obe putanje vode kroz e daju kons
 - **Partition crossover (PX)** razbija promenljive po kojima se roditelji razlikuju na povezane komponente VIG-a i za
   svaku komponentu nezavisno bira bolji roditelj.
 - Poznata teorema (Tinós, Whitley, Chicano 2015, [10.1145/2725494.2725497](https://doi.org/10.1145/2725494.2725497);
-  Whitley, Chicano, Goldman 2016, [10.1162/EVCO_a_00184](https://doi.org/10.1162/EVCO_a_00184)): PX vraća najboljeg od
+  *ispravka 2026-10-22:* Whitley, Chicano, Goldman 2016 ([10.1162/EVCO_a_00184](https://doi.org/10.1162/EVCO_a_00184))
+  u sažetku ne pominje PX, pa je pogrešno navođen kao izvor ove teoreme; uopštenje za proizvoljno f daju Chicano i sar.
+  2024, arXiv:2407.06742, vidi [H1_PRIOR_ART_AUDIT_SR.md](H1_PRIOR_ART_AUDIT_SR.md)): PX vraća najboljeg od
   2^k potomaka, gde je k broj komponenti, po ceni linearnoj u k.
 
 **Hipoteza.** Na multi-period modularnim mrežnim modelima, GAdapt sa opt-in PX operatorom postiže manji relativni

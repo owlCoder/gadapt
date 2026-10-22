@@ -27,14 +27,19 @@
 
 ## SLEDEĆI KORAK
 
-**Korisnik je 2026-10-22 odobrio H1 gate.** Redosled:
-1. [U TOKU] Sistematski prior-art audit H1 (PX / gray-box na mrežnom dizajnu, high-arity podfunkcije). Ako postoji ekvivalent → STOP.
-   Izlaz: `research/H1_PRIOR_ART_AUDIT_SR.md`.
-2. Preregistracija Faze 0 (strukturni VIG pretest na topohub topologijama) → `research/ITERATION42_PROTOCOL.md`, commit PRE koda.
-3. Tek onda kod Faze 0. Faza 1 tek uz arhivirane stvarne vremenske podatke.
+**Korisnik je 2026-10-22 odobrio H1 gate.** Stanje:
+1. [GOTOVO] Sistematski prior-art audit → `research/H1_PRIOR_ART_AUDIT_SR.md`. Nema ekvivalenta, ali novost METODE nije
+   utvrđena (specijalan slučaj Chicano i sar. 2024, Teorema 1). H1 kao metoda: NO-GO; implementacija PX-a u GAdapt-u zabranjena.
+2. [GOTOVO] Preregistracija Faze 0 → `research/ITERATION42_PROTOCOL.md` + ulazi `research/data/topohub_v1.5.1_sndlib/`
+   (SHA256SUMS), zamrznuto komitom PRE koda.
+3. **SLEDEĆE:** kod Faze 0 tačno po protokolu: `research/iteration42_phase0_vig.py` + sintetički testovi
+   `research/test_iteration42_phase0_vig.py` (§6) → zatim JEDNO pokretanje → `research/results/iteration42/phase0.json`
+   → izveštaj sa odlukom iz §5. Bez menjanja praga, p ili putanja posle gledanja rezultata.
+4. Posle Faze 0: odluku o Fazi 1 donosi korisnik (i ako Faza 0 prođe). Otvorene praznine audita: Semantic Scholar, dblp, Google Scholar.
 
 ## Dnevnik odluka
 
 - 2026-10-22: Rad direktno na `main`, bez PR-ova; effort najviše `high`; najviše jedan agent istovremeno.
 - 2026-10-22: I41 audit završen: teorema tačna, nije originalna, nije GA doprinos. Robustness run #39836609270 naknadno: SUCCESS.
 - 2026-10-22: Korisnik odobrio H1 gate (sistematski prior-art audit, pa preregistracija Faze 0). Implementacija i dalje NIJE odobrena pre gate-a.
+- 2026-10-22: H1 audit: nema ekvivalenta; „high-arity“ diferencijator opovrgnut (Chicano 2024). Faza 0 preregistrovana kao čisto strukturno merenje.
