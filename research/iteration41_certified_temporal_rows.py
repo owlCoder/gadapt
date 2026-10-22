@@ -108,9 +108,32 @@ def certified_route_aware_rows(problem):
     return certificate
 
 
+def _binary64_exact_integer_matrix(q):
+    """Losslessly encode each finite IEEE-754 float as an integer on ONE
+    common power-of-two denominator; Python arbitrary integers avoid
+    every arithmetic cancellation/roundoff issue in the final proof.
+
+    This is exact for the numbers ACTUALLY loaded by numpy. It does not
+    claim recovery of original unparsed decimal-text precision.
+    """
+    values = np.asarray(q, dtype=float)
+    if not np.all(np.isfinite(values)):
+        raise ValueError("Exact certificate cannot represent NaN/inf")
+    ratios = [float(v).as_integer_ratio() for v in values.flat]
+    common_exp = max((den.bit_length()-1 for _,den in ratios), default=0)
+    integers = [num << (common_exp-(den.bit_length()-1))
+                for num,den in ratios]
+    return np.asarray(integers,dtype=object).reshape(values.shape)
+
+
 def verify_certified_rows(problem, certificate):
     """Fail closed on tampered/partial certificates (no silent missing rows)."""
     q=np.asarray(problem.q,dtype=float)
+    if not np.all(np.isfinite(q)) or np.any(q<0):
+        raise ValueError("Cannot certify invalid original source demand")
+    # Slow exact verification is applied ONLY to proposed removed rows;
+    # the O(T^2 D) screening above still uses conservative fast floats.
+    q_exact=_binary64_exact_integer_matrix(q)
     n_time,n_edge=len(q),len(problem.links)
     if (not isinstance(certificate,dict) or
             certificate.get("kind") !=
@@ -133,6 +156,8 @@ def verify_certified_rows(problem, certificate):
                 len(set(kept))!=len(kept) or kept!=sorted(kept)):
             raise ValueError("I41 has invalid kept scenario indices")
         both,xor=_physical_masks(problem,e)
+        both_ids=np.flatnonzero(both)
+        xor_ids=np.flatnonzero(xor)
         dropped=[]
         for witness in rem:
             if not isinstance(witness,dict):
@@ -144,6 +169,13 @@ def verify_certified_rows(problem, certificate):
                 raise ValueError("I41 forged or out-of-range witness")
             if not _certifies(q,both,xor,s,t):
                 raise ValueError("I41 non-implying witness, cannot omit constraint")
+            # This is an EXACT min over every permitted binary routing vector,
+            # with no floating-point rounding, as an integer numerator.
+            exact_min=sum((q_exact[s,d]-q_exact[t,d] for d in both_ids),0)
+            exact_min+=sum((min(0,q_exact[s,d]-q_exact[t,d])
+                           for d in xor_ids),0)
+            if exact_min<0:
+                raise ValueError("I41 EXACT binary64 rational witness is negative")
             margin,guard,identical=_dominance_margin(q,both,xor,s,t)
             if (witness.get("min_route_load_difference")!=margin or
                     witness.get("roundoff_guard")!=guard or
