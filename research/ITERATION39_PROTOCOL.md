@@ -1,0 +1,29 @@
+# I39 PREREGISTERED MODEL REPAIR — source modular-installable single robust plan (22 October 2026)
+
+**Frozen BEFORE all I39 source-domain route/solver evaluations.** This is a scientifically motivated, explicitly NEW mathematical formulation after I38's negative result, NOT a retrospective successful reanalysis. Only `owlCoder/gadapt:main`; original `bpzoran/gadapt` untouched. **No claim of new SNDlib optimization formulation or original GA method.**
+
+## Why a new formulation is scientifically necessary, not reward tuning
+
+[I38 original negative experiment](ITERATION38_PROTOCOL.md) used a chosen **EXPLICIT one-extra-capacity option per source edge**, train 192 of 288 real directed DFN 2005 five-minute Nobel-Germany temporal matrices; official network SHA256 `35e58a3799d78d2ebfd2a557be2ba4a221ca17fc704cfdd13df56bb90c12a796`, native temporal archive SHA256 `2c3ca706a8d5c9601eb4d144651816dfd956257c20f60111a8aceb5f07ab0100`. One HiGHS MIP returned `status=2 infeasible` and 12 legacy GAdapt seeds 3800..3811 (4,320 true whole-panel attempts) found zero feasible plans, all retained unchanged. An independent **singleton source-demand cut** for Frankfurt needs 5,093.309166 throughput against maximally 4,000 installed under the I38 one-option-capacity limit, for at least one training frame: shortfall >=1,093.309166 (units under source capacity/traffic equivalence assumption). Thus NO routing algorithm could have succeeded under I38 model; changing GA mutation/UCB would be inappropriate.
+
+I39 asks a separate *well-posed* capacity planning question using SNDlib's documented **MODULAR_LINK_CAPACITIES** allowed formulation: any nonnegative integer number of source-defined modules per edge. The original native network lists 20 and 40 capacity options, and larger explicit source options. We must **FIRST computationally prove on the source text** that every option `(capacity,cost)` is exactly decomposable into `floor(capacity/40)` copies of source (40,c40) and, if cap%40=20, one source (20,c20), at the same price; furthermore c20<=c40<=2*c20. Only if all 26 links pass this audit do we replace the full source menu by the algebraically equivalent `y20,y40 in Z_+^2` (for *modular repeatable* source interpretation). FAIL CLOSED if any option/cost/capacity/base/setup/routing assumption differs. This is a reduction of a source-specified MODULAR model, not a novel science theorem.
+
+The dynamic demand matrices are official Mbit/s, but independent absolute unit calibration of source module numbers is not documented; **explicitly state the research assumption one native capacity unit = one Mbit/s** and do not claim certified DFN hardware feasibility.
+
+## Frozen mathematical model (same two paths as I38)
+
+One **static** unsplittable route choice `z_d in {0,1}` per each of the 272 directed source pairs: exactly two deterministic loopless least-hop paths from the source 17-node/26-link topology. One **static lasting network expansion** plan per undirected shared-capacity edge `(y_e20,y_e40) in Z_+^2` (both directions consume shared capacity). For ALL original 192 chronological training matrices simultaneously: `sum_d q_dt path_indicator(e,d,z) <= base_e+20*y_e20+40*y_e40`; objective `sum_e(source_price_e20*y_e20+source_price_e40*y_e40)` plus preinstalled/route/setup if present (for this experiment, FAIL CLOSED if any are nonzero). No scenario-wise purchases, no scenario recourse, no inferred capacity price cap, no final holdout-based resizing. Native network and traffic SHA must be exactly the values above; otherwise STOP.
+
+The source-derived module reduction **must be verified before any I39 solver call**. Original I38 hard one-option formulation is NOT retested or modified, and its raw negative results remain permanent.
+
+## Prespecified experiment
+
+- Chronological split exactly **192 train / 96 untouched holdout** for the source dated 2005-02-15, maintain 272 directed pairs (missing pairs zero; no synthetic demand).
+- Four honest comparisons: shortest-hop first path (all route genes 0), original core **GAdapt legacy** (not UCB), strong `scipy.optimize.milp` HiGHS integer reference with identical routing options/installation constraints, and independent primal/dual validation. No new GA mutation algorithm is proposed or claimed.
+- Exactly **12 NEW GA seeds 3900..3911**, 360 actual whole-TRAIN-panel objective evaluations maximum per seed; population=24, generations=128, log_relative cost diversity, population_mutation cost_diversity,parent_diversity, timeout=240s, baseline with deterministic first paths. MIP one run, time_limit=180s, relative MIP gap target 1%; retain status/feasible incumbent/dual bound and best bound even if timeout. No statistical claim of superiority unless later independently preregistered.
+- Train: source cost for one statically installed plan, feasible routing, true objective count, best true verified cost per seed, MILP lower bound and relative certified upper bound on GA optimality gap if valid. Holdout: 96 original matrix checks per plan, number of overcapacity frames/worst shortfall; failures count as failures, never repaired.
+- One source input gate and one solver CI series after green synthetic no-domain tests. Never automatically re-run expensive optimization on normal pushes; trigger exactly one frozen PR invocation and preserve original JSON/manifest/artifact. No posthoc policy tuning, seed replacement or search for favorable cutoff.
+
+## Dissertation stop/go
+
+This I39 establishes the **actual network-design baseline and formal optimality reference** that were missing in I33–I38. It DOES NOT establish new genetic-algorithm science. Next decision: only if MILP/GA gaps or robust-holdout failures show a specific important limitation AND literature reveals an identifiably novel method, formulate new theory/algorithm under a separate preregistration and independent validation. Otherwise no dissertation novelty claim.
