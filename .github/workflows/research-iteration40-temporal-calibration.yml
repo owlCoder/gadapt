@@ -46,6 +46,10 @@ jobs:
           python -m unittest -v research.test_iteration39_source_modular_capacity
 
   verified-original-source-gate-no-milp:
+    # Original SNDlib files are currently HTTP 404 / invalid TLS.
+    # Do not repeatedly attempt broken live-source retrieval on code pushes.
+    # This still runs on an intentional one-time research PR only.
+    if: github.event_name == 'pull_request'
     needs: zero-source-optimization-theorem-tests
     runs-on: ubuntu-latest
     timeout-minutes: 25
