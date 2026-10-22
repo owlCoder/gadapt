@@ -1,0 +1,1938 @@
+
+CURRENT n: 100
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 4
+5 len brk: 3
+6 len brk: 3
+7 len brk: 4
+8 len brk: 4
+9 len brk: 4
+10 len brk: 4
+11 len brk: 5
+12 len brk: 5
+13 len brk: 6
+14 len brk: 6
+15 len brk: 6
+16 len brk: 6
+17 len brk: 5
+18 len brk: 5
+19 len brk: 5
+20 len brk: 5
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 4
+32 len brk: 4
+33 len brk: 4
+34 len brk: 3
+35 len brk: 3
+36 len brk: 3
+37 len brk: 4
+38 len brk: 4
+39 len brk: 4
+40 len brk: 5
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3599.96
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Optimize a model with 442 rows, 537 columns and 1491 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.00s
+Presolved: 102 rows, 231 columns, 436 nonzeros
+Variable types: 217 continuous, 14 integer (14 binary)
+
+Root relaxation: objective 1.213867e+05, 61 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0    121386.71807 121386.718   0.0%     -    0s
+
+Explored 0 nodes (61 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.213867180749e+05, best bound 1.213867180749e+05, gap 0.0%
+CURRENT ERROR: LB UP rel abs: 121386.718075 & 121464.945513 & 0.000644448088619 & 78.2274384471 & 0.04
+
+CURRENT n: 100
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 4
+5 len brk: 3
+6 len brk: 95
+7 len brk: 4
+8 len brk: 4
+9 len brk: 4
+10 len brk: 4
+11 len brk: 104
+12 len brk: 5
+13 len brk: 6
+14 len brk: 6
+15 len brk: 6
+16 len brk: 6
+17 len brk: 5
+18 len brk: 5
+19 len brk: 5
+20 len brk: 5
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 64
+32 len brk: 64
+33 len brk: 64
+34 len brk: 3
+35 len brk: 3
+36 len brk: 3
+37 len brk: 69
+38 len brk: 69
+39 len brk: 69
+40 len brk: 5
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3599.91
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Optimize a model with 442 rows, 1103 columns and 3189 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.00s
+Presolved: 99 rows, 795 columns, 1562 nonzeros
+
+Loaded MIP start with objective 121388
+
+Variable types: 783 continuous, 12 integer (12 binary)
+
+Root relaxation: objective 1.213867e+05, 76 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121388.278 121386.718  0.00%     -    0s
+
+Explored 0 nodes (76 simplex iterations) in 0.01 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.213882775649e+05, best bound 1.213867180749e+05, gap 0.0013%
+CURRENT ERROR: LB UP rel abs: 121386.718075 & 121485.515816 & 0.000813908993518 & 98.7977415348 & 0.1
+
+CURRENT n: 100
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 4
+5 len brk: 3
+6 len brk: 95
+7 len brk: 4
+8 len brk: 4
+9 len brk: 4
+10 len brk: 4
+11 len brk: 104
+12 len brk: 5
+13 len brk: 6
+14 len brk: 6
+15 len brk: 6
+16 len brk: 105
+17 len brk: 5
+18 len brk: 5
+19 len brk: 5
+20 len brk: 5
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 64
+32 len brk: 64
+33 len brk: 64
+34 len brk: 3
+35 len brk: 3
+36 len brk: 3
+37 len brk: 69
+38 len brk: 69
+39 len brk: 69
+40 len brk: 5
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3599.85
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Optimize a model with 442 rows, 1202 columns and 3486 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.00s
+Presolved: 99 rows, 894 columns, 1760 nonzeros
+
+Loaded MIP start with objective 121389
+
+Variable types: 882 continuous, 12 integer (12 binary)
+
+Root relaxation: objective 1.213867e+05, 77 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121389.434 121386.718  0.00%     -    0s
+
+Explored 0 nodes (77 simplex iterations) in 0.02 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.213894338879e+05, best bound 1.213867180749e+05, gap 0.0022%
+CURRENT ERROR: LB UP rel abs: 121386.718075 & 121467.311357 & 0.000663938225351 & 80.5932821798 & 0.18
+
+CURRENT n: 100
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 4
+5 len brk: 3
+6 len brk: 95
+7 len brk: 4
+8 len brk: 4
+9 len brk: 4
+10 len brk: 4
+11 len brk: 104
+12 len brk: 104
+13 len brk: 6
+14 len brk: 6
+15 len brk: 6
+16 len brk: 105
+17 len brk: 5
+18 len brk: 5
+19 len brk: 5
+20 len brk: 5
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 64
+32 len brk: 64
+33 len brk: 64
+34 len brk: 3
+35 len brk: 3
+36 len brk: 3
+37 len brk: 69
+38 len brk: 69
+39 len brk: 69
+40 len brk: 5
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3599.77
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Optimize a model with 442 rows, 1301 columns and 3783 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.00s
+Presolved: 99 rows, 993 columns, 1958 nonzeros
+
+Loaded MIP start with objective 121388
+
+Variable types: 981 continuous, 12 integer (12 binary)
+
+Root relaxation: objective 1.213867e+05, 77 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121388.278 121386.718  0.00%     -    0s
+
+Explored 0 nodes (77 simplex iterations) in 0.02 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.213882775649e+05, best bound 1.213867180749e+05, gap 0.0013%
+CURRENT ERROR: LB UP rel abs: 121386.718075 & 121485.515816 & 0.000813908993518 & 98.7977415348 & 0.25
+
+CURRENT n: 100
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 4
+5 len brk: 3
+6 len brk: 95
+7 len brk: 4
+8 len brk: 4
+9 len brk: 4
+10 len brk: 4
+11 len brk: 104
+12 len brk: 104
+13 len brk: 6
+14 len brk: 6
+15 len brk: 105
+16 len brk: 105
+17 len brk: 5
+18 len brk: 5
+19 len brk: 5
+20 len brk: 5
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 64
+32 len brk: 64
+33 len brk: 64
+34 len brk: 3
+35 len brk: 3
+36 len brk: 3
+37 len brk: 69
+38 len brk: 69
+39 len brk: 69
+40 len brk: 5
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3599.7
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Optimize a model with 442 rows, 1400 columns and 4080 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.00s
+Presolved: 99 rows, 1092 columns, 2156 nonzeros
+
+Loaded MIP start with objective 121388
+
+Variable types: 1080 continuous, 12 integer (12 binary)
+
+Root relaxation: objective 1.213867e+05, 80 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121388.303 121386.718  0.00%     -    0s
+
+Explored 0 nodes (80 simplex iterations) in 0.02 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.213883028538e+05, best bound 1.213867180749e+05, gap 0.0013%
+CURRENT ERROR: LB UP rel abs: 121386.718075 & 121485.19011 & 0.000811225781813 & 98.4720352721 & 0.32
+
+CURRENT n: 100
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 4
+5 len brk: 3
+6 len brk: 95
+7 len brk: 4
+8 len brk: 4
+9 len brk: 4
+10 len brk: 4
+11 len brk: 104
+12 len brk: 104
+13 len brk: 6
+14 len brk: 105
+15 len brk: 105
+16 len brk: 105
+17 len brk: 5
+18 len brk: 5
+19 len brk: 5
+20 len brk: 5
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 64
+32 len brk: 64
+33 len brk: 64
+34 len brk: 3
+35 len brk: 3
+36 len brk: 3
+37 len brk: 69
+38 len brk: 69
+39 len brk: 69
+40 len brk: 5
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3599.62
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Optimize a model with 442 rows, 1499 columns and 4377 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.00s
+Presolved: 99 rows, 1191 columns, 2354 nonzeros
+
+Loaded MIP start with objective 121390
+
+Variable types: 1179 continuous, 12 integer (12 binary)
+
+Root relaxation: objective 1.213867e+05, 81 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121389.949 121386.718  0.00%     -    0s
+
+Explored 0 nodes (81 simplex iterations) in 0.02 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.213899489270e+05, best bound 1.213867180749e+05, gap 0.0027%
+CURRENT ERROR: LB UP rel abs: 121386.718075 & 121489.476624 & 0.000846538658481 & 102.758549477 & 0.41
+
+CURRENT n: 100
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 4
+5 len brk: 3
+6 len brk: 95
+7 len brk: 4
+8 len brk: 4
+9 len brk: 4
+10 len brk: 4
+11 len brk: 104
+12 len brk: 104
+13 len brk: 105
+14 len brk: 105
+15 len brk: 105
+16 len brk: 105
+17 len brk: 5
+18 len brk: 5
+19 len brk: 5
+20 len brk: 5
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 64
+32 len brk: 64
+33 len brk: 64
+34 len brk: 3
+35 len brk: 3
+36 len brk: 3
+37 len brk: 69
+38 len brk: 69
+39 len brk: 69
+40 len brk: 5
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3599.53
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Optimize a model with 442 rows, 1598 columns and 4674 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.00s
+Presolved: 99 rows, 1290 columns, 2552 nonzeros
+
+Loaded MIP start with objective 121391
+
+Variable types: 1278 continuous, 12 integer (12 binary)
+
+Root relaxation: objective 1.213867e+05, 83 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121390.646 121386.718  0.00%     -    0s
+
+Explored 0 nodes (83 simplex iterations) in 0.02 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.213906460714e+05, best bound 1.213867180749e+05, gap 0.0032%
+CURRENT ERROR: LB UP rel abs: 121386.718075 & 121412.535519 & 0.000212687552001 & 25.8174439128 & 0.49
+
+CURRENT n: 100
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 4
+5 len brk: 3
+6 len brk: 95
+7 len brk: 4
+8 len brk: 4
+9 len brk: 4
+10 len brk: 4
+11 len brk: 104
+12 len brk: 104
+13 len brk: 105
+14 len brk: 105
+15 len brk: 105
+16 len brk: 105
+17 len brk: 5
+18 len brk: 5
+19 len brk: 5
+20 len brk: 5
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 64
+32 len brk: 64
+33 len brk: 64
+34 len brk: 3
+35 len brk: 50
+36 len brk: 50
+37 len brk: 69
+38 len brk: 69
+39 len brk: 69
+40 len brk: 5
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3599.45
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Optimize a model with 442 rows, 1692 columns and 4956 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.00s
+Presolved: 93 rows, 1380 columns, 2728 nonzeros
+
+Loaded MIP start with objective 121400
+
+Variable types: 1372 continuous, 8 integer (8 binary)
+
+Root relaxation: objective 1.213867e+05, 69 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121400.413 121386.718  0.01%     -    0s
+     0     2 121386.718    0    1 121400.413 121386.718  0.01%     -    0s
+
+Explored 3 nodes (77 simplex iterations) in 0.04 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.214004133958e+05, best bound 1.213882775649e+05, gap 0.0100%
+CURRENT ERROR: LB UP rel abs: 121388.277565 & 121422.302843 & 0.000280301188147 & 34.0252784286 & 0.59
+
+CURRENT n: 100
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 4
+5 len brk: 3
+6 len brk: 95
+7 len brk: 4
+8 len brk: 4
+9 len brk: 4
+10 len brk: 4
+11 len brk: 104
+12 len brk: 104
+13 len brk: 105
+14 len brk: 105
+15 len brk: 105
+16 len brk: 105
+17 len brk: 5
+18 len brk: 5
+19 len brk: 5
+20 len brk: 5
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 64
+32 len brk: 64
+33 len brk: 64
+34 len brk: 50
+35 len brk: 50
+36 len brk: 50
+37 len brk: 69
+38 len brk: 69
+39 len brk: 69
+40 len brk: 5
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3599.34
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Optimize a model with 442 rows, 1739 columns and 5097 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.00s
+Presolved: 90 rows, 1425 columns, 2816 nonzeros
+
+Loaded MIP start with objective 121409
+
+Variable types: 1419 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 1.213867e+05, 65 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121408.672 121386.718  0.02%     -    0s
+     0     2 121386.718    0    1 121408.672 121386.718  0.02%     -    0s
+
+Explored 57 nodes (196 simplex iterations) in 0.07 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.214086718335e+05, best bound 1.214004133958e+05, gap 0.0068%
+CURRENT ERROR: LB UP rel abs: 121400.413396 & 121458.184585 & 0.000475873083816 & 57.7711890992 & 0.73
+
+CURRENT n: 100
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 103
+5 len brk: 3
+6 len brk: 95
+7 len brk: 4
+8 len brk: 4
+9 len brk: 4
+10 len brk: 4
+11 len brk: 104
+12 len brk: 104
+13 len brk: 105
+14 len brk: 105
+15 len brk: 105
+16 len brk: 105
+17 len brk: 5
+18 len brk: 5
+19 len brk: 5
+20 len brk: 5
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 64
+32 len brk: 64
+33 len brk: 64
+34 len brk: 50
+35 len brk: 50
+36 len brk: 50
+37 len brk: 69
+38 len brk: 69
+39 len brk: 69
+40 len brk: 5
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3599.21
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Optimize a model with 442 rows, 1838 columns and 5394 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.00s
+Presolved: 90 rows, 1524 columns, 3014 nonzeros
+
+Loaded MIP start with objective 121410
+
+Variable types: 1518 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 1.213867e+05, 64 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121409.830 121386.718  0.02%     -    0s
+     0     2 121386.718    0    1 121409.830 121386.718  0.02%     -    0s
+
+Explored 59 nodes (179 simplex iterations) in 0.07 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.214098301937e+05, best bound 1.214004133958e+05, gap 0.0078%
+CURRENT ERROR: LB UP rel abs: 121400.413396 & 121466.801624 & 0.00054685339863 & 66.3882286606 & 0.86
+
+CURRENT n: 100
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 103
+5 len brk: 3
+6 len brk: 95
+7 len brk: 4
+8 len brk: 4
+9 len brk: 4
+10 len brk: 4
+11 len brk: 104
+12 len brk: 104
+13 len brk: 105
+14 len brk: 105
+15 len brk: 105
+16 len brk: 105
+17 len brk: 5
+18 len brk: 5
+19 len brk: 104
+20 len brk: 5
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 64
+32 len brk: 64
+33 len brk: 64
+34 len brk: 50
+35 len brk: 50
+36 len brk: 50
+37 len brk: 69
+38 len brk: 69
+39 len brk: 69
+40 len brk: 5
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3599.07
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Optimize a model with 442 rows, 1937 columns and 5691 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.00s
+Presolved: 90 rows, 1623 columns, 3212 nonzeros
+
+Loaded MIP start with objective 121410
+
+Variable types: 1617 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 1.213867e+05, 66 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121409.830 121386.718  0.02%     -    0s
+     0     2 121386.718    0    1 121409.830 121386.718  0.02%     -    0s
+
+Explored 59 nodes (179 simplex iterations) in 0.07 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.214098301937e+05, best bound 1.214004133958e+05, gap 0.0078%
+CURRENT ERROR: LB UP rel abs: 121400.413396 & 121466.801624 & 0.00054685339863 & 66.3882286606 & 1.0
+
+CURRENT n: 100
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 103
+5 len brk: 3
+6 len brk: 95
+7 len brk: 4
+8 len brk: 4
+9 len brk: 4
+10 len brk: 4
+11 len brk: 104
+12 len brk: 104
+13 len brk: 105
+14 len brk: 105
+15 len brk: 105
+16 len brk: 105
+17 len brk: 5
+18 len brk: 5
+19 len brk: 104
+20 len brk: 5
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 64
+32 len brk: 64
+33 len brk: 64
+34 len brk: 50
+35 len brk: 50
+36 len brk: 50
+37 len brk: 69
+38 len brk: 69
+39 len brk: 69
+40 len brk: 104
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3598.92
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Optimize a model with 442 rows, 2036 columns and 5988 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.00s
+Presolved: 90 rows, 1722 columns, 3410 nonzeros
+
+Loaded MIP start with objective 121409
+
+Variable types: 1716 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 1.213867e+05, 66 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121409.143 121386.718  0.02%     -    0s
+     0     2 121386.718    0    1 121409.143 121386.718  0.02%     -    0s
+
+Explored 59 nodes (175 simplex iterations) in 0.08 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.214091426816e+05, best bound 1.214004133958e+05, gap 0.0072%
+CURRENT ERROR: LB UP rel abs: 121400.413396 & 121451.998068 & 0.00042491347949 & 51.5846720675 & 1.15
+
+CURRENT n: 100
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 103
+5 len brk: 3
+6 len brk: 95
+7 len brk: 58
+8 len brk: 4
+9 len brk: 4
+10 len brk: 4
+11 len brk: 104
+12 len brk: 104
+13 len brk: 105
+14 len brk: 105
+15 len brk: 105
+16 len brk: 105
+17 len brk: 5
+18 len brk: 5
+19 len brk: 104
+20 len brk: 5
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 64
+32 len brk: 64
+33 len brk: 64
+34 len brk: 50
+35 len brk: 50
+36 len brk: 50
+37 len brk: 69
+38 len brk: 69
+39 len brk: 69
+40 len brk: 104
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3598.77
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Optimize a model with 442 rows, 2090 columns and 6150 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.00s
+Presolved: 90 rows, 1776 columns, 3518 nonzeros
+
+Loaded MIP start with objective 121410
+
+Variable types: 1770 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 1.213867e+05, 63 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121409.830 121386.718  0.02%     -    0s
+     0     2 121386.718    0    1 121409.830 121386.718  0.02%     -    0s
+
+Explored 59 nodes (176 simplex iterations) in 0.08 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.214098301937e+05, best bound 1.214004133958e+05, gap 0.0078%
+CURRENT ERROR: LB UP rel abs: 121400.413396 & 121466.801624 & 0.00054685339863 & 66.3882286606 & 1.31
+
+CURRENT n: 100
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 103
+5 len brk: 3
+6 len brk: 95
+7 len brk: 58
+8 len brk: 4
+9 len brk: 4
+10 len brk: 4
+11 len brk: 104
+12 len brk: 104
+13 len brk: 105
+14 len brk: 105
+15 len brk: 105
+16 len brk: 105
+17 len brk: 5
+18 len brk: 5
+19 len brk: 104
+20 len brk: 104
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 64
+32 len brk: 64
+33 len brk: 64
+34 len brk: 50
+35 len brk: 50
+36 len brk: 50
+37 len brk: 69
+38 len brk: 69
+39 len brk: 69
+40 len brk: 104
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3598.61
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Optimize a model with 442 rows, 2189 columns and 6447 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.00s
+Presolved: 90 rows, 1875 columns, 3716 nonzeros
+
+Loaded MIP start with objective 121411
+
+Variable types: 1869 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 1.213867e+05, 61 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121410.602 121386.718  0.02%     -    0s
+     0     2 121386.718    0    1 121410.602 121386.718  0.02%     -    0s
+
+Explored 69 nodes (184 simplex iterations) in 0.09 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.214106017317e+05, best bound 1.214004133958e+05, gap 0.0084%
+CURRENT ERROR: LB UP rel abs: 121400.413396 & 121467.573163 & 0.000553208714852 & 67.1597666772 & 1.48
+
+CURRENT n: 100
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 103
+5 len brk: 3
+6 len brk: 95
+7 len brk: 58
+8 len brk: 4
+9 len brk: 4
+10 len brk: 4
+11 len brk: 104
+12 len brk: 104
+13 len brk: 105
+14 len brk: 105
+15 len brk: 105
+16 len brk: 105
+17 len brk: 104
+18 len brk: 5
+19 len brk: 104
+20 len brk: 104
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 64
+32 len brk: 64
+33 len brk: 64
+34 len brk: 50
+35 len brk: 50
+36 len brk: 50
+37 len brk: 69
+38 len brk: 69
+39 len brk: 69
+40 len brk: 104
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3598.44
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Optimize a model with 442 rows, 2288 columns and 6744 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.00s
+Presolved: 90 rows, 1974 columns, 3914 nonzeros
+
+Loaded MIP start with objective 121411
+
+Variable types: 1968 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 1.213867e+05, 63 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121410.714 121386.718  0.02%     -    0s
+     0     2 121386.718    0    1 121410.714 121386.718  0.02%     -    0s
+
+Explored 71 nodes (191 simplex iterations) in 0.10 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.214107137761e+05, best bound 1.214004133958e+05, gap 0.0085%
+CURRENT ERROR: LB UP rel abs: 121400.413396 & 121467.685207 & 0.000554131647792 & 67.2718111176 & 1.66
+
+CURRENT n: 100
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 103
+5 len brk: 3
+6 len brk: 95
+7 len brk: 58
+8 len brk: 4
+9 len brk: 4
+10 len brk: 4
+11 len brk: 104
+12 len brk: 104
+13 len brk: 105
+14 len brk: 105
+15 len brk: 105
+16 len brk: 105
+17 len brk: 104
+18 len brk: 104
+19 len brk: 104
+20 len brk: 104
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 64
+32 len brk: 64
+33 len brk: 64
+34 len brk: 50
+35 len brk: 50
+36 len brk: 50
+37 len brk: 69
+38 len brk: 69
+39 len brk: 69
+40 len brk: 104
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3598.25
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Optimize a model with 442 rows, 2387 columns and 7041 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.00s
+Presolved: 90 rows, 2073 columns, 4112 nonzeros
+
+Loaded MIP start with objective 121402
+
+Variable types: 2067 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 1.213867e+05, 63 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121401.660 121386.718  0.01%     -    0s
+     0     2 121386.718    0    1 121401.660 121386.718  0.01%     -    0s
+
+Explored 31 nodes (119 simplex iterations) in 0.10 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.214016603004e+05, best bound 1.213914125681e+05, gap 0.0084%
+CURRENT ERROR: LB UP rel abs: 121391.412568 & 121652.264471 & 0.00214884972361 & 260.851903345 & 1.85
+
+CURRENT n: 100
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 103
+5 len brk: 3
+6 len brk: 95
+7 len brk: 58
+8 len brk: 4
+9 len brk: 4
+10 len brk: 4
+11 len brk: 104
+12 len brk: 104
+13 len brk: 204
+14 len brk: 105
+15 len brk: 105
+16 len brk: 105
+17 len brk: 104
+18 len brk: 104
+19 len brk: 104
+20 len brk: 104
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 64
+32 len brk: 64
+33 len brk: 64
+34 len brk: 50
+35 len brk: 50
+36 len brk: 50
+37 len brk: 69
+38 len brk: 69
+39 len brk: 69
+40 len brk: 104
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3598.07
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Optimize a model with 442 rows, 2486 columns and 7338 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.00s
+Presolved: 90 rows, 2172 columns, 4310 nonzeros
+
+Loaded MIP start with objective 121409
+
+Variable types: 2166 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 1.213867e+05, 63 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121408.745 121386.718  0.02%     -    0s
+     0     2 121386.718    0    1 121408.745 121386.718  0.02%     -    0s
+
+Explored 59 nodes (178 simplex iterations) in 0.11 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.214087452451e+05, best bound 1.214004133958e+05, gap 0.0069%
+CURRENT ERROR: LB UP rel abs: 121400.413396 & 121590.009221 & 0.00156173953163 & 189.595824757 & 2.04
+
+CURRENT n: 100
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 103
+5 len brk: 3
+6 len brk: 95
+7 len brk: 58
+8 len brk: 4
+9 len brk: 4
+10 len brk: 103
+11 len brk: 104
+12 len brk: 104
+13 len brk: 204
+14 len brk: 105
+15 len brk: 105
+16 len brk: 105
+17 len brk: 104
+18 len brk: 104
+19 len brk: 104
+20 len brk: 104
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 64
+32 len brk: 64
+33 len brk: 64
+34 len brk: 50
+35 len brk: 50
+36 len brk: 50
+37 len brk: 69
+38 len brk: 69
+39 len brk: 69
+40 len brk: 104
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3597.87
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Optimize a model with 442 rows, 2585 columns and 7635 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.00s
+Presolved: 90 rows, 2271 columns, 4508 nonzeros
+
+Loaded MIP start with objective 121413
+
+Variable types: 2265 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 1.213867e+05, 63 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121413.346 121386.718  0.02%     -    0s
+     0     2 121386.718    0    1 121413.346 121386.718  0.02%     -    0s
+*   75    17              26    121412.51264 121389.434  0.02%   1.7    0s
+
+Explored 86 nodes (219 simplex iterations) in 0.14 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.214125126353e+05, best bound 1.214004133958e+05, gap 0.0100%
+CURRENT ERROR: LB UP rel abs: 121400.413396 & 121412.535519 & 9.98524030349e-05 & 12.122123007 & 2.27
+
+CURRENT n: 200
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 203
+5 len brk: 3
+6 len brk: 188
+7 len brk: 112
+8 len brk: 4
+9 len brk: 4
+10 len brk: 203
+11 len brk: 204
+12 len brk: 204
+13 len brk: 404
+14 len brk: 205
+15 len brk: 205
+16 len brk: 205
+17 len brk: 204
+18 len brk: 204
+19 len brk: 204
+20 len brk: 204
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 125
+32 len brk: 125
+33 len brk: 125
+34 len brk: 97
+35 len brk: 97
+36 len brk: 97
+37 len brk: 134
+38 len brk: 134
+39 len brk: 134
+40 len brk: 204
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3597.58
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Changed value of parameter MIPGap to 1e-12
+   Prev: 0.0001   Min: 0.0   Max: 1e+100   Default: 0.0001
+Changed value of parameter MIPGapAbs to 1e-12
+   Prev: 1e-10   Min: 0.0   Max: 1e+100   Default: 1e-10
+Changed value of parameter IntFeasTol to 1e-09
+   Prev: 1e-05   Min: 1e-09   Max: 0.1   Default: 1e-05
+Changed value of parameter FeasibilityTol to 1e-09
+   Prev: 1e-06   Min: 1e-09   Max: 0.01   Default: 1e-06
+Optimize a model with 442 rows, 4651 columns and 13833 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.01s
+Presolved: 90 rows, 4337 columns, 8640 nonzeros
+
+Loaded MIP start with objective 121408
+
+Variable types: 4331 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 1.213867e+05, 80 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121407.669 121386.718  0.02%     -    0s
+     0     2 121386.718    0    1 121407.669 121386.718  0.02%     -    0s
+
+Explored 137 nodes (277 simplex iterations) in 0.31 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-12)
+Best objective 1.214076686905e+05, best bound 1.214076686905e+05, gap 0.0%
+CURRENT ERROR: LB UP rel abs: 121407.668691 & 121447.234347 & 0.000325890919062 & 39.5656567308 & 2.74
+
+CURRENT n: 200
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 203
+5 len brk: 3
+6 len brk: 188
+7 len brk: 112
+8 len brk: 4
+9 len brk: 4
+10 len brk: 203
+11 len brk: 403
+12 len brk: 204
+13 len brk: 404
+14 len brk: 205
+15 len brk: 205
+16 len brk: 205
+17 len brk: 204
+18 len brk: 204
+19 len brk: 204
+20 len brk: 204
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 125
+32 len brk: 125
+33 len brk: 125
+34 len brk: 97
+35 len brk: 97
+36 len brk: 97
+37 len brk: 134
+38 len brk: 134
+39 len brk: 134
+40 len brk: 204
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3597.11
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Changed value of parameter MIPGap to 1e-12
+   Prev: 0.0001   Min: 0.0   Max: 1e+100   Default: 0.0001
+Changed value of parameter MIPGapAbs to 1e-12
+   Prev: 1e-10   Min: 0.0   Max: 1e+100   Default: 1e-10
+Changed value of parameter IntFeasTol to 1e-09
+   Prev: 1e-05   Min: 1e-09   Max: 0.1   Default: 1e-05
+Changed value of parameter FeasibilityTol to 1e-09
+   Prev: 1e-06   Min: 1e-09   Max: 0.01   Default: 1e-06
+Optimize a model with 442 rows, 4850 columns and 14430 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.01s
+Presolved: 90 rows, 4536 columns, 9038 nonzeros
+
+Loaded MIP start with objective 121408
+
+Variable types: 4530 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 1.213867e+05, 80 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121408.277 121386.718  0.02%     -    0s
+     0     2 121386.718    0    1 121408.277 121386.718  0.02%     -    0s
+
+Explored 143 nodes (285 simplex iterations) in 0.33 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-12)
+Best objective 1.214082770487e+05, best bound 1.214082770487e+05, gap 0.0%
+CURRENT ERROR: LB UP rel abs: 121408.277049 & 121447.655707 & 0.000324349042685 & 39.3786584348 & 3.22
+
+CURRENT n: 200
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 203
+5 len brk: 3
+6 len brk: 188
+7 len brk: 112
+8 len brk: 4
+9 len brk: 4
+10 len brk: 203
+11 len brk: 403
+12 len brk: 403
+13 len brk: 404
+14 len brk: 205
+15 len brk: 205
+16 len brk: 205
+17 len brk: 204
+18 len brk: 204
+19 len brk: 204
+20 len brk: 204
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 125
+32 len brk: 125
+33 len brk: 125
+34 len brk: 97
+35 len brk: 97
+36 len brk: 97
+37 len brk: 134
+38 len brk: 134
+39 len brk: 134
+40 len brk: 204
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3596.62
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Changed value of parameter MIPGap to 1e-12
+   Prev: 0.0001   Min: 0.0   Max: 1e+100   Default: 0.0001
+Changed value of parameter MIPGapAbs to 1e-12
+   Prev: 1e-10   Min: 0.0   Max: 1e+100   Default: 1e-10
+Changed value of parameter IntFeasTol to 1e-09
+   Prev: 1e-05   Min: 1e-09   Max: 0.1   Default: 1e-05
+Changed value of parameter FeasibilityTol to 1e-09
+   Prev: 1e-06   Min: 1e-09   Max: 0.01   Default: 1e-06
+Optimize a model with 442 rows, 5049 columns and 15027 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.01s
+Presolved: 90 rows, 4735 columns, 9436 nonzeros
+
+Loaded MIP start with objective 121409
+
+Variable types: 4729 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 1.213867e+05, 80 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121409.377 121386.718  0.02%     -    0s
+     0     2 121386.718    0    1 121409.377 121386.718  0.02%     -    0s
+
+Explored 171 nodes (337 simplex iterations) in 0.36 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-12)
+Best objective 1.214093774975e+05, best bound 1.214093774975e+05, gap 0.0%
+CURRENT ERROR: LB UP rel abs: 121409.377498 & 121458.201469 & 0.00040214333185 & 48.8239715847 & 3.74
+
+CURRENT n: 200
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 203
+5 len brk: 3
+6 len brk: 188
+7 len brk: 112
+8 len brk: 4
+9 len brk: 4
+10 len brk: 203
+11 len brk: 403
+12 len brk: 403
+13 len brk: 404
+14 len brk: 205
+15 len brk: 205
+16 len brk: 404
+17 len brk: 204
+18 len brk: 204
+19 len brk: 204
+20 len brk: 204
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 125
+32 len brk: 125
+33 len brk: 125
+34 len brk: 97
+35 len brk: 97
+36 len brk: 97
+37 len brk: 134
+38 len brk: 134
+39 len brk: 134
+40 len brk: 204
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3596.1
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Changed value of parameter MIPGap to 1e-12
+   Prev: 0.0001   Min: 0.0   Max: 1e+100   Default: 0.0001
+Changed value of parameter MIPGapAbs to 1e-12
+   Prev: 1e-10   Min: 0.0   Max: 1e+100   Default: 1e-10
+Changed value of parameter IntFeasTol to 1e-09
+   Prev: 1e-05   Min: 1e-09   Max: 0.1   Default: 1e-05
+Changed value of parameter FeasibilityTol to 1e-09
+   Prev: 1e-06   Min: 1e-09   Max: 0.01   Default: 1e-06
+Optimize a model with 442 rows, 5248 columns and 15624 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.01s
+Presolved: 90 rows, 4934 columns, 9834 nonzeros
+
+Loaded MIP start with objective 121409
+
+Variable types: 4928 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 1.213867e+05, 80 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121409.377 121386.718  0.02%     -    0s
+     0     2 121386.718    0    1 121409.377 121386.718  0.02%     -    0s
+
+Explored 171 nodes (339 simplex iterations) in 0.38 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-12)
+Best objective 1.214093774975e+05, best bound 1.214093774975e+05, gap 0.0%
+CURRENT ERROR: LB UP rel abs: 121409.377498 & 121458.201469 & 0.00040214333185 & 48.8239715847 & 4.29
+
+CURRENT n: 200
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 203
+5 len brk: 3
+6 len brk: 188
+7 len brk: 112
+8 len brk: 4
+9 len brk: 4
+10 len brk: 203
+11 len brk: 403
+12 len brk: 403
+13 len brk: 404
+14 len brk: 205
+15 len brk: 404
+16 len brk: 404
+17 len brk: 204
+18 len brk: 204
+19 len brk: 204
+20 len brk: 204
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 125
+32 len brk: 125
+33 len brk: 125
+34 len brk: 97
+35 len brk: 97
+36 len brk: 97
+37 len brk: 134
+38 len brk: 134
+39 len brk: 134
+40 len brk: 204
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3595.54
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Changed value of parameter MIPGap to 1e-12
+   Prev: 0.0001   Min: 0.0   Max: 1e+100   Default: 0.0001
+Changed value of parameter MIPGapAbs to 1e-12
+   Prev: 1e-10   Min: 0.0   Max: 1e+100   Default: 1e-10
+Changed value of parameter IntFeasTol to 1e-09
+   Prev: 1e-05   Min: 1e-09   Max: 0.1   Default: 1e-05
+Changed value of parameter FeasibilityTol to 1e-09
+   Prev: 1e-06   Min: 1e-09   Max: 0.01   Default: 1e-06
+Optimize a model with 442 rows, 5447 columns and 16221 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.01s
+Presolved: 90 rows, 5133 columns, 10232 nonzeros
+
+Loaded MIP start with objective 121410
+
+Variable types: 5127 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 1.213867e+05, 80 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121409.757 121386.718  0.02%     -    0s
+     0     2 121386.718    0    1 121409.757 121386.718  0.02%     -    0s
+
+Explored 179 nodes (357 simplex iterations) in 0.41 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-12)
+Best objective 1.214097566074e+05, best bound 1.214097566074e+05, gap 0.0%
+CURRENT ERROR: LB UP rel abs: 121409.756607 & 121458.395573 & 0.000400618259493 & 48.6389653776 & 4.88
+
+CURRENT n: 200
+1 len brk: 4
+2 len brk: 4
+3 len brk: 3
+4 len brk: 203
+5 len brk: 3
+6 len brk: 188
+7 len brk: 112
+8 len brk: 4
+9 len brk: 4
+10 len brk: 203
+11 len brk: 403
+12 len brk: 403
+13 len brk: 404
+14 len brk: 404
+15 len brk: 404
+16 len brk: 404
+17 len brk: 204
+18 len brk: 204
+19 len brk: 204
+20 len brk: 204
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 125
+32 len brk: 125
+33 len brk: 125
+34 len brk: 97
+35 len brk: 97
+36 len brk: 97
+37 len brk: 134
+38 len brk: 134
+39 len brk: 134
+40 len brk: 204
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3594.94
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Changed value of parameter MIPGap to 1e-12
+   Prev: 0.0001   Min: 0.0   Max: 1e+100   Default: 0.0001
+Changed value of parameter MIPGapAbs to 1e-12
+   Prev: 1e-10   Min: 0.0   Max: 1e+100   Default: 1e-10
+Changed value of parameter IntFeasTol to 1e-09
+   Prev: 1e-05   Min: 1e-09   Max: 0.1   Default: 1e-05
+Changed value of parameter FeasibilityTol to 1e-09
+   Prev: 1e-06   Min: 1e-09   Max: 0.01   Default: 1e-06
+Optimize a model with 442 rows, 5646 columns and 16818 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.01s
+Presolved: 90 rows, 5332 columns, 10630 nonzeros
+
+Loaded MIP start with objective 121411
+
+Variable types: 5326 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 1.213867e+05, 80 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121410.864 121386.718  0.02%     -    0s
+     0     2 121386.718    0    1 121410.864 121386.718  0.02%     -    0s
+
+Explored 209 nodes (385 simplex iterations) in 0.44 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-12)
+Best objective 1.214108639877e+05, best bound 1.214108639877e+05, gap 0.0%
+CURRENT ERROR: LB UP rel abs: 121410.863988 & 121428.773457 & 0.000147511258176 & 17.9094693031 & 5.51
+
+CURRENT n: 200
+1 len brk: 4
+2 len brk: 4
+3 len brk: 123
+4 len brk: 203
+5 len brk: 3
+6 len brk: 188
+7 len brk: 112
+8 len brk: 4
+9 len brk: 4
+10 len brk: 203
+11 len brk: 403
+12 len brk: 403
+13 len brk: 404
+14 len brk: 404
+15 len brk: 404
+16 len brk: 404
+17 len brk: 204
+18 len brk: 204
+19 len brk: 204
+20 len brk: 204
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 3
+31 len brk: 125
+32 len brk: 125
+33 len brk: 125
+34 len brk: 97
+35 len brk: 97
+36 len brk: 97
+37 len brk: 134
+38 len brk: 134
+39 len brk: 134
+40 len brk: 204
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3594.3
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Changed value of parameter MIPGap to 1e-12
+   Prev: 0.0001   Min: 0.0   Max: 1e+100   Default: 0.0001
+Changed value of parameter MIPGapAbs to 1e-12
+   Prev: 1e-10   Min: 0.0   Max: 1e+100   Default: 1e-10
+Changed value of parameter IntFeasTol to 1e-09
+   Prev: 1e-05   Min: 1e-09   Max: 0.1   Default: 1e-05
+Changed value of parameter FeasibilityTol to 1e-09
+   Prev: 1e-06   Min: 1e-09   Max: 0.01   Default: 1e-06
+Optimize a model with 442 rows, 5766 columns and 17178 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.01s
+Presolved: 87 rows, 5450 columns, 10864 nonzeros
+
+Loaded MIP start with objective 121412
+
+Variable types: 5446 continuous, 4 integer (4 binary)
+
+Root relaxation: objective 1.213867e+05, 76 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121412.226 121386.718  0.02%     -    0s
+     0     2 121386.718    0    1 121412.226 121386.718  0.02%     -    0s
+
+Explored 249 nodes (429 simplex iterations) in 0.50 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-12)
+Best objective 1.214122262729e+05, best bound 1.214122262729e+05, gap 0.0%
+CURRENT ERROR: LB UP rel abs: 121412.226273 & 121414.618511 & 1.97034406545e-05 & 2.3922385951 & 6.2
+
+CURRENT n: 200
+1 len brk: 4
+2 len brk: 4
+3 len brk: 123
+4 len brk: 203
+5 len brk: 3
+6 len brk: 188
+7 len brk: 112
+8 len brk: 4
+9 len brk: 4
+10 len brk: 203
+11 len brk: 403
+12 len brk: 403
+13 len brk: 404
+14 len brk: 404
+15 len brk: 404
+16 len brk: 404
+17 len brk: 204
+18 len brk: 204
+19 len brk: 204
+20 len brk: 204
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 48
+31 len brk: 125
+32 len brk: 125
+33 len brk: 125
+34 len brk: 97
+35 len brk: 97
+36 len brk: 97
+37 len brk: 134
+38 len brk: 134
+39 len brk: 134
+40 len brk: 204
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3593.61
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Changed value of parameter MIPGap to 1e-12
+   Prev: 0.0001   Min: 0.0   Max: 1e+100   Default: 0.0001
+Changed value of parameter MIPGapAbs to 1e-12
+   Prev: 1e-10   Min: 0.0   Max: 1e+100   Default: 1e-10
+Changed value of parameter IntFeasTol to 1e-09
+   Prev: 1e-05   Min: 1e-09   Max: 0.1   Default: 1e-05
+Changed value of parameter FeasibilityTol to 1e-09
+   Prev: 1e-06   Min: 1e-09   Max: 0.01   Default: 1e-06
+Optimize a model with 442 rows, 5811 columns and 17313 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.01s
+Presolved: 84 rows, 5493 columns, 10948 nonzeros
+
+Loaded MIP start with objective 121412
+
+Variable types: 5491 continuous, 2 integer (2 binary)
+
+Root relaxation: objective 1.213867e+05, 79 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121412.226 121386.718  0.02%     -    0s
+     0     2 121386.718    0    1 121412.226 121386.718  0.02%     -    0s
+
+Explored 249 nodes (420 simplex iterations) in 0.49 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-12)
+Best objective 1.214122262729e+05, best bound 1.214122262729e+05, gap 0.0%
+CURRENT ERROR: LB UP rel abs: 121412.226273 & 121414.618511 & 1.97034404689e-05 & 2.39223857256 & 6.89
+
+CURRENT n: 200
+1 len brk: 4
+2 len brk: 4
+3 len brk: 123
+4 len brk: 203
+5 len brk: 48
+6 len brk: 188
+7 len brk: 112
+8 len brk: 4
+9 len brk: 4
+10 len brk: 203
+11 len brk: 403
+12 len brk: 403
+13 len brk: 404
+14 len brk: 404
+15 len brk: 404
+16 len brk: 404
+17 len brk: 204
+18 len brk: 204
+19 len brk: 204
+20 len brk: 204
+21 len brk: 5
+22 len brk: 5
+23 len brk: 5
+24 len brk: 5
+25 len brk: 5
+26 len brk: 5
+27 len brk: 5
+28 len brk: 5
+29 len brk: 5
+30 len brk: 48
+31 len brk: 125
+32 len brk: 125
+33 len brk: 125
+34 len brk: 97
+35 len brk: 97
+36 len brk: 97
+37 len brk: 134
+38 len brk: 134
+39 len brk: 134
+40 len brk: 204
+Changed value of parameter Threads to 1
+   Prev: 0   Min: 0   Max: 2   Default: 0
+Changed value of parameter TimeLimit to 3592.92
+   Prev: 1e+100   Min: 0.0   Max: 1e+100   Default: 1e+100
+Changed value of parameter MIPGap to 1e-12
+   Prev: 0.0001   Min: 0.0   Max: 1e+100   Default: 0.0001
+Changed value of parameter MIPGapAbs to 1e-12
+   Prev: 1e-10   Min: 0.0   Max: 1e+100   Default: 1e-10
+Changed value of parameter IntFeasTol to 1e-09
+   Prev: 1e-05   Min: 1e-09   Max: 0.1   Default: 1e-05
+Changed value of parameter FeasibilityTol to 1e-09
+   Prev: 1e-06   Min: 1e-09   Max: 0.01   Default: 1e-06
+Optimize a model with 442 rows, 5856 columns and 17448 nonzeros
+Presolve removed 361 rows and 320 columns
+Presolve time: 0.01s
+Presolved: 81 rows, 5536 columns, 11032 nonzeros
+
+Loaded MIP start with objective 121413
+
+Variable types: 5536 continuous, 0 integer (0 binary)
+
+Root relaxation: objective 1.213867e+05, 74 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 121386.718    0    1 121412.533 121386.718  0.02%     -    0s
+     0     2 121386.718    0    1 121412.533 121386.718  0.02%     -    0s
+
+Explored 289 nodes (460 simplex iterations) in 0.54 seconds
+Thread count was 1 (of 2 available processors)
+
+Optimal solution found (tolerance 1.00e-12)
+Best objective 1.214125327195e+05, best bound 1.214125327195e+05, gap 0.0%
+CURRENT ERROR: LB UP rel abs: 121412.532719 & 121412.535519 & 2.30564885023e-08 & 0.00279934666469 & 7.62
+Obj: 121412.532719
+fuel: 121412.532719
+startup: 0.0
+	y, on, off:
+0 	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 	
+1 	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+startup:
+1 	0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 	* 0.0
+fuel:
+1 	925.096 925.096 1190.549 2143.55 706.5 1596.464 2612.885 2779.837 2798.23 2502.065 1893.305 1908.167 3792.07 6414.86 6436.586 6436.586 5296.711 5288.765 5540.929 5540.909 5071.29 5071.29 5057.223 5057.223 5275.089 5275.089 1140.524 1140.524 1140.524 706.5 1643.991 1643.991 1643.991 1585.544 2043.727 1985.423 1220.166 1220.166 1220.166 5540.929 	* 121412.533
+prod levels:
+1 	110.8 110.8 97.4 179.733 87.8 140.0 259.6 284.6 284.6 130.0 94.0 94.0 214.76 394.279 394.279 394.279 489.279 489.279 511.279 511.279 523.279 523.279 523.279 523.279 523.279 523.279 10.0 10.0 10.0 87.8 190.0 190.0 190.0 164.8 200.0 194.398 110.0 110.0 110.0 511.279 	* 10500.0
