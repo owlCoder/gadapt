@@ -48,11 +48,10 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - Korisnik (2026-10-23): opcija 1 — studija I42–I48 = poglavlje teze; mentor cilja promenu prakse u industriji.
 - H4 prior-art GOTOVO → `research/H4_PRIOR_ART_AUDIT_SR.md`: GO kao uski metodološki doprinos (klasifikacija poziva,
   doslednost rezultata, dokumentacija vs ponašanje, studija rasprostranjenosti); invarijantnost i brojanje = prior art.
-- I49 [U TOKU, pozadina]: protokol `research/ITERATION49_PROTOCOL.md` (`92b307f`), alat `ab641be`.
-  Okruženje: zaseban venv (verzije u `research/h4_requirements_lock.txt`), repo na PYTHONPATH.
-  Komanda: `PYTHONPATH=. <venv-audit>/bin/python -m research.iteration49_integrity_audit`.
-  Ako pukne: isti kod ponovo. Validacija alata (§6) prošla pre pokretanja.
-- Prijava nalaza održavaocima = spoljna radnja → tražiti odobrenje korisnika.
+- I49 GOTOVO → `research/ITERATION49_REPORT_SR.md`: ČESTO (4/9; samo protivrečnost dokumentaciji 2/9); svi pojedinačni
+  nalazi već poznati/dokumentovani; alat validiran; GAdapt artefakt potvrđen. Nevergrad pad sa NumPy 2.5 (#1707).
+- SLEDEĆE (predlog): dodati I49 u poglavlje/dokument studije; eventualni komentari na otvorene issue-e (#966, #1707)
+  traže odobrenje korisnika (spoljna radnja).
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
@@ -81,3 +80,4 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - 2026-10-23: H3 NO-GO (prior art). Autonomni deo stao na pravom gate-u (CLAUDE.md: STOP bez novine).
 - 2026-10-23: Korisnik izabrao opciju 1 (studija kao poglavlje; industrijska praksa). Pokrenut H4 prior-art audit.
 - 2026-10-23: H4 GO (uski). I49 preregistrovan, alat validiran podmetnutim greškama, pokrenut.
+- 2026-10-23: I49: problemi integriteta česti (4/9), svi već poznati; doprinos = validirani alat + rasprostranjenost.
