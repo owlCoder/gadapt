@@ -45,6 +45,12 @@ def _dominance_margin(q, both, xor, s, t):
 
 
 def _certifies(q, both, xor, s, t):
+    # First prove elementwise domination over every demand that MAY use
+    # this edge. This also certifies equality M=0 when a demand may
+    # choose a route avoiding the edge, with no cancellation/roundoff.
+    active = both | xor
+    if np.all(q[s, active] >= q[t, active]):
+        return True
     margin, guard, identical = _dominance_margin(q, both, xor, s, t)
     return identical or margin > guard
 
