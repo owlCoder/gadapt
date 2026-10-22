@@ -1,0 +1,8 @@
+gadapt_A0   evals 0-300: hamming median=95 p10=39 p90=145  improvements=13
+gadapt_A0   evals 300-1000: hamming median=14 p10=4 p90=40  improvements=8
+gadapt_A0   evals 1000-3000: hamming median=14 p10=5 p90=33  improvements=5
+gadapt_A0 duplicates evaluated 0 final r -0.0018360971892853939
+textbook    evals 0-300: hamming median=103 p10=53 p90=151  improvements=13
+textbook    evals 300-1000: hamming median=17 p10=7 p90=46  improvements=16
+textbook    evals 1000-3000: hamming median=7 p10=3 p90=12  improvements=13
+textbook duplicates evaluated 240 final r -0.04286831146054463
