@@ -338,8 +338,11 @@ class GA:
         )
         self.ensure_unique_individuals = ensure_unique_individuals
         self.cost_diversity_metric = cost_diversity_metric
-        if mutation_operator_policy not in ("legacy", "uniform", "ucb"):
-            raise ValueError("mutation_operator_policy must be legacy/uniform/ucb")
+        if mutation_operator_policy not in ("legacy", "uniform", "ucb", "ucb_true_call_rate"):
+            raise ValueError("mutation_operator_policy must be legacy/uniform/ucb/ucb_true_call_rate")
+        if (mutation_operator_policy == "ucb_true_call_rate" and
+                mutation_operator_credit != "censored_verified_per_cost"):
+            raise ValueError("ucb_true_call_rate requires censored_verified_per_cost")
         if mutation_operator_credit not in ("objective", "feasibility", "scenario_feasibility", "censored_verified_per_cost"):
             raise ValueError("mutation_operator_credit must be objective/feasibility/scenario_feasibility/censored_verified_per_cost")
         if mutation_operator_policy != "legacy" and mutation_operator_credit in ("feasibility", "scenario_feasibility", "censored_verified_per_cost") and not callable(mutation_violation_function):
