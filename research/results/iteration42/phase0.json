@@ -1,0 +1,1096 @@
+{
+ "protocol": "research/ITERATION42_PROTOCOL.md",
+ "protocol_commit": "01b3c52",
+ "source_sha256": {
+  "iteration42_phase0_vig.py": "5b8ef33ea8e8acbdfbe0ab6291f400f8a257aea98158b6ea03bd3a43e686eaa5"
+ },
+ "data_dir": "research/data/topohub_v1.5.1_sndlib",
+ "environment": {
+  "python": "3.14.3",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "networkx": "3.7"
+ },
+ "parameters": {
+  "p_values": [
+   0.05,
+   0.1,
+   0.2
+  ],
+  "samples": 1000,
+  "base_seed": 42,
+  "min_genes": 20,
+  "max_pops": 2000000,
+  "decision_p": 0.1
+ },
+ "instances": [
+  {
+   "name": "abilene",
+   "index": 0,
+   "sha256": "c2e6648bbaf72545bd7e3ec3eefaccdc177e76c0a9d6f8487691f57bdd306bf1",
+   "nodes": 12,
+   "links": 15,
+   "demands": 132,
+   "genes": 130,
+   "fixed_demands": 2,
+   "vig_edges": 6345,
+   "vig_density": 0.7567084078711985,
+   "max_D_e": 81,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 6,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.9641666666666667
+    },
+    "0.10": {
+     "subset_size": 13,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.9976923076923077
+    },
+    "0.20": {
+     "subset_size": 26,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.9998846153846154
+    }
+   },
+   "seconds": 0.05
+  },
+  {
+   "name": "atlanta",
+   "index": 1,
+   "sha256": "01bec6955a63f264affb7a6426fd25e91e405d2d69f74ffad4d6c5dc7814abc1",
+   "nodes": 15,
+   "links": 22,
+   "demands": 210,
+   "genes": 210,
+   "fixed_demands": 0,
+   "vig_edges": 11637,
+   "vig_density": 0.5302802460697198,
+   "max_D_e": 81,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 10,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.07,
+     "mean_largest_fraction": 0.9342
+    },
+    "0.10": {
+     "subset_size": 21,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.008,
+     "mean_largest_fraction": 0.9961428571428571
+    },
+    "0.20": {
+     "subset_size": 42,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 1.0
+    }
+   },
+   "seconds": 0.11
+  },
+  {
+   "name": "brain",
+   "index": 2,
+   "sha256": "69cacba75266f500fa52354d667b5d0b6f1bd9ccdc1761bfbc09c68696e94053",
+   "nodes": 161,
+   "links": 166,
+   "demands": 14311,
+   "genes": 12691,
+   "fixed_demands": 1620,
+   "vig_edges": 44358261,
+   "vig_density": 0.5508673613753944,
+   "max_D_e": 4828,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 635,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 1.0
+    },
+    "0.10": {
+     "subset_size": 1269,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 1.0
+    },
+    "0.20": {
+     "subset_size": 2538,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 1.0
+    }
+   },
+   "seconds": 9.66
+  },
+  {
+   "name": "cost266",
+   "index": 3,
+   "sha256": "38613c37949367270c8f936d83417f86f636129037a5aa74014fe1142a2b2801",
+   "nodes": 37,
+   "links": 57,
+   "demands": 1332,
+   "genes": 1332,
+   "fixed_demands": 0,
+   "vig_edges": 248657,
+   "vig_density": 0.2805100367083838,
+   "max_D_e": 297,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 67,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.9996567164179105
+    },
+    "0.10": {
+     "subset_size": 133,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 1.0
+    },
+    "0.20": {
+     "subset_size": 266,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 1.0
+    }
+   },
+   "seconds": 10.22
+  },
+  {
+   "name": "dfn-bwin",
+   "index": 4,
+   "sha256": "841f0a438e3f750f712a1caceab62c8d09f15ab1ed090390a449fa730b10c628",
+   "nodes": 10,
+   "links": 45,
+   "demands": 90,
+   "genes": 90,
+   "fixed_demands": 0,
+   "vig_edges": 1737,
+   "vig_density": 0.4337078651685393,
+   "max_D_e": 34,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 4,
+     "median_k": 2.0,
+     "p10_k": 1.0,
+     "p90_k": 3.0,
+     "frac_k_ge_3": 0.161,
+     "mean_largest_fraction": 0.76425
+    },
+    "0.10": {
+     "subset_size": 9,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.003,
+     "mean_largest_fraction": 0.9685555555555555
+    },
+    "0.20": {
+     "subset_size": 18,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 1.0
+    }
+   },
+   "seconds": 10.25
+  },
+  {
+   "name": "dfn-gwin",
+   "index": 5,
+   "sha256": "e5cbe1658025a7d9200bedbc13706389776770c929e84a1cc40ee67b27f5d21b",
+   "nodes": 11,
+   "links": 47,
+   "demands": 110,
+   "genes": 110,
+   "fixed_demands": 0,
+   "vig_edges": 2075,
+   "vig_density": 0.34612176814011675,
+   "max_D_e": 34,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 6,
+     "median_k": 2.0,
+     "p10_k": 1.0,
+     "p90_k": 3.0,
+     "frac_k_ge_3": 0.338,
+     "mean_largest_fraction": 0.7353333333333334
+    },
+    "0.10": {
+     "subset_size": 11,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.054,
+     "mean_largest_fraction": 0.9171818181818181
+    },
+    "0.20": {
+     "subset_size": 22,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.9937727272727273
+    }
+   },
+   "seconds": 10.28
+  },
+  {
+   "name": "di-yuan",
+   "index": 6,
+   "sha256": "f31adfd8793b983a662df8cc4abb3ecb0c40bcd4b991479617438d3163b3c79a",
+   "nodes": 11,
+   "links": 42,
+   "demands": 22,
+   "genes": 22,
+   "fixed_demands": 0,
+   "vig_edges": 73,
+   "vig_density": 0.31601731601731603,
+   "max_D_e": 7,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 2,
+     "median_k": 2.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.6545
+    },
+    "0.10": {
+     "subset_size": 2,
+     "median_k": 2.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.656
+    },
+    "0.20": {
+     "subset_size": 4,
+     "median_k": 2.0,
+     "p10_k": 1.0,
+     "p90_k": 3.0,
+     "frac_k_ge_3": 0.407,
+     "mean_largest_fraction": 0.65775
+    }
+   },
+   "seconds": 10.29
+  },
+  {
+   "name": "france",
+   "index": 7,
+   "sha256": "14193aca0659aea02b362a6da160765c729ca962b0c83841bcb12ae336c3e782",
+   "nodes": 25,
+   "links": 45,
+   "demands": 300,
+   "genes": 300,
+   "fixed_demands": 0,
+   "vig_edges": 12763,
+   "vig_density": 0.2845707915273133,
+   "max_D_e": 73,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 15,
+     "median_k": 3.0,
+     "p10_k": 2.0,
+     "p90_k": 5.0,
+     "frac_k_ge_3": 0.721,
+     "mean_largest_fraction": 0.7666666666666667
+    },
+    "0.10": {
+     "subset_size": 30,
+     "median_k": 3.0,
+     "p10_k": 2.0,
+     "p90_k": 4.0,
+     "frac_k_ge_3": 0.847,
+     "mean_largest_fraction": 0.8335666666666668
+    },
+    "0.20": {
+     "subset_size": 60,
+     "median_k": 3.0,
+     "p10_k": 3.0,
+     "p90_k": 3.0,
+     "frac_k_ge_3": 0.985,
+     "mean_largest_fraction": 0.8490833333333333
+    }
+   },
+   "seconds": 10.38
+  },
+  {
+   "name": "geant",
+   "index": 8,
+   "sha256": "77b7f2539d1db95f0272df32d4af6fbff1c8bb7642eaecf8b19298f7ecad4b4e",
+   "nodes": 22,
+   "links": 36,
+   "demands": 462,
+   "genes": 462,
+   "fixed_demands": 0,
+   "vig_edges": 40521,
+   "vig_density": 0.3805110291010508,
+   "max_D_e": 137,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 23,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.04,
+     "mean_largest_fraction": 0.9725217391304347
+    },
+    "0.10": {
+     "subset_size": 46,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.997391304347826
+    },
+    "0.20": {
+     "subset_size": 92,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 1.0
+    }
+   },
+   "seconds": 10.52
+  },
+  {
+   "name": "germany50",
+   "index": 9,
+   "sha256": "922ac2632777d67ffcff6c3537edfa45ed3b428474b90b43bbc276ec0358a63a",
+   "nodes": 50,
+   "links": 88,
+   "demands": 662,
+   "genes": 662,
+   "fixed_demands": 0,
+   "vig_edges": 37464,
+   "vig_density": 0.17123190624842888,
+   "max_D_e": 105,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 33,
+     "median_k": 2.0,
+     "p10_k": 1.0,
+     "p90_k": 4.0,
+     "frac_k_ge_3": 0.44,
+     "mean_largest_fraction": 0.8883333333333333
+    },
+    "0.10": {
+     "subset_size": 66,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.064,
+     "mean_largest_fraction": 0.984590909090909
+    },
+    "0.20": {
+     "subset_size": 132,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.001,
+     "mean_largest_fraction": 0.9988863636363635
+    }
+   },
+   "seconds": 10.82
+  },
+  {
+   "name": "giul39",
+   "index": 10,
+   "sha256": "f28d7c4fd7ed568adf13301c06c1d96960ca927d5c1e8f9781c3b7ea89f8fda9",
+   "nodes": 39,
+   "links": 86,
+   "demands": 1471,
+   "genes": 1471,
+   "fixed_demands": 0,
+   "vig_edges": 190880,
+   "vig_density": 0.1765470294167973,
+   "max_D_e": 134,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 74,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.002,
+     "mean_largest_fraction": 0.9990810810810811
+    },
+    "0.10": {
+     "subset_size": 147,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 1.0
+    },
+    "0.20": {
+     "subset_size": 294,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 1.0
+    }
+   },
+   "seconds": 11.54
+  },
+  {
+   "name": "india35",
+   "index": 11,
+   "sha256": "a506fe46bd005dff24b53e25a5d6c734b82bffb499bad241bdd2cf9ad6d4b661",
+   "nodes": 35,
+   "links": 80,
+   "demands": 595,
+   "genes": 595,
+   "fixed_demands": 0,
+   "vig_edges": 34139,
+   "vig_density": 0.1931867696573579,
+   "max_D_e": 97,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 30,
+     "median_k": 2.0,
+     "p10_k": 1.0,
+     "p90_k": 4.0,
+     "frac_k_ge_3": 0.324,
+     "mean_largest_fraction": 0.9188666666666668
+    },
+    "0.10": {
+     "subset_size": 60,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.01,
+     "mean_largest_fraction": 0.9929333333333334
+    },
+    "0.20": {
+     "subset_size": 119,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.9997647058823529
+    }
+   },
+   "seconds": 11.82
+  },
+  {
+   "name": "janos-us-ca",
+   "index": 12,
+   "sha256": "464f94d84706db0972e2672d4b94cd964bbf7e1ec792d3b250dc1cbf1c6736ae",
+   "nodes": 39,
+   "links": 61,
+   "demands": 1482,
+   "genes": 1482,
+   "fixed_demands": 0,
+   "vig_edges": 315246,
+   "vig_density": 0.28726076865669603,
+   "max_D_e": 305,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 74,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.9997567567567567
+    },
+    "0.10": {
+     "subset_size": 148,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 1.0
+    },
+    "0.20": {
+     "subset_size": 296,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 1.0
+    }
+   },
+   "seconds": 12.56
+  },
+  {
+   "name": "janos-us",
+   "index": 13,
+   "sha256": "58de775bcfc89920228fcbec4896a783016ceda2a02db85f46b82da079858fee",
+   "nodes": 26,
+   "links": 42,
+   "demands": 650,
+   "genes": 650,
+   "fixed_demands": 0,
+   "vig_edges": 70818,
+   "vig_density": 0.3357496740547588,
+   "max_D_e": 149,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 32,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.025,
+     "mean_largest_fraction": 0.98328125
+    },
+    "0.10": {
+     "subset_size": 65,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.9995230769230768
+    },
+    "0.20": {
+     "subset_size": 130,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 1.0
+    }
+   },
+   "seconds": 12.81
+  },
+  {
+   "name": "newyork",
+   "index": 14,
+   "sha256": "56da6ae8aefa4d3645f79ecd64c8fe4933b00a6f133d486ea1b6f140298a522f",
+   "nodes": 16,
+   "links": 49,
+   "demands": 240,
+   "genes": 240,
+   "fixed_demands": 0,
+   "vig_edges": 7735,
+   "vig_density": 0.2697001394700139,
+   "max_D_e": 50,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 12,
+     "median_k": 2.0,
+     "p10_k": 1.0,
+     "p90_k": 3.0,
+     "frac_k_ge_3": 0.308,
+     "mean_largest_fraction": 0.8355833333333332
+    },
+    "0.10": {
+     "subset_size": 24,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.011,
+     "mean_largest_fraction": 0.990375
+    },
+    "0.20": {
+     "subset_size": 48,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.9999791666666666
+    }
+   },
+   "seconds": 12.87
+  },
+  {
+   "name": "nobel-eu",
+   "index": 15,
+   "sha256": "3bccbb606071df17125ee197b661301b22b04d5a6b0f213185c21287245af8e3",
+   "nodes": 28,
+   "links": 41,
+   "demands": 378,
+   "genes": 378,
+   "fixed_demands": 0,
+   "vig_edges": 24962,
+   "vig_density": 0.35032910894979863,
+   "max_D_e": 103,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 19,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.095,
+     "mean_largest_fraction": 0.9264736842105262
+    },
+    "0.10": {
+     "subset_size": 38,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.005,
+     "mean_largest_fraction": 0.9946052631578948
+    },
+    "0.20": {
+     "subset_size": 76,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 1.0
+    }
+   },
+   "seconds": 13.01
+  },
+  {
+   "name": "nobel-germany",
+   "index": 16,
+   "sha256": "5cd5f51f488a8286b18104b7f17a1105f52d41b549c3097e01f4c334dc794156",
+   "nodes": 17,
+   "links": 26,
+   "demands": 121,
+   "genes": 121,
+   "fixed_demands": 0,
+   "vig_edges": 3270,
+   "vig_density": 0.45041322314049587,
+   "max_D_e": 52,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 6,
+     "median_k": 2.0,
+     "p10_k": 1.0,
+     "p90_k": 3.0,
+     "frac_k_ge_3": 0.249,
+     "mean_largest_fraction": 0.7761666666666668
+    },
+    "0.10": {
+     "subset_size": 12,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 3.0,
+     "frac_k_ge_3": 0.106,
+     "mean_largest_fraction": 0.908
+    },
+    "0.20": {
+     "subset_size": 24,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.004,
+     "mean_largest_fraction": 0.9874166666666666
+    }
+   },
+   "seconds": 13.05
+  },
+  {
+   "name": "nobel-us",
+   "index": 17,
+   "sha256": "3e4fe4b0b461000eb1896df2be183d9e4f11eadbcf7c535f97e31c5c51c524f6",
+   "nodes": 14,
+   "links": 21,
+   "demands": 91,
+   "genes": 91,
+   "fixed_demands": 0,
+   "vig_edges": 2752,
+   "vig_density": 0.6720390720390721,
+   "max_D_e": 37,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 5,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.003,
+     "mean_largest_fraction": 0.9268
+    },
+    "0.10": {
+     "subset_size": 9,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.9852222222222222
+    },
+    "0.20": {
+     "subset_size": 18,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.9995
+    }
+   },
+   "seconds": 13.08
+  },
+  {
+   "name": "norway",
+   "index": 18,
+   "sha256": "81edb7d91ee2a7696c38ec60652746c6ecfdf2ec317db78a5e2f94f40fc09290",
+   "nodes": 27,
+   "links": 51,
+   "demands": 702,
+   "genes": 702,
+   "fixed_demands": 0,
+   "vig_edges": 64545,
+   "vig_density": 0.2623236646061182,
+   "max_D_e": 122,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 35,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.017,
+     "mean_largest_fraction": 0.9819142857142859
+    },
+    "0.10": {
+     "subset_size": 70,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.9993857142857143
+    },
+    "0.20": {
+     "subset_size": 140,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 1.0
+    }
+   },
+   "seconds": 13.37
+  },
+  {
+   "name": "pdh",
+   "index": 19,
+   "sha256": "54abba24032980b4c26dbcc45090f9a323aa047f862992270e7a50bf1a2785ef",
+   "nodes": 11,
+   "links": 34,
+   "demands": 24,
+   "genes": 24,
+   "fixed_demands": 0,
+   "vig_edges": 86,
+   "vig_density": 0.3115942028985507,
+   "max_D_e": 9,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 2,
+     "median_k": 2.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.646
+    },
+    "0.10": {
+     "subset_size": 2,
+     "median_k": 2.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.6565
+    },
+    "0.20": {
+     "subset_size": 5,
+     "median_k": 3.0,
+     "p10_k": 2.0,
+     "p90_k": 3.0,
+     "frac_k_ge_3": 0.547,
+     "mean_largest_fraction": 0.602
+    }
+   },
+   "seconds": 13.38
+  },
+  {
+   "name": "pioro40",
+   "index": 20,
+   "sha256": "1e851336743e36c55ec5f007ed261de0e1014eda49441a3e35dd218ceee61e0f",
+   "nodes": 40,
+   "links": 89,
+   "demands": 780,
+   "genes": 780,
+   "fixed_demands": 0,
+   "vig_edges": 58942,
+   "vig_density": 0.19400941377834832,
+   "max_D_e": 117,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 39,
+     "median_k": 2.0,
+     "p10_k": 1.0,
+     "p90_k": 3.0,
+     "frac_k_ge_3": 0.265,
+     "mean_largest_fraction": 0.9336666666666668
+    },
+    "0.10": {
+     "subset_size": 78,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.01,
+     "mean_largest_fraction": 0.9834102564102565
+    },
+    "0.20": {
+     "subset_size": 156,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.9977820512820512
+    }
+   },
+   "seconds": 13.86
+  },
+  {
+   "name": "polska",
+   "index": 21,
+   "sha256": "9a63dd21ad954d1c7107d057863947cc6ad6ffa2cb70b1d4132a352cb4b2c4ee",
+   "nodes": 12,
+   "links": 18,
+   "demands": 66,
+   "genes": 66,
+   "fixed_demands": 0,
+   "vig_edges": 1197,
+   "vig_density": 0.558041958041958,
+   "max_D_e": 22,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 3,
+     "median_k": 2.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.071,
+     "mean_largest_fraction": 0.8073333333333332
+    },
+    "0.10": {
+     "subset_size": 7,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.029,
+     "mean_largest_fraction": 0.9342857142857143
+    },
+    "0.20": {
+     "subset_size": 13,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 1.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.9940769230769231
+    }
+   },
+   "seconds": 13.88
+  },
+  {
+   "name": "sun",
+   "index": 22,
+   "sha256": "7bc267297a0a7c691bc8392ae0745edaba34af3820f959918c8167f3e214ddb6",
+   "nodes": 27,
+   "links": 51,
+   "demands": 67,
+   "genes": 67,
+   "fixed_demands": 0,
+   "vig_edges": 639,
+   "vig_density": 0.28900949796472186,
+   "max_D_e": 14,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 3,
+     "median_k": 2.0,
+     "p10_k": 1.0,
+     "p90_k": 3.0,
+     "frac_k_ge_3": 0.363,
+     "mean_largest_fraction": 0.5913333333333333
+    },
+    "0.10": {
+     "subset_size": 7,
+     "median_k": 3.0,
+     "p10_k": 1.0,
+     "p90_k": 4.0,
+     "frac_k_ge_3": 0.567,
+     "mean_largest_fraction": 0.6517142857142857
+    },
+    "0.20": {
+     "subset_size": 13,
+     "median_k": 2.0,
+     "p10_k": 1.0,
+     "p90_k": 3.0,
+     "frac_k_ge_3": 0.323,
+     "mean_largest_fraction": 0.8212307692307693
+    }
+   },
+   "seconds": 13.9
+  },
+  {
+   "name": "ta1",
+   "index": 23,
+   "sha256": "0abf6f82abfa24c9ea27b32ff2d77196ea787b26394fa5bb1c293b573205b46f",
+   "nodes": 24,
+   "links": 51,
+   "demands": 326,
+   "genes": 326,
+   "fixed_demands": 0,
+   "vig_edges": 13537,
+   "vig_density": 0.25553563001415763,
+   "max_D_e": 61,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 16,
+     "median_k": 3.0,
+     "p10_k": 2.0,
+     "p90_k": 4.0,
+     "frac_k_ge_3": 0.607,
+     "mean_largest_fraction": 0.740625
+    },
+    "0.10": {
+     "subset_size": 33,
+     "median_k": 2.0,
+     "p10_k": 1.0,
+     "p90_k": 3.0,
+     "frac_k_ge_3": 0.174,
+     "mean_largest_fraction": 0.8863333333333334
+    },
+    "0.20": {
+     "subset_size": 65,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.002,
+     "mean_largest_fraction": 0.9729692307692308
+    }
+   },
+   "seconds": 14.0
+  },
+  {
+   "name": "ta2",
+   "index": 24,
+   "sha256": "2898674e7ac6a0cebdd7e0c9cb0659fb3cd0c5c84abbf67f7d5234429945f6ed",
+   "nodes": 65,
+   "links": 108,
+   "demands": 1614,
+   "status": "not_evaluated_pop_limit",
+   "detail": "34->10"
+  },
+  {
+   "name": "zib54",
+   "index": 25,
+   "sha256": "d75e8fe0b40745a53d7a7bf6c08a7d44d038bc25176ca67aa9408bfebada00d2",
+   "nodes": 54,
+   "links": 80,
+   "demands": 1246,
+   "genes": 1244,
+   "fixed_demands": 2,
+   "vig_edges": 203144,
+   "vig_density": 0.26274985578403043,
+   "max_D_e": 371,
+   "status": "evaluable",
+   "phases": {
+    "0.05": {
+     "subset_size": 62,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.063,
+     "mean_largest_fraction": 0.981983870967742
+    },
+    "0.10": {
+     "subset_size": 124,
+     "median_k": 1.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.005,
+     "mean_largest_fraction": 0.9950564516129032
+    },
+    "0.20": {
+     "subset_size": 249,
+     "median_k": 2.0,
+     "p10_k": 1.0,
+     "p90_k": 2.0,
+     "frac_k_ge_3": 0.0,
+     "mean_largest_fraction": 0.9950481927710844
+    }
+   },
+   "seconds": 21.8
+  }
+ ],
+ "decision": {
+  "verdict": "H1_NO_GO",
+  "evaluable": 25,
+  "median_k_le_2": 23,
+  "median_k_le_2_instances": [
+   "abilene",
+   "atlanta",
+   "brain",
+   "cost266",
+   "dfn-bwin",
+   "dfn-gwin",
+   "di-yuan",
+   "geant",
+   "germany50",
+   "giul39",
+   "india35",
+   "janos-us-ca",
+   "janos-us",
+   "newyork",
+   "nobel-eu",
+   "nobel-germany",
+   "nobel-us",
+   "norway",
+   "pdh",
+   "pioro40",
+   "polska",
+   "ta1",
+   "zib54"
+  ],
+  "rule": "NO-GO iff median k(p=0.10) <= 2 on >= 2/3 of evaluable instances; INCONCLUSIVE if < 10 evaluable"
+ },
+ "total_seconds": 21.82
+}

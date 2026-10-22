@@ -27,15 +27,15 @@
 
 ## SLEDEĆI KORAK
 
-**Korisnik je 2026-10-22 odobrio H1 gate.** Stanje:
-1. [GOTOVO] Sistematski prior-art audit → `research/H1_PRIOR_ART_AUDIT_SR.md`. Nema ekvivalenta, ali novost METODE nije
-   utvrđena (specijalan slučaj Chicano i sar. 2024, Teorema 1). H1 kao metoda: NO-GO; implementacija PX-a u GAdapt-u zabranjena.
-2. [GOTOVO] Preregistracija Faze 0 → `research/ITERATION42_PROTOCOL.md` + ulazi `research/data/topohub_v1.5.1_sndlib/`
-   (SHA256SUMS), zamrznuto komitom PRE koda.
-3. **SLEDEĆE:** kod Faze 0 tačno po protokolu: `research/iteration42_phase0_vig.py` + sintetički testovi
-   `research/test_iteration42_phase0_vig.py` (§6) → zatim JEDNO pokretanje → `research/results/iteration42/phase0.json`
-   → izveštaj sa odlukom iz §5. Bez menjanja praga, p ili putanja posle gledanja rezultata.
-4. Posle Faze 0: odluku o Fazi 1 donosi korisnik (i ako Faza 0 prođe). Otvorene praznine audita: Semantic Scholar, dblp, Google Scholar.
+**H1 zatvoren (2026-10-22).** Audit: `research/H1_PRIOR_ART_AUDIT_SR.md`. Faza 0: `research/ITERATION42_REPORT_SR.md`,
+sirovi izlaz `research/results/iteration42/phase0.json`. Medijana k(10%) ≤ 2 na 23/25 instanci → **H1 NO-GO**.
+Nijedna aktivna hipoteza ne ostaje (I41, H1, H2 su NO-GO).
+
+**Čeka odluku korisnika: novi istraživački pravac.** Kandidati (nijedan još nije prošao prior-art gate):
+1. Dijagnostika I39 neuspeha GAdapt-a (11/12 semena bez poboljšanja početnog rešenja): budžet ili operatori?
+   Za to su potrebni podaci, a I39 izvor je izgubljen → samo na sintetici ili na topohub statičkim matricama.
+2. Opšti, ne domenski specifičan, mehanizam u samom GAdapt-u (npr. adaptacija na osnovu stagnacije), uz pun gate.
+Ništa od toga ne pokretati bez odluke korisnika i novog prior-art audita.
 
 ## Dnevnik odluka
 
@@ -43,3 +43,4 @@
 - 2026-10-22: I41 audit završen: teorema tačna, nije originalna, nije GA doprinos. Robustness run #39836609270 naknadno: SUCCESS.
 - 2026-10-22: Korisnik odobrio H1 gate (sistematski prior-art audit, pa preregistracija Faze 0). Implementacija i dalje NIJE odobrena pre gate-a.
 - 2026-10-22: H1 audit: nema ekvivalenta; „high-arity“ diferencijator opovrgnut (Chicano 2024). Faza 0 preregistrovana kao čisto strukturno merenje.
+- 2026-10-22: I42 Faza 0 izvršena jednom (kod `57730b9`): H1 NO-GO (23/25 instanci sa medijanom k ≤ 2; ta2 neevaluirana zbog pop-limita, ne menja odluku). Korisnik traži autonomni rad kroz faze; zaustavljanje samo na pravim gate-ovima.
