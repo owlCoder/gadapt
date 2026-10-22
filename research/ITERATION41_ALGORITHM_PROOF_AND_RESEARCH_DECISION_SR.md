@@ -40,7 +40,7 @@ M[e;s,t] =
 
 ## 4. Provereni rezultati, bez izmišljanja merenja
 
-[Originalni I41 GitHub Actions #39835207218](https://github.com/owlCoder/gadapt/actions/runs/39835207218) završio je SUCCESS: sedam novih metodskih testova i četiri prethodna testova izvornog modularnog modela, ukupno **11/11**. Dalja proveravanja aritmetičke bezbednosti imaju zaseban CI.
+[Završni I41 GitHub Actions #39836240752](https://github.com/owlCoder/gadapt/actions/runs/39836240752) završio je SUCCESS: osam metodskih testova (uključujući nezavisnu racionalnu aritmetiku), četiri postojeća testa izvornog modularnog modela i sedam testova bezbednog lokalnog SNDlib loader-a, ukupno **19/19**. Od toga je **12** direktnih algoritamskih i regresionih I39/I41 provera. Nije izvršena nijedna stvarna DFN I41 mrežna optimizacija.
 
 - Sintetički primer sa 3 linka, 128 monotono rastućih matrica i dve statičke alternative po OD zahtevu: **384 originalnih ograničenja, 3 zadržana, 381 sertifikovano uklonjeno** (99,21875% manje REDOVA). Ovaj konstrukt namenski favorizuje dominaciju i **ne dokazuje** da će isto važiti za originalne istorijske DFN matrice.
 - Iscrpna enumeracija svih izbora ruta na malom modelu potvrdila je identične per-link maksimumе opterećenja za originalna i komprimovana vremenska stanja.
