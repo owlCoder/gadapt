@@ -1,0 +1,45 @@
+name: I38 post-result independent source-only cut feasibility certificate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'research/iteration38_cut_feasibility_certificate.py'
+      - 'research/test_iteration38_cut_feasibility_certificate.py'
+      - '.github/workflows/research-iteration38-posthoc-cut.yml'
+
+permissions:
+  contents: read
+
+env:
+  OPENBLAS_NUM_THREADS: '1'
+  OMP_NUM_THREADS: '1'
+  MKL_NUM_THREADS: '1'
+  NUMEXPR_NUM_THREADS: '1'
+  PYTHONHASHSEED: '0'
+
+jobs:
+  independent-cut-proof-NO-optimizer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'networkx==3.4.2'
+          python -m pip install -e .
+      - name: Prove certificate logic with ZERO SNDlib network calls
+        run: |
+          python -m unittest -v research.test_iteration38_cut_feasibility_certificate
+      - name: Fetch original temporal data and report mathematical cut infeasibility only
+        run: |
+          python -m research.iteration38_cut_feasibility_certificate \
+             --json research/results/iteration38_official_source_cut_certificate.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: i38-source-only-snapshot-cut-necessary-infeasibility
+          path: research/results/iteration38_official_source_cut_certificate.json
+          if-no-files-found: error
+          retention-days: 90
