@@ -1,16 +1,8 @@
 name: Physically paired IEEE14 mutation-credit validation
 
+# Do NOT auto-rerun paid IEEE14 physics on unrelated core edits.
+# A new separately preregistered experiment is mandatory before manual trigger.
 on:
-  push:
-    branches: [main]
-    paths:
-      - "research/paired_credit_ieee14.py"
-      - "research/aos_ieee14_pilot.py"
-      - "research/ieee14_voltage.py"
-      - "research/analyze_paired_credit_ieee14.py"
-      - "research/PAIRED_CREDIT_PROTOCOL.md"
-      - ".github/workflows/paired-credit-ieee14.yml"
-      - "gadapt/**"
   workflow_dispatch:
 
 jobs:
