@@ -27,13 +27,13 @@
 
 ## SLEDEĆI KORAK
 
-Pravac (moj savet, korisnik: „to radi“, „ne staj“): dijagnostika GAdapt-a na binarnom izboru ruta. Bez tvrdnje o novini.
-- I43 GOTOVO: UNRESOLVED (3/6 deficit, 0/6 budžet). I44 GOTOVO: H-mut opovrgnuta (0/6); deficit vs (1+1)-EA repliciran 5/6.
-- I45 [U TOKU, pozadina] → protokol `research/ITERATION45_PROTOCOL.md` (`7061d7f`), kod `f8dcb04`:
-  udžbenički GA kao kontrola → SPECIFIČAN_ZA_GADAPT / GENERIČKI / MEŠOVITO.
-  Posle: `research/ITERATION45_REPORT_SR.md`, lokalni komit, pa JEDAN push za ceo blok (I42–I45 + lib).
-  Ako pukne zbog struje: ponovo pokrenuti isti kod (rezultat još nije viđen).
-- Posle I45: strateška odluka korisnika (vidi izveštaj I45 §Odluka).
+Odgovori korisnika 2026-10-22: cilj = PhD doprinos (prioritet) + praktično bolji GAdapt; domen ako je deficit generički =
+kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrzanja GAdapt-a dozvoljena (bit-identično).
+- I43–I45 GOTOVO. I45: deficit je SPECIFIČAN ZA GADAPT (udžbenički GA bolji 5/6; EA bolji od GAdapt-a 6/6).
+- SLEDEĆE: I46 preregistrovana ablacija komponenti GAdapt-a (selekcija, ukrštanje, mutacija populacije, elitizam) vs
+  udžbenički GA na binarnom izboru ruta → lokalizovati uzrok; zatim proveriti da li ista komponenta šteti i na
+  kontinualnim benchmark-ovima (domen za PhD).
+- Push: serijski, poslednji komit sa `[skip ci]` kad serija dira `gadapt/` (inače bi se okinuo i34 workflow od 120 min).
 
 ### Nalazi o biblioteci GAdapt (korisnik: „sređuj“ → ispravljeno kao opt-in u `64b9c82`, default bit-identičan)
 1. `CommonOptionsValidator._check_cost_function` poziva cost funkciju na vektoru svih min i svih max (2 skrivene stvarne
@@ -51,3 +51,4 @@ Pravac (moj savet, korisnik: „to radi“, „ne staj“): dijagnostika GAdapt-
 - 2026-10-22: Na korisnikov zahtev („šta je tvoj savet, to radi“) izabran pravac I43: dijagnostika budžet vs operatori, sintetička cena nad topohub topologijama.
 - 2026-10-22: Push samo u serijama (CI minuti). I43 UNRESOLVED; otkrivena 2 nalaza o biblioteci. I44 preregistrovan na novim instancama.
 - 2026-10-22: Korisnik: „sređuj, radi dalje, ne staj“ → opt-in `probe_cost_function`, `strict_mutation_decision_variable_limit` (bit-identičnost proverena hešom niza poziva). I44: H-mut NO. I45 pokrenut.
+- 2026-10-22: I45: deficit SPECIFIČAN ZA GADAPT. Korisnik odgovorio na 4 pitanja (vidi gore). Push serije I42–I45 + lib sa [skip ci].
