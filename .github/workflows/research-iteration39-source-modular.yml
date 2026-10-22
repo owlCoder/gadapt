@@ -1,0 +1,103 @@
+name: I39 Source-Equivalent MODULAR Capacity — Real Temporal GA vs MILP
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'research/ITERATION39_PROTOCOL.md'
+      - 'research/iteration39_source_modular_capacity.py'
+      - 'research/iteration39_modular_common_plan_experiment.py'
+      - 'research/test_iteration39_source_modular_capacity.py'
+      - '.github/workflows/research-iteration39-source-modular.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/research-iteration39-source-modular.yml'
+
+permissions:
+  contents: read
+env:
+  OPENBLAS_NUM_THREADS: '1'
+  OMP_NUM_THREADS: '1'
+  MKL_NUM_THREADS: '1'
+  NUMEXPR_NUM_THREADS: '1'
+  PYTHONHASHSEED: '0'
+
+jobs:
+  synthetic-algebra-before-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'networkx==3.4.2'
+          python -m pip install -e .
+      - name: Exact source-module algebra, simple source MILP and no-domain regression
+        run: |
+          python -m py_compile research/iteration39_source_modular_capacity.py research/iteration39_modular_common_plan_experiment.py
+          python -m unittest -v research.test_iteration39_source_modular_capacity research.test_iteration38_joint_capacity
+
+  official-source-module-gate:
+    needs: synthetic-algebra-before-source
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'networkx==3.4.2'
+          python -m pip install -e .
+      - name: Validate source SHA, 288 matrices and 26 exact two-primitive menu decompositions (NO optimization)
+        run: |
+          python - <<'PY'
+          import json
+          from research.iteration38_joint_capacity_experiment import source_data_gate
+          from research.iteration39_source_modular_capacity import verify_exact_source_module_equivalence,NETWORK_SHA,ARCHIVE_SHA
+          nodes,links,pairs,q,meta=source_data_gate()
+          if meta["source_network"]["sha256"]!=NETWORK_SHA or meta["source_matrices"]["sha256"]!=ARCHIVE_SHA or len(pairs)!=272:
+              raise RuntimeError("Original source data SHA and 272 directed pairs drift")
+          prices=verify_exact_source_module_equivalence(links)
+          if len(prices)!=26:raise RuntimeError("Source modular certificate incomplete")
+          print("I39_SOURCE_ALGEBRA_GATE",json.dumps({
+              "source_sha256":NETWORK_SHA,"temporal_sha256":ARCHIVE_SHA,
+              "original_link_menus_certified":len(prices),
+              "original_menu_options_per_link":40,"reduced_exact_module_capacity_types":[20,40],
+              "example_original_costs_first_edge":prices[0],
+              "genuinely_measured_traffic_matrices":q.shape[0]
+          },sort_keys=True),flush=True)
+          PY
+
+  single-frozen-original-GAdapt-plus-MILP:
+    # NEVER on push. One PR-only preregistered physical-domain source evaluation.
+    if: github.event_name == 'pull_request'
+    needs: official-source-module-gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 85
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'networkx==3.4.2'
+          python -m pip install -e .
+      - name: One real GAdapt 12-seed batch with independent HiGHS lower bound and original holdout
+        run: |
+          mkdir -p research/results
+          python -m research.iteration39_modular_common_plan_experiment \
+            --json research/results/iteration39_real_272pair_288source_modular_joint_ga12_milp.json \
+            --manifest research/results/iteration39_original_traffic_sha_manifest.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: i39-source-modular-original-temporal-milp-12gadapt
+          path: |
+            research/results/iteration39_real_272pair_288source_modular_joint_ga12_milp.json
+            research/results/iteration39_original_traffic_sha_manifest.json
+          if-no-files-found: warn
+          retention-days: 90
