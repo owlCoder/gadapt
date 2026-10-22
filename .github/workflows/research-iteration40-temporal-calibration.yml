@@ -6,6 +6,7 @@ on:
     paths:
       - 'research/ITERATION40_PROTOCOL.md'
       - 'research/iteration40_temporal_calibrated_plan.py'
+      - 'research/iteration40_pinned_source_loader.py'
       - 'research/test_iteration40_temporal_calibrated_plan.py'
       - '.github/workflows/research-iteration40-temporal-calibration.yml'
   pull_request:
@@ -22,6 +23,8 @@ env:
   MKL_NUM_THREADS: '1'
   NUMEXPR_NUM_THREADS: '1'
   PYTHONHASHSEED: '0'
+  # Explicit old-bytes replay ONLY when original source cert mismatches; SHA256 verification is mandatory.
+  I40_PINNED_TLS_REPLAY: '1'
 
 jobs:
   zero-source-optimization-theorem-tests:
@@ -57,9 +60,9 @@ jobs:
         run: |
           python - <<'PY'
           import json
-          from research.iteration38_joint_capacity_experiment import source_data_gate
+          from research.iteration40_pinned_source_loader import source_data_gate_i40
           from research.iteration39_source_modular_capacity import verify_exact_source_module_equivalence,NETWORK_SHA,ARCHIVE_SHA
-          nodes,links,pairs,q,meta=source_data_gate()
+          nodes,links,pairs,q,meta=source_data_gate_i40()
           if meta['source_network']['sha256']!=NETWORK_SHA or meta['source_matrices']['sha256']!=ARCHIVE_SHA or q.shape!=(288,272):
               raise RuntimeError('Frozen source or 288x272 source matrix drift')
           price=verify_exact_source_module_equivalence(links)
