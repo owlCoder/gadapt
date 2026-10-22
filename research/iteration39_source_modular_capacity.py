@@ -72,21 +72,30 @@ class ModularCommonPlan(JointCapacityProblem):
                     training_snapshots_violated=int(np.sum(np.any(load>cap[None,:]+1e-7,axis=1))))
 
 
-def exact_modular_milp(problem,seconds=180.):
+def exact_modular_milp(problem,seconds=180.,certified_rows=None):
     if not isinstance(problem,ModularCommonPlan):
         raise TypeError("I39 MILP requires EXACT same original modular planning model")
     d,e,t=problem.n,len(problem.links),len(problem.q)
     num=d+2*e
+    if certified_rows is None:
+        # Original I39 HiGHS row set and order by default, no compression.
+        times_by_edge=[range(t) for _ in range(e)]
+    else:
+        from research.iteration41_certified_temporal_rows import verify_certified_rows
+        verify_certified_rows(problem,certified_rows)
+        times_by_edge=[tuple(entry["kept_times"])
+                       for entry in certified_rows["edge_time_rows"]]
+    nrows=sum(len(times) for times in times_by_edge)
     obj=np.zeros(num)
     for i,(c20,c40) in enumerate(problem.module_prices):
         obj[d+2*i]=c20
         obj[d+2*i+1]=c40
     rr,cc,vv=[],[],[]
-    rhs=np.empty(e*t)
+    rhs=np.empty(nrows)
+    row=0
     for edge in range(e):
         touched=np.flatnonzero(problem.delta[:,edge])
-        for ti in range(t):
-            row=edge*t+ti
+        for ti in times_by_edge[edge]:
             rhs[row]=problem.base_cap[edge]-problem.base[ti,edge]
             for demand in touched:
                 coefficient=problem.q[ti,demand]*problem.delta[demand,edge]
@@ -94,7 +103,10 @@ def exact_modular_milp(problem,seconds=180.):
                     rr.append(row);cc.append(int(demand));vv.append(float(coefficient))
             rr.extend((row,row));cc.extend((d+2*edge,d+2*edge+1))
             vv.extend((-20.,-40.))
-    A=coo_matrix((vv,(rr,cc)),shape=(e*t,num)).tocsr()
+            row+=1
+    if row!=nrows:
+        raise RuntimeError("I41 certified row count mismatch")
+    A=coo_matrix((vv,(rr,cc)),shape=(nrows,num)).tocsr()
     lb=np.zeros(num)
     ub=np.full(num,np.inf)
     ub[:d]=1
@@ -107,8 +119,11 @@ def exact_modular_milp(problem,seconds=180.):
                 solver_objective=finite_float(out.fun),
                 dual_bound=finite_float(getattr(out,"mip_dual_bound",None)),
                 mip_gap=finite_float(getattr(out,"mip_gap",None)),
-                mip_variables=num,source_capacity_constraints=e*t,
+                mip_variables=num,source_capacity_constraints=nrows,
                 incumbent=None)
+    if certified_rows is not None:
+        result["certified_rows_removed"]=e*t-nrows
+        result["original_capacity_constraints"]=e*t
     if out.x is not None:
         z=[int(round(v)) for v in out.x[:d]]
         verified=problem.evaluate(z)
