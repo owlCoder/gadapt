@@ -8,6 +8,8 @@ on:
       - 'research/iteration41_certified_temporal_rows.py'
       - 'research/test_iteration41_certified_temporal_rows.py'
       - 'research/iteration39_source_modular_capacity.py'
+      - 'research/iteration40_pinned_source_loader.py'
+      - 'research/test_iteration40_source_transport.py'
       - '.github/workflows/research-iteration41-certificate-only.yml'
   pull_request:
     branches: [main]
@@ -44,3 +46,4 @@ jobs:
           python -m py_compile research/iteration41_certified_temporal_rows.py research/iteration39_source_modular_capacity.py research/test_iteration41_certified_temporal_rows.py
           python -m unittest -v research.test_iteration41_certified_temporal_rows
           python -m unittest -v research.test_iteration39_source_modular_capacity
+          python -m unittest -v research.test_iteration40_source_transport
