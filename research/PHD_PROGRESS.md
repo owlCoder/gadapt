@@ -27,8 +27,9 @@
 
 ## SLEDEĆI KORAK
 
-**Čeka odluku korisnika** (vidi audit §5–6). Ako korisnik odobri H1:
-1. Sistematski prior-art audit H1 (PX / gray-box na mrežnom dizajnu, high-arity podfunkcije). Ako postoji ekvivalent → STOP.
+**Korisnik je 2026-10-22 odobrio H1 gate.** Redosled:
+1. [U TOKU] Sistematski prior-art audit H1 (PX / gray-box na mrežnom dizajnu, high-arity podfunkcije). Ako postoji ekvivalent → STOP.
+   Izlaz: `research/H1_PRIOR_ART_AUDIT_SR.md`.
 2. Preregistracija Faze 0 (strukturni VIG pretest na topohub topologijama) → `research/ITERATION42_PROTOCOL.md`, commit PRE koda.
 3. Tek onda kod Faze 0. Faza 1 tek uz arhivirane stvarne vremenske podatke.
 
@@ -36,3 +37,4 @@
 
 - 2026-10-22: Rad direktno na `main`, bez PR-ova; effort najviše `high`; najviše jedan agent istovremeno.
 - 2026-10-22: I41 audit završen: teorema tačna, nije originalna, nije GA doprinos. Robustness run #39836609270 naknadno: SUCCESS.
+- 2026-10-22: Korisnik odobrio H1 gate (sistematski prior-art audit, pa preregistracija Faze 0). Implementacija i dalje NIJE odobrena pre gate-a.
