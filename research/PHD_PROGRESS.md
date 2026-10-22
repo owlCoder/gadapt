@@ -21,14 +21,18 @@
 | 1. Verifikacija GitHub stanja | GOTOVO | vidi gore |
 | 2. Trajna pravila (`CLAUDE.md`), agenti (`.claude/agents/`), ovaj fajl | GOTOVO | |
 | 3. Matematička recenzija + Hypothesis falsifikacija I41 | GOTOVO | `research/test_iteration41_property_falsification.py`: 0 kontraprimera; sertifikat je dovoljan, NE potpun |
-| 4. Prior-art audit (literatura, DOI provereni) | U TOKU | |
-| 5. Arhitektonska procena: da li I41 doprinosi samom GAdapt GA | U TOKU | |
-| 6. Završni dokument `research/POST_I41_NOVELTY_AUDIT_SR.md` + GO/NO-GO + plan falsifikacionog eksperimenta | NIJE POČETO | |
+| 4. Prior-art audit (literatura, DOI provereni) | GOTOVO | I41 = specijalan slučaj (Gemander 2020 §3.3; Ben-Ameur/Pavón-Mariño/Pióro 2011 Def.1, Prop.1 jača) |
+| 5. Arhitektonska procena: da li I41 doprinosi samom GAdapt GA | GOTOVO | Ne; samo MILP referenca |
+| 6. Završni dokument `research/POST_I41_NOVELTY_AUDIT_SR.md` + GO/NO-GO + plan | GOTOVO | I41: NO-GO kao PhD metoda. H1 (partition crossover): GO samo za gate |
 
 ## SLEDEĆI KORAK
 
-Završiti prior-art audit (korak 4), pa napisati `research/POST_I41_NOVELTY_AUDIT_SR.md` (korak 6).
+**Čeka odluku korisnika** (vidi audit §5–6). Ako korisnik odobri H1:
+1. Sistematski prior-art audit H1 (PX / gray-box na mrežnom dizajnu, high-arity podfunkcije). Ako postoji ekvivalent → STOP.
+2. Preregistracija Faze 0 (strukturni VIG pretest na topohub topologijama) → `research/ITERATION42_PROTOCOL.md`, commit PRE koda.
+3. Tek onda kod Faze 0. Faza 1 tek uz arhivirane stvarne vremenske podatke.
 
 ## Dnevnik odluka
 
 - 2026-10-22: Rad direktno na `main`, bez PR-ova; effort najviše `high`; najviše jedan agent istovremeno.
+- 2026-10-22: I41 audit završen: teorema tačna, nije originalna, nije GA doprinos. Robustness run #39836609270 naknadno: SUCCESS.
