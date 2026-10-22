@@ -1,0 +1,861 @@
+{
+  "audit_kind": "Original GitHub Actions STDOUT event records parsed WITHOUT any new solver/routing calls; original raw full JSON+manifest retained as CI artifact",
+  "protocol": "research/ITERATION38_PROTOCOL.md",
+  "source_workflow": "https://github.com/owlCoder/gadapt/actions/runs/39788866777",
+  "original_real_job_id": 119859606798,
+  "original_artifact": "https://github.com/owlCoder/gadapt/actions/runs/39788866777/artifacts/12430875549",
+  "original_artifact_SHA256": "sha256:c4343a347a03f76da0f41b12ed3fd657e76ef7b731260dc2ad9842fd49d8d851",
+  "source_commit_for_run": "4334e526722a38dd095005eb65583d1d6635c37f",
+  "timestamp_2026_10_22": true,
+  "events": [
+    {
+      "event": "I38_SOURCE_DATA_GATE",
+      "data": {
+        "nodes": 17,
+        "links": 26,
+        "directed_demand_pairs": 272,
+        "traffic_matrices": 288,
+        "source_sha256": "35e58a3799d78d2ebfd2a557be2ba4a221ca17fc704cfdd13df56bb90c12a796",
+        "archive_sha256": "2c3ca706a8d5c9601eb4d144651816dfd956257c20f60111a8aceb5f07ab0100"
+      }
+    },
+    {
+      "event": "I38_MILP",
+      "data": {
+        "status": 2,
+        "message": "The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is At lower/fixed bound)",
+        "mip_gap": null,
+        "dual_bound": null,
+        "solver_objective": null,
+        "binary_variables": 1312,
+        "constraints": 5018,
+        "wall_seconds": 0.4495
+      }
+    },
+    {
+      "event": "I38_GADAPT",
+      "data": {
+        "actual_full_train_panel_evaluations": 360,
+        "best_train_feasible_common_plan": null,
+        "infeasible_train_plans": 360,
+        "numerical_or_input_errors": [],
+        "observed_progress": [
+          {
+            "call": 1,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 30,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 60,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 90,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 120,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 150,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 180,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 210,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 240,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 270,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 300,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 330,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 360,
+            "incumbent_source_cost": null
+          }
+        ],
+        "optimizer_stop": "[]",
+        "optimizer_success_flag_NOT_feasibility": true,
+        "over_budget_objective_requests_with_NO_domain_call": 2,
+        "seed": 3800,
+        "wall_seconds": 0.68667
+      }
+    },
+    {
+      "event": "I38_GADAPT",
+      "data": {
+        "actual_full_train_panel_evaluations": 360,
+        "best_train_feasible_common_plan": null,
+        "infeasible_train_plans": 360,
+        "numerical_or_input_errors": [],
+        "observed_progress": [
+          {
+            "call": 1,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 30,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 60,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 90,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 120,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 150,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 180,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 210,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 240,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 270,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 300,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 330,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 360,
+            "incumbent_source_cost": null
+          }
+        ],
+        "optimizer_stop": "[]",
+        "optimizer_success_flag_NOT_feasibility": true,
+        "over_budget_objective_requests_with_NO_domain_call": 2,
+        "seed": 3801,
+        "wall_seconds": 0.65319
+      }
+    },
+    {
+      "event": "I38_GADAPT",
+      "data": {
+        "actual_full_train_panel_evaluations": 360,
+        "best_train_feasible_common_plan": null,
+        "infeasible_train_plans": 360,
+        "numerical_or_input_errors": [],
+        "observed_progress": [
+          {
+            "call": 1,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 30,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 60,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 90,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 120,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 150,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 180,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 210,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 240,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 270,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 300,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 330,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 360,
+            "incumbent_source_cost": null
+          }
+        ],
+        "optimizer_stop": "[]",
+        "optimizer_success_flag_NOT_feasibility": true,
+        "over_budget_objective_requests_with_NO_domain_call": 2,
+        "seed": 3802,
+        "wall_seconds": 0.59344
+      }
+    },
+    {
+      "event": "I38_GADAPT",
+      "data": {
+        "actual_full_train_panel_evaluations": 360,
+        "best_train_feasible_common_plan": null,
+        "infeasible_train_plans": 360,
+        "numerical_or_input_errors": [],
+        "observed_progress": [
+          {
+            "call": 1,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 30,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 60,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 90,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 120,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 150,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 180,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 210,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 240,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 270,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 300,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 330,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 360,
+            "incumbent_source_cost": null
+          }
+        ],
+        "optimizer_stop": "[]",
+        "optimizer_success_flag_NOT_feasibility": true,
+        "over_budget_objective_requests_with_NO_domain_call": 2,
+        "seed": 3803,
+        "wall_seconds": 0.65508
+      }
+    },
+    {
+      "event": "I38_GADAPT",
+      "data": {
+        "actual_full_train_panel_evaluations": 360,
+        "best_train_feasible_common_plan": null,
+        "infeasible_train_plans": 360,
+        "numerical_or_input_errors": [],
+        "observed_progress": [
+          {
+            "call": 1,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 30,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 60,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 90,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 120,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 150,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 180,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 210,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 240,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 270,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 300,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 330,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 360,
+            "incumbent_source_cost": null
+          }
+        ],
+        "optimizer_stop": "[]",
+        "optimizer_success_flag_NOT_feasibility": true,
+        "over_budget_objective_requests_with_NO_domain_call": 2,
+        "seed": 3804,
+        "wall_seconds": 0.62041
+      }
+    },
+    {
+      "event": "I38_GADAPT",
+      "data": {
+        "actual_full_train_panel_evaluations": 360,
+        "best_train_feasible_common_plan": null,
+        "infeasible_train_plans": 360,
+        "numerical_or_input_errors": [],
+        "observed_progress": [
+          {
+            "call": 1,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 30,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 60,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 90,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 120,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 150,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 180,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 210,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 240,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 270,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 300,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 330,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 360,
+            "incumbent_source_cost": null
+          }
+        ],
+        "optimizer_stop": "[]",
+        "optimizer_success_flag_NOT_feasibility": true,
+        "over_budget_objective_requests_with_NO_domain_call": 2,
+        "seed": 3805,
+        "wall_seconds": 0.57938
+      }
+    },
+    {
+      "event": "I38_GADAPT",
+      "data": {
+        "actual_full_train_panel_evaluations": 360,
+        "best_train_feasible_common_plan": null,
+        "infeasible_train_plans": 360,
+        "numerical_or_input_errors": [],
+        "observed_progress": [
+          {
+            "call": 1,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 30,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 60,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 90,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 120,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 150,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 180,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 210,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 240,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 270,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 300,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 330,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 360,
+            "incumbent_source_cost": null
+          }
+        ],
+        "optimizer_stop": "[]",
+        "optimizer_success_flag_NOT_feasibility": true,
+        "over_budget_objective_requests_with_NO_domain_call": 2,
+        "seed": 3806,
+        "wall_seconds": 0.69642
+      }
+    },
+    {
+      "event": "I38_GADAPT",
+      "data": {
+        "actual_full_train_panel_evaluations": 360,
+        "best_train_feasible_common_plan": null,
+        "infeasible_train_plans": 360,
+        "numerical_or_input_errors": [],
+        "observed_progress": [
+          {
+            "call": 1,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 30,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 60,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 90,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 120,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 150,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 180,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 210,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 240,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 270,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 300,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 330,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 360,
+            "incumbent_source_cost": null
+          }
+        ],
+        "optimizer_stop": "[]",
+        "optimizer_success_flag_NOT_feasibility": true,
+        "over_budget_objective_requests_with_NO_domain_call": 2,
+        "seed": 3807,
+        "wall_seconds": 0.65635
+      }
+    },
+    {
+      "event": "I38_GADAPT",
+      "data": {
+        "actual_full_train_panel_evaluations": 360,
+        "best_train_feasible_common_plan": null,
+        "infeasible_train_plans": 360,
+        "numerical_or_input_errors": [],
+        "observed_progress": [
+          {
+            "call": 1,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 30,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 60,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 90,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 120,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 150,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 180,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 210,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 240,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 270,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 300,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 330,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 360,
+            "incumbent_source_cost": null
+          }
+        ],
+        "optimizer_stop": "[]",
+        "optimizer_success_flag_NOT_feasibility": true,
+        "over_budget_objective_requests_with_NO_domain_call": 2,
+        "seed": 3808,
+        "wall_seconds": 0.60902
+      }
+    },
+    {
+      "event": "I38_GADAPT",
+      "data": {
+        "actual_full_train_panel_evaluations": 360,
+        "best_train_feasible_common_plan": null,
+        "infeasible_train_plans": 360,
+        "numerical_or_input_errors": [],
+        "observed_progress": [
+          {
+            "call": 1,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 30,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 60,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 90,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 120,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 150,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 180,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 210,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 240,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 270,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 300,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 330,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 360,
+            "incumbent_source_cost": null
+          }
+        ],
+        "optimizer_stop": "[]",
+        "optimizer_success_flag_NOT_feasibility": true,
+        "over_budget_objective_requests_with_NO_domain_call": 2,
+        "seed": 3809,
+        "wall_seconds": 0.5513
+      }
+    },
+    {
+      "event": "I38_GADAPT",
+      "data": {
+        "actual_full_train_panel_evaluations": 360,
+        "best_train_feasible_common_plan": null,
+        "infeasible_train_plans": 360,
+        "numerical_or_input_errors": [],
+        "observed_progress": [
+          {
+            "call": 1,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 30,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 60,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 90,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 120,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 150,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 180,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 210,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 240,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 270,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 300,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 330,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 360,
+            "incumbent_source_cost": null
+          }
+        ],
+        "optimizer_stop": "[]",
+        "optimizer_success_flag_NOT_feasibility": true,
+        "over_budget_objective_requests_with_NO_domain_call": 2,
+        "seed": 3810,
+        "wall_seconds": 0.59027
+      }
+    },
+    {
+      "event": "I38_GADAPT",
+      "data": {
+        "actual_full_train_panel_evaluations": 360,
+        "best_train_feasible_common_plan": null,
+        "infeasible_train_plans": 360,
+        "numerical_or_input_errors": [],
+        "observed_progress": [
+          {
+            "call": 1,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 30,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 60,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 90,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 120,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 150,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 180,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 210,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 240,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 270,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 300,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 330,
+            "incumbent_source_cost": null
+          },
+          {
+            "call": 360,
+            "incumbent_source_cost": null
+          }
+        ],
+        "optimizer_stop": "[]",
+        "optimizer_success_flag_NOT_feasibility": true,
+        "over_budget_objective_requests_with_NO_domain_call": 2,
+        "seed": 3811,
+        "wall_seconds": 0.60728
+      }
+    },
+    {
+      "event": "I38_DONE",
+      "data": {
+        "ga_runs": 12,
+        "milp_status": 2,
+        "real_train_panel_objective_evaluations": 4320,
+        "train_feasible_ga_seeds": 0
+      }
+    }
+  ]
+}
