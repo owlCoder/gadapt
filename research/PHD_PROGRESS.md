@@ -10,6 +10,9 @@
   Robustness run #39836609270: sva 4 job-a zelena, ali run je pri proveri još bio `in_progress` → ne tvrditi SUCCESS.
 - Lokalno: `.venv` (Python 3.14, numpy 2.5.4, scipy 1.18.1, hypothesis 6.170.5). 12/12 postojećih I39/I41 testova prolazi.
 - Podaci: originalna SNDlib temporalna TGZ (SHA `2c3ca706…`) i dalje NEDOSTUPNA. Ne rekonstruisati.
+  Provera 2026-10-22: `sndlib.put.poznan.pl` ne odgovara (curl 000); `sndlib.zib.de` → 302 na poznanjski server;
+  Wayback nema snimak TGZ-a (ni zib ni poznan URL). Zenodo: `SNDlib-MIPs` (10.5281/zenodo.8021237, samo MPS instance)
+  i `topohub` v1.5.1 (10.5281/zenodo.19154525, samo konvertovane topologije, BEZ vremenskih matrica) → NISU oporavak izvora.
 
 ## Aktivni zadatak: nezavisna kritička provera originalnosti I41 (bez novih stvarnih eksperimenata)
 
