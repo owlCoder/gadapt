@@ -5,6 +5,7 @@ All traffic here is synthetic explicitly, never NVIDIA/DFN/I39 source data.
 import copy
 import itertools
 import unittest
+from fractions import Fraction
 import numpy as np
 
 from research.test_iteration39_source_modular_capacity import tiny
@@ -13,7 +14,7 @@ from research.iteration39_source_modular_capacity import (
 )
 from research.iteration41_certified_temporal_rows import (
     certified_route_aware_rows, verify_certified_rows, _dominance_margin,
-    _physical_masks,
+    _physical_masks, _binary64_exact_integer_matrix,
 )
 
 
@@ -118,6 +119,20 @@ class I41SafeRoutingConstraintPruning(unittest.TestCase):
         partial["edge_time_rows"][0]["removed"].pop()
         with self.assertRaises(ValueError):
             verify_certified_rows(p,partial)
+
+    def test_exact_binary64_arithmetic_catches_decimal_rounding(self):
+        vals=np.array([[0.1,0.2,0.3],[1e-12,1e12,0.]],dtype=float)
+        q=_binary64_exact_integer_matrix(vals)
+        ratios=[float(v).as_integer_ratio() for v in vals.flat]
+        exponent=max(x[1].bit_length()-1 for x in ratios)
+        denom=1<<exponent
+        for i in range(vals.shape[0]):
+            for j in range(vals.shape[1]):
+                self.assertEqual(Fraction(int(q[i,j]),denom),
+                                 Fraction.from_float(float(vals[i,j])))
+        self.assertGreater(q[0,0]+q[0,1]-q[0,2],0)
+        with self.assertRaises(ValueError):
+            _binary64_exact_integer_matrix([[float("nan")]])
 
     def test_same_global_MILP_lower_bound_and_exact_source_cost(self):
         p=tiny(np.arange(1,41,dtype=float).reshape(-1,1))
