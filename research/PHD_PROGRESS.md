@@ -27,15 +27,11 @@
 
 ## SLEDEĆI KORAK
 
-**H1 zatvoren (2026-10-22).** Audit: `research/H1_PRIOR_ART_AUDIT_SR.md`. Faza 0: `research/ITERATION42_REPORT_SR.md`,
-sirovi izlaz `research/results/iteration42/phase0.json`. Medijana k(10%) ≤ 2 na 23/25 instanci → **H1 NO-GO**.
-Nijedna aktivna hipoteza ne ostaje (I41, H1, H2 su NO-GO).
-
-**Čeka odluku korisnika: novi istraživački pravac.** Kandidati (nijedan još nije prošao prior-art gate):
-1. Dijagnostika I39 neuspeha GAdapt-a (11/12 semena bez poboljšanja početnog rešenja): budžet ili operatori?
-   Za to su potrebni podaci, a I39 izvor je izgubljen → samo na sintetici ili na topohub statičkim matricama.
-2. Opšti, ne domenski specifičan, mehanizam u samom GAdapt-u (npr. adaptacija na osnovu stagnacije), uz pun gate.
-Ništa od toga ne pokretati bez odluke korisnika i novog prior-art audita.
+H1 zatvoren (I42, NO-GO). Korisnik je tražio moj savet i da ga sprovedem → izabran pravac 1: **I43 dijagnostika
+„budžet ili operatori“** (bez tvrdnje o novini). Protokol: `research/ITERATION43_PROTOCOL.md` (zamrznut pre koda).
+1. [SLEDEĆE] Kod `research/iteration43_budget_operator_diagnostic.py` + testovi §6 → komit → JEDNO pokretanje →
+   `research/results/iteration43/diagnostic.json` → `research/ITERATION43_REPORT_SR.md`.
+2. Na osnovu klasifikacije (§5 protokola): DEFICIT_OPERATORA → prior-art audit diskretnih operatora; ARTEFAKT_BUDŽETA → zatvoriti.
 
 ## Dnevnik odluka
 
@@ -44,3 +40,4 @@ Ništa od toga ne pokretati bez odluke korisnika i novog prior-art audita.
 - 2026-10-22: Korisnik odobrio H1 gate (sistematski prior-art audit, pa preregistracija Faze 0). Implementacija i dalje NIJE odobrena pre gate-a.
 - 2026-10-22: H1 audit: nema ekvivalenta; „high-arity“ diferencijator opovrgnut (Chicano 2024). Faza 0 preregistrovana kao čisto strukturno merenje.
 - 2026-10-22: I42 Faza 0 izvršena jednom (kod `57730b9`): H1 NO-GO (23/25 instanci sa medijanom k ≤ 2; ta2 neevaluirana zbog pop-limita, ne menja odluku). Korisnik traži autonomni rad kroz faze; zaustavljanje samo na pravim gate-ovima.
+- 2026-10-22: Na korisnikov zahtev („šta je tvoj savet, to radi“) izabran pravac I43: dijagnostika budžet vs operatori, sintetička cena nad topohub topologijama.
