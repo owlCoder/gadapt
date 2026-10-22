@@ -1,3 +1,42 @@
+# GAdapt PhD Research Rules (read first)
+
+## Resume protocol (every new session, after crash/power loss)
+1. Read `research/PHD_PROGRESS.md` — the single source of truth for where work stopped. Continue from its "NEXT STEP".
+2. Update `research/PHD_PROGRESS.md` after every meaningful step and commit+push it immediately.
+3. Work directly on `main` of `owlCoder/gadapt` (clone: `~/Desktop/gadapt`); no feature branches, no PRs (user-authorized).
+   Commit messages: no `Co-Authored-By` or other AI attribution.
+4. Python: `.venv/bin/python` (numpy, scipy, networkx, hypothesis, pytest). Tests: `.venv/bin/python -m pytest -q research/test_iteration41_*.py`.
+5. Effort: at most `high`. Spawn agents sparingly (one at a time, only for long literature searches).
+
+## Objective
+Produce a defensible original scientific contribution to GAdapt for infrastructure optimization.
+Research validity is more important than experiment count, positive results, or code volume.
+
+## Mandatory research gates
+1. Read the latest handoff and research history (`research/PHD_PROGRESS.md`, latest ITERATION* docs).
+2. Search relevant prior art before proposing novelty.
+3. Identify the exact mathematical difference from prior work.
+4. State a falsifiable hypothesis and strong baselines.
+5. Freeze protocol, datasets, metrics, seeds and budgets (commit BEFORE code/runs).
+6. Only then run real experiments.
+7. Archive inputs, source hashes, raw outputs and negative results.
+
+## Hard constraints
+- Never modify upstream `bpzoran/gadapt` (its push URL is disabled in this clone).
+- Never claim originality from implementation alone. Never invent citations: verify every DOI.
+- Never invent or reconstruct missing research data (e.g. the lost SNDlib temporal TGZ, SHA `2c3ca706…`).
+- Never tune methods using held-out results. Never repeat an experiment until it becomes positive.
+- Separate synthetic validation from real infrastructure evidence.
+- Preserve existing GAdapt behavior unless explicitly authorized (new behavior = opt-in, default bit-identical).
+- Do not run physical/expensive CI workflows automatically.
+
+## Required output for every research proposal
+Research question · closest known prior art with DOI · precise novelty claim or "not established" ·
+formal assumptions and proposed theorem · strongest baselines · falsification experiment ·
+computational budget · GO / NO-GO. If novelty is not established, STOP before implementation.
+
+---
+
 # GAdapt
 
 Self-adaptive genetic algorithm library (Python 3.10+, NumPy only), published on PyPI as `gadapt`.
