@@ -1,0 +1,102 @@
+name: I38 Frozen Joint SNDlib Capacity Plan — MILP versus GAdapt
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'research/ITERATION38_PROTOCOL.md'
+      - 'research/iteration38_joint_capacity_model.py'
+      - 'research/iteration38_joint_capacity_experiment.py'
+      - 'research/test_iteration38_joint_capacity.py'
+      - '.github/workflows/research-iteration38-joint-capacity.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/research-iteration38-joint-capacity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  OPENBLAS_NUM_THREADS: '1'
+  OMP_NUM_THREADS: '1'
+  MKL_NUM_THREADS: '1'
+  NUMEXPR_NUM_THREADS: '1'
+  PYTHONHASHSEED: '0'
+
+jobs:
+  zero-network-model-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install frozen parser/MILP/native GAdapt scientific stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'networkx==3.4.2'
+          python -m pip install -e .
+      - name: Compile and test synthetic source model (NO official-domain solving)
+        run: |
+          python -m py_compile research/iteration38_joint_capacity_model.py research/iteration38_joint_capacity_experiment.py
+          python -m unittest -v research.test_iteration38_joint_capacity
+
+  official-source-data-gate:
+    runs-on: ubuntu-latest
+    needs: zero-network-model-tests
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install frozen parser dependencies
+        run: |
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'networkx==3.4.2'
+          python -m pip install -e .
+      - name: Inspect official native network and chronological 288 matrices ONLY
+        run: |
+          python - <<'PY'
+          import json
+          from research.iteration38_joint_capacity_experiment import source_data_gate
+          nodes, links, pairs, q, provenance = source_data_gate()
+          print("I38_DATA_GATE", json.dumps({
+              "nodes":len(nodes), "links":len(links), "directed_pairs":len(pairs),
+              "traffic_shape":list(q.shape), "source_network":provenance["source_network"],
+              "source_matrices":provenance["source_matrices"]
+          },sort_keys=True),flush=True)
+          PY
+
+  one-time-original-source-optimization:
+    # PR-only science execution. A push to main never starts paid I38 evaluation.
+    if: github.event_name == 'pull_request'
+    needs: official-source-data-gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 85
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install identical frozen model and original GA
+        run: |
+          python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'networkx==3.4.2'
+          python -m pip install -e .
+      - name: Run exactly one preregistered MILP and 12 original core GAdapt runs
+        run: |
+          mkdir -p research/results
+          python -m research.iteration38_joint_capacity_experiment \
+            --json research/results/iteration38_12seed_joint_source_plan.json \
+            --manifest research/results/iteration38_source_sha_manifest.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: i38-joint-source-capacity-original-raw-and-milp
+          path: |
+            research/results/iteration38_12seed_joint_source_plan.json
+            research/results/iteration38_source_sha_manifest.json
+          if-no-files-found: warn
+          retention-days: 90
