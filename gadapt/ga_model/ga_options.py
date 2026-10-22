@@ -20,6 +20,7 @@ class GAOptions:
         self._number_of_crossover_parents = ga.number_of_crossover_parents
         self._cost_function = ga.cost_function
         self.cost_diversity_metric = ga.cost_diversity_metric
+        self.strict_mutation_decision_variable_limit = ga.strict_mutation_decision_variable_limit
         self.mutation_operator_policy = ga.mutation_operator_policy
         self.mutation_operator_credit = ga.mutation_operator_credit
         self.mutation_credit_assignment = ga.mutation_credit_assignment

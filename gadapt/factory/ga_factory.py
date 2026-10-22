@@ -399,14 +399,18 @@ class GAFactory(BaseGAFactory):
             )
         if definitions.VARIABLE_COLUMNAR_DIVERSITY in mutator_strings:
             decision_variable_mutation_rate_determinators.append(
-                VariableColumnarDiversityDecisionVariableMutationRateDeterminator()
+                VariableColumnarDiversityDecisionVariableMutationRateDeterminator(
+                    self._options.strict_mutation_decision_variable_limit
+                )
             )
         if len(decision_variable_mutation_rate_determinators) == 0:
             decision_variable_mutation_rate_determinators.append(
                 RandomDecisionVariableMutationRateDeterminator()
             )
             decision_variable_mutation_rate_determinators.append(
-                VariableColumnarDiversityDecisionVariableMutationRateDeterminator()
+                VariableColumnarDiversityDecisionVariableMutationRateDeterminator(
+                    self._options.strict_mutation_decision_variable_limit
+                )
             )
         if len(decision_variable_mutation_rate_determinators) == 1:
             main_decision_variable_mutation_rate_determinator = decision_variable_mutation_rate_determinators[0]

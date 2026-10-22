@@ -14,8 +14,15 @@ class VariableColumnarDiversityDecisionVariableMutationRateDeterminator(RandomDe
 
     def __init__(
         self,
+        strict_limit: bool = False,
     ) -> None:
+        """
+        Args:
+            strict_limit: If True, the number of mutation decision variables never exceeds
+                the maximum passed to get_number_of_mutation_decision_variables.
+        """
         super().__init__()
+        self._strict_limit = strict_limit
 
     def _get_mutation_rate(self, decision_variables) -> float:
         avg_rsd = ga_utils.average([g.columnar_diversity_coefficient for g in decision_variables])
@@ -43,5 +50,10 @@ class VariableColumnarDiversityDecisionVariableMutationRateDeterminator(RandomDe
         preferred_number_of_mutation_decision_variables =  round(len(self.candidate_solution) / 5)
         if limit_number_of_mutation_decision_variables_rounded < preferred_number_of_mutation_decision_variables:
             limit_number_of_mutation_decision_variables_rounded = max(preferred_number_of_mutation_decision_variables, 1)
+        if self._strict_limit:
+            limit_number_of_mutation_decision_variables_rounded = min(
+                limit_number_of_mutation_decision_variables_rounded,
+                max(self.max_number_of_mutation_decision_variables, 1),
+            )
         self.max_number_of_mutation_decision_variables = limit_number_of_mutation_decision_variables_rounded
         return super()._get_number_of_mutation_decision_variables()

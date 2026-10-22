@@ -127,6 +127,8 @@ class GA:
         adaptive_immigration_patience: Optional[int] = None,
         adaptive_immigration_percentage: float = 20.0,
         adaptive_immigration_diversity_threshold: float = 0.25,
+        probe_cost_function: bool = True,
+        strict_mutation_decision_variable_limit: bool = False,
         **deprecated_kwargs,
     ) -> None:
         """
@@ -292,6 +294,19 @@ class GA:
                 to replace during an adaptive refresh (0-100, default 20).
             adaptive_immigration_diversity_threshold: refresh only when cost
                 diversity coefficient is below this threshold (0-1).
+            probe_cost_function: True (default) or False. Before the
+                optimization, the validation calls the cost function once with all
+                minimal and once with all maximal variable values, to check that it
+                returns a float. These two calls are real cost function evaluations,
+                and they are not part of the search. False skips them (the cost
+                function must still be callable).
+            strict_mutation_decision_variable_limit: False (default) or True. By
+                default, when candidate_solution_mutation contains
+                "variable_columnar_diversity", the number of mutated decision
+                variables can exceed number_of_mutation_decision_variables (or the
+                value calculated from percentage_of_mutation_decision_variables): it is
+                at least one fifth of the decision variables. True makes that value a
+                strict upper bound for every candidate solution mutation.
 
             deprecated_kwargs: Previous names of the parameters (see
             DEPRECATED_PARAMETER_NAMES), e.g. number_of_mutation_chromosomes.
@@ -338,6 +353,8 @@ class GA:
         )
         self.ensure_unique_individuals = ensure_unique_individuals
         self.cost_diversity_metric = cost_diversity_metric
+        self.probe_cost_function = probe_cost_function
+        self.strict_mutation_decision_variable_limit = strict_mutation_decision_variable_limit
         if mutation_operator_policy not in ("legacy", "uniform", "ucb", "ucb_true_call_rate"):
             raise ValueError("mutation_operator_policy must be legacy/uniform/ucb/ucb_true_call_rate")
         if (mutation_operator_policy == "ucb_true_call_rate" and
@@ -937,6 +954,26 @@ class GA:
                 "cost_diversity_metric must be 'log_relative' or 'affine_invariant'"
             )
         self._cost_diversity_metric = value
+
+    @property
+    def probe_cost_function(self) -> bool:
+        return self._probe_cost_function
+
+    @probe_cost_function.setter
+    def probe_cost_function(self, value: bool) -> None:
+        if not isinstance(value, bool):
+            raise ValueError("probe_cost_function must be True or False")
+        self._probe_cost_function = value
+
+    @property
+    def strict_mutation_decision_variable_limit(self) -> bool:
+        return self._strict_mutation_decision_variable_limit
+
+    @strict_mutation_decision_variable_limit.setter
+    def strict_mutation_decision_variable_limit(self, value: bool) -> None:
+        if not isinstance(value, bool):
+            raise ValueError("strict_mutation_decision_variable_limit must be True or False")
+        self._strict_mutation_decision_variable_limit = value
 
     @property
     def normal_distribution_mutation_max_std_dev(self) -> float:

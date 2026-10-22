@@ -89,6 +89,13 @@ Pure Python, no compiled code. `README.md` is also the PyPI long description.
   check a seeded run before and after any change to the Gaussian mutators. Measured on the continuous benchmarks (see the benchmark script):
   min std dev 1e-4 + decay 2.5 gives ~1.8 orders of magnitude lower median gap for ~20% more evaluations; a fixed floor below one step
   hurts discrete variables, and a fixed floor <= 1e-5 hurts 20 variables (the 600-generation cap is reached before convergence).
+- `GA.execute()` validation calls the cost function on all-min and all-max values (2 real evaluations, not part of the search).
+  Budget wrappers count them; with binary route choice all-min is exactly the trivial "first path" solution (see research I43).
+  `probe_cost_function=False` (opt-in) skips them.
+- `VariableColumnarDiversityDecisionVariableMutationRateDeterminator` raises the number of mutated decision variables to
+  at least round(N/5), ignoring `number_of_mutation_decision_variables`; `strict_mutation_decision_variable_limit=True`
+  (opt-in) caps it. Crossover duplicate repair (`BaseCrossover`) mutates separately with an attempt-based limit.
+- Bit-identity check for library changes: seeded call-sequence hashes (every argument vector and cost) before/after.
 - `ParentDiversityCandidateSolutionUpdater` is a singleton (`__new__`), so its state is shared across `GA` instances.
 - Pure-Python per-decision-variable overhead dominates for cheap cost functions (~1 ms/generation at pop 32 x 10 decision variables,
   scaling linearly with population size and decision-variable count). For real cost functions, the number of evaluations

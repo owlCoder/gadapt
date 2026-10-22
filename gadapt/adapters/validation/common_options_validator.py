@@ -79,6 +79,8 @@ class CommonOptionsValidator(BaseOptionsValidator):
         elif not callable(self.options.cost_function):
             self._add_message("Cost Function must be callable!")
             return False
+        if not self.options.probe_cost_function:
+            return True
         argsmin = []
         argsmax = []
         for v in self.options._decision_variables:
