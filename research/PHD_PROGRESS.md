@@ -29,13 +29,18 @@
 
 Odgovori korisnika 2026-10-22: cilj = PhD doprinos (prioritet) + praktično bolji GAdapt; domen ako je deficit generički =
 kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrzanja GAdapt-a dozvoljena (bit-identično).
-- I43–I45 GOTOVO. I45: deficit je SPECIFIČAN ZA GADAPT (udžbenički GA bolji 5/6; EA bolji od GAdapt-a 6/6).
-- I46 [U TOKU, pozadina]: protokol `research/ITERATION46_PROTOCOL.md` (`dcb54a1`), kod `907a124`.
-  Komanda: `.venv/bin/python -m research.iteration46_component_ablation` → `research/results/iteration46/ablation.json`.
-  Ako imenuje uzrok → preregistrovana potvrda (§6): `... -m research.iteration46_component_ablation confirm <ARM>`.
-  Ako pukne: ponovo isti kod (rezultat nije viđen).
-- Zatim: da li ista komponenta šteti i na kontinualnim benchmark-ovima (domen za PhD).
-- Push: serijski, poslednji komit sa `[skip ci]` kad serija dira `gadapt/` (inače bi se okinuo i34 workflow od 120 min).
+- I43–I46 GOTOVO (binarni izbor ruta): deficit GAdapt-a robustan i specifičan; nije ga izazvala nijedna pojedinačna
+  opcija (I46); eksplorativno: GAdapt ne intenzivira oko najboljeg rešenja.
+- I5 (ranije): i na kontinualnom IEEE14 GAdapt gubi 12/12 od CMA-ES/SLSQP/DE.
+- Novi nalaz (eksplorativno, `research/iteration47_exploratory_*`): kolonska raznovrsnost na log((v−min)+1) NIJE
+  invarijantna na jedinice/položaj → optimum blizu gornje granice promenljive velikog opsega ~10^3 lošije.
+  Opt-in ispravka `columnar_diversity_metric="linear"` (`cc2f357`, default bit-identičan).
+- I47 [U TOKU, pozadina]: protokol `research/ITERATION47_PROTOCOL.md` (`6588731`), kod `6dda81c`.
+  `.venv/bin/python -m research.iteration47_invariance all` → `research/results/iteration47/{synthetic,dispatch}.json`.
+  Ako pukne: isti kod ponovo (rezultat nije viđen). Napomena za izveštaj: pre-run smoke na case14, seme 1, budžet 120.
+- Posle I47: izveštaj; PhD pitanje ostaje otvoreno (invarijantnost/intenzifikacija su poznati principi → novost
+  metode nije utvrđena). Kandidat za PhD gate: vidi izveštaj I47 §Odluka.
+- Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
 ### Nalazi o biblioteci GAdapt (korisnik: „sređuj“ → ispravljeno kao opt-in u `64b9c82`, default bit-identičan)
 1. `CommonOptionsValidator._check_cost_function` poziva cost funkciju na vektoru svih min i svih max (2 skrivene stvarne
@@ -54,3 +59,4 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - 2026-10-22: Push samo u serijama (CI minuti). I43 UNRESOLVED; otkrivena 2 nalaza o biblioteci. I44 preregistrovan na novim instancama.
 - 2026-10-22: Korisnik: „sređuj, radi dalje, ne staj“ → opt-in `probe_cost_function`, `strict_mutation_decision_variable_limit` (bit-identičnost proverena hešom niza poziva). I44: H-mut NO. I45 pokrenut.
 - 2026-10-22: I45: deficit SPECIFIČAN ZA GADAPT. Korisnik odgovorio na 4 pitanja (vidi gore). Push serije I42–I45 + lib sa [skip ci].
+- 2026-10-23: I46 bez uzročne komponente. Otkrivena neinvarijantnost kolonske raznovrsnosti; opt-in `linear`. I47 pokrenut.
