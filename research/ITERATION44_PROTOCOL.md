@@ -49,3 +49,24 @@ Kontrolne tačke: B ∈ {360, 2000, 10000}. Ishod je `r = (f_best − f0)/f0`, k
 ## 6. Budžet i arhiviranje
 6 × 12 × 3 = 216 pokretanja, oko 10–15 min lokalno, bez CI-a. Izlaz: `research/results/iteration44/mechanism.json` +
 `ITERATION44_REPORT_SR.md`, i negativan ishod. Bez ponavljanja sa drugim vrednostima mutacije.
+
+## Dodatak A1 (pre stvarnog pokretanja, 2026-10-22)
+Kontrola iz §5 je na **sintetičkom** grafu pokazala da `number_of_mutation_decision_variables=1` **ne** ograničava
+mutaciju: jedan poziv je menjao do 52 gena.
+
+Uzrok je u biblioteci. `VariableColumnarDiversityDecisionVariableMutationRateDeterminator._get_number_of_mutation_decision_variables`
+prepisuje korisnikovu gornju granicu vrednošću `max(round(N/5), round(diversity·N))`. U podrazumevanoj konfiguraciji
+(`candidate_solution_mutation="variable_columnar_diversity,random"`) parametar je zato tiho ignorisan, iako ga
+dokumentacija opisuje kao gornju granicu. To je zaseban nalaz o GAdapt-u. Biblioteka se ne menja bez odobrenja.
+
+Ispravka: krak **GA-I39-m1** koristi `number_of_mutation_decision_variables=1` **i** `candidate_solution_mutation="random"`.
+`RandomDecisionVariableMutationRateDeterminator` poštuje granicu.
+
+Konfuzija: m1 menja i način izbora gena (uniformno umesto ruletom po kolonskoj raznovrsnosti). Pozitivan rezultat se
+zato pripisuje paketu „1 gen + uniforman izbor“, ne samo intenzitetu. Nijedan rezultat na instancama iz §2 nije bio
+poznat u trenutku ove izmene.
+
+Dopuna A1 (isti dan, i dalje pre pokretanja): ukrštanje ima poseban mehanizam popravke duplikata
+(`BaseCrossover`: posle `MUTATE_AFTER_ATTEMPT` neuspešnih pokušaja mutira potomka sa limitom `broj_pokušaja − MUTATE_AFTER_ATTEMPT`).
+To nije operator mutacije populacije, isti je u oba GA kraka i ne menja se. Kontrola iz §5 se zato proverava kao
+„svaki poziv poštuje svoj prosleđeni limit, a poziv sa limitom 1 menja tačno 1 gen“.
