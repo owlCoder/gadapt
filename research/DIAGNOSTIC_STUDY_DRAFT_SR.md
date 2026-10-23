@@ -90,6 +90,8 @@ neusklađen rezultat menja zaključak poređenja.
 - brojanje evaluacija (COCO, IOHexperimenter);
 - testovi invarijantnosti i pristrasnosti ka centru (Kůdela 2022, BIAS);
 - poređenje okvira po kvalitetu rešenja (Ravber i sar. 2025, 13 okvira).
+- nasumičan redosled iteracije kroz heš strukture kao način otkrivanja nedeterminizma (NonDex, Gyori i sar. 2016;
+  nestabilni testovi u Python-u, Gruber i sar. 2021). D3x tu tehniku primenjuje na ugovor o semenu.
 
 **Novo** je biblioteka-nezavisan black-box alat koji:
 - klasifikuje svaki poziv funkcije troška;
@@ -223,3 +225,5 @@ Pre poređenja optimizatora na skupoj funkciji troška:
 - de Nobel i sar. 2024 (IOHexperimenter), [10.1162/evco_a_00342](https://doi.org/10.1162/evco_a_00342)
 - Kůdela 2022, [10.1038/s42256-022-00579-0](https://doi.org/10.1038/s42256-022-00579-0)
 - Vermetten i sar. 2022 (BIAS), [10.1109/TEVC.2022.3189848](https://doi.org/10.1109/TEVC.2022.3189848)
+- Gyori i sar. 2016 (NonDex), [10.1145/2950290.2983932](https://doi.org/10.1145/2950290.2983932)
+- Gruber i sar. 2021, [10.1109/ICST49551.2021.00026](https://doi.org/10.1109/ICST49551.2021.00026)

@@ -64,7 +64,8 @@ reproduce or report differently from what their users assume?
 
 **Contributions:**
 1. A black-box, library-independent audit with explicit call classes and result-consistency checks. Its
-   cross-process reproducibility check (D3x) exposes seed failures that within-process checks miss.
+   cross-process reproducibility check (D3x) adapts known hash-order randomization to the seed contract of
+   optimization libraries and exposes seed failures that within-process checks miss.
 2. Validation of the audit on planted faults, including faults that are only visible across processes.
 3. Two preregistered prevalence studies on 21 Python libraries, one of them drawn by an external sampling rule,
    and a third study that adds cross-process reproducibility to the first sample.
@@ -91,6 +92,12 @@ reproduce or report differently from what their users assume?
   optimisation software (Duque-Torres et al. 2025a, 2025b). It checks relations between runs and is closest in
   spirit to our seed and documentation checks. Its targets are algorithm or application properties, not the
   evaluation contract between a library and its user.
+
+- **Nondeterminism from iteration order.** Hash-based iteration order is a known source of flaky tests. NonDex
+  (Gyori et al. 2016) randomizes the iteration order of Java collections to expose code that relies on an
+  unspecified order, and Gruber et al. (2021) studied flaky tests in Python. Our D3x applies the same idea, varying
+  `PYTHONHASHSEED` between two fresh processes, to the documented seed contract of optimization libraries. We claim
+  no novelty for the technique.
 
 **Our claim is narrow.** No component (counting, invariance, seeding) is new in isolation. What is new is a
 validated, library-independent black-box audit that classifies every call, checks reported results against
@@ -349,6 +356,10 @@ All material is in `owlCoder/gadapt`, directory `research/`:
   [10.1080/10556788.2020.1808977](https://doi.org/10.1080/10556788.2020.1808977)
 - Hansen, N., Ros, R., Mauny, N., Schoenauer, M., Auger, A. (2011). Impacts of invariance in search: When CMA-ES and
   PSO face ill-conditioned and non-separable problems. *Applied Soft Computing*. [10.1016/j.asoc.2011.03.001](https://doi.org/10.1016/j.asoc.2011.03.001)
+- Gruber, M., Lukasczyk, S., Kroiß, F., Fraser, G. (2021). An empirical study of flaky tests in Python. *ICST 2021*.
+  [10.1109/ICST49551.2021.00026](https://doi.org/10.1109/ICST49551.2021.00026)
+- Gyori, A., Lambeth, B., Shi, A., Legunsen, O., Marinov, D. (2016). NonDex: a tool for detecting and debugging wrong
+  assumptions on Java API specifications. *FSE 2016*. [10.1145/2950290.2983932](https://doi.org/10.1145/2950290.2983932)
 - Kudela, J. (2022). A critical problem in benchmarking and analysis of evolutionary computation methods. *Nature
   Machine Intelligence*. [10.1038/s42256-022-00579-0](https://doi.org/10.1038/s42256-022-00579-0)
 - Ravber, M., Šmid, M., Moravec, M., Mernik, M., Črepinšek, M. (2025). Performance comparison of single-objective
