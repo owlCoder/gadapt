@@ -44,7 +44,7 @@ in the same process and in two fresh processes with different `PYTHONHASHSEED`.
 | C5 | evaluations after the optimizer returned | PyGAD `best_solution()` without `pop_fitness` |
 | R1 | the reported solution was never evaluated | — |
 | R2 | the reported cost differs from the recorded cost | GFO with `optimum="minimum"`: sign flipped |
-| R3 | the reported solution is worse than the best evaluated one | scikit-opt DE |
+| R3 | the reported solution is worse than the best evaluated one | scikit-opt DE; SciPy `differential_evolution` when L-BFGS-B polishing reports `success=False` (up to 89% worse on AC dispatch) |
 | D3 | same seed, different run within one process | Nevergrad `NGOpt` |
 | D3x | same seed, different run between processes | SMAC 2.4.1 (depends on `PYTHONHASHSEED`) |
 
@@ -63,4 +63,7 @@ The audit also reports two measures that are not integrity problems:
 - In those audits, integrity problems other than corner evaluations appeared in 8 of 21 libraries.
 - Findings were reported to maintainers: [SMAC #1380](https://github.com/automl/SMAC3/issues/1380),
   [GFO #106](https://github.com/gfo-project/Gradient-Free-Optimizers/issues/106) and
-  [Nevergrad #1572](https://github.com/facebookresearch/nevergrad/issues/1572).
+  [Nevergrad #1572](https://github.com/facebookresearch/nevergrad/issues/1572) and
+  [SciPy #26479](https://github.com/scipy/scipy/issues/26479).
+- Test functions do not reveal everything. The SciPy defect appeared only on a real AC-dispatch cost function
+  ([I52](ITERATION52_PROTOCOL.md)), so audit with your own cost function as well.
