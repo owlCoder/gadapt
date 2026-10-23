@@ -67,7 +67,9 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   (Nevergrad, SMAC).
 - Izabran samostalan rad (korisnik: „ne stajati“): nacrt `research/paper_integrity_audit/manuscript.md` (engleski,
   sve reference proverene na Crossref/arXiv 2026-10-23).
-- SLEDEĆE: kritičko čitanje rukopisa (recenzentski prolaz), slike/tabele, izbor časopisa (ACM TELO kao prvi kandidat).
+- Recenzentski prolaz urađen (`f74ecda`); slika 1 (`research/paper_integrity_audit/make_figure.py` iz sirovih
+  izlaza; render interpreterom iz h4 lock okruženja). Ciljni časopis: ACM TELO (podrazumevani izbor).
+- SLEDEĆE: pratiti odgovore održavalaca (#1572, #1380, #106) i uneti ih u rad; prelom za TELO.
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
