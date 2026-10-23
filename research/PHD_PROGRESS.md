@@ -72,7 +72,12 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - I52 (prenos nalaza na stvarni AC dispečing, H52: poklapanje ≥ 17/21): protokol `32bac01`, drajver `8345310`,
   validacija 3/3. Pokrenuto JEDNOM (`i52/run_all.sh` u scratchpad-u). Ako je prekinuto: pokrenuti samo biblioteke bez
   `research/results/iteration52/cells_<lib>.json`, pa `aggregate`, pa izveštaj.
-- Zatim: uneti I52 u rad i poglavlje; pratiti odgovore održavalaca (#1572, #1380, #106).
+- I52 prvo izvršavanje palo na uvozu (0 merenja) → dopuna A1 (`0caef4c`), ponovo pokrenuto. Međurezultat (20/21):
+  poklapanje 18/20 (H52 već potvrđena); nov nalaz samo na dispečingu: SciPy DE odbacuje bolju tačku poliranja kad
+  L-BFGS-B vrati success=False → prijavljeno scipy #26479. scikit-opt DE R3 ponovljen na dispečingu, mehanizam
+  uzročno potvrđen (10/200 → 0/200) → prijavljeno scikit-opt #248 (doslednost sa SciPy prijavom).
+- Zatim: aggregate kad baybe završi, izveštaj ITERATION52_REPORT_SR.md, uneti u rad i poglavlje; pratiti odgovore
+  (#1572, #1380, #106, scipy #26479, sko #248).
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
@@ -108,3 +113,4 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - 2026-10-23: Poglavlje §7 i alat za praksu (CLI + testovi + uputstvo) završeni.
 - 2026-10-23: I51 (D3x na I49 uzorku: samo Nevergrad). Nacrt rada napisan; reference proverene.
 - 2026-10-23: I52 preregistrovan i pokrenut (spoljna validnost na stvarnoj infrastrukturi).
+- 2026-10-23: I52 međurezultat: H52 potvrđena; dve nove prijave (SciPy #26479, scikit-opt #248).
