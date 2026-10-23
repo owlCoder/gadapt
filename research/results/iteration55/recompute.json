@@ -1,0 +1,540 @@
+{
+ "summary": {
+  "libraries": 21,
+  "finding_excl_C1": [
+   "cma",
+   "deap",
+   "evotorch",
+   "gfo",
+   "nevergrad",
+   "pygad",
+   "scikit_opt",
+   "smac"
+  ],
+  "finding_any": [
+   "baybe",
+   "bayes_opt",
+   "bofire",
+   "cma",
+   "deap",
+   "emukit",
+   "evolopy",
+   "evotorch",
+   "evox",
+   "gfo",
+   "nevergrad",
+   "niapy",
+   "pygad",
+   "scikit_opt",
+   "smac"
+  ],
+  "d3x_diff": [
+   "nevergrad",
+   "smac"
+  ],
+  "d3x_same": [
+   "nevergrad"
+  ],
+  "flag_mismatches_vs_archive": 1,
+  "incomplete_libraries": []
+ },
+ "libraries": {
+  "baybe": {
+   "sample": "i50",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 18,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 0,
+   "median_repeated_share": 0.0,
+   "finding_excl_C1": false,
+   "finding_any": true
+  },
+  "bayes_opt": {
+   "sample": "i50",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 18,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 0,
+   "median_repeated_share": 0.0,
+   "finding_excl_C1": false,
+   "finding_any": true
+  },
+  "bofire": {
+   "sample": "i50",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 11,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 0,
+   "median_repeated_share": 0.0,
+   "finding_excl_C1": false,
+   "finding_any": true
+  },
+  "cma": {
+   "sample": "i49",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 0,
+    "C3": 0,
+    "C4": 10,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 0,
+   "median_repeated_share": 0.0,
+   "finding_excl_C1": true,
+   "finding_any": true
+  },
+  "cmaes": {
+   "sample": "i50",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 0,
+   "median_repeated_share": 0.0,
+   "finding_excl_C1": false,
+   "finding_any": false
+  },
+  "deap": {
+   "sample": "i49",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 0,
+    "C3": 30,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 0,
+   "median_repeated_share": 0.1148220130932897,
+   "finding_excl_C1": true,
+   "finding_any": true
+  },
+  "emukit": {
+   "sample": "i50",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 20,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 0,
+   "median_repeated_share": 0.0,
+   "finding_excl_C1": false,
+   "finding_any": true
+  },
+  "evolopy": {
+   "sample": "i50",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 9,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 0,
+   "median_repeated_share": 0.013245033112582781,
+   "finding_excl_C1": false,
+   "finding_any": true
+  },
+  "evotorch": {
+   "sample": "i50",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 0,
+    "C3": 30,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 0,
+   "median_repeated_share": 0.0,
+   "finding_excl_C1": true,
+   "finding_any": true
+  },
+  "evox": {
+   "sample": "i50",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 15,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 0,
+   "median_repeated_share": 0.0,
+   "finding_excl_C1": false,
+   "finding_any": true
+  },
+  "geneticalgorithm": {
+   "sample": "i49",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 0,
+   "median_repeated_share": 0.41522988505747127,
+   "finding_excl_C1": false,
+   "finding_any": false
+  },
+  "gfo": {
+   "sample": "i50",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 15,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 25,
+    "R3": 10,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 0,
+   "median_repeated_share": 0.0,
+   "finding_excl_C1": true,
+   "finding_any": true
+  },
+  "nevergrad": {
+   "sample": "i49",
+   "cells": 30,
+   "traced": 20,
+   "comparison_valid": 20,
+   "complete": true,
+   "runs_with": {
+    "C1": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0
+   },
+   "D3": 5,
+   "D3x_same": 5,
+   "D3x_diff": 5,
+   "median_repeated_share": 0.0,
+   "finding_excl_C1": true,
+   "finding_any": true
+  },
+  "niapy": {
+   "sample": "i50",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 3,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 0,
+   "median_repeated_share": 0.005,
+   "finding_excl_C1": false,
+   "finding_any": true
+  },
+  "optuna": {
+   "sample": "i49",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 0,
+   "median_repeated_share": 0.0,
+   "finding_excl_C1": false,
+   "finding_any": false
+  },
+  "pygad": {
+   "sample": "i49",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 30,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 0,
+   "median_repeated_share": 0.039177277179236046,
+   "finding_excl_C1": true,
+   "finding_any": true
+  },
+  "pymoo": {
+   "sample": "i49",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 0,
+   "median_repeated_share": 0.0,
+   "finding_excl_C1": false,
+   "finding_any": false
+  },
+  "pyswarms": {
+   "sample": "i49",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 0,
+   "median_repeated_share": 0.0,
+   "finding_excl_C1": false,
+   "finding_any": false
+  },
+  "scikit_opt": {
+   "sample": "i50",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 1,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 0,
+   "median_repeated_share": 0.4700996677740864,
+   "finding_excl_C1": true,
+   "finding_any": true
+  },
+  "scipy_de": {
+   "sample": "i49",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 0,
+   "median_repeated_share": 0.0016526001797990226,
+   "finding_excl_C1": false,
+   "finding_any": false
+  },
+  "smac": {
+   "sample": "i50",
+   "cells": 30,
+   "traced": 30,
+   "comparison_valid": 30,
+   "complete": true,
+   "runs_with": {
+    "C1": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0
+   },
+   "D3": 0,
+   "D3x_same": 0,
+   "D3x_diff": 30,
+   "median_repeated_share": 0.0,
+   "finding_excl_C1": true,
+   "finding_any": true
+  }
+ },
+ "mismatches": [
+  {
+   "library": "emukit",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6001,
+   "archived_vs_new": {
+    "C2": [
+     0,
+     1
+    ]
+   }
+  }
+ ]
+}

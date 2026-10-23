@@ -22,8 +22,10 @@ function also exposed behaviour the test functions missed: SciPy `differential_e
 polished point when L-BFGS-B reports `success=False`. We diagnosed and disclosed five issues with minimal
 reproducers, three of which we did not find reported in a documented search: seed dependence of SMAC 2.4.1 on
 `PYTHONHASHSEED`, a sign flip in the reported cost of Gradient-Free-Optimizers 1.13.0, and the SciPy polishing
-behaviour. A preregistered "corner evaluation" measure proved non-specific on test functions; we report this negative
-result. We recommend running such an audit, including a cross-process reproducibility check, before comparing
+behaviour. A corrected, preregistered rerun with recorded hash seeds and full call traces confirmed both cross-process
+reproducibility findings and reproduced 318 of 358 archived call sequences bit for bit; the remaining differences are
+explained by hash seeds and by the number of BLAS threads. A preregistered "corner evaluation" measure proved
+non-specific on test functions; we report this negative result. We recommend running such an audit, including a cross-process reproducibility check, before comparing
 optimizers on an expensive cost function.
 
 ## 1. Introduction
@@ -120,9 +122,9 @@ The Study 2–4 launchers started the library interpreter with `python -I`, whic
 `PYTHONHASHSEED`. Each process therefore had Python's default, independent per-process hash randomization. D3x as
 run compares two fresh processes with independent random string hashing; it detects the same class of
 nondeterminism, but the controlled same-seed/different-seed comparison was not performed by the audit. The SMAC
-attribution to `PYTHONHASHSEED` rests on a separate reproducer run without `-I` (Section 6.2), which we re-ran:
-`PYTHONHASHSEED`=1 twice gives the identical incumbent, 2 and 3 give different ones. A corrected rerun of D3x with
-an effective hash seed and a recorded sentinel hash, together with archived call traces, is preregistered as Study 5. R1–R3 are not applicable
+attribution to `PYTHONHASHSEED` first rested on a separate reproducer run without `-I` (Section 6.2), which we re-ran:
+`PYTHONHASHSEED`=1 twice gives the identical incumbent, 2 and 3 give different ones. Study 5 (Section 6.5) repeated
+D3x with effective, recorded hash seeds and confirmed both findings within the audit. R1–R3 are not applicable
 when a library returns no result, as in ask-and-tell interfaces. For libraries that work in float32, the recorder
 stores the value the library actually receives, so that rounding is not counted as R2.
 
@@ -304,6 +306,26 @@ negative status of those libraries; dispatch also offered 15 cells per library a
 - **Waste on dispatch (median share of repeated evaluations; waste only for deterministic, cacheable objectives):** scikit-opt DE 36%, geneticalgorithm 9.1% and DEAP
   8.4%. The synthetic plateau overstated geneticalgorithm's waste, which was 41.5% there.
 
+### 6.5 Study 5: corrected cross-process check and full traces
+
+- **Manipulation check:** passed in all 620 valid cells; the 10 invalid cells are Nevergrad cells that fail with the
+  same NumPy 2.5 error as in Study 1.
+- **H55a supported:** D3x-diff occurred only for Nevergrad (5/20 cells) and SMAC (30/30).
+- **H55b supported:** SMAC gave the identical call sequence for the same hash seed (D3x-same 0/30) and a different
+  one for a different hash seed (30/30), with no within-process difference. The SMAC hash-seed dependence is now
+  established within the audit, not only by the separate reproducer.
+- **H55c supported:** Nevergrad also differed with the same hash seed (5/20), consistent with its clock-seeded
+  `cma.fmin` call.
+- **H55d not supported in the strict preregistered sense:** one flag in one cell differed from the archive
+  (emukit, C2). Reclassification from the traces otherwise reproduced the archived findings. The set of libraries
+  with a finding other than C1 is unchanged: 4/9 in Study 1, 4/12 in Study 2, 8/21 in total.
+- **Call sequences:** 318 of 358 Study 2 cells reproduced the archived SHA-256 bit for bit, days later and in
+  rebuilt environments. The 40 differences are explained:
+  - SMAC, 30 cells: the Study 2 runs had random hash seeds, and SMAC's sequence depends on the hash seed.
+  - emukit, 10 cells: our driver did not set `VECLIB_MAXIMUM_THREADS=1` (Apple Accelerate), which Study 2 had set.
+    With that setting, all 10 cells matched the archive. This post hoc check shows that the number of BLAS threads
+    alone changes the call sequence, with the same seed, versions and machine.
+
 ## 7. Discussion
 
 ### 7.1 Why this matters for comparisons
@@ -346,8 +368,11 @@ per process to prove which hash seed was in effect.
   documented.
 - **Post hoc analyses.** The C1 sensitivity analysis and the causal diagnoses were done after the runs and are
   labelled as such. The preregistered outcomes are reported unchanged.
-- **D3x launcher.** In Studies 2–4 the intended hash seeds were not applied (`python -I`, Section 3). Positive D3x
-  findings still show cross-process nondeterminism; Study 5 repeats D3x with effective, recorded hash seeds.
+- **D3x launcher.** In Studies 2–4 the intended hash seeds were not applied (`python -I`, Section 3). Study 5 repeated
+  D3x with effective, recorded hash seeds for Studies 1–2 and confirmed both findings; the dispatch study (Study 4)
+  was not repeated.
+- **Numerical environment.** The number of BLAS threads changed emukit's call sequence (Section 6.5). Reproducibility
+  checks must fix thread counts as well as seeds.
 - **Archived evidence.** Studies 1–4 archived per-run counts, flags and hashes, not full call traces, so classes
   cannot be recomputed independently from the archive. Study 5 re-runs the test-function cells of Studies 1–2 with
   compressed call traces and returned results, and a script reclassifies them and compares the flags with the
@@ -364,7 +389,8 @@ Before comparing optimizers on an expensive cost function:
 1. Wrap the cost function in a recorder.
 2. Check that the reported solution was evaluated, and that its reported cost matches the recorded one.
 3. Count evaluations against the budget, including calls before and after the search.
-4. Rerun with the same seed in two fresh processes.
+4. Rerun with the same seed in two fresh processes, with fixed hash seeds (not with `python -I`) and fixed numbers of
+   BLAS threads.
 5. Measure the share of repeated evaluations.
 6. Repeat the audit with your own cost function, not only with test functions.
 
