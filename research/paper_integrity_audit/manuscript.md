@@ -323,7 +323,7 @@ per process to prove which hash seed was in effect.
 - **Test functions versus real costs.** Test functions both over- and under-state problems: they made C1 look
   non-specific and overstated waste, and they missed the SciPy defect. Study 4 covers one infrastructure problem
   class (AC dispatch) and is no guarantee for others.
-- **Configuration.** We used default configurations through the documented interfaces and small budgets (200 or
+- **Configuration.** We used one prespecified configuration per library through the documented interfaces and small budgets (200 or
   1000). Other usage may behave differently.
 - **Applicability.** R1–R3 do not apply to libraries without a reported result. C4 applies only where a maximum is
   documented.
