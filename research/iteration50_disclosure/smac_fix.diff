@@ -1,0 +1,18 @@
+--- a/smac/acquisition/maximizer/local_search.py
++++ b/smac/acquisition/maximizer/local_search.py
+@@ -298,13 +298,8 @@
+         else:
+             additional_start_points = []
+ 
+-        init_points_as_set: set[Configuration] = set(
+-            itertools.chain(
+-                previous_configs_sorted_by_cost,
+-                additional_start_points,
+-            )
+-        )
+-        return list(init_points_as_set)
++        # order-preserving de-duplication: iterating a set of Configurations depends on PYTHONHASHSEED
++        return list(dict.fromkeys(itertools.chain(previous_configs_sorted_by_cost, additional_start_points)))
+ 
+     def _search(
+         self,
