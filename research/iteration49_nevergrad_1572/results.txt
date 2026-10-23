@@ -1,0 +1,24 @@
+# Raw outputs, 2026-10-23. Python 3.14.3, NumPy 2.5.4, cma 4.5.0, macOS (Darwin 27.0.0)
+# main = facebookresearch/nevergrad@55950f95 ; rel = nevergrad 1.0.12 (PyPI) ; fix = main + nevergrad_seed_fix.diff
+## main: ng_repro.py (same = 2 runs in one process; procs = 2 separate processes)
+sphere 6000 | run1=ef260024a30f run2=68706a5cbb02 same=False first_diff=0 n=1000,1000 err=None|None chosen=_MetaModel | procs: hash=e08d0516cdbb hash=27ba5fe8ce3e
+sphere 6001 | run1=b355d1e6bd1b run2=013e9aea73e7 same=False first_diff=0 n=1000,1000 err=None|None chosen=_MetaModel | procs: hash=2f0d30da87f7 hash=397fd2c850ff
+sphere 6002 | run1=e42e168dd88d run2=7b3fdfb37d25 same=False first_diff=0 n=1000,1000 err=None|None chosen=_MetaModel | procs: hash=7ed50df2066f hash=7d9a7e9b4390
+plateau 6000 | run1=1d73f6443209 run2=852c4988014d same=False first_diff=0 n=1000,1000 err=None|None chosen=_MetaModel | procs: hash=8adf3cb7e001 hash=d6d0ab93f15a
+plateau 6001 | run1=72f4a0dca357 run2=54677f33835c same=False first_diff=0 n=1000,1000 err=None|None chosen=_MetaModel | procs: hash=ed48b847ba82 hash=7ce9cd63ef66
+plateau 6002 | run1=9950b849261d run2=7a40f4357fbb same=False first_diff=0 n=1000,1000 err=None|None chosen=_MetaModel | procs: hash=2299fbc87463 hash=18a6c52033a3
+## main: ng_issue1572.py x3
+[ 2.83969641 -2.83421829  4.30977821]
+[ 4.59558547 -3.78325708 -3.11176896]
+[-0.50923437 -2.6565963   4.22188997]
+## fix: ng_repro.py (same = 2 runs in one process; procs = 2 separate processes)
+sphere 6000 | run1=f7c6c6ef6afa run2=f7c6c6ef6afa same=True first_diff=None n=1000,1000 err=None|None chosen=_MetaModel | procs: hash=f7c6c6ef6afa hash=f7c6c6ef6afa
+sphere 6001 | run1=a2cc81183c38 run2=a2cc81183c38 same=True first_diff=None n=1000,1000 err=None|None chosen=_MetaModel | procs: hash=a2cc81183c38 hash=a2cc81183c38
+sphere 6002 | run1=fbe18e64c889 run2=fbe18e64c889 same=True first_diff=None n=1000,1000 err=None|None chosen=_MetaModel | procs: hash=fbe18e64c889 hash=fbe18e64c889
+plateau 6000 | run1=b940a7ed8994 run2=b940a7ed8994 same=True first_diff=None n=1000,1000 err=None|None chosen=_MetaModel | procs: hash=b940a7ed8994 hash=b940a7ed8994
+plateau 6001 | run1=099f79653eef run2=099f79653eef same=True first_diff=None n=1000,1000 err=None|None chosen=_MetaModel | procs: hash=099f79653eef hash=099f79653eef
+plateau 6002 | run1=664d4473d0e4 run2=664d4473d0e4 same=True first_diff=None n=1000,1000 err=None|None chosen=_MetaModel | procs: hash=664d4473d0e4 hash=664d4473d0e4
+## fix: ng_issue1572.py x3
+[ 4.16053414 -1.28237933  2.49375224]
+[ 4.16053414 -1.28237933  2.49375224]
+[ 4.16053414 -1.28237933  2.49375224]
