@@ -191,6 +191,23 @@ economic dispatch with fixed voltages.
   a pypower version incompatible with NumPy 2.5). It was archived, the environment was fixed, and the study was run
   once.
 
+**Study 5 (I55, correction).** A preregistered rerun of all test-function cells of Studies 1–2 (21 libraries ×
+30 cells), with the archived package versions, that fixes the hash-seed error (Section 3) and archives full call
+traces.
+- **Processes per cell:** A (`PYTHONHASHSEED`=1, plus a rerun in the same process), A′ (`PYTHONHASHSEED`=1) and B
+  (`PYTHONHASHSEED`=2), launched with `-s` and `PYTHONSAFEPATH=1`. Each process reports a sentinel string hash;
+  a cell counts only if A and A′ agree and A and B differ (manipulation check).
+- **Measures:** D3 (A vs its rerun), D3x-same (A vs A′) and D3x-diff (A vs B). All classes are recomputed from the
+  archived trace of A and compared with the archived Study 1–2 flags.
+- **Preregistered hypotheses:**
+  - H55a: D3x-diff occurs exactly for {Nevergrad, SMAC};
+  - H55b: SMAC shows no D3x-same and D3x-diff in ≥ 25/30 cells;
+  - H55c: Nevergrad shows D3x-same, which would mean its cause is not the hash seed;
+  - H55d: libraries without D3/D3x reproduce their archived flags.
+- **Deviations (recorded during the run):**
+  - O1: the first 10 libraries ran an unneeded extra rerun in A′ and B; this did not change the measured quantities.
+  - O3: the driver omitted `VECLIB_MAXIMUM_THREADS=1` (Apple Accelerate BLAS), which Studies 1–2 had set.
+
 ## 6. Results
 
 ### 6.1 Prevalence
