@@ -87,6 +87,14 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   (recenzija Codex 002 uneta pre zamrzavanja), kod `10e7e80` (8/8 testova). Pokrenuto JEDNOM
   (synthetic → reference → runs → analyse). Ako je prekinuto: pokrenuti samo deo bez izlaza u `research/results/iteration53/`.
 - Paralelno: Codex 003 = prior-art gate za kontrolu koraka u GA sa raznovrsnošću (pre bilo kakvog predloga metode).
+- Codex 003 GOTOVO: kontrola koraka „rasipanje × množilac po uspehu“ = PRIOR ART (AMBOA 2004, AVS 2006, SDR 2007,
+  RV-GOMEA 2017; 11 DOI provereno) → NO-GO kao metoda.
+- I53 GOTOVO → `research/ITERATION53_REPORT_SR.md` (`e9d0024`): H53 OPOVRGNUTO (usko): oracle korak zatvara ≤ 29% jaza
+  G0–CMA na dispečingu; sintetički A1/A2 nepodržani (sfera 61%, elipsoid 23%, rotirani 9%). case118: izvodljivost
+  ORN 12/12 naspram G0 2/12 (opisno). Kandidat-uzrok (nije utvrđen): varijacija po koordinatama bez učenja korelacija.
+- I54 (oracle geometrija: GAdapt u koordinatama izbeljenim CMA kovarijansom iz I53 reference, centar = sredina opsega):
+  nacrt protokola + kod + 6/6 testova; čeka Codex recenziju 007 pre zamrzavanja. Paralelno Codex 005 (prior art:
+  rotaciono invarijantna varijacija) i 006 (prior art: Codex kandidat sertifikovano ukrštanje).
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
