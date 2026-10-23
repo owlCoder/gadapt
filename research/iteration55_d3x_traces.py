@@ -71,7 +71,7 @@ def cell(sample, library, function, d, seed, twice, trace, mode="-"):
 
 def fresh(python, sample, library, function, d, seed, twice, hashseed, trace, mode="-"):
     args = [python, "-s", "-m", "research.iteration55_d3x_traces", "cell", sample, library, function, str(d),
-            str(seed), "1" if twice else "0", trace, mode]
+            str(seed), "1" if twice else "", trace, mode]  # "" is false in cell(); "0" was not (deviation O1)
     env = dict(os.environ, PYTHONHASHSEED=str(hashseed), PYTHONSAFEPATH="1", PYTHONPATH=REPO,
                OMP_NUM_THREADS="1", MKL_NUM_THREADS="1", OPENBLAS_NUM_THREADS="1")
     try:

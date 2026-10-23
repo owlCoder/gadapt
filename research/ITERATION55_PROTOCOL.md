@@ -57,3 +57,8 @@ SMAC i Bayesove biblioteke (I50: SMAC 1635 s za 2 izvršavanja po ćeliji). Proc
   ispravka posle završetka.
 - **O2:** skripta za ponovni račun (`iteration55_recompute.py`, ne izvršava se tokom merenja) ispravljena pre analize:
   nevažeća poređenja se ne broje kao nule; odvojeni imenioci (trag / važeće poređenje); provera kompletnosti.
+- **O1 (nastavak, 21:15):** I49 uzorak (9 biblioteka) i baybe rađeni su sa 6 izvršavanja po ćeliji. Petlja je
+  zaustavljena posle pokretanja baybe-a (baybe završava sa istim kodom). Ispravka samo na strani drajvera
+  (`""` umesto `"0"`; funkcija ćelije nepromenjena), provereno: ponavljanje samo u procesu A. Preostalih 11 biblioteka
+  (bayes_opt, bofire, cmaes, emukit, evolopy, evotorch, evox, gfo, niapy, scikit_opt, smac) radi sa 4 izvršavanja po
+  ćeliji, paralelno u dve grupe. Merene veličine su iste u oba režima.
