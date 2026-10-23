@@ -13,7 +13,9 @@ Rezultati:
 - **Binarni izbor ruta:** (1+1)-EA je značajno bolji od GAdapt-a na 14 od 18 topologija, a fiksni udžbenički GA na
   5 od 6. Nijedna pojedinačna GAdapt opcija ne objašnjava razliku.
 - **Kontinualni dispečing:** CMA-ES je pri istom budžetu 3–5 redova veličine bliži najboljem rešenju.
-- **Uzrok:** mehanizmi raznovrsnosti sprečavaju intenzifikaciju oko najboljeg rešenja.
+- **Uzrok (uzročni test I53):** kontrola koraka mutacije NIJE glavni uzrok na AC dispečingu: idealizovani (oracle) korak
+  zatvara najviše 29% jaza do CMA-ES. Verodostojan, ali neutvrđen preostali uzrok je varijacija po koordinatama bez
+  učenja korelacija i skala. Poznati lekovi za oba kandidat-uzroka već postoje u literaturi.
 - **Dva metodološka problema u merenju:** validacija biblioteke troši dve skrivene evaluacije, koje u vrednovanju
   izgledaju kao rezultat pretrage. Mera kolonske raznovrsnosti nije invarijantna na jedinice promenljivih.
 - **Doprinos je metodološki i empirijski:** protokol jednakog budžeta sa udžbeničkim kontrolama i računovodstvom
@@ -26,7 +28,7 @@ Rezultati:
 
 ## 1. Uvod i pitanja
 - **P1.** Da li je GAdapt konkurentan jakim kontrolama pri jednakom broju stvarnih evaluacija?
-- **P2.** Ako nije, koja komponenta ili svojstvo to uzrokuje?
+- **P2.** Ako nije, koja komponenta ili svojstvo to uzrokuje? *(I46: nijedna pojedinačna opcija; I53: ni kontrola koraka)*
 - **P3.** Da li postoje artefakti merenja koji su ranije izveštavani kao rezultat pretrage?
 - **P4.** Da li GAdapt-ova raznovrsnost donosi prednost na multimodalnim problemima? *(I48: ne, ali razlika je mala)*
 - **P5.** Koliko su česti problemi integriteta evaluacija u Python bibliotekama za black-box optimizaciju? *(I49, I50)*
@@ -56,6 +58,25 @@ Rezultati:
   - linearna mera kolonske raznovrsnosti je tačno invarijantna na jedinice;
   - na AC dispečingu ne donosi značajno poboljšanje (0/5);
   - CMA-ES je 3–5 redova veličine bolji od GAdapt-a.
+
+### 4.1 Uzročni test kontrole koraka (I53)
+Protokol je preregistrovan, a recenziju pre zamrzavanja uradio je nezavisni model (Codex); svih 6 primedbi uneto je pre
+merenja ([izveštaj](ITERATION53_REPORT_SR.md)).
+- **Mehanizam (iz koda):** Gausov korak je σ = σ_min + (σ_max − σ_min)·ρ, gde je ρ rasipanje populacije po promenljivoj u
+  odnosu na generaciju 0 (σ_min = 10⁻³ opsega). Svaka mutirana koordinata se nasumično (50/50) pomera Gausovim korakom
+  ili resetuje uniformno na ceo opseg. Kandidat sa k mutiranih koordinata dobija samo Gausove pomake sa verovatnoćom 2⁻ᵏ.
+- **Intervencija:** faktorski 2×2: korak {podrazumevani, oracle σ = r/√N, gde je r udaljenost najboljeg rešenja od
+  zamrznute reference} × reset {sa, bez}; sve ostalo nepromenjeno.
+- **Dispečing** (5 slučajeva, 12 novih semena, 3000 `runpf`): oracle korak bez reseta zatvara 0, 8, 29 i 24% jaza
+  G0–CMA na četiri odlučujuća slučaja (case118: jaz 0,35 reda, van odluke). **H53 opovrgnuto** u uskom smislu: ova
+  intervencija nije dovoljna. Opisno, na case118 izvodljivo rešenje nalazi ORN u 12/12 pokretanja, a podrazumevani
+  GAdapt u 2/12.
+- **Sintetički (N = 10):** isti oracle zatvara 61% jaza na sferi, 23% na dijagonalnom i 9% na rotiranom elipsoidu
+  (kondicija 10⁶). Obrazac sa dispečinga liči na elipsoide.
+- **Posledica za metodu:** lekovi za oba kandidat-uzroka su objavljeni: skaliranje varijanse prema uspehu
+  (AMBOA 2004; AVS 2006; SDR 2007) i varijacija koja uči korelacije (PCX 2002; AREX 2009; CMA-ES unutar GA-porodice,
+  Bouter i sar. 2021). Ugradnja u GAdapt bila bi praktično poboljšanje, ne nov metod
+  ([odluka](DIRECTION_DECISION_2026-10-23_SR.md)).
 
 ## 5. Artefakti merenja i ispravke biblioteke
 1. **Skrivene evaluacije validatora** (`probe_cost_function`). Uticaj na I39 je najverovatnije reinterpretacija, jer
@@ -195,6 +216,9 @@ Pre poređenja optimizatora na skupoj funkciji troška:
 ## 8. Diskusija
 - Zašto raznovrsnost bez intenzifikacije gubi na skoro linearnim i glatkim pejzažima (Droste, Jansen, Wegener 2002;
   Witt 2013; Hansen i sar. 2011).
+- GAdapt-ov korak je procena rasipanja populacije, kao kod Gausovih EDA. Rasipanje populacije nije udaljenost od
+  optimuma (Shapiro 2005; Pošík 2008). I53 pokazuje da ni idealan korak ne zatvara jaz na dispečingu: ograničenje
+  je u geometriji varijacije (po koordinatama), ne samo u veličini koraka.
 - Šta je primenljivo van GAdapt-a: protokol jednakog budžeta sa udžbeničkim kontrolama i provera skrivenih evaluacija
   u bibliotekama metaheuristika.
 - Revizija integriteta je primenljiva na bilo koju biblioteku bez čitanja koda. Nove greške je našla baš provera
@@ -205,6 +229,8 @@ Pre poređenja optimizatora na skupoj funkciji troška:
 - AC dispečing ima fiksne napone (neizvodljivost na manjim slučajevima).
 - Rezultati važe za proučene budžete.
 - I39 podaci su izgubljeni.
+- I53: oracle je izotropan, κ fiksno, mutiraju se potomci; neuspeh isključuje samo ovu intervenciju. Uzročni test
+  geometrije (I54) povučen je pre merenja zbog grešaka dizajna (okvir promenljivih poništava skale).
 - Revizija integriteta: vidi §7.7.
 
 ## Reference (svi DOI provereni na Crossref-u)
@@ -227,3 +253,10 @@ Pre poređenja optimizatora na skupoj funkciji troška:
 - Vermetten i sar. 2022 (BIAS), [10.1109/TEVC.2022.3189848](https://doi.org/10.1109/TEVC.2022.3189848)
 - Gyori i sar. 2016 (NonDex), [10.1145/2950290.2983932](https://doi.org/10.1145/2950290.2983932)
 - Gruber i sar. 2021, [10.1109/ICST49551.2021.00026](https://doi.org/10.1109/ICST49551.2021.00026)
+- Shapiro 2005, [10.1162/1063656053583414](https://doi.org/10.1162/1063656053583414)
+- Pošík 2008, [10.1007/978-3-540-78761-7_58](https://doi.org/10.1007/978-3-540-78761-7_58)
+- Očenášek, Kern, Hansen, Koumoutsakos 2004 (AMBOA), [10.1007/978-3-540-30217-9_36](https://doi.org/10.1007/978-3-540-30217-9_36)
+- Bosman, Grahl, Rothlauf 2007 (SDR), [10.1145/1276958.1277066](https://doi.org/10.1145/1276958.1277066)
+- Deb, Anand, Joshi 2002 (PCX/G3), [10.1162/106365602760972767](https://doi.org/10.1162/106365602760972767)
+- Akimoto i sar. 2009 (AREX), [10.1527/tjsai.24.446](https://doi.org/10.1527/tjsai.24.446)
+- Bouter, Alderliesten, Bosman 2021, [10.1162/evco_a_00275](https://doi.org/10.1162/evco_a_00275)
