@@ -1,0 +1,1 @@
+Additional context: `basinhopping` applies the same rule and documents it. Its Returns section says "`lowest_optimization_result` will only be updated if a local minimization was successful." The `differential_evolution` docs have no equivalent sentence for `polish`. If the current behaviour is kept, a similar sentence in the `polish` description would make the two consistent.
