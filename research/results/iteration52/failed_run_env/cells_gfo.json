@@ -1,0 +1,158 @@
+{
+ "library": "gfo",
+ "pip_freeze": [
+  "gradient-free-optimizers==1.13.0",
+  "numpy==2.5.4",
+  "pandas==2.3.3",
+  "PYPOWER==5.1.19",
+  "python-dateutil==3.0.0",
+  "pytz==2026.5",
+  "scipy==1.18.1",
+  "six==1.17.0",
+  "tzdata==2026.5"
+ ],
+ "threads": {
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": "1",
+  "VECLIB_MAXIMUM_THREADS": "1"
+ },
+ "cells": [
+  {
+   "library": "gfo",
+   "case": "case14",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.5
+  },
+  {
+   "library": "gfo",
+   "case": "case14",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.5
+  },
+  {
+   "library": "gfo",
+   "case": "case14",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.51
+  },
+  {
+   "library": "gfo",
+   "case": "case14",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.5
+  },
+  {
+   "library": "gfo",
+   "case": "case14",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.5
+  },
+  {
+   "library": "gfo",
+   "case": "case39",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.37
+  },
+  {
+   "library": "gfo",
+   "case": "case39",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.38
+  },
+  {
+   "library": "gfo",
+   "case": "case39",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.37
+  },
+  {
+   "library": "gfo",
+   "case": "case39",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.38
+  },
+  {
+   "library": "gfo",
+   "case": "case39",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.38
+  },
+  {
+   "library": "gfo",
+   "case": "case118",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.36
+  },
+  {
+   "library": "gfo",
+   "case": "case118",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.38
+  },
+  {
+   "library": "gfo",
+   "case": "case118",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.38
+  },
+  {
+   "library": "gfo",
+   "case": "case118",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.38
+  },
+  {
+   "library": "gfo",
+   "case": "case118",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.38
+  }
+ ],
+ "seconds": 3.5
+}

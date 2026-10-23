@@ -1,0 +1,160 @@
+{
+ "library": "bayes_opt",
+ "pip_freeze": [
+  "bayesian-optimization==3.4.0",
+  "cloudpickle==3.1.2",
+  "colorama==0.4.6",
+  "joblib==1.6.0",
+  "narwhals==2.27.1",
+  "numpy==2.5.4",
+  "packaging==26.3",
+  "PYPOWER==5.1.19",
+  "scikit-learn==1.9.1",
+  "scipy==1.18.1",
+  "threadpoolctl==3.7.0"
+ ],
+ "threads": {
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": "1",
+  "VECLIB_MAXIMUM_THREADS": "1"
+ },
+ "cells": [
+  {
+   "library": "bayes_opt",
+   "case": "case14",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.98
+  },
+  {
+   "library": "bayes_opt",
+   "case": "case14",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.99
+  },
+  {
+   "library": "bayes_opt",
+   "case": "case14",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.78
+  },
+  {
+   "library": "bayes_opt",
+   "case": "case14",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.92
+  },
+  {
+   "library": "bayes_opt",
+   "case": "case14",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 1.03
+  },
+  {
+   "library": "bayes_opt",
+   "case": "case39",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.98
+  },
+  {
+   "library": "bayes_opt",
+   "case": "case39",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.92
+  },
+  {
+   "library": "bayes_opt",
+   "case": "case39",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.89
+  },
+  {
+   "library": "bayes_opt",
+   "case": "case39",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.93
+  },
+  {
+   "library": "bayes_opt",
+   "case": "case39",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.9
+  },
+  {
+   "library": "bayes_opt",
+   "case": "case118",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.85
+  },
+  {
+   "library": "bayes_opt",
+   "case": "case118",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.94
+  },
+  {
+   "library": "bayes_opt",
+   "case": "case118",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.89
+  },
+  {
+   "library": "bayes_opt",
+   "case": "case118",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 1.03
+  },
+  {
+   "library": "bayes_opt",
+   "case": "case118",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.89
+  }
+ ],
+ "seconds": 7.6
+}

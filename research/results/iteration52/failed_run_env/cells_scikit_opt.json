@@ -1,0 +1,153 @@
+{
+ "library": "scikit_opt",
+ "pip_freeze": [
+  "numpy==2.5.4",
+  "PYPOWER==5.1.19",
+  "scikit-opt==0.6.6",
+  "scipy==1.18.1"
+ ],
+ "threads": {
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": "1",
+  "VECLIB_MAXIMUM_THREADS": "1"
+ },
+ "cells": [
+  {
+   "library": "scikit_opt",
+   "case": "case14",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 6.73
+  },
+  {
+   "library": "scikit_opt",
+   "case": "case14",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 6.73
+  },
+  {
+   "library": "scikit_opt",
+   "case": "case14",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 6.73
+  },
+  {
+   "library": "scikit_opt",
+   "case": "case14",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 6.73
+  },
+  {
+   "library": "scikit_opt",
+   "case": "case14",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 6.73
+  },
+  {
+   "library": "scikit_opt",
+   "case": "case39",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.37
+  },
+  {
+   "library": "scikit_opt",
+   "case": "case39",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.38
+  },
+  {
+   "library": "scikit_opt",
+   "case": "case39",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.37
+  },
+  {
+   "library": "scikit_opt",
+   "case": "case39",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.4
+  },
+  {
+   "library": "scikit_opt",
+   "case": "case39",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.39
+  },
+  {
+   "library": "scikit_opt",
+   "case": "case118",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.36
+  },
+  {
+   "library": "scikit_opt",
+   "case": "case118",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.38
+  },
+  {
+   "library": "scikit_opt",
+   "case": "case118",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.38
+  },
+  {
+   "library": "scikit_opt",
+   "case": "case118",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.39
+  },
+  {
+   "library": "scikit_opt",
+   "case": "case118",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.39
+  }
+ ],
+ "seconds": 9.7
+}

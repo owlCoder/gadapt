@@ -1,0 +1,183 @@
+{
+ "library": "smac",
+ "pip_freeze": [
+  "click==8.5.0",
+  "cloudpickle==3.1.2",
+  "ConfigSpace==1.2.2",
+  "dask==2026.8.0",
+  "dask-jobqueue==0.9.0",
+  "distributed==2026.8.0",
+  "emcee==3.1.6",
+  "fsspec==2026.9.0",
+  "Jinja2==3.1.6",
+  "joblib==1.6.0",
+  "locket==1.0.0",
+  "MarkupSafe==3.0.4",
+  "more-itertools==11.2.1",
+  "msgpack==1.2.3",
+  "narwhals==2.27.1",
+  "numpy==2.5.4",
+  "packaging==26.3",
+  "partd==1.4.2",
+  "psutil==7.2.2",
+  "pynisher==1.0.10",
+  "pyparsing==3.3.3",
+  "PYPOWER==5.1.19",
+  "PyYAML==6.0.3",
+  "regex==2026.9.29",
+  "scikit-learn==1.9.1",
+  "scipy==1.18.1",
+  "smac==2.4.1",
+  "sortedcontainers==2.4.0",
+  "tblib==3.2.2",
+  "threadpoolctl==3.7.0",
+  "toolz==1.2.0",
+  "tornado==6.6",
+  "typing_extensions==4.16.0",
+  "zict==3.0.0"
+ ],
+ "threads": {
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": "1",
+  "VECLIB_MAXIMUM_THREADS": "1"
+ },
+ "cells": [
+  {
+   "library": "smac",
+   "case": "case14",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.75
+  },
+  {
+   "library": "smac",
+   "case": "case14",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.67
+  },
+  {
+   "library": "smac",
+   "case": "case14",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.72
+  },
+  {
+   "library": "smac",
+   "case": "case14",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.6
+  },
+  {
+   "library": "smac",
+   "case": "case14",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.71
+  },
+  {
+   "library": "smac",
+   "case": "case39",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.61
+  },
+  {
+   "library": "smac",
+   "case": "case39",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.59
+  },
+  {
+   "library": "smac",
+   "case": "case39",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.59
+  },
+  {
+   "library": "smac",
+   "case": "case39",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.53
+  },
+  {
+   "library": "smac",
+   "case": "case39",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.59
+  },
+  {
+   "library": "smac",
+   "case": "case118",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.58
+  },
+  {
+   "library": "smac",
+   "case": "case118",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.59
+  },
+  {
+   "library": "smac",
+   "case": "case118",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.54
+  },
+  {
+   "library": "smac",
+   "case": "case118",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.57
+  },
+  {
+   "library": "smac",
+   "case": "case118",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.42
+  }
+ ],
+ "seconds": 5.6
+}

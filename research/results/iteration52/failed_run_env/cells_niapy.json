@@ -1,0 +1,167 @@
+{
+ "library": "niapy",
+ "pip_freeze": [
+  "contourpy==1.4.0",
+  "cycler==0.12.1",
+  "et_xmlfile==2.0.0",
+  "fonttools==4.67.0",
+  "kiwisolver==1.5.1",
+  "matplotlib==3.11.2",
+  "niapy==2.7.1",
+  "numpy==2.5.4",
+  "openpyxl==3.1.5",
+  "packaging==26.3",
+  "pandas==3.1.0",
+  "pillow==13.0.0",
+  "pyparsing==3.3.3",
+  "PYPOWER==5.1.19",
+  "python-dateutil==3.0.0",
+  "scipy==1.18.1",
+  "six==1.17.0",
+  "tzdata==2026.5"
+ ],
+ "threads": {
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": "1",
+  "VECLIB_MAXIMUM_THREADS": "1"
+ },
+ "cells": [
+  {
+   "library": "niapy",
+   "case": "case14",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 10.01
+  },
+  {
+   "library": "niapy",
+   "case": "case14",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 10.01
+  },
+  {
+   "library": "niapy",
+   "case": "case14",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 10.01
+  },
+  {
+   "library": "niapy",
+   "case": "case14",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 10.01
+  },
+  {
+   "library": "niapy",
+   "case": "case14",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 10.01
+  },
+  {
+   "library": "niapy",
+   "case": "case39",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.37
+  },
+  {
+   "library": "niapy",
+   "case": "case39",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.37
+  },
+  {
+   "library": "niapy",
+   "case": "case39",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.37
+  },
+  {
+   "library": "niapy",
+   "case": "case39",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.37
+  },
+  {
+   "library": "niapy",
+   "case": "case39",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.38
+  },
+  {
+   "library": "niapy",
+   "case": "case118",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.38
+  },
+  {
+   "library": "niapy",
+   "case": "case118",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.36
+  },
+  {
+   "library": "niapy",
+   "case": "case118",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.39
+  },
+  {
+   "library": "niapy",
+   "case": "case118",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.36
+  },
+  {
+   "library": "niapy",
+   "case": "case118",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.38
+  }
+ ],
+ "seconds": 13.0
+}

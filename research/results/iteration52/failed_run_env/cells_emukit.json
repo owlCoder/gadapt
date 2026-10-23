@@ -1,0 +1,168 @@
+{
+ "library": "emukit",
+ "pip_freeze": [
+  "contourpy==1.4.0",
+  "cycler==0.12.1",
+  "decorator==5.3.1",
+  "emcee==3.1.6",
+  "emukit==0.5.1",
+  "fonttools==4.67.0",
+  "gpy==1.14.2",
+  "kiwisolver==1.5.1",
+  "matplotlib==3.11.2",
+  "numpy==2.5.4",
+  "packaging==26.3",
+  "paramz==0.10.0",
+  "pillow==13.0.0",
+  "pyparsing==3.3.3",
+  "PYPOWER==5.1.19",
+  "python-dateutil==3.0.0",
+  "scipy==1.18.1",
+  "six==1.17.0",
+  "tzdata==2026.5"
+ ],
+ "threads": {
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": "1",
+  "VECLIB_MAXIMUM_THREADS": "1"
+ },
+ "cells": [
+  {
+   "library": "emukit",
+   "case": "case14",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.82
+  },
+  {
+   "library": "emukit",
+   "case": "case14",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.68
+  },
+  {
+   "library": "emukit",
+   "case": "case14",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.88
+  },
+  {
+   "library": "emukit",
+   "case": "case14",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.88
+  },
+  {
+   "library": "emukit",
+   "case": "case14",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.85
+  },
+  {
+   "library": "emukit",
+   "case": "case39",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.82
+  },
+  {
+   "library": "emukit",
+   "case": "case39",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.95
+  },
+  {
+   "library": "emukit",
+   "case": "case39",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.86
+  },
+  {
+   "library": "emukit",
+   "case": "case39",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.87
+  },
+  {
+   "library": "emukit",
+   "case": "case39",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.79
+  },
+  {
+   "library": "emukit",
+   "case": "case118",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.87
+  },
+  {
+   "library": "emukit",
+   "case": "case118",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.84
+  },
+  {
+   "library": "emukit",
+   "case": "case118",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.76
+  },
+  {
+   "library": "emukit",
+   "case": "case118",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.76
+  },
+  {
+   "library": "emukit",
+   "case": "case118",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ModuleNotFoundError: No module named 'networkx'",
+   "seconds": 0.69
+  }
+ ],
+ "seconds": 7.2
+}

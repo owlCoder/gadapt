@@ -33,3 +33,15 @@
 - **Neocenljivo:** biblioteka kojoj se svih 15 ćelija završi greškom izuzima se iz brojioca i imenioca i prijavljuje
   posebno.
 - **Jedno pokretanje.** Izlaz `research/results/iteration52/` i `ITERATION52_REPORT_SR.md`.
+
+## Dopuna A1 (2026-10-23, pre ijednog izmerenog poziva)
+- **Prvo izvršavanje nije dalo merenje.** Svih 315 ćelija palo je pri uvozu, pre ijedne evaluacije funkcije troška.
+  Arhivirano je u `results/iteration52/failed_run_env/`.
+  - Uzrok 1: ponovo korišćeni modul `iteration47_invariance` uvozi `iteration43_budget_operator_diagnostic`, koji
+    zahteva `networkx`, a toga nije bilo u okruženjima biblioteka.
+  - Uzrok 2: `pypower==5.1.19` uvozi `numpy.in1d`, koji NumPy 2.4+ nema.
+- **Ispravka podatka iz protokola:** I47 nije koristio 5.1.19. I47 skripta beleži fiksnu podrazumevanu vrednost
+  „5.1.19“, jer pypower nema `__version__`, a 5.1.19 se sa NumPy 2.5.4 ne može uvesti. Repo `.venv` ima 5.1.21.
+- **Promena:** u sva okruženja se instaliraju `pypower==5.1.21` i `networkx==3.7`, iste verzije kao repo `.venv`.
+  Ostatak protokola se ne menja. Pre ponovnog izvršavanja, u svakom okruženju se proveravaju uvoz i jedna
+  evaluacija `Dispatch("case14")` u sredini kutije (bez optimizatora).

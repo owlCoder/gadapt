@@ -1,0 +1,194 @@
+{
+ "library": "evotorch",
+ "pip_freeze": [
+  "attrs==26.1.0",
+  "certifi==2026.10.19",
+  "charset-normalizer==3.5.2",
+  "click==8.5.0",
+  "cloudpickle==3.1.2",
+  "cma==4.5.0",
+  "contourpy==1.4.0",
+  "cycler==0.12.1",
+  "evotorch==0.6.1",
+  "Farama-Notifications==0.0.6",
+  "filelock==4.2.4",
+  "fonttools==4.67.0",
+  "fsspec==2026.9.0",
+  "gymnasium==1.4.0",
+  "idna==3.20",
+  "Jinja2==3.1.6",
+  "jsonschema==4.26.0",
+  "jsonschema-specifications==2025.9.1",
+  "kiwisolver==1.5.1",
+  "MarkupSafe==3.0.4",
+  "matplotlib==3.11.2",
+  "mpmath==1.3.0",
+  "msgpack==1.2.3",
+  "networkx==3.7",
+  "numpy==2.5.4",
+  "packaging==26.3",
+  "pandas==3.1.0",
+  "pillow==13.0.0",
+  "protobuf==7.36.2",
+  "pyparsing==3.3.3",
+  "PYPOWER==5.1.19",
+  "python-dateutil==3.0.0",
+  "PyYAML==6.0.3",
+  "ray==2.59.0",
+  "referencing==0.37.0",
+  "requests==2.34.2",
+  "rpds-py==2026.9.1",
+  "scipy==1.18.1",
+  "setuptools==84.2.1",
+  "six==1.17.0",
+  "sympy==1.14.0",
+  "torch==2.14.1",
+  "typing_extensions==4.16.0",
+  "tzdata==2026.5",
+  "urllib3==2.8.0"
+ ],
+ "threads": {
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": "1",
+  "VECLIB_MAXIMUM_THREADS": "1"
+ },
+ "cells": [
+  {
+   "library": "evotorch",
+   "case": "case14",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ImportError: cannot import name 'in1d' from 'numpy' (/private/tmp/claude-501/-Users-danijel-Desktop-gadapt/a61ed726-f0ef-4e3d-9e2f-2b13368dbe2c/scratchpad/i50/venvs/evotorch/lib/python3.14/site-packages/numpy/__in",
+   "seconds": 1.32
+  },
+  {
+   "library": "evotorch",
+   "case": "case14",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ImportError: cannot import name 'in1d' from 'numpy' (/private/tmp/claude-501/-Users-danijel-Desktop-gadapt/a61ed726-f0ef-4e3d-9e2f-2b13368dbe2c/scratchpad/i50/venvs/evotorch/lib/python3.14/site-packages/numpy/__in",
+   "seconds": 1.32
+  },
+  {
+   "library": "evotorch",
+   "case": "case14",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ImportError: cannot import name 'in1d' from 'numpy' (/private/tmp/claude-501/-Users-danijel-Desktop-gadapt/a61ed726-f0ef-4e3d-9e2f-2b13368dbe2c/scratchpad/i50/venvs/evotorch/lib/python3.14/site-packages/numpy/__in",
+   "seconds": 1.32
+  },
+  {
+   "library": "evotorch",
+   "case": "case14",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ImportError: cannot import name 'in1d' from 'numpy' (/private/tmp/claude-501/-Users-danijel-Desktop-gadapt/a61ed726-f0ef-4e3d-9e2f-2b13368dbe2c/scratchpad/i50/venvs/evotorch/lib/python3.14/site-packages/numpy/__in",
+   "seconds": 1.32
+  },
+  {
+   "library": "evotorch",
+   "case": "case14",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ImportError: cannot import name 'in1d' from 'numpy' (/private/tmp/claude-501/-Users-danijel-Desktop-gadapt/a61ed726-f0ef-4e3d-9e2f-2b13368dbe2c/scratchpad/i50/venvs/evotorch/lib/python3.14/site-packages/numpy/__in",
+   "seconds": 1.32
+  },
+  {
+   "library": "evotorch",
+   "case": "case39",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ImportError: cannot import name 'in1d' from 'numpy' (/private/tmp/claude-501/-Users-danijel-Desktop-gadapt/a61ed726-f0ef-4e3d-9e2f-2b13368dbe2c/scratchpad/i50/venvs/evotorch/lib/python3.14/site-packages/numpy/__in",
+   "seconds": 0.5
+  },
+  {
+   "library": "evotorch",
+   "case": "case39",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ImportError: cannot import name 'in1d' from 'numpy' (/private/tmp/claude-501/-Users-danijel-Desktop-gadapt/a61ed726-f0ef-4e3d-9e2f-2b13368dbe2c/scratchpad/i50/venvs/evotorch/lib/python3.14/site-packages/numpy/__in",
+   "seconds": 0.45
+  },
+  {
+   "library": "evotorch",
+   "case": "case39",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ImportError: cannot import name 'in1d' from 'numpy' (/private/tmp/claude-501/-Users-danijel-Desktop-gadapt/a61ed726-f0ef-4e3d-9e2f-2b13368dbe2c/scratchpad/i50/venvs/evotorch/lib/python3.14/site-packages/numpy/__in",
+   "seconds": 0.46
+  },
+  {
+   "library": "evotorch",
+   "case": "case39",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ImportError: cannot import name 'in1d' from 'numpy' (/private/tmp/claude-501/-Users-danijel-Desktop-gadapt/a61ed726-f0ef-4e3d-9e2f-2b13368dbe2c/scratchpad/i50/venvs/evotorch/lib/python3.14/site-packages/numpy/__in",
+   "seconds": 0.47
+  },
+  {
+   "library": "evotorch",
+   "case": "case39",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ImportError: cannot import name 'in1d' from 'numpy' (/private/tmp/claude-501/-Users-danijel-Desktop-gadapt/a61ed726-f0ef-4e3d-9e2f-2b13368dbe2c/scratchpad/i50/venvs/evotorch/lib/python3.14/site-packages/numpy/__in",
+   "seconds": 0.44
+  },
+  {
+   "library": "evotorch",
+   "case": "case118",
+   "seed": 6000,
+   "calls": null,
+   "flags": null,
+   "error": "ImportError: cannot import name 'in1d' from 'numpy' (/private/tmp/claude-501/-Users-danijel-Desktop-gadapt/a61ed726-f0ef-4e3d-9e2f-2b13368dbe2c/scratchpad/i50/venvs/evotorch/lib/python3.14/site-packages/numpy/__in",
+   "seconds": 0.45
+  },
+  {
+   "library": "evotorch",
+   "case": "case118",
+   "seed": 6001,
+   "calls": null,
+   "flags": null,
+   "error": "ImportError: cannot import name 'in1d' from 'numpy' (/private/tmp/claude-501/-Users-danijel-Desktop-gadapt/a61ed726-f0ef-4e3d-9e2f-2b13368dbe2c/scratchpad/i50/venvs/evotorch/lib/python3.14/site-packages/numpy/__in",
+   "seconds": 0.48
+  },
+  {
+   "library": "evotorch",
+   "case": "case118",
+   "seed": 6002,
+   "calls": null,
+   "flags": null,
+   "error": "ImportError: cannot import name 'in1d' from 'numpy' (/private/tmp/claude-501/-Users-danijel-Desktop-gadapt/a61ed726-f0ef-4e3d-9e2f-2b13368dbe2c/scratchpad/i50/venvs/evotorch/lib/python3.14/site-packages/numpy/__in",
+   "seconds": 0.47
+  },
+  {
+   "library": "evotorch",
+   "case": "case118",
+   "seed": 6003,
+   "calls": null,
+   "flags": null,
+   "error": "ImportError: cannot import name 'in1d' from 'numpy' (/private/tmp/claude-501/-Users-danijel-Desktop-gadapt/a61ed726-f0ef-4e3d-9e2f-2b13368dbe2c/scratchpad/i50/venvs/evotorch/lib/python3.14/site-packages/numpy/__in",
+   "seconds": 0.46
+  },
+  {
+   "library": "evotorch",
+   "case": "case118",
+   "seed": 6004,
+   "calls": null,
+   "flags": null,
+   "error": "ImportError: cannot import name 'in1d' from 'numpy' (/private/tmp/claude-501/-Users-danijel-Desktop-gadapt/a61ed726-f0ef-4e3d-9e2f-2b13368dbe2c/scratchpad/i50/venvs/evotorch/lib/python3.14/site-packages/numpy/__in",
+   "seconds": 0.47
+  }
+ ],
+ "seconds": 4.9
+}
