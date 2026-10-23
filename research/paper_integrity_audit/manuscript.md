@@ -10,7 +10,7 @@ Comparisons of black-box optimizers rest on two assumptions:
 - each optimizer reports what it actually found.
 
 In engineering applications such as power-flow-based dispatch, every hidden, repeated or out-of-budget evaluation
-costs real compute. Every inconsistent report changes the conclusion of a comparison.
+costs real compute. Every inconsistent report can change the conclusion of a comparison.
 
 We present a library-independent black-box audit that records every call to the cost function and checks three
 things:
@@ -25,7 +25,8 @@ popular libraries, and twelve libraries drawn by an external rule from GitHub to
 - The audit found two previously unreported defects: SMAC 2.4.1 results depend on `PYTHONHASHSEED` despite a fixed
   seed, and Gradient-Free-Optimizers 1.13.0 reports the minimized cost with a flipped sign. It also identified the
   root cause of a long-standing Nevergrad reproducibility issue that affects its default `NGOpt` optimizer.
-- All three were confirmed against the current development branches and disclosed to the maintainers.
+- All three were reproduced on the latest releases and disclosed to the maintainers. Nevergrad and GFO were also
+  reproduced on the development branch; for SMAC we checked that the code on the development branch is unchanged.
 - A preregistered measure, "corner evaluations", proved non-specific. We report this negative methodological result
   and its consequence for prevalence estimates.
 
@@ -47,8 +48,9 @@ When any of these fails silently, the comparison is wrong in a way that no stati
 
 The work started from a concrete case. In our own library, GAdapt, input validation evaluated the cost function at
 the all-lower and all-upper corners of the box. On a binary route-choice problem, the all-lower corner is the trivial
-first-path solution. These two hidden evaluations made a validation probe look like a search result in an earlier
-experiment (Section 7.1). This raised a general question: how often do optimization libraries evaluate, count,
+first-path solution. Most likely, these two hidden evaluations made a validation probe look like a search result in
+an earlier experiment (Section 7.1). The original raw data of that experiment are no longer available, so this
+remains the most plausible reading, not a verified fact. This raised a general question: how often do optimization libraries evaluate, count,
 reproduce or report differently from what their users assume?
 
 **Contributions:**
@@ -244,6 +246,12 @@ in one line of configuration: two subprocesses with different `PYTHONHASHSEED`.
 - **Sampling.** GitHub topics and star thresholds are incomplete, so we added an external source. Eligibility
   excluded several libraries for installation or packaging reasons, on Python 3.14 with NumPy 2.x. A strict
   smoke-test rule excluded gaft because it divides by zero on a constant cost function.
+- **Sample selection.** The Study 1 sample was chosen by us. Only the Study 2 sample follows an external rule. The two
+  studies also differ in budget (1000 against 200).
+- **What counts as a problem.** C3 in DEAP and evotorch reflects missing bounds handling, which the libraries leave to
+  the user or do not support. PyGAD's post-return evaluations are documented. These count under the preregistered
+  definition. Excluding C1 and the two design cases of C3 leaves 6/21 libraries (11–52%). The strictest measure,
+  behaviour that contradicts the documentation, gives 4/21.
 - **Configuration.** We used default configurations through the documented interfaces and small budgets (200 or
   1000). Other usage may behave differently.
 - **Applicability.** R1–R3 do not apply to libraries without a reported result. C4 applies only where a maximum is
