@@ -50,8 +50,10 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   doslednost rezultata, dokumentacija vs ponašanje, studija rasprostranjenosti); invarijantnost i brojanje = prior art.
 - I49 GOTOVO → `research/ITERATION49_REPORT_SR.md`: ČESTO (4/9; samo protivrečnost dokumentaciji 2/9); svi pojedinačni
   nalazi već poznati/dokumentovani; alat validiran; GAdapt artefakt potvrđen. Nevergrad pad sa NumPy 2.5 (#1707).
-- I49 dodat u Docs dokument studije i u `research/DIAGNOSTIC_STUDY_DRAFT_SR.md` (§7). SLEDEĆE: komentari na otvorene Nevergrad issue-e (#966, #1707)
-  čekaju izričito odobrenje korisnika (javna radnja u ime korisnika); bez odobrenja se ne objavljuju.
+- I49 dodat u Docs dokument studije i u `research/DIAGNOSTIC_STUDY_DRAFT_SR.md` (§7).
+- Nevergrad naknadno (I49 izveštaj §6): D3 = #1572 (ne #966); uzrok nađen, ispravka 16/16; objavljen jedan komentar
+  na #1572 (korisnik prepustio odluku). #966/#1707 bez komentara. Nema PR-a (CLA = odluka korisnika).
+- SLEDEĆE: pratiti odgovor na #1572; nastaviti poglavlje (predlog sledećeg koraka korisniku).
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
@@ -81,3 +83,4 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - 2026-10-23: Korisnik izabrao opciju 1 (studija kao poglavlje; industrijska praksa). Pokrenut H4 prior-art audit.
 - 2026-10-23: H4 GO (uski). I49 preregistrovan, alat validiran podmetnutim greškama, pokrenut.
 - 2026-10-23: I49: problemi integriteta česti (4/9), svi već poznati; doprinos = validirani alat + rasprostranjenost.
+- 2026-10-23: Korisnik: „uradi kako je najbolje autonomno“. Nevergrad: uzrok + ispravka, komentar na #1572; citat #966 ispravljen.

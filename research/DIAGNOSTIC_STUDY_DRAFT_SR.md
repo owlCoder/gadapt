@@ -83,11 +83,12 @@ bez lažnih nalaza na čistoj kontroli ([izveštaj](ITERATION49_REPORT_SR.md)).
 | DEAP | Evaluacije van granica (30/30 pokretanja) | Dizajn: granice su na korisniku | Ravber i sar. 2025 |
 | PyGAD | 21 evaluacija posle završetka, u `best_solution()` | Dokumentovano ponašanje | [PyGAD #160](https://github.com/ahmedfgad/GeneticAlgorithmPython/issues/160) |
 | cma | Do 1011 evaluacija za `maxfevals` 1000 | Odstupa od dokumentacije | [pycma #195](https://github.com/CMA-ES/pycma/issues/195) |
-| Nevergrad | Nereproduktivno uprkos zadatom semenu; pad sa NumPy 2.5 | Odstupa od dokumentacije | [#966](https://github.com/facebookresearch/nevergrad/issues/966), [#1707](https://github.com/facebookresearch/nevergrad/issues/1707) |
+| Nevergrad | Nereproduktivno uprkos zadatom semenu; pad sa NumPy 2.5 | Odstupa od dokumentacije | [#1572](https://github.com/facebookresearch/nevergrad/issues/1572), [#1707](https://github.com/facebookresearch/nevergrad/issues/1707) |
 
 Nijedan nalaz nije nova greška. Doprinos je validirani black-box alat koji ih sve nalazi automatski za 53 s, i mera
 raširenosti. Za praksu: geneticalgorithm troši 41,5% evaluacija na duplikate, što je kod skupih AC proračuna skoro
-pola budžeta.
+pola budžeta. Za Nevergrad je naknadno pronađen uzrok (seme se ne prosleđuje pycma-i ni unutrašnjem optimizatoru
+metamodela), a ispravka i provera su objavljene na #1572.
 
 ## 8. Diskusija
 - Zašto raznovrsnost bez intenzifikacije gubi na skoro linearnim i glatkim pejzažima (Droste, Jansen, Wegener 2002;

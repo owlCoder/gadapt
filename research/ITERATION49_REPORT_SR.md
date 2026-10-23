@@ -18,15 +18,16 @@ pokretanjem, ukupno 53 s. Sirovi izlaz: [results/iteration49/integrity_audit.jso
 | DEAP `eaSimple` | 30/30 | **C3** van granica | Dizajn: DEAP ne kontroliše granice; korisnik mora dodati dekorator | Da: Ravber i sar. 2025, [10.15388/25-INFOR603](https://doi.org/10.15388/25-INFOR603) |
 | PyGAD | 30/30 | **C5** pozivi posle povratka (21 po pokretanju) | Dokumentovano: `best_solution()` bez `pop_fitness` ponovo računa fitnes populacije | Da: [PyGAD #160](https://github.com/ahmedfgad/GeneticAlgorithmPython/issues/160) |
 | cma `fmin2` | 10/30 | **C4** preko dokumentovanog `maxfevals` (do 1011 za 1000) | Odstupanje od dokumentacije: „maximum“ se proverava po iteraciji | Da: [pycma #108](https://github.com/CMA-ES/pycma/issues/108), [#195](https://github.com/CMA-ES/pycma/issues/195) |
-| Nevergrad `NGOpt` | 5/20 (10 pokretanja palo) | **D3** nereproduktivno uprkos `parametrization.random_state` (plato, 10D; razlika već od 1. poziva; NGOpt bira `ParametrizedMetaModel(CmaFmin2)`) | Odstupanje od dokumentovanog načina zadavanja semena | Da: [nevergrad #966](https://github.com/facebookresearch/nevergrad/issues/966) (otvoren) |
+| Nevergrad `NGOpt` | 5/20 (10 pokretanja palo) | **D3** nereproduktivno uprkos `parametrization.random_state` (plato, 10D; razlika već od 1. poziva; NGOpt bira `ParametrizedMetaModel(CmaFmin2)`) | Odstupanje od dokumentovanog načina zadavanja semena | Da: [nevergrad #1572](https://github.com/facebookresearch/nevergrad/issues/1572) (otvoren od 2023; ispravka: ranije pisalo #966, vidi §6) |
 
 **Bez nalaza integriteta:** pymoo, Optuna, PySwarms, geneticalgorithm, SciPy DE (uz napomene ispod).
 
 ## 3. Ostali nalazi (nisu klase integriteta po protokolu)
 - **Pad:** Nevergrad `NGOpt` pada u 10/30 ćelija (sfera i Rastrigin, 10D). Uzrok je
   `float(model.predict(...))` u `metamodel.py:177`, koji NumPy 2.5 više ne prihvata.
-  - Već prijavljeno kao [nevergrad #1707](https://github.com/facebookresearch/nevergrad/issues/1707) (zatvoreno
-    2025-12-26), ali i dalje prisutno u 1.0.12.
+  - Već prijavljeno kao [nevergrad #1707](https://github.com/facebookresearch/nevergrad/issues/1707), zatvoreno
+    2026-03-16 ispravkom u `main` grani (PR #1712). Poslednje izdanje 1.0.12 (2025-04-23) je ne sadrži
+    (ispravka: ranije je pisalo „zatvoreno 2025-12-26“).
   - Ograda: okruženje je novije od onoga što biblioteka verovatno testira.
 - **Rasipanje na duplikate (C2, medijana udela):**
   - geneticalgorithm **41,5%**, DEAP 11,5% (poznato: [DEAP #162](https://github.com/DEAP/deap/issues/162)),
@@ -60,5 +61,24 @@ pokretanjem, ukupno 53 s. Sirovi izlaz: [results/iteration49/integrity_audit.jso
   - Ne treba se oslanjati na `maxfevals` kao tvrdu granicu (cma).
   - Treba proveriti reproduktivnost Nevergrad-a pri izabranom optimizatoru.
   - Treba uzeti u obzir 41,5% duplikata kod geneticalgorithm.
-- **Bez prijave održavaocima:** nalazi su već poznati, a eventualni komentar na otvorene issue-e (Nevergrad #966,
-  #1707) je spoljna radnja i traži odobrenje korisnika.
+- **Prijava održavaocima:** vidi §6 (jedan komentar, Nevergrad #1572).
+
+## 6. Naknadna provera Nevergrad D3 (2026-10-23, posle zaključka; ne menja preregistrovani ishod)
+- **Ispravka citata:** D3 odgovara [nevergrad #1572](https://github.com/facebookresearch/nevergrad/issues/1572)
+  („ParametrizedMetaModel(multivariate_optimizer=CmaFmin2) runs are not reproducible“, otvoren od 2023, bez
+  odgovora održavalaca). #966 opisuje nestabilne benchmark testove iz 2020. i bio je pogrešno naveden.
+  `CmaFmin2`, `MetaModelFmin2` i `NGOpt$` su u listi `UNSEEDABLE` u testovima biblioteke, ali to nije dokumentovano.
+- **Nalaz potvrđen na `main` grani** (`55950f95`) i na 1.0.12: nereproduktivno i između odvojenih procesa, od 1. poziva.
+- **Uzrok, uzročno potvrđen:**
+  1. `recastlib.py` poziva `cma.fmin` bez `seed`, pa pycma koristi `seed='time'` i usput menja globalni `np.random`;
+  2. `metamodel.learn_on_k_best` pravi unutrašnji Powell/DE sa parametrizacijom bez semena.
+- **Ispravka od 12 linija** ([diff](iteration49_nevergrad_1572/nevergrad_seed_fix.diff)): 16/16 ćelija reproduktivno
+  (sfera i plato, 10D, 8 semena, isti proces i odvojeni procesi). Na nepromenjenoj `main` grani je 0/6. Originalni
+  primer iz #1572 je takođe reproduktivan. Relevantni testovi biblioteke: 11 prošlo, 15 preskočeno.
+- **Objavljeno:** [komentar na #1572](https://github.com/facebookresearch/nevergrad/issues/1572#issuecomment-6357311253)
+  sa uzrokom, diff-om i proverom. Korisnik je odluku o objavi prepustio autonomnoj proceni. Na #966 i #1707 se ne
+  komentariše: prvi je drugi problem, a drugi je već ispravljen.
+- **Usput:** proces sa globalnim `NGOpt` objektom ne završava se posle `minimize` (nit `CmaFmin2` nije daemon).
+  Verovatno je to već [#180](https://github.com/facebookresearch/nevergrad/issues/180) i ne prijavljuje se.
+  Na 1.0.12 sa NumPy 2.5 pad iz #1707 se jednom manifestovao kao zamrzavanje (0% CPU).
+- Arhiva: `research/iteration49_nevergrad_1572/` (skripte, diff, sirovi izlazi, tekst komentara).
