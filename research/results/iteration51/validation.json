@@ -1,0 +1,38 @@
+{
+ "validation": {
+  "d3x_None": {
+   "expected": [
+    0,
+    0
+   ],
+   "got": [
+    0,
+    0
+   ],
+   "ok": true
+  },
+  "d3x_hash_seeded": {
+   "expected": [
+    0,
+    1
+   ],
+   "got": [
+    0,
+    1
+   ],
+   "ok": true
+  },
+  "d3x_time_seeded": {
+   "expected": [
+    1,
+    1
+   ],
+   "got": [
+    1,
+    1
+   ],
+   "ok": true
+  }
+ },
+ "passed": true
+}
