@@ -1,0 +1,581 @@
+{
+ "protocol": "research/ITERATION52_PROTOCOL.md",
+ "protocol_commit": "32bac01",
+ "source_sha256": "e58caaaadecd59518593bc06eee1f4c8abcd86cea322a7b5bb5dedbc058f4031",
+ "driver": {
+  "python": "3.14.3",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O"
+ },
+ "timing": {
+  "case14": {
+   "d": 4,
+   "ms_per_evaluation": 2.45
+  },
+  "case39": {
+   "d": 9,
+   "ms_per_evaluation": 15.7
+  },
+  "case118": {
+   "d": 53,
+   "ms_per_evaluation": 3.19
+  }
+ },
+ "per_library": {
+  "pymoo": {
+   "runs": 15,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [],
+   "synthetic_classes": [],
+   "median_duplicate_fraction": 0.0,
+   "estimated_seconds_on_duplicates": 0.0,
+   "error_examples": [],
+   "status_agrees": true
+  },
+  "deap": {
+   "runs": 15,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 15,
+    "C3": 15,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [
+    "C3"
+   ],
+   "synthetic_classes": [
+    "C3"
+   ],
+   "median_duplicate_fraction": 0.08373590982286634,
+   "estimated_seconds_on_duplicates": 5.93,
+   "error_examples": [],
+   "status_agrees": true
+  },
+  "pygad": {
+   "runs": 15,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 15,
+    "C3": 0,
+    "C4": 0,
+    "C5": 15,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [
+    "C5"
+   ],
+   "synthetic_classes": [
+    "C5"
+   ],
+   "median_duplicate_fraction": 0.039177277179236046,
+   "estimated_seconds_on_duplicates": 4.27,
+   "error_examples": [],
+   "status_agrees": true
+  },
+  "geneticalgorithm": {
+   "runs": 15,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 12,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [],
+   "synthetic_classes": [],
+   "median_duplicate_fraction": 0.09051724137931035,
+   "estimated_seconds_on_duplicates": 8.96,
+   "error_examples": [],
+   "status_agrees": true
+  },
+  "nevergrad": {
+   "runs": 15,
+   "errors": 10,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [],
+   "synthetic_classes": [
+    "D3",
+    "D3x"
+   ],
+   "median_duplicate_fraction": 0.0,
+   "estimated_seconds_on_duplicates": 0.0,
+   "error_examples": [
+    "TypeError: only 0-dimensional arrays can be converted to Python scalars"
+   ],
+   "status_agrees": false
+  },
+  "optuna": {
+   "runs": 15,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [],
+   "synthetic_classes": [],
+   "median_duplicate_fraction": 0.0,
+   "estimated_seconds_on_duplicates": 0.0,
+   "error_examples": [],
+   "status_agrees": true
+  },
+  "pyswarms": {
+   "runs": 15,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [],
+   "synthetic_classes": [],
+   "median_duplicate_fraction": 0.0,
+   "estimated_seconds_on_duplicates": 0.0,
+   "error_examples": [],
+   "status_agrees": true
+  },
+  "cma": {
+   "runs": 15,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 0,
+    "C3": 0,
+    "C4": 15,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [
+    "C4"
+   ],
+   "synthetic_classes": [
+    "C4"
+   ],
+   "median_duplicate_fraction": 0.0,
+   "estimated_seconds_on_duplicates": 0.0,
+   "error_examples": [],
+   "status_agrees": true
+  },
+  "scipy_de": {
+   "runs": 15,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 4,
+    "C2": 15,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 5,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [
+    "R3"
+   ],
+   "synthetic_classes": [],
+   "median_duplicate_fraction": 0.012598425196850394,
+   "estimated_seconds_on_duplicates": 8.37,
+   "error_examples": [],
+   "status_agrees": false
+  },
+  "baybe": {
+   "runs": 15,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [],
+   "synthetic_classes": [],
+   "median_duplicate_fraction": 0.0,
+   "estimated_seconds_on_duplicates": 0.0,
+   "error_examples": [],
+   "status_agrees": true
+  },
+  "bayes_opt": {
+   "runs": 15,
+   "errors": 5,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [],
+   "synthetic_classes": [],
+   "median_duplicate_fraction": 0.0,
+   "estimated_seconds_on_duplicates": 0.0,
+   "error_examples": [
+    "timeout"
+   ],
+   "status_agrees": true
+  },
+  "bofire": {
+   "runs": 15,
+   "errors": 5,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [],
+   "synthetic_classes": [],
+   "median_duplicate_fraction": 0.0,
+   "estimated_seconds_on_duplicates": 0.0,
+   "error_examples": [
+    "ModelFittingError: All attempts to fit the model have failed.",
+    "timeout"
+   ],
+   "status_agrees": true
+  },
+  "cmaes": {
+   "runs": 15,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [],
+   "synthetic_classes": [],
+   "median_duplicate_fraction": 0.0,
+   "estimated_seconds_on_duplicates": 0.0,
+   "error_examples": [],
+   "status_agrees": true
+  },
+  "emukit": {
+   "runs": 15,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [],
+   "synthetic_classes": [],
+   "median_duplicate_fraction": 0.0,
+   "estimated_seconds_on_duplicates": 0.0,
+   "error_examples": [],
+   "status_agrees": true
+  },
+  "evolopy": {
+   "runs": 15,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 15,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [],
+   "synthetic_classes": [],
+   "median_duplicate_fraction": 0.033112582781456956,
+   "estimated_seconds_on_duplicates": 0.49,
+   "error_examples": [],
+   "status_agrees": true
+  },
+  "evotorch": {
+   "runs": 15,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 0,
+    "C3": 15,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [
+    "C3"
+   ],
+   "synthetic_classes": [
+    "C3"
+   ],
+   "median_duplicate_fraction": 0.0,
+   "estimated_seconds_on_duplicates": 0.0,
+   "error_examples": [],
+   "status_agrees": true
+  },
+  "evox": {
+   "runs": 15,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 1,
+    "C2": 1,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [],
+   "synthetic_classes": [],
+   "median_duplicate_fraction": 0.0,
+   "estimated_seconds_on_duplicates": 0.0,
+   "error_examples": [],
+   "status_agrees": true
+  },
+  "gfo": {
+   "runs": 15,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 4,
+    "C2": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 15,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [
+    "R2"
+   ],
+   "synthetic_classes": [
+    "R2",
+    "R3"
+   ],
+   "median_duplicate_fraction": 0.0,
+   "estimated_seconds_on_duplicates": 0.0,
+   "error_examples": [],
+   "status_agrees": true
+  },
+  "niapy": {
+   "runs": 15,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 15,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [],
+   "synthetic_classes": [],
+   "median_duplicate_fraction": 0.035,
+   "estimated_seconds_on_duplicates": 0.72,
+   "error_examples": [],
+   "status_agrees": true
+  },
+  "scikit_opt": {
+   "runs": 15,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 15,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 2,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [
+    "R3"
+   ],
+   "synthetic_classes": [
+    "R3"
+   ],
+   "median_duplicate_fraction": 0.3588039867109635,
+   "estimated_seconds_on_duplicates": 11.62,
+   "error_examples": [],
+   "status_agrees": true
+  },
+  "smac": {
+   "runs": 15,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 15
+   },
+   "real_classes": [
+    "D3x"
+   ],
+   "synthetic_classes": [
+    "D3x"
+   ],
+   "median_duplicate_fraction": 0.0,
+   "estimated_seconds_on_duplicates": 0.0,
+   "error_examples": [],
+   "status_agrees": true
+  },
+  "gadapt": {
+   "runs": 15,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 15,
+    "C2": 10,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "real_classes": [],
+   "synthetic_classes": null,
+   "median_duplicate_fraction": 0.00303951367781155,
+   "estimated_seconds_on_duplicates": 0.33,
+   "error_examples": []
+  }
+ },
+ "primary": {
+  "agree": 19,
+  "of": 21,
+  "clopper_pearson_95": [
+   0.6962255930860758,
+   0.9882506821155542
+  ],
+  "verdict": "H52 SUPPORTED",
+  "unassessable": []
+ }
+}

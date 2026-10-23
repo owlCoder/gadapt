@@ -142,6 +142,13 @@ U zagradama su Clopper–Pearson 95% intervali.
   I51 je dodao D3x na I49 uzorak: samo Nevergrad. Ukupno 2/21 biblioteke nisu reproduktivne uz zadato seme
   ([I51](ITERATION51_REPORT_SR.md)).
 
+**Prenos na stvarnu infrastrukturu (I52,** [izveštaj](ITERATION52_REPORT_SR.md)**).** Na AC dispečingu (case14,
+case39 i case118), sa nepromenjenim adapterima, status nalaza poklapa se sa sintetičkim za **19/21** biblioteke (CI
+70–99%), pa je H52 potvrđena.
+- **Prenos po klasama:** preneto je 7 od 10 nalaza.
+- **Novo samo na stvarnoj funkciji:** SciPy DE odbacuje bolji rezultat poliranja kada L-BFGS-B ne prijavi uspeh.
+- **C1 na stvarnoj funkciji je specifičan:** GAdapt ga ima u 15/15 pokretanja, ostale biblioteke skoro nikad.
+
 ### 7.6 Pojedinačni nalazi i prijave održavaocima
 
 | Biblioteka | Nalaz | Uzrok | Status |
@@ -152,7 +159,8 @@ U zagradama su Clopper–Pearson 95% intervali.
 | Nevergrad | nereproduktivno uz seme; `NGOpt` je pogođen | pycma bez semena; unutrašnji optimizator metamodela bez semena | poznato ([#1572](https://github.com/facebookresearch/nevergrad/issues/1572)); **uzrok i zakrpa su naši** |
 | SMAC | rezultat zavisi od `PYTHONHASHSEED` | `list(set(Configuration))` u lokalnoj pretrazi | **novo**, prijavljeno ([#1380](https://github.com/automl/SMAC3/issues/1380)), zakrpa od jedne linije |
 | GFO | `best_score` negiran uz `optimum="minimum"` | negacija se ne poništava pri izveštavanju | **novo**, prijavljeno ([#106](https://github.com/gfo-project/Gradient-Free-Optimizers/issues/106)) |
-| scikit-opt DE | prijavljeno lošije od najboljeg evaluiranog (1/30) | najbolje se bira samo iz probnih vektora | povezano ([#187](https://github.com/guofei9987/scikit-opt/issues/187), samo naslov); nije prijavljeno (pravilo §6) |
+| scikit-opt DE | prijavljeno lošije od najboljeg evaluiranog (1/30 sintetički, 2/15 dispečing, 10/200 na sferi) | najbolje se bira samo iz probnih vektora | povezano ([#187](https://github.com/guofei9987/scikit-opt/issues/187), samo naslov); **uzrok i ispravka su naši**, prijavljeno ([#248](https://github.com/guofei9987/scikit-opt/issues/248)) |
+| SciPy DE | vraćeno do 89% lošije od evaluirane tačke (5/15, samo na dispečingu) | poliranje se prihvata samo uz `success=True` | **novo**, prijavljeno ([#26479](https://github.com/scipy/scipy/issues/26479)) |
 | evotorch | evaluacije van kutije | SNES ne podržava granice | dizajn |
 
 Svaka nova dijagnoza ima minimalan primer:
@@ -180,6 +188,7 @@ Pre poređenja optimizatora na skupoj funkciji troška:
 3. proveriti broj evaluacija prema budžetu, uključujući pozive pre i posle pretrage;
 4. proveriti reproduktivnost sa istim semenom u **dva sveža procesa**;
 5. izmeriti udeo ponovljenih evaluacija.
+6. reviziju ponoviti i sa **sopstvenom** funkcijom troška, a ne samo sa test-funkcijama.
 
 ## 8. Diskusija
 - Zašto raznovrsnost bez intenzifikacije gubi na skoro linearnim i glatkim pejzažima (Droste, Jansen, Wegener 2002;
