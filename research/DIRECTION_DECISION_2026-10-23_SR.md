@@ -54,3 +54,14 @@ u penalizovanom skoru na 4 slučaja AC dispečinga) može da se izvede **origina
   matrična analiza); jedina razlika je kapija po potomku, bez utvrđene koristi.
 - **Stanje:** nijedan kandidat za originalnu GAdapt metodu iz linije „popravka zaostatka“ ne prolazi proveru.
   Novi kandidat mora doći iz drugačijeg pitanja, ne iz popravke poznatih slabosti.
+
+## Dopuna (21:20): kandidati unutar izabranog okvira (Codex 010 + adversarijalna provera)
+
+- Validirani protokol uzročne dijagnoze (oracle intervencije + podmetnuti mehanizmi): **NO-GO kao metoda**
+  ([provera](ORACLE_DIAGNOSIS_PRIOR_ART_AUDIT_SR.md)); moguć samo kao empirijsko poglavlje uz ispravku kružnosti.
+- Testiranje optimizatora vezano za ugovor sa garancijom detekcije: NO-GO kao samostalna metoda (Yoo 2010;
+  Duque-Torres i sar. 2025); ostaje razvoj alata.
+- Sertifikat za penalizovane rangove: NO-GO kao metoda (Deb 2000; COCO bbob-constrained); materijal za validnost merenja.
+- **Ukupno danas: 7 kandidata za originalnu metodu proveren je i odbačen pre implementacije, svaki sa proverenim
+  prior art-om.** Doprinos teze ostaje empirijski i metodološki u smislu pažljivo izvedenih, preregistrovanih studija
+  (revizija integriteta, dijagnoza, uzročni test), a ne nove metode.
