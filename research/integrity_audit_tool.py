@@ -98,7 +98,8 @@ def classify(calls, result, problem):
 
 def cell(target, function, d, seed, budget, twice):
     run = load(target)
-    out = dict(function=function, d=d, seed=seed)
+    # proves which hash seed this process really got (python -I would silently ignore PYTHONHASHSEED)
+    out = dict(function=function, d=d, seed=seed, hash_sentinel=hash("integrity-audit-sentinel"))
     try:
         problem, calls, result = execute(run, function, d, seed, budget)
         out.update(calls=len(calls), flags=classify(calls, result, problem), hash=i49.sequence_hash(calls),
@@ -111,11 +112,13 @@ def cell(target, function, d, seed, budget, twice):
 
 
 def fresh_process(target, function, d, seed, budget, twice, hashseed, python, timeout):
-    args = [python, "-I", os.path.abspath(__file__), "--cell", target, function, str(d), str(seed), str(budget),
+    # -s and PYTHONSAFEPATH isolate user site-packages and the working directory like -I, but unlike -I (which
+    # implies -E) they keep PYTHONHASHSEED in effect
+    args = [python, "-s", os.path.abspath(__file__), "--cell", target, function, str(d), str(seed), str(budget),
             "1" if twice else "0"]
     try:
         proc = subprocess.run(args, capture_output=True, text=True, timeout=timeout,
-                              env=dict(os.environ, PYTHONHASHSEED=str(hashseed)))
+                              env=dict(os.environ, PYTHONHASHSEED=str(hashseed), PYTHONSAFEPATH="1"))
     except subprocess.TimeoutExpired:
         return dict(function=function, d=d, seed=seed, error="timeout")
     lines = [line for line in proc.stdout.splitlines() if line.startswith(MARK)]
@@ -133,6 +136,8 @@ def audit(target, budget=200, dims=(2, 10), seeds=3, python=sys.executable, time
                 b = fresh_process(target, function, d, seed, budget, False, 2, python, timeout)
                 if a.get("error") is None:
                     a["flags"]["D3"] = int(a["hash"] != a["hash_rerun"])
+                    if b.get("error") is None and a["hash_sentinel"] == b["hash_sentinel"]:
+                        raise RuntimeError("both processes got the same string hashing: PYTHONHASHSEED not applied")
                     a["flags"]["D3x"] = int(b.get("error") is None and a["hash"] != b["hash"])
                 cells.append(a)
     ok = [c for c in cells if c.get("error") is None]

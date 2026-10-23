@@ -41,3 +41,16 @@ u penalizovanom skoru na 4 slučaja AC dispečinga) može da se izvede **origina
 - (a) Prihvatiti okvir iz tačke 4 i završiti rad o reviziji integriteta + poglavlje sa I53; ili
 - (b) uložiti jednu sistematsku proveru prior art-a u najjači preostali kandidat iz tačke 3 (rizik: verovatno NO-GO); ili
 - (c) praktični opt-in u GAdapt (poznati lek, citiran kao takav) — korisno za biblioteku, ne za tezu.
+
+## Dopuna (20:45): sistematska provera preostalih kandidata (Codex 008 + moja provera)
+
+- **C1 (kontroler koraka centriran na potomcima + teorema o konvergenciji): NO-GO.** da Silva, Borges, Nepomuceno,
+  Soler 2025 ([10.1016/j.asoc.2025.113635](https://doi.org/10.1016/j.asoc.2025.113635)) već daju „pozitivno
+  adaptivnu“ mutaciju u elitističkom EA (GA, ES, DE), dokaz linearne prosečne brzine konvergencije sa eksplicitnom
+  donjom granicom i primenu na ekonomski dispečing sa valve-point efektom. Uz Jägersküpper i Witt 2005, Touré, Auger,
+  Hansen 2022 ([10.1007/s10898-022-01249-6](https://doi.org/10.1007/s10898-022-01249-6)) i Akimoto i sar. 2022
+  ([10.1137/20M1373815](https://doi.org/10.1137/20M1373815)), preostala razlika je inkrementalna.
+- **C2 (spektralna restauracija): NO-GO.** Operator je relaksirana projekcija na pod sopstvenih vrednosti (poznata
+  matrična analiza); jedina razlika je kapija po potomku, bez utvrđene koristi.
+- **Stanje:** nijedan kandidat za originalnu GAdapt metodu iz linije „popravka zaostatka“ ne prolazi proveru.
+  Novi kandidat mora doći iz drugačijeg pitanja, ne iz popravke poznatih slabosti.
