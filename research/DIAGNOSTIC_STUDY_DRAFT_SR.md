@@ -169,6 +169,10 @@ U zagradama su Clopper–Pearson 95% intervali.
   semena 1 i 2; pozitivni nalazi i dalje pokazuju nedeterminizam između procesa, ali kontrolisano poređenje nije
   sprovedeno. Alat je ispravljen (`-s` + `PYTHONSAFEPATH`, kontrolni heš po procesu), SMAC reproducer (bez `-I`)
   ponovo potvrđen, a ispravljeni D3x sa arhivom kompletnih tragova poziva je preregistrovan kao I55.
+- **I55 ([izveštaj](ITERATION55_REPORT_SR.md)):** sa stvarnim heš semenima D3x samo kod Nevergrad-a i SMAC-a; SMAC
+  isto seme → isti niz (0/30), različito → različit (30/30); Nevergrad različit i sa istim semenom (5/20). Iz tragova:
+  isti skup nalaza (8/21); 318/358 nizova poziva identično arhivi bit po bit; razlike objašnjene heš semenom (SMAC)
+  i brojem BLAS niti (emukit, post hoc 10/10).
 
 **Prenos na stvarnu infrastrukturu (I52,** [izveštaj](ITERATION52_REPORT_SR.md)**).** Na AC dispečingu (case14,
 case39 i case118), sa nepromenjenim adapterima, status nalaza poklapa se sa sintetičkim za **19/21** biblioteke (CI

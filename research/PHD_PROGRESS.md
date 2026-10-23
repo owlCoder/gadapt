@@ -110,8 +110,13 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   * Codex 010: jedini ograničeni GO = validirani protokol uzročne dijagnoze oracle intervencijama (~40%); u toku
     nezavisna adversarijalna prior-art provera (literature-auditor agent). Bez protokola dok ne stigne.
   * Issue-i (5): bez odgovora održavalaca (monitor).
-- SLEDEĆI KORAK: I55 analiza (H55a–d) + `iteration55_recompute.py` + unos u rad (Studija 5); presuda za protokol
-  dijagnoze posle literature-auditor-a; LaTeX (`acmart`) tek posle Studije 5.
+- 2026-10-23 22:55: I55 GOTOVO → `research/ITERATION55_REPORT_SR.md`: H55a–c PODRŽANO, H55d strogo ne (1 zastavica,
+  emukit, objašnjeno brojem BLAS niti; odstupanje O3). Rad: §6.5, apstrakt, pretnje, preporuka; LaTeX build
+  `research/paper_integrity_audit/tex/` (pandoc + acmart, prevođenje na Overleaf-u). Poglavlje §7 ažurirano.
+  Protokol dijagnoze oracle intervencijama: NO-GO (`ORACLE_DIAGNOSIS_PRIOR_ART_AUDIT_SR.md`). Ukupno 7 kandidata
+  za metodu odbačeno danas sa proverenim prior art-om.
+- SLEDEĆI KORAK: (1) treći krug recenzije rada (Codex) pa predaja TELO uz odluku korisnika (Zenodo arhiva, autorstvo);
+  (2) razgovor sa mentorom o riziku „nema nove metode“; (3) pratiti 5 issue-a.
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
