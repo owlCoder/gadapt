@@ -73,13 +73,29 @@ Vrednosti su medijane relativnog jaza. Ishod je DEFICIT_GADAPT (2/3). Odnos jaza
 (glatki dispečing, I47) na 1,3–1,5 (multimodalni dispečing). Raznovrsnost pomaže upravo tamo gde je pejzaž
 multimodalan, ali ne nadoknađuje nedostatak intenzifikacije.
 
-## 7. Diskusija
+## 7. Revizija integriteta evaluacija u 9 Python biblioteka (I49)
+Problemi integriteta evaluacija su česti: preregistrovani kriterijum daje 4 od 9 biblioteka (95% interval 14–79%),
+a 2 od 9 kada se računa samo protivrečnost dokumentaciji. Alat je pre merenja otkrio svih pet podmetnutih grešaka,
+bez lažnih nalaza na čistoj kontroli ([izveštaj](ITERATION49_REPORT_SR.md)).
+
+| Biblioteka | Nalaz | Razvrstavanje | Već poznato |
+|---|---|---|---|
+| DEAP | Evaluacije van granica (30/30 pokretanja) | Dizajn: granice su na korisniku | Ravber i sar. 2025 |
+| PyGAD | 21 evaluacija posle završetka, u `best_solution()` | Dokumentovano ponašanje | [PyGAD #160](https://github.com/ahmedfgad/GeneticAlgorithmPython/issues/160) |
+| cma | Do 1011 evaluacija za `maxfevals` 1000 | Odstupa od dokumentacije | [pycma #195](https://github.com/CMA-ES/pycma/issues/195) |
+| Nevergrad | Nereproduktivno uprkos zadatom semenu; pad sa NumPy 2.5 | Odstupa od dokumentacije | [#966](https://github.com/facebookresearch/nevergrad/issues/966), [#1707](https://github.com/facebookresearch/nevergrad/issues/1707) |
+
+Nijedan nalaz nije nova greška. Doprinos je validirani black-box alat koji ih sve nalazi automatski za 53 s, i mera
+raširenosti. Za praksu: geneticalgorithm troši 41,5% evaluacija na duplikate, što je kod skupih AC proračuna skoro
+pola budžeta.
+
+## 8. Diskusija
 - Zašto raznovrsnost bez intenzifikacije gubi na skoro linearnim i glatkim pejzažima (Droste, Jansen, Wegener 2002;
   Witt 2013; Hansen i sar. 2011).
 - Šta je primenljivo van GAdapt-a: protokol jednakog budžeta sa udžbeničkim kontrolama i provera skrivenih evaluacija
   u bibliotekama metaheuristika.
 
-## 8. Ograde
+## 9. Ograde
 - Cena kod izbora ruta je sintetička, nad stvarnim topologijama.
 - AC dispečing ima fiksne napone (neizvodljivost na manjim slučajevima).
 - Rezultati važe za proučene budžete.

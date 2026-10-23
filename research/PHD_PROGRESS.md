@@ -50,8 +50,8 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   doslednost rezultata, dokumentacija vs ponašanje, studija rasprostranjenosti); invarijantnost i brojanje = prior art.
 - I49 GOTOVO → `research/ITERATION49_REPORT_SR.md`: ČESTO (4/9; samo protivrečnost dokumentaciji 2/9); svi pojedinačni
   nalazi već poznati/dokumentovani; alat validiran; GAdapt artefakt potvrđen. Nevergrad pad sa NumPy 2.5 (#1707).
-- SLEDEĆE (predlog): dodati I49 u poglavlje/dokument studije; eventualni komentari na otvorene issue-e (#966, #1707)
-  traže odobrenje korisnika (spoljna radnja).
+- I49 dodat u Docs dokument studije i u `research/DIAGNOSTIC_STUDY_DRAFT_SR.md` (§7). SLEDEĆE: komentari na otvorene Nevergrad issue-e (#966, #1707)
+  čekaju izričito odobrenje korisnika (javna radnja u ime korisnika); bez odobrenja se ne objavljuju.
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
