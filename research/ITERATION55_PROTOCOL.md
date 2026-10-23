@@ -62,3 +62,10 @@ SMAC i Bayesove biblioteke (I50: SMAC 1635 s za 2 izvršavanja po ćeliji). Proc
   (`""` umesto `"0"`; funkcija ćelije nepromenjena), provereno: ponavljanje samo u procesu A. Preostalih 11 biblioteka
   (bayes_opt, bofire, cmaes, emukit, evolopy, evotorch, evox, gfo, niapy, scikit_opt, smac) radi sa 4 izvršavanja po
   ćeliji, paralelno u dve grupe. Merene veličine su iste u oba režima.
+- **O3 (otkriveno u međurezultatu H55d, 21:35):** drajver I55 postavlja OMP/MKL/OPENBLAS niti na 1, ali ne i
+  `VECLIB_MAXIMUM_THREADS=1` (Apple Accelerate), koji je I50 postavljao. Posledica: emukit 10/30 ćelija (sve N = 2)
+  daje drugačiji niz poziva od arhive I50, uz D3 = D3x = 0 unutar I55. Post hoc dijagnostika
+  (`research/results/iteration55_posthoc/emukit_veclib.json`): sa `VECLIB_MAXIMUM_THREADS=1` svih 10/10 ćelija
+  poklapa arhivu bit po bit → uzrok je broj BLAS niti, ne biblioteka. D3/D3x unutar I55 ostaju važeći (isto okruženje
+  u A, A′, B). Za biblioteke koje su tada još radile (baybe, bofire, bayes_opt, smac) poređenje sa arhivom (H55d)
+  tumači se uz ovu ogradu i, gde se ne poklapa, proverava istom dijagnostikom.

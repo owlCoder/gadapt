@@ -1,0 +1,95 @@
+{
+ "note": "post hoc diagnostic: I55 driver omitted VECLIB_MAXIMUM_THREADS=1 that I50 set",
+ "cells": [
+  {
+   "function": "plateau",
+   "d": 2,
+   "seed": 6000,
+   "veclib_threads": 1,
+   "hash": "18578ff8e404f63e94d03847842c9733a321f183fc9f02f9074ec2f6cd6aa4e0",
+   "matches_i50_archive": true,
+   "error": null
+  },
+  {
+   "function": "plateau",
+   "d": 2,
+   "seed": 6001,
+   "veclib_threads": 1,
+   "hash": "ae8bdae74a39d98a568408c59d1fc0629d688b653f7f014a618d92a82ec5c218",
+   "matches_i50_archive": true,
+   "error": null
+  },
+  {
+   "function": "plateau",
+   "d": 2,
+   "seed": 6002,
+   "veclib_threads": 1,
+   "hash": "5b00a7cd9934303fe9fd97bf3a735ccbe254b2c210e947159044189a3448f4bd",
+   "matches_i50_archive": true,
+   "error": null
+  },
+  {
+   "function": "plateau",
+   "d": 2,
+   "seed": 6003,
+   "veclib_threads": 1,
+   "hash": "822f6865557fef0cfd716c753fb0e25b954481fc0ebcbd69c5ceaab75b6911ae",
+   "matches_i50_archive": true,
+   "error": null
+  },
+  {
+   "function": "plateau",
+   "d": 2,
+   "seed": 6004,
+   "veclib_threads": 1,
+   "hash": "a58b0325f3b897d002d5a9162fc11193c3c14f3d45ce7110aebb9e33f4b88911",
+   "matches_i50_archive": true,
+   "error": null
+  },
+  {
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6001,
+   "veclib_threads": 1,
+   "hash": "4a95d9592c7fc8b120f704bffdb6858c46ca9ae814138881b4bd95e2ec900a12",
+   "matches_i50_archive": true,
+   "error": null
+  },
+  {
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6003,
+   "veclib_threads": 1,
+   "hash": "081406efd95cadd245c631cc902bd5e69418c27e718d36777ba178d413948c60",
+   "matches_i50_archive": true,
+   "error": null
+  },
+  {
+   "function": "sphere",
+   "d": 2,
+   "seed": 6001,
+   "veclib_threads": 1,
+   "hash": "f3c5f2c3023b60234f91f6f519ad44acc24e1c075e5a9463a7f985c33506d711",
+   "matches_i50_archive": true,
+   "error": null
+  },
+  {
+   "function": "sphere",
+   "d": 2,
+   "seed": 6003,
+   "veclib_threads": 1,
+   "hash": "9855c4c057e79a7d8f76265390b6572cf775ff5dc70651b690359fcde17c40da",
+   "matches_i50_archive": true,
+   "error": null
+  },
+  {
+   "function": "sphere",
+   "d": 2,
+   "seed": 6004,
+   "veclib_threads": 1,
+   "hash": "0d43a58f3889374f4a70a1e1eeb7e7e4b0ac0c9cd375ae0f777ba32bbdd02c07",
+   "matches_i50_archive": true,
+   "error": null
+  }
+ ]
+}
