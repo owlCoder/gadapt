@@ -95,6 +95,12 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - I54 (oracle geometrija: GAdapt u koordinatama izbeljenim CMA kovarijansom iz I53 reference, centar = sredina opsega):
   nacrt protokola + kod + 6/6 testova; čeka Codex recenziju 007 pre zamrzavanja. Paralelno Codex 005 (prior art:
   rotaciono invarijantna varijacija) i 006 (prior art: Codex kandidat sertifikovano ukrštanje).
+- 2026-10-23 20:30: Codex 005 = PRIOR ART (učenje korelacija u GA), Codex 006 = NO-GO (sertifikovano ukrštanje),
+  svi DOI provereni. I54 nacrt POVUČEN pre merenja (Codex 007: 2 blokirajuće greške). Sinteza i odluka:
+  `research/DIRECTION_DECISION_2026-10-23_SR.md` — popravka zaostatka GAdapt-a NE daje originalnu metodu (NO-GO);
+  dijagnostičko poglavlje ojačano uzročnim testom I53.
+- SLEDEĆI KORAK: čeka odluku korisnika/mentora (a) okvir „pouzdana evaluacija + mehanistička dijagnoza“ i završetak
+  rada/poglavlja, (b) jedna sistematska prior-art provera najjačeg preostalog kandidata, (c) praktični opt-in u GAdapt.
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
