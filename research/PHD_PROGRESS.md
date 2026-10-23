@@ -69,7 +69,10 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   sve reference proverene na Crossref/arXiv 2026-10-23).
 - Recenzentski prolaz urađen (`f74ecda`); slika 1 (`research/paper_integrity_audit/make_figure.py` iz sirovih
   izlaza; render interpreterom iz h4 lock okruženja). Ciljni časopis: ACM TELO (podrazumevani izbor).
-- SLEDEĆE: pratiti odgovore održavalaca (#1572, #1380, #106) i uneti ih u rad; prelom za TELO.
+- I52 (prenos nalaza na stvarni AC dispečing, H52: poklapanje ≥ 17/21): protokol `32bac01`, drajver `8345310`,
+  validacija 3/3. Pokrenuto JEDNOM (`i52/run_all.sh` u scratchpad-u). Ako je prekinuto: pokrenuti samo biblioteke bez
+  `research/results/iteration52/cells_<lib>.json`, pa `aggregate`, pa izveštaj.
+- Zatim: uneti I52 u rad i poglavlje; pratiti odgovore održavalaca (#1572, #1380, #106).
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
@@ -104,3 +107,4 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - 2026-10-23: I50 završen: 2 nova nalaza protiv dokumentacije prijavljena (SMAC #1380, GFO #106); C1 nespecifičan.
 - 2026-10-23: Poglavlje §7 i alat za praksu (CLI + testovi + uputstvo) završeni.
 - 2026-10-23: I51 (D3x na I49 uzorku: samo Nevergrad). Nacrt rada napisan; reference proverene.
+- 2026-10-23: I52 preregistrovan i pokrenut (spoljna validnost na stvarnoj infrastrukturi).
