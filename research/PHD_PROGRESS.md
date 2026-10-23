@@ -79,6 +79,14 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - I52 GOTOVO → `research/ITERATION52_REPORT_SR.md`: H52 POTVRĐENA (19/21, CI 70–99%); C1 na stvarnoj funkciji
   specifičan; SciPy DE nov nalaz samo na dispečingu. Unet u rad (Studija 4, §6.4) i poglavlje (§7.5).
 - SLEDEĆE: pratiti odgovore (#1572, #1380, #106, scipy #26479, sko #248) i uneti ih u rad.
+- 2026-10-23 (veče): korisnik: „vratimo se na pravi smer“ (metodološki doprinos GAdapt-u), rezultat do kraja dana.
+  Saradnja sa Codex-om (gpt-6.1-sol, high, `codex exec -s read-only` iz Codex Desktop CLI-ja
+  `/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex`; instalirani `codex` 0.149
+  ne podržava model). Codex samo čita; zadaci i odgovori u `research/codex/NNN_*`. Ja jedini pišem/komitujem.
+- I53 (oracle test uzroka zaostatka na dispečingu, 2×2 korak × reset + sintetički faktorski deo): protokol `5937063`
+  (recenzija Codex 002 uneta pre zamrzavanja), kod `10e7e80` (8/8 testova). Pokrenuto JEDNOM
+  (synthetic → reference → runs → analyse). Ako je prekinuto: pokrenuti samo deo bez izlaza u `research/results/iteration53/`.
+- Paralelno: Codex 003 = prior-art gate za kontrolu koraka u GA sa raznovrsnošću (pre bilo kakvog predloga metode).
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
