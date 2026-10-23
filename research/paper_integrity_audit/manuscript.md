@@ -316,11 +316,11 @@ negative status of those libraries; dispatch also offered 15 cells per library a
   established within the audit, not only by the separate reproducer.
 - **H55c supported:** Nevergrad also differed with the same hash seed (5/20), consistent with its clock-seeded
   `cma.fmin` call.
-- **H55d not supported in the strict preregistered sense:** one flag in one cell differed from the archive
-  (emukit, C2). Reclassification from the traces otherwise reproduced the archived findings. The set of libraries
+- **H55d not supported in the strict preregistered sense:** in one cell (emukit, plateau, N = 2, seed 6001) one class
+  changed presence (C2, 0 → 1) and the C1 count changed (2 → 3). Reclassification from the traces otherwise reproduced the archived findings. The set of libraries
   with a finding other than C1 is unchanged: 4/9 in Study 1, 4/12 in Study 2, 8/21 in total.
 - **Call sequences:** 318 of 358 Study 2 cells reproduced the archived SHA-256 bit for bit, days later and in
-  rebuilt environments. The 40 differences are explained:
+  rebuilt environments (358 = 360 cells minus 2 bofire cells that timed out in Study 2; Study 5 completed all 360). The 40 differences are explained:
   - SMAC, 30 cells: the Study 2 runs had random hash seeds, and SMAC's sequence depends on the hash seed.
   - emukit, 10 cells: our driver did not set `VECLIB_MAXIMUM_THREADS=1` (Apple Accelerate), which Study 2 had set.
     With that setting, all 10 cells matched the archive. This post hoc check shows that the number of BLAS threads
@@ -360,7 +360,7 @@ per process to prove which hash seed was in effect.
   definition. Excluding C1 and the two design cases of C3 leaves 6/21 libraries (11–52%). The strictest measure,
   behaviour that contradicts the documentation, gives 4/21.
 - **Test functions versus real costs.** Test functions both over- and under-state problems: they made C1 look
-  non-specific and overstated waste, and they missed the SciPy defect. Study 4 covers one infrastructure problem
+  non-specific and overstated waste, and they missed the SciPy polishing behaviour. Study 4 covers one infrastructure problem
   class (AC dispatch) and is no guarantee for others.
 - **Configuration.** We used one prespecified configuration per library through the documented interfaces and small budgets (200 or
   1000). Other usage may behave differently.
@@ -403,11 +403,13 @@ All material is in https://github.com/owlCoder/gadapt, directory `research/`; th
 manuscript is identified by its commit hash in the submission, and an immutable archive (Zenodo DOI) will be
 created at submission. Development branches: Nevergrad, GFO and SciPy (nightly) were run; for SMAC and scikit-opt
 the relevant source was inspected and found unchanged.
-- protocols: `ITERATION49_PROTOCOL.md` to `ITERATION52_PROTOCOL.md`;
+- protocols: `ITERATION49_PROTOCOL.md` to `ITERATION52_PROTOCOL.md`, and `ITERATION55_PROTOCOL.md` (Study 5, with
+  deviations O1–O3);
 - eligibility and documentation quotes: `ITERATION50_ELIGIBILITY.md`;
 - code: `iteration49_integrity_audit.py`, `iteration50_integrity_audit.py`, `iteration51_d3x.py`,
-  `iteration52_dispatch_integrity.py`;
-- raw outputs, with `pip freeze` per library: `results/iteration49–52/`;
+  `iteration52_dispatch_integrity.py`, `iteration55_d3x_traces.py` and `iteration55_recompute.py`;
+- raw outputs, with `pip freeze` per library: `results/iteration49–52/`; Study 5 with full call traces:
+  `results/iteration55/` and the post hoc BLAS-thread check `results/iteration55_posthoc/`;
 - disclosure drafts and patches: `iteration49_nevergrad_1572/`, `iteration50_disclosure/`,
   `iteration52_disclosure/`;
 - the practitioner tool and its tests.
@@ -422,14 +424,15 @@ is [lo, hi]. The result is (x\*, f\*, e\*), any of which may be missing.
 - C3: some coordinate x_k,i < lo_i or > hi_i. Count.
 - C4: only if the library documents a maximum M: max(0, n − M).
 - C5: number of post calls.
-- R1–R3 are not applicable when the library reports no x\* (they are then recorded as not applicable, not as 0).
+- R1–R3 are not applicable when the library reports no x\*; they are then stored as 0 together with an explicit
+  `r_applicable = false`, and excluded from R1–R3 counts.
 - R1: no call with the same shape and |x_k,i − x\*_i| ≤ 1e-12 for all i.
 - R2: applicable if f\* is present and R1 = 0: with f(x\*) the value of the first matching call,
   |f\* − f(x\*)| > 1e-9 · max(1, |f(x\*)|).
 - R3: applicable if f\* is present and there is ≥ 1 search call: with b = min of search-phase values,
   f\* − b > 1e-9 · max(1, |b|).
 - A reported f\* = NaN makes both inequalities false, so R2 and R3 are not flagged; no studied library reported NaN.
-  Studies 1–4 do not distinguish a missing f\* from a NaN f\*; Study 5 stores them separately.
+  No study distinguishes a missing f\* from a NaN f\* (Study 5 stores both as NaN).
 - D2: applicable if the library reports an evaluation count e\*: e\* ≠ n (all calls, including post).
 - D3: SHA-256 over all (x_k, f_k, phase_k) differs between two runs with the same seed in one process.
 - D3x: the same hash differs between two fresh processes with the same seed.

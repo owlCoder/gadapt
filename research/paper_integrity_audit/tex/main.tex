@@ -3,7 +3,33 @@
 \acmJournal{TELO}
 \usepackage{longtable}
 \usepackage{booktabs}
+\usepackage{calc}
+\usepackage{array}
+\usepackage{newunicodechar}
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\newunicodechar{−}{\ensuremath{-}}
+\newunicodechar{≤}{\ensuremath{\le}}
+\newunicodechar{≥}{\ensuremath{\ge}}
+\newunicodechar{×}{\ensuremath{\times}}
+\newunicodechar{∈}{\ensuremath{\in}}
+\newunicodechar{Σ}{\ensuremath{\Sigma}}
+\newunicodechar{⌊}{\ensuremath{\lfloor}}
+\newunicodechar{⌋}{\ensuremath{\rfloor}}
+\newunicodechar{→}{\ensuremath{\to}}
+\newunicodechar{′}{\ensuremath{'}}
+\newunicodechar{…}{\ldots{}}
+\newunicodechar{–}{--}
+\newunicodechar{—}{---}
+\newunicodechar{≠}{\ensuremath{\neq}}
+\newunicodechar{≈}{\ensuremath{\approx}}
+\newunicodechar{·}{\ensuremath{\cdot}}
+\newunicodechar{⁻}{\ensuremath{^{-}}}
+\newunicodechar{¹}{\ensuremath{^{1}}}
+\newunicodechar{²}{\ensuremath{^{2}}}
+\newunicodechar{μ}{\ensuremath{\mu}}
+\newunicodechar{λ}{\ensuremath{\lambda}}
+\newunicodechar{ε}{\ensuremath{\varepsilon}}
 \begin{document}
 \title{Does the optimizer do what it says? A black-box audit of evaluation integrity in 21 Python optimization libraries}
 \author{Danijel Jovanovi\'{c}}
@@ -39,10 +65,19 @@ Benchmarking practice in evolutionary computation counts function evaluations ca
 and IOHexperimenter \citep{de_Nobel_2024} wrap the objective and record every call. Practitioners who compare
 optimizers on their own expensive models rarely use such platforms. They call libraries directly through the
 library's own budget, seed and result interfaces, and trust that:
-1. the budget parameter bounds the number of evaluations;
-2. every evaluation happens inside the declared box and during the search;
-3. the returned solution and cost are the best evaluated pair;
-4. a fixed seed reproduces the run.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  the budget parameter bounds the number of evaluations;
+\item
+  every evaluation happens inside the declared box and during the search;
+\item
+  the returned solution and cost are the best evaluated pair;
+\item
+  a fixed seed reproduces the run.
+\end{enumerate}
 
 When any of these fails silently, the comparison is wrong in a way that no statistical test reveals.
 
@@ -54,18 +89,30 @@ remains the most plausible reading, not a verified fact. This raised a general q
 reproduce or report differently from what their users assume?
 
 \textbf{Contributions:}
-1. A black-box, library-independent audit with explicit call classes and result-consistency checks. Its
-cross-process reproducibility check (D3x) adapts known hash-order randomization to the seed contract of
-optimization libraries and exposes seed failures that within-process checks miss.
-2. Validation of the audit on planted faults, including faults that are only visible across processes.
-3. Two preregistered prevalence studies on 21 Python libraries, one of them drawn by an external sampling rule,
-and a third study that adds cross-process reproducibility to the first sample.
-4. A preregistered transfer study on a real infrastructure cost function (AC economic dispatch) for all 21 libraries.
-5. Five diagnosed issues with minimal reproducers, causal patch tests where applicable, and disclosure to the
-maintainers.
-6. A negative methodological result: a natural ``probe'' measure is not specific on test functions, which changes
-the prevalence estimate.
-7. A practitioner command-line tool with a six-step checklist.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A black-box, library-independent audit with explicit call classes and result-consistency checks. Its
+  cross-process reproducibility check (D3x) adapts known hash-order randomization to the seed contract of
+  optimization libraries and exposes seed failures that within-process checks miss.
+\item
+  Validation of the audit on planted faults, including faults that are only visible across processes.
+\item
+  Two preregistered prevalence studies on 21 Python libraries, one of them drawn by an external sampling rule,
+  and a third study that adds cross-process reproducibility to the first sample.
+\item
+  A preregistered transfer study on a real infrastructure cost function (AC economic dispatch) for all 21 libraries.
+\item
+  Five diagnosed issues with minimal reproducers, causal patch tests where applicable, and disclosure to the
+  maintainers.
+\item
+  A negative methodological result: a natural ``probe'' measure is not specific on test functions, which changes
+  the prevalence estimate.
+\item
+  A practitioner command-line tool with a six-step checklist.
+\end{enumerate}
 
 \section{Related work}\label{related-work}
 
@@ -156,22 +203,40 @@ when a library returns no result, as in ask-and-tell interfaces. For libraries t
 stores the value the library actually receives, so that rounding is not counted as R2.
 
 \textbf{Test problems:}
-- shifted sphere, with the optimum at 0.37 of the range;
-- Rastrigin;
-- the floor plateau Σ⌊x\_i⌋;
+
+\begin{itemize}
+\tightlist
+\item
+  shifted sphere, with the optimum at 0.37 of the range;
+\item
+  Rastrigin;
+\item
+  the floor plateau Σ⌊x\_i⌋;
+\end{itemize}
 
 in N ∈ \{2, 10\}, on the box {[}−5, 5{]}\^{}N, with seeds 6000--6004. This gives 30 cells per library.
 
 \section{Validation of the audit}\label{validation-of-the-audit}
 
 Before each study, a reference random search was run with exactly one planted fault per mutant. Faults covered:
-- a corner probe;
-- a re-evaluated duplicate;
-- one call over the budget;
-- reporting an unevaluated point;
-- reporting a wrong value;
-- seeding from \texttt{hash()}, visible only across processes;
-- seeding from the clock.
+
+\begin{itemize}
+\tightlist
+\item
+  a corner probe;
+\item
+  a re-evaluated duplicate;
+\item
+  one call over the budget;
+\item
+  reporting an unevaluated point;
+\item
+  reporting a wrong value;
+\item
+  seeding from \texttt{hash()}, visible only across processes;
+\item
+  seeding from the clock.
+\end{itemize}
 
 The audit had to flag exactly the planted class and nothing on the clean reference. GAdapt with its default input
 validation had to produce C1, and without it had to produce none. All checks passed: 8/8 in Study 1 and 11/11 in
@@ -183,25 +248,45 @@ Both protocols, including the decision thresholds and the documentation-classifi
 committed before any code was written.
 
 \textbf{Study 1 (I49).} Nine popular libraries:
-- pymoo GA;
-- DEAP \texttt{eaSimple};
-- PyGAD;
-- geneticalgorithm;
-- Nevergrad \texttt{NGOpt};
-- Optuna TPE;
-- PySwarms;
-- cma \texttt{fmin2};
-- SciPy \texttt{differential\_evolution}.
+
+\begin{itemize}
+\tightlist
+\item
+  pymoo GA;
+\item
+  DEAP \texttt{eaSimple};
+\item
+  PyGAD;
+\item
+  geneticalgorithm;
+\item
+  Nevergrad \texttt{NGOpt};
+\item
+  Optuna TPE;
+\item
+  PySwarms;
+\item
+  cma \texttt{fmin2};
+\item
+  SciPy \texttt{differential\_evolution}.
+\end{itemize}
 
 Settings: one prespecified configuration per library (mostly defaults; operator or population choices where the
 API requires them, frozen in the protocol), about 1000 evaluations, set through the documented parameter. GAdapt served as a
 positive control.
 
 \textbf{Study 2 (I50).} A new sample drawn by an external rule from a frozen snapshot:
-- \textbf{Source A:} GitHub repositories in Python with at least 300 stars and one of 12 optimization topics.
-- \textbf{Source B:} the Python frameworks in \citet{Ravber_2025}.
-- \textbf{Eligibility:} general-purpose library, not archived, installable on Python 3.14 with NumPy 2.x, documented
-box-constrained single-objective API, and a smoke test with a constant cost function.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Source A:} GitHub repositories in Python with at least 300 stars and one of 12 optimization topics.
+\item
+  \textbf{Source B:} the Python frameworks in \citet{Ravber_2025}.
+\item
+  \textbf{Eligibility:} general-purpose library, not archived, installable on Python 3.14 with NumPy 2.x, documented
+  box-constrained single-objective API, and a smoke test with a constant cost function.
+\end{itemize}
 
 Of 62 candidates, 12 were eligible: baybe, bayes\_opt, bofire, cmaes, emukit, EvoloPy, evotorch, evox,
 Gradient-Free-Optimizers (GFO), NiaPy, scikit-opt and SMAC. The budget was 200 evaluations. Before the run, we froze
@@ -211,31 +296,61 @@ the configurations and the documentation quotes for budget, seed, result and bou
 
 \textbf{Study 4 (I52).} All 21 libraries, with unchanged adapters and budgets, on a real infrastructure cost function: AC
 economic dispatch with fixed voltages.
-- \textbf{Cost function:} pypower \texttt{runpf} on MATPOWER case14, case39 and case118 (4, 9 and 53 variables). The cost is
-generation cost plus penalties for voltage, slack, reactive and branch-loading violations; 2--16 ms per evaluation.
-- \textbf{Seeds:} 5 per case.
-- \textbf{Preregistered hypothesis:} the library-level status (≥ 1 integrity finding, C1 excluded) agrees with the
-synthetic studies for ≥ 17/21 libraries.
-- \textbf{Deviation:} the first execution failed at import in every cell, before any evaluation (a missing dependency and
-a pypower version incompatible with NumPy 2.5). It was archived, the environment was fixed, and the study was run
-once.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Cost function:} pypower \texttt{runpf} on MATPOWER case14, case39 and case118 (4, 9 and 53 variables). The cost is
+  generation cost plus penalties for voltage, slack, reactive and branch-loading violations; 2--16 ms per evaluation.
+\item
+  \textbf{Seeds:} 5 per case.
+\item
+  \textbf{Preregistered hypothesis:} the library-level status (≥ 1 integrity finding, C1 excluded) agrees with the
+  synthetic studies for ≥ 17/21 libraries.
+\item
+  \textbf{Deviation:} the first execution failed at import in every cell, before any evaluation (a missing dependency and
+  a pypower version incompatible with NumPy 2.5). It was archived, the environment was fixed, and the study was run
+  once.
+\end{itemize}
 
 \textbf{Study 5 (I55, correction).} A preregistered rerun of all test-function cells of Studies 1--2 (21 libraries ×
 30 cells), with the archived package versions, that fixes the hash-seed error (Section 3) and archives full call
 traces.
-- \textbf{Processes per cell:} A (\texttt{PYTHONHASHSEED}=1, plus a rerun in the same process), A′ (\texttt{PYTHONHASHSEED}=1) and B
-(\texttt{PYTHONHASHSEED}=2), launched with \texttt{-s} and \texttt{PYTHONSAFEPATH=1}. Each process reports a sentinel string hash;
-a cell counts only if A and A′ agree and A and B differ (manipulation check).
-- \textbf{Measures:} D3 (A vs its rerun), D3x-same (A vs A′) and D3x-diff (A vs B). All classes are recomputed from the
-archived trace of A and compared with the archived Study 1--2 flags.
-- \textbf{Preregistered hypotheses:}
-- H55a: D3x-diff occurs exactly for \{Nevergrad, SMAC\};
-- H55b: SMAC shows no D3x-same and D3x-diff in ≥ 25/30 cells;
-- H55c: Nevergrad shows D3x-same, which would mean its cause is not the hash seed;
-- H55d: libraries without D3/D3x reproduce their archived flags.
-- \textbf{Deviations (recorded during the run):}
-- O1: the first 10 libraries ran an unneeded extra rerun in A′ and B; this did not change the measured quantities.
-- O3: the driver omitted \texttt{VECLIB\_MAXIMUM\_THREADS=1} (Apple Accelerate BLAS), which Studies 1--2 had set.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Processes per cell:} A (\texttt{PYTHONHASHSEED}=1, plus a rerun in the same process), A′ (\texttt{PYTHONHASHSEED}=1) and B
+  (\texttt{PYTHONHASHSEED}=2), launched with \texttt{-s} and \texttt{PYTHONSAFEPATH=1}. Each process reports a sentinel string hash;
+  a cell counts only if A and A′ agree and A and B differ (manipulation check).
+\item
+  \textbf{Measures:} D3 (A vs its rerun), D3x-same (A vs A′) and D3x-diff (A vs B). All classes are recomputed from the
+  archived trace of A and compared with the archived Study 1--2 flags.
+\item
+  \textbf{Preregistered hypotheses:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    H55a: D3x-diff occurs exactly for \{Nevergrad, SMAC\};
+  \item
+    H55b: SMAC shows no D3x-same and D3x-diff in ≥ 25/30 cells;
+  \item
+    H55c: Nevergrad shows D3x-same, which would mean its cause is not the hash seed;
+  \item
+    H55d: libraries without D3/D3x reproduce their archived flags.
+  \end{itemize}
+\item
+  \textbf{Deviations (recorded during the run):}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    O1: the first 10 libraries ran an unneeded extra rerun in A′ and B; this did not change the measured quantities.
+  \item
+    O3: the driver omitted \texttt{VECLIB\_MAXIMUM\_THREADS=1} (Apple Accelerate BLAS), which Studies 1--2 had set.
+  \end{itemize}
+\end{itemize}
 
 \section{Results}\label{results}
 
@@ -282,14 +397,9 @@ for DEAP. With an expensive cost function, that is close to half of the budget.
 
 \begin{figure}
 \centering
-\pandocbounded{\includegraphics[keepaspectratio,alt={Figure 1}]{../fig_integrity_matrix.pdf}}
-\caption{Figure 1}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Runs with each finding class, per library, in the test-function studies (1--3). Dark outlines mark behaviour that contradicts the library's documentation (a curated input of make\_figure.py, frozen with the Study 2 quotes). C1 is shown apart (Section 6.3). D2 is not shown: it was never flagged. The right column gives the median share of repeated evaluations. Generated by make\_figure.py from the raw outputs.}]{../fig_integrity_matrix.pdf}}
+\caption{Runs with each finding class, per library, in the test-function studies (1--3). Dark outlines mark behaviour that contradicts the library's documentation (a curated input of \protect\texttt{make\_figure.py}, frozen with the Study 2 quotes). C1 is shown apart (Section 6.3). D2 is not shown: it was never flagged. The right column gives the median share of repeated evaluations. Generated by \protect\texttt{make\_figure.py} from the raw outputs.}
 \end{figure}
-
-\textbf{Figure 1.} Runs with each finding class, per library, in the test-function studies (1--3). Dark outlines mark
-behaviour that contradicts the library's documentation (a curated input of \texttt{make\_figure.py}, frozen with the Study 2
-quotes). C1 is shown apart (Section 6.3). D2 is not shown: it was never flagged. The right column gives the median
-share of repeated evaluations. Generated by \texttt{make\_figure.py} from the raw outputs.
 
 \subsection{Findings and diagnoses}\label{findings-and-diagnoses}
 
@@ -327,20 +437,35 @@ bayes\_opt & on the plateau, 7 of 200 requested evaluations & a repeated suggest
 }
 
 \textbf{Causal checks:}
-- \textbf{Nevergrad:} with our patch, the full call sequence was identical within and across processes in 16/16 cells,
-against 0/6 unpatched. The issue's original reproducer became deterministic.
-- \textbf{SMAC:} order-preserving de-duplication made the sequence independent of \texttt{PYTHONHASHSEED}. With default hash
-randomization, three runs with \texttt{seed=0} gave three different incumbents.
-- \textbf{GFO:} reproduced on the development branch; the proposed fix was not tested.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Nevergrad:} with our patch, the full call sequence was identical within and across processes in 16/16 cells,
+  against 0/6 unpatched. The issue's original reproducer became deterministic.
+\item
+  \textbf{SMAC:} order-preserving de-duplication made the sequence independent of \texttt{PYTHONHASHSEED}. With default hash
+  randomization, three runs with \texttt{seed=0} gave three different incumbents.
+\item
+  \textbf{GFO:} reproduced on the development branch; the proposed fix was not tested.
+\end{itemize}
 
 \subsection{A negative result: corner evaluations are not specific}\label{a-negative-result-corner-evaluations-are-not-specific}
 
 C1 was designed to catch input-validation probes such as GAdapt's. In Study 2 it fired for nine libraries, almost
 always for legitimate reasons:
-- clipping to the bounds in particle swarms;
-- acquisition optima at the boundary in Bayesian optimization;
-- deliberate vertex initialization (GFO \texttt{initialize=\{"vertices":\ 4\}});
-- on the plateau, the lower corner is the region of the global optimum.
+
+\begin{itemize}
+\tightlist
+\item
+  clipping to the bounds in particle swarms;
+\item
+  acquisition optima at the boundary in Bayesian optimization;
+\item
+  deliberate vertex initialization (GFO \texttt{initialize=\{"vertices":\ 4\}});
+\item
+  on the plateau, the lower corner is the region of the global optimum.
+\end{itemize}
 
 No Study 1 library had a C1-only finding, so the Study 1 estimate is unaffected.
 
@@ -359,23 +484,39 @@ dispatch) is 7 positive/positive, 12 negative/negative, 1 positive/negative (Nev
 (SciPy DE). Of the 8 libraries with a finding on test functions, 7 showed one again on dispatch. Completion was
 295 of 315 dispatch cells (Nevergrad 10, bayes\_opt 5 and bofire 5 cells failed), which limits the evidence for
 negative status of those libraries; dispatch also offered 15 cells per library against 30 synthetic.
-- \textbf{Findings that transferred:} 7 of the 10 (library, class) findings from the test functions reappeared: DEAP C3,
-PyGAD C5, cma C4, evotorch C3, GFO R2, scikit-opt R3 and SMAC D3x.
-- \textbf{Findings that did not transfer:}
-- Nevergrad's D3 had appeared only on the 10-D plateau, and on dispatch 10 of its 15 cells crashed with a NumPy 2.5
-error.
-- GFO's R3 on the test functions is plausibly a side effect of the sign flip on negative plateau values.
-- \textbf{One new finding, only on the real cost function:} SciPy DE, in 5 of 15 runs. On case118, L-BFGS-B polishing
-used 15,444 evaluations, stopped at its \texttt{maxfun} limit and reached 143,102; the returned value was 271,061. The same
-behaviour appears on a 10-D quadratic with a penalty wall, where the returned value was 22.97 against an evaluated
-1.10, and on the SciPy nightly build.
-- \textbf{Total evaluations for SciPy DE:} 1,270--16,239 for a nominal DE budget of 795--960. The documented formula excludes
-polishing.
-- \textbf{C1 on dispatch:} it fired for the GAdapt control in 15/15 runs and less often otherwise (GFO 4, SciPy DE 4,
-evox 1, out of 15). Without a ground-truth classification of these hits, this does not establish specificity on
-dispatch; it only shows that the plateau inflated C1 on test functions.
-- \textbf{Waste on dispatch (median share of repeated evaluations; waste only for deterministic, cacheable objectives):} scikit-opt DE 36\%, geneticalgorithm 9.1\% and DEAP
-8.4\%. The synthetic plateau overstated geneticalgorithm's waste, which was 41.5\% there.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Findings that transferred:} 7 of the 10 (library, class) findings from the test functions reappeared: DEAP C3,
+  PyGAD C5, cma C4, evotorch C3, GFO R2, scikit-opt R3 and SMAC D3x.
+\item
+  \textbf{Findings that did not transfer:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Nevergrad's D3 had appeared only on the 10-D plateau, and on dispatch 10 of its 15 cells crashed with a NumPy 2.5
+    error.
+  \item
+    GFO's R3 on the test functions is plausibly a side effect of the sign flip on negative plateau values.
+  \end{itemize}
+\item
+  \textbf{One new finding, only on the real cost function:} SciPy DE, in 5 of 15 runs. On case118, L-BFGS-B polishing
+  used 15,444 evaluations, stopped at its \texttt{maxfun} limit and reached 143,102; the returned value was 271,061. The same
+  behaviour appears on a 10-D quadratic with a penalty wall, where the returned value was 22.97 against an evaluated
+  1.10, and on the SciPy nightly build.
+\item
+  \textbf{Total evaluations for SciPy DE:} 1,270--16,239 for a nominal DE budget of 795--960. The documented formula excludes
+  polishing.
+\item
+  \textbf{C1 on dispatch:} it fired for the GAdapt control in 15/15 runs and less often otherwise (GFO 4, SciPy DE 4,
+  evox 1, out of 15). Without a ground-truth classification of these hits, this does not establish specificity on
+  dispatch; it only shows that the plateau inflated C1 on test functions.
+\item
+  \textbf{Waste on dispatch (median share of repeated evaluations; waste only for deterministic, cacheable objectives):} scikit-opt DE 36\%, geneticalgorithm 9.1\% and DEAP
+  8.4\%. The synthetic plateau overstated geneticalgorithm's waste, which was 41.5\% there.
+\end{itemize}
 
 \subsection{Study 5: corrected cross-process check and full traces}\label{study-5-corrected-cross-process-check-and-full-traces}
 
@@ -394,12 +535,12 @@ dispatch; it only shows that the plateau inflated C1 on test functions.
   \textbf{H55c supported:} Nevergrad also differed with the same hash seed (5/20), consistent with its clock-seeded
   \texttt{cma.fmin} call.
 \item
-  \textbf{H55d not supported in the strict preregistered sense:} one flag in one cell differed from the archive
-  (emukit, C2). Reclassification from the traces otherwise reproduced the archived findings. The set of libraries
+  \textbf{H55d not supported in the strict preregistered sense:} in one cell (emukit, plateau, N = 2, seed 6001) one class
+  changed presence (C2, 0 → 1) and the C1 count changed (2 → 3). Reclassification from the traces otherwise reproduced the archived findings. The set of libraries
   with a finding other than C1 is unchanged: 4/9 in Study 1, 4/12 in Study 2, 8/21 in total.
 \item
   \textbf{Call sequences:} 318 of 358 Study 2 cells reproduced the archived SHA-256 bit for bit, days later and in
-  rebuilt environments. The 40 differences are explained:
+  rebuilt environments (358 = 360 cells minus 2 bofire cells that timed out in Study 2; Study 5 completed all 360). The 40 differences are explained:
 
   \begin{itemize}
   \tightlist
@@ -417,14 +558,23 @@ dispatch; it only shows that the plateau inflated C1 on test functions.
 \subsection{Why this matters for comparisons}\label{why-this-matters-for-comparisons}
 
 Each defect class changes a typical comparison:
-- \textbf{GAdapt case.} The hidden corner evaluations most plausibly turned a validation probe into an apparent search
-result; the original raw data are lost, so this remains an interpretation (Section 1).
-- \textbf{GFO.} Comparing GFO's \texttt{best\_score} across minimizers would rank it as finding negative costs.
-- \textbf{SMAC.} Seeded results cannot be reproduced by a reader who reruns the script, because Python randomizes string
-hashing per process.
-- \textbf{scikit-opt DE and geneticalgorithm.} Spending nearly half the budget on repeated points halves the effective
-budget in an equal-budget comparison.
-- \textbf{cma.} Over-budget evaluations make equal-budget comparisons slightly unequal.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{GAdapt case.} The hidden corner evaluations most plausibly turned a validation probe into an apparent search
+  result; the original raw data are lost, so this remains an interpretation (Section 1).
+\item
+  \textbf{GFO.} Comparing GFO's \texttt{best\_score} across minimizers would rank it as finding negative costs.
+\item
+  \textbf{SMAC.} Seeded results cannot be reproduced by a reader who reruns the script, because Python randomizes string
+  hashing per process.
+\item
+  \textbf{scikit-opt DE and geneticalgorithm.} Spending nearly half the budget on repeated points halves the effective
+  budget in an equal-budget comparison.
+\item
+  \textbf{cma.} Over-budget evaluations make equal-budget comparisons slightly unequal.
+\end{itemize}
 
 \subsection{Why cross-process checks}\label{why-cross-process-checks}
 
@@ -452,7 +602,7 @@ per process to prove which hash seed was in effect.
   behaviour that contradicts the documentation, gives 4/21.
 \item
   \textbf{Test functions versus real costs.} Test functions both over- and under-state problems: they made C1 look
-  non-specific and overstated waste, and they missed the SciPy defect. Study 4 covers one infrastructure problem
+  non-specific and overstated waste, and they missed the SciPy polishing behaviour. Study 4 covers one infrastructure problem
   class (AC dispatch) and is no guarantee for others.
 \item
   \textbf{Configuration.} We used one prespecified configuration per library through the documented interfaces and small budgets (200 or
@@ -487,13 +637,24 @@ per process to prove which hash seed was in effect.
 \section{Recommendations for practitioners}\label{recommendations-for-practitioners}
 
 Before comparing optimizers on an expensive cost function:
-1. Wrap the cost function in a recorder.
-2. Check that the reported solution was evaluated, and that its reported cost matches the recorded one.
-3. Count evaluations against the budget, including calls before and after the search.
-4. Rerun with the same seed in two fresh processes, with fixed hash seeds (not with \texttt{python\ -I}) and fixed numbers of
-BLAS threads.
-5. Measure the share of repeated evaluations.
-6. Repeat the audit with your own cost function, not only with test functions.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Wrap the cost function in a recorder.
+\item
+  Check that the reported solution was evaluated, and that its reported cost matches the recorded one.
+\item
+  Count evaluations against the budget, including calls before and after the search.
+\item
+  Rerun with the same seed in two fresh processes, with fixed hash seeds (not with \texttt{python\ -I}) and fixed numbers of
+  BLAS threads.
+\item
+  Measure the share of repeated evaluations.
+\item
+  Repeat the audit with your own cost function, not only with test functions.
+\end{enumerate}
 
 The tool \texttt{research/integrity\_audit\_tool.py} performs these steps for any optimizer through a small adapter. It
 returns a non-zero exit code on a problem, for use in CI.
@@ -504,14 +665,26 @@ All material is in https://github.com/owlCoder/gadapt, directory \texttt{researc
 manuscript is identified by its commit hash in the submission, and an immutable archive (Zenodo DOI) will be
 created at submission. Development branches: Nevergrad, GFO and SciPy (nightly) were run; for SMAC and scikit-opt
 the relevant source was inspected and found unchanged.
-- protocols: \texttt{ITERATION49\_PROTOCOL.md} to \texttt{ITERATION52\_PROTOCOL.md};
-- eligibility and documentation quotes: \texttt{ITERATION50\_ELIGIBILITY.md};
-- code: \texttt{iteration49\_integrity\_audit.py}, \texttt{iteration50\_integrity\_audit.py}, \texttt{iteration51\_d3x.py},
-\texttt{iteration52\_dispatch\_integrity.py};
-- raw outputs, with \texttt{pip\ freeze} per library: \texttt{results/iteration49–52/};
-- disclosure drafts and patches: \texttt{iteration49\_nevergrad\_1572/}, \texttt{iteration50\_disclosure/},
-\texttt{iteration52\_disclosure/};
-- the practitioner tool and its tests.
+
+\begin{itemize}
+\tightlist
+\item
+  protocols: \texttt{ITERATION49\_PROTOCOL.md} to \texttt{ITERATION52\_PROTOCOL.md}, and \texttt{ITERATION55\_PROTOCOL.md} (Study 5, with
+  deviations O1--O3);
+\item
+  eligibility and documentation quotes: \texttt{ITERATION50\_ELIGIBILITY.md};
+\item
+  code: \texttt{iteration49\_integrity\_audit.py}, \texttt{iteration50\_integrity\_audit.py}, \texttt{iteration51\_d3x.py},
+  \texttt{iteration52\_dispatch\_integrity.py}, \texttt{iteration55\_d3x\_traces.py} and \texttt{iteration55\_recompute.py};
+\item
+  raw outputs, with \texttt{pip\ freeze} per library: \texttt{results/iteration49–52/}; Study 5 with full call traces:
+  \texttt{results/iteration55/} and the post hoc BLAS-thread check \texttt{results/iteration55\_posthoc/};
+\item
+  disclosure drafts and patches: \texttt{iteration49\_nevergrad\_1572/}, \texttt{iteration50\_disclosure/},
+  \texttt{iteration52\_disclosure/};
+\item
+  the practitioner tool and its tests.
+\end{itemize}
 
 \appendix
 \section{Exact predicates}\label{exact-predicates}
@@ -519,26 +692,44 @@ the relevant source was inspected and found unchanged.
 Notation: a run records calls k = 1..n as (x\_k, f\_k, phase\_k), phase ∈ \{search, post\}; search calls are those made
 before the optimizer's main call returned (adapter-specific accessors called afterwards produce post calls). The box
 is {[}lo, hi{]}. The result is (x*, f*, e*), any of which may be missing.
-- C1: x\_k = lo or x\_k = hi (bitwise, all coordinates). Count of such calls.
-- C2: the bytes of x\_k equal those of some x\_j, j \textless{} k. Count; waste share = C2 / n.
-- C3: some coordinate x\_k,i \textless{} lo\_i or \textgreater{} hi\_i. Count.
-- C4: only if the library documents a maximum M: max(0, n − M).
-- C5: number of post calls.
-- R1--R3 are not applicable when the library reports no x* (they are then recorded as not applicable, not as 0).
-- R1: no call with the same shape and \textbar x\_k,i − x*\_i\textbar{} ≤ 1e-12 for all i.
-- R2: applicable if f* is present and R1 = 0: with f(x*) the value of the first matching call,
-\textbar f* − f(x*)\textbar{} \textgreater{} 1e-9 · max(1, \textbar f(x*)\textbar).
-- R3: applicable if f* is present and there is ≥ 1 search call: with b = min of search-phase values,
-f* − b \textgreater{} 1e-9 · max(1, \textbar b\textbar).
-- A reported f* = NaN makes both inequalities false, so R2 and R3 are not flagged; no studied library reported NaN.
-Studies 1--4 do not distinguish a missing f* from a NaN f*; Study 5 stores them separately.
-- D2: applicable if the library reports an evaluation count e*: e* ≠ n (all calls, including post).
-- D3: SHA-256 over all (x\_k, f\_k, phase\_k) differs between two runs with the same seed in one process.
-- D3x: the same hash differs between two fresh processes with the same seed.
-Non-finite values are recorded as returned; a run that raises is reported as an error and excluded from all classes.
-Validation coverage: the planted faults cover C1, C2, C4, R1, R2, D3 and D3x. C3, C5 and R3 were not covered by a
-planted fault and are supported only by the diagnosed examples in Section 6.2; D2 has neither a planted fault nor an
-observed example and is therefore unvalidated.
+
+\begin{itemize}
+\tightlist
+\item
+  C1: x\_k = lo or x\_k = hi (bitwise, all coordinates). Count of such calls.
+\item
+  C2: the bytes of x\_k equal those of some x\_j, j \textless{} k. Count; waste share = C2 / n.
+\item
+  C3: some coordinate x\_k,i \textless{} lo\_i or \textgreater{} hi\_i. Count.
+\item
+  C4: only if the library documents a maximum M: max(0, n − M).
+\item
+  C5: number of post calls.
+\item
+  R1--R3 are not applicable when the library reports no x*; they are then stored as 0 together with an explicit
+  \texttt{r\_applicable\ =\ false}, and excluded from R1--R3 counts.
+\item
+  R1: no call with the same shape and \textbar x\_k,i − x*\_i\textbar{} ≤ 1e-12 for all i.
+\item
+  R2: applicable if f* is present and R1 = 0: with f(x*) the value of the first matching call,
+  \textbar f* − f(x*)\textbar{} \textgreater{} 1e-9 · max(1, \textbar f(x*)\textbar).
+\item
+  R3: applicable if f* is present and there is ≥ 1 search call: with b = min of search-phase values,
+  f* − b \textgreater{} 1e-9 · max(1, \textbar b\textbar).
+\item
+  A reported f* = NaN makes both inequalities false, so R2 and R3 are not flagged; no studied library reported NaN.
+  No study distinguishes a missing f* from a NaN f* (Study 5 stores both as NaN).
+\item
+  D2: applicable if the library reports an evaluation count e*: e* ≠ n (all calls, including post).
+\item
+  D3: SHA-256 over all (x\_k, f\_k, phase\_k) differs between two runs with the same seed in one process.
+\item
+  D3x: the same hash differs between two fresh processes with the same seed.
+  Non-finite values are recorded as returned; a run that raises is reported as an error and excluded from all classes.
+  Validation coverage: the planted faults cover C1, C2, C4, R1, R2, D3 and D3x. C3, C5 and R3 were not covered by a
+  planted fault and are supported only by the diagnosed examples in Section 6.2; D2 has neither a planted fault nor an
+  observed example and is therefore unvalidated.
+\end{itemize}
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{references}
