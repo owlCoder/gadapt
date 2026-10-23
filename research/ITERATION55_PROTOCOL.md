@@ -47,3 +47,13 @@ Kod `research/iteration55_d3x_traces.py`, testovi `research/test_iteration55_d3x
 
 21 × 30 ćelija × 4 izvršavanja (A dva puta, A′, B) × 200–1000 evaluacija jeftinih test-funkcija; vreme dominira
 SMAC i Bayesove biblioteke (I50: SMAC 1635 s za 2 izvršavanja po ćeliji). Procena: nekoliko sati na 4–8 radnika.
+
+## Odstupanje u izvršavanju (zabeleženo tokom merenja, 2026-10-23; Codex 011)
+
+- **O1:** argument `twice` se u ćeliju prenosi kao string; `"0"` je istinit, pa i procesi A′ i B rade ponovljeno
+  pokretanje: 6 izvršavanja po ćeliji umesto 4. Merene veličine se ne menjaju (D3x koristi heš PRVOG izvršavanja u
+  svakom procesu; D3 samo iz A). Posledice: ~50% više vremena; greška u suvišnom ponavljanju bi poništila poređenje
+  (prijavljuje se po ćeliji). Kod se NE menja dok merenje traje (podprocesi ga učitavaju pri svakom pokretanju);
+  ispravka posle završetka.
+- **O2:** skripta za ponovni račun (`iteration55_recompute.py`, ne izvršava se tokom merenja) ispravljena pre analize:
+  nevažeća poređenja se ne broje kao nule; odvojeni imenioci (trag / važeće poređenje); provera kompletnosti.

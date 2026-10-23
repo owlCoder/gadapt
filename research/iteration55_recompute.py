@@ -55,8 +55,9 @@ def main():
             calls, res = load_trace(trace)
             flags, n, _ = i50.classify(calls, res, i49.Problem(c["function"], c["d"]))
             assert i49.sequence_hash(calls) == c["hash"], (library, c["function"], c["d"], c["seed"])
-            rows.append(dict(flags=flags, n=n, D3=c.get("D3"), D3x_same=c.get("D3x_same"), D3x_diff=c.get("D3x_diff"),
-                             manipulation_ok=c.get("manipulation_ok")))
+            # comparison-valid only if all three processes ran and the sentinel manipulation check passed
+            rows.append(dict(flags=flags, n=n, comparison_valid=bool(c.get("manipulation_ok")),
+                             D3=c.get("D3"), D3x_same=c.get("D3x_same"), D3x_diff=c.get("D3x_diff")))
             old = archive.get((library, c["function"], c["d"], c["seed"]))
             if old is not None:
                 keys = set(flags) & set(old)
@@ -65,13 +66,14 @@ def main():
                     mismatches.append(dict(library=library, function=c["function"], d=c["d"], seed=c["seed"],
                                            archived_vs_new=diff))
         ok = [r for r in rows if "flags" in r]
+        compared = [r for r in ok if r["comparison_valid"]]
         any_class = lambda k: sum(1 for r in ok if r["flags"].get(k))
         libraries[library] = dict(
-            sample=data["sample"], cells=len(rows), traced=len(ok),
+            sample=data["sample"], cells=len(rows), traced=len(ok), comparison_valid=len(compared),
+            complete=len(rows) == len(i49.FUNCTIONS) * len(i49.DIMS) * len(i49.SEEDS),
             runs_with={k: any_class(k) for k in ("C1",) + INTEGRITY_NO_C1},
-            D3=sum(r["D3"] or 0 for r in ok), D3x_same=sum(r["D3x_same"] or 0 for r in ok),
-            D3x_diff=sum(r["D3x_diff"] or 0 for r in ok),
-            manipulation_failures=sum(1 for r in ok if not r["manipulation_ok"]),
+            D3=sum(r["D3"] for r in compared), D3x_same=sum(r["D3x_same"] for r in compared),
+            D3x_diff=sum(r["D3x_diff"] for r in compared),
             median_repeated_share=float(np.median([r["flags"]["C2"] / r["n"] for r in ok if r["n"]])) if ok else None)
         lib = libraries[library]
         lib["finding_excl_C1"] = bool(any(lib["runs_with"][k] for k in INTEGRITY_NO_C1) or lib["D3"] or lib["D3x_diff"])
@@ -82,7 +84,8 @@ def main():
         finding_any=sorted(k for k, v in libraries.items() if v["finding_any"]),
         d3x_diff=sorted(k for k, v in libraries.items() if v["D3x_diff"]),
         d3x_same=sorted(k for k, v in libraries.items() if v["D3x_same"]),
-        flag_mismatches_vs_archive=len(mismatches))
+        flag_mismatches_vs_archive=len(mismatches),
+        incomplete_libraries=sorted(k for k, v in libraries.items() if not v["complete"]))
     json.dump(dict(summary=summary, libraries=libraries, mismatches=mismatches),
               open(os.path.join(OUT, "recompute.json"), "w"), indent=1)
     print(json.dumps(summary, indent=1))
