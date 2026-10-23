@@ -1,46 +1,30 @@
 # Does the optimizer do what it says? A black-box audit of evaluation integrity in 21 Python optimization libraries
 
-*Manuscript draft, 23 October 2026. Every experiment was preregistered before code was written and run once. Code,
-inputs, raw outputs and protocols are in `owlCoder/gadapt`, directory `research/` (Section 10).*
+*Manuscript draft, revised 23 October 2026 after an independent review. The four main studies were preregistered
+before code was written and each was run once; diagnostic and patch experiments were done afterwards and are labelled
+post hoc. Code, inputs, raw outputs and protocols are in `owlCoder/gadapt`, directory `research/` (Section 10).*
 
 ## Abstract
 
-Comparisons of black-box optimizers rest on two assumptions:
-- each optimizer evaluates the cost function the way its documentation says;
-- each optimizer reports what it actually found.
-
-In engineering applications such as power-flow-based dispatch, every hidden, repeated or out-of-budget evaluation
-costs real compute. Every inconsistent report can change the conclusion of a comparison.
-
-We present a library-independent black-box audit that records every call to the cost function and checks three
-things:
-- call-level integrity: out-of-box, over-budget and post-return evaluations, plus repeated points;
-- consistency of the reported result with the recorded calls;
-- reproducibility under a fixed seed, both within one process and between fresh processes.
-
-The audit is validated on planted faults. We applied it to 21 Python libraries in two preregistered studies: nine
-popular libraries, and twelve libraries drawn by an external rule from GitHub topics and a recent framework review.
-- Integrity problems other than corner evaluations occurred in 8 of 21 libraries (Clopper–Pearson 95% CI 18–62%).
-- Behaviour that contradicts the libraries' own documentation occurred in 4 of 21 (5–42%).
-- Findings measured on test functions transferred to a real AC economic-dispatch cost function (pypower, MATPOWER
-  cases) for 19 of 21 libraries (70–99%).
-- The real cost function also exposed a defect that the test functions missed. SciPy `differential_evolution`
-  discards a better polished point when L-BFGS-B reports `success=False`, and it returned a result 89% worse than a
-  point it had already evaluated.
-- The audit found three previously unreported defects:
-  - SMAC 2.4.1 results depend on `PYTHONHASHSEED` despite a fixed seed;
-  - Gradient-Free-Optimizers 1.13.0 reports the minimized cost with a flipped sign;
-  - the SciPy polishing defect above.
-- It also diagnosed the cause of a best-tracking error in scikit-opt DE and the root cause of a long-standing Nevergrad
-  reproducibility issue that affects its default `NGOpt` optimizer.
-- All five were reproduced on the latest releases and disclosed to the maintainers. Development branches were also
-  checked: we ran Nevergrad, GFO and SciPy (nightly) there, and for SMAC and scikit-opt we confirmed the code is
-  unchanged.
-- A preregistered measure, "corner evaluations", proved non-specific. We report this negative methodological result
-  and its consequence for prevalence estimates.
-
-We recommend running such an audit before any optimizer comparison on an expensive cost function, and checking
-reproducibility across processes, not only within one.
+Comparisons of black-box optimizers assume that each optimizer evaluates the cost function as its documentation says
+and reports what it actually found. In engineering applications such as power-flow-based dispatch, every hidden,
+repeated or out-of-budget evaluation costs real compute, and every inconsistent report can change a comparison. We
+present a library-independent black-box audit that records every call to the cost function and checks call-level
+integrity (out-of-box, over-budget and post-return evaluations, repeated points), the consistency of the reported
+result with the recorded calls, and reproducibility under a fixed seed within one process and between fresh
+processes. The audit is validated on planted faults. Across 21 Python libraries in two preregistered studies (nine
+popular libraries chosen by us and twelve selected by a deterministic external rule), with one prespecified
+configuration per library, integrity findings other than corner evaluations occurred in 8 of 21 tested
+configurations and behaviour contradicting the library's own documentation in 4 of 21. On a real AC
+economic-dispatch cost function (pypower, MATPOWER cases), the library-level detection status agreed with the
+test-function studies for 19 of 21 libraries, and 7 of the 8 libraries with a finding showed one again. The real cost
+function also exposed behaviour the test functions missed: SciPy `differential_evolution` discards an improving
+polished point when L-BFGS-B reports `success=False`. We diagnosed and disclosed five issues with minimal
+reproducers, three of which we did not find reported in a documented search: seed dependence of SMAC 2.4.1 on
+`PYTHONHASHSEED`, a sign flip in the reported cost of Gradient-Free-Optimizers 1.13.0, and the SciPy polishing
+behaviour. A preregistered "corner evaluation" measure proved non-specific on test functions; we report this negative
+result. We recommend running such an audit, including a cross-process reproducibility check, before comparing
+optimizers on an expensive cost function.
 
 ## 1. Introduction
 
@@ -73,21 +57,24 @@ reproduce or report differently from what their users assume?
 5. Five diagnosed defects with minimal reproducers, causal patch tests where applicable, and disclosure to the
    maintainers.
 6. A negative methodological result: a natural "probe" measure is not specific on test functions, which changes
-   the prevalence estimate. On the real cost function it is specific.
-7. A practitioner command-line tool with a five-step checklist.
+   the prevalence estimate.
+7. A practitioner command-line tool with a six-step checklist.
 
 ## 2. Related work
 
 - **Evaluation accounting and benchmarking platforms.** COCO (Hansen et al. 2021) and IOHexperimenter (de Nobel et
-  al. 2024) count evaluations and log performance. They are designed for benchmark functions inside the platform,
-  not for auditing what an arbitrary library does with a user's objective.
+  al. 2024) count evaluations and log performance. IOHexperimenter can also wrap an arbitrary user callable
+  (`ioh.wrap_problem`), so wrapping and counting a user objective is established. These platforms log what the
+  optimizer evaluates; they do not check the reported result against the recorded calls, compare behaviour with the
+  library's documented contract, or test reproducibility across processes.
 - **Invariance and structural bias.** Kudela (2022) showed that many metaheuristics exploit the centre of the search
   space. BIAS (Vermetten et al. 2022) detects structural bias from final positions. Invariance testing is an
   established principle (Hansen et al. 2011). We use invariance only as a secondary property and claim no novelty
   for it.
-- **Comparing frameworks.** Ravber et al. (2025) compared six algorithms across 13 frameworks and found large
-  performance differences between implementations of the "same" algorithm. They noted that many frameworks lack
-  evaluation-based stopping. They do not classify individual calls or check reported results against evaluations.
+- **Comparing frameworks.** Ravber et al. (2025) compared six algorithms across 13 frameworks, found large
+  performance differences between implementations of the "same" algorithm, and analysed source code, including
+  redundant fitness evaluations, missing evaluation-based stopping and implementation defects. Our audit is
+  complementary: it is black-box, classifies every call, and checks reported results and the documented seed contract.
 - **Metamorphic testing** has been applied to genetic algorithms (Rounds and Kanewala 2018) and to industrial
   optimisation software (Duque-Torres et al. 2025a, 2025b). It checks relations between runs and is closest in
   spirit to our seed and documentation checks. Its targets are algorithm or application properties, not the
@@ -99,10 +86,11 @@ reproduce or report differently from what their users assume?
   `PYTHONHASHSEED` between two fresh processes, to the documented seed contract of optimization libraries. We claim
   no novelty for the technique.
 
-**Our claim is narrow.** No component (counting, invariance, seeding) is new in isolation. What is new is a
-validated, library-independent black-box audit that classifies every call, checks reported results against
-recorded calls, and checks documented relations, including cross-process reproducibility. A second contribution is
-its prevalence measurement on an externally sampled set of libraries.
+**Our claim is narrow.** No component (wrapping and counting, invariance, seeding, hash-order randomization) is new
+in isolation. The contribution is the integration into one validated, library-independent black-box audit that
+classifies every call, checks reported results against recorded calls and documented relations, including
+cross-process reproducibility, together with the empirical diagnoses it produced. "Previously unreported" in this
+paper means not found in our documented search of each project's issue tracker and changelog (23 October 2026).
 
 ## 3. The audit
 
@@ -117,14 +105,24 @@ its documented interfaces for budget, seed, bounds and result.
 | C3 | some coordinate of x outside [lower, upper] | yes |
 | C4 | more calls than a documented maximum (only where one is documented) | yes |
 | C5 | calls after the optimizer's main call returned | yes |
-| R1 | reported x\* was never evaluated (tolerance 1e-12) | yes |
-| R2 | reported f\* differs from the recorded f(x\*) (relative 1e-9) | yes |
-| R3 | reported f\* worse than the best value evaluated during search | yes |
+| R1 | reported x\* was never evaluated (every coordinate within 1e-12) | yes |
+| R2 | reported f\* differs from the recorded f(x\*): \|f\* − f(x\*)\| > 1e-9 · max(1, \|f(x\*)\|) | yes |
+| R3 | reported f\* worse than the best search-phase value b: f\* − b > 1e-9 · max(1, \|b\|) | yes |
 | D2 | reported evaluation count differs from the recorded count | yes |
 | D3 | same seed, different call sequence on a rerun in the same process | yes |
-| D3x | same seed, different call sequence in two fresh processes with different `PYTHONHASHSEED` | yes |
+| D3x | same seed, different call sequence in two fresh processes (see the note on hash seeds below) | yes |
 
-The call sequence is compared through a SHA-256 hash over (x, f, phase) for all calls. R1–R3 are not applicable
+The call sequence is compared through a SHA-256 hash over (x, f, phase) for all calls. Exact predicates, phase
+boundaries and applicability rules are in Appendix A.
+
+**Note on hash seeds (correction).** The protocols intended D3x to compare two processes with `PYTHONHASHSEED` 1 and 2.
+The Study 2–4 launchers started the library interpreter with `python -I`, which implies `-E` and ignores
+`PYTHONHASHSEED`. Each process therefore had Python's default, independent per-process hash randomization. D3x as
+run compares two fresh processes with independent random string hashing; it detects the same class of
+nondeterminism, but the controlled same-seed/different-seed comparison was not performed by the audit. The SMAC
+attribution to `PYTHONHASHSEED` rests on a separate reproducer run without `-I` (Section 6.2), which we re-ran:
+`PYTHONHASHSEED`=1 twice gives the identical incumbent, 2 and 3 give different ones. A corrected rerun of D3x with
+an effective hash seed and a recorded sentinel hash, together with archived call traces, is preregistered as Study 5. R1–R3 are not applicable
 when a library returns no result, as in ask-and-tell interfaces. For libraries that work in float32, the recorder
 stores the value the library actually receives, so that rounding is not counted as R2.
 
@@ -166,7 +164,8 @@ committed before any code was written.
 - cma `fmin2`;
 - SciPy `differential_evolution`.
 
-Settings: default configuration, about 1000 evaluations, set through the documented parameter. GAdapt served as a
+Settings: one prespecified configuration per library (mostly defaults; operator or population choices where the
+API requires them, frozen in the protocol), about 1000 evaluations, set through the documented parameter. GAdapt served as a
 positive control.
 
 **Study 2 (I50).** A new sample drawn by an external rule from a frozen snapshot:
@@ -203,7 +202,10 @@ economic dispatch with fixed voltages.
 | ≥ 1 finding excluding C1 and design-caused C3 (post hoc) | 3/9 | 3/12 | 6/21 (11–52%) |
 | Behaviour contradicting the library's documentation | 2/9 | 2/12 (2–48%) | 4/21 (5–42%) |
 
-Clopper–Pearson 95% intervals are in parentheses.
+Clopper–Pearson 95% intervals are in parentheses. They describe binomial uncertainty conditional on treating the
+tested configurations as exchangeable draws; Study 1 is a purposive sample and Study 2 a deterministic rule, so the
+intervals are model-dependent summaries, not estimates for a defined population of libraries. Each library was tested
+in one configuration, which does not characterize every algorithm it contains.
 
 **Cross-process reproducibility on all 21 libraries.** Study 3 found D3x in 1 of the 9 Study 1 libraries: Nevergrad,
 in the same cells as D3. Over both samples, a fixed seed fails to reproduce the run for 2 of 21 libraries, Nevergrad
@@ -214,9 +216,10 @@ for DEAP. With an expensive cost function, that is close to half of the budget.
 
 ![Figure 1](fig_integrity_matrix.png)
 
-**Figure 1.** Runs with each finding class, per library. Dark outlines mark behaviour that contradicts the library's
-documentation. C1 is shown apart (Section 6.3). The right column gives the median share of repeated evaluations.
-Generated by `make_figure.py` from the raw outputs.
+**Figure 1.** Runs with each finding class, per library, in the test-function studies (1–3). Dark outlines mark
+behaviour that contradicts the library's documentation (a curated input of `make_figure.py`, frozen with the Study 2
+quotes). C1 is shown apart (Section 6.3). D2 is not shown: it was never flagged. The right column gives the median
+share of repeated evaluations. Generated by `make_figure.py` from the raw outputs.
 
 ### 6.2 Findings and diagnoses
 
@@ -226,10 +229,10 @@ Generated by `make_figure.py` from the raw outputs.
 | PyGAD | 21 evaluations after return | `best_solution()` without `pop_fitness` re-evaluates the population | documented |
 | cma | up to 1011 evaluations for `maxfevals` = 1000 | the maximum is checked per iteration | known (pycma #195) |
 | Nevergrad | `NGOpt` not reproducible under a fixed seed (D3, and D3x from the first evaluation) | `cma.fmin` called without a seed (pycma default `seed='time'`); the metamodel's inner optimizer is created without a seeded parametrization | known issue (#1572, open since 2023); **root cause and a 12-line patch are ours** |
-| SMAC 2.4.1 | D3x in 30/30 runs, no D3 | `LocalSearch._get_initial_points` returns `list(set(...))` of `Configuration`, whose hash is a string hash | **new**; reported (#1380) |
-| GFO 1.13.0 | R2 in 25/30 runs, R3 in 10/30 | with `optimum="minimum"`, the internal negation is not undone in `best_score` or `search_data` | **new**; reported (#106) |
+| SMAC 2.4.1 | D3x in 30/30 runs, no D3 | `LocalSearch._get_initial_points` returns `list(set(...))` of `Configuration`, whose hash is a string hash | not found in documented search; reported (#1380) |
+| GFO 1.13.0 | R2 in 25/30 runs, R3 in 10/30 | with `optimum="minimum"`, the internal negation is not undone in `best_score` or `search_data` | not found in documented search; reported (#106) |
 | scikit-opt DE | R3 in 1/30 synthetic and 2/15 dispatch runs; 10/200 seeds on a 10-D sphere; 301 calls for a nominal 200 | after selection, `self.Y` holds only trial values, so a retained parent better than all trials is never seen as best; parents are re-evaluated every generation | a title-only report existed (#187); **cause diagnosed, fix tested (10/200 → 0/200)**, reported (#248) |
-| SciPy DE 1.18.1 | R3 in 5/15 dispatch runs, none on test functions; returned value up to 89% worse than an evaluated point | an improving polish is accepted only if L-BFGS-B reports `success=True` | **new**; reported (#26479); reproduced on the nightly build |
+| SciPy DE 1.18.1 | R3 in 5/15 dispatch runs, none on test functions; returned value up to 89% worse than an evaluated point | an improving polish is accepted only if L-BFGS-B reports `success=True` | behaviour not described in the documentation (a documentation gap, not a contract violation); not found in documented search; reported (#26479); reproduced on the nightly build |
 | evotorch SNES | evaluations outside the box | SNES does not support hard bounds; the README uses `initial_bounds` | design |
 | bayes_opt | on the plateau, 7 of 200 requested evaluations | a repeated suggestion returns a cached value but consumes an iteration | documented in `TargetSpace.probe` |
 
@@ -260,7 +263,12 @@ evaluations as information, not as a problem.
 
 ### 6.4 Transfer to a real infrastructure cost function
 
-**Hypothesis supported.** The library-level status agreed for 19 of 21 libraries (95% CI 70–99%).
+**Hypothesis supported, in the preregistered sense.** The library-level detection status (≥ 1 finding, C1 excluded)
+agreed for 19 of 21 libraries (95% CI 70–99%). Agreement includes absence: the confusion matrix (test functions ×
+dispatch) is 7 positive/positive, 12 negative/negative, 1 positive/negative (Nevergrad) and 1 negative/positive
+(SciPy DE). Of the 8 libraries with a finding on test functions, 7 showed one again on dispatch. Completion was
+295 of 315 dispatch cells (Nevergrad 10, bayes_opt 5 and bofire 5 cells failed), which limits the evidence for
+negative status of those libraries; dispatch also offered 15 cells per library against 30 synthetic.
 - **Findings that transferred:** 7 of the 10 (library, class) findings from the test functions reappeared: DEAP C3,
   PyGAD C5, cma C4, evotorch C3, GFO R2, scikit-opt R3 and SMAC D3x.
 - **Findings that did not transfer:**
@@ -273,10 +281,10 @@ evaluations as information, not as a problem.
   1.10, and on the SciPy nightly build.
 - **Total evaluations for SciPy DE:** 1,270–16,239 for a nominal DE budget of 795–960. The documented formula excludes
   polishing.
-- **C1 on dispatch:** it fired for the GAdapt control in 15/15 runs and almost never otherwise (GFO 4, SciPy DE 4,
-  evox 1, out of 15). The non-specificity seen in Study 2 is a property of the test functions, mainly the plateau
-  whose optimum lies in a corner.
-- **Waste on dispatch (median share of repeated evaluations):** scikit-opt DE 36%, geneticalgorithm 9.1% and DEAP
+- **C1 on dispatch:** it fired for the GAdapt control in 15/15 runs and less often otherwise (GFO 4, SciPy DE 4,
+  evox 1, out of 15). Without a ground-truth classification of these hits, this does not establish specificity on
+  dispatch; it only shows that the plateau inflated C1 on test functions.
+- **Waste on dispatch (median share of repeated evaluations; waste only for deterministic, cacheable objectives):** scikit-opt DE 36%, geneticalgorithm 9.1% and DEAP
   8.4%. The synthetic plateau overstated geneticalgorithm's waste, which was 41.5% there.
 
 ## 7. Discussion
@@ -284,7 +292,8 @@ evaluations as information, not as a problem.
 ### 7.1 Why this matters for comparisons
 
 Each defect class changes a typical comparison:
-- **GAdapt case.** The hidden corner evaluations turned a validation probe into an apparent search result.
+- **GAdapt case.** The hidden corner evaluations most plausibly turned a validation probe into an apparent search
+  result; the original raw data are lost, so this remains an interpretation (Section 1).
 - **GFO.** Comparing GFO's `best_score` across minimizers would rank it as finding negative costs.
 - **SMAC.** Seeded results cannot be reproduced by a reader who reruns the script, because Python randomizes string
   hashing per process.
@@ -294,9 +303,11 @@ Each defect class changes a typical comparison:
 
 ### 7.2 Why cross-process checks
 
-Within-process reruns did not detect the SMAC defect. Python's per-process hash randomization makes any iteration
-over a set of hashable objects whose hash depends on strings a hidden source of randomness. The audit catches this
-in one line of configuration: two subprocesses with different `PYTHONHASHSEED`.
+Within-process reruns did not detect the SMAC issue. Python's per-process hash randomization makes any iteration
+over a set of hashable objects whose hash depends on strings a hidden source of randomness. The audit catches this by
+running two fresh subprocesses with different string hashing. The launcher must not use `python -I` (or `-E`), which
+silently ignores `PYTHONHASHSEED`; the corrected tool uses `-s` with `PYTHONSAFEPATH=1` and records a sentinel hash
+per process to prove which hash seed was in effect.
 
 ## 8. Threats to validity
 
@@ -318,6 +329,13 @@ in one line of configuration: two subprocesses with different `PYTHONHASHSEED`.
   documented.
 - **Post hoc analyses.** The C1 sensitivity analysis and the causal diagnoses were done after the runs and are
   labelled as such. The preregistered outcomes are reported unchanged.
+- **D3x launcher.** In Studies 2–4 the intended hash seeds were not applied (`python -I`, Section 3). Positive D3x
+  findings still show cross-process nondeterminism; Study 5 repeats D3x with effective, recorded hash seeds.
+- **Archived evidence.** Studies 1–4 archived per-run counts, flags and hashes, not full call traces, so classes
+  cannot be recomputed independently from the archive. Study 5 archives compressed call traces and returned results,
+  with a script that recomputes every number in the paper.
+- **Contract violation versus documentation gap.** We separate behaviour that contradicts the documentation (4/21)
+  from undocumented behaviour (e.g. SciPy polishing) and from documented design choices (DEAP and evotorch bounds).
 - **Novelty.** All individual Study 1 findings were already known. The contribution of Study 1 is automated
   detection and prevalence.
 
@@ -336,7 +354,10 @@ returns a non-zero exit code on a problem, for use in CI.
 
 ## 10. Data and code availability
 
-All material is in `owlCoder/gadapt`, directory `research/`:
+All material is in https://github.com/owlCoder/gadapt, directory `research/`; the revision used for this
+manuscript is identified by its commit hash in the submission, and an immutable archive (Zenodo DOI) will be
+created at submission. Development branches: Nevergrad, GFO and SciPy (nightly) were run; for SMAC and scikit-opt
+the relevant source was inspected and found unchanged.
 - protocols: `ITERATION49_PROTOCOL.md` to `ITERATION52_PROTOCOL.md`;
 - eligibility and documentation quotes: `ITERATION50_ELIGIBILITY.md`;
 - code: `iteration49_integrity_audit.py`, `iteration50_integrity_audit.py`, `iteration51_d3x.py`,
@@ -345,6 +366,28 @@ All material is in `owlCoder/gadapt`, directory `research/`:
 - disclosure drafts and patches: `iteration49_nevergrad_1572/`, `iteration50_disclosure/`,
   `iteration52_disclosure/`;
 - the practitioner tool and its tests.
+
+## Appendix A. Exact predicates
+
+Notation: a run records calls k = 1..n as (x_k, f_k, phase_k), phase ∈ {search, post}; search calls are those made
+before the optimizer's main call returned (adapter-specific accessors called afterwards produce post calls). The box
+is [lo, hi]. The result is (x\*, f\*, e\*), any of which may be missing.
+- C1: x_k = lo or x_k = hi (bitwise, all coordinates). Count of such calls.
+- C2: the bytes of x_k equal those of some x_j, j < k. Count; waste share = C2 / n.
+- C3: some coordinate x_k,i < lo_i or > hi_i. Count.
+- C4: only if the library documents a maximum M: max(0, n − M).
+- C5: number of post calls.
+- R1: applicable if x\* is present: no call with the same shape and |x_k,i − x\*_i| ≤ 1e-12 for all i.
+- R2: applicable if f\* is present and R1 = 0: with f(x\*) the value of the first matching call,
+  |f\* − f(x\*)| > 1e-9 · max(1, |f(x\*)|).
+- R3: applicable if f\* is present and there is ≥ 1 search call: with b = min of search-phase values,
+  f\* − b > 1e-9 · max(1, |b|).
+- D2: applicable if the library reports an evaluation count e\*: e\* ≠ n (all calls, including post).
+- D3: SHA-256 over all (x_k, f_k, phase_k) differs between two runs with the same seed in one process.
+- D3x: the same hash differs between two fresh processes with the same seed.
+Non-finite values are recorded as returned; a run that raises is reported as an error and excluded from all classes.
+Validation coverage: the planted faults cover C1, C2, C4, R1, R2, D3 and D3x; C3, C5, R3 and D2 were not covered by a
+planted fault and are validated only by the examples in Section 6.2.
 
 ## References (DOIs verified on Crossref, arXiv on arxiv.org, 2026-10-23)
 
