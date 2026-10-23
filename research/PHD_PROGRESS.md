@@ -53,12 +53,12 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - I49 dodat u Docs dokument studije i u `research/DIAGNOSTIC_STUDY_DRAFT_SR.md` (§7).
 - Nevergrad naknadno (I49 izveštaj §6): D3 = #1572 (ne #966); uzrok nađen, ispravka 16/16; objavljen jedan komentar
   na #1572 (korisnik prepustio odluku). #966/#1707 bez komentara. Nema PR-a (CLA = odluka korisnika).
-- I50 (potvrdna replikacija I49 na novom uzorku): protokol `c3598f6`; okvir (GitHub teme + Ravber 2025), prihvatljivost
-  N = 12 i citati dokumentacije zamrznuti u `research/ITERATION50_ELIGIBILITY.md` (`a5554f8`); validacija alata 11/11.
-  Glavno pokretanje JEDNOM: skripta u scratchpad-u (`i50/run_all.sh`), venv-ovi po biblioteci u scratchpad-u
-  (verzije u `research/results/iteration50/cells_<lib>.json` → pip_freeze). Ako je prekinuto: ponovo pokrenuti samo
-  biblioteke bez `cells_<lib>.json` (isti kod), pa `aggregate`, pa izveštaj `ITERATION50_REPORT_SR.md`.
-- Pratiti odgovor na Nevergrad #1572.
+- I50 GOTOVO → `research/ITERATION50_REPORT_SR.md`: preregistrovano 11/12 PONOVLJENO, ali C1 nije specifičan
+  (legitimne tačke u uglu); bez C1 (post hoc) 4/12, zajedno sa I49 8/21 (CI 18–62%). Protivreči dokumentaciji 2/12:
+  GFO (negiran best_score) i SMAC (seme zavisi od PYTHONHASHSEED) — oba NOVA, prijavljena: GFO #106, SMAC #1380.
+  scikit-opt DE R3 (mehanizam nađen) nije prijavljen (pravilo: praznina u dokumentaciji).
+- Pratiti odgovore: Nevergrad #1572, SMAC #1380, GFO #106.
+- SLEDEĆE: uneti I50 u poglavlje; redefinisati C1 za sledeću verziju alata (samo pozivi izvan pretrage).
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
@@ -90,3 +90,4 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - 2026-10-23: I49: problemi integriteta česti (4/9), svi već poznati; doprinos = validirani alat + rasprostranjenost.
 - 2026-10-23: Korisnik: „uradi kako je najbolje autonomno“. Nevergrad: uzrok + ispravka, komentar na #1572; citat #966 ispravljen.
 - 2026-10-23: Korisnik: „radi dalje“. I50 preregistrovan (replikacija na novom uzorku, D3x između procesa); pokrenut.
+- 2026-10-23: I50 završen: 2 nova nalaza protiv dokumentacije prijavljena (SMAC #1380, GFO #106); C1 nespecifičan.

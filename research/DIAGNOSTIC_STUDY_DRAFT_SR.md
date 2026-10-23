@@ -90,6 +90,14 @@ raširenosti. Za praksu: geneticalgorithm troši 41,5% evaluacija na duplikate, 
 pola budžeta. Za Nevergrad je naknadno pronađen uzrok (seme se ne prosleđuje pycma-i ni unutrašnjem optimizatoru
 metamodela), a ispravka i provera su objavljene na #1572.
 
+**Replikacija (I50,** [izveštaj](ITERATION50_REPORT_SR.md)**).** Na 12 novih biblioteka, izabranih spoljnim pravilom,
+preregistrovani ishod je 11/12. Taj broj, međutim, naduvava mera C1, jer su tačke u uglu kod BO i PSO algoritama
+legitimne. Bez C1 ostaje 4/12, a zajedno sa I49 8/21 (38%, CI 18–62%). Dve nove greške koje protivreče dokumentaciji
+prijavljene su održavaocima:
+- GFO: `best_score` je negiran uz `optimum="minimum"`
+  ([#106](https://github.com/gfo-project/Gradient-Free-Optimizers/issues/106));
+- SMAC: rezultat sa zadatim semenom zavisi od `PYTHONHASHSEED` ([#1380](https://github.com/automl/SMAC3/issues/1380)).
+
 ## 8. Diskusija
 - Zašto raznovrsnost bez intenzifikacije gubi na skoro linearnim i glatkim pejzažima (Droste, Jansen, Wegener 2002;
   Witt 2013; Hansen i sar. 2011).

@@ -1,0 +1,74 @@
+{
+ "n": 12,
+ "findings": {
+  "baybe": {
+   "C1": "dokumentovano ili praznina"
+  },
+  "bayes_opt": {
+   "C1": "dokumentovano ili praznina"
+  },
+  "bofire": {
+   "C1": "dokumentovano ili praznina"
+  },
+  "cmaes": {},
+  "emukit": {
+   "C1": "dokumentovano ili praznina"
+  },
+  "evolopy": {
+   "C1": "dokumentovano ili praznina"
+  },
+  "evotorch": {
+   "C3": "dokumentovano ili praznina"
+  },
+  "evox": {
+   "C1": "dokumentovano ili praznina"
+  },
+  "gfo": {
+   "C1": "dokumentovano ili praznina",
+   "R2": "protivreči dokumentaciji",
+   "R3": "protivreči dokumentaciji"
+  },
+  "niapy": {
+   "C1": "dokumentovano ili praznina"
+  },
+  "scikit_opt": {
+   "R3": "dokumentovano ili praznina"
+  },
+  "smac": {
+   "D3x": "protivreči dokumentaciji"
+  }
+ },
+ "secondary_contradicts_docs": {
+  "k": 2,
+  "libraries": [
+   "gfo",
+   "smac"
+  ],
+  "clopper_pearson_95": [
+   0.020862525460092384,
+   0.48413774868596704
+  ]
+ },
+ "post_hoc_without_C1": {
+  "k": 4,
+  "libraries": [
+   "evotorch",
+   "gfo",
+   "scikit_opt",
+   "smac"
+  ],
+  "clopper_pearson_95": [
+   0.09924609114958328,
+   0.6511244935811844
+  ],
+  "pooled_with_i49": {
+   "k": 8,
+   "n": 21,
+   "clopper_pearson_95": [
+    0.18107162554017314,
+    0.6156456096213541
+   ]
+  },
+  "note": "POST HOC: C1 is not specific to probe calls for algorithms that clip to the bounds; I49's 4/9 contained no C1-only library."
+ }
+}

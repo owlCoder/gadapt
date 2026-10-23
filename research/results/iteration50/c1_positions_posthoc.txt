@@ -1,0 +1,10 @@
+# POST HOC diagnostic (2026-10-23, after the main run): indices of C1 calls (x == all-lower or all-upper) and number of
+# calls touching any bound, N = 2, seed 6000, budget 200, same adapters and venvs as the main run.
+gfo sphere: C1 at [7, 9] edge-touching=4/200 | rastrigin: C1 at [7, 9] edge-touching=4/200 | plateau: C1 at [7, 9] edge-touching=79/190
+niapy sphere: C1 at [42] edge-touching=14/200 | rastrigin: C1 at [] edge-touching=10/200 | plateau: C1 at [] edge-touching=20/200
+evolopy sphere: C1 at [] edge-touching=10/151 | rastrigin: C1 at [] edge-touching=4/151 | plateau: C1 at [57, 62, 63, 65, 66, 67] edge-touching=100/151
+evox sphere: C1 at [109, 116, 142, 144, 177] edge-touching=48/200 | rastrigin: C1 at [109, 116, 126, 142, 144, 177] edge-touching=46/200 | plateau: C1 at [108, 109, 116, 142, 144, 175] edge-touching=54/200
+emukit sphere: C1 at [5] edge-touching=1/200 | rastrigin: C1 at [8, 9, 10] edge-touching=6/200 | plateau: C1 at [5, 46] edge-touching=27/200
+bayes_opt sphere: C1 at [8] edge-touching=4/200 | rastrigin: C1 at [100, 133] edge-touching=22/200 | plateau: C1 at [5] edge-touching=2/7
+baybe sphere: C1 at [1] edge-touching=5/200 | rastrigin: C1 at [1] edge-touching=16/200 | plateau: C1 at [1, 6, 7, 43, 50, 55] edge-touching=75/200
+bofire sphere: C1 at [] edge-touching=1/200 | rastrigin: C1 at [] edge-touching=0/200 | plateau: C1 at [11, 12, 13, 14, 15, 16] edge-touching=190/200

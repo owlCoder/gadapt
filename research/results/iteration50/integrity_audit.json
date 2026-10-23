@@ -1,0 +1,309 @@
+{
+ "protocol": "research/ITERATION50_PROTOCOL.md",
+ "protocol_commit": "c3598f6",
+ "source_sha256": "aa6437148852ce767b59250c46e461aa2bc83ba89265af26354bd94b880ba9b4",
+ "i49_source_sha256": "4ba7c8493442c511335ba987058c3acaeb5e7da1656f68dadf09f7703e672d74",
+ "driver": {
+  "python": "3.14.3",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O"
+ },
+ "per_library": {
+  "baybe": {
+   "runs": 30,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 18,
+    "C2": 10,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "assessable": true,
+   "integrity_finding": true,
+   "r_applicable": false,
+   "d3x_unavailable": 0,
+   "median_duplicate_fraction": 0.0,
+   "error_examples": []
+  },
+  "bayes_opt": {
+   "runs": 30,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 18,
+    "C2": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "assessable": true,
+   "integrity_finding": true,
+   "r_applicable": true,
+   "d3x_unavailable": 0,
+   "median_duplicate_fraction": 0.0,
+   "error_examples": []
+  },
+  "bofire": {
+   "runs": 30,
+   "errors": 2,
+   "runs_with_class": {
+    "C1": 11,
+    "C2": 10,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "assessable": true,
+   "integrity_finding": true,
+   "r_applicable": false,
+   "d3x_unavailable": 0,
+   "median_duplicate_fraction": 0.0,
+   "error_examples": [
+    "timeout"
+   ]
+  },
+  "cmaes": {
+   "runs": 30,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "assessable": true,
+   "integrity_finding": false,
+   "r_applicable": false,
+   "d3x_unavailable": 0,
+   "median_duplicate_fraction": 0.0,
+   "error_examples": []
+  },
+  "emukit": {
+   "runs": 30,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 20,
+    "C2": 9,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "assessable": true,
+   "integrity_finding": true,
+   "r_applicable": false,
+   "d3x_unavailable": 0,
+   "median_duplicate_fraction": 0.0,
+   "error_examples": []
+  },
+  "evolopy": {
+   "runs": 30,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 9,
+    "C2": 30,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "assessable": true,
+   "integrity_finding": true,
+   "r_applicable": true,
+   "d3x_unavailable": 0,
+   "median_duplicate_fraction": 0.013245033112582781,
+   "error_examples": []
+  },
+  "evotorch": {
+   "runs": 30,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 0,
+    "C3": 30,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "assessable": true,
+   "integrity_finding": true,
+   "r_applicable": true,
+   "d3x_unavailable": 0,
+   "median_duplicate_fraction": 0.0,
+   "error_examples": []
+  },
+  "evox": {
+   "runs": 30,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 15,
+    "C2": 13,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "assessable": true,
+   "integrity_finding": true,
+   "r_applicable": true,
+   "d3x_unavailable": 0,
+   "median_duplicate_fraction": 0.0,
+   "error_examples": []
+  },
+  "gfo": {
+   "runs": 30,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 15,
+    "C2": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 25,
+    "R3": 10,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "assessable": true,
+   "integrity_finding": true,
+   "r_applicable": true,
+   "d3x_unavailable": 0,
+   "median_duplicate_fraction": 0.0,
+   "error_examples": []
+  },
+  "niapy": {
+   "runs": 30,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 3,
+    "C2": 22,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "assessable": true,
+   "integrity_finding": true,
+   "r_applicable": true,
+   "d3x_unavailable": 0,
+   "median_duplicate_fraction": 0.005,
+   "error_examples": []
+  },
+  "scikit_opt": {
+   "runs": 30,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 30,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 1,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 0
+   },
+   "assessable": true,
+   "integrity_finding": true,
+   "r_applicable": true,
+   "d3x_unavailable": 0,
+   "median_duplicate_fraction": 0.4700996677740864,
+   "error_examples": []
+  },
+  "smac": {
+   "runs": 30,
+   "errors": 0,
+   "runs_with_class": {
+    "C1": 0,
+    "C2": 0,
+    "C3": 0,
+    "C4": 0,
+    "C5": 0,
+    "R1": 0,
+    "R2": 0,
+    "R3": 0,
+    "D2": 0,
+    "D3": 0,
+    "D3x": 30
+   },
+   "assessable": true,
+   "integrity_finding": true,
+   "r_applicable": true,
+   "d3x_unavailable": 0,
+   "median_duplicate_fraction": 0.0,
+   "error_examples": []
+  }
+ },
+ "primary": {
+  "libraries_with_finding": 11,
+  "of": 12,
+  "proportion": 0.9166666666666666,
+  "clopper_pearson_95": [
+   0.6152038348490559,
+   0.9978924067681397
+  ],
+  "verdict": "REPLICATED",
+  "pooled_with_i49": {
+   "k": 15,
+   "n": 21,
+   "clopper_pearson_95": [
+    0.47824888175288627,
+    0.8871905960780592
+   ]
+  },
+  "unassessable": []
+ }
+}
