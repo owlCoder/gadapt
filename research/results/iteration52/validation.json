@@ -1,0 +1,52 @@
+{
+ "validation": {
+  "d3x_None": {
+   "expected": [
+    0,
+    0
+   ],
+   "got": [
+    0,
+    0
+   ],
+   "ok": true
+  },
+  "d3x_hash_seeded": {
+   "expected": [
+    0,
+    1
+   ],
+   "got": [
+    0,
+    1
+   ],
+   "ok": true
+  },
+  "d3x_time_seeded": {
+   "expected": [
+    1,
+    1
+   ],
+   "got": [
+    1,
+    1
+   ],
+   "ok": true
+  }
+ },
+ "passed": true,
+ "timing": {
+  "case14": {
+   "d": 4,
+   "ms_per_evaluation": 2.45
+  },
+  "case39": {
+   "d": 9,
+   "ms_per_evaluation": 15.7
+  },
+  "case118": {
+   "d": 53,
+   "ms_per_evaluation": 3.19
+  }
+ }
+}
