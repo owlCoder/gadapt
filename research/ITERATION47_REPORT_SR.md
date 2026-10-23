@@ -65,3 +65,9 @@ opcijama, već u brzini konvergencije (intenzifikaciji)**. Invarijantna mera je 
 
 Opt-in `columnar_diversity_metric="linear"` ostaje u biblioteci kao ispravka invarijantnosti (bez štete, podrazumevano
 ponašanje nepromenjeno), ali **ne** kao dokazano poboljšanje performansi.
+
+## Ispravka (2026-10-23, otkriveno u I52)
+`results/iteration47` beleži `pypower: 5.1.19`, ali to je fiksna podrazumevana vrednost iz skripte
+(`getattr(pypower, "__version__", "5.1.19")`), jer pypower nema `__version__`. Verzija 5.1.19 se sa tadašnjim NumPy
+2.5.4 ne može ni uvesti (`numpy.in1d` je uklonjen), pa je stvarna verzija bila novija. Repo `.venv` danas ima 5.1.21.
+Rezultati I47 se ne menjaju. Netačan je samo zapis verzije.
