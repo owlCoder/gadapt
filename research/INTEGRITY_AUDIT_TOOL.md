@@ -62,7 +62,7 @@ The audit also reports two measures that are not integrity problems:
   ([I49](ITERATION49_REPORT_SR.md), [I50](ITERATION50_REPORT_SR.md)).
 - In those audits, integrity problems other than corner evaluations appeared in 8 of 21 libraries.
 - Findings were reported to maintainers: [SMAC #1380](https://github.com/automl/SMAC3/issues/1380),
-  [GFO #106](https://github.com/gfo-project/Gradient-Free-Optimizers/issues/106) and
+  [GFO #106](https://github.com/gfo-project/Gradient-Free-Optimizers/issues/106),
   [Nevergrad #1572](https://github.com/facebookresearch/nevergrad/issues/1572) and
   [SciPy #26479](https://github.com/scipy/scipy/issues/26479).
 - Test functions do not reveal everything. The SciPy defect appeared only on a real AC-dispatch cost function
