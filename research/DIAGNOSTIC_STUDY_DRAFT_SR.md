@@ -164,6 +164,11 @@ U zagradama su Clopper–Pearson 95% intervali.
 - **Reproduktivnost:** D3 (isti proces) nije našao nijednu novu biblioteku u I50. D3x (između procesa) našao je SMAC.
   I51 je dodao D3x na I49 uzorak: samo Nevergrad. Ukupno 2/21 biblioteke nisu reproduktivne uz zadato seme
   ([I51](ITERATION51_REPORT_SR.md)).
+- **Ispravka (posle nezavisne recenzije, Codex 009):** drajveri I50–I52 i alat pokretali su interpreter sa
+  `python -I`, koji ignoriše `PYTHONHASHSEED`. D3x je zato poredio procese sa nezavisnim nasumičnim heširanjem, a ne
+  semena 1 i 2; pozitivni nalazi i dalje pokazuju nedeterminizam između procesa, ali kontrolisano poređenje nije
+  sprovedeno. Alat je ispravljen (`-s` + `PYTHONSAFEPATH`, kontrolni heš po procesu), SMAC reproducer (bez `-I`)
+  ponovo potvrđen, a ispravljeni D3x sa arhivom kompletnih tragova poziva je preregistrovan kao I55.
 
 **Prenos na stvarnu infrastrukturu (I52,** [izveštaj](ITERATION52_REPORT_SR.md)**).** Na AC dispečingu (case14,
 case39 i case118), sa nepromenjenim adapterima, status nalaza poklapa se sa sintetičkim za **19/21** biblioteke (CI
@@ -198,7 +203,10 @@ Svaka nova dijagnoza ima minimalan primer:
   U I49 nijedna biblioteka nije imala samo C1. Sledeća verzija alata treba da ograniči C1 na pozive izvan pretrage.
 - **Okvir uzorka:** GitHub teme i prag zvezdica nisu potpuni. Zato je dodat spoljni izvor B. Prihvatljivost je
   primenjena strogo: gaft je ispao zbog pada na konstantnoj funkciji.
-- **Podrazumevana podešavanja i mali budžeti** (200 ili 1000) ne pokrivaju sve načine upotrebe.
+- **Jedna unapred zadata konfiguracija po biblioteci i mali budžeti** (200 ili 1000) ne pokrivaju sve načine upotrebe.
+- **Intervali poverenja** su opis zavisan od modela (Studija 1 je namerni uzorak, Studija 2 deterministično pravilo),
+  ne procena za definisanu populaciju biblioteka.
+- **Arhiva I49–I52** ima zastavice i heševe, ne kompletne tragove; I55 to ispravlja.
 - **Neprimenljive provere:** R1–R3 ne važe za ask/tell biblioteke bez prijavljenog rezultata. C4 važi samo tamo gde je
   dokumentovan maksimum.
 - **Svi pojedinačni nalazi I49 bili su već poznati.** Doprinos I49 je automatsko pronalaženje i mera
