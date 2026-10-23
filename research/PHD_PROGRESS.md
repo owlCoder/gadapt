@@ -99,8 +99,19 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   svi DOI provereni. I54 nacrt POVUČEN pre merenja (Codex 007: 2 blokirajuće greške). Sinteza i odluka:
   `research/DIRECTION_DECISION_2026-10-23_SR.md` — popravka zaostatka GAdapt-a NE daje originalnu metodu (NO-GO);
   dijagnostičko poglavlje ojačano uzročnim testom I53.
-- SLEDEĆI KORAK: čeka odluku korisnika/mentora (a) okvir „pouzdana evaluacija + mehanistička dijagnoza“ i završetak
-  rada/poglavlja, (b) jedna sistematska prior-art provera najjačeg preostalog kandidata, (c) praktični opt-in u GAdapt.
+- 2026-10-23 ~21:00: korisnik izabrao (a) + „usput nastavi novo istraživanje za doprinos i issue-e“.
+  * Poglavlje: §4.1 I53 (`12e47f2`).
+  * Codex 009 recenzija rada: MAJOR. Potvrđena greška: `python -I` ignoriše PYTHONHASHSEED (D3x u I50–I52 i u alatu).
+    Alat ispravljen (`f6bd860`: `-s` + PYTHONSAFEPATH + kontrolni heš). SMAC #1380 ponovo proveren bez `-I`: tačan.
+    Tekstualne ispravke rada unete (`25891ef`). Studija 5 = I55: protokol `4c2b4cd`, kod `ee39baf` (4/4), POKRENUTO
+    jednom (log u scratchpad `i55.log`; izlazi `research/results/iteration55/`). Ako je prekinuto: pokrenuti samo
+    biblioteke bez `cells_<lib>.json` (okruženja: `pip freeze` iz I50 / `h4_requirements_lock.txt`).
+  * Codex 008: C1, C2 NO-GO (C1 posle da Silva i sar. 2025, 10.1016/j.asoc.2025.113635).
+  * Codex 010: jedini ograničeni GO = validirani protokol uzročne dijagnoze oracle intervencijama (~40%); u toku
+    nezavisna adversarijalna prior-art provera (literature-auditor agent). Bez protokola dok ne stigne.
+  * Issue-i (5): bez odgovora održavalaca (monitor).
+- SLEDEĆI KORAK: I55 analiza (H55a–d) + `iteration55_recompute.py` + unos u rad (Studija 5); presuda za protokol
+  dijagnoze posle literature-auditor-a; LaTeX (`acmart`) tek posle Studije 5.
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
