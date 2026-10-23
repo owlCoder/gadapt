@@ -1,0 +1,16 @@
+{
+ "sample": [
+  "baybe",
+  "bayes_opt",
+  "bofire",
+  "cmaes",
+  "emukit",
+  "evolopy",
+  "evotorch",
+  "evox",
+  "gfo",
+  "niapy",
+  "scikit_opt",
+  "smac"
+ ]
+}

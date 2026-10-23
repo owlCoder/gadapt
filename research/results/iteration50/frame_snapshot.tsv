@@ -1,0 +1,63 @@
+# snapshot 2026-10-23T05:38:11 UTC; rule A (protocol §1) + source B
+stars	repo	archived	source	topic_hit	description
+33023	eriklindernoren/ML-From-Scratch	false	A	genetic-algorithm	Machine Learning From Scratch. Bare bones NumPy implementations of machine learning models
+14367	microsoft/nni	true	A	bayesian-optimization	An open source AutoML toolkit for automate machine learning lifecycle, including feature e
+8723	bayesian-optimization/BayesianOptimization	false	A	bayesian-optimization	A Python implementation of global optimization with gaussian processes.
+8148	automl/auto-sklearn	false	A	bayesian-optimization	Automated Machine Learning with scikit-learn
+7631	algorithmicsuperintelligence/openevolve	false	A,A	evolutionary-algorithms,genetic-algorithm	Open-source implementation of AlphaEvolve
+6723	guofei9987/scikit-opt	false	A,A	genetic-algorithm,particle-swarm-optimization	Genetic Algorithm, Particle Swarm Optimization, Simulated Annealing, Ant Colony Optimizati
+6455	DEAP/deap	false	B	Ravber2025	Distributed Evolutionary Algorithms in Python
+4217	facebookresearch/nevergrad	false	B	Ravber2025	A Python toolbox for performing gradient-free optimization
+4095	astroautomata/PySR	false	A,A	evolutionary-algorithms,genetic-algorithm	Symbolic Learning in Python and Julia
+3323	tradytics/eiten	false	A	genetic-algorithm	Statistical and Algorithmic Investing Strategies for Everyone
+2979	anyoptimization/pymoo	false	A,A,B	differential-evolution,genetic-algorithm,Ravber2025	NSGA2, NSGA3, R-NSGA3, MOEAD, Genetic Algorithms (GA), Differential Evolution (DE), CMAES,
+2830	scikit-optimize/scikit-optimize	true	A	bayesian-optimization	Sequential model-based optimization with a  `scipy.optimize` interface
+2654	EMI-Group/evox	false	A,A,A,A	black-box-optimization,derivative-free-optimization,evolutionary-algorithms,metaheuristics	Distributed GPU-Accelerated Framework for Evolutionary Computation. Comprehensive Library 
+2373	modAL-python/modAL	false	A	bayesian-optimization	A modular active learning framework for Python
+2232	ahmedfgad/GeneticAlgorithmPython	false	A,A	evolutionary-algorithms,genetic-algorithm	Source code of PyGAD, a Python 3 library for building the genetic algorithm and training m
+2123	geatpy-dev/geatpy	false	A	evolutionary-algorithms	Evolutionary algorithm toolbox and framework with high performance for Python
+1680	google/vizier	false	A,A	bayesian-optimization,evolutionary-algorithms	Python-based research interface for blackbox and hyperparameter optimization, based on the
+1481	evo-hq/evo	false	A	evolutionary-algorithms	turns your codebase into an autoresearch loop — discovers what to measure, instruments the
+1401	ljvmiranda921/pyswarms	false	A,A,A	global-optimization,metaheuristics,particle-swarm-optimization	A research toolkit for particle swarm optimization in Python 
+1286	thieu1995/mealpy	false	A,A,A,A,B	differential-evolution,genetic-algorithm,metaheuristics,particle-swarm-optimization,Ravber2025	A Collection Of The State-of-the-art Metaheuristic Algorithms In Python (Metaheuristic/Opt
+1277	gfo-project/Gradient-Free-Optimizers	false	A,A	bayesian-optimization,particle-swarm-optimization	Lightweight optimization with local, global, population-based and sequential techniques ac
+1261	automl/SMAC3	false	A	bayesian-optimization	SMAC3: A Versatile Bayesian Optimization Package for Hyperparameter Optimization
+1234	MorvanZhou/Evolutionary-Algorithm	false	A,A	evolutionary-algorithm,genetic-algorithm	Evolutionary Algorithm using Python, 莫烦Python 中文AI教学
+1150	nnaisense/evotorch	false	A	evolutionary-algorithms	Advanced evolutionary computation library built directly on top of PyTorch, created at NNA
+1097	ant-research/AntOmniEvo	false	A	evolutionary-algorithms	An auto-evolution framework that optimizes anything — your 7×24 team of algorithm engineer
+1095	Human-Agent-Society/CORAL	false	A	evolutionary-algorithm	Open-source autoresearch powered by autonomous coding agents. Run Claude Code, OpenCode, a
+1056	shyamsaktawat/OpenAlpha_Evolve	false	A,A,A	evolutionary-algorithm,evolutionary-algorithms,genetic-algorithm	OpenAlpha_Evolve is an open-source Python framework inspired by the groundbreaking researc
+954	joeddav/devol	false	A	genetic-algorithm	Early POC of genetic neural architecture search
+807	MIND-Lab/OCTIS	false	A	bayesian-optimization	OCTIS: Comparing Topic Models is Simple! A python package to optimize and evaluate topic m
+772	nemanja-m/gaps	false	A	genetic-algorithm	A Genetic Algorithm-Based Solver for Jigsaw Puzzles :cyclone:
+744	PytLab/gaft	false	A,A	genetic-algorithm,global-optimization	A Genetic Algorithm Framework in Python (not for production level)
+712	aimclub/FEDOT	false	A	evolutionary-algorithms	Automated modeling and machine learning framework FEDOT
+677	EmuKit/emukit	false	A	bayesian-optimization	A Python-based toolbox of various methods in decision making, uncertainty quantification a
+675	Optima-CityU/LLM4AD_Next	false	A,A	evolutionary-algorithm,genetic-algorithm	A next-generation automatic algorithm design platform, making automated algorithm design m
+665	iRB-Lab/py-ga-VRPTW	false	A	genetic-algorithm	A Python Implementation of a Genetic Algorithm-based Solution to Vehicle Routing Problem w
+661	N-Wouda/ALNS	false	A	metaheuristic	Adaptive large neighbourhood search (and more!) in Python.
+656	sunrainyg/RandOpt	false	A	black-box-optimization	Official Codebase for "Neural Thickets: Diverse Task Experts Are Dense Around Pretrained W
+632	automl/HpBandSter	false	A	bayesian-optimization	a distributed Hyperband implementation on Steroids
+624	mpatacchiola/dissecting-reinforcement-learning	false	A	genetic-algorithm	Python code, PDFs and resources for the series of posts on Reinforcement Learning which I 
+587	HaaLeo/swarmlib	false	A	particle-swarm-optimization	This repository implements several swarm optimization algorithms and visualizes them. Impl
+583	100/Solid	false	A,A,A,A	evolutionary-algorithm,genetic-algorithm,metaheuristics,particle-swarm-optimization	🎯 A comprehensive gradient-free optimization framework written in Python
+551	hyperactive-project/Hyperactive	false	A	bayesian-optimization	A unified interface for optimization algorithms and experiments
+542	esa/pygmo2	false	B	Ravber2025	A Python platform to perform parallel computations of optimisation tasks (global and local
+517	emdgroup/baybe	false	A	bayesian-optimization	Bayesian Optimization and Design of Experiments
+517	CyberAgentAILab/cmaes	false	A,A	black-box-optimization,cma-es	Python library for CMA Evolution Strategy.
+512	7ossam81/EvoloPy	false	A,A,B	evolutionary-algorithms,metaheuristics,Ravber2025	EvoloPy toolbox provides classical and recent nature-inspired metaheuristic for the global
+484	chrisstroemel/Simple	false	A,A	bayesian-optimization,global-optimization	Experimental Global Optimization Algorithm
+481	baidu-baige/LoongFlow	false	A,A	evolutionary-algorithms,genetic-algorithm	LoongFlow is an expert-grade Agent framework for Loop Engineering. Through a Plan-Execute-
+468	ray-project/tune-sklearn	true	A	bayesian-optimization	A drop-in replacement for Scikit-Learn’s GridSearchCV / RandomizedSearchCV -- but with cut
+436	rishal-hurbans/Grokking-Artificial-Intelligence-Algorithms	false	A,A,A	evolutionary-algorithms,genetic-algorithm,particle-swarm-optimization	The official code repository supporting the book, Grokking Artificial Intelligence Algorit
+425	syne-tune/syne-tune	false	A	bayesian-optimization	Large scale and asynchronous Hyperparameter and Architecture Optimization at your fingerti
+424	experimental-design/bofire	false	A	bayesian-optimization	Experimental design and (multi-objective) bayesian optimization.
+390	rodrigo-arenas/Sklearn-genetic-opt	false	A	evolutionary-algorithms	Hyperparameter optimization and feature selection for scikit-learn using evolutionary algo
+377	kaushalshetty/FeatureSelectionGA	false	A	genetic-algorithm	Feature Selection using Genetic Algorithm (DEAP Framework)
+361	SakanaAI/evo-memory	false	A	evolutionary-algorithms	Code to train and evaluate Neural Attention Memory Models to obtain universally-applicable
+353	ahmedkhalf/Circle-Evolution	false	A,A	evolutionary-algorithms,genetic-algorithm	Evolutionary Art Using Circles in Python
+343	Nicholasli1995/EvoSkeleton	false	A	evolutionary-algorithms	Official project website for the CVPR 2020 paper (Oral Presentation) "Cascaded deep monocu
+336	EMI-Group/evorl	false	A	evolutionary-algorithms	EvoRL is a fully GPU-accelerated framework for Evolutionary Reinforcement Learning, implem
+305	ai4co/reevo	false	A,A	evolutionary-algorithms,genetic-algorithm	[NeurIPS 2024] ReEvo: Large Language Models as Hyper-Heuristics with Reflective Evolution
+300	shobrook/promptimal	false	A,A	evolutionary-algorithm,genetic-algorithm	A very fast, very minimal prompt optimizer
+281	NiaOrg/NiaPy	false	B	Ravber2025	Python microframework for building nature-inspired algorithms. Official docs: https://niap

@@ -1,0 +1,101 @@
+{
+ "validation": {
+  "None": {
+   "expected": [],
+   "flagged": [],
+   "ok": true
+  },
+  "probe": {
+   "expected": [
+    "C1"
+   ],
+   "flagged": [
+    "C1"
+   ],
+   "ok": true
+  },
+  "duplicate": {
+   "expected": [
+    "C2"
+   ],
+   "flagged": [
+    "C2"
+   ],
+   "ok": true
+  },
+  "over": {
+   "expected": [
+    "C4"
+   ],
+   "flagged": [
+    "C4"
+   ],
+   "ok": true
+  },
+  "unevaluated": {
+   "expected": [
+    "R1"
+   ],
+   "flagged": [
+    "R1"
+   ],
+   "ok": true
+  },
+  "wrong_value": {
+   "expected": [
+    "R2"
+   ],
+   "flagged": [
+    "R2"
+   ],
+   "ok": true
+  },
+  "gadapt_probe_True": {
+   "expected_C1": true,
+   "C1": true,
+   "ok": true
+  },
+  "gadapt_probe_False": {
+   "expected_C1": false,
+   "C1": false,
+   "ok": true
+  },
+  "d3x_None": {
+   "expected_D3_D3x": [
+    0,
+    0
+   ],
+   "got": [
+    0,
+    0
+   ],
+   "ok": true,
+   "error": null
+  },
+  "d3x_hash_seeded": {
+   "expected_D3_D3x": [
+    0,
+    1
+   ],
+   "got": [
+    0,
+    1
+   ],
+   "ok": true,
+   "error": null
+  },
+  "d3x_time_seeded": {
+   "expected_D3_D3x": [
+    1,
+    1
+   ],
+   "got": [
+    1,
+    1
+   ],
+   "ok": true,
+   "error": null
+  }
+ },
+ "passed": true
+}
