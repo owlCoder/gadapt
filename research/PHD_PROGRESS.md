@@ -63,8 +63,11 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - Alat za praksu: `research/integrity_audit_tool.py` (CLI, adapter `run(f, lower, upper, budget, seed)`, `--python`
   za okruženje biblioteke; C1 samo informativno), testovi `research/test_integrity_audit_tool.py` (8 klasa + čist +
   ugao: prolaze), uputstvo `research/INTEGRITY_AUDIT_TOOL.md`, primeri GFO/SMAC.
-- SLEDEĆE (predlog): odluka korisnika/mentora o objavi (rad o reviziji integriteta: ACM TELO / EMSE / IST, ili
-  poglavlje); po želji izdvojiti alat u zaseban paket.
+- I51 GOTOVO → `research/ITERATION51_REPORT_SR.md`: D3x na I49 uzorku samo Nevergrad; ukupno 2/21 nereproduktivne
+  (Nevergrad, SMAC).
+- Izabran samostalan rad (korisnik: „ne stajati“): nacrt `research/paper_integrity_audit/manuscript.md` (engleski,
+  sve reference proverene na Crossref/arXiv 2026-10-23).
+- SLEDEĆE: kritičko čitanje rukopisa (recenzentski prolaz), slike/tabele, izbor časopisa (ACM TELO kao prvi kandidat).
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
@@ -98,3 +101,4 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - 2026-10-23: Korisnik: „radi dalje“. I50 preregistrovan (replikacija na novom uzorku, D3x između procesa); pokrenut.
 - 2026-10-23: I50 završen: 2 nova nalaza protiv dokumentacije prijavljena (SMAC #1380, GFO #106); C1 nespecifičan.
 - 2026-10-23: Poglavlje §7 i alat za praksu (CLI + testovi + uputstvo) završeni.
+- 2026-10-23: I51 (D3x na I49 uzorku: samo Nevergrad). Nacrt rada napisan; reference proverene.

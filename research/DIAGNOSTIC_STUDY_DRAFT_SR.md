@@ -139,6 +139,8 @@ U zagradama su Clopper–Pearson 95% intervali.
 - **Rasipanje na duplikate** (medijana udela evaluacija): geneticalgorithm 41,5%, scikit-opt DE 47%, DEAP 11,5%. Kod
   skupe funkcije troška to je skoro pola budžeta.
 - **Reproduktivnost:** D3 (isti proces) nije našao nijednu novu biblioteku u I50. D3x (između procesa) našao je SMAC.
+  I51 je dodao D3x na I49 uzorak: samo Nevergrad. Ukupno 2/21 biblioteke nisu reproduktivne uz zadato seme
+  ([I51](ITERATION51_REPORT_SR.md)).
 
 ### 7.6 Pojedinačni nalazi i prijave održavaocima
 
@@ -208,7 +210,7 @@ Pre poređenja optimizatora na skupoj funkciji troška:
 - Pedroso, Kubo, Viana 2014, arXiv:1404.4944
 - Li, Zhang, Lu 2019, [10.1109/ACCESS.2019.2927574](https://doi.org/10.1109/ACCESS.2019.2927574)
 - Ravber, Šmid, Moravec, Mernik, Črepinšek 2025, [10.15388/25-INFOR603](https://doi.org/10.15388/25-INFOR603)
-- Hansen i sar. 2020 (COCO), [10.1080/10556788.2020.1808977](https://doi.org/10.1080/10556788.2020.1808977)
+- Hansen i sar. 2021 (COCO), [10.1080/10556788.2020.1808977](https://doi.org/10.1080/10556788.2020.1808977)
 - de Nobel i sar. 2024 (IOHexperimenter), [10.1162/evco_a_00342](https://doi.org/10.1162/evco_a_00342)
 - Kůdela 2022, [10.1038/s42256-022-00579-0](https://doi.org/10.1038/s42256-022-00579-0)
 - Vermetten i sar. 2022 (BIAS), [10.1109/TEVC.2022.3189848](https://doi.org/10.1109/TEVC.2022.3189848)

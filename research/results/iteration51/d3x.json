@@ -1,0 +1,3140 @@
+{
+ "protocol": "research/ITERATION51_PROTOCOL.md",
+ "protocol_commit": "6a22aad",
+ "source_sha256": "dc74ec858147479508e580499458a27328d071b67c5c7d89c481bfb7d97acc16",
+ "i49_source_sha256": "4ba7c8493442c511335ba987058c3acaeb5e7da1656f68dadf09f7703e672d74",
+ "driver": {
+  "python": "3.14.3",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O"
+ },
+ "pip_freeze": [
+  "about-time==4.2.1",
+  "alembic==1.20.1",
+  "alive-progress==3.3.0",
+  "attrs==26.1.0",
+  "autograd==1.9.1",
+  "bayesian-optimization==1.4.0",
+  "cffi==2.1.1",
+  "cloudpickle==3.1.2",
+  "cma==4.5.0",
+  "cmaes==0.13.1",
+  "colorlog==6.12.0",
+  "contourpy==1.4.0",
+  "cycler==0.12.1",
+  "deap==1.4.4",
+  "Deprecated==3.0.0",
+  "directsearch==1.1",
+  "fonttools==4.67.0",
+  "func_timeout==4.3.5",
+  "future==1.0.0",
+  "geneticalgorithm==1.0.2",
+  "graphemeu==0.7.2",
+  "joblib==1.6.0",
+  "kiwisolver==1.5.1",
+  "Mako==1.4.3",
+  "MarkupSafe==3.0.4",
+  "matplotlib==3.11.2",
+  "moocore==0.3.2",
+  "narwhals==2.27.1",
+  "nevergrad==1.0.12",
+  "numpy==2.5.4",
+  "optuna==5.0.0",
+  "packaging==26.3",
+  "pandas==3.1.0",
+  "pillow==13.0.0",
+  "platformdirs==4.13.5",
+  "pycparser==3.12",
+  "pygad==3.9.2",
+  "pymoo==0.6.2",
+  "pyparsing==3.3.3",
+  "pyswarms==1.3.0",
+  "python-dateutil==3.0.0",
+  "PyYAML==6.0.3",
+  "scikit-learn==1.9.1",
+  "scipy==1.18.1",
+  "setuptools==84.2.1",
+  "six==1.17.0",
+  "SQLAlchemy==2.1.6",
+  "threadpoolctl==3.7.0",
+  "tqdm==4.70.1",
+  "typing_extensions==4.16.0",
+  "tzdata==2026.5",
+  "wrapt==2.5.1"
+ ],
+ "threads": {
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": "1",
+  "VECLIB_MAXIMUM_THREADS": "1"
+ },
+ "per_library": {
+  "pymoo": {
+   "runs": 30,
+   "errors": 0,
+   "d3_runs": 0,
+   "d3x_runs": 0,
+   "d3x_unavailable": 0,
+   "error_examples": []
+  },
+  "deap": {
+   "runs": 30,
+   "errors": 0,
+   "d3_runs": 0,
+   "d3x_runs": 0,
+   "d3x_unavailable": 0,
+   "error_examples": []
+  },
+  "pygad": {
+   "runs": 30,
+   "errors": 0,
+   "d3_runs": 0,
+   "d3x_runs": 0,
+   "d3x_unavailable": 0,
+   "error_examples": []
+  },
+  "geneticalgorithm": {
+   "runs": 30,
+   "errors": 0,
+   "d3_runs": 0,
+   "d3x_runs": 0,
+   "d3x_unavailable": 0,
+   "error_examples": []
+  },
+  "nevergrad": {
+   "runs": 30,
+   "errors": 10,
+   "d3_runs": 5,
+   "d3x_runs": 5,
+   "d3x_unavailable": 0,
+   "error_examples": [
+    "TypeError: only 0-dimensional arrays can be converted to Python scalars"
+   ]
+  },
+  "optuna": {
+   "runs": 30,
+   "errors": 0,
+   "d3_runs": 0,
+   "d3x_runs": 0,
+   "d3x_unavailable": 0,
+   "error_examples": []
+  },
+  "pyswarms": {
+   "runs": 30,
+   "errors": 0,
+   "d3_runs": 0,
+   "d3x_runs": 0,
+   "d3x_unavailable": 0,
+   "error_examples": []
+  },
+  "cma": {
+   "runs": 30,
+   "errors": 0,
+   "d3_runs": 0,
+   "d3x_runs": 0,
+   "d3x_unavailable": 0,
+   "error_examples": []
+  },
+  "scipy_de": {
+   "runs": 30,
+   "errors": 0,
+   "d3_runs": 0,
+   "d3x_runs": 0,
+   "d3x_unavailable": 0,
+   "error_examples": []
+  },
+  "gadapt": {
+   "runs": 30,
+   "errors": 0,
+   "d3_runs": 0,
+   "d3x_runs": 0,
+   "d3x_unavailable": 0,
+   "error_examples": []
+  }
+ },
+ "libraries_with_d3x": [
+  "nevergrad"
+ ],
+ "cells": [
+  {
+   "library": "pymoo",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6000,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6001,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6002,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6003,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6004,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6000,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6001,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6002,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6003,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6004,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6000,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6001,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6002,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6003,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6004,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6000,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6001,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6002,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6003,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6004,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6000,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6001,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6002,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6003,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6004,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6000,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6001,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6002,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6003,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pymoo",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6004,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6000,
+   "calls": 624,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6001,
+   "calls": 663,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6002,
+   "calls": 612,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6003,
+   "calls": 641,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6004,
+   "calls": 634,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6000,
+   "calls": 611,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6001,
+   "calls": 639,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6002,
+   "calls": 610,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6003,
+   "calls": 637,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6004,
+   "calls": 618,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6000,
+   "calls": 624,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6001,
+   "calls": 663,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6002,
+   "calls": 612,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6003,
+   "calls": 641,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6004,
+   "calls": 634,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6000,
+   "calls": 611,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6001,
+   "calls": 639,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6002,
+   "calls": 610,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6003,
+   "calls": 637,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6004,
+   "calls": 618,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6000,
+   "calls": 624,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6001,
+   "calls": 663,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6002,
+   "calls": 612,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6003,
+   "calls": 641,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6004,
+   "calls": 634,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6000,
+   "calls": 611,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6001,
+   "calls": 639,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6002,
+   "calls": 610,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6003,
+   "calls": 637,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "deap",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6004,
+   "calls": 618,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6000,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6001,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6002,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6003,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6004,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6000,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6001,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6002,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6003,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6004,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6000,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6001,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6002,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6003,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6004,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6000,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6001,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6002,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6003,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6004,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6000,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6001,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6002,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6003,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6004,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6000,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6001,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6002,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6003,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pygad",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6004,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6000,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6001,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6002,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6003,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6004,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6000,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6001,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6002,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6003,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6004,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6000,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6001,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6002,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6003,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6004,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6000,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6001,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6002,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6003,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6004,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6000,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6001,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6002,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6003,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6004,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6000,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6001,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6002,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6003,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "geneticalgorithm",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6004,
+   "calls": 696,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "nevergrad",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6000,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "nevergrad",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6001,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "nevergrad",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6002,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "nevergrad",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6003,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "nevergrad",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6004,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "nevergrad",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6000,
+   "calls": null,
+   "error": "TypeError: only 0-dimensional arrays can be converted to Python scalars"
+  },
+  {
+   "library": "nevergrad",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6001,
+   "calls": null,
+   "error": "TypeError: only 0-dimensional arrays can be converted to Python scalars"
+  },
+  {
+   "library": "nevergrad",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6002,
+   "calls": null,
+   "error": "TypeError: only 0-dimensional arrays can be converted to Python scalars"
+  },
+  {
+   "library": "nevergrad",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6003,
+   "calls": null,
+   "error": "TypeError: only 0-dimensional arrays can be converted to Python scalars"
+  },
+  {
+   "library": "nevergrad",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6004,
+   "calls": null,
+   "error": "TypeError: only 0-dimensional arrays can be converted to Python scalars"
+  },
+  {
+   "library": "nevergrad",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6000,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "nevergrad",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6001,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "nevergrad",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6002,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "nevergrad",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6003,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "nevergrad",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6004,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "nevergrad",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6000,
+   "calls": null,
+   "error": "TypeError: only 0-dimensional arrays can be converted to Python scalars"
+  },
+  {
+   "library": "nevergrad",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6001,
+   "calls": null,
+   "error": "TypeError: only 0-dimensional arrays can be converted to Python scalars"
+  },
+  {
+   "library": "nevergrad",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6002,
+   "calls": null,
+   "error": "TypeError: only 0-dimensional arrays can be converted to Python scalars"
+  },
+  {
+   "library": "nevergrad",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6003,
+   "calls": null,
+   "error": "TypeError: only 0-dimensional arrays can be converted to Python scalars"
+  },
+  {
+   "library": "nevergrad",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6004,
+   "calls": null,
+   "error": "TypeError: only 0-dimensional arrays can be converted to Python scalars"
+  },
+  {
+   "library": "nevergrad",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6000,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "nevergrad",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6001,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "nevergrad",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6002,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "nevergrad",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6003,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "nevergrad",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6004,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "nevergrad",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6000,
+   "calls": 1000,
+   "error": null,
+   "D3": 1,
+   "D3x": 1
+  },
+  {
+   "library": "nevergrad",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6001,
+   "calls": 1000,
+   "error": null,
+   "D3": 1,
+   "D3x": 1
+  },
+  {
+   "library": "nevergrad",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6002,
+   "calls": 1000,
+   "error": null,
+   "D3": 1,
+   "D3x": 1
+  },
+  {
+   "library": "nevergrad",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6003,
+   "calls": 1000,
+   "error": null,
+   "D3": 1,
+   "D3x": 1
+  },
+  {
+   "library": "nevergrad",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6004,
+   "calls": 1000,
+   "error": null,
+   "D3": 1,
+   "D3x": 1
+  },
+  {
+   "library": "optuna",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6000,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6001,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6002,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6003,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6004,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6000,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6001,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6002,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6003,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6004,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6000,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6001,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6002,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6003,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6004,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6000,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6001,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6002,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6003,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6004,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6000,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6001,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6002,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6003,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6004,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6000,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6001,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6002,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6003,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "optuna",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6004,
+   "calls": 1000,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6000,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6001,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6002,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6003,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6004,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6000,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6001,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6002,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6003,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6004,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6000,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6001,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6002,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6003,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6004,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6000,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6001,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6002,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6003,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6004,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6000,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6001,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6002,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6003,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6004,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6000,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6001,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6002,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6003,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "pyswarms",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6004,
+   "calls": 950,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6000,
+   "calls": 433,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6001,
+   "calls": 385,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6002,
+   "calls": 547,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6003,
+   "calls": 463,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6004,
+   "calls": 439,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6000,
+   "calls": 1011,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6001,
+   "calls": 1011,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6002,
+   "calls": 1011,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6003,
+   "calls": 1011,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6004,
+   "calls": 1011,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6000,
+   "calls": 673,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6001,
+   "calls": 493,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6002,
+   "calls": 601,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6003,
+   "calls": 691,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6004,
+   "calls": 709,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6000,
+   "calls": 1011,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6001,
+   "calls": 1011,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6002,
+   "calls": 1011,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6003,
+   "calls": 1011,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6004,
+   "calls": 1011,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6000,
+   "calls": 79,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6001,
+   "calls": 73,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6002,
+   "calls": 97,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6003,
+   "calls": 91,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6004,
+   "calls": 97,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6000,
+   "calls": 421,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6001,
+   "calls": 431,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6002,
+   "calls": 381,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6003,
+   "calls": 541,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "cma",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6004,
+   "calls": 341,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6000,
+   "calls": 993,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6001,
+   "calls": 993,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6002,
+   "calls": 993,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6003,
+   "calls": 999,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6004,
+   "calls": 999,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6000,
+   "calls": 933,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6001,
+   "calls": 944,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6002,
+   "calls": 933,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6003,
+   "calls": 933,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6004,
+   "calls": 933,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6000,
+   "calls": 999,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6001,
+   "calls": 1002,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6002,
+   "calls": 912,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6003,
+   "calls": 1002,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6004,
+   "calls": 1002,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6000,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6001,
+   "calls": 1021,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6002,
+   "calls": 1032,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6003,
+   "calls": 1032,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6004,
+   "calls": 1032,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6000,
+   "calls": 303,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6001,
+   "calls": 273,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6002,
+   "calls": 303,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6003,
+   "calls": 333,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6004,
+   "calls": 453,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6000,
+   "calls": 911,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6001,
+   "calls": 911,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6002,
+   "calls": 911,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6003,
+   "calls": 911,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "scipy_de",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6004,
+   "calls": 911,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6000,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6001,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6002,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6003,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "sphere",
+   "d": 2,
+   "seed": 6004,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6000,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6001,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6002,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6003,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "sphere",
+   "d": 10,
+   "seed": 6004,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6000,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6001,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6002,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6003,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "rastrigin",
+   "d": 2,
+   "seed": 6004,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6000,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6001,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6002,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6003,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "rastrigin",
+   "d": 10,
+   "seed": 6004,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6000,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6001,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6002,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6003,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "plateau",
+   "d": 2,
+   "seed": 6004,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6000,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6001,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6002,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6003,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  },
+  {
+   "library": "gadapt",
+   "function": "plateau",
+   "d": 10,
+   "seed": 6004,
+   "calls": 658,
+   "error": null,
+   "D3": 0,
+   "D3x": 0
+  }
+ ],
+ "seconds": 87.9
+}
