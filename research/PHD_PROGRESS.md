@@ -143,8 +143,15 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
     `IDEATION_2026-10-24_CLAUDE_BLIND_SR.md` (komitovana pre čitanja Codex-a, `e41ee66`) → poređenje → oštra
     provera prior art-a za 1–3 najjača → preregistracija samo ako GO.
   * Napomena: `codex exec` iz pozadine MORA imati `< /dev/null` (inače čeka stdin; 014 je zato stajao ~1 h).
-- SLEDEĆI KORAK: (1) Codex 016 → poređenje sa slepom listom → prior-art gate; (2) Codex 014 (niži prioritet:
-  poglavlje); (3) samo ČITATI issue-e.
+- 2026-10-24 (nastavak): danas odbačeno 5 kandidata (K1, Codex #1, #2, #3, K6), ukupno 12, svi DOI provereni
+  (`IDEATION_2026-10-24_CLAUDE_BLIND_SR.md`). Nalazi o biblioteci: raznovrsnost troškova = log-RASPON; kolonsko
+  pravilo podiže GORNJU granicu (CLAUDE.md ispravljen). Promena pristupa: „prvo praznina“ — Codex 019 izvukao 12
+  otvorenih problema iz preglednih radova 2021–2026 (citati + DOI). Najjači: Ulrich i sar. 2025
+  (10.3390/electricity6020031): interakcija tehnika za ograničenja × podešavanje/adaptacija u metaheurističkom OPF
+  (diskretne kontrole); Tanabe 2024 (10.1145/3638529.3654019): adaptacija na mešovito-celobrojnim platoima.
+  To su EMPIRIJSKA pitanja (nova znanja), ne nove metode. Adversarijalna provera #1 u toku (literature-auditor).
+- SLEDEĆI KORAK: (1) presuda za #1; ako GO → preregistracija faktorske studije (Codex recenzija pre zamrzavanja);
+  (2) Codex 014 (poglavlje, nizak prioritet); (3) samo ČITATI issue-e.
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
