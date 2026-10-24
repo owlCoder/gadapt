@@ -292,8 +292,8 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/operations/
 +        self._previous_best = (best.objective_value, best.violation_value)
 diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/utils/constraint_handling.py gadapt_repo/gadapt/utils/constraint_handling.py
 --- /Users/danijel/Desktop/gadapt/gadapt/utils/constraint_handling.py	1970-01-01 01:00:00
-+++ gadapt_repo/gadapt/utils/constraint_handling.py	2026-10-24 12:25:09
-@@ -0,0 +1,131 @@
++++ gadapt_repo/gadapt/utils/constraint_handling.py	2026-10-24 12:29:38
+@@ -0,0 +1,130 @@
 +"""
 +Constraint handling (opt-in, GA parameter constraint_handling): the cost function returns (objective, violation),
 +violation >= 0 and 0 for a feasible solution. Selection uses an explicit comparison key; the scalar cost (cost_value)
@@ -313,6 +313,7 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/utils/const
 +INCREASE, DECREASE = 2.0, 1.5
 +WEIGHT_RANGE = 1e6  # the adaptive weight stays within [initial / 1e6, initial * 1e6]
 +COST_LIMIT = 1e12  # penalty scalars for the adaptation are clipped to [-COST_LIMIT, COST_LIMIT]
++VALUE_LIMIT = 1e150  # |objective| and violation; with weights <= 1e106 every penalized objective stays finite
 +EPSILON_PERCENTILE = 20  # epsilon: initial level from the initial population
 +EPSILON_CONTROL_FRACTION, EPSILON_EXPONENT = 0.5, 5
 +
@@ -327,6 +328,8 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/utils/const
 +            raise ValueError("The objective and the violation must be finite real numbers")
 +    if violation < 0:
 +        raise ValueError("The violation must be >= 0")
++    if abs(objective) > VALUE_LIMIT or violation > VALUE_LIMIT:
++        raise ValueError("The objective and the violation must be within ±1e150")
 +    return float(objective), float(violation)
 +
 +
@@ -384,18 +387,15 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/utils/const
 +        return violation <= self.epsilon if self.technique == EPSILON else violation == 0
 +
 +    def _penalized(self, objective, violation):
-+        """objective + weight * violation, or None if it overflows."""
-+        value = objective + self.weight * violation
-+        return value if math.isfinite(value) else None
++        """objective + weight * violation; finite for parsed pairs (VALUE_LIMIT) and bounded weights."""
++        return objective + self.weight * violation
 +
 +    def key(self, objective, violation):
 +        """Selection key (smaller is better), exact for any finite values."""
 +        if objective is None:
 +            return (2, 0.0, 0.0)
 +        if self.technique in (PENALTY, ADAPTIVE_PENALTY):
-+            penalized = self._penalized(objective, violation)
-+            # an overflowing penalty is larger than any finite one; among those the violation dominates
-+            return (0, 0.0, penalized) if penalized is not None else (0, 1.0, violation)
++            return (0, 0.0, self._penalized(objective, violation))
 +        if self.is_feasible(objective, violation):
 +            return (0, 0.0, objective)
 +        return (1, 0.0, violation)
@@ -410,8 +410,7 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/utils/const
 +        if self.technique in (PENALTY, ADAPTIVE_PENALTY):
 +            if objective is None:
 +                return failure_cost if failure_cost is not None else 1.0
-+            penalized = self._penalized(objective, violation)
-+            return COST_LIMIT if penalized is None else max(-COST_LIMIT, min(COST_LIMIT, penalized))
++            return max(-COST_LIMIT, min(COST_LIMIT, self._penalized(objective, violation)))
 +        if objective is None:
 +            return 3.0
 +        if self.is_feasible(objective, violation):
@@ -426,13 +425,13 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/utils/const
 +    high = min(low + 1, len(sorted_values) - 1)
 +    return sorted_values[low] + (sorted_values[high] - sorted_values[low]) * (position - low)
 --- /Users/danijel/Desktop/gadapt/README.md	2026-10-23 00:18:03
-+++ gadapt_repo/README.md	2026-10-24 12:25:41
++++ gadapt_repo/README.md	2026-10-24 12:29:38
 @@ -277,7 +277,26 @@
  **ensure_unique_individuals**=*None* - If this parameter has a True value, the genetic algorithm ensures that no two individuals have the same variable values: offspring and mutated candidate solutions that repeat values already seen during the optimisation are regenerated, so the cost function is not evaluated twice for the same values. Duplicates are only likely when the variables take values from a grid defined by the step, so the default (*None*) means *True* when all variables have a step, and *False* when any variable is continuous (added without a step). Set it explicitly to *True* or *False* to override this. Ensuring uniqueness adds some computation per generation, especially late in the optimisation, which is usually negligible compared to the cost function execution time.
  
  **probe_cost_function**=*True* - Before the optimization, the parameter validation calls the cost function once with all minimal and once with all maximal values of the decision variables, to check that it returns a float. These two calls are real cost function evaluations, and they are not part of the search: their results are not added to the population. If the cost function is expensive, or if its evaluations are counted (for example, against a budget), set it to *False* to skip these two calls.
 +
-+**constraint_handling**=*None* - How constraints are handled. With *None*, the cost function returns the cost, as in all examples above (constraints, if any, are the user's penalty inside the cost). With a technique name, the cost function returns a pair *(objective, violation)*, where *violation* is 0 for a feasible solution and positive otherwise (for example, the sum of the constraint violations), and GAdapt ranks the candidate solutions with that technique: *"penalty"* uses objective + *constraint_penalty_weight* · violation; *"adaptive_penalty"* starts from the same weight, doubles it after three generations in a row with an infeasible best candidate solution and divides it by 1.5 after three feasible ones; *"feasibility_rules"* puts every feasible solution before every infeasible one, compares feasible solutions by objective and infeasible ones by violation; *"epsilon"* works like *"feasibility_rules"*, but violations up to a level that decreases to 0 over the first half of *number_of_generations* count as feasible (it needs *number_of_generations* > 0; if the run stops earlier, the level may still be positive at the end). Selection uses the exact order of the technique; the adaptation (cost diversity, parent diversity) and the parent selection read a scalar of that order (*min_cost* reports it): the penalized cost clipped to ±10¹², or, for the rule-based techniques, a value in [1, 3] that saturates only far outside the scale of the initial objectives. The results then describe the best evaluated solution of the whole run: the feasible one with the smallest objective, or, if none is feasible, the one with the smallest violation (*best_objective*, *best_violation*, *feasible* and its *result_values*). It cannot be combined with *mutation_operator_policy*. With *probe_cost_function*, the two probe calls must return valid pairs.
++**constraint_handling**=*None* - How constraints are handled. With *None*, the cost function returns the cost, as in all examples above (constraints, if any, are the user's penalty inside the cost). With a technique name, the cost function returns a pair *(objective, violation)*, where *violation* is 0 for a feasible solution and positive otherwise (both finite, within ±10¹⁵⁰) (for example, the sum of the constraint violations), and GAdapt ranks the candidate solutions with that technique: *"penalty"* uses objective + *constraint_penalty_weight* · violation; *"adaptive_penalty"* starts from the same weight, doubles it after three generations in a row with an infeasible best candidate solution and divides it by 1.5 after three feasible ones; *"feasibility_rules"* puts every feasible solution before every infeasible one, compares feasible solutions by objective and infeasible ones by violation; *"epsilon"* works like *"feasibility_rules"*, but violations up to a level that decreases to 0 over the first half of *number_of_generations* count as feasible (it needs *number_of_generations* > 0; if the run stops earlier, the level may still be positive at the end). The survivors are chosen by the exact order of the technique; the adaptation (cost diversity, parent diversity), the parent selection and the immigration read a scalar of that order (*min_cost* reports it): the penalized cost clipped to ±10¹², or, for the rule-based techniques, a value in [1, 3] that saturates only far outside the scale of the initial objectives. The results then describe the best evaluated solution of the whole run: the feasible one with the smallest objective, or, if none is feasible, the one with the smallest violation (*best_objective*, *best_violation*, *feasible* and its *result_values*). It cannot be combined with *mutation_operator_policy*. With *probe_cost_function*, the two probe calls must return valid pairs.
 +
 +```python
 +from gadapt.ga import GA
@@ -463,8 +462,8 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/utils/const
  
  For example, for the given function:
 --- /Users/danijel/Desktop/gadapt/tests/test_constraint_handling.py	1970-01-01 01:00:00
-+++ gadapt_repo/tests/test_constraint_handling.py	2026-10-24 12:25:09
-@@ -0,0 +1,142 @@
++++ gadapt_repo/tests/test_constraint_handling.py	2026-10-24 12:29:38
+@@ -0,0 +1,144 @@
 +"""Opt-in constraint_handling: the cost function returns (objective, violation).
 +
 +Toy problem: minimize (x - 2)^2 + (y - 1)^2 subject to x + y <= 2 (optimum x = 1.5, y = 0.5, objective 0.5).
@@ -555,19 +554,21 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/utils/const
 +        for _ in range(3000):
 +            handler.start_generation((1.0, 1.0), [(1.0, 1.0)], 0.0)
 +        self.assertEqual(handler.weight, 1000.0 * 1e6)
-+        for objective, violation in ((0.0, 1e308), (1.0, 0.0)):
++        for objective, violation in ((0.0, 1e150), (1.0, 0.0)):
 +            self.assertTrue(math.isfinite(handler.cost(objective, violation)))
 +
 +    def test_overflowing_penalties_keep_their_order(self):
 +        handler = ConstraintHandler("penalty", 1000.0)
 +        handler.start_generation(None, [(1.0, 0.0)], 0.0)
-+        self.assertLess(handler.key(0.0, 1e307), handler.key(0.0, 1e308))
-+        self.assertLess(handler.key(0.0, 1e300), handler.key(0.0, 1e307))
++        self.assertLess(handler.key(0.0, 1e149), handler.key(0.0, 1e150))
++        self.assertLess(handler.key(-1e150, 1e146), handler.key(1e150, 9e145))
++        with self.assertRaises(ValueError):
++            parse_pair((1e151, 0.0))
 +        handler = ConstraintHandler("adaptive_penalty", 1e100)
 +        for _ in range(30):
 +            handler.start_generation((1.0, 1.0), [(1.0, 1.0)], 0.0)
 +        self.assertTrue(math.isfinite(handler.weight))
-+        self.assertTrue(math.isfinite(handler.cost(1.0, 0.0)) and math.isfinite(handler.cost(0.0, 1e308)))
++        self.assertTrue(math.isfinite(handler.cost(1.0, 0.0)) and math.isfinite(handler.cost(-1e150, 1e150)))
 +
 +    def test_result_values_are_the_reported_feasible_solution(self):
 +        # a weak penalty makes an infeasible point the final scalar winner; the results report the best feasible one
