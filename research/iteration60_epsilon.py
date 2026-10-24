@@ -85,6 +85,7 @@ def run(task):
 def manifest(stage):
     out = i58.build_manifest(stage)
     out["i60_sha256"] = i57.sha256(os.path.join(HERE, "iteration60_epsilon.py"))
+    out["i58_check_amendment_sha256"] = i57.sha256(os.path.join(HERE, "iteration58_check_amendment.py"))
     out["i60_protocol_sha256"] = i57.sha256(os.path.join(HERE, "ITERATION60_PROTOCOL.md"))
     out["refs_sha256"] = i57.sha256(i56.path("i58_refs.json.gz"))
     out["refs_manifest_sha256"] = i57.sha256(i56.path("i58_refs_manifest.json.gz"))
@@ -93,7 +94,8 @@ def manifest(stage):
     return out
 
 
-I60_PROVENANCE = ("i60_sha256", "i60_protocol_sha256", "refs_sha256", "refs_manifest_sha256", "i60_settings")
+I60_PROVENANCE = ("i60_sha256", "i60_protocol_sha256", "refs_sha256", "refs_manifest_sha256", "i60_settings",
+                  "i58_check_amendment_sha256")
 
 
 def same_provenance(a, b):
@@ -168,6 +170,14 @@ def stage_check():
                 and (reference is None or c["losses"] <= reference * 1.01 + 0.01), c)
         ret = r.get("returned")
         c = i58.independent_check(t["network"], t["j"], ret["x"]) if ret else dict(valid=False)
+        if ret and c.get("valid") and c.get("converged") is False:
+            # a returned solution whose power flow does not converge: it must carry exactly the instrument's failure
+            # convention (as amendment D1 of the I58 check; fixed here before any I60 run)
+            import iteration58_check_amendment as amendment
+            arm = "G0" if t["arm"] == "G0" else "G1"
+            add(f"returned_{t['arm']}", amendment.failure_convention(
+                arm, ret, amendment.independent_f_ref(t["network"], t["j"])), dict(c, amendment="D1"))
+            continue
         ok = bool(ret) and c.get("valid") and c.get("converged")
         if ok and t["arm"] == "G2":
             ok = (abs(c["losses"] - ret["best_objective"]) <= 1e-6 * max(1.0, abs(ret["best_objective"]))
