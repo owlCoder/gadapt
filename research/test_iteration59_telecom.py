@@ -81,7 +81,8 @@ def test_milp_witness_is_verified():
     toy = t.Instance("toy", TOY)
     ref = toy.milp_reference(time_limit=60)
     assert ref["witness_checks"] and ref["certified"]
-    assert all(any(o in w for o in t.MILP_VERBATIM) for w in ref["warnings"])
+    assert all(t.EXPECTED_MILP_WARNING.match(w) for w in ref["warnings"])
+    assert not t.EXPECTED_MILP_WARNING.match("Unrecognized options detected: {'threads', 'foo'}. These will be passed to HiGHS verbatim.")
 
 
 def test_evaluate_emits_no_warnings():
@@ -101,3 +102,45 @@ def test_independent_checker_agrees_on_real_instances():
             assert b["valid"] and abs(a["C"] - b["cost"]) < 1e-9
             assert (a["V"] == 0.0) == b["routable"]
             assert abs(a["V"] - b["shortage"]) < 1e-6
+
+
+def test_attainment_refuses_failed_records():
+    records = [dict(task=dict(instance="pdh"), ok=True, hits={"0.05": 10}), dict(task=dict(instance="pdh"), ok=False)]
+    try:
+        t.attainment(records, "pdh", 3000, 0.05)
+        raise AssertionError("failed records were silently excluded")
+    except AssertionError as e:
+        assert "silently" not in str(e)
+
+
+def test_checker_requires_full_demand_balances():
+    toy = t.Instance("toy", TOY)
+    assert t.independent_check("toy", toy.x_sp, TOY)["routable"]
+    almost = toy.x_sp.copy()
+    almost[np.argmax(almost)] -= 1
+    assert toy.evaluate(almost)["V"] > 0 and not t.independent_check("toy", almost, TOY)["routable"]
+
+
+def test_analysis_requires_the_exact_inventory_and_passed_checks():
+    def record(n, s, arm):
+        return dict(task=dict(instance=n, seed=t.seed_of(2, n, s), arm=arm, budget=3000), ok=True,
+                    hits={"0.05": 100 if arm == "G1" else 2000})
+    full = [record(n, s, a) for n in t.CONFIRMATION for s in range(1, 16) for a in ("G0", "G1")]
+    refs = {n: dict(certified=True, C=1.0) for n in t.CONFIRMATION}
+    store = {"development.json": dict(decision="GO", trivial={}),
+             "check.json": dict(failures=0)}
+    saved = {}
+    original_load, original_save = t.load, t.save
+    try:
+        t.save = lambda name, d: saved.update({name: d})
+        for records, checks, expect in ((full, 0, True), (full[:-2], 0, False), (full, 1, False)):
+            store["confirmation.json"] = dict(chosen=[3000, 0.05], references=refs, trivial={}, records=records)
+            store["check.json"] = dict(failures=checks)
+            t.load = lambda name: store[name]
+            import io, contextlib
+            with contextlib.redirect_stdout(io.StringIO()):
+                t.analyse()
+            h = saved["analysis.json"]["H59"]
+            assert (h is not None and h["supported"]) == expect
+    finally:
+        t.load, t.save = original_load, original_save

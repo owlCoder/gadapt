@@ -24,6 +24,10 @@ LP_OPTIONS = dict(presolve=True, dual_feasibility_tolerance=1e-8, primal_feasibi
                   simplex_dual_edge_weight_strategy="devex", threads=1)
 # forwarded verbatim to HiGHS by SciPy 1.18.1 with an "unrecognized ... passed verbatim" warning (Codex 040)
 MILP_VERBATIM = ("threads", "mip_abs_gap")
+import re  # noqa: E402
+_OPT = r"('threads'|'mip_abs_gap')"  # SciPy 1.18.1 reports the option names as a set
+EXPECTED_MILP_WARNING = re.compile(r"^Unrecognized options detected: \{" + _OPT + r"(, " + _OPT + r")*\}\. "
+                                   r"These will be passed to HiGHS verbatim\.$")
 RESIDUAL_TOL, ZERO_V = 1e-7, 1e-8
 
 
@@ -184,7 +188,7 @@ class Instance:
                        integrality=integrality, bounds=Bounds(lb, ub),
                        options=dict(time_limit=time_limit, mip_rel_gap=0.0, presolve=True, threads=1, mip_abs_gap=0.0))
         messages = [str(w.message) for w in caught]
-        unexpected = [m for m in messages if not any(o in m for o in MILP_VERBATIM)]
+        unexpected = [m for m in messages if not EXPECTED_MILP_WARNING.match(m)]
         out = dict(status=int(res.status), message=str(res.message), fun=None if res.x is None else float(res.fun),
                    gap=getattr(res, "mip_gap", None), dual_bound=getattr(res, "mip_dual_bound", None),
                    warnings=messages, x=None, y=None, C=None, certified=False)
@@ -246,7 +250,7 @@ class Evaluator:
                 self.best_C, self.best_x = out["C"], x.tolist()
             if self.c_star is not None:
                 for eps in EPSILONS:
-                    if self.hits[eps] is None and out["C"] <= (1 + eps) * self.c_star + 1e-9:
+                    if self.hits[eps] is None and out["C"] <= (1 + eps) * self.c_star:
                         self.hits[eps], self.hit_x[eps] = self.calls, x.tolist()
         return out
 
@@ -333,7 +337,9 @@ def references(names, time_limit=3600.0):
 
 
 def attainment(records, name, budget, eps):
-    rs = [r for r in records if r["task"]["instance"] == name and r["ok"]]
+    """Pooled G0/G1 attainment; only called when every record succeeded (persistent failures block primary use)."""
+    rs = [r for r in records if r["task"]["instance"] == name]
+    assert rs and all(r["ok"] for r in rs)
     return sum(1 for r in rs if r["hits"][str(eps)] is not None and r["hits"][str(eps)] <= budget) / len(rs)
 
 
@@ -346,27 +352,80 @@ def choose(records):
     return None
 
 
+def sha(path):
+    import hashlib
+    with open(path, "rb") as f:
+        return hashlib.sha256(f.read()).hexdigest()
+
+
+def manifest(stage, extra=None):
+    """Frozen execution archive: code/protocol/clarification hashes, the imported library tree, settings, versions."""
+    import platform
+    import sys as _sys
+    import scipy
+    import gadapt
+    import scipy.optimize._highspy._core as highs
+    library = os.path.dirname(gadapt.__file__)
+    tree = {os.path.relpath(os.path.join(r, f), library): sha(os.path.join(r, f))
+            for r, _, fs in os.walk(library) for f in fs if f.endswith(".py")}
+    out = dict(stage=stage, python=platform.python_version(), executable=_sys.executable, scipy=scipy.__version__,
+               numpy=np.__version__, highs=f"{highs.HIGHS_VERSION_MAJOR}.{highs.HIGHS_VERSION_MINOR}.{highs.HIGHS_VERSION_PATCH}",
+               library_path=library, library_tree=tree,
+               files={f: sha(os.path.join(HERE, f)) for f in ("iteration59_telecom.py", "ITERATION59_PROTOCOL.md",
+                                                             "ITERATION59_CLARIFICATIONS.md")},
+               data={n: sha(os.path.join(DATA, n + ".json")) for n in INSTANCES},
+               settings=dict(lp=LP_OPTIONS, epsilons=EPSILONS, budgets=BUDGETS, pairs=[SELECTION_PAIRS, VALIDATION_PAIRS,
+                             CONFIRMATION_PAIRS], population=POPULATION_SIZE, penalty=1000.0))
+    out.update(extra or {})
+    save(f"manifest_{stage}.json", out)
+    return out
+
+
+def checked_references(names, time_limit=3600.0):
+    """MILP references, each independently verified (routable, cost) before it can be used."""
+    refs = references(names, time_limit)
+    for name, ref in refs.items():
+        check = independent_check(name, ref["x"]) if ref.get("x") is not None else dict(valid=False)
+        ref["independent"] = check
+        ref["usable"] = bool(ref["certified"] and check.get("valid") and check.get("routable")
+                             and abs(check["cost"] - ref["C"]) < 1e-6)
+    return refs
+
+
+def trivial_targets(refs, names, eps):
+    return {n: not ((1 + eps) * refs[n]["C"] < Instance(n).c_sp) for n in names if refs[n].get("C") is not None}
+
+
 def stage_development(workers):
-    refs = references(DEVELOPMENT)
-    if not all(refs[n]["certified"] for n in DEVELOPMENT):
-        save("development.json", dict(references=refs, decision="NO-GO: development optimum not certified"))
+    manifest("development")
+    refs = checked_references(DEVELOPMENT)
+    if not all(refs[n]["usable"] for n in DEVELOPMENT):
+        save("development.json", dict(references=refs, decision="NO-GO: development optimum not certified/verified"))
         return
     tasks = [dict(instance=n, arm=a, seed=seed_of(0, n, s), budget=BUDGETS[-1], c_star=refs[n]["C"])
              for n in DEVELOPMENT for s in range(1, SELECTION_PAIRS + 1) for a in ("G0", "G1")]
     selection = pool_run(tasks, workers)
-    chosen = choose(selection)
-    validation, decision = None, None
-    if chosen is None:
-        decision = "NO-GO: no (B, eps) with 20-80% attainment on every development network"
+    validation, chosen, trivial = None, None, None
+    if not all(r["ok"] for r in selection):
+        decision = "NO PRIMARY: persistent execution failure in selection"
     else:
-        budget, eps = chosen
-        tasks = [dict(instance=n, arm=a, seed=seed_of(1, n, s), budget=budget, c_star=refs[n]["C"])
-                 for n in DEVELOPMENT for s in range(1, VALIDATION_PAIRS + 1) for a in ("G0", "G1")]
-        validation = pool_run(tasks, workers)
-        ok = all(0.2 <= attainment(validation, n, budget, eps) <= 0.8 for n in DEVELOPMENT)
-        decision = "GO" if ok else "NO-GO: validation seeds outside 20-80%"
-    save("development.json", dict(references=refs, chosen=chosen, decision=decision, selection=selection,
-                                  validation=validation))
+        chosen = choose(selection)
+        if chosen is None:
+            decision = "NO-GO: no (B, eps) with 20-80% attainment on every development network"
+        else:
+            budget, eps = chosen
+            trivial = trivial_targets(refs, DEVELOPMENT, eps)
+            tasks = [dict(instance=n, arm=a, seed=seed_of(1, n, s), budget=budget, c_star=refs[n]["C"])
+                     for n in DEVELOPMENT for s in range(1, VALIDATION_PAIRS + 1) for a in ("G0", "G1")]
+            validation = pool_run(tasks, workers)
+            if not all(r["ok"] for r in validation):
+                decision = "NO PRIMARY: persistent execution failure in validation"
+            elif all(0.2 <= attainment(validation, n, budget, eps) <= 0.8 for n in DEVELOPMENT):
+                decision = "GO"
+            else:
+                decision = "NO-GO: validation seeds outside 20-80%"
+    save("development.json", dict(references=refs, chosen=chosen, trivial=trivial, decision=decision,
+                                  selection=selection, validation=validation))
 
 
 def stage_confirmation(workers):
@@ -374,12 +433,16 @@ def stage_confirmation(workers):
     if dev["decision"] != "GO":
         raise SystemExit(f"development decision: {dev['decision']}")
     budget, eps = dev["chosen"]
-    refs = references(CONFIRMATION)
-    trivial = {n: refs[n]["C"] is not None and not ((1 + eps) * refs[n]["C"] < Instance(n).c_sp) for n in CONFIRMATION}
+    manifest("confirmation", dict(development_sha256=sha(os.path.join(OUT, "development.json.gz")), chosen=[budget, eps]))
+    refs = checked_references(CONFIRMATION)
+    trivial = trivial_targets(refs, CONFIRMATION, eps)
     save("confirmation_refs.json", dict(references=refs, trivial=trivial, chosen=[budget, eps]))
+    if not all(refs[n]["usable"] for n in CONFIRMATION):
+        raise SystemExit("STOP: a confirmation optimum is not certified/verified -> no H59 (bounds descriptive only)")
     tasks = [dict(instance=n, arm=a, seed=seed_of(2, n, s), budget=budget, c_star=refs[n]["C"])
              for n in CONFIRMATION for s in range(1, CONFIRMATION_PAIRS + 1) for a in ("G0", "G1")]
     save("confirmation.json", dict(references=refs, trivial=trivial, chosen=[budget, eps],
+                                   development_sha256=sha(os.path.join(OUT, "development.json.gz")),
                                    records=pool_run(tasks, workers)))
 
 
@@ -393,13 +456,25 @@ def analyse():
     def T(r):
         h = r["hits"][str(eps)]
         return min(h / budget, 1.0) if h is not None else 1.0
+    expected = {(n, seed_of(2, n, s)) for n in CONFIRMATION for s in range(1, CONFIRMATION_PAIRS + 1)}
+    keys = [(r["task"]["instance"], r["task"]["seed"], r["task"]["arm"]) for r in data["records"]]
+    inventory_ok = (len(keys) == len(set(keys)) == 2 * len(expected) and set(units) == expected
+                    and all(r["task"]["budget"] == budget for r in data["records"]))
     complete = {k: u for k, u in units.items() if len(u) == 2 and all(r["ok"] for r in u.values())}
     persistent = [list(k) for k, u in units.items() if k not in complete]
+    try:
+        check = load("check.json")
+        checks_ok = check["failures"] == 0
+    except FileNotFoundError:
+        checks_ok = False
     cells = {}
     for (n, seed), u in complete.items():
         cells.setdefault(n, []).append(T(u["G1"]) - T(u["G0"]))
     result = None
-    if certified and not persistent and set(cells) == set(CONFIRMATION):
+    dev = load("development.json")
+    eligible = (certified and inventory_ok and not persistent and checks_ok and dev["decision"] == "GO"
+                and set(cells) == set(CONFIRMATION))
+    if eligible:
         rng = np.random.RandomState(59)
         values = {n: np.array(v) for n, v in cells.items()}
         draws = np.mean([v[rng.randint(0, len(v), (20000, len(v)))].mean(axis=1) for n, v in sorted(values.items())],
@@ -407,7 +482,9 @@ def analyse():
         estimate = float(np.mean([v.mean() for v in values.values()]))
         lo, hi = np.percentile(draws, [2.5, 97.5])
         result = dict(estimate=estimate, ci=[float(lo), float(hi)], supported=bool(hi < 0))
-    out = dict(chosen=[budget, eps], certified=certified, trivial=data["trivial"], persistent_failures=persistent,
+    out = dict(chosen=[budget, eps], certified=certified, inventory_ok=inventory_ok, checks_ok=checks_ok,
+               development_decision=dev["decision"], development_trivial=dev.get("trivial"),
+               trivial=data["trivial"], persistent_failures=persistent,
                H59=result, per_network={n: dict(mean_d=float(np.mean(v)), n=len(v)) for n, v in cells.items()})
     save("analysis.json", out)
     print(json.dumps(dict(H59=result, certified=certified, trivial=data["trivial"]), indent=1))
@@ -415,18 +492,20 @@ def analyse():
 
 # ------------------------------------------------------------------ independent checker (no Instance code)
 
-def independent_check(name, x):
+def independent_check(name, x, raw=None):
     """Rebuilds the network from the raw JSON with networkx incidence matrices and checks a design: integer modules in
     [0, 16], cost, and whether the FULL demands can be routed (min total shortage LP = 0)."""
     import networkx as nx
-    with open(os.path.join(DATA, name + ".json")) as f:
-        raw = json.load(f)
+    if raw is None:
+        with open(os.path.join(DATA, name + ".json")) as f:
+            raw = json.load(f)
     graph = nx.Graph()
     for e in raw["edges"]:
         graph.add_edge(int(e["source"]), int(e["target"]), dist=float(e["dist"]))
     edges = sorted(tuple(sorted(e)) for e in graph.edges())
     x = np.asarray(x, float)
-    if x.shape != (len(edges),) or np.any(np.abs(x - np.rint(x)) > 0) or x.min() < 0 or x.max() > MAX_MODULES:
+    if x.shape != (len(edges),) or not np.all(np.isfinite(x)) or np.any(np.abs(x - np.rint(x)) > 0) \
+            or x.min() < 0 or x.max() > MAX_MODULES:
         return dict(valid=False)
     demands = [(int(s), int(t), float(v)) for s, row in raw["graph"]["demands"].items() for t, v in row.items()
                if float(v) > 0 and int(s) != int(t)]
@@ -462,15 +541,30 @@ def independent_check(name, x):
     demand_h = np.array([v / q for _, _, v in demands])
     res = linprog(np.concatenate([np.zeros(k * n_arcs), np.ones(k)]), A_ub=a_ub, b_ub=x, A_eq=a_eq, b_eq=b_eq,
                   bounds=[(0, None)] * (k * n_arcs) + [(0, h) for h in demand_h], method="highs")
-    shortage = float(res.fun) / demand_h.sum() if res.status == 0 else None
-    return dict(valid=True, cost=float(cost), shortage=shortage, routable=shortage is not None and shortage <= ZERO_V)
+    if res.status != 0 or res.x is None or not np.all(np.isfinite(res.x)):
+        return dict(valid=True, cost=float(cost), shortage=None, routable=False)
+    shortage = float(res.fun) / demand_h.sum()
+    flows = res.x[:k * n_arcs]
+    full = np.concatenate([flows, np.zeros(k)])  # the flows alone must meet the FULL demands at every node
+    routable = bool(shortage <= ZERO_V and flows.min() >= -RESIDUAL_TOL
+                    and np.max(a_ub @ full - x) <= RESIDUAL_TOL and np.max(np.abs(a_eq @ full - b_eq)) <= RESIDUAL_TOL)
+    return dict(valid=True, cost=float(cost), shortage=shortage, routable=routable)
 
 
 def stage_check():
-    """Independent re-check of returned designs and of every target witness (confirmation records)."""
+    """Independent re-check of returned designs and every witness that determined selection, validation and T."""
     data = load("confirmation.json")
+    dev = load("development.json")
     eps = data["chosen"][1]
     rows, failures = [], 0
+    for r in (dev["selection"] or []) + (dev["validation"] or []):
+        for e in (str(x) for x in EPSILONS):
+            x = (r.get("hit_x") or {}).get(e)
+            if x is not None:
+                c = independent_check(r["task"]["instance"], x)
+                ok = c["valid"] and c["routable"] and c["cost"] <= (1 + float(e)) * dev["references"][r["task"]["instance"]]["C"]
+                rows.append(dict(task=r["task"], kind=f"development_target_{e}", ok=bool(ok), check=c))
+                failures += not ok
     for r in data["records"]:
         for kind, x in (("returned", r.get("returned")), ("target", (r.get("hit_x") or {}).get(str(eps))),
                         ("best", r.get("best_x"))):
@@ -479,7 +573,7 @@ def stage_check():
             c = independent_check(r["task"]["instance"], x)
             ok = c["valid"] and (kind == "returned" or c["routable"])
             if kind == "target" and ok:
-                ok = c["cost"] <= (1 + eps) * data["references"][r["task"]["instance"]]["C"] + 1e-9
+                ok = c["cost"] <= (1 + eps) * data["references"][r["task"]["instance"]]["C"]
             rows.append(dict(task=r["task"], kind=kind, ok=bool(ok), check=c))
             failures += not ok
     for name, ref in data["references"].items():
