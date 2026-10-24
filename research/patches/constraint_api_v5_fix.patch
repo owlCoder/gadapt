@@ -1,0 +1,91 @@
+diff --git a/README.md b/README.md
+index 5ab1d2d..2aa653a 100644
+--- a/README.md
++++ b/README.md
+@@ -278,7 +278,7 @@ Supported values:
+ 
+ **probe_cost_function**=*True* - Before the optimization, the parameter validation calls the cost function once with all minimal and once with all maximal values of the decision variables, to check that it returns a float. These two calls are real cost function evaluations, and they are not part of the search: their results are not added to the population. If the cost function is expensive, or if its evaluations are counted (for example, against a budget), set it to *False* to skip these two calls.
+ 
+-**constraint_handling**=*None* - How constraints are handled. With *None*, the cost function returns the cost, as in all examples above (constraints, if any, are the user's penalty inside the cost). With a technique name, the cost function returns a pair *(objective, violation)*, where *violation* is 0 for a feasible solution and positive otherwise (both finite, within ±10¹⁵⁰) (for example, the sum of the constraint violations), and GAdapt ranks the candidate solutions with that technique: *"penalty"* uses objective + *constraint_penalty_weight* · violation; *"adaptive_penalty"* starts from the same weight, doubles it after three generations in a row with an infeasible best candidate solution and divides it by 1.5 after three feasible ones; *"feasibility_rules"* puts every feasible solution before every infeasible one, compares feasible solutions by objective and infeasible ones by violation; *"epsilon"* works like *"feasibility_rules"*, but violations up to a level that decreases to 0 over the first half of *number_of_generations* count as feasible (it needs *number_of_generations* > 0; if the run stops earlier, the level may still be positive at the end). The survivors are chosen by the exact order of the technique; the adaptation (cost diversity, parent diversity), the parent selection and the immigration read a scalar of that order (*min_cost* reports it): the penalized cost clipped to ±10¹², or, for the rule-based techniques, a value in [1, 3] that saturates only far outside the scale of the initial objectives. The results then describe the best evaluated solution of the whole run: the feasible one with the smallest objective, or, if none is feasible, the one with the smallest violation (*best_objective*, *best_violation*, *feasible* and its *result_values*). It cannot be combined with *mutation_operator_policy*. With *probe_cost_function*, the two probe calls must return valid pairs.
++**constraint_handling**=*None* - How constraints are handled. With *None*, the cost function returns the cost, as in all examples above (constraints, if any, are the user's penalty inside the cost). With a technique name, the cost function returns a pair *(objective, violation)*, where *violation* is 0 for a feasible solution and positive otherwise (both finite, within ±10¹⁵⁰) (for example, the sum of the constraint violations), and GAdapt ranks the candidate solutions with that technique: *"penalty"* uses objective + *constraint_penalty_weight* · violation; *"adaptive_penalty"* starts from the same weight, doubles it after three generations in a row with an infeasible best candidate solution and divides it by 1.5 after three feasible ones; *"feasibility_rules"* puts every feasible solution before every infeasible one, compares feasible solutions by objective and infeasible ones by violation; *"epsilon"* works like *"feasibility_rules"*, but violations up to a level that decreases to 0 over the first half of *number_of_generations* count as feasible (it needs *number_of_generations* > 0; if the run stops earlier, the level may still be positive at the end). The survivors are chosen by the exact order of the technique; the adaptation (cost diversity, parent diversity), the parent selection and the immigration read a scalar of that order (*min_cost* reports it): the penalized cost clipped to ±10¹², or, for the rule-based techniques, a value in [1, 3] that saturates only far outside the scale of the initial objectives. The results then describe the best evaluated solution of the whole run: the feasible one with the smallest objective, or, if none is feasible, the one with the smallest violation (*best_objective*, *best_violation*, *feasible* and its *result_values*). It cannot be combined with a *mutation_operator_policy* other than *"legacy"*. With *probe_cost_function*, the two probe calls must return valid pairs.
+ 
+ ```python
+ from gadapt.ga import GA
+@@ -295,7 +295,7 @@ results = ga.execute()
+ print(results.best_objective, results.best_violation, results.result_values)
+ ```
+ 
+-**constraint_penalty_weight**=*1000.0* - The weight of the violation for *constraint_handling="penalty"*, and the initial weight for *"adaptive_penalty"* (which then stays within a factor of 10⁶ of it). At most 10¹⁰⁰.
++**constraint_penalty_weight**=*1000.0* - The weight of the violation for *constraint_handling="penalty"*, and the initial weight for *"adaptive_penalty"* (which then stays within a factor of 10⁶ of it). It must be positive, at most 10¹⁰⁰.
+ 
+ **logging**=*False* - If this parameter has a True value, the log file will be created in the current working directory. The log file contains the flow of genetic algorithm execution, along with values of candidate solutions, decision variables and cost functions in each generation
+ 
+diff --git a/gadapt/execution/ga_executor.py b/gadapt/execution/ga_executor.py
+index 5a24d59..15eab8b 100644
+--- a/gadapt/execution/ga_executor.py
++++ b/gadapt/execution/ga_executor.py
+@@ -78,11 +78,12 @@ class GAExecutor:
+             results.min_cost_per_generation = self.population.min_cost_per_generation
+             for g in best_individual:
+                 results.result_values[g.decision_variable.variable_id] = g.value
+-            best = getattr(self.cost_finder, "best", None)
+-            if best is not None:  # constraint_handling: the best evaluated solution of the run
+-                results.best_objective, results.best_violation, values = best
+-                results.feasible = results.best_violation == 0
+-                results.result_values = dict(values)
++            if self.ga_options.constraint_handling is not None:  # the best evaluated solution of the run
++                best = getattr(self.cost_finder, "best", None)
++                if best is not None:
++                    results.best_objective, results.best_violation, values = best
++                    results.feasible = results.best_violation == 0
++                    results.result_values = dict(values)
+         except Exception as ex:
+             results.success = False
+             results.messages.append((message_levels.ERROR, str(ex)))
+diff --git a/gadapt/ga_model/ga_results.py b/gadapt/ga_model/ga_results.py
+index 7162927..8e85732 100644
+--- a/gadapt/ga_model/ga_results.py
++++ b/gadapt/ga_model/ga_results.py
+@@ -19,7 +19,8 @@ class GAResults:
+         self._min_cost_per_generation: List[float] = []
+         self._initial_population: Optional[Population] = None
+         self._min_cost = float("NaN")
+-        # with constraint_handling: objective and violation of the best candidate solution (min_cost is its scalar)
++        # with constraint_handling: objective and violation of the best evaluated candidate solution of the run
++        # (min_cost is the scalar of the best candidate solution of the final population)
+         self.best_objective = float("NaN")
+         self.best_violation = float("NaN")
+         self.feasible = None
+diff --git a/tests/test_constraint_handling.py b/tests/test_constraint_handling.py
+index 98a97f5..52023de 100644
+--- a/tests/test_constraint_handling.py
++++ b/tests/test_constraint_handling.py
+@@ -142,3 +142,28 @@ class ConstraintHandlingTest(unittest.TestCase):
+ 
+ if __name__ == "__main__":
+     unittest.main()
++
++
++class DefaultModeCustomCostFinderTest(unittest.TestCase):
++    def test_unrelated_best_attribute_is_ignored_without_constraint_handling(self):
++        # Codex 050: a custom cost finder with its own "best" attribute must not be read as the constraint result
++        from gadapt.factory.ga_factory import GAFactory
++        from gadapt.operations.cost_finding.elitism_cost_finder import ElitismCostFinder
++
++        class CostFinder(ElitismCostFinder):
++            best = 0.0
++
++        class Factory(GAFactory):
++            def _get_cost_finder(self):
++                return CostFinder()
++
++        random.seed(1)
++        np.random.seed(1)
++        ga = GA(cost_function=lambda v: (v[0] - 1) ** 2 + v[1] ** 2, factory=Factory(), exit_check="generations",
++                number_of_generations=20)
++        ga.add(-3.0, 3.0, 0.01)
++        ga.add(-3.0, 3.0, 0.01)
++        result = ga.execute()
++        self.assertTrue(result.success, result.messages)
++        self.assertIsNone(result.feasible)
++        self.assertTrue(math.isnan(result.best_objective))

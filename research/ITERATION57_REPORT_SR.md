@@ -58,7 +58,9 @@ nasumična 0,3%; bar jedno izvodljivo rešenje GAdapt 49% / 50%, CMAwM 43% / 43%
 Tri jasna obrasca:
 1. **Ceo kontrast T potiče sa case14 (R = 17, 33).** Tamo CMAwM dostiže cilj oko 2,5–3× brže (T 0,18–0,38 naspram
    0,58–0,89) i ima nižu medijanu najboljeg izvodljivog gubitka u svakom scenariju (npr. R = 17, scenario 2: 9,028
-   naspram 9,204 / 9,323 MW). U ostalih 7 blokova T ≈ 1 za sve metode (neinformativno, kao u I56).
+   naspram 9,204 / 9,323 MW); dostizanje cilja 92,5–95% naspram 47,5–60%. DE na R = 17 dostiže cilj često
+   (87,5–92,5%), ali kasno (T ≈ 0,69), pa je kontrast DE − GAdapt blizu nule: dostizanje i T opisuju različite
+   aspekte. U ostalih 7 blokova T ≈ 1 za sve metode (neinformativno, kao u I56).
 2. **Na case57 GAdapt je jedini metod koji uvek nađe izvodljivo rešenje** (20/20 u svakom bloku, pod obe tehnike);
    CMAwM 9–20/20, DE i nasumična 0/20. Medijana najboljeg izvodljivog gubitka GAdapt-a je niža od CMAwM u 9 od 12
    ćelija scenario × R × CHT (opisno; T ne beleži tu prednost jer cilj nije dostignut; medijane su uslovne na
@@ -72,13 +74,18 @@ Tri jasna obrasca:
   1155 jedinki po generaciji), pa DE završi samo ~7 odnosno ~2,6 generacija — u praksi je to latinska hiperkocka
   plus nekoliko generacija. Rezultat DE na case57/case118 ne govori o DE pri većem budžetu ili manjoj populaciji;
   konfiguracije su po protokolu „ograničene budžetom“ i nisu podešavane.
+- Četiri ćelije imaju cilj „samo izvodljivost“ (bez izvodljive reference, I56 §6); referenca L* je najbolje
+  poznata, ne optimum; jednak broj PF poziva ne znači jednako vreme izvršavanja ni jednak trud podešavanja.
 - Podrazumevana podešavanja spoljnih metoda; nema L-SHADE / jDE (protokol); 3 mreže, jedna vrsta merila.
 - Opisna studija: nijedan obrazac iz §4 nije potvrđen kao hipoteza.
 
 ## 6. Nezavisna provera
-Codex 049 je napisao sopstveni čitač sirovih zapisa (bez koda analize iz drajvera) i ponovio primarne procene,
-tabele po blokovima i provere budžeta/heševa. Rezultat provere: vidi
+Codex 049 je napisao sopstveni čitač sirovih zapisa (bez koda analize iz drajvera):
 [codex/049_i57_independent_analysis_codex_answer.md](codex/049_i57_independent_analysis_codex_answer.md).
+Svih 6 tačkastih procena se poklapa tačno; intervali (drugi redosled uzorkovanja) odstupaju najviše 0,0003 T.
+Potvrđeno: 2100 pokretanja, 300 potpunih jedinica, svako tačno 3000 poziva (ukupno 6,3 miliona), 0 grešaka,
+ponavljanja i izuzimanja; T, izvodljivost, dostizanje i svih 30 referenci se nezavisno rekonstruišu; heševi koda i
+protokola u manifestu odgovaraju fajlovima; heš I56 `test_ref` isti u izlazu, analizi i manifestu.
 
 ## 7. Zaključak i posledice
 1. Na jedinoj mreži gde su ciljevi dostižni pri 3000 poziva (case14), CMA-ES sa marginom je višestruko brži od
