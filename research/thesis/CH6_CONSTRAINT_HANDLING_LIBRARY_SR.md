@@ -10,10 +10,7 @@ elitizam, izbor roditelja i samoadaptacija, radi nad tim brojem. Korisnik koji i
 pretvori u kaznu i doda cilju. To je jednostavno, ali ima dve posledice koje su za infrastrukturne probleme važne.
 Prvo, tehnike koje ne mogu da se izraze jednim nepromenljivim brojem, kao što su Deb-ova pravila izvodljivosti,
 adaptivna kazna ili ε-ograničenje, uopšte nisu dostupne: kod adaptivne kazne i ε-ograničenja menja se i poredak
-jedinki koje su već ocenjene, a to omotač funkcije troška ne može da uradi. Drugo, kazna ulazi u signale
-samoadaptacije kao obična vrednost troška, pa adaptacija dok populacija nije izvodljiva reaguje na veličinu
-prekršaja, a ne na napredak po cilju. Studija I56 meri koliko je ovo drugo važno; ovo poglavlje opisuje kako je
-prvo rešeno.
+jedinki koje su već ocenjene, a to omotač funkcije troška ne može da uradi. Drugo, kazneni skalar povezuje cilj i prekršaj u signalima adaptacije; njihov relativni doprinos nije izolovan. I56 testira konkretne intervencije nad signalima, bez potvrđenog efekta ili procene posredovanja; ovo poglavlje opisuje bibliotečku implementaciju. I58 i I60 nisu potvrdile ubrzanje prema kazni 1000; I59 je razvojni NO-GO bez H59 zaključka.
 
 ## 6.2 Interfejs
 

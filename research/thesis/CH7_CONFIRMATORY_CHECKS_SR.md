@@ -1,6 +1,6 @@
 # Poglavlje 7. Konfirmatorne provere ugrađenih tehnika za ograničenja
 
-*Nacrt, 24. oktobar 2026, posle studija I58 i I60. Merodavni su zamrznuti protokoli i odgovarajući izveštaji, uključujući odstupanje D1 u I58. H58 = N i H60 = N. I59 je u toku; njegovi rezultati nisu otvarani, a odeljak 7.7 ostaje označeno mesto za dopunu.*
+*Nacrt, 24. oktobar 2026, posle studija I58 i I60. Merodavni su zamrznuti protokoli i odgovarajući izveštaji, uključujući odstupanje D1 u I58. H58 = N i H60 = N. I59 je završen razvojnim NO-GO (nijedan dozvoljeni par budžeta i tolerancije nije zadovoljio 20–80% dostizanja na obe razvojne mreže; potvrda nije izvršena); izabrana je grana N/N/nedostupno.*
 
 ## 7.1 Zašto je posle opisnog nalaza potrebna konfirmatorna provera
 
@@ -109,28 +109,25 @@ Kazna 1000 nije razvojno podešena. Kontrasti zato ne opisuju prednost prema kaz
 
 Nezavisne ponovne analize reprodukovale su primarne procene i tabele. Ipak, proverivač koristi isti PYPOWER solver, a drugi istraživač nije ponovio ceo paket u čistom okruženju. Udeo pokretanja sa nađenom izvodljivošću u tabelama znači da je izvodljivo rešenje ikada evaluirano; ne garantuje da je ono vraćeno korisniku.
 
-## 7.7 I59: jasno označeno mesto za dopunu
+## 7.7 I59: razvojni NO-GO
 
-**PLACEHOLDER — I59 JE U TOKU. Rezultati i logovi nisu otvarani. Procena, interval, razvojna odluka i status H59 ostaju nepopunjeni.**
+I59 proverava FR prema istoj kazni u modularnom planiranju kapaciteta telekom mreže. Razvoj koristi Abilene i PDH, a potvrda
+Polska, Nobel-Germany i Nobel-US. Model ima statičke zahteve, deljive tokove i zajednički kapacitet oba smera; moduli i cene
+su sintetičke pretpostavke. Budžet \(B\) i tolerancija cilja \(\varepsilon\) biraju se zamrznutim razvojnim pravilom
+(zbirno G0/G1 dostizanje 20–80% na svakoj razvojnoj mreži), bez ponovnog izbora posle neuspeha.
 
-I59 proverava FR prema istoj kazni u modularnom planiranju kapaciteta telekom mreže. Razvoj koristi Abilene i PDH, a potvrda Polska, Nobel-Germany i Nobel-US. Model ima statičke zahteve, deljive tokove i zajednički kapacitet oba smera; moduli i cene su sintetičke pretpostavke. Ranija izloženost topologijama i LP probe ostaju ograničenje.
+Obe razvojne MILP reference su sertifikovane (gap 0) i nezavisno proverene. Zbirno dostizanje (20 putanja po mreži):
 
-Budžet \(B\) i tolerancija cilja biraju se zamrznutim razvojnim pravilom, sa novim validacionim semenima i bez ponovnog izbora posle neuspeha. Cilj zahteva izvodljivost i trošak do \((1+\varepsilon)C^*\), uz sertifikovan i nezavisno proveren optimum. Ova ε označava toleranciju ciljnog troška.
+| B | Abilene ε = 0,05 / 0,10 / 0,20 | PDH ε = 0,05 / 0,10 / 0,20 |
+|---|---|---|
+| 3000 | 0,75 / 1,00 / 1,00 | 0,00 / 0,00 / 0,50 |
+| 10.000 | 1,00 / 1,00 / 1,00 | 0,10 / 0,80 / 1,00 |
+| 30.000 | 1,00 / 1,00 / 1,00 | 0,95 / 1,00 / 1,00 |
 
-Pri dopuni se koriste sledeće unapred napisane rečenice iz skeleta Codex 069:
-
-| Utvrđena grana | Rečenica za izveštaj |
-|---|---|
-| Nijedan razvojni par ne prolazi | Nijedan dozvoljeni par nije zadovoljio razvojni uslov; H59 zaključak je nedostupan, bez ponovnog izbora. |
-| Nova validaciona semena ne prolaze | Izabrani par nije prošao nova validaciona semena; potvrda se zaustavlja, bez ponovnog izbora. |
-| Nesertifikovana/neproverena referenca ili potvrdni STOP | Potrebna referenca nije sertifikovana i nezavisno proverena; nema H59 zaključka, a granice ostaju opisne. |
-| Trajni izvršni neuspeh | Trajni izvršni neuspeh sprečava primarni zaključak. |
-| Neuspešna provera ili zaštita valjanosti | Uslovi valjanosti nisu ispunjeni; nema zaključka o H59. |
-| Valjana analiza, podržana H59 | H59 je podržana: ceo 95% interval je ispod nule. |
-| Valjana analiza, nepodržana H59 | H59 nije podržana; interval ne ispunjava zamrznuti uslov, što ne dokazuje jednakost ili odsustvo koristi. |
-| Trivijalan cilj | Cilj je označen trivijalnim; mreža se ne zamenjuje i podešavanje se ne ponavlja. |
-
-Nedostupan zaključak ostaje različit od N. Uz sadašnje H58/H60 = N/N, pozitivan H59 dao bi N/N/P, nepodržan validan H59 N/N/N, a nedostupan H59 N/N/?. Nijedna grana ovde nije izabrana.
+Nijedan dozvoljeni par nije zadovoljio razvojni uslov; H59 zaključak je nedostupan, bez ponovnog izbora. Abilene je pri svim
+parovima osim (3000; 0,05) iznad 80%, a pri tom paru PDH ima 0%: dve razvojne mreže vrlo različite težine čine pravilo teško
+ispunjivim, što je svojstvo unapred zadatog dizajna. Nedostupan zaključak ostaje različit od N; uz H58/H60 = N/N izabrana je
+grana **N/N/nedostupno**. Nova telekom provera zahtevala bi nov protokol (npr. budžet po mreži, kao u I61).
 
 ## 7.8 Posledice za biblioteku i README
 
@@ -140,7 +137,7 @@ Odgovarajuća formulacija za README glasi:
 
 > GAdapt podržava opcione standardne tehnike za rukovanje ograničenjima. Na ispitanim ORPD instancama, pri 3000 stvarnih proračuna toka snage, nije potvrđeno da ugrađena pravila izvodljivosti ili ε-ograničenje smanjuju srednje ograničeno vreme do izvodljivog referentnog cilja prema korisničkoj kazni \(f+1000V\). Rezultati zavise od konfiguracije, budžeta i definicije prekršaja; za ε je korišćeno `number_of_generations=188`.
 
-Dokumentacija treba da objasni izbor tehnike, raspored ε i značenje izlaznih polja. Tvrdnju o telekom koristi može dobiti tek posle valjanog završetka I59, u granicama njegovog modela.
+Dokumentacija treba da objasni izbor tehnike, raspored ε i značenje izlaznih polja. Telekom korist ostaje neproverena; nova provera zahteva novi protokol.
 
 ## 7.9 Prelaz ka I61 i I62
 

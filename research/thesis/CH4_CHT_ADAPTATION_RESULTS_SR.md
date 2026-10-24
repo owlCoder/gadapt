@@ -32,9 +32,7 @@ ali pokazuje koliko je rezultat krhak. Efekat je mali, reda dva procenta budžet
 Nijedan od pet sekundarnih kontrasta nije statistički značajan posle Holm-ove korekcije. Najvažniji među njima,
 zamena vrednosti koje GAdapt-ovi signali čitaju zajedničkim skalarom pod statičkom kaznom, ne pokazuje merljiv
 efekat, kao ni transformacija kazne koja čuva poredak, a menja vrednosti. Ovo ne dokazuje da put „vrednost troška
-u signalu“ ne postoji; pokazuje samo da ga ova studija nije mogla da izmeri. Ni interakcije adaptivne kazne i
-ε-ograničenja sa adaptacijom, ni primarni kontrast sa medijanski usklađenom (umesto podešene) fiksnom politikom
-nisu različite od nule.
+u signalu“ ne postoji; pokazuje samo da ga ova studija nije mogla da izmeri. Za interakcije adaptivne kazne i ε-ograničenja sa adaptacijom i za primarni kontrast sa medijanski usklađenom (umesto podešene) fiksnom politikom nije utvrđena statistička značajnost posle Holm-ove korekcije; jednakost nuli nije dokazana.
 
 ## 4.4 Opisni nalaz koji nije bio hipoteza
 
@@ -48,13 +46,10 @@ opcije (studija I58) zamrznuta je sa pravilima izvodljivosti pre ovih rezultata 
 
 ## 4.5 Šta ovo znači i šta ne znači
 
-Prvo, za korisnike GAdapt-a na diskretnim problemima sa teškom izvodljivošću: podrazumevana samoadaptacija nije
-bila najbolja politika mutacije ni pod jednom tehnikom, a pod pravilima izvodljivosti je zaostajala najviše. To je
+Prvo, na case14/R = 17 podešena fiksna politika imala je veći opaženi udeo dostizanja od podrazumevane adaptacije pod FR i SP, uz veću razliku pod FR; nema potvrđenog univerzalnog rangiranja politika. To je
 konkretan, proverljiv nalaz o samoj biblioteci, u skladu sa ranijim zapažanjem da Gausova mutacija na diskretnim
 mrežama brzo pada na minimalnu širinu (poglavlje 3, kalibracija).
 
 Drugo, za tvrdnju o interakciji: ona je statistički podržana, ali mala i zasnovana na jednoj mreži, pa je ispravno
-nazvati je nalazom o case14, a ne opštim svojstvom. Treće, za veće mreže budžet od 3000 proračuna bio je premali da
-bi kontrast imao varijabilnost; zato je u sledećim studijama izbor budžeta i cilja vezan za razvojne podatke tako
-da blokovi ne budu degenerisani. Najzad, zaključci su uslovni na zamrznute reference, kalibracione konstante i
+nazvati je nalazom o case14, a ne opštim svojstvom. Treće, pri 3000 poziva kontrast je bio degenerisan na većim mrežama. I59 nije pronašao prihvatljiv razvojni par; I61 pokušava razvojni izbor informativnog budžeta, uz mogućnost STOP-a. Razvojno pravilo ne garantuje uspeh. Opisni ε nalaz ostaje tačan, ali njegov prenos nije potvrđen u I60. Najzad, zaključci su uslovni na zamrznute reference, kalibracione konstante i
 scenarije, a pretpostavke modela (mreže vrednosti, opsezi, scenariji) su navedene u poglavlju 3.

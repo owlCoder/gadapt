@@ -26,9 +26,7 @@ naprednijim metodama, na dispečingu i za nekoliko redova veličine iza CMA-ES. 
 dijagnostika pouzdano utvrdila, a šta nije. Prirodan sledeći korak, popravka zaostatka u konvergenciji, pokazao se
 kao istraživački ćorsokak: za svaki proveren predlog, od kontrole koraka iz rasipanja do učenja korelacija,
 postoje objavljeni radovi koji ga već sadrže. Ukupno je dvanaest kandidata za novu metodu odbačeno pre
-implementacije, svaki sa proverenim izvorima. Pouka je bila metodološka: novi doprinos nije trebalo tražiti u
-popravljanju poznate slabosti, već u pitanju koje je zajednica sama ostavila otvorenim i na kome GAdapt-ove
-osobine nešto znače.
+implementacije, svaki sa proverenim izvorima. Istraživanje je preusmereno na kontrolisano ispitivanje GAdapt-a; originalnost tačne faktorske kombinacije ostaje nepotvrđena.
 
 Pregled iz 2025. godine o metaheurističkom optimalnom toku snage beleži da malo radova ispituje kako tehnike za
 rukovanje ograničenjima i podešavanje parametara utiču na rad metaheuristika. Na diskretnim kontrolama, gde je
@@ -37,31 +35,27 @@ način na koji se neizvodljivost pretvara u broj direktno ulazi u njegove signal
 
 ## 1.3 Istraživačka pitanja
 
-**IP1.** Da li efekat GAdapt-ove samoadaptivne politike mutacije na brzinu pronalaženja dobrog izvodljivog rešenja
-zavisi od tehnike za rukovanje ograničenjima na diskretnom problemu raspodele reaktivne snage, i koliki deo te
-zavisnosti prolazi kroz signale koji čitaju vrednost troška? (Poglavlja 3 i 4, studija I56.)
+**IP1.** Da li efekat adaptivne naspram podešene fiksne politike mutacije zavisi od tehnike za ograničenja na diskretnom problemu raspodele reaktivne snage, i da li intervencije nad skalarnim signalima menjaju ishod? (Dizajn ne identifikuje posredovani udeo; H56b nije podržana.) (Poglavlja 3 i 4, studija I56.)
 
 **IP2.** Gde se GAdapt na tom problemu nalazi u odnosu na jake metode za mešovito celobrojnu optimizaciju crnih
 kutija pri istom budžetu simulacija? (Poglavlje 5, studija I57, opisno.)
 
-**IP3.** Da li ugrađena opcija rukovanja ograničenjima u GAdapt-u ubrzava dostizanje dobrog izvodljivog rešenja u
-odnosu na uobičajenu upotrebu sa kaznom, na svežim elektroenergetskim mrežama sa termičkim ograničenjima i u
-drugom infrastrukturnom domenu? (Poglavlje 6 i studije I58 i I59, konfirmatorno.)
+**IP3.** Da li ugrađeni FR i ε smanjuju ograničeni broj simulacija do cilja prema kazni f + 1000V na ispitanim ORPD instancama, i može li se sprovesti unapred planirana telekom provera? I58 i I60 nisu potvrdile korist; I59 je zaustavljen u razvoju. (Poglavlje 6 i studije I58 i I59, konfirmatorno.)
 
 ## 1.4 Doprinosi
 
 Doprinosi su empirijski i inženjerski; disertacija ne tvrdi novu optimizacionu metodu.
 
-1. **Validiran, ponovljiv eksperimentalni okvir** za diskretni ORPD i modularno planiranje kapaciteta mreže, sa
-   brojanjem svakog poziva simulatora, nezavisnim proverivačima rešenja i protokolima zamrznutim pre merenja.
+1. **Eksperimentalni instrumenti** sa evidentiranjem poziva, zamrznutim protokolima i zasebnim proverivačima; ORPD
+   studije su završene, dok je telekom instrument stigao do razvojnog NO-GO. Potpuna ponovljivost nezavisnim
+   izvršavanjem nije ustanovljena.
 2. **Kontrolisana procena interakcije** tehnike za ograničenja i GAdapt-ove samoadaptacije (IP1). Interakcija
    ograničenja i adaptacije je u evolutivnim strategijama poznata; doprinos je specifična, kontrolisana
    intervencija na GAdapt-u, čiji prioritet nije dokazan. Ishod se prijavljuje kakav god da je, uključujući i
    „interakcija nije otkrivena pri ovoj snazi“.
 3. **Opt-in rukovanje ograničenjima u biblioteci GAdapt** (četiri standardne tehnike, tačan izbor preživelih,
    izveštavanje najboljeg izvodljivog rešenja, bit-identično podrazumevano ponašanje), sa konfirmatornom
-   proverom korisnosti (IP3). Ako H58 i H59 ne budu podržane, opcija ostaje kao ispravna inženjerska
-   funkcionalnost bez tvrdnje o ubrzanju.
+   proverom korisnosti (IP3). Uz H58 = N, H60 = N i nedostupan H59, opcija ostaje proverena inženjerska funkcionalnost bez potvrđenog ubrzanja.
 4. **Dijagnostički nalazi o stvarnom mehanizmu GAdapt-a** koji menjaju način na koji ga treba koristiti i
    upoređivati: skriveni probni pozivi, raspon kao mera raznovrsnosti, stvarna pravila broja mutiranih promenljivih
    i kolaps Gausove mutacije na diskretnim mrežama.
