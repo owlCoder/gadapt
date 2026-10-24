@@ -1,5 +1,6 @@
 import gadapt.ga_model.definitions as definitions
 from gadapt.adapters.validation.base_options_validator import BaseOptionsValidator
+from gadapt.utils.constraint_handling import parse_pair
 
 
 class CommonOptionsValidator(BaseOptionsValidator):
@@ -14,6 +15,7 @@ class CommonOptionsValidator(BaseOptionsValidator):
     def _validate_options(self):
         self.success &= self._check_nones_types_and_values()
         self.success &= self._check_decision_variables()
+        self.success &= self._check_constraint_handling()
         self.success &= self._check_cost_function()
 
     def _check_decision_variables(self) -> bool:
@@ -89,7 +91,14 @@ class CommonOptionsValidator(BaseOptionsValidator):
         try:
             func_result_min = self.options.cost_function(argsmin)
             func_result_max = self.options.cost_function(argsmax)
-            if not isinstance(func_result_min, float) or not isinstance(
+            if getattr(self.options, "constraint_handling", None) is not None:
+                try:
+                    parse_pair(func_result_min)
+                    parse_pair(func_result_max)
+                    pairs = True
+                except ValueError:
+                    pairs = False
+            elif not isinstance(func_result_min, float) or not isinstance(
                 func_result_max, float
             ):
                 self._add_message("The function must return float value!")
@@ -103,6 +112,22 @@ class CommonOptionsValidator(BaseOptionsValidator):
             self._add_message(
                 "An exception raised on the function call: {exc}".format(exc=str(ex))
             )
+            return False
+        if getattr(self.options, "constraint_handling", None) is not None and not pairs:
+            self._add_message("With constraint_handling, the function must return (objective, violation)!")
+            return False
+        return True
+
+    def _check_constraint_handling(self) -> bool:
+        technique = getattr(self.options, "constraint_handling", None)
+        if technique is None:
+            return True
+        if self.options.mutation_operator_policy != "legacy":
+            self._add_message("constraint_handling cannot be combined with mutation_operator_policy!")
+            return False
+        if technique == "epsilon" and not (isinstance(self.options.number_of_generations, int)
+                                           and self.options.number_of_generations > 0):
+            self._add_message("constraint_handling='epsilon' needs number_of_generations > 0!")
             return False
         return True
 

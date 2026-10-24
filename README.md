@@ -278,6 +278,25 @@ Supported values:
 
 **probe_cost_function**=*True* - Before the optimization, the parameter validation calls the cost function once with all minimal and once with all maximal values of the decision variables, to check that it returns a float. These two calls are real cost function evaluations, and they are not part of the search: their results are not added to the population. If the cost function is expensive, or if its evaluations are counted (for example, against a budget), set it to *False* to skip these two calls.
 
+**constraint_handling**=*None* - How constraints are handled. With *None*, the cost function returns the cost, as in all examples above (constraints, if any, are the user's penalty inside the cost). With a technique name, the cost function returns a pair *(objective, violation)*, where *violation* is 0 for a feasible solution and positive otherwise (both finite, within ±10¹⁵⁰) (for example, the sum of the constraint violations), and GAdapt ranks the candidate solutions with that technique: *"penalty"* uses objective + *constraint_penalty_weight* · violation; *"adaptive_penalty"* starts from the same weight, doubles it after three generations in a row with an infeasible best candidate solution and divides it by 1.5 after three feasible ones; *"feasibility_rules"* puts every feasible solution before every infeasible one, compares feasible solutions by objective and infeasible ones by violation; *"epsilon"* works like *"feasibility_rules"*, but violations up to a level that decreases to 0 over the first half of *number_of_generations* count as feasible (it needs *number_of_generations* > 0; if the run stops earlier, the level may still be positive at the end). The survivors are chosen by the exact order of the technique; the adaptation (cost diversity, parent diversity), the parent selection and the immigration read a scalar of that order (*min_cost* reports it): the penalized cost clipped to ±10¹², or, for the rule-based techniques, a value in [1, 3] that saturates only far outside the scale of the initial objectives. The results then describe the best evaluated solution of the whole run: the feasible one with the smallest objective, or, if none is feasible, the one with the smallest violation (*best_objective*, *best_violation*, *feasible* and its *result_values*). It cannot be combined with *mutation_operator_policy*. With *probe_cost_function*, the two probe calls must return valid pairs.
+
+```python
+from gadapt.ga import GA
+
+def objective_and_violation(args):
+    x, y = args
+    return (x - 2) ** 2 + (y - 1) ** 2, max(0.0, x + y - 2)  # minimize, subject to x + y <= 2
+
+ga = GA(cost_function=objective_and_violation, constraint_handling="feasibility_rules",
+        exit_check="generations", number_of_generations=80)
+ga.add(-3.0, 3.0, 0.01)
+ga.add(-3.0, 3.0, 0.01)
+results = ga.execute()
+print(results.best_objective, results.best_violation, results.result_values)
+```
+
+**constraint_penalty_weight**=*1000.0* - The weight of the violation for *constraint_handling="penalty"*, and the initial weight for *"adaptive_penalty"* (which then stays within a factor of 10⁶ of it). At most 10¹⁰⁰.
+
 **logging**=*False* - If this parameter has a True value, the log file will be created in the current working directory. The log file contains the flow of genetic algorithm execution, along with values of candidate solutions, decision variables and cost functions in each generation
 
 ### Previous Parameter Names
@@ -394,6 +413,7 @@ Genetic algorithm optimization executes by calling *execute* method, without par
 - **min_cost** - The minimal cost for optimized variables
 - **number_of_iterations** - The number of generations executed before the optimisation exited
 - **result_values** - The dictionary that contains variables' optimized values. The key of this dictionary is the sequence number of variable adding, and also the argument index in the cost function. The value of this dictionary is the optimized value for the variable.
+- **best_objective**, **best_violation**, **feasible** - With *constraint_handling*, the objective, the violation and the feasibility of the best evaluated solution of the run (*result_values* then holds its values and *min_cost* the internal ranking value of the final best candidate solution); otherwise NaN, NaN and None.
 - **messages** - Additional messages of the optimizations. This is a tuple structure where first value is a message level ("INFO", "WARNING" or "ERROR"), and the second value is the message text.
 
 For example, for the given function:

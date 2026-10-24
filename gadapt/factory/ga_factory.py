@@ -4,6 +4,8 @@ import gadapt.ga_model.definitions as definitions
 from gadapt.factory.ga_base_factory import BaseGAFactory
 from gadapt.operations.cost_finding.base_cost_finder import BaseCostFinder
 from gadapt.operations.cost_finding.elitism_cost_finder import ElitismCostFinder
+from gadapt.operations.cost_finding.constraint_handling_cost_finder import ConstraintHandlingCostFinder
+from gadapt.utils.constraint_handling import ConstraintHandler
 from gadapt.operations.crossover.base_crossover import BaseCrossover
 from gadapt.operations.crossover.base_crossover_probability_determinator import BaseCrossoverProbabilityDeterminator
 from gadapt.operations.crossover.columnar_diversity_crossover_probability_determinator import \
@@ -154,6 +156,11 @@ class GAFactory(BaseGAFactory):
         """
         Cost Finder instance
         """
+        if self._ga.constraint_handling is not None:
+            return ConstraintHandlingCostFinder(
+                ConstraintHandler(self._ga.constraint_handling, self._ga.constraint_penalty_weight),
+                self._ga.number_of_generations,
+            )
         return ElitismCostFinder()
 
     def _get_population_immigrator(self) -> BasePopulationImmigrator:

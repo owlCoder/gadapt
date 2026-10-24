@@ -130,6 +130,8 @@ class GA:
         probe_cost_function: bool = True,
         strict_mutation_decision_variable_limit: bool = False,
         columnar_diversity_metric: str = "log_relative",
+        constraint_handling: Optional[str] = None,
+        constraint_penalty_weight: float = 1000.0,
         **deprecated_kwargs,
     ) -> None:
         """
@@ -317,6 +319,20 @@ class GA:
                 coefficient drops too early when the values gather near the upper bound.
                 'linear' measures the spread of the values relative to the range,
                 independently of the units and of the position in the range.
+            constraint_handling: None (default), 'penalty', 'adaptive_penalty',
+                'feasibility_rules' or 'epsilon'. None: the cost function returns the
+                cost. Otherwise the cost function returns a pair (objective, violation),
+                violation >= 0 and 0 for a feasible solution, and GAdapt ranks the
+                candidate solutions with the chosen technique: 'penalty' objective +
+                constraint_penalty_weight * violation; 'adaptive_penalty' the same with a
+                weight that grows while the best candidate solution is infeasible and
+                shrinks while it is feasible; 'feasibility_rules' feasible before
+                infeasible, by objective among feasible and by violation among
+                infeasible; 'epsilon' like 'feasibility_rules', but violations up to a
+                level that decreases to 0 over the first half of number_of_generations
+                count as feasible (needs number_of_generations > 0).
+            constraint_penalty_weight: weight of the violation for 'penalty' and the
+                initial weight for 'adaptive_penalty' (default 1000.0).
 
             deprecated_kwargs: Previous names of the parameters (see
             DEPRECATED_PARAMETER_NAMES), e.g. number_of_mutation_chromosomes.
@@ -366,6 +382,8 @@ class GA:
         self.probe_cost_function = probe_cost_function
         self.strict_mutation_decision_variable_limit = strict_mutation_decision_variable_limit
         self.columnar_diversity_metric = columnar_diversity_metric
+        self.constraint_handling = constraint_handling
+        self.constraint_penalty_weight = constraint_penalty_weight
         if mutation_operator_policy not in ("legacy", "uniform", "ucb", "ucb_true_call_rate"):
             raise ValueError("mutation_operator_policy must be legacy/uniform/ucb/ucb_true_call_rate")
         if (mutation_operator_policy == "ucb_true_call_rate" and
@@ -995,6 +1013,28 @@ class GA:
         if value not in ("log_relative", "linear"):
             raise ValueError("columnar_diversity_metric must be 'log_relative' or 'linear'")
         self._columnar_diversity_metric = value
+
+    @property
+    def constraint_handling(self) -> Optional[str]:
+        return self._constraint_handling
+
+    @constraint_handling.setter
+    def constraint_handling(self, value: Optional[str]) -> None:
+        if value is not None and value not in ("penalty", "adaptive_penalty", "feasibility_rules", "epsilon"):
+            raise ValueError(
+                "constraint_handling must be None, 'penalty', 'adaptive_penalty', 'feasibility_rules' or 'epsilon'"
+            )
+        self._constraint_handling = value
+
+    @property
+    def constraint_penalty_weight(self) -> float:
+        return self._constraint_penalty_weight
+
+    @constraint_penalty_weight.setter
+    def constraint_penalty_weight(self, value: float) -> None:
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not 0 < value <= 1e100:
+            raise ValueError("constraint_penalty_weight must be a positive number not larger than 1e100")
+        self._constraint_penalty_weight = float(value)
 
     @property
     def normal_distribution_mutation_max_std_dev(self) -> float:
