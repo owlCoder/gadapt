@@ -192,6 +192,10 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   neinformativni (T = 1 svuda pri 3000); bez case14 R=17 interval obuhvata 0 (opisno). H56b i svih 5 sekundarnih
   nulto. Opisno: ε-ograničenje višestruko najbrže (case14 T 0,28 vs 0,77) — kandidat za buduću preregistraciju.
   Codex 047 recenzija izveštaja u toku. I57 krenuo 17:06 (lanac), zatim post_chain (patch → I58 → I59).
+- Posle I56: izveštaj ispravljen po Codex 047 (svi brojevi reprodukovani). Teza: poglavlje 4 (rezultati I56).
+  **I60 ZAMRZNUT pre I58** (`be53181`): konfirmatorna provera bibliotečkog ε-ograničenja (G2) naspram kazne (G0) na
+  I58 instancama, 3000 poziva, number_of_generations=188 (ε = 0 posle ≈1536 poziva kao u I56); drajver + testovi
+  (`a1a23db`). Lanac: I57 → patch → I58 → **I60** → I59.
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
