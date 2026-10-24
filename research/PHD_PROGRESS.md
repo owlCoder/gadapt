@@ -232,6 +232,10 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   `i58_check_v1.json.gz`. Ista praznina ispravljena u I60 proverivaču pre I60. Lanac nastavljen iz scratchpad-a sesije
   66e5645f (`chain2.sh`: D1 → I58 analyse → I60 → I59). I61 drajver: Codex 064/065/066 ispravke (`6da6ea3`, 12/12).
   Codex 068 recenzija I58 izveštaja u toku.
+- **22:25 I60 GOTOVO → `ITERATION60_REPORT_SR.md`: H60 NIJE PODRŽANA** (θ = −0,011, 95% [−0,035; +0,012]; 135/135;
+  Codex 071 reprodukovao tačno). Mapa ishoda: H58 = N, H60 = N → zavisi od H59 (N/N/P ili N/N/N). I59 pre pokretanja:
+  ispravljen nedostajući `sys.path` (svaka faza bi pala na uvozu gadapt!), P4 bez tihog zaokruživanja, V = 0 samo uz
+  provereno puno rutiranje (`7b0a80e`). I59 razvoj radi od 22:25. I62 predlog (`7c9c3b0`; NiaPy u ODVOJENOM okruženju).
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
