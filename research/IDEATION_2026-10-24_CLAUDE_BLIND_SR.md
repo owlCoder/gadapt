@@ -41,3 +41,7 @@ pre sistematske provere prior art-a; većina verovatno pada na gate-u.
 - **Nalaz o biblioteci (oba revizora):** `average_difference` = (max − min)/(n − 1) → podrazumevana raznovrsnost
   troškova je normalizovan log-RASPON preživelih (unet u CLAUDE.md).
 - Ukupno odbačeno: 7 (23. okt.) + 4 danas = 11.
+- **Codex 016 #3 (oporavak neuspelih PF evaluacija): NO-GO** (literature-auditor, ~10%): Okhuegbe i sar. 2024/2025
+  ([10.1109/tia.2024.3514992](https://doi.org/10.1109/tia.2024.3514992)), Lembono i sar. 2020 (memorija rešenja za
+  topli start), Ajjarapu i Christy 1992 (kontinuacija), Lee i sar. 2020; iz sopstvenih podataka: neuspesi PF retki
+  (I53: 0,25%, samo case39, i kod CMA-ES) → ne objašnjavaju zaostatak. Ukupno odbačeno: 12.
