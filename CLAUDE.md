@@ -25,6 +25,8 @@ Research validity is more important than experiment count, positive results, or 
 
 ## Hard constraints
 - Never modify upstream `bpzoran/gadapt` (its push URL is disabled in this clone).
+- GitHub write actions (issues, PRs, comments, reactions) ONLY on the user's own repo `owlCoder/gadapt`. Never on
+  third-party repos (user, 2026-10-24). Reading their issues is fine; upstream report drafts go to `research/` for the user.
 - Never claim originality from implementation alone. Never invent citations: verify every DOI.
 - Never invent or reconstruct missing research data (e.g. the lost SNDlib temporal TGZ, SHA `2c3ca706…`).
 - Never tune methods using held-out results. Never repeat an experiment until it becomes positive.

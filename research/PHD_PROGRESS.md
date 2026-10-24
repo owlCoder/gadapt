@@ -129,8 +129,13 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
     za sliku: matplotlib 3.11.2 po `h4_requirements_lock.txt` (scratchpad `figenv`); stara slika bit-identično
     reprodukovana pre izmene.
   * Codex 014 recenzija implementacije: u toku.
-- Čeka korisnika (4 pitanja): Overleaf, autorstvo, Zenodo, razgovor sa mentorom.
-- SLEDEĆI KORAK: (1) Codex 014 → ispravke → poglavlje §7.5 (srpski) dopuniti; (3) predaja TELO posle odluka korisnika; (4) pratiti issue-e (#1572, #1380, #106, #248).
+- 2026-10-24 ODLUKE KORISNIKA: (1) TeX lokalno → TinyTeX 2026.10 u `~/Library/TinyTeX` (bez sudo), `tex/build_pdf.sh`,
+  rad se prevodi (14 str., 0 grešaka, 3 mala overfull); ispravke preambula: `\newcounter{none}`, slika na širinu
+  kolone, prelom `\texttt`, `\emergencystretch`. (2) Autor: SAMO korisnik (već tako). (3) Zenodo: posle
+  prihvatanja; za predaju samo pun heš komita (§10 izmenjen). (4) Mentor: „idemo dalje“ bez razgovora.
+  PRAVILO (CLAUDE.md + memorija): NIKAKVI issue/PR/komentari na tuđim repo-ima; samo `owlCoder/gadapt`. Praćenje
+  (čitanje) postojećih issue-a je u redu; nacrti prijava idu u `research/` za korisnika.
+- SLEDEĆI KORAK: (1) Codex 014 → ispravke → poglavlje §7.5 (srpski) dopuniti; (3) predaja TELO (korisnik predaje; rad spreman posle Codex 014); (4) samo ČITATI issue-e (#1572, #1380, #106, #248).
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 

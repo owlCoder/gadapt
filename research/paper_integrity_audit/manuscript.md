@@ -419,8 +419,8 @@ returns a non-zero exit code on a problem, for use in CI.
 ## 10. Data and code availability
 
 All material is in https://github.com/owlCoder/gadapt, directory `research/`; the revision used for this
-manuscript is identified by its commit hash in the submission, and an immutable archive (Zenodo DOI) will be
-created at submission. Development branches: Nevergrad, GFO and SciPy (nightly) were run; for SMAC and scikit-opt
+manuscript is identified by its full commit hash in the submission; the aggregate outputs of Studies 1–4 record the
+SHA-256 of their driver code and the commit of their protocol. An immutable archive (Zenodo DOI) of that revision will be created on acceptance. Development branches: Nevergrad, GFO and SciPy (nightly) were run; for SMAC and scikit-opt
 the relevant source was inspected and found unchanged.
 - protocols: `ITERATION49_PROTOCOL.md` to `ITERATION52_PROTOCOL.md`, and `ITERATION55_PROTOCOL.md` (Study 5, with
   deviations O1–O3); post hoc transfer sensitivity plan `ITERATION52_SENSITIVITY_PLAN.md`;

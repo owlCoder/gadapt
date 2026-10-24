@@ -1,7 +1,7 @@
 """Builds main.tex (ACM acmart, TELO) from ../manuscript.md with pandoc.
 
 Usage: python research/paper_integrity_audit/tex/build_tex.py
-Compile on Overleaf (or with a TeX distribution): main.tex + references.bib + ../fig_integrity_matrix.pdf.
+Then build_pdf.sh (local TinyTeX) makes main.pdf; or compile main.tex + references.bib + ../fig_integrity_matrix.pdf elsewhere.
 """
 import os
 import re
@@ -35,6 +35,8 @@ PREAMBLE = r"""\documentclass[acmsmall,screen,review,anonymous=false]{acmart}
 \usepackage{newunicodechar}
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \providecommand{\pandocbounded}[1]{#1}
+\newcounter{none}
+\setlength{\emergencystretch}{3em}
 %(unicode)s
 \begin{document}
 \title{%(title)s}
@@ -79,6 +81,14 @@ def blank_line_before_lists(text):
     return "\n".join(out) + "\n"
 
 
+def breakable_code(tex):
+    """Long file names in \\texttt do not hyphenate; allow line breaks after '_', '/' and '.'."""
+    def allow(m):
+        inner = re.sub(r"(\\_|/|\.)(?=.)", lambda b: b.group(1) + r"\allowbreak{}", m.group(1))
+        return r"\texttt{" + inner + "}"
+    return re.sub(r"\\texttt\{([^{}]*)\}", allow, tex)
+
+
 def main():
     text = open(SOURCE, encoding="utf-8").read()
     text = blank_line_before_lists(text)
@@ -102,6 +112,10 @@ def main():
     unicode = "\n".join(f"\\newunicodechar{{{ch}}}{{{cmd}}}" for ch, cmd in UNICODE.items())
     tex = PREAMBLE % dict(title=pandoc(title).strip(), abstract=pandoc(abstract).strip(), unicode=unicode)
     tex += pandoc(("\n" + body).replace("\n## ", "\n# ").replace("\n### ", "\n## "))
+    # the figure is scaled to the text width (pandoc's \pandocbounded is only a stub in this preamble)
+    tex = tex.replace(r"\pandocbounded{\includegraphics[keepaspectratio,",
+                      r"{\includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio,")
+    tex = breakable_code(tex)
     if appendix:
         appendix = re.sub(r"^## Appendix A\. ", "# ", appendix, flags=re.M)
         tex += "\n\\appendix\n" + pandoc(appendix)
