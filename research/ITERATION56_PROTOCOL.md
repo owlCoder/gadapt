@@ -1,6 +1,6 @@
 # ITERATION56: tehnike za ograničenja × samoadaptacija GAdapt-a na diskretnom ORPD-u (PREREGISTRACIJA, NACRT v3)
 
-**Status: NACRT v3 — nije zamrznut.** v1 (`5766674`) → Codex 021 (6 blokirajućih); v2 → Codex 022 (REVISE:
+**Status: ZAMRZNUTO (v3 + ispravke Codex 023), 2026-10-24, pre koda studije i pre ijednog merenja.** v1 (`5766674`) → Codex 021 (6 blokirajućih); v2 → Codex 022 (REVISE:
 bootstrap slojevi, sudari semena, redosled događaja, prazan skup, razvojne reference, rani prekid); v3 ih ispravlja. Zamrzava se commit-om posle ponovne recenzije, pre koda studije i pre ijednog test-merenja. Predlog i
 prior art: [H5_PROPOSAL_SR.md](H5_PROPOSAL_SR.md) (§10). Merilo: [iteration56_orpd.py](iteration56_orpd.py).
 Istraživački pilot samo na razvojnom scenariju: [results/iteration56_dev_pilot/](results/iteration56_dev_pilot/).
@@ -44,7 +44,9 @@ asercija u kodu).
   budžet potrošen, `timeout=10**6`, `probe_cost_function=False`. Posle budžeta omotač vraća konstantu koja se ne
   beleži. **Rani prekid** (izuzetak, isteklo vreme, < 3000 poziva): jedno ponovno pokretanje sa istim semenom u novom
   procesu; ako se ponovi, pokretanje je „greška izvršavanja“, cela njegova jedinica se izuzima iz primarne analize
-  (analiza potpunih jedinica) i prijavljuje; ako je izuzeto > 5% jedinica, dodaje se analiza osetljivosti sa T = 1. Rezultati (najbolji izvodljiv f, prvi
+  (analiza potpunih jedinica) i prijavljuje. Ako je posle izuzimanja neka ćelija analize prazna, primarno
+  zaključivanje nije dostupno. Analiza osetljivosti se radi kad god se to desi ili kad izuzimanja pređu 5%: izuzete
+  jedinice se vraćaju, završeni ishodi se zadržavaju, a T = 1 dobijaju samo neuspela pokretanja. Rezultati (najbolji izvodljiv f, prvi
   poziv dostizanja cilja) dolaze iz omotača, iz stvarnih evaluacija.
 
 ## 4. CHT (skalari kao `cost_value`), sa podklasom cost finder-a
@@ -81,7 +83,7 @@ u(f) = f/(f + f_ref).
   - **FX-M:** jedan vektor (a, b, σ) po CHT-u: a = medijana k/|skup| po generacijama sa |skup| > 0, b = medijana
     v/d po mutiranim jedinkama, σ = medijana σ po svim Gausovim mutacijama — u svakom razvojnom AD-N pokretanju,
     zatim medijana preko pokretanja (jednake težine); razvoj: 2 scenarija × 3 mreže × 3 R × 3 semena po CHT-u
-    (216 pokretanja ukupno). Zaokruživanje k, v = max(1, round(·)).
+    (216 pokretanja ukupno). Za k i v važe isključivo prethodno navedene formule, uključujući k = 0 za prazan skup.
   - **FX-T:** mreža k/|skup| ∈ {0,25; 0,5; 0,75} × v/d ∈ {0,1; 0,2; 0,4} × σ ∈ {0,02; 0,05; 0,15} na razvojnim
     scenarijima, R = 17, 3 semena, sve mreže; kriterijum = srednji T (§6) preko razvojnih pokretanja; veze → manji
     indeks u redosledu mreže. Budžet podešavanja: 1944 pokretanja.
@@ -91,8 +93,7 @@ u(f) = f/(f + f_ref).
 ## 6. Referenca, cilj i primarni ishod
 - **Razvojne reference (prve, pre FX-M/FX-T):** isto kao test reference, na razvojnim scenarijima, 4 CHT × AD-N ×
   1 seme (namena 4), 30.000 poziva → razvojni ciljevi za T u podešavanju i probi (72 pokretanja).
-- **L\*(instanca, R):** najbolji izvodljiv f iz nezavisnih referentnih pokretanja: 4 CHT × AD-N × 2 semena (tok
-  900000+), 30.000 poziva. Najbolje poznato, ne optimum ni granica. Negativni jazovi se prijavljuju.
+- **L\*(instanca, R):** najbolji izvodljiv f iz nezavisnih referentnih pokretanja: 4 CHT × AD-N × 2 semena (namena 3, s = 1, 2, prema §2), 30.000 poziva. Najbolje poznato, ne optimum ni granica. Negativni jazovi se prijavljuju.
 - **Cilj:** V = 0 i f ≤ L\*(1 + 0,01) + 0,01 MW; ako za instancu × R nema izvodljivog u referenci, cilj = „V = 0“
   (unapred; broj takvih se prijavljuje).
 - **Primarni ishod T ∈ (0, 1]:** (redni broj poziva prvog dostizanja cilja)/3000; T = 1 ako cilj nije dostignut
@@ -112,10 +113,13 @@ u(f) = f/(f + f_ref).
   (1/9)Σ_b mean[T(AD-N, SP) − T(AD-N, SP-T)].
 - **H56c (opisno):** medijana d_u po bloku naspram R, po mreži; bez testa i bez tvrdnje o „veličini mreže“.
 - **Snaga (pravilo pre testa):** posle izbora FX-T, proba na razvojnim scenarijima: 2 scenarija × 3 mreže × 3 R ×
-  5 semena × 4 pokretanja (AD-N/FR, FX-T/FR, AD-N/SP, FX-T/SP) = 360 pokretanja → razvojni d po bloku. Simulacija:
-  2000 puta po bloku uzorkuj sa vraćanjem 40 razvojnih d, centriraj na prosek bloka 0 i dodaj θ = 0,05, primeni
-  konačni bootstrap (2000 ponavljanja); snaga = udeo intervala bez 0. Ako je < 80%, semena po instanci → 20 PRE
-  testa (jedina dozvoljena promena; beleži se kao odstupanje).
+  5 semena × 4 pokretanja (AD-N/FR, FX-T/FR, AD-N/SP, FX-T/SP) = 360 pokretanja → razvojni d po bloku. Pretpostavka:
+  sva 4 test scenarija u bloku dele jednako udruženu razvojnu raspodelu kontrasta tog bloka. r = d − prosek_bloka(d),
+  D = 2(1 − 1/3000); δ_blok se bira tako da je prosek clip(r + δ_blok, −D, D) = 0,05. Sa RNG semenom 56023 generiše
+  se 500 potpunih sintetičkih eksperimenata (po 10 kontrasta po ćeliji blok × scenario iz te ograničene raspodele);
+  na svaki se primenjuje konačna analiza θ_a sa 20.000 stratifikovanih bootstrap ponavljanja. Snaga = udeo intervala
+  bez 0 (500 umesto 2000 eksperimenata zbog cene; MC greška ≈ 0,018 pri snazi 0,8). Ako je < 80%, semena po
+  instanci → 20 PRE testa (jedina dozvoljena promena; beleži se kao odstupanje).
 - **Ništa ne obara pitanje** osim H56a: interval koji obuhvata 0 i |θ_a| < 0,02 → „interakcija nije otkrivena
   pri ovoj snazi“ (prijavljuje se kao nalaz).
 
