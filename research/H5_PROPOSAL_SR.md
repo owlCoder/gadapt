@@ -114,3 +114,16 @@ Yi i sar. 2023 [10.3390/math11051250](https://doi.org/10.3390/math11051250) (ε 
 DE); Abdullah i sar. 2026 [10.3389/fenrg.2026.1820144](https://doi.org/10.3389/fenrg.2026.1820144) (statička
 kazna / Deb / ε; „self-adaptive parameter control“ naveden kao BUDUĆI rad). Posledica: tvrdnju o novini formulisati
 uslovno („u radovima čiji smo tekst proverili“) i u izveštaju navesti R1 kao otvoren.
+
+## 12. Širi prior art za mehanizam (Codex 032, svi DOI provereni 2026-10-24) → tvrdnja o novini SUŽENA
+Sprega rukovanja ograničenjima i adaptacije je POZNATA: Arnold 2012 ([10.1007/978-3-642-32937-1_9](https://doi.org/10.1007/978-3-642-32937-1_9)),
+Arnold 2013 ([10.1162/EVCO_a_00088](https://doi.org/10.1162/EVCO_a_00088)), Hellwig i Arnold 2016
+([10.1162/EVCO_a_00139](https://doi.org/10.1162/EVCO_a_00139)), Arnold i Hansen 2012
+([10.1145/2330163.2330207](https://doi.org/10.1145/2330163.2330207)), Atamna i sar. 2016/2020
+([10.1007/978-3-319-45823-6_17](https://doi.org/10.1007/978-3-319-45823-6_17), [10.1016/j.tcs.2018.10.006](https://doi.org/10.1016/j.tcs.2018.10.006)),
+Spettel i Beyer 2019/2020 ([10.1016/j.tcs.2018.10.036](https://doi.org/10.1016/j.tcs.2018.10.036), [10.1162/evco_a_00261](https://doi.org/10.1162/evco_a_00261)),
+CAL-SHADE (Zamuda 2017, [10.1109/CEC.2017.7969601](https://doi.org/10.1109/CEC.2017.7969601)) — numerički prekršaji
+već ulaze u adaptaciju; ARCH (Sakamoto i Akimoto 2022, [10.1162/evco_a_00310](https://doi.org/10.1162/evco_a_00310)).
+**Posledica:** ne tvrditi otkriće sprege CHT–adaptacija niti numeričke povratne sprege. Ostaje samo: kontrolisana
+dijagnostička studija sa tačno ovom intervencijom (cela politika mutacije GAdapt-a × CHT × rezolucija; AD-C i SP-T),
+čiji prioritet NIJE dokazan.
