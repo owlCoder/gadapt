@@ -181,6 +181,12 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   jedna VG po sabirnici) + kod + testovi 4/4 (Codex 036 ispravke, nezavisni proverivač). Prior art mehanizma
   (Codex 032): sprega CHT–adaptacija POZNATA (Arnold, Hellwig, CAL-SHADE) → novina sužena. Nacrt teze (Codex 034).
   I59 predlog (telekom, Codex 037) → Codex 039 recenzija. Slike I56 (skripta pre rezultata, Codex 038).
+- 14:15: I59 ZAMRZNUT (`0879ff8`) + kod (jezgro, faze, nezavisni networkx proverivač; testovi 12/12). I58/I59
+  kod prošao Codex 036/040–046 (ispravljeno: obavezni svedoci, provere vezane heševima, izlaz ≠ 0 pri grešci,
+  manifesti se proveravaju pre potvrde/analize, JSON normalizacija — bez nje bi I58 UVEK stao). `post_chain.sh`
+  (scratchpad) čeka „I57 DONE“: zaključani heševi 10 fajlova patch-a v4 → kopiranje → bit-identičnost + testovi →
+  I58 (refs, test, check, analyse) → I59 (development, confirmation, check, analyse). Ne komituje; biblioteku
+  komitujem ručno posle pregleda. Teza: nacrti poglavlja 1, 2 (Codex 044), 3, 6 u `research/thesis/`.
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
