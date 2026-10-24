@@ -1,37 +1,72 @@
 diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/adapters/validation/common_options_validator.py gadapt_repo/gadapt/adapters/validation/common_options_validator.py
 --- /Users/danijel/Desktop/gadapt/gadapt/adapters/validation/common_options_validator.py	2026-10-22 23:20:36
-+++ gadapt_repo/gadapt/adapters/validation/common_options_validator.py	2026-10-24 12:14:10
-@@ -89,7 +89,9 @@
++++ gadapt_repo/gadapt/adapters/validation/common_options_validator.py	2026-10-24 12:20:14
+@@ -1,5 +1,6 @@
+ import gadapt.ga_model.definitions as definitions
+ from gadapt.adapters.validation.base_options_validator import BaseOptionsValidator
++from gadapt.utils.constraint_handling import parse_pair
+ 
+ 
+ class CommonOptionsValidator(BaseOptionsValidator):
+@@ -14,6 +15,7 @@
+     def _validate_options(self):
+         self.success &= self._check_nones_types_and_values()
+         self.success &= self._check_decision_variables()
++        self.success &= self._check_constraint_handling()
+         self.success &= self._check_cost_function()
+ 
+     def _check_decision_variables(self) -> bool:
+@@ -89,7 +91,14 @@
          try:
              func_result_min = self.options.cost_function(argsmin)
              func_result_max = self.options.cost_function(argsmax)
 -            if not isinstance(func_result_min, float) or not isinstance(
 +            if getattr(self.options, "constraint_handling", None) is not None:
-+                pairs = all(isinstance(r, (tuple, list)) and len(r) == 2 for r in (func_result_min, func_result_max))
++                try:
++                    parse_pair(func_result_min)
++                    parse_pair(func_result_max)
++                    pairs = True
++                except ValueError:
++                    pairs = False
 +            elif not isinstance(func_result_min, float) or not isinstance(
                  func_result_max, float
              ):
                  self._add_message("The function must return float value!")
-@@ -103,6 +105,9 @@
+@@ -103,6 +112,22 @@
              self._add_message(
                  "An exception raised on the function call: {exc}".format(exc=str(ex))
              )
 +            return False
 +        if getattr(self.options, "constraint_handling", None) is not None and not pairs:
 +            self._add_message("With constraint_handling, the function must return (objective, violation)!")
++            return False
++        return True
++
++    def _check_constraint_handling(self) -> bool:
++        technique = getattr(self.options, "constraint_handling", None)
++        if technique is None:
++            return True
++        if self.options.mutation_operator_policy != "legacy":
++            self._add_message("constraint_handling cannot be combined with mutation_operator_policy!")
++            return False
++        if technique == "epsilon" and not (isinstance(self.options.number_of_generations, int)
++                                           and self.options.number_of_generations > 0):
++            self._add_message("constraint_handling='epsilon' needs number_of_generations > 0!")
              return False
          return True
  
 diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/execution/ga_executor.py gadapt_repo/gadapt/execution/ga_executor.py
 --- /Users/danijel/Desktop/gadapt/gadapt/execution/ga_executor.py	2026-10-22 21:38:54
-+++ gadapt_repo/gadapt/execution/ga_executor.py	2026-10-24 12:12:55
-@@ -74,6 +74,9 @@
++++ gadapt_repo/gadapt/execution/ga_executor.py	2026-10-24 12:20:14
+@@ -74,6 +74,11 @@
                  results.messages.append((message_levels.WARNING, "Timeout expired!"))
              best_individual = self.population.best_individual
              results.min_cost = self.population.min_cost
-+            if hasattr(best_individual, "objective_value"):
-+                results.best_objective = best_individual.objective_value
-+                results.best_violation = best_individual.violation_value
++            best = getattr(self.cost_finder, "best", None)
++            if best is not None:  # constraint_handling: the best evaluated solution of the run
++                results.best_objective, results.best_violation, values = best
++                results.feasible = results.best_violation == 0
++                results.result_values = dict(values)
              results.number_of_iterations = self.population.population_generation
              results.min_cost_per_generation = self.population.min_cost_per_generation
              for g in best_individual:
@@ -61,7 +96,7 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/factory/ga_
      def _get_population_immigrator(self) -> BasePopulationImmigrator:
 diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/ga.py gadapt_repo/gadapt/ga.py
 --- /Users/danijel/Desktop/gadapt/gadapt/ga.py	2026-10-23 00:18:03
-+++ gadapt_repo/gadapt/ga.py	2026-10-24 12:12:45
++++ gadapt_repo/gadapt/ga.py	2026-10-24 12:20:14
 @@ -130,6 +130,8 @@
          probe_cost_function: bool = True,
          strict_mutation_decision_variable_limit: bool = False,
@@ -92,20 +127,16 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/ga.py gadap
  
              deprecated_kwargs: Previous names of the parameters (see
              DEPRECATED_PARAMETER_NAMES), e.g. number_of_mutation_chromosomes.
-@@ -366,6 +382,12 @@
+@@ -366,6 +382,8 @@
          self.probe_cost_function = probe_cost_function
          self.strict_mutation_decision_variable_limit = strict_mutation_decision_variable_limit
          self.columnar_diversity_metric = columnar_diversity_metric
 +        self.constraint_handling = constraint_handling
 +        self.constraint_penalty_weight = constraint_penalty_weight
-+        if constraint_handling is not None and mutation_operator_policy != "legacy":
-+            raise ValueError("constraint_handling cannot be combined with mutation_operator_policy")
-+        if constraint_handling == "epsilon" and not (isinstance(number_of_generations, int) and number_of_generations > 0):
-+            raise ValueError("constraint_handling='epsilon' needs number_of_generations > 0")
          if mutation_operator_policy not in ("legacy", "uniform", "ucb", "ucb_true_call_rate"):
              raise ValueError("mutation_operator_policy must be legacy/uniform/ucb/ucb_true_call_rate")
          if (mutation_operator_policy == "ucb_true_call_rate" and
-@@ -995,6 +1017,28 @@
+@@ -995,6 +1013,28 @@
          if value not in ("log_relative", "linear"):
              raise ValueError("columnar_diversity_metric must be 'log_relative' or 'linear'")
          self._columnar_diversity_metric = value
@@ -134,37 +165,52 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/ga.py gadap
  
      @property
      def normal_distribution_mutation_max_std_dev(self) -> float:
+diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/ga_model/ga_options.py gadapt_repo/gadapt/ga_model/ga_options.py
+--- /Users/danijel/Desktop/gadapt/gadapt/ga_model/ga_options.py	2026-10-23 00:18:03
++++ gadapt_repo/gadapt/ga_model/ga_options.py	2026-10-24 12:20:14
+@@ -22,6 +22,8 @@
+         self.cost_diversity_metric = ga.cost_diversity_metric
+         self.strict_mutation_decision_variable_limit = ga.strict_mutation_decision_variable_limit
+         self.columnar_diversity_metric = ga.columnar_diversity_metric
++        self.constraint_handling = ga.constraint_handling
++        self.constraint_penalty_weight = ga.constraint_penalty_weight
+         self.mutation_operator_policy = ga.mutation_operator_policy
+         self.mutation_operator_credit = ga.mutation_operator_credit
+         self.mutation_credit_assignment = ga.mutation_credit_assignment
 diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/ga_model/ga_results.py gadapt_repo/gadapt/ga_model/ga_results.py
 --- /Users/danijel/Desktop/gadapt/gadapt/ga_model/ga_results.py	2026-10-22 21:38:54
-+++ gadapt_repo/gadapt/ga_model/ga_results.py	2026-10-24 12:12:55
-@@ -19,6 +19,9 @@
++++ gadapt_repo/gadapt/ga_model/ga_results.py	2026-10-24 12:20:14
+@@ -19,6 +19,10 @@
          self._min_cost_per_generation: List[float] = []
          self._initial_population: Optional[Population] = None
          self._min_cost = float("NaN")
 +        # with constraint_handling: objective and violation of the best candidate solution (min_cost is its scalar)
 +        self.best_objective = float("NaN")
 +        self.best_violation = float("NaN")
++        self.feasible = None
  
      def __str__(self) -> str:
          return ga_strings.results_to_string(self)
 diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/operations/cost_finding/constraint_handling_cost_finder.py gadapt_repo/gadapt/operations/cost_finding/constraint_handling_cost_finder.py
 --- /Users/danijel/Desktop/gadapt/gadapt/operations/cost_finding/constraint_handling_cost_finder.py	1970-01-01 01:00:00
-+++ gadapt_repo/gadapt/operations/cost_finding/constraint_handling_cost_finder.py	2026-10-24 12:12:27
-@@ -0,0 +1,66 @@
++++ gadapt_repo/gadapt/operations/cost_finding/constraint_handling_cost_finder.py	2026-10-24 12:19:54
+@@ -0,0 +1,94 @@
 +import math
 +from typing import List
 +
 +from gadapt.ga_model.candidate_solution import CandidateSolution
 +from gadapt.operations.cost_finding.elitism_cost_finder import ElitismCostFinder
-+from gadapt.utils.constraint_handling import ConstraintHandler
++from gadapt.utils.constraint_handling import ConstraintHandler, parse_pair
 +
 +
 +class ConstraintHandlingCostFinder(ElitismCostFinder):
 +    """
 +    Cost finder for constraint_handling: the cost function returns (objective, violation). Each generation it
 +    (1) evaluates the new candidate solutions, (2) updates the technique's parameters from the completed history,
-+    (3) recomputes the scalar cost of ALL candidate solutions from their stored pairs, and only then (4) sorts and
-+    keeps the best ones, so incumbents and offspring are always compared under the same parameters.
++    (3) recomputes the scalar cost of ALL candidate solutions and the previous generation's minimal and average
++    cost under the current parameters (so improvement checks compare like with like), and only then (4) sorts by the
++    technique's key and keeps the best ones. It also tracks the best evaluated solution of the run: the feasible one
++    (violation 0) with the smallest objective, otherwise the one with the smallest violation.
 +    """
 +
 +    def __init__(self, handler: ConstraintHandler, number_of_generations: int = -1):
@@ -172,20 +218,30 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/operations/
 +        self.handler = handler
 +        self.number_of_generations = number_of_generations
 +        self._previous_best = None
++        self.best = None  # (objective, violation, values) of the best evaluated solution of the run
 +
 +    def _execute_function(self, cost_function, c: CandidateSolution):
 +        sorted_variable_values = list(sorted(c, key=lambda vv: vv.decision_variable.variable_id))
++        values = [a.value for a in sorted_variable_values]
 +        try:
-+            objective, violation = cost_function([a.value for a in sorted_variable_values])
-+            objective, violation = float(objective), float(violation)
-+            if not math.isfinite(objective) or not math.isfinite(violation) or violation < 0:
-+                raise ValueError("The cost function must return a finite objective and a finite violation >= 0")
-+            c.objective_value, c.violation_value = objective, violation
++            c.objective_value, c.violation_value = parse_pair(cost_function(values))
 +            c.succ = True
 +        except Exception as ex:
 +            print(ex)
 +            c.objective_value, c.violation_value = None, math.inf
 +            c.succ = False
++            return
++        if self._better_for_report(c.objective_value, c.violation_value):
++            self.best = (c.objective_value, c.violation_value,
++                         {vv.decision_variable.variable_id: vv.value for vv in sorted_variable_values})
++
++    def _better_for_report(self, objective, violation):
++        if self.best is None:
++            return True
++        best_objective, best_violation, _ = self.best
++        if violation == 0 or best_violation == 0:
++            return violation == 0 and (best_violation != 0 or objective < best_objective)
++        return violation < best_violation
 +
 +    def _progress(self) -> float:
 +        """Elapsed share of the run (epsilon schedule); 0 without a generation limit."""
@@ -193,9 +249,17 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/operations/
 +            return 0.0
 +        return min(1.0, self.population.population_generation / self.number_of_generations)
 +
++    def _scalar_costs(self, candidates):
++        finite = [self.handler.cost(c.objective_value, c.violation_value) for c in candidates
++                  if c.objective_value is not None]
++        failure_cost = max(finite) if finite else None
++        return [self.handler.cost(c.objective_value, c.violation_value, failure_cost) for c in candidates]
++
 +    def _find_costs_for_population(self):
 +        if self.population is None:
 +            raise Exception("population must not be null!")
++        incumbents = [c for c in self.population if not math.isnan(c.cost_value) and not (
++            c.is_immigrant and c.population_generation == self.population.population_generation)]
 +        for c in self.population:
 +            if math.isnan(c.cost_value) or (
 +                c.is_immigrant and c.population_generation == self.population.population_generation
@@ -205,9 +269,17 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/operations/
 +            raise ValueError("All evaluated candidate costs were invalid or nonfinite")
 +        pairs = [(c.objective_value, c.violation_value) for c in self.population]
 +        self.handler.start_generation(self._previous_best, pairs, self._progress())
-+        for c in self.population:
-+            c.cost_value = self.handler.cost(c.objective_value, c.violation_value)
-+        better: List[CandidateSolution] = self.population.get_sorted(key=lambda x: x.cost_value)
++        for c, cost in zip(self.population, self._scalar_costs(list(self.population))):
++            c.cost_value = cost
++        if incumbents:
++            # the previous generation's references under the current parameters (adaptive penalty, epsilon)
++            kept = sorted(incumbents, key=lambda c: self.handler.key(c.objective_value, c.violation_value))
++            costs = [c.cost_value for c in kept]
++            self.population.previous_min_cost = costs[0]
++            without_immigrants = costs[: max(1, len(costs) - self.population.options.immigration_number)]
++            self.population.previous_avg_cost = sum(without_immigrants) / len(without_immigrants)
++        better: List[CandidateSolution] = sorted(
++            self.population, key=lambda c: self.handler.key(c.objective_value, c.violation_value))
 +        better = better[: self.population.options.keep_number]
 +        self.population.best_individual = better[0]
 +        self.population.min_cost = better[0].cost_value
@@ -219,15 +291,17 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/operations/
 +        self._previous_best = (best.objective_value, best.violation_value)
 diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/utils/constraint_handling.py gadapt_repo/gadapt/utils/constraint_handling.py
 --- /Users/danijel/Desktop/gadapt/gadapt/utils/constraint_handling.py	1970-01-01 01:00:00
-+++ gadapt_repo/gadapt/utils/constraint_handling.py	2026-10-24 12:12:17
-@@ -0,0 +1,92 @@
++++ gadapt_repo/gadapt/utils/constraint_handling.py	2026-10-24 12:19:33
+@@ -0,0 +1,126 @@
 +"""
-+Constraint handling (opt-in, GA parameter constraint_handling): turns an (objective, violation) pair into the
-+scalar cost that GAdapt ranks and adapts on. violation >= 0, and 0 means feasible.
++Constraint handling (opt-in, GA parameter constraint_handling): the cost function returns (objective, violation),
++violation >= 0 and 0 for a feasible solution. Selection uses an explicit comparison key; the scalar cost (cost_value)
++only feeds GAdapt's adaptation signals and the reported min_cost.
 +"""
 +import math
-+import sys
 +import statistics
++import sys
++from numbers import Real
 +
 +PENALTY = "penalty"
 +ADAPTIVE_PENALTY = "adaptive_penalty"
@@ -237,8 +311,22 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/utils/const
 +
 +PATIENCE = 3  # adaptive penalty: generations in a row before the weight changes
 +INCREASE, DECREASE = 2.0, 1.5
++WEIGHT_RANGE = 1e6  # the adaptive weight stays within [initial / 1e6, initial * 1e6]
 +EPSILON_PERCENTILE = 20  # epsilon: initial level from the initial population
 +EPSILON_CONTROL_FRACTION, EPSILON_EXPONENT = 0.5, 5
++
++
++def parse_pair(result):
++    """(objective, violation) as floats; raises ValueError unless both are finite real numbers and violation >= 0."""
++    if not isinstance(result, (tuple, list)) or len(result) != 2:
++        raise ValueError("With constraint_handling, the cost function must return (objective, violation)")
++    objective, violation = result
++    for value in (objective, violation):
++        if isinstance(value, bool) or not isinstance(value, Real) or not math.isfinite(float(value)):
++            raise ValueError("The objective and the violation must be finite real numbers")
++    if violation < 0:
++        raise ValueError("The violation must be >= 0")
++    return float(objective), float(violation)
 +
 +
 +class ConstraintHandler:
@@ -250,15 +338,14 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/utils/const
 +        (Deb 2000).
 +    epsilon: as feasibility_rules, with violation <= epsilon counted as feasible; epsilon decreases to 0 over the
 +        first half of the run (Takahama and Sakai 2006).
-+    The rule-based techniques map the order to a scalar: 1 + u(objective) for feasible, 2 + v/(1 + v) for
-+    infeasible and 3 for failed evaluations, with u(f) = 1/2 + arctan(f / f_ref) / pi (monotone, in (0, 1)), where
-+    f_ref is the median absolute objective of the initial population.
++    A failed evaluation (objective None) is always last.
 +    """
 +
 +    def __init__(self, technique, weight=1000.0):
 +        if technique not in CONSTRAINT_HANDLING_STRINGS:
 +            raise ValueError("constraint_handling must be one of " + ", ".join(CONSTRAINT_HANDLING_STRINGS))
-+        self.technique, self.weight = technique, float(weight)
++        self.technique = technique
++        self.initial_weight = self.weight = float(weight)
 +        self.infeasible_streak = self.feasible_streak = 0
 +        self.f_ref = None
 +        self.epsilon0 = None
@@ -267,20 +354,20 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/utils/const
 +    def start_generation(self, previous_best, initial_pairs, progress):
 +        """Updates the parameters from the completed history. progress: elapsed share of the run in [0, 1]."""
 +        if self.f_ref is None:
-+            objectives = [abs(o) for o, _ in initial_pairs if o is not None and math.isfinite(o)]
++            objectives = [abs(o) for o, _ in initial_pairs if o is not None]
 +            self.f_ref = statistics.median(objectives) if objectives else 1.0
 +            if self.f_ref == 0:
 +                self.f_ref = 1.0
 +        if self.technique == ADAPTIVE_PENALTY and previous_best is not None:
-+            if previous_best[1] == 0:
++            if previous_best[0] is not None and previous_best[1] == 0:
 +                self.feasible_streak, self.infeasible_streak = self.feasible_streak + 1, 0
 +            else:
 +                self.infeasible_streak, self.feasible_streak = self.infeasible_streak + 1, 0
 +            if self.infeasible_streak >= PATIENCE:
-+                self.weight *= INCREASE
++                self.weight = min(self.weight * INCREASE, self.initial_weight * WEIGHT_RANGE)
 +                self.infeasible_streak = self.feasible_streak = 0
 +            elif self.feasible_streak >= PATIENCE:
-+                self.weight /= DECREASE
++                self.weight = max(self.weight / DECREASE, self.initial_weight / WEIGHT_RANGE)
 +                self.infeasible_streak = self.feasible_streak = 0
 +        if self.technique == EPSILON:
 +            if self.epsilon0 is None:
@@ -289,22 +376,41 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/utils/const
 +            self.epsilon = (self.epsilon0 * (1 - progress / EPSILON_CONTROL_FRACTION) ** EPSILON_EXPONENT
 +                            if progress < EPSILON_CONTROL_FRACTION else 0.0)
 +
-+    def cost(self, objective, violation):
-+        """The scalar cost of an evaluated (objective, violation) pair; objective None means a failed evaluation."""
++    def is_feasible(self, objective, violation):
++        """Feasible in the technique's sense (epsilon: violation up to the current level)."""
++        if objective is None:
++            return False
++        return violation <= self.epsilon if self.technique == EPSILON else violation == 0
++
++    def _penalized(self, objective, violation):
++        return min(objective + self.weight * violation, sys.float_info.max)
++
++    def key(self, objective, violation):
++        """Selection key (smaller is better), exact for any finite values."""
++        if objective is None:
++            return (2, 0.0)
++        if self.technique in (PENALTY, ADAPTIVE_PENALTY):
++            return (0, self._penalized(objective, violation))
++        if self.is_feasible(objective, violation):
++            return (0, objective)
++        return (1, violation)
++
++    def cost(self, objective, violation, failure_cost=None):
++        """
++        The scalar cost_value (adaptation signals and min_cost). Rule-based techniques: 1 + u(objective) if feasible,
++        2 + violation / (1 + violation) if infeasible, 3 if failed, with u(f) = 1/2 + arctan(f / f_ref) / pi.
++        Penalties: the penalized objective; a failed evaluation gets failure_cost (the largest finite penalized cost
++        in the population), so a failure does not inflate the cost diversity.
++        """
 +        if self.technique in (PENALTY, ADAPTIVE_PENALTY):
 +            if objective is None:
-+                return sys.float_info.max
-+            return objective + self.weight * violation
++                return failure_cost if failure_cost is not None else 1.0
++            return self._penalized(objective, violation)
 +        if objective is None:
 +            return 3.0
-+        feasible = violation == 0 if self.technique == FEASIBILITY_RULES else violation <= self.epsilon
-+        if feasible:
-+            return 1.0 + self._u(objective)
++        if self.is_feasible(objective, violation):
++            return 1.0 + 0.5 + math.atan(objective / self.f_ref) / math.pi
 +        return 2.0 + violation / (1.0 + violation)
-+
-+    def _u(self, f):
-+        """Monotone map of the objective into (0, 1)."""
-+        return 0.5 + math.atan(f / self.f_ref) / math.pi
 +
 +
 +def _percentile(sorted_values, q):
@@ -314,13 +420,13 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/utils/const
 +    high = min(low + 1, len(sorted_values) - 1)
 +    return sorted_values[low] + (sorted_values[high] - sorted_values[low]) * (position - low)
 --- /Users/danijel/Desktop/gadapt/README.md	2026-10-23 00:18:03
-+++ gadapt_repo/README.md	2026-10-24 12:14:39
++++ gadapt_repo/README.md	2026-10-24 12:20:46
 @@ -277,7 +277,26 @@
  **ensure_unique_individuals**=*None* - If this parameter has a True value, the genetic algorithm ensures that no two individuals have the same variable values: offspring and mutated candidate solutions that repeat values already seen during the optimisation are regenerated, so the cost function is not evaluated twice for the same values. Duplicates are only likely when the variables take values from a grid defined by the step, so the default (*None*) means *True* when all variables have a step, and *False* when any variable is continuous (added without a step). Set it explicitly to *True* or *False* to override this. Ensuring uniqueness adds some computation per generation, especially late in the optimisation, which is usually negligible compared to the cost function execution time.
  
  **probe_cost_function**=*True* - Before the optimization, the parameter validation calls the cost function once with all minimal and once with all maximal values of the decision variables, to check that it returns a float. These two calls are real cost function evaluations, and they are not part of the search: their results are not added to the population. If the cost function is expensive, or if its evaluations are counted (for example, against a budget), set it to *False* to skip these two calls.
 +
-+**constraint_handling**=*None* - How constraints are handled. With *None*, the cost function returns the cost, as in all examples above (constraints, if any, are the user's penalty inside the cost). With a technique name, the cost function returns a pair *(objective, violation)*, where *violation* is 0 for a feasible solution and positive otherwise (for example, the sum of the constraint violations), and GAdapt ranks the candidate solutions with that technique: *"penalty"* uses objective + *constraint_penalty_weight* · violation; *"adaptive_penalty"* starts from the same weight, doubles it after three generations in a row with an infeasible best candidate solution and divides it by 1.5 after three feasible ones; *"feasibility_rules"* puts every feasible solution before every infeasible one, compares feasible solutions by objective and infeasible ones by violation; *"epsilon"* works like *"feasibility_rules"*, but violations up to a level that decreases to 0 over the first half of *number_of_generations* count as feasible (it needs *exit_check="generations"*-style *number_of_generations* > 0). The objective and violation of the best solution are in *best_objective* and *best_violation* of the results.
++**constraint_handling**=*None* - How constraints are handled. With *None*, the cost function returns the cost, as in all examples above (constraints, if any, are the user's penalty inside the cost). With a technique name, the cost function returns a pair *(objective, violation)*, where *violation* is 0 for a feasible solution and positive otherwise (for example, the sum of the constraint violations), and GAdapt ranks the candidate solutions with that technique: *"penalty"* uses objective + *constraint_penalty_weight* · violation; *"adaptive_penalty"* starts from the same weight, doubles it after three generations in a row with an infeasible best candidate solution and divides it by 1.5 after three feasible ones; *"feasibility_rules"* puts every feasible solution before every infeasible one, compares feasible solutions by objective and infeasible ones by violation; *"epsilon"* works like *"feasibility_rules"*, but violations up to a level that decreases to 0 over the first half of *number_of_generations* count as feasible (it needs *number_of_generations* > 0; if the run stops earlier, the level may still be positive at the end). Selection uses the exact order of the technique; the adaptation (cost diversity, parent diversity) reads a bounded scalar of that order (*min_cost* reports it). The results then describe the best evaluated solution of the whole run: the feasible one with the smallest objective, or, if none is feasible, the one with the smallest violation (*best_objective*, *best_violation*, *feasible* and its *result_values*). It cannot be combined with *mutation_operator_policy*. With *probe_cost_function*, the two probe calls must return valid pairs.
 +
 +```python
 +from gadapt.ga import GA
@@ -346,25 +452,26 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/utils/const
  - **min_cost** - The minimal cost for optimized variables
  - **number_of_iterations** - The number of generations executed before the optimisation exited
  - **result_values** - The dictionary that contains variables' optimized values. The key of this dictionary is the sequence number of variable adding, and also the argument index in the cost function. The value of this dictionary is the optimized value for the variable.
-+- **best_objective**, **best_violation** - With *constraint_handling*, the objective and the violation of the best candidate solution (*min_cost* is then its internal ranking value); otherwise NaN.
++- **best_objective**, **best_violation**, **feasible** - With *constraint_handling*, the objective, the violation and the feasibility of the best evaluated solution of the run (*result_values* then holds its values and *min_cost* the internal ranking value of the final best candidate solution); otherwise NaN, NaN and None.
  - **messages** - Additional messages of the optimizations. This is a tuple structure where first value is a message level ("INFO", "WARNING" or "ERROR"), and the second value is the message text.
  
  For example, for the given function:
 --- /Users/danijel/Desktop/gadapt/tests/test_constraint_handling.py	1970-01-01 01:00:00
-+++ gadapt_repo/tests/test_constraint_handling.py	2026-10-24 12:14:10
-@@ -0,0 +1,80 @@
++++ gadapt_repo/tests/test_constraint_handling.py	2026-10-24 12:20:30
+@@ -0,0 +1,117 @@
 +"""Opt-in constraint_handling: the cost function returns (objective, violation).
 +
 +Toy problem: minimize (x - 2)^2 + (y - 1)^2 subject to x + y <= 2 (optimum x = 1.5, y = 0.5, objective 0.5).
 +The default (constraint_handling=None) is covered by a separate seeded call-sequence check.
 +"""
++import math
 +import random
 +import unittest
 +
 +import numpy as np
 +
 +from gadapt.ga import GA
-+from gadapt.utils.constraint_handling import ConstraintHandler
++from gadapt.utils.constraint_handling import ConstraintHandler, parse_pair
 +
 +
 +def _pair(values):
@@ -418,9 +525,45 @@ diff -ruN --exclude=__pycache__ /Users/danijel/Desktop/gadapt/gadapt/utils/const
 +        with self.assertRaises(ValueError):
 +            GA(cost_function=_pair, constraint_handling="unknown")
 +        with self.assertRaises(ValueError):
-+            GA(cost_function=_pair, constraint_handling="epsilon")  # needs number_of_generations
-+        with self.assertRaises(ValueError):
 +            GA(cost_function=_pair, constraint_handling="penalty", constraint_penalty_weight=0)
++
++    def test_epsilon_needs_generations_also_when_set_after_construction(self):
++        ga = GA(cost_function=_pair)
++        ga.constraint_handling = "epsilon"
++        ga.add(0.0, 1.0)
++        ga.add(0.0, 1.0)
++        with self.assertRaises(Exception) as raised:
++            ga.execute()
++        self.assertIn("number_of_generations", str(raised.exception))
++
++    def test_keys_are_exact_for_extreme_values(self):
++        handler = ConstraintHandler("feasibility_rules")
++        handler.start_generation(None, [(1.0, 0.0)], 0.0)
++        self.assertLess(handler.key(1e20, 0.0), handler.key(2e20, 0.0))
++        self.assertLess(handler.key(2e20, 0.0), handler.key(0.0, 1e-20))
++        self.assertLess(handler.key(0.0, 1e16), handler.key(0.0, 1e20))
++        self.assertLess(handler.key(0.0, 1e300), handler.key(None, float("inf")))
++
++    def test_penalty_never_becomes_nonfinite(self):
++        handler = ConstraintHandler("adaptive_penalty", 1000.0)
++        for _ in range(3000):
++            handler.start_generation((1.0, 1.0), [(1.0, 1.0)], 0.0)
++        self.assertEqual(handler.weight, 1000.0 * 1e6)
++        for objective, violation in ((0.0, 1e308), (1.0, 0.0)):
++            self.assertTrue(math.isfinite(handler.cost(objective, violation)))
++
++    def test_pairs_are_validated(self):
++        for bad in (("x", 0.0), (1.0, -1.0), (1.0, float("nan")), (True, 0.0), 1.0, (1.0, 2.0, 3.0)):
++            with self.assertRaises(ValueError):
++                parse_pair(bad)
++        self.assertEqual(parse_pair((np.float64(1.5), 0)), (1.5, 0.0))
++
++    def test_reports_the_best_feasible_solution(self):
++        result = _run("penalty")
++        self.assertTrue(result.feasible)
++        x, y = result.result_values[0], result.result_values[1]
++        self.assertAlmostEqual(_pair([x, y])[0], result.best_objective)
++        self.assertLessEqual(x + y, 2 + 1e-12)
 +
 +    def test_probe_requires_a_pair(self):
 +        ga = GA(cost_function=lambda v: 1.0, constraint_handling="penalty", exit_check="generations",
