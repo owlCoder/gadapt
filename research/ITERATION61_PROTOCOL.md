@@ -1,8 +1,9 @@
 # ITERATION61: replikacija interakcije H56a (adaptacija × CHT) na mrežama odvojenim od I56 (PREREGISTRACIJA)
 
-**Status: NACRT v3 (NIJE ZAMRZNUT)**, 2026-10-24, pre ijednog I58 test rezultata. Predlog:
-[ITERATION61_PROPOSAL_SR.md](ITERATION61_PROPOSAL_SR.md) (Codex 055); recenzije Codex 061 (REVISE) i 062 (FIX FIRST, 6 ispravki) unete ovde. Zamrzava
-se posle Codex 062 provere; tek tada kod i izvršavanje (posle završetka lanca I58 → I60 → I59 i primene ispravke v5).
+**Status: ZAMRZNUTO 2026-10-24 (v3), PRE ijednog I58 test rezultata** (u trenutku zamrzavanja postoje samo I58
+reference i manifesti; `i58_test`, `i58_check`, `i58_analysis` ne postoje) i pre ijedne linije I61 koda. Predlog:
+[ITERATION61_PROPOSAL_SR.md](ITERATION61_PROPOSAL_SR.md) (Codex 055); recenzije Codex 061 (REVISE), 062 (FIX FIRST, 6
+ispravki), 063 (FREEZE). Izvršavanje tek posle završetka lanca I58 → I60 → I59 i primene ispravke biblioteke v5.
 
 ## 1. Pitanje i domet
 I61 je **konceptualna replikacija pozitivnog H56a kontrasta**: da li adaptivna politika mutacije GAdapt-a (AD-N)
