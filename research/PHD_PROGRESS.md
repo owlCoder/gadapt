@@ -236,6 +236,13 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   Codex 071 reprodukovao tačno). Mapa ishoda: H58 = N, H60 = N → zavisi od H59 (N/N/P ili N/N/N). I59 pre pokretanja:
   ispravljen nedostajući `sys.path` (svaka faza bi pala na uvozu gadapt!), P4 bez tihog zaokruživanja, V = 0 samo uz
   provereno puno rutiranje (`7b0a80e`). I59 razvoj radi od 22:25. I62 predlog (`7c9c3b0`; NiaPy u ODVOJENOM okruženju).
+- **23:05 I59 → `ITERATION59_REPORT_SR.md`: razvojni NO-GO** (nijedan (B, ε) sa 20–80% na obe razvojne mreže: abilene
+  prelak, pdh pretežak; obe MILP reference sertifikovane) → H59 zaključak NEDOSTUPAN (nije N). **Ukupno H58/H60/H59 =
+  N/N/nedostupno**: teza ne sme tvrditi praktično ubrzanje opcijama biblioteke; centralni doprinos = ograničeni H56 nalaz
+  → I61 replikacija. Biblioteka v5 primenjena i komitovana (`3318cae`; heš `afcdb859…`, 72/72; Codex 073 APPLY).
+  **I61 POKRENUT 23:06** (`chain3.sh`, scratchpad sesije 66e5645f, 9 radnika): gate → … → analyse, staje na prvom STOP-u.
+  Ako je prekinuto: faze su create-once — nastaviti od prve faze bez `manifest_<faza>.json.gz` u `results/iteration61/`
+  (ako je pala usred faze bez manifesta: izlaz te faze obrisati pre ponovnog pokretanja); gate se ne ponavlja.
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
