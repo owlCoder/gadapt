@@ -46,3 +46,47 @@ def test_partial_capacity_gives_a_graded_shortage():
     x[np.argmax(x)] = 0
     v = toy.evaluate(x)["V"]
     assert 0.0 < v <= 1.0
+
+
+def test_balance_checks_cover_every_node():
+    toy = t.Instance("toy", TOY)
+    res = t.linprog(toy.objective, A_ub=toy.A_cap, b_ub=toy.x_sp, A_eq=toy.A_eq, b_eq=toy.b_eq, bounds=toy.bounds,
+                    method="highs-ds", options=t.LP_OPTIONS)
+    y, u = res.x[:toy.n_y], res.x[toy.n_y:]
+    assert toy.witness_ok(y, u, toy.x_sp)
+    assert toy.A_all.shape[0] == len(toy.demands) * len(toy.nodes)  # a row for EVERY node
+    # move flow so that every retained row is off by ~5e-8 but the omitted (last) node by more than 1e-7
+    bad = y.copy()
+    n, arcs = len(toy.nodes), 2 * len(toy.edges)
+    for e, (a, b, _) in enumerate(toy.edges):
+        if b == n - 1:  # arc a -> last node of commodity 0
+            bad[2 * e] += 1.5e-7
+            break
+    assert not toy.witness_ok(bad, u, toy.x_sp + 1)
+
+
+def test_inputs_are_validated_and_ceiling_is_literal():
+    toy = t.Instance("toy", TOY)
+    for bad in (np.full(len(toy.edges), 0.5), np.full(len(toy.edges), 17.0), np.zeros(len(toy.edges) - 1),
+                np.full(len(toy.edges), np.nan)):
+        try:
+            toy.evaluate(bad)
+            raise AssertionError("accepted invalid input")
+        except ValueError:
+            pass
+    assert np.array_equal(toy.x_sp, np.ceil(toy.sp_load / toy.q))
+
+
+def test_milp_witness_is_verified():
+    toy = t.Instance("toy", TOY)
+    ref = toy.milp_reference(time_limit=60)
+    assert ref["witness_checks"] and ref["certified"]
+    assert all(any(o in w for o in t.MILP_VERBATIM) for w in ref["warnings"])
+
+
+def test_evaluate_emits_no_warnings():
+    import warnings
+    toy = t.Instance("toy", TOY)
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        toy.evaluate(toy.x_sp)

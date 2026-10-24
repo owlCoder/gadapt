@@ -7,6 +7,7 @@ reference. Stages are added separately.
 import json
 import math
 import os
+import warnings
 from collections import deque
 
 import numpy as np
@@ -19,7 +20,9 @@ INSTANCES = ("abilene", "pdh", "polska", "nobel-germany", "nobel-us", "geant")
 DEVELOPMENT, CONFIRMATION = ("abilene", "pdh"), ("polska", "nobel-germany", "nobel-us")
 MAX_MODULES = 16
 LP_OPTIONS = dict(presolve=True, dual_feasibility_tolerance=1e-8, primal_feasibility_tolerance=1e-8, time_limit=30.0,
-                  simplex_dual_edge_weight_strategy="devex")
+                  simplex_dual_edge_weight_strategy="devex", threads=1)
+# forwarded verbatim to HiGHS by SciPy 1.18.1 with an "unrecognized ... passed verbatim" warning (Codex 040)
+MILP_VERBATIM = ("threads", "mip_abs_gap")
 RESIDUAL_TOL, ZERO_V = 1e-7, 1e-8
 
 
@@ -33,15 +36,15 @@ class Instance:
         self.name = name
         self.nodes = sorted(int(n["id"]) for n in raw["nodes"])
         index = {n: i for i, n in enumerate(self.nodes)}
-        edges = sorted((min(e["source"], e["target"]), max(e["source"], e["target"]), float(e["dist"]))
-                       for e in raw["edges"])
+        edges = sorted((min(int(e["source"]), int(e["target"])), max(int(e["source"]), int(e["target"])),
+                        float(e["dist"])) for e in raw["edges"])
         self.edges = [(index[a], index[b], d) for a, b, d in edges]
         self.demands = sorted((index[int(s)], index[int(t)], float(v)) for s, row in raw["graph"]["demands"].items()
                               for t, v in row.items() if float(v) > 0 and int(s) != int(t))
         self.cost = np.array([1.0 + d / 1000.0 for _, _, d in self.edges])
         self.sp_load = self._shortest_path_loads()
         self.q = float(self.sp_load.max()) / 8.0
-        self.x_sp = np.ceil(self.sp_load / self.q - 1e-12)
+        self.x_sp = np.ceil(self.sp_load / self.q)
         self.c_sp = float(self.cost @ self.x_sp)
         self._build_lp()
 
@@ -101,6 +104,18 @@ class Instance:
                     rows.append(base + node); cols.append(k * arcs + c); vals.append(sign)  # + u_k(e_s - e_t)
                     b_full[base + node] = sign * self.h[c]
         self.n_y, self.n_u = k * arcs, k
+        # full balances at EVERY node (the LP drops one row per demand; checks must not)
+        f_rows, f_cols, f_vals = [], [], []
+        self.b_all = np.zeros(k * n)
+        for c, (s, t, _) in enumerate(self.demands):
+            base = c * n
+            for e, (a, b, _) in enumerate(self.edges):
+                for arc, (tail, head) in ((2 * e, (a, b)), (2 * e + 1, (b, a))):
+                    f_rows += [base + tail, base + head]; f_cols += [c * arcs + arc] * 2; f_vals += [1.0, -1.0]
+            for node, sign in ((s, 1.0), (t, -1.0)):
+                f_rows.append(base + node); f_cols.append(k * arcs + c); f_vals.append(sign)
+                self.b_all[base + node] = sign * self.h[c]
+        self.A_all = sparse.csr_matrix((f_vals, (f_rows, f_cols)), shape=(k * n, k * arcs + k))
         self.A_eq = sparse.csr_matrix((vals, (rows, cols)), shape=(k * (n - 1), self.n_y + self.n_u))
         self.b_eq = b_full
         cap_rows, cap_cols = [], []
@@ -112,23 +127,42 @@ class Instance:
         self.objective = np.concatenate([np.zeros(self.n_y), np.ones(k) / self.h.sum()])
         self.bounds = [(0, None)] * self.n_y + [(0, float(h)) for h in self.h]
 
-    def evaluate(self, x):
-        """dict(f, V, ok) for module counts x; raises RuntimeError on a solver failure (a failed evaluation)."""
+    def check_x(self, x):
         x = np.asarray(x, float)
-        res = linprog(self.objective, A_ub=self.A_cap, b_ub=x, A_eq=self.A_eq, b_eq=self.b_eq, bounds=self.bounds,
-                      method="highs-ds", options=LP_OPTIONS)
+        if x.shape != (len(self.edges),) or not np.all(np.isfinite(x)) or np.any(np.abs(x - np.rint(x)) > 0) \
+                or x.min() < 0 or x.max() > MAX_MODULES:
+            raise ValueError("module counts must be finite integers in [0, 16], one per edge")
+        return x
+
+    def witness_ok(self, y, u, x):
+        """Elastic witness: complete node balances, capacities, bounds (all to 1e-7), finite values."""
+        z = np.concatenate([y, u])
+        if not np.all(np.isfinite(z)):
+            return False
+        return (np.max(np.abs(self.A_all @ z - self.b_all)) <= RESIDUAL_TOL
+                and np.max(self.A_cap @ z - x) <= RESIDUAL_TOL and y.min() >= -RESIDUAL_TOL
+                and u.min() >= -RESIDUAL_TOL and np.max(u - self.h) <= RESIDUAL_TOL)
+
+    def meets_full_demands(self, y, x):
+        z = np.concatenate([y, np.zeros(self.n_u)])
+        return (np.all(np.isfinite(y)) and np.max(np.abs(self.A_all @ z - self.b_all)) <= RESIDUAL_TOL
+                and np.max(self.A_cap @ z - x) <= RESIDUAL_TOL and y.min() >= -RESIDUAL_TOL)
+
+    def evaluate(self, x):
+        """dict(f, V, C) for module counts x; raises RuntimeError on a solver failure (a failed evaluation)."""
+        x = self.check_x(x)
+        with warnings.catch_warnings():  # only the expected verbatim-forwarding notice for threads=1
+            warnings.filterwarnings("ignore", message=r"Unrecognized options detected: \{'threads': 1\}")
+            res = linprog(self.objective, A_ub=self.A_cap, b_ub=x, A_eq=self.A_eq, b_eq=self.b_eq, bounds=self.bounds,
+                          method="highs-ds", options=LP_OPTIONS)
         if res.status != 0 or res.x is None:
             raise RuntimeError(f"LP failed: status {res.status} {res.message}")
-        z = res.x
-        y, u = z[:self.n_y], z[self.n_y:]
-        if (np.max(np.abs(self.A_eq @ z - self.b_eq)) > RESIDUAL_TOL or np.max(self.A_cap @ z - x) > RESIDUAL_TOL
-                or y.min() < -RESIDUAL_TOL or u.min() < -RESIDUAL_TOL or np.max(u - self.h) > RESIDUAL_TOL):
+        y, u = res.x[:self.n_y], res.x[self.n_y:]
+        if not self.witness_ok(y, u, x):
             raise RuntimeError("LP witness residual above tolerance")
         V = float(res.fun)
-        if V <= ZERO_V:
-            full = np.concatenate([y, np.zeros(self.n_u)])  # the flow must meet the FULL demands
-            if np.max(np.abs(self.A_eq @ full - self.b_eq)) <= RESIDUAL_TOL:
-                V = 0.0
+        if V <= ZERO_V and self.meets_full_demands(y, x):
+            V = 0.0
         return dict(f=float(self.cost @ x) / self.c_sp, V=V, C=float(self.cost @ x))
 
     def milp_reference(self, time_limit=3600.0):
@@ -142,10 +176,23 @@ class Instance:
         integrality = np.concatenate([np.zeros(self.n_y), np.ones(m)])
         lb = np.zeros(self.n_y + m)
         ub = np.concatenate([np.full(self.n_y, np.inf), np.full(m, MAX_MODULES)])
-        res = milp(c, constraints=[LinearConstraint(A_eq, self.b_eq, self.b_eq), LinearConstraint(A_cap, -np.inf, 0)],
-                   integrality=integrality, bounds=Bounds(lb, ub),
-                   options=dict(time_limit=time_limit, mip_rel_gap=0.0, presolve=True))
-        x = None if res.x is None else np.rint(res.x[self.n_y:])
-        return dict(status=int(res.status), message=str(res.message), C=None if x is None else float(self.cost @ x),
-                    x=None if x is None else x.tolist(), gap=getattr(res, "mip_gap", None),
-                    dual_bound=getattr(res, "mip_dual_bound", None), certified=res.status == 0)
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+            res = milp(c, constraints=[LinearConstraint(A_eq, self.b_eq, self.b_eq),
+                                       LinearConstraint(A_cap, -np.inf, 0)],
+                       integrality=integrality, bounds=Bounds(lb, ub),
+                       options=dict(time_limit=time_limit, mip_rel_gap=0.0, presolve=True, threads=1, mip_abs_gap=0.0))
+        messages = [str(w.message) for w in caught]
+        unexpected = [m for m in messages if not any(o in m for o in MILP_VERBATIM)]
+        out = dict(status=int(res.status), message=str(res.message), fun=None if res.x is None else float(res.fun),
+                   gap=getattr(res, "mip_gap", None), dual_bound=getattr(res, "mip_dual_bound", None),
+                   warnings=messages, x=None, y=None, C=None, certified=False)
+        if res.x is None:
+            return out
+        y, xr = res.x[:self.n_y], res.x[self.n_y:]
+        x = np.rint(xr)
+        checks = (np.max(np.abs(xr - x)) <= 1e-6 and x.min() >= 0 and x.max() <= MAX_MODULES
+                  and self.meets_full_demands(y, x) and abs(float(self.cost @ x) - float(res.fun)) <= 1e-6 * max(1.0, abs(res.fun)))
+        out.update(x=x.tolist(), y=y.tolist(), C=float(self.cost @ x), witness_checks=bool(checks),
+                   certified=bool(res.status == 0 and checks and not unexpected))
+        return out
