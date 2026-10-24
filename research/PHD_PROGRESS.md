@@ -135,7 +135,16 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   prihvatanja; za predaju samo pun heš komita (§10 izmenjen). (4) Mentor: „idemo dalje“ bez razgovora.
   PRAVILO (CLAUDE.md + memorija): NIKAKVI issue/PR/komentari na tuđim repo-ima; samo `owlCoder/gadapt`. Praćenje
   (čitanje) postojećih issue-a je u redu; nacrti prijava idu u `research/` za korisnika.
-- SLEDEĆI KORAK: (1) Codex 014 → ispravke → poglavlje §7.5 (srpski) dopuniti; (3) predaja TELO (korisnik predaje; rad spreman posle Codex 014); (4) samo ČITATI issue-e (#1572, #1380, #106, #248).
+- 2026-10-24 PREOKRET (korisnik): rad o reviziji integriteta „nema jak naučni doprinos, više liči na interni
+  dokument“ → ostaje interni dokument / materijal za poglavlje; ne doterivati dalje. Codex 015 (desk review): reject
+  na TELO i EMSE/TOSEM/JSS u sadašnjem obliku (nerazrešen centralni doprinos, hronološka struktura).
+  Korisnik: „nastavi rad za GAdapt, mora da postoji rešenje (mentor), upotrebi sve trikove; ti i Codex nađite rešenje“.
+  * Postupak: slepo generisanje ideja — Codex 016 (sa web pretragom, `--search`) i moja lista
+    `IDEATION_2026-10-24_CLAUDE_BLIND_SR.md` (komitovana pre čitanja Codex-a, `e41ee66`) → poređenje → oštra
+    provera prior art-a za 1–3 najjača → preregistracija samo ako GO.
+  * Napomena: `codex exec` iz pozadine MORA imati `< /dev/null` (inače čeka stdin; 014 je zato stajao ~1 h).
+- SLEDEĆI KORAK: (1) Codex 016 → poređenje sa slepom listom → prior-art gate; (2) Codex 014 (niži prioritet:
+  poglavlje); (3) samo ČITATI issue-e.
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
