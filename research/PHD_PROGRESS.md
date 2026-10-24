@@ -150,8 +150,14 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   (10.3390/electricity6020031): interakcija tehnika za ograničenja × podešavanje/adaptacija u metaheurističkom OPF
   (diskretne kontrole); Tanabe 2024 (10.1145/3638529.3654019): adaptacija na mešovito-celobrojnim platoima.
   To su EMPIRIJSKA pitanja (nova znanja), ne nove metode. Adversarijalna provera #1 u toku (literature-auditor).
-- SLEDEĆI KORAK: (1) presuda za #1; ako GO → preregistracija faktorske studije (Codex recenzija pre zamrzavanja);
-  (2) Codex 014 (poglavlje, nizak prioritet); (3) samo ČITATI issue-e.
+- H5 (CHT × samoadaptacija × rezolucija diskretnih kontrola, ORPD): auditor GO ≈ 0,6 (samo puna faktorska studija);
+  Codex 020 REVISE → nov prior art Premkumar 2023 (10.1049/gtd2.12738, konfundovano), uža tvrdnja (`7e0a695`).
+  Merilo `iteration56_orpd.py` (case14/57/118: 9/27/77 kontrola; PG = OPF scenarija; 2,5–3,1 ms/PF) i
+  istraživački pilot samo na razvojnom scenariju (`3577b94`): izvodljivost netrivijalna i zavisi od R.
+  Mehanizam u kodu: CHT ulazi kroz redosled (elitizam, rulet po RANGU) i kroz 2 signala koji čitaju vrednost
+  (raznovrsnost troškova, parent diversity). Nacrt protokola I56 (NIJE zamrznut) → Codex 021 recenzija u toku.
+- SLEDEĆI KORAK: (1) Codex 021 → ispravke → ZAMRZNUTI I56 → kod studije + testovi → razvoj (FX-M, FX-T) →
+  reference → test JEDNOM → analiza; (2) samo ČITATI issue-e.
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
