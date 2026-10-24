@@ -127,20 +127,27 @@ def test_analysis_requires_the_exact_inventory_and_passed_checks():
                     hits={"0.05": 100 if arm == "G1" else 2000})
     full = [record(n, s, a) for n in t.CONFIRMATION for s in range(1, 16) for a in ("G0", "G1")]
     refs = {n: dict(certified=True, C=1.0) for n in t.CONFIRMATION}
-    store = {"development.json": dict(decision="GO", trivial={}),
-             "check.json": dict(failures=0)}
+    store = {"development.json": dict(decision="GO", trivial={})}
     saved = {}
     original_load, original_save = t.load, t.save
     try:
         t.save = lambda name, d: saved.update({name: d})
-        for records, checks, expect in ((full, 0, True), (full[:-2], 0, False), (full, 1, False)):
-            store["confirmation.json"] = dict(chosen=[3000, 0.05], references=refs, trivial={}, records=records)
-            store["check.json"] = dict(failures=checks)
+        bound = dict(development="d", confirmation="c", confirmation_refs="r")
+        original_sha = t.sha
+        t.sha = lambda path: {"development.json.gz": "d", "confirmation.json.gz": "c",
+                              "confirmation_refs.json.gz": "r"}[os.path.basename(path)]
+        renamed = [dict(r, task=dict(r["task"], arm="G2" if r["task"]["arm"] == "G1" else r["task"]["arm"])) for r in full]
+        for records, checks, rows, expect in ((full, 0, [1], True), (full[:-2], 0, [1], False), (full, 1, [1], False),
+                                              (full, 0, [], False), (renamed, 0, [1], False)):
+            store["confirmation.json"] = dict(chosen=[3000, 0.05], references=refs, trivial={}, records=records,
+                                              development_sha256="d", confirmation_refs_sha256="r")
+            store["check.json"] = dict(failures=checks, rows=rows, bound=bound)
             t.load = lambda name: store[name]
             import io, contextlib
             with contextlib.redirect_stdout(io.StringIO()):
                 t.analyse()
             h = saved["analysis.json"]["H59"]
             assert (h is not None and h["supported"]) == expect
+        t.sha = original_sha
     finally:
         t.load, t.save = original_load, original_save

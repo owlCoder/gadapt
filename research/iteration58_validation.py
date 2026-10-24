@@ -203,8 +203,13 @@ def build_manifest(stage):
                              ("iteration58_validation.py", "iteration57_external.py", "iteration56_cht_study.py",
                               "iteration56_orpd.py", "ITERATION58_PROTOCOL.md")},
                 settings=dict(population_size=i56.POPULATION_SIZE, probe_cost_function=False, immigration_number=0,
-                              exit_check="generations", number_of_generations=10 ** 9, sp_weight=i56.SP_WEIGHT,
-                              resolution=RESOLUTION, budgets=[PRIMARY_BUDGET, TEST_BUDGET, REF_BUDGET]))
+                              exit_check="generations", number_of_generations=10 ** 9, timeout=10 ** 6,
+                              g0="scalar f + 1000 V; post-budget 1e300", g1="constraint_handling=feasibility_rules; "
+                              "post-budget (0, 1e150)", sp_weight=i56.SP_WEIGHT, resolution=RESOLUTION, spread=i56.SPREAD,
+                              scenarios=SCENARIOS, budgets=[PRIMARY_BUDGET, TEST_BUDGET, REF_BUDGET], tol=i56.TOL,
+                              v_fail=i56.V_FAIL, external="I57 frozen settings (CMAwM, SciPy DE best1bin, Random)",
+                              seeds="10^7 p + 10^5 i + 10^3 R + 100 j + s; test p=6 s=1..15; refs p=7 s=1,2",
+                              bootstrap=dict(reps=20000, seed=58)))
 
 
 def pool_run(tasks, workers):
@@ -242,8 +247,9 @@ def stage_test(workers):
     refs = references()
     pre = dict(build_manifest("test"), refs_sha256=i57.sha256(i56.path("i58_refs.json.gz")), references=refs)
     refs_build = i56.load("i58_refs_manifest.json")
-    if refs_build["gadapt_tree_sha256"] != pre["gadapt_tree_sha256"] or refs_build["patch_sha256"] != pre["patch_sha256"]:
-        raise SystemExit("STOP: references and test would use different library builds")
+    for field in ("gadapt_tree_sha256", "patch_sha256", "code_sha256", "pip_freeze", "python", "settings"):
+        if refs_build[field] != pre[field]:
+            raise SystemExit(f"STOP: references and test differ in {field}")
     i56.save("i58_manifest.json", pre)
     valid, excluded = instances()
     tasks = [dict(network=n, j=j, method=m, seed=seed_of(6, n, j, s), budget=TEST_BUDGET, reference=refs[f"{n}|{j}"])
@@ -251,11 +257,19 @@ def stage_test(workers):
     records = pool_run(tasks, workers)
     if i57.sha256(i56.path("i58_refs.json.gz")) != pre["refs_sha256"]:
         raise SystemExit("STOP: references changed during the test")
+    post = build_manifest("test-after")
+    for field in ("gadapt_tree_sha256", "patch_sha256", "code_sha256", "pip_freeze", "python"):
+        if post[field] != pre[field]:
+            raise SystemExit(f"STOP: {field} changed during the test")
     i56.save("i58_test.json", dict(excluded=excluded, references=refs, records=records))
 
 
 def analyse():
     data = i56.load("i58_test.json")
+    check = i56.load("i58_check.json")
+    if check["failures"] or not check["checks"] or check["bound"] != dict(
+            refs=i57.sha256(i56.path("i58_refs.json.gz")), test=i57.sha256(i56.path("i58_test.json.gz"))):
+        raise SystemExit("STOP: independent check missing, failed, or not bound to these artifacts")
     units = {}
     for r in data["records"]:
         t = r["task"]
@@ -355,6 +369,8 @@ def independent_check(network, j, x_controls):
     x = np.asarray(x_controls, float)
     if x.shape != st["lo"].shape:
         return dict(valid=False, reason=f"dimension {x.shape} != {st['lo'].shape}")
+    if not np.all(np.isfinite(x)):
+        return dict(valid=False, reason="nonfinite controls")
     step = (st["hi"] - st["lo"]) / (RESOLUTION - 1)
     k = (x - st["lo"]) / np.where(step > 0, step, 1)
     if np.any(x < st["lo"] - 1e-9) or np.any(x > st["hi"] + 1e-9) or np.any(np.abs(k - np.rint(k)) > 1e-6):
@@ -385,33 +401,55 @@ def independent_check(network, j, x_controls):
                 feasible=all(v <= i56.TOL for v in violations.values()))
 
 
+def _violation(check):
+    return float(sum(max(0.0, v - i56.TOL) for v in check["violations"].values()))
+
+
 def stage_check():
-    """Independent re-check of every witness: references (L*), first-target, best feasible, returned (G0, G1)."""
+    """Independent re-check of EVERY required witness: references (L*), first-target, best feasible and both returned
+    arms; reported quantities are recomputed. Exits nonzero on any failure (the chain stops)."""
     refs = references()
     rows, failures = [], {}
+
+    def record(source, task, kind, ok, check):
+        rows.append(dict(source=source, task=task, kind=kind, ok=bool(ok), check=check))
+        if not ok:
+            failures[kind] = failures.get(kind, 0) + 1
+
     for source in ("i58_refs.json", "i58_test.json"):
         for r in i56.load(source)["records"]:
             t = r["task"]
-            witnesses = [("best_feasible", r.get("best_feasible_x")), ("first_target", r.get("first_target_x"))]
-            if r.get("returned"):
-                witnesses.append(("returned", r["returned"]["x"]))
-            for kind, x in witnesses:
-                if x is None:
-                    continue
-                c = independent_check(t["network"], t["j"], x)
-                if kind == "returned":
-                    claimed = r["returned"].get("feasible")
-                    ok = c.get("valid") and (claimed is not True or c.get("feasible"))
-                elif kind == "best_feasible":
-                    ok = c.get("feasible") and abs(c["losses"] - r["best_feasible"]) <= 1e-6 * max(1.0, r["best_feasible"])
-                else:
-                    reference = refs.get(f"{t['network']}|{t['j']}") if source == "i58_test.json" else None
-                    ok = c.get("feasible") and (reference is None or c["losses"] <= reference * 1.01 + 0.01 + 1e-9)
-                rows.append(dict(source=source, task=t, kind=kind, ok=bool(ok), check=c))
-                if not ok:
-                    failures[kind] = failures.get(kind, 0) + 1
-    i56.save("i58_check.json", dict(checks=rows, failures=failures))
+            if not r.get("ok"):
+                continue  # execution failures are handled by the analysis rules, not by the checker
+            if r["best_feasible"] is not None:
+                x = r.get("best_feasible_x")
+                c = independent_check(t["network"], t["j"], x) if x is not None else dict(valid=False)
+                record(source, t, "best_feasible", x is not None and c.get("feasible")
+                       and abs(c["losses"] - r["best_feasible"]) <= 1e-6 * max(1.0, r["best_feasible"]), c)
+            if source == "i58_test.json" and r["first_target"] is not None:
+                x = r.get("first_target_x")
+                c = independent_check(t["network"], t["j"], x) if x is not None else dict(valid=False)
+                reference = refs.get(f"{t['network']}|{t['j']}")
+                record(source, t, "first_target", x is not None and c.get("feasible")
+                       and (reference is None or c["losses"] <= reference * 1.01 + 0.01), c)
+            if t["method"] in ("G0", "G1"):
+                ret = r.get("returned")
+                c = independent_check(t["network"], t["j"], ret["x"]) if ret else dict(valid=False)
+                ok = bool(ret) and c.get("valid") and c.get("converged")
+                if ok and t["method"] == "G1":
+                    ok = (abs(c["losses"] - ret["best_objective"]) <= 1e-6 * max(1.0, abs(ret["best_objective"]))
+                          and abs(_violation(c) - ret["best_violation"]) <= 1e-9
+                          and bool(c["feasible"]) == bool(ret["feasible"]))
+                if ok and t["method"] == "G0":
+                    scalar = c["losses"] + i56.SP_WEIGHT * _violation(c)
+                    ok = abs(scalar - ret["min_cost"]) <= 1e-6 * max(1.0, abs(ret["min_cost"]))
+                record(source, t, f"returned_{t['method']}", ok, c)
+    i56.save("i58_check.json", dict(checks=rows, failures=failures,
+                                    bound=dict(refs=i57.sha256(i56.path("i58_refs.json.gz")),
+                                               test=i57.sha256(i56.path("i58_test.json.gz")))))
     print("checked", len(rows), "failures by kind", failures)
+    if failures or not rows:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

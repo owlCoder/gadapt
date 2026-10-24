@@ -374,8 +374,14 @@ def manifest(stage, extra=None):
                files={f: sha(os.path.join(HERE, f)) for f in ("iteration59_telecom.py", "ITERATION59_PROTOCOL.md",
                                                              "ITERATION59_CLARIFICATIONS.md")},
                data={n: sha(os.path.join(DATA, n + ".json")) for n in INSTANCES},
-               settings=dict(lp=LP_OPTIONS, epsilons=EPSILONS, budgets=BUDGETS, pairs=[SELECTION_PAIRS, VALIDATION_PAIRS,
-                             CONFIRMATION_PAIRS], population=POPULATION_SIZE, penalty=1000.0))
+               settings=dict(lp=LP_OPTIONS, milp=dict(time_limit=3600.0, mip_rel_gap=0.0, mip_abs_gap=0.0, threads=1,
+                                                      presolve=True), epsilons=EPSILONS, budgets=BUDGETS,
+                             pairs=[SELECTION_PAIRS, VALIDATION_PAIRS, CONFIRMATION_PAIRS], population=POPULATION_SIZE,
+                             ga=dict(probe_cost_function=False, exit_check="generations", number_of_generations=10 ** 9,
+                                     timeout=10 ** 6, immigration_number=0, g0="f + 1000 V; post-budget 1e300",
+                                     g1="feasibility_rules; post-budget (0, 1e150)", grid="ga.add(0, 16, 1) per edge"),
+                             seeds="59000000 + 100000 p + 1000 i + s", bootstrap=dict(reps=20000, seed=59),
+                             tolerances=dict(residual=RESIDUAL_TOL, zero_v=ZERO_V)))
     out.update(extra or {})
     save(f"manifest_{stage}.json", out)
     return out
@@ -443,6 +449,7 @@ def stage_confirmation(workers):
              for n in CONFIRMATION for s in range(1, CONFIRMATION_PAIRS + 1) for a in ("G0", "G1")]
     save("confirmation.json", dict(references=refs, trivial=trivial, chosen=[budget, eps],
                                    development_sha256=sha(os.path.join(OUT, "development.json.gz")),
+                                   confirmation_refs_sha256=sha(os.path.join(OUT, "confirmation_refs.json.gz")),
                                    records=pool_run(tasks, workers)))
 
 
@@ -459,14 +466,20 @@ def analyse():
     expected = {(n, seed_of(2, n, s)) for n in CONFIRMATION for s in range(1, CONFIRMATION_PAIRS + 1)}
     keys = [(r["task"]["instance"], r["task"]["seed"], r["task"]["arm"]) for r in data["records"]]
     inventory_ok = (len(keys) == len(set(keys)) == 2 * len(expected) and set(units) == expected
+                    and all(set(u) == {"G0", "G1"} for u in units.values())
                     and all(r["task"]["budget"] == budget for r in data["records"]))
-    complete = {k: u for k, u in units.items() if len(u) == 2 and all(r["ok"] for r in u.values())}
+    complete = {k: u for k, u in units.items() if set(u) == {"G0", "G1"} and all(r["ok"] for r in u.values())}
     persistent = [list(k) for k, u in units.items() if k not in complete]
+    bound = dict(development=sha(os.path.join(OUT, "development.json.gz")),
+                 confirmation=sha(os.path.join(OUT, "confirmation.json.gz")),
+                 confirmation_refs=sha(os.path.join(OUT, "confirmation_refs.json.gz")))
     try:
         check = load("check.json")
-        checks_ok = check["failures"] == 0
+        checks_ok = check["failures"] == 0 and check["rows"] and check["bound"] == bound
     except FileNotFoundError:
         checks_ok = False
+    checks_ok = bool(checks_ok and data.get("development_sha256") == bound["development"]
+                     and data.get("confirmation_refs_sha256") == bound["confirmation_refs"])
     cells = {}
     for (n, seed), u in complete.items():
         cells.setdefault(n, []).append(T(u["G1"]) - T(u["G0"]))
@@ -552,38 +565,50 @@ def independent_check(name, x, raw=None):
 
 
 def stage_check():
-    """Independent re-check of returned designs and every witness that determined selection, validation and T."""
+    """Independent re-check of EVERY required witness (references, development and confirmation targets, best designs,
+    returned designs). Missing required witnesses are failures; the result is bound to the artifact hashes; exits
+    nonzero on any failure so the chain stops."""
     data = load("confirmation.json")
     dev = load("development.json")
     eps = data["chosen"][1]
     rows, failures = [], 0
-    for r in (dev["selection"] or []) + (dev["validation"] or []):
-        for e in (str(x) for x in EPSILONS):
-            x = (r.get("hit_x") or {}).get(e)
-            if x is not None:
-                c = independent_check(r["task"]["instance"], x)
-                ok = c["valid"] and c["routable"] and c["cost"] <= (1 + float(e)) * dev["references"][r["task"]["instance"]]["C"]
-                rows.append(dict(task=r["task"], kind=f"development_target_{e}", ok=bool(ok), check=c))
-                failures += not ok
-    for r in data["records"]:
-        for kind, x in (("returned", r.get("returned")), ("target", (r.get("hit_x") or {}).get(str(eps))),
-                        ("best", r.get("best_x"))):
-            if x is None:
+
+    def add(task, kind, ok, check):
+        nonlocal failures
+        rows.append(dict(task=task, kind=kind, ok=bool(ok), check=check))
+        failures += not ok
+
+    for refs in (dev["references"], data["references"]):
+        for name, ref in refs.items():
+            c = independent_check(name, ref["x"]) if ref.get("x") is not None else dict(valid=False)
+            add(dict(instance=name), "reference", c.get("valid") and c.get("routable") and ref.get("C") is not None
+                and abs(c["cost"] - ref["C"]) < 1e-6, c)
+    for source, records, levels in (("development", (dev["selection"] or []) + (dev["validation"] or []), EPSILONS),
+                                    ("confirmation", data["records"], (eps,))):
+        c_star = dev["references"] if source == "development" else data["references"]
+        for r in records:
+            if not r.get("ok"):
                 continue
-            c = independent_check(r["task"]["instance"], x)
-            ok = c["valid"] and (kind == "returned" or c["routable"])
-            if kind == "target" and ok:
-                ok = c["cost"] <= (1 + eps) * data["references"][r["task"]["instance"]]["C"]
-            rows.append(dict(task=r["task"], kind=kind, ok=bool(ok), check=c))
-            failures += not ok
-    for name, ref in data["references"].items():
-        if ref.get("x") is not None:
-            c = independent_check(name, ref["x"])
-            rows.append(dict(task=dict(instance=name), kind="reference", ok=bool(c["valid"] and c["routable"]
-                                                                               and abs(c["cost"] - ref["C"]) < 1e-6), check=c))
-            failures += not rows[-1]["ok"]
-    save("check.json", dict(rows=rows, failures=failures))
+            n = r["task"]["instance"]
+            for e in levels:
+                if r["hits"].get(str(e)) is not None:
+                    x = (r.get("hit_x") or {}).get(str(e))
+                    c = independent_check(n, x) if x is not None else dict(valid=False)
+                    add(r["task"], f"{source}_target_{e}", x is not None and c.get("valid") and c.get("routable")
+                        and c["cost"] <= (1 + e) * c_star[n]["C"], c)
+            if source == "confirmation":
+                if r.get("best_C") is not None:
+                    c = independent_check(n, r.get("best_x")) if r.get("best_x") is not None else dict(valid=False)
+                    add(r["task"], "best", c.get("valid") and c.get("routable") and abs(c["cost"] - r["best_C"]) < 1e-6, c)
+                c = independent_check(n, r["returned"]) if r.get("returned") is not None else dict(valid=False)
+                add(r["task"], "returned", r.get("returned") is not None and c.get("valid"), c)
+    bound = dict(development=sha(os.path.join(OUT, "development.json.gz")),
+                 confirmation=sha(os.path.join(OUT, "confirmation.json.gz")),
+                 confirmation_refs=sha(os.path.join(OUT, "confirmation_refs.json.gz")))
+    save("check.json", dict(rows=rows, failures=failures, bound=bound))
     print("checked", len(rows), "failures", failures)
+    if failures or not rows:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":
