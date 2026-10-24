@@ -187,6 +187,11 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   (scratchpad) čeka „I57 DONE“: zaključani heševi 10 fajlova patch-a v4 → kopiranje → bit-identičnost + testovi →
   I58 (refs, test, check, analyse) → I59 (development, confirmation, check, analyse). Ne komituje; biblioteku
   komitujem ručno posle pregleda. Teza: nacrti poglavlja 1, 2 (Codex 044), 3, 6 u `research/thesis/`.
+- **17:05 I56 GOTOVO** → `ITERATION56_REPORT_SR.md` (`43cb705`): 4800/4800 ok. H56a PODRŽANA po pravilu
+  (θ_a = +0,021 [0,002; 0,040], p = 0,03) ALI mala i praktično iz jedne mreže: 6/9 blokova (case57, case118)
+  neinformativni (T = 1 svuda pri 3000); bez case14 R=17 interval obuhvata 0 (opisno). H56b i svih 5 sekundarnih
+  nulto. Opisno: ε-ograničenje višestruko najbrže (case14 T 0,28 vs 0,77) — kandidat za buduću preregistraciju.
+  Codex 047 recenzija izveštaja u toku. I57 krenuo 17:06 (lanac), zatim post_chain (patch → I58 → I59).
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
