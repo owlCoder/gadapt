@@ -192,7 +192,7 @@ case39 i case118), sa nepromenjenim adapterima, status nalaza poklapa se sa sint
 | SMAC | rezultat zavisi od `PYTHONHASHSEED` | `list(set(Configuration))` u lokalnoj pretrazi | **novo**, prijavljeno ([#1380](https://github.com/automl/SMAC3/issues/1380)), zakrpa od jedne linije |
 | GFO | `best_score` negiran uz `optimum="minimum"` | negacija se ne poništava pri izveštavanju | **novo**, prijavljeno ([#106](https://github.com/gfo-project/Gradient-Free-Optimizers/issues/106)) |
 | scikit-opt DE | prijavljeno lošije od najboljeg evaluiranog (1/30 sintetički, 2/15 dispečing, 10/200 na sferi) | najbolje se bira samo iz probnih vektora | povezano ([#187](https://github.com/guofei9987/scikit-opt/issues/187), samo naslov); **uzrok i ispravka su naši**, prijavljeno ([#248](https://github.com/guofei9987/scikit-opt/issues/248)) |
-| SciPy DE | vraćeno do 89% lošije od evaluirane tačke (5/15, samo na dispečingu) | poliranje se prihvata samo uz `success=True` | **novo**, prijavljeno ([#26479](https://github.com/scipy/scipy/issues/26479)); održavalac: ponašanje je namerno, menja se docstring (2026-10-23) |
+| SciPy DE | vraćeno do 89% lošije od evaluirane tačke (5/15, samo na dispečingu) | poliranje se prihvata samo uz `success=True` | **novo**, prijavljeno ([#26479](https://github.com/scipy/scipy/issues/26479)); održavalac: ponašanje je namerno; dokumentacija izmenjena (scipy PR #26484, spojen 2026-10-24) |
 | evotorch | evaluacije van kutije | SNES ne podržava granice | dizajn |
 
 Svaka nova dijagnoza ima minimalan primer:
