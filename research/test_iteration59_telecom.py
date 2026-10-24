@@ -90,3 +90,14 @@ def test_evaluate_emits_no_warnings():
     with warnings.catch_warnings():
         warnings.simplefilter("error")
         toy.evaluate(toy.x_sp)
+
+
+def test_independent_checker_agrees_on_real_instances():
+    rng = np.random.RandomState(3)
+    for name in ("pdh", "polska"):
+        instance = t.Instance(name)
+        for x in (instance.x_sp, np.zeros(len(instance.edges)), rng.randint(0, 17, len(instance.edges)).astype(float)):
+            a, b = instance.evaluate(x), t.independent_check(name, x)
+            assert b["valid"] and abs(a["C"] - b["cost"]) < 1e-9
+            assert (a["V"] == 0.0) == b["routable"]
+            assert abs(a["V"] - b["shortage"]) < 1e-6

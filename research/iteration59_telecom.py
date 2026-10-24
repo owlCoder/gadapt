@@ -7,6 +7,7 @@ reference. Stages are added separately.
 import json
 import math
 import os
+import random
 import warnings
 from collections import deque
 
@@ -196,3 +197,304 @@ class Instance:
         out.update(x=x.tolist(), y=y.tolist(), C=float(self.cost @ x), witness_checks=bool(checks),
                    certified=bool(res.status == 0 and checks and not unexpected))
         return out
+
+
+# ------------------------------------------------------------------ evaluation wrapper and GAdapt runs
+
+EPSILONS = (0.05, 0.10, 0.20)
+BUDGETS = (3000, 10000, 30000)
+SELECTION_PAIRS, VALIDATION_PAIRS, CONFIRMATION_PAIRS = 10, 10, 15
+POPULATION_SIZE = 32
+OUT = os.path.join(HERE, "results", "iteration59")
+
+
+def seed_of(p, name, s):
+    return 59000000 + 100000 * p + 1000 * INSTANCES.index(name) + s
+
+
+class Evaluator:
+    """Counts every LP call (no cache, no early stop); records the first feasible call reaching each target level
+    C <= (1 + eps) C*, its genotype, the best feasible design and the initial population."""
+
+    def __init__(self, instance, budget, c_star):
+        self.instance, self.budget, self.c_star = instance, budget, c_star
+        self.calls = self.errors = 0
+        self.hits = {eps: None for eps in EPSILONS}
+        self.hit_x = {eps: None for eps in EPSILONS}
+        self.best_C, self.best_x = math.inf, None
+        self.initial = []
+
+    @property
+    def done(self):
+        return self.calls >= self.budget
+
+    def __call__(self, values):
+        try:
+            return self._call(values)
+        except Exception:
+            self.errors += 1
+            raise
+
+    def _call(self, values):
+        self.calls += 1
+        x = np.rint(np.asarray(values, float))
+        out = self.instance.evaluate(x)
+        if len(self.initial) < POPULATION_SIZE:
+            self.initial.append(x.tolist())
+        if out["V"] == 0.0:
+            if out["C"] < self.best_C:
+                self.best_C, self.best_x = out["C"], x.tolist()
+            if self.c_star is not None:
+                for eps in EPSILONS:
+                    if self.hits[eps] is None and out["C"] <= (1 + eps) * self.c_star + 1e-9:
+                        self.hits[eps], self.hit_x[eps] = self.calls, x.tolist()
+        return out
+
+
+def gadapt_run(task, c_star):
+    from gadapt.ga import GA
+    instance = Instance(task["instance"])
+    evaluator = Evaluator(instance, task["budget"], c_star)
+    random.seed(task["seed"])
+    np.random.seed(task["seed"])
+    if task["arm"] == "G0":
+        def cost(values):
+            if evaluator.done:
+                return 1e300
+            out = evaluator(values)
+            return out["f"] + 1000.0 * out["V"]
+        kwargs = {}
+    else:
+        def cost(values):
+            if evaluator.done:
+                return 0.0, 1e150
+            out = evaluator(values)
+            return out["f"], out["V"]
+        kwargs = dict(constraint_handling="feasibility_rules")
+    ga = GA(cost_function=cost, probe_cost_function=False, exit_check="generations", number_of_generations=10 ** 9,
+            exit_function=lambda *a, **k: evaluator.done, timeout=10 ** 6, **kwargs)
+    for _ in instance.edges:
+        ga.add(0.0, float(MAX_MODULES), 1.0)
+    result = ga.execute()
+    returned = [result.result_values[i] for i in sorted(result.result_values)] if result.result_values else None
+    return dict(task=task, ok=evaluator.calls == task["budget"] and bool(result.success) and evaluator.errors == 0,
+                calls=evaluator.calls, errors=evaluator.errors, hits={str(e): h for e, h in evaluator.hits.items()},
+                hit_x={str(e): v for e, v in evaluator.hit_x.items()}, best_C=None if evaluator.best_x is None
+                else evaluator.best_C, best_x=evaluator.best_x, returned=returned, initial=evaluator.initial)
+
+
+def run(task):
+    import traceback
+    try:
+        return gadapt_run(task, task.get("c_star"))
+    except Exception:
+        return dict(task=task, ok=False, error=traceback.format_exc()[-2000:])
+
+
+def save(name, data):
+    import gzip
+    os.makedirs(OUT, exist_ok=True)
+    with gzip.open(os.path.join(OUT, name + ".gz"), "wt") as f:
+        json.dump(data, f)
+
+
+def load(name):
+    import gzip
+    with gzip.open(os.path.join(OUT, name + ".gz"), "rt") as f:
+        return json.load(f)
+
+
+def pool_run(tasks, workers):
+    from multiprocessing import Pool
+    with Pool(workers, maxtasksperchild=1) as pool:
+        records = list(pool.imap(run, tasks))
+    for i, r in enumerate(records):
+        if not r["ok"]:
+            with Pool(1, maxtasksperchild=1) as pool:
+                again = pool.apply(run, (tasks[i],))
+            again["rerun"], again["first_attempt"] = True, {k: v for k, v in r.items() if k != "initial"}
+            records[i] = again
+    pairs = {}
+    for r in records:
+        if r.get("ok"):
+            pairs.setdefault((r["task"]["instance"], r["task"]["seed"]), {})[r["task"]["arm"]] = r["initial"]
+    for key, p in pairs.items():
+        if len(p) == 2 and (p["G0"] != p["G1"] or len(p["G0"]) != POPULATION_SIZE):
+            raise SystemExit(f"STOP: G0/G1 initial populations differ for {key}")
+    return records
+
+
+def references(names, time_limit=3600.0):
+    out = {}
+    for name in names:
+        ref = Instance(name).milp_reference(time_limit=time_limit)
+        out[name] = ref
+    return out
+
+
+def attainment(records, name, budget, eps):
+    rs = [r for r in records if r["task"]["instance"] == name and r["ok"]]
+    return sum(1 for r in rs if r["hits"][str(eps)] is not None and r["hits"][str(eps)] <= budget) / len(rs)
+
+
+def choose(records):
+    """Smallest B, then smallest eps, with pooled G0/G1 attainment in [0.2, 0.8] on EVERY development network."""
+    for budget in BUDGETS:
+        for eps in EPSILONS:
+            if all(0.2 <= attainment(records, n, budget, eps) <= 0.8 for n in DEVELOPMENT):
+                return budget, eps
+    return None
+
+
+def stage_development(workers):
+    refs = references(DEVELOPMENT)
+    if not all(refs[n]["certified"] for n in DEVELOPMENT):
+        save("development.json", dict(references=refs, decision="NO-GO: development optimum not certified"))
+        return
+    tasks = [dict(instance=n, arm=a, seed=seed_of(0, n, s), budget=BUDGETS[-1], c_star=refs[n]["C"])
+             for n in DEVELOPMENT for s in range(1, SELECTION_PAIRS + 1) for a in ("G0", "G1")]
+    selection = pool_run(tasks, workers)
+    chosen = choose(selection)
+    validation, decision = None, None
+    if chosen is None:
+        decision = "NO-GO: no (B, eps) with 20-80% attainment on every development network"
+    else:
+        budget, eps = chosen
+        tasks = [dict(instance=n, arm=a, seed=seed_of(1, n, s), budget=budget, c_star=refs[n]["C"])
+                 for n in DEVELOPMENT for s in range(1, VALIDATION_PAIRS + 1) for a in ("G0", "G1")]
+        validation = pool_run(tasks, workers)
+        ok = all(0.2 <= attainment(validation, n, budget, eps) <= 0.8 for n in DEVELOPMENT)
+        decision = "GO" if ok else "NO-GO: validation seeds outside 20-80%"
+    save("development.json", dict(references=refs, chosen=chosen, decision=decision, selection=selection,
+                                  validation=validation))
+
+
+def stage_confirmation(workers):
+    dev = load("development.json")
+    if dev["decision"] != "GO":
+        raise SystemExit(f"development decision: {dev['decision']}")
+    budget, eps = dev["chosen"]
+    refs = references(CONFIRMATION)
+    trivial = {n: refs[n]["C"] is not None and not ((1 + eps) * refs[n]["C"] < Instance(n).c_sp) for n in CONFIRMATION}
+    save("confirmation_refs.json", dict(references=refs, trivial=trivial, chosen=[budget, eps]))
+    tasks = [dict(instance=n, arm=a, seed=seed_of(2, n, s), budget=budget, c_star=refs[n]["C"])
+             for n in CONFIRMATION for s in range(1, CONFIRMATION_PAIRS + 1) for a in ("G0", "G1")]
+    save("confirmation.json", dict(references=refs, trivial=trivial, chosen=[budget, eps],
+                                   records=pool_run(tasks, workers)))
+
+
+def analyse():
+    data = load("confirmation.json")
+    budget, eps = data["chosen"]
+    certified = all(data["references"][n]["certified"] for n in CONFIRMATION)
+    units = {}
+    for r in data["records"]:
+        units.setdefault((r["task"]["instance"], r["task"]["seed"]), {})[r["task"]["arm"]] = r
+    def T(r):
+        h = r["hits"][str(eps)]
+        return min(h / budget, 1.0) if h is not None else 1.0
+    complete = {k: u for k, u in units.items() if len(u) == 2 and all(r["ok"] for r in u.values())}
+    persistent = [list(k) for k, u in units.items() if k not in complete]
+    cells = {}
+    for (n, seed), u in complete.items():
+        cells.setdefault(n, []).append(T(u["G1"]) - T(u["G0"]))
+    result = None
+    if certified and not persistent and set(cells) == set(CONFIRMATION):
+        rng = np.random.RandomState(59)
+        values = {n: np.array(v) for n, v in cells.items()}
+        draws = np.mean([v[rng.randint(0, len(v), (20000, len(v)))].mean(axis=1) for n, v in sorted(values.items())],
+                        axis=0)
+        estimate = float(np.mean([v.mean() for v in values.values()]))
+        lo, hi = np.percentile(draws, [2.5, 97.5])
+        result = dict(estimate=estimate, ci=[float(lo), float(hi)], supported=bool(hi < 0))
+    out = dict(chosen=[budget, eps], certified=certified, trivial=data["trivial"], persistent_failures=persistent,
+               H59=result, per_network={n: dict(mean_d=float(np.mean(v)), n=len(v)) for n, v in cells.items()})
+    save("analysis.json", out)
+    print(json.dumps(dict(H59=result, certified=certified, trivial=data["trivial"]), indent=1))
+
+
+# ------------------------------------------------------------------ independent checker (no Instance code)
+
+def independent_check(name, x):
+    """Rebuilds the network from the raw JSON with networkx incidence matrices and checks a design: integer modules in
+    [0, 16], cost, and whether the FULL demands can be routed (min total shortage LP = 0)."""
+    import networkx as nx
+    with open(os.path.join(DATA, name + ".json")) as f:
+        raw = json.load(f)
+    graph = nx.Graph()
+    for e in raw["edges"]:
+        graph.add_edge(int(e["source"]), int(e["target"]), dist=float(e["dist"]))
+    edges = sorted(tuple(sorted(e)) for e in graph.edges())
+    x = np.asarray(x, float)
+    if x.shape != (len(edges),) or np.any(np.abs(x - np.rint(x)) > 0) or x.min() < 0 or x.max() > MAX_MODULES:
+        return dict(valid=False)
+    demands = [(int(s), int(t), float(v)) for s, row in raw["graph"]["demands"].items() for t, v in row.items()
+               if float(v) > 0 and int(s) != int(t)]
+    digraph = nx.DiGraph()
+    for a, b in edges:
+        digraph.add_edge(a, b)
+        digraph.add_edge(b, a)
+    nodes = sorted(digraph.nodes())
+    arcs = list(digraph.edges())
+    incidence = nx.incidence_matrix(digraph, nodelist=nodes, edgelist=arcs, oriented=True).toarray()  # -1 tail, +1 head
+    load = {}
+    for s, t, v in demands:
+        path = min(nx.all_shortest_paths(graph, s, t))  # protocol rule: min hops, then lexicographically smallest
+        for a, b in zip(path, path[1:]):
+            load[tuple(sorted((a, b)))] = load.get(tuple(sorted((a, b))), 0.0) + v
+    q = max(load.values()) / 8.0
+    cost = sum((1 + graph.edges[a, b]["dist"] / 1000.0) * xe for (a, b), xe in zip(edges, x))
+    k, n_arcs = len(demands), len(arcs)
+    # variables: flows per demand and arc, then shortage per demand; minimize total shortage
+    a_eq = np.zeros((k * len(nodes), k * n_arcs + k))
+    b_eq = np.zeros(k * len(nodes))
+    for c, (s, t, v) in enumerate(demands):
+        a_eq[c * len(nodes):(c + 1) * len(nodes), c * n_arcs:(c + 1) * n_arcs] = -incidence  # out - in
+        a_eq[c * len(nodes) + nodes.index(s), k * n_arcs + c] = 1.0
+        a_eq[c * len(nodes) + nodes.index(t), k * n_arcs + c] = -1.0
+        b_eq[c * len(nodes) + nodes.index(s)] = v / q
+        b_eq[c * len(nodes) + nodes.index(t)] = -v / q
+    a_ub = np.zeros((len(edges), k * n_arcs + k))
+    for i, (a, b) in enumerate(arcs):
+        e = edges.index(tuple(sorted((a, b))))
+        for c in range(k):
+            a_ub[e, c * n_arcs + i] = 1.0
+    demand_h = np.array([v / q for _, _, v in demands])
+    res = linprog(np.concatenate([np.zeros(k * n_arcs), np.ones(k)]), A_ub=a_ub, b_ub=x, A_eq=a_eq, b_eq=b_eq,
+                  bounds=[(0, None)] * (k * n_arcs) + [(0, h) for h in demand_h], method="highs")
+    shortage = float(res.fun) / demand_h.sum() if res.status == 0 else None
+    return dict(valid=True, cost=float(cost), shortage=shortage, routable=shortage is not None and shortage <= ZERO_V)
+
+
+def stage_check():
+    """Independent re-check of returned designs and of every target witness (confirmation records)."""
+    data = load("confirmation.json")
+    eps = data["chosen"][1]
+    rows, failures = [], 0
+    for r in data["records"]:
+        for kind, x in (("returned", r.get("returned")), ("target", (r.get("hit_x") or {}).get(str(eps))),
+                        ("best", r.get("best_x"))):
+            if x is None:
+                continue
+            c = independent_check(r["task"]["instance"], x)
+            ok = c["valid"] and (kind == "returned" or c["routable"])
+            if kind == "target" and ok:
+                ok = c["cost"] <= (1 + eps) * data["references"][r["task"]["instance"]]["C"] + 1e-9
+            rows.append(dict(task=r["task"], kind=kind, ok=bool(ok), check=c))
+            failures += not ok
+    for name, ref in data["references"].items():
+        if ref.get("x") is not None:
+            c = independent_check(name, ref["x"])
+            rows.append(dict(task=dict(instance=name), kind="reference", ok=bool(c["valid"] and c["routable"]
+                                                                               and abs(c["cost"] - ref["C"]) < 1e-6), check=c))
+            failures += not rows[-1]["ok"]
+    save("check.json", dict(rows=rows, failures=failures))
+    print("checked", len(rows), "failures", failures)
+
+
+if __name__ == "__main__":
+    import sys
+    stage = sys.argv[1] if len(sys.argv) > 1 else ""
+    workers = int(sys.argv[2]) if len(sys.argv) > 2 else 8
+    dict(development=lambda: stage_development(workers), confirmation=lambda: stage_confirmation(workers),
+         analyse=analyse, check=stage_check).get(stage, lambda: print(__doc__))()
