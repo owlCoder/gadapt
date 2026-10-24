@@ -156,8 +156,15 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   istraživački pilot samo na razvojnom scenariju (`3577b94`): izvodljivost netrivijalna i zavisi od R.
   Mehanizam u kodu: CHT ulazi kroz redosled (elitizam, rulet po RANGU) i kroz 2 signala koji čitaju vrednost
   (raznovrsnost troškova, parent diversity). Nacrt protokola I56 (NIJE zamrznut) → Codex 021 recenzija u toku.
-- SLEDEĆI KORAK: (1) Codex 021 → ispravke → ZAMRZNUTI I56 → kod studije + testovi → razvoj (FX-M, FX-T) →
-  reference → test JEDNOM → analiza; (2) samo ČITATI issue-e.
+- I56 protokol: v1 → Codex 021 (6 blokirajućih) → v2 → Codex 022 → v3 → Codex 023 → **ZAMRZNUTO `3f09eb9`**.
+  Kod studije `iteration56_cht_study.py` (`0c3e4a0`): CHT cost finder (ponovna skalarizacija pre odsecanja),
+  zajednički signal (oba updater-a), FX selektori sa tačnim brojevima, instrumentacija; testovi 5/5 —
+  AD-N/SP bit-identičan čistom GAdapt-u. VAŽNO: `GA.execute()` duboko kopira GA → omotač/CHT/fabrika imaju
+  `__deepcopy__` koji vraća self. OPF pada za case57 test (1,10, 203) i (1,15, 204) → izuzeti po §2.
+  Codex 024 recenzija koda u toku; NIŠTA još nije pokrenuto osim smoke testova.
+- SLEDEĆI KORAK: (1) Codex 024 → ispravke → `dev_ref` → `dev_fxm` → `dev_fxt` → `rehearsal` (snaga) →
+  `test_ref` → `test` JEDNOM → `analyse` → izveštaj; ako prekinuto: pokrenuti fazu čiji JSON nedostaje u
+  `research/results/iteration56/`; (2) samo ČITATI issue-e.
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
