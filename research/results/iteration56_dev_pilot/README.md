@@ -29,4 +29,4 @@ case118 0.95 33 3 inf None 77.74336762070119 10.5
 case118 0.95 33 2 inf None 77.74336762070119 12.1
 ```
 Observation (descriptive): case57 feasible 6/6; case14 feasible only at R = 33 (3/3, none at R = 9); case118 1/6.
-Two case118 runs ended in ~11 s instead of ~16 s (not yet explained; check whether GAdapt stopped before the budget).
+Two case118 runs ended in ~11 s instead of ~16 s. Rerun of case118 R=33 seed 3 alone: all 3000 calls used, 0 non-converged, 8.8 s -> faster power flows / pool contention, not an early stop.
