@@ -196,6 +196,23 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   **I60 ZAMRZNUT pre I58** (`be53181`): konfirmatorna provera bibliotečkog ε-ograničenja (G2) naspram kazne (G0) na
   I58 instancama, 3000 poziva, number_of_generations=188 (ε = 0 posle ≈1536 poziva kao u I56); drajver + testovi
   (`a1a23db`). Lanac: I57 → patch → I58 → **I60** → I59.
+- **2026-10-24 21:00–22:00 (Codex paralelno, do 5 poslova, gpt-6.1-sol high, read-only; skripta
+  `run_codex.sh` u scratchpad-u sesije 66e5645f; `--search` ide PRE `exec`).**
+  * I57 GOTOVO 18:11 → `ITERATION57_REPORT_SR.md` (opisno): CMAwM − GAdapt ≈ −0,10 T (sve sa case14 R=17/33,
+    dostizanje 92–95% vs 48–60%); DE ≈ 0; nasumična +0,06; na case57 samo GAdapt uvek nađe izvodljivo (20/20; DE 0/20 —
+    popsize 15·N daje ~7 generacija). Codex 049 nezavisno reprodukovao svih 6 procena tačno.
+  * Biblioteka: patch v4 KOMITOVAN (`08a5b75`) = tačan build za I58/I60/I59. Codex 050: blokirajuća greška
+    (executor čita `cost_finder.best` i bez constraint_handling → prilagođeni cost finder sa `best` pada). Ispravka v5
+    + regresioni test (pada na v4, prolazi na v5; heš `afcdb859…` isti; 72/72) u
+    `research/patches/constraint_api_v5_fix.patch` — PRIMENITI TEK POSLE CELOG LANCA (I59 DONE), pa heš + testovi.
+  * I60 drajver ispravljen PRE pokretanja (Codex 051, `df3f8da`): I58 pravila izuzimanja/osetljivosti, obavezna
+    uspešna I58 provera referenci, poreklo poredi i I60 polja; testovi 4/4. I58 manifest ne hešira I60 kod (provereno).
+  * Codex 052: mapa tumačenja za svih 8 ishoda H58/H60/H59 (napisana pre rezultata); default biblioteke se ne menja
+    ni u jednoj grani. Najpotrebnija studija: replikacija H56a na drugim mrežama sa informativnim budžetom → Codex 055.
+  * Codex 053 prior art (8 DOI provereno na Crossref-u): poređenje CHT na diskretnom ORPD-u = POZNATO (Mallipeddi
+    i sar. 2012, 10.1016/j.swevo.2012.03.001: SF/SP/EC/SR + ansambl, IEEE 30/57/118); ε + SHADE na ORPD (Biswas 2019);
+    SARGA ORPD (Subbaraj 2009). H58/H60 = preregistrovana provera opcije biblioteke, NE nova metoda. R1 → Codex 056.
+  * U toku: 054 (provera I60 ispravki + I59), 055 (I61 predlog), 056 (R1 Mallipeddi), 057 (recenzija I57), 058 (pogl. 5).
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
