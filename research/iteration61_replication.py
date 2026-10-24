@@ -147,6 +147,11 @@ def verify_gate():
             and gate["result_sha256"] == sha256(selected)
             and all(sha256(path(f"gate_{k}.json.gz")) == h for k, h in gate["attempts_sha256"].items())):
         raise SystemExit("STOP: the instrument gate did not pass or its records changed")
+    attempt = load(f"gate_{gate['selected']}.json")
+    if not (attempt["passed"] and same_provenance(attempt["manifest"], manifest)
+            and attempt["archive_sha256"] == sha256(i56.path("test.json.gz"))
+            and attempt["i56_tests_sha256"] == sha256(os.path.join(HERE, "test_iteration56_cht_study.py"))):
+        raise SystemExit("STOP: the selected gate attempt, its archive or its regression tests changed")
     return manifest
 
 
@@ -177,8 +182,10 @@ def require_provenance(stage):
         inputs[producer] = sha256(artifact(producer))
     if stage in ("test", "check", "analysis"):
         frozen = load("manifest_frozen.json")
-        if not same_provenance(frozen, current):
-            raise SystemExit("STOP: the build differs from the frozen manifest")
+        bound = load("manifest_test_ref.json")["frozen_sha256"]
+        if not same_provenance(frozen, current) or sha256(path("manifest_frozen.json.gz")) != bound:
+            raise SystemExit("STOP: the build differs from the frozen manifest or the freeze changed")
+        current["frozen_sha256"] = bound
     current["inputs_sha256"] = inputs
     current["gate_sha256"], current["roster_sha256"] = gate["gate_sha256"], gate["roster_sha256"]
     return current
@@ -189,10 +196,16 @@ def finish(stage, before):
     after = build_manifest(stage + "-after")
     if not same_provenance(before, after):
         raise SystemExit(f"STOP: the build changed during {stage}")
-    verify_gate()
+    gate = verify_gate()
+    if (gate["gate_sha256"], gate["roster_sha256"]) != (before["gate_sha256"], before["roster_sha256"]) \
+            or not same_provenance(gate, after):
+        raise SystemExit(f"STOP: the gate records changed during {stage}")
+    if "frozen_sha256" in before and sha256(path("manifest_frozen.json.gz")) != before["frozen_sha256"]:
+        raise SystemExit(f"STOP: the freeze changed during {stage}")
     for producer, h in before["inputs_sha256"].items():
         if sha256(artifact(producer)) != h:
             raise SystemExit(f"STOP: {producer} changed during {stage}")
+        verify_chain(producer, after)  # transitive ancestors unchanged too
 
 
 def publish(stage, before, data):
@@ -754,6 +767,7 @@ def stage_test_ref(workers):
                                       hashes={f: sha256(path(f + ".gz")) for f in
                                               ("dev_ref.json", "select_b.json", "fxt.json", "stopcheck.json",
                                                "rehearsal.json", "power.json")}))
+    current["frozen_sha256"] = sha256(path("manifest_frozen.json.gz"))  # bound into the published test_ref manifest
     valid, excluded = instances("test")
     tasks = [task(n, j, c, "AD-N", "test_ref", s, REF_BUDGET) for n, j in valid for c in REF_CHTS for s in (1, 2)]
     records = execute(tasks, workers)
