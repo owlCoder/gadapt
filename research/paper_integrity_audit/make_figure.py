@@ -2,6 +2,7 @@
 
 Run with an interpreter that has matplotlib (e.g. the I49 environment from research/h4_requirements_lock.txt).
 """
+import ast
 import json
 import os
 
@@ -22,22 +23,50 @@ NAMES = {"scipy_de": "SciPy DE", "geneticalgorithm": "geneticalgorithm", "gfo": 
          "evotorch": "evotorch", "evox": "evox"}
 CONTRADICTS = {("cma", "C4"), ("nevergrad", "D3"), ("nevergrad", "D3x"), ("gfo", "R2"), ("gfo", "R3"),
                ("smac", "D3x")}
+# checks whose input the adapter never returns: C4 needs a documented maximum, R1 a returned x, R2/R3 also a returned f
+NEEDS = {"C4": "documented_max", "R1": "x", "R2": "f", "R3": "f"}
+# Nevergrad returns f only when the recommendation carries a loss, which was not archived per run
+UNKNOWN = {("nevergrad", "R2"), ("nevergrad", "R3")}
 SURFACE, INK, MUTED = "#fcfcfb", "#0b0b0b", "#52514e"
 BLUES = LinearSegmentedColormap.from_list("blue", ["#cde2fb", "#86b6ef", "#3987e5", "#1c5cab", "#0d366b"])
+NA_GREY = "#e4e3df"
+
+
+def returned_fields(script):
+    """Adapter name -> result fields it returns (not None), read from the top-level return of each run_* function."""
+    out = {}
+    for fn in ast.parse(open(os.path.join(os.path.dirname(HERE), script)).read()).body:
+        if not (isinstance(fn, ast.FunctionDef) and fn.name.startswith("run_")):
+            continue
+        call = next(n.value for n in fn.body if isinstance(n, ast.Return))
+        fields = dict(zip(["x", "f", "reported_evals", "documented_max"], call.args))
+        fields.update({k.arg: k.value for k in call.keywords})
+        out[fn.name[4:]] = {k for k, v in fields.items() if not (isinstance(v, ast.Constant) and v.value is None)}
+    return out
+
+
+def applicability(lib, fields, cls):
+    """'yes', 'n/a' (the adapter cannot produce the check's input) or '?' (applicability not archived)."""
+    if (lib, cls) in UNKNOWN:
+        return "?"
+    return "n/a" if cls in NEEDS and NEEDS[cls] not in fields else "yes"
 
 
 def rows():
     i49 = json.load(open(os.path.join(RES, "iteration49", "integrity_audit.json")))["per_library"]
     i51 = json.load(open(os.path.join(RES, "iteration51", "d3x.json")))["per_library"]
     i50 = json.load(open(os.path.join(RES, "iteration50", "integrity_audit.json")))["per_library"]
+    f49, f50 = returned_fields("iteration49_integrity_audit.py"), returned_fields("iteration50_integrity_audit.py")
     out = []
     for lib, r in i49.items():
         if lib == "gadapt":
             continue
         counts = dict(r["runs_with_class"], D3x=i51[lib]["d3x_runs"])
-        out.append(("Study 1", lib, counts, r["runs"] - r["errors"], r["median_duplicate_fraction"]))
+        out.append(("Study 1", lib, counts, r["runs"] - r["errors"], r["median_duplicate_fraction"], f49[lib]))
     for lib, r in sorted(i50.items()):
-        out.append(("Study 2", lib, r["runs_with_class"], r["runs"] - r["errors"], r["median_duplicate_fraction"]))
+        fields = f50[lib] - ({"x", "f"} if not r["r_applicable"] else set())
+        out.append(("Study 2", lib, r["runs_with_class"], r["runs"] - r["errors"], r["median_duplicate_fraction"],
+                    fields))
     return out
 
 
@@ -46,10 +75,21 @@ def main():
     cols = CLASSES + ["C1"]
     fig, ax = plt.subplots(figsize=(7.4, 8.6), facecolor=SURFACE)
     ax.set_facecolor(SURFACE)
-    for i, (study, lib, counts, completed, dup) in enumerate(data):
+    for i, (study, lib, counts, completed, dup, fields) in enumerate(data):
         for j, cls in enumerate(cols):
             n = counts.get(cls) or 0
             x = j + (0.4 if cls == "C1" else 0)
+            status = applicability(lib, fields, cls)
+            if status == "n/a":
+                assert n == 0, (lib, cls)
+                ax.add_patch(Rectangle((x + 0.04, i + 0.04), 0.92, 0.92, facecolor=NA_GREY, edgecolor=MUTED,
+                                       hatch="////", lw=0))
+                ax.text(x + 0.5, i + 0.52, "n/a", ha="center", va="center", fontsize=6.5, color=INK,
+                        bbox=dict(boxstyle="square,pad=0.05", facecolor=NA_GREY, edgecolor="none"))
+            elif status == "?" and not n:
+                ax.text(x + 0.5, i + 0.52, "?", ha="center", va="center", fontsize=8, color=MUTED)
+            elif not n:
+                ax.text(x + 0.5, i + 0.52, "0", ha="center", va="center", fontsize=7, color="#b4b2ad")
             if n:
                 colour = BLUES(n / completed) if cls != "C1" else "#d9d8d4"
                 ax.add_patch(Rectangle((x + 0.04, i + 0.04), 0.92, 0.92, facecolor=colour, edgecolor="none"))
@@ -80,8 +120,10 @@ def main():
              "shade = share of completed runs.\nDark outline: behaviour that contradicts the library's documentation "
              "(rule pre-specified in Study 2, applied post hoc\nin Study 1). Study 1 D3x comes from Study 3. C1 (corner "
              "evaluations) is shown apart because it proved non-specific.\n\"repeated\": median share of re-evaluated "
-             "points.", fontsize=7.2, color=MUTED, va="bottom")
-    fig.subplots_adjust(left=0.24, right=0.99, top=0.97, bottom=0.125)
+             "points. \"0\": checked, not found. Hatched \"n/a\": the adapter does not return the check's\ninput (C4: no "
+             "documented maximum; R1: no returned point; R2/R3: no returned value). \"?\": applicability not\narchived "
+             "per run.", fontsize=7.2, color=MUTED, va="bottom")
+    fig.subplots_adjust(left=0.24, right=0.99, top=0.97, bottom=0.15)
     for ext in ("png", "pdf"):
         fig.savefig(os.path.join(HERE, f"fig_integrity_matrix.{ext}"), dpi=200, facecolor=SURFACE)
 

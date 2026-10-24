@@ -63,7 +63,7 @@ def pandoc(markdown):
 UNICODE = {"−": r"\ensuremath{-}", "≤": r"\ensuremath{\le}", "≥": r"\ensuremath{\ge}", "×": r"\ensuremath{\times}",
            "∈": r"\ensuremath{\in}", "Σ": r"\ensuremath{\Sigma}", "⌊": r"\ensuremath{\lfloor}", "⌋": r"\ensuremath{\rfloor}",
            "→": r"\ensuremath{\to}", "′": r"\ensuremath{'}", "…": r"\ldots{}", "–": "--", "—": "---", "≠": r"\ensuremath{\neq}",
-           "≈": r"\ensuremath{\approx}", "·": r"\ensuremath{\cdot}", "⁻": r"\ensuremath{^{-}}", "¹": r"\ensuremath{^{1}}",
+           "≈": r"\ensuremath{\approx}", "·": r"\ensuremath{\cdot}", "⁻": r"\ensuremath{^{-}}", "¹": r"\ensuremath{^{1}}", "⁵": r"\ensuremath{^{5}}",
            "²": r"\ensuremath{^{2}}", "μ": r"\ensuremath{\mu}", "λ": r"\ensuremath{\lambda}", "ε": r"\ensuremath{\varepsilon}"}
 
 

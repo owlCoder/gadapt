@@ -1,0 +1,661 @@
+{
+ "plan": "research/ITERATION52_SENSITIVITY_PLAN.md",
+ "post_hoc_descriptive": true,
+ "archive_A_original": {
+  "observed_agreement": 19,
+  "libraries": 21,
+  "disagreements": [
+   "nevergrad",
+   "scipy_de"
+  ],
+  "matched_exposure": {
+   "distribution": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    4.0295254849364024e-05,
+    0.40316370452544625,
+    0.4999597047451506,
+    0.09683629547455373,
+    0.0
+   ],
+   "support": [
+    17,
+    20
+   ],
+   "expectation": 18.693592000439406,
+   "p_at_least_17": 1.0
+  },
+  "complete_only": {
+   "libraries": [
+    "baybe",
+    "cma",
+    "cmaes",
+    "deap",
+    "emukit",
+    "evolopy",
+    "evotorch",
+    "evox",
+    "geneticalgorithm",
+    "gfo",
+    "niapy",
+    "optuna",
+    "pygad",
+    "pymoo",
+    "pyswarms",
+    "scikit_opt",
+    "scipy_de",
+    "smac"
+   ],
+   "agreement": 17,
+   "denominator": 18,
+   "confusion": {
+    "S1_D1": 7,
+    "S1_D0": 0,
+    "S0_D1": 1,
+    "S0_D0": 10
+   },
+   "positive_recurrence": [
+    7,
+    7
+   ]
+  },
+  "missing_bounds": {
+   "incomplete": [
+    "bayes_opt",
+    "bofire",
+    "nevergrad"
+   ],
+   "lower": 17,
+   "upper": 20,
+   "all_missing_negative": 19,
+   "all_missing_positive": 18,
+   "denominator": 21
+  },
+  "per_library": {
+   "baybe": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "bayes_opt": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 10,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "bofire": {
+    "n": 28,
+    "k": 0,
+    "S": false,
+    "m": 10,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "cma": {
+    "n": 30,
+    "k": 10,
+    "S": true,
+    "m": 15,
+    "D": true,
+    "agree": true,
+    "q_matched_negative": 9.995002498750625e-05,
+    "p_agree_matched": 0.9999000499750125
+   },
+   "cmaes": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "deap": {
+    "n": 30,
+    "k": 30,
+    "S": true,
+    "m": 15,
+    "D": true,
+    "agree": true,
+    "q_matched_negative": 0.0,
+    "p_agree_matched": 1.0
+   },
+   "emukit": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "evolopy": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "evotorch": {
+    "n": 30,
+    "k": 30,
+    "S": true,
+    "m": 15,
+    "D": true,
+    "agree": true,
+    "q_matched_negative": 0.0,
+    "p_agree_matched": 1.0
+   },
+   "evox": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "geneticalgorithm": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "gfo": {
+    "n": 30,
+    "k": 25,
+    "S": true,
+    "m": 15,
+    "D": true,
+    "agree": true,
+    "q_matched_negative": 0.0,
+    "p_agree_matched": 1.0
+   },
+   "nevergrad": {
+    "n": 20,
+    "k": 5,
+    "S": true,
+    "m": 5,
+    "D": false,
+    "agree": false,
+    "q_matched_negative": 0.19369195046439627,
+    "p_agree_matched": 0.19369195046439627
+   },
+   "niapy": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "optuna": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "pygad": {
+    "n": 30,
+    "k": 30,
+    "S": true,
+    "m": 15,
+    "D": true,
+    "agree": true,
+    "q_matched_negative": 0.0,
+    "p_agree_matched": 1.0
+   },
+   "pymoo": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "pyswarms": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "scikit_opt": {
+    "n": 30,
+    "k": 1,
+    "S": true,
+    "m": 15,
+    "D": true,
+    "agree": true,
+    "q_matched_negative": 0.5,
+    "p_agree_matched": 0.5
+   },
+   "scipy_de": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": true,
+    "agree": false,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 0.0
+   },
+   "smac": {
+    "n": 30,
+    "k": 30,
+    "S": true,
+    "m": 15,
+    "D": true,
+    "agree": true,
+    "q_matched_negative": 0.0,
+    "p_agree_matched": 1.0
+   }
+  }
+ },
+ "archive_B_i55": {
+  "observed_agreement": 19,
+  "libraries": 21,
+  "disagreements": [
+   "nevergrad",
+   "scipy_de"
+  ],
+  "matched_exposure": {
+   "distribution": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    4.0295254849364024e-05,
+    0.40316370452544625,
+    0.4999597047451506,
+    0.09683629547455373,
+    0.0
+   ],
+   "support": [
+    17,
+    20
+   ],
+   "expectation": 18.693592000439406,
+   "p_at_least_17": 1.0
+  },
+  "complete_only": {
+   "libraries": [
+    "baybe",
+    "cma",
+    "cmaes",
+    "deap",
+    "emukit",
+    "evolopy",
+    "evotorch",
+    "evox",
+    "geneticalgorithm",
+    "gfo",
+    "niapy",
+    "optuna",
+    "pygad",
+    "pymoo",
+    "pyswarms",
+    "scikit_opt",
+    "scipy_de",
+    "smac"
+   ],
+   "agreement": 17,
+   "denominator": 18,
+   "confusion": {
+    "S1_D1": 7,
+    "S1_D0": 0,
+    "S0_D1": 1,
+    "S0_D0": 10
+   },
+   "positive_recurrence": [
+    7,
+    7
+   ]
+  },
+  "missing_bounds": {
+   "incomplete": [
+    "bayes_opt",
+    "bofire",
+    "nevergrad"
+   ],
+   "lower": 17,
+   "upper": 20,
+   "all_missing_negative": 19,
+   "all_missing_positive": 18,
+   "denominator": 21
+  },
+  "per_library": {
+   "baybe": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "bayes_opt": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 10,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "bofire": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 10,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "cma": {
+    "n": 30,
+    "k": 10,
+    "S": true,
+    "m": 15,
+    "D": true,
+    "agree": true,
+    "q_matched_negative": 9.995002498750625e-05,
+    "p_agree_matched": 0.9999000499750125
+   },
+   "cmaes": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "deap": {
+    "n": 30,
+    "k": 30,
+    "S": true,
+    "m": 15,
+    "D": true,
+    "agree": true,
+    "q_matched_negative": 0.0,
+    "p_agree_matched": 1.0
+   },
+   "emukit": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "evolopy": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "evotorch": {
+    "n": 30,
+    "k": 30,
+    "S": true,
+    "m": 15,
+    "D": true,
+    "agree": true,
+    "q_matched_negative": 0.0,
+    "p_agree_matched": 1.0
+   },
+   "evox": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "geneticalgorithm": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "gfo": {
+    "n": 30,
+    "k": 25,
+    "S": true,
+    "m": 15,
+    "D": true,
+    "agree": true,
+    "q_matched_negative": 0.0,
+    "p_agree_matched": 1.0
+   },
+   "nevergrad": {
+    "n": 20,
+    "k": 5,
+    "S": true,
+    "m": 5,
+    "D": false,
+    "agree": false,
+    "q_matched_negative": 0.19369195046439627,
+    "p_agree_matched": 0.19369195046439627
+   },
+   "niapy": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "optuna": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "pygad": {
+    "n": 30,
+    "k": 30,
+    "S": true,
+    "m": 15,
+    "D": true,
+    "agree": true,
+    "q_matched_negative": 0.0,
+    "p_agree_matched": 1.0
+   },
+   "pymoo": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "pyswarms": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": false,
+    "agree": true,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 1.0
+   },
+   "scikit_opt": {
+    "n": 30,
+    "k": 1,
+    "S": true,
+    "m": 15,
+    "D": true,
+    "agree": true,
+    "q_matched_negative": 0.5,
+    "p_agree_matched": 0.5
+   },
+   "scipy_de": {
+    "n": 30,
+    "k": 0,
+    "S": false,
+    "m": 15,
+    "D": true,
+    "agree": false,
+    "q_matched_negative": 1.0,
+    "p_agree_matched": 0.0
+   },
+   "smac": {
+    "n": 30,
+    "k": 30,
+    "S": true,
+    "m": 15,
+    "D": true,
+    "agree": true,
+    "q_matched_negative": 0.0,
+    "p_agree_matched": 1.0
+   }
+  }
+ },
+ "not_uniformly_robust": false,
+ "sha256": {
+  "results/iteration49/integrity_audit.json": "cbf94b257070ca96f9b30c49a7414ee4874a6cffc8691211098eb0797dbfc948",
+  "results/iteration50/cells_baybe.json": "098a5a5c3429b5066f717787c36f6694e7dfa2edb428a433108a350e86d87ec9",
+  "results/iteration50/cells_bayes_opt.json": "51faee0bb13335aebab62e8ff1d4a2dc638c75cb1bbaa092fbcf11ec61443098",
+  "results/iteration50/cells_bofire.json": "89ad491479abd25b9739833558562bb3478545679306aa7bd896366df2f60e86",
+  "results/iteration50/cells_cmaes.json": "e7a0f30b013b1ec0e1294510116f038d38d6564cccc0235198c3b6c58624f500",
+  "results/iteration50/cells_emukit.json": "b17a8208008baad27451158cbdea9fceccd6d4bb78b0c786e5673af141fcb60d",
+  "results/iteration50/cells_evolopy.json": "ad5f8327c5750f7dba4604fbd13246684c6c07a9aef5adaa6ed874c2c442ce80",
+  "results/iteration50/cells_evotorch.json": "ea08c0e9da5953a35fa6d6f2446270f0f3979d24a4dcb5615a63cb124dbc2b27",
+  "results/iteration50/cells_evox.json": "4ec27df1b01c898cc718b95f2dd244529e40649f2a6e301dbebaefd2774c8aa9",
+  "results/iteration50/cells_gfo.json": "88f3b36cabdf403faa1cedd7d8b0630be925705e73d79c1e70126dc6222c7bf6",
+  "results/iteration50/cells_niapy.json": "c0d11de7409007f6593a980b3214bb1fa50aa980e21d99df2163abfdceb7817b",
+  "results/iteration50/cells_scikit_opt.json": "87844e68faa0541bf89094c2d5d6e7adc4795830d0a4dbb73b087c94e8fbf47d",
+  "results/iteration50/cells_smac.json": "1cd6a04d24968d61d1028326f21787abd59c657f7600878d1b8aab96a3e9164e",
+  "results/iteration51/d3x.json": "5a046e3b461bb4fcf0e1bfc1dc8e2f487aff479378d57f2b0dd91c136df21e67",
+  "results/iteration52/cells_baybe.json": "354ecd582d580096d33adf5a5aa1d21f8d2652435167a93630b112b260ab96ec",
+  "results/iteration52/cells_bayes_opt.json": "4b4054b7af80566609f4cee1cab271e573b70907a42e48e6b286746e17266e14",
+  "results/iteration52/cells_bofire.json": "49657e87dc5bf28b1ddcd81b0d4da8d02329820f984cb9900635cd7c31c1f35c",
+  "results/iteration52/cells_cma.json": "6d5d629eba196266000a4083ecf41483ccfb1690854d41bb17f8d400a83988ee",
+  "results/iteration52/cells_cmaes.json": "1f638d413e76e7afa1f65f41a2404932672f60c8f5266ecbff4fa9f6e409da00",
+  "results/iteration52/cells_deap.json": "50cd61f5a21e23694aef93fcdd73d549166420fcf750b5dfe01ebb1cf72253ab",
+  "results/iteration52/cells_emukit.json": "12513e556f41f54265a8e61dc62fc24dba91218b029cb69bea56de830b6be233",
+  "results/iteration52/cells_evolopy.json": "d307c993752177387157c43831211f876253bd81b4f56607fef17295f78d259c",
+  "results/iteration52/cells_evotorch.json": "273a58548a6a4e9f5696bbdf1ed7f244539a11e8a95799ecb38b134c92796283",
+  "results/iteration52/cells_evox.json": "553a84d04e83dddc587e522ef758a648ddff4ea3677847486d985a44f137d8f4",
+  "results/iteration52/cells_gadapt.json": "ec7764d57655e47a63a135717bf6c8590d9c5bbac7cc284f6299f138382ac4c0",
+  "results/iteration52/cells_geneticalgorithm.json": "ec23c6ec22c63eafaa39b48bb72d3e9e4b314bf7f927e9f4cb6f3b6d18b1af01",
+  "results/iteration52/cells_gfo.json": "34a19c17cc767b36d0769d93a4b79f0ce212dbb0c7fb93688cc7ef3d8c26f94a",
+  "results/iteration52/cells_nevergrad.json": "fc73791a3b8ae9ea2b04d6cbf459ad6a4abdbd76160c98d06ae31d4caaba2fe7",
+  "results/iteration52/cells_niapy.json": "0927a5907eb105eec38ae75c90f265cd3ac963ef68f3027e3a726c2c36557be8",
+  "results/iteration52/cells_optuna.json": "6a492e286b2abd0f22239b27e08d2788166f4be949519976966d74d9a57fdf6e",
+  "results/iteration52/cells_pygad.json": "b83cc9c1b020476305c6f02e5b9faa96b4a6aa8d80159557625a546a5dd407b1",
+  "results/iteration52/cells_pymoo.json": "124b326403c7ef137c6f53aa8d8d4420a19464a494293733b4803f4d6ffb7a8e",
+  "results/iteration52/cells_pyswarms.json": "123187f2f3eae2a69b62cad54c94100f800569291a9573d3e2b6271c3aba152c",
+  "results/iteration52/cells_scikit_opt.json": "1fa99dd0e796d352c4f517c3df375b88e12f3b086742269643056e2c2edd2956",
+  "results/iteration52/cells_scipy_de.json": "2800a214ef4e860ee6956511dd75b6909f738ce9d818db1589e76075d83b89be",
+  "results/iteration52/cells_smac.json": "c68af39420d4ca43fc64776976811eeac20158fcd3f808e23f86e2bbe2b64374",
+  "results/iteration55/cells_baybe.json": "195b78ba74650341bcfe1a49099d02cbd6bc07a1767ec4e82ff0d767a6813ee1",
+  "results/iteration55/cells_bayes_opt.json": "10b3cb06e7185a9160f9ef172c9500dd1254027a3d2bf5e7a580c452b90cd8ff",
+  "results/iteration55/cells_bofire.json": "2da19217b4fb9c7674ed393f2538fd47da8924d868c72fd9955bd69870628ce7",
+  "results/iteration55/cells_cma.json": "93dfb874a5914cc24186142d3a8db8f49047628331982f7a467f5d70b215d79f",
+  "results/iteration55/cells_cmaes.json": "c3117751a04bdc2af9436856852d874382c472d9ac8a7af3a9426d374e73c02b",
+  "results/iteration55/cells_deap.json": "a09199a6a3a61b794c3ac578384053b45a8f9f647c60a609861031f9a66898b5",
+  "results/iteration55/cells_emukit.json": "33666214955aef7a75ed0e3dcf69ea277a55384f579917a4920ee7dd2316fc23",
+  "results/iteration55/cells_evolopy.json": "af57b5f5891dad4d657842a8325fa47f4f3f999c83ebdb59c221244fea99687a",
+  "results/iteration55/cells_evotorch.json": "8c674d450bc8d19c691544bfea67336eea602fa714952332c321eebcbd2721ae",
+  "results/iteration55/cells_evox.json": "c8a0e212650ed9a0d8f2509bead8703807776badd1c3fd1685926b89533f54c1",
+  "results/iteration55/cells_geneticalgorithm.json": "00ef108da17a1ab85f35b6143e4a6185e2f8e5d6d9cba001744e13cb368520e1",
+  "results/iteration55/cells_gfo.json": "70e8c98e57158e0f622b706c67462ce68f46de24fe4e09c5b139262903ef854f",
+  "results/iteration55/cells_nevergrad.json": "c2670169771d8ffd25260843ee49b10e343554eb0f453084c4ad883dea9f7882",
+  "results/iteration55/cells_niapy.json": "2a01b2e5f6776b3d403c0da6218c7706933a2b7297b4ed033e16223ac99cc5c6",
+  "results/iteration55/cells_optuna.json": "f150d2fe6eb2838fcdf436cfffa4261c54344b4a4cae4332de5ba58580cab724",
+  "results/iteration55/cells_pygad.json": "20b21062bfa70bc426305126ce07002897d2b7090cbe6768e1b5e7858362439d",
+  "results/iteration55/cells_pymoo.json": "70f4b6ec25e8f762566c7cd8c884f4f385ff695728c45ca74da83145a6fc1442",
+  "results/iteration55/cells_pyswarms.json": "ad7d527c0683933c8e8227dd4ec29a75cd2f738858093689d319c707bfa6fc08",
+  "results/iteration55/cells_scikit_opt.json": "a47888d811fa9589c15ed3505c65f2d64d4f63321642cf6b0e8bf244819f188f",
+  "results/iteration55/cells_scipy_de.json": "47e7f0f495029c360b3ba9c941d54d3f93ac8244fa8b645b05229f02667d3c2e",
+  "results/iteration55/cells_smac.json": "f1495801b364ba5cb3ea96a7f6732cdb2884418303786253eba7b07d4be30e4a",
+  "iteration52_sensitivity.py": "e616689ec4eaefd10d98abf51bb1d33851ec7435d4af11f29992752fd3836faf"
+ }
+}
