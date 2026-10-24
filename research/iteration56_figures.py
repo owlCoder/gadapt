@@ -79,9 +79,9 @@ def figure_interaction(table, analysis, out):
     ax.set_ylabel("interaction d (time-to-target units)", fontsize=8.5, color=INK)
     ax.set_title("H56a: does the effect of adaptation depend on the constraint handling? (FR vs SP)",
                  fontsize=9, color=INK, loc="left")
-    fig.text(0.01, 0.01, "Points/bars: descriptive within-block means and simple bootstrap intervals (no blockwise tests). "
+    fig.text(0.01, 0.01, "Points/bars: descriptive within-block means and simple bootstrap intervals (no blockwise tests).\n"
              "Line/band: protocol estimate θa with its cell-stratified 95% interval.", fontsize=6.5, color=MUTED)
-    fig.tight_layout()
+    fig.tight_layout(rect=(0, 0.07, 1, 1))
     for ext in ("png", "pdf"):
         fig.savefig(os.path.join(out, f"fig56_interaction.{ext}"), dpi=200, facecolor=SURFACE)
 
@@ -116,9 +116,9 @@ def figure_heatmap(table, out):
     bar.ax.tick_params(labelsize=7, colors=MUTED)
     ax.set_title("Descriptive mean restricted normalized time to target by arm and block (lower is better)",
                  fontsize=9, color=INK, loc="left")
-    fig.text(0.01, 0.005, "Unweighted average over successful runs within each block; scenarios pooled; includes successful "
-             "runs of incomplete units.", fontsize=6.5, color=MUTED)
-    fig.tight_layout()
+    fig.text(0.01, 0.005, "Unweighted average over successful runs within each block; scenarios pooled;\n"
+             "includes successful runs of incomplete units.", fontsize=6.5, color=MUTED)
+    fig.tight_layout(rect=(0, 0.07, 1, 1))
     for ext in ("png", "pdf"):
         fig.savefig(os.path.join(out, f"fig56_mean_T.{ext}"), dpi=200, facecolor=SURFACE)
 
@@ -149,10 +149,10 @@ def figure_attainment(table, out):
     ax.set_title("Target attainment (solid: feasibility rules, dashed: static penalty)", fontsize=9, color=INK,
                  loc="left")
     counts = {f"{a[0]}·{a[1]}": sum(1 for u in table.values() if a in u and u[a]["ok"]) for a in SERIES}
-    fig.text(0.01, 0.01, "Descriptive cumulative attainment among successful runs, pooled across blocks, each run equal "
-             "weight (case57 blocks contribute half as many runs). n = " + ", ".join(f"{k} {v}" for k, v in counts.items()),
+    fig.text(0.01, 0.01, "Descriptive cumulative attainment among successful runs, pooled across blocks, each run equal weight\n"
+             "(case57 blocks contribute half as many runs). n = " + ", ".join(f"{k} {v}" for k, v in counts.items()),
              fontsize=6.5, color=MUTED)
-    fig.tight_layout()
+    fig.tight_layout(rect=(0, 0.07, 1, 1))
     for ext in ("png", "pdf"):
         fig.savefig(os.path.join(out, f"fig56_attainment.{ext}"), dpi=200, facecolor=SURFACE)
 
