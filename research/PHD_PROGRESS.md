@@ -115,8 +115,15 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   `research/paper_integrity_audit/tex/` (pandoc + acmart, prevođenje na Overleaf-u). Poglavlje §7 ažurirano.
   Protokol dijagnoze oracle intervencijama: NO-GO (`ORACLE_DIAGNOSIS_PRIOR_ART_AUDIT_SR.md`). Ukupno 7 kandidata
   za metodu odbačeno danas sa proverenim prior art-om.
-- SLEDEĆI KORAK: (1) treći krug recenzije rada (Codex) pa predaja TELO uz odluku korisnika (Zenodo arhiva, autorstvo);
-  (2) razgovor sa mentorom o riziku „nema nove metode“; (3) pratiti 5 issue-a.
+- 2026-10-23 kasno: Codex 012 (završna recenzija): „minor fixes“; ispravke unete u `4fc7102`. Ostaje DELIMIČNO:
+  analiza osetljivosti prenosa (izjednačena izloženost, nepotpune biblioteke), prikaz neprimenljivih provera na slici,
+  nepromenljiva provenijencija (čeka Zenodo odluku korisnika).
+- 2026-10-24: Issue-i: SciPy #26479 — održavalac andyfaff: ponašanje namerno, menja se docstring (potvrđuje našu
+  klasifikaciju „praznina u dokumentaciji“; uneto u rad i poglavlje). Ostala 4 bez odgovora održavalaca.
+  Codex 013: plan post hoc analize osetljivosti prenosa (samo arhivirani podaci) + slika (n/a prikaz). U toku.
+- Čeka korisnika (4 pitanja): Overleaf, autorstvo, Zenodo, razgovor sa mentorom.
+- SLEDEĆI KORAK: (1) Codex 013 → zamrznuti post hoc plan (commit) → izračunati → uneti u §6.4 → Codex recenzija;
+  (2) slika sa n/a; (3) predaja TELO posle odluka korisnika; (4) pratiti issue-e (#1572, #1380, #106, #248).
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
