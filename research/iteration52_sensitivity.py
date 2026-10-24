@@ -95,7 +95,7 @@ def analyse(synthetic, disp):
         per_lib[lib] = {"n": n, "k": k, "S": k > 0, "m": m, "D": d, "agree": (k > 0) == d,
                         "q_matched_negative": q, "p_agree_matched": p_agree}
     dist = convolve(agree_p)
-    support = [a for a, mass in enumerate(dist) if mass > 1e-15]
+    support = [a for a, mass in enumerate(dist) if mass > 0]
     complete = [lib for lib in libs if per_lib[lib]["m"] == DISPATCH_CELLS]
     confusion = {f"S{int(s)}_D{int(d)}": sum(1 for lib in complete if per_lib[lib]["S"] == s and per_lib[lib]["D"] == d)
                  for s in (True, False) for d in (True, False)}
@@ -124,11 +124,18 @@ def analyse(synthetic, disp):
     }
 
 
+def control(synthetic, disp):
+    """The plan's control, checked before any sensitivity analysis: 19/21, disagreeing Nevergrad and SciPy DE."""
+    disagreements = sorted(lib for lib in disp if (sum(synthetic[lib]) > 0) != disp[lib][1])
+    if len(disp) - len(disagreements) != 19 or disagreements != ["nevergrad", "scipy_de"]:
+        raise SystemExit(f"STOP: control failed, {len(disp) - len(disagreements)}/{len(disp)}, {disagreements}")
+
+
 def main():
     disp = dispatch()
-    a = analyse(archive_a(), disp)
-    if a["observed_agreement"] != 19 or sorted(a["disagreements"]) != ["nevergrad", "scipy_de"]:
-        raise SystemExit(f"STOP: control failed, {a['observed_agreement']}/21, {a['disagreements']}")
+    synthetic_a = archive_a()
+    control(synthetic_a, disp)
+    a = analyse(synthetic_a, disp)
     b = analyse(archive_b(), disp)
     not_robust = any(r["matched_exposure"]["support"][0] < THRESHOLD or r["missing_bounds"]["lower"] < THRESHOLD
                      for r in (a, b))
