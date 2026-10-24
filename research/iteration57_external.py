@@ -6,6 +6,7 @@ evaluator, scalars, targets, T and bootstrap (research/iteration56_cht_study.py)
   python research/iteration57_external.py run [workers]     (after I56 test_ref exists)
   python research/iteration57_external.py analyse
 """
+import json
 import math
 import os
 import sys
@@ -130,9 +131,29 @@ def tasks():
     return out
 
 
+def sha256(path):
+    import hashlib
+    with open(path, "rb") as f:
+        return hashlib.sha256(f.read()).hexdigest()
+
+
+def manifest(work):
+    """Provenance written BEFORE any worker starts (protocol: reference hashes archived before the runs)."""
+    import platform
+    import subprocess
+    files = ["iteration57_external.py", "iteration56_cht_study.py", "iteration56_orpd.py", "ITERATION57_PROTOCOL.md"]
+    freeze = subprocess.run([sys.executable, "-m", "pip", "freeze"], capture_output=True, text=True).stdout.split()
+    return dict(test_ref_sha256=sha256(i56.path("test_ref.json.gz")),
+                targets={f"{t['network']}|{t['resolution']}|{t['scenario_index']}": t["reference"] for t in work},
+                code_sha256={f: sha256(os.path.join(HERE, f)) for f in files},
+                python=platform.python_version(), pip_freeze=freeze, tasks=len(work))
+
+
 def stage_run(workers):
     from multiprocessing import Pool
     work = tasks()
+    pre = manifest(work)
+    i56.save("i57_manifest.json", pre)
     with Pool(workers, maxtasksperchild=1) as pool:
         records = list(pool.imap(run, work))
     for i, r in enumerate(records):
@@ -141,35 +162,71 @@ def stage_run(workers):
                 again = pool.apply(run, (work[i],))
             again["rerun"], again["first_attempt"] = True, r
             records[i] = again
-    import hashlib
-    ref_hash = hashlib.sha256(open(i56.path("test_ref.json.gz"), "rb").read()).hexdigest()
-    i56.save("i57.json", dict(test_ref_sha256=ref_hash, records=records))
+    if sha256(i56.path("test_ref.json.gz")) != pre["test_ref_sha256"]:
+        raise SystemExit("STOP: test_ref changed during the I57 runs")
+    i56.save("i57.json", dict(test_ref_sha256=pre["test_ref_sha256"], records=records))
 
 
 def analyse():
+    """Protocol analysis with the inherited I56 rules: complete-unit primary analysis, empty-cell check,
+    sensitivity (T = 1 only for failed or missing runs) when a cell is empty or exclusions exceed 5%."""
     data = i56.load("i57.json")
-    units = {}
+    expected = {}
     for r in data["records"]:
         t = r["task"]
-        units.setdefault((t["network"], t["resolution"], t["scenario_index"], t["seed"]), {})[(t["method"], t["cht"])] = r
-    complete = {k: u for k, u in units.items() if len(u) == len(CONFIGS) and all(r["ok"] for r in u.values())}
+        expected.setdefault((t["network"], t["resolution"], t["scenario_index"], t["seed"]), {})[(t["method"], t["cht"])] = r
+    configs = set(CONFIGS)
+    complete = {k: u for k, u in expected.items() if set(u) == configs and all(r["ok"] for r in u.values())}
+    excluded = sorted(set(expected) - set(complete))
     cells = {}
     for (n, R, j, seed), u in complete.items():
         cells.setdefault((n, R, j), []).append(u)
-    results = {}
-    for method, cht in CONTRASTS:
-        def contrast(u, method=method, cht=cht):
-            other = u[(method, cht)] if method != "Random" else u[("Random", "-")]
-            return other["T"] - u[("GAdapt", cht)]["T"]
-        b = i56.bootstrap(cells, contrast, seed=57)
-        results[f"{method}-{cht}"] = dict(estimate=b["estimate"], ci=b["ci"])  # no p-values (protocol)
-    per_config = {f"{m}|{c}": dict(mean_T=float(np.mean([u[(m, c)]["T"] for u in complete.values()])),
-                                   feasible=float(np.mean([u[(m, c)]["best_feasible"] is not None for u in complete.values()])),
-                                   attained=float(np.mean([u[(m, c)]["first_target"] is not None for u in complete.values()])))
-                  for m, c in CONFIGS}
-    out = dict(units=len(units), complete_units=len(complete), results=results, per_config=per_config)
+    expected_cells = {k[:3] for k in expected}
+    empty = sorted(expected_cells - set(cells))
+
+    def infer(cell_map):
+        out = {}
+        for method, cht in CONTRASTS:
+            def contrast(u, method=method, cht=cht):
+                other = u[(method, cht)] if method != "Random" else u[("Random", "-")]
+                return other["T"] - u[("GAdapt", cht)]["T"]
+            b = i56.bootstrap(cell_map, contrast, seed=57)
+            out[f"{method}-{cht}"] = dict(estimate=b["estimate"], ci=b["ci"])  # no p-values (protocol)
+        return out
+
+    results = infer(cells) if not empty else None
+    sensitivity = None
+    if empty or len(excluded) > 0.05 * len(expected):
+        failed = dict(T=1.0, ok=False)
+        restored = {}
+        for (n, R, j, seed), u in expected.items():
+            restored.setdefault((n, R, j), []).append(
+                {c: (u[c] if c in u and u[c]["ok"] else failed) for c in configs})
+        sensitivity = infer(restored)
+    per_instance = {}
+    for (n, R, j, seed), u in complete.items():
+        for (m, c), r in u.items():
+            entry = per_instance.setdefault(f"{n}|{R}|{j}|{m}|{c}", dict(best_feasible=[], no_feasible=0, T=[]))
+            entry["T"].append(r["T"])
+            if r["best_feasible"] is None:
+                entry["no_feasible"] += 1
+            else:
+                entry["best_feasible"].append(r["best_feasible"])
+    per_instance = {k: dict(runs=len(v["T"]), mean_T=float(np.mean(v["T"])), no_feasible=v["no_feasible"],
+                            median_best_feasible=(float(np.median(v["best_feasible"])) if v["best_feasible"] else None))
+                    for k, v in per_instance.items()}
+    pooled = {f"{m}|{c}": dict(mean_T=float(np.mean([u[(m, c)]["T"] for u in complete.values()])),
+                               feasible=float(np.mean([u[(m, c)]["best_feasible"] is not None for u in complete.values()])),
+                               attained=float(np.mean([u[(m, c)]["first_target"] is not None for u in complete.values()])))
+              for m, c in CONFIGS} if complete else {}
+    out = dict(units=len(expected), complete_units=len(complete), excluded_units=[list(map(str, k)) for k in excluded],
+               empty_cells=[list(map(str, k)) for k in empty], primary_available=not empty, results=results,
+               sensitivity=sensitivity, per_instance=per_instance,
+               pooled_unweighted=pooled,  # descriptive, NOT the equal block/scenario weights of the contrasts
+               test_ref_sha256=data["test_ref_sha256"])
     i56.save("i57_analysis.json", out)
-    print(out)
+    print(json.dumps(dict(units=out["units"], complete=out["complete_units"], empty=out["empty_cells"],
+                          results=out["results"]), indent=1))
 
 
 if __name__ == "__main__":
