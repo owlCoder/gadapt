@@ -213,6 +213,18 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
     i sar. 2012, 10.1016/j.swevo.2012.03.001: SF/SP/EC/SR + ansambl, IEEE 30/57/118); ε + SHADE na ORPD (Biswas 2019);
     SARGA ORPD (Subbaraj 2009). H58/H60 = preregistrovana provera opcije biblioteke, NE nova metoda. R1 → Codex 056.
   * U toku: 054 (provera I60 ispravki + I59), 055 (I61 predlog), 056 (R1 Mallipeddi), 057 (recenzija I57), 058 (pogl. 5).
+- **2026-10-24 ~21:30–23:00:** I57 izveštaj revidiran (Codex 057); I56 R1 formulacija (Codex 056: glavni efekat CHT
+  na diskretnom ORPD-u = prior art; ablacija adaptacije i rezolucija nisu nađene). I59/I60 drajveri dodatno ispravljeni
+  (Codex 054 → `53ee1ab`; Codex 059 potvrdio). Poglavlje 5 (I57) nacrt. Codex 060: jača baza = NiaPy 2.7.1 L-SHADE
+  (uslov: CEC validacija); Tanabe 2024: SHADE adaptacija slaba na mešovito-celobrojnim → razmotriti i jDE.
+  * **I61 ZAMRZNUT** (`2dd0409`, v3 posle Codex 061 → 062 → 063 FREEZE) PRE ijednog I58 test rezultata: replikacija
+    H56a na case30/39/24_ieee_rts, R = 17, novi scenariji, simetrično pravilo budžeta, gate bit-identičnosti I56
+    instrumenta, snaga naginjanjem bez imputacije (n ≤ 480, potvrda ≥ 825/1000, nula ≤ 36/1000), zona ekvivalencije
+    ±0,02, prekid pri cilju uz validaciju. Drajver `iteration61_replication.py` + testovi 7/7 (`fcd6ebf`); smoke:
+    2 gate zadatka bit-identična na v4. Codex 064 recenzija koda u toku. NIJE pokrenut.
+  * PLAN POSLE LANCA (I59 DONE): (1) I58/I60/I59 izveštaji po kosturima (Codex 051) i mapi ishoda (Codex 052);
+    (2) primeniti `research/patches/constraint_api_v5_fix.patch`, heš `afcdb859…` + testovi, commit;
+    (3) I61 faze redom (gate → … → analyse), svaka nov proces; gate MORA posle v5 (manifest hešira biblioteku).
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
