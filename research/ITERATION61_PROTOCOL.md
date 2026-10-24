@@ -1,7 +1,7 @@
 # ITERATION61: replikacija interakcije H56a (adaptacija × CHT) na mrežama odvojenim od I56 (PREREGISTRACIJA)
 
-**Status: NACRT v2 (NIJE ZAMRZNUT)**, 2026-10-24, pre ijednog I58 test rezultata. Predlog:
-[ITERATION61_PROPOSAL_SR.md](ITERATION61_PROPOSAL_SR.md) (Codex 055); recenzija Codex 061 (REVISE) uneta ovde. Zamrzava
+**Status: NACRT v3 (NIJE ZAMRZNUT)**, 2026-10-24, pre ijednog I58 test rezultata. Predlog:
+[ITERATION61_PROPOSAL_SR.md](ITERATION61_PROPOSAL_SR.md) (Codex 055); recenzije Codex 061 (REVISE) i 062 (FIX FIRST, 6 ispravki) unete ovde. Zamrzava
 se posle Codex 062 provere; tek tada kod i izvršavanje (posle završetka lanca I58 → I60 → I59 i primene ispravke v5).
 
 ## 1. Pitanje i domet
@@ -59,16 +59,24 @@ Proba: četiri grane, deset novih semena po razvojnom scenariju, izabrani B i FX
 obe AD-N grane u [0,3; 0,8] na oba scenarija; ≥ 20% dostizanja u svakoj grani; pozitivnu empirijsku varijansu kontrasta d.
 Neprolaz = STOP bez ponovnog izbora.
 
-Snaga: po mreži se udružuju potpuni upareni četvorovektori probe (20 po mreži); alternativa θ_a = 0,02 dobija se
-eksponencijalnim naginjanjem w_λ(u) ∝ exp(λ d_u) unutar mreže sa zajedničkim λ (jedinstveno rešenje ako je 0,02 strogo
-unutar dostižnog opsega). Degenerisani vektori ostaju takvi — nikakvo dodavanje efekta. Zahteva se: strogo dostižna
-alternativa, numerička greška sredine ≤ 10⁻⁸, efektivna veličina uzorka ESS ≥ 10 (od 20) po mreži. Simulira se stvarni
-broj podobnih test scenarija. Za n ∈ {80, 160, 240, 320, 480} semena po ćeliji: 1000 eksperimenata sa konačnom analizom
-(§8; za brzinu 2000 bootstrap ponavljanja u simulaciji); bira se najmanji n sa Wilsonovom donjom 95% granicom snage
-≥ 0,8, potvrđen nezavisnom serijom od 1000 (seme 61024). Pod θ = 0 (naginjanje na 0, seme 61025) gornja Wilsonova granica
-lažno pozitivnog primarnog zaključka mora biti ≤ 0,05. Nedostižna alternativa/nula, ESS ispod praga, n > 480 ili neprolaz
-= STOP (nema povećavanja posle zamrzavanja). Orijentir (Codex 061, iz I56 arhive): σ unutar ćelije 0,33–0,45 → potrebno
-n ≈ 240–430; STOP je realan ishod i prijavljuje se kao takav.
+Snaga: zahteva se svih 20 potpunih četvorovektora probe po mreži; inače STOP. Kriterijum ≥ 20% dostizanja znači
+≥ 4/20 po grani, udruženo preko razvojnih scenarija. Za oba cilja θ = 0,02 i θ = 0 rešava se
+(1/3) Σ_i Σ_u w_iu d_iu = θ sa w_iu ∝ exp(λ d_iu) normalizovanim unutar mreže i zajedničkim λ; zahteva se stroga
+dostižnost, greška sredine ≤ 10⁻⁸ i ESS_i = 1/Σ_u w_iu² ≥ 10. Prijavljuju se λ, težine, ESS, najveća težina i ponderisane
+stope dostizanja po granama. Degenerisani vektori ostaju takvi — nikakvo dodavanje efekta. Za svaku podobnu test ćeliju
+nezavisno se uzorkuje n celih vektora sa vraćanjem iz naginjanog skupa njene mreže (stvarni broj podobnih test scenarija).
+Snaga i kalibracija nule su uslovne na ovu empirijsku raspodelu i pretpostavljeni prenos; Wilsonovi intervali mere samo
+simulacionu nesigurnost.
+
+Za n ∈ {80, 160, 240, 320, 480} semena po ćeliji: 1000 eksperimenata sa 2000 bootstrap ponavljanja (preliminarni
+izbor); bira se najmanji n sa dvostranom 95% Wilsonovom donjom granicom snage ≥ 0,8. Izabrani n se nezavisno potvrđuje
+sa 1000 eksperimenata i 20.000 ponavljanja (seme 61024): potrebno ≥ 825 pozitivnih primarnih zaključaka. Nula θ = 0 se
+nezavisno kalibriše sa 1000 eksperimenata i 20.000 ponavljanja (seme 61025): dozvoljeno ≤ 36 pozitivnih primarnih
+zaključaka. „Pozitivan primarni zaključak“ = donja granica 95% intervala > 0. Svaka serija inicijalizuje RNG jednom;
+bootstrap seme 61 se ne resetuje unutar simuliranih eksperimenata; linearna interpolacija percentila svuda. Nedostižna
+alternativa/nula, ESS ispod praga, n > 480 ili neprolaz potvrde/kalibracije = STOP bez pokušaja većeg n. Orijentir
+(Codex 061, iz I56 arhive): σ unutar ćelije 0,33–0,45 → potrebno n ≈ 257–465; STOP je realan ishod i prijavljuje se kao
+takav.
 
 ## 8. Ishod i zaključivanje
 T = h/B_i (prvi poziv dostizanja / izabrani budžet mreže), 1 pri nedostizanju. Jedinica: mreža × scenario × seme;
@@ -82,23 +90,33 @@ seme 61; 95% i 90% percentilni intervali iz istih izvlačenja.
 - STOP ne daje empirijski zaključak o H61.
 
 ## 9. Semena
-seed = 10⁷·p + 10⁵·i + 10³·R + 100·j + s; p = 61 razvojne reference, 62 izbor B, 63 FX-T, 64 proba, 65 test reference,
-66 test; s = 1 (razvojne reference), 1..5 (izbor), 1..3 (kalibracija), 1..10 (proba), 1..2 (test reference), 1..n (test).
+seed = 10⁷·p + 10⁶·i + 10⁴·R + 10³·j + s; p = 61 razvojne reference, 62 izbor B, 63 FX-T, 64 proba, 65 test
+reference, 66 test, 67 validacija prekida pri cilju; jedinstvenost semena preko različitih (p, i, R, j, s) proverava se
+asercijom; isto seme namerno samo između uparenih grana/konfiguracija; s = 1 (razvojne reference, validacija prekida), 1..5 (izbor), 1..3 (kalibracija), 1..10 (proba), 1..2 (test
+reference), 1..n (test).
 Seju se Python i NumPy RNG; početne populacije četiri grane iste (asercija). Simulacija snage seme 61023 (+ 61024, 61025).
 
 ## 10. Izvršavanje, pravila i provera
 Populacija 32, bez sondiranja i imigracije; `exit_check="generations"`, `number_of_generations=10**9`, `timeout=10**6`;
 prekid po stvarnom PF budžetu. **Test i proba se prekidaju pri prvom dostizanju cilja** (jedini inferencijalni ishod je
-T); dozvoljeno tek pošto razvojna provera na 20 pokretanja pokaže identičan h za prekinute i pune putanje; reference i
-izbor B ostaju puni. Svako pokretanje u novom procesu; greška ili manjak poziva → jedno ponavljanje istim semenom;
-ponovljena greška izuzima celu uparenu jedinicu. Prazna ćelija onemogućava primarno zaključivanje; > 5% izuzetih jedinica
-ili prazna ćelija → analiza osetljivosti (uspešni ishodi ostaju, neuspeli T = 1). Nema produžavanja budžeta, dopunjavanja
-semena ni zaustavljanja prema značajnosti. B, FX-T, n, protokol, kod, zavisnosti i biblioteka heširaju se pre test
+T), uz uslov validacije: posle FX-T kalibracije, a pre probe, porede se puna i pri cilju prekinuta pokretanja za sve tri
+mreže × oba razvojna scenarija × četiri grane, s = 1, p = 67 (24 para), sa istom inicijalizacijom i slučajnošću; porede
+se prvi h (uključujući nedostizanje), generisane početne populacije i tačni prefiksi PF ulaza/izlaza do min(h, B_i).
+Svedok cilja se beleži pre prekida; posle njega nema PF poziva. Svako nepoklapanje blokira prekid; ako nijedan par ne
+dostigne cilj, validacija je neodlučna i izvršavanje punim budžetom je obavezno. Reference i izbor B uvek puni.
+Pokretanje je uspešno ako bez greške ili dostigne provereni cilj ili potroši B_i poziva; ranije neobjašnjeno završavanje
+→ ponavljanje. Svako pokretanje u novom procesu. Neuspela grana se ponavlja jednom istim semenom; uspešno ponavljanje se
+zadržava, inače je grana nedostupna i cela četvorogranska jedinica se izuzima iz zaključivanja na potpunim slučajevima.
+Broj i stopa izuzetih jedinica prijavljuju se globalno i po ćeliji (imenilac: planirane jedinice posle OPF izuzimanja).
+Posle svakog izuzimanja radi se analiza osetljivosti (sve planirane jedinice, uspešni ishodi grana zadržani, T = 1 samo
+za nedostupne grane); globalno izuzimanje > 5% se označava. Osetljivost je opisna i ne vraća primarno zaključivanje kad je
+neka ćelija prazna. Prazna ćelija onemogućava primarno zaključivanje. Nema produžavanja budžeta, dopunjavanja semena ni zaustavljanja prema značajnosti. B, FX-T, n, protokol, kod, zavisnosti i biblioteka heširaju se pre test
 referenci; reference pre testa. Nezavisni proverivač (I58 obrazac, parametrizovan scenarijem i R) proverava svedoke L*,
 prvog cilja i prijavljenog najboljeg rešenja, vezan heševima; neuspeh = nedostupan zaključak.
 
 ## 11. Budžet
-Gornja granica bez ponavljanja (PF poziva): gate ≈ 0,2 M; razvojne reference 0,72 M; izbor B 0,72 M; FX-T
-2 × 27 × 3 × 2 × 3 × ≤ 12.000 ≈ 11,7 M; proba ≤ 2,9 M; test reference 2,16 M; test ≤ 3 × 3 × 4 × 480 × 12.000 ≈ 207 M
-(sa prekidom pri cilju očekivano manje). Ukupno ≤ ~225 M PF ≈ ≤ 230 CPU-sati (≈ 3,3–4,5 ms/PF, Codex 061 merenje),
-≤ ~24 h na 10 jezgara. Dozvoljeno (korisnik: računar neograničen, i preko noći).
+Osnovni maksimum bez gate-a, validacije i ponavljanja: 225,504 M PF poziva (razvojne reference 0,72 M; izbor B 0,72 M;
+FX-T 11,664 M; proba 2,880 M; test reference 2,16 M; test 207,360 M). Validacija prekida dodaje ≤ 0,576 M; gate ≈ 0,2 M;
+ukupno ≈ 226,3 M: 207–283 CPU-sata pri 3,3–4,5 ms/PF, idealno 20,7–28,3 h na deset jezgara, bez OPF-a, regresionih
+provera, simulacije i režijskih troškova. Procene, ne gornje granice; ponavljanja dodaju rad. Prekid pri cilju (ako
+validiran) očekivano smanjuje test deo. Dozvoljeno (korisnik: računar neograničen, i preko noći).
