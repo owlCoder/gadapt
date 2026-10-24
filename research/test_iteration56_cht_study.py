@@ -97,3 +97,17 @@ def test_runs_against_protocol():
     for e in fx["fx"]["population_events"]:
         assert e["k"] == (0 if e["pool"] == 0 else min(e["pool"], max(1, round(0.5 * e["pool"]))))
     assert ap["cht_trace"][-1]["lam"] > 0 and ec["cht_trace"][0]["eps"] >= 0
+
+
+def test_evaluator_counts_any_exception():
+    class Problem:
+        opf_losses = 10.0
+
+        def evaluate(self, x):
+            return dict(converged=True, losses=-1.0, violations=dict(voltage=0.0), feasible=True)
+    evaluator = st.Evaluator(Problem(), 10, st.make_target(None))
+    try:
+        evaluator([1.0, 2.0])
+    except AssertionError:
+        pass
+    assert evaluator.errors == 1

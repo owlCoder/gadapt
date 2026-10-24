@@ -123,15 +123,18 @@ class Evaluator(Shared):
         return self.calls >= self.budget
 
     def __call__(self, values):
+        try:
+            return self._call(values)
+        except Exception:
+            self.errors += 1  # GAdapt swallows cost-function exceptions; the run is then an execution failure
+            raise
+
+    def _call(self, values):
         key = tuple(values)
         if self.done:
             return 0.0  # post-budget: not recorded, not cached
         self.calls += 1
-        try:
-            info = self.problem.evaluate(np.asarray(values, float))
-        except Exception:
-            self.errors += 1  # GAdapt catches cost-function exceptions; the run is then an execution failure
-            raise
+        info = self.problem.evaluate(np.asarray(values, float))
         if not info["converged"]:
             raw = Raw(2.0 * self.f_ref, V_FAIL, True)
             self.failures += 1
@@ -559,12 +562,14 @@ def path(name):
 
 
 def save(name, data):
-    with open(path(name), "w") as f:
+    import gzip
+    with gzip.open(path(name + ".gz"), "wt") as f:
         json.dump(data, f)
 
 
 def load(name):
-    with open(path(name)) as f:
+    import gzip
+    with gzip.open(path(name + ".gz"), "rt") as f:
         return json.load(f)
 
 
@@ -578,6 +583,9 @@ def references(name):
         key = f"{t['network']}|{t['resolution']}|{t['scenario_index']}"
         value = r["best_feasible"] if r["best_feasible"] is not None else math.inf
         best[key] = min(best.get(key, math.inf), value)
+    for r in load(name)["records"]:  # an instance whose reference runs all failed: no reference (§6 fallback)
+        t = r["task"]
+        best.setdefault(f"{t['network']}|{t['resolution']}|{t['scenario_index']}", math.inf)
     return {k: (v if math.isfinite(v) else None) for k, v in best.items()}
 
 
@@ -624,6 +632,8 @@ def stage_dev_fxm(workers):
             a_runs.append(float(np.median(fractions)) if fractions else 0.0)
             b_runs.append(float(np.median(inst["v_fractions"])) if inst["v_fractions"] else 0.0)
             s_runs.append(float(np.median(inst["sigmas"])) if inst["sigmas"] else 0.0)
+        if not a_runs:
+            raise SystemExit(f"STOP: no successful FX-M calibration run for {c}")
         vectors[c] = [float(np.median(a_runs)), float(np.median(b_runs)), float(np.median(s_runs))]
     save("dev_fxm.json", dict(vectors=vectors, records=records))
 
@@ -636,9 +646,11 @@ def stage_dev_fxt(workers):
     records = execute(tasks, workers)
     chosen = {}
     for c in GADAPT_CHTS:
-        means = [float(np.mean([r["T"] for r in records
-                                if r["ok"] and r["task"]["cht"] == c and r["task"]["fixed"] == list(g)]))
-                 for g in FXT_GRID]
+        groups = [[r["T"] for r in records if r["ok"] and r["task"]["cht"] == c and r["task"]["fixed"] == list(g)]
+                  for g in FXT_GRID]
+        if any(len(g) != len(groups[0]) or not g for g in groups):
+            raise SystemExit(f"STOP: FX-T grid incomplete for {c} (failed runs); report before choosing")
+        means = [float(np.mean(g)) for g in groups]
         chosen[c] = list(FXT_GRID[int(np.argmin(means))])  # argmin: ties -> lower grid index
     for r in records:
         r.pop("trace", None)
