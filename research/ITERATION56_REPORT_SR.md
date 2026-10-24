@@ -13,7 +13,15 @@
 Da li efekat samoadaptivne politike mutacije GAdapt-a na vreme do izvodljivog cilja zavisi od tehnike za
 rukovanje ograničenjima (CHT), i menja li se efekat pod statičkom kaznom kad signali adaptacije koji čitaju
 vrednost troška dobiju zajednički skalar? Uska novina (H5 §10): ablacija cele adaptivne politike sa istim
-operatorima × CHT × rezolucija diskretnih kontrola. Rizik R1 (Mallipeddi 2012): [upisati ishod Codex 026].
+operatorima × CHT × rezolucija diskretnih kontrola. Rizik R1 (Mallipeddi 2012): i dalje neproveren (Codex 026).
+
+**Srodni radovi (Codex 032, H5 §12):** Interakcija rukovanja ograničenjima i adaptacije parametara već je teorijski i
+empirijski proučavana u evolutivnim strategijama, naročito za CSA i popravku neizvodljivih rešenja (Arnold 2013;
+Hellwig i Arnold 2016). Numerički prekršaji ulaze i u adaptaciju istorije uspeha CAL-SHADE-a (Zamuda 2017), dok
+Atamna i sar. (2020) analiziraju invarijantnost adaptivnog augmented-Lagrangian pristupa. I56 ispituje užu,
+konkretnu intervenciju: promenu numeričkih signala GAdapt-ove politike mutacije uz zadržavanje pravila selekcije,
+uključujući transformaciju statičke kazne koja čuva poredak. Doprinos je kontrolisana dijagnostička studija na
+diskretnom ORPD-u; prioritet te tačne kombinacije nije dokazan.
 
 ## 2. Instance i izvršavanje
 - case14 / case57 / case118 (9 / 27 / 77 kontrola), R ∈ {9, 17, 33}; test scenariji 0,90 / 1,00 / 1,10 / 1,15.
@@ -39,7 +47,7 @@ operatorima × CHT × rezolucija diskretnih kontrola. Rizik R1 (Mallipeddi 2012)
 - Mreže vrednosti, opsezi šantova i scenariji su naše pretpostavke (merilo); termički pritisak slab (9900 MVA).
 - Referenca L* je najbolje poznata, ne optimum; ciljevi zavise od nje.
 - Tri mreže: nema tvrdnje o „veličini mreže“.
-- R1 [upisati].
+- R1: pun tekst Mallipeddi i sar. 2012 nije dostupan; novina formulisana uslovno.
 
 ## 8. Zaključak i posledice za GAdapt
 [šta ide u opt-in API (`GADAPT_CONSTRAINT_API_DESIGN_SR.md`), šta ne]
