@@ -14,8 +14,11 @@ Da li integrisana FR opcija G1 (`constraint_handling="feasibility_rules"`) skra�
 (skalar f + 1000·V, `constraint_handling=None`)?
 
 Primarno: case30, case39, case24_ieee_rts; case300 opisno. R = 17, scenariji 301–303, jedna VG kontrola po generatorskoj
-sabirnici; 15 semena, p = 6. Kontekst: CMAwM/FR, DE/FR, nasumična. Svaka metoda: jedna putanja od 10.000 stvarnih PF
-poziva; prvih 3000 određuje primarni ishod. Reference: svih pet metoda, po 30.000 poziva, dva semena (p = 7).
+sabirnici; 15 semena, p = 6. Kontekst: CMAwM/FR, DE/FR, nasumična. Planirano: svaka metoda jedna putanja od 10.000
+stvarnih PF poziva; prvih 3000 određuje primarni ishod. Reference: svih pet metoda, po 30.000 poziva, dva semena (p = 7).
+Od 110 referentnih pokretanja uspešno su završena 104. Šest CMAwM pokretanja nije uspelo ni posle jednog ponavljanja:
+case30 j = 0 (s = 2), j = 1 (s = 1, 2), j = 2 (s = 1, 2), case24_ieee_rts j = 1 (s = 2). Greška je bila numerička asercija
+radi sprečavanja prekoračenja. L* je računat samo iz uspešno završenih referenci, prema zamrznutom drajveru.
 
 Izvršeno jednom: reference 18:12–19:15, test 19:15–21:47 (8 radnika). OPF izuzimanje: case300 scenario j = 2 (bez
 zamene). Jedinice: 165 ukupno; primarnih potpunih **134**; izuzeta 1 primarna jedinica (case30, j = 0, seme 60017006:
@@ -49,12 +52,13 @@ Srednja razlika T(G1) − T(G0) po ćeliji (T3000 / T10000), broj dostizanja do 
 | case24_ieee_rts, j=1 | 15 | −0,018 | −0,015 | 1 / 1 / 3 |
 | case24_ieee_rts, j=2 | 15 | 0,000 | +0,017 | 0 / 0 / 4 |
 
-Po mreži (sve ćelije, uključujući izuzetu jedinicu za kontekstne metode): srednji T3000 / T10000 / udeo pokretanja sa
+Po mreži (sva uspešno završena pokretanja, uključujući uspešne grane izuzete primarne jedinice; n = 44 za
+case30/CMAwM, n = 45 za ostale primarne kombinacije, n = 30 za case300): srednji T3000 / T10000 / udeo pokretanja sa
 izvodljivim rešenjem do 10.000 / medijana najboljeg izvodljivog gubitka (MW):
 
 | Mreža | G0 | G1 | CMAwM | DE | Nasumična |
 |---|---|---|---|---|---|
-| case30 | 0,947 / 0,776 / 0,33 / 2,293 | 0,953 / 0,791 / 0,33 / 2,293 | 0,716 / 0,676 / 0,34 / 2,293 | 0,898 / 0,736 / 0,33 / 2,293 | 1 / 1 / 0,33 / 2,429 |
+| case30 | 0,947 / 0,776 / 0,33 / 2,293 | 0,953 / 0,791 / 0,33 / 2,293 | 0,716 / 0,676 / 0,34 / 2,293 | 0,897 / 0,736 / 0,33 / 2,293 | 1 / 1 / 0,33 / 2,429 |
 | case39 | 0,971 / 0,611 / 0,96 / 43,87 | 0,929 / 0,595 / 0,91 / 43,71 | 0,970 / 0,791 / 0,62 / 43,57 | 1 / 1 / 0 / — | 1 / 1 / 0 / — |
 | case24_ieee_rts | 0,997 / 0,864 / 1 / 48,07 | 0,991 / 0,851 / 1 / 48,03 | 0,903 / 0,527 / 1 / 48,27 | 1 / 1 / 1 / 50,19 | 1 / 1 / 0 / — |
 | case300 (opisno) | 1 / 1 / 0 / — | 1 / 1 / 0 / — | 1 / 1 / 0 / — | 1 / 1 / 0 / — | 1 / 1 / 0 / — |
@@ -62,7 +66,8 @@ izvodljivim rešenjem do 10.000 / medijana najboljeg izvodljivog gubitka (MW):
 Zapažanja (opisno): (1) **slaba informativnost pri 3000 poziva** — u 4 od 9 primarnih ćelija nijedna GAdapt grana ne
 dostiže cilj (d = 0 za sve jedinice), na dve od njih (case30 j = 0, 2) nijedna metoda ni referenca nije našla izvodljivo
 rešenje (cilj = izvodljivost); (2) jedini veći opisni pomak u korist G1 je case39 j = 0; (3) CMAwM je i ovde najbrži na
-case30 j = 1 i case24_ieee_rts, ali sporiji od GAdapt-a na case39 (dostizanje i izvodljivost); (4) case300 bez ijednog
+case30 j = 1 i case24_ieee_rts; na case39 CMAwM ima viši srednji T10000 i niži udeo pokretanja sa izvodljivim rešenjem
+od obe GAdapt grane, a pri T3000 njegov prosek 0,97024 je neznatno niži od G0 (0,97076), a viši od G1 (0,92873); (4) case300 bez ijednog
 izvodljivog rešenja bilo koje metode.
 
 ## 4. Provera i ponovljivost
@@ -82,13 +87,25 @@ instrumentom u svih 11 OPF-validnih scenarija, Codex 067). Pravila za konvergira
 zaštita red po red dozvoljava samo prelaz „neuspeo vraćeni izlaz → prošao“ (promenjeno tačno 67 redova). Original je
 sačuvan kao `i58_check_v1.json.gz`; dopunjena provera beleži heševe i broj promenjenih redova. Podaci i H58 analiza nisu
 menjani (case300 nije primarna mreža). Prolaz potvrđuje saglasnost evidentiranja neuspeha, ne izvodljivost vraćenog izlaza.
-Recenzija: Codex 067 (RUN). Ista praznina ispravljena je u I60 proverivaču pre ijednog I60 pokretanja.
+Originalno pravilo blokiralo je analizu; D1 je naknadno promenio kriterijum
+prihvatanja provere i omogućio analizu, bez promene ulaznih rezultata, ciljeva, izuzimanja ili formule H58. Redosled
+(dopuna pre analize) potvrđuje istorija komitova (`08ac7b6`, `4a5166e` pre `0748dd0`); da ishodi nisu gledani pre dopune
+ne može se dokazati samo iz artefakata. Recenzija: Codex 067 (RUN), Codex 068 (nezavisna ponovna analiza: θ = −77/5400
+tačno; interval u okviru Monte Carlo šuma; sve tabele reprodukovane). Ista praznina ispravljena je u I60 proverivaču pre ijednog I60 pokretanja.
 
 ## 6. Ograničenja
 - Nije dokaz opšte superiornosti, industrijske koristi, nove metode niti kvaliteta vraćenog rešenja.
 - Slaba informativnost pri 3000 poziva (4/9 degenerisanih ćelija); budžet nije biran razvojnim pravilom (pouka unesena u
   I61 protokol pre ovih rezultata).
-- Ciljevi iz referenci svih pet metoda (30.000 poziva, dva semena) — najbolje poznato, ne optimum.
+- Ciljevi iz uspešnih referenci (104/110; nepotpune za CMAwM na pet ćelija) — najbolje poznato, ne optimum; test
+  pokretanja su na tri ćelije našla bolji izvodljiv gubitak od L* (case39 j = 0: −0,1847 MW; case24_ieee_rts j = 0:
+  −0,0128 MW; j = 1: −0,00008 MW).
+- Bootstrap je uslovan na fiksne mreže, scenarije i reference; ne obuhvata njihovu neizvesnost. Četiri degenerisane
+  ćelije nose 4/9 težine i daju nultu bootstrap varijansu, što ne dokazuje jednakost metoda. Cilj je samo izvodljivost u
+  2/9 primarnih i ukupno 4/11 zadržanih scenarija; neuspeh pretrage nije dokaz neizvodljivosti.
+- Izuzeta jedinica ima T(G0) = T(G1) = 1 pri oba budžeta, pa vraćanje njenih uspešnih GAdapt ishoda ne menja θ.
+- case300 je bez termičkih ograničenja ispod 9900 MVA (merilo); udeo izvodljivosti u tabeli znači „ikad evaluirano
+  izvodljivo rešenje“, ne nužno vraćeno rešenje.
 - Konfiguracija: kazna 1000 (nepodešena), populacija 32, podrazumevana podešavanja GAdapt-a.
 
 ## 7. Zaključak (prema mapi ishoda, Codex 052)
