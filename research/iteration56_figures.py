@@ -48,7 +48,9 @@ def style(ax):
 
 
 def figure_interaction(table, analysis, out):
-    """Per-block mean interaction contrast d (H56a) with a 95% bootstrap interval, and the pooled estimate."""
+    """Points: descriptive, unweighted within-block mean d; bars: 95% percentile intervals from 5000 simple within-block
+    bootstrap resamples (scenarios pooled). Line/band: protocol θ_a and its 95% cell-stratified interval (20,000
+    resamples, equal scenario/block weights). No blockwise hypothesis tests."""
     import iteration56_cht_study as st
     fig, ax = plt.subplots(figsize=(7.2, 3.4), facecolor=SURFACE)
     style(ax)
@@ -77,6 +79,8 @@ def figure_interaction(table, analysis, out):
     ax.set_ylabel("interaction d (time-to-target units)", fontsize=8.5, color=INK)
     ax.set_title("H56a: does the effect of adaptation depend on the constraint handling? (FR vs SP)",
                  fontsize=9, color=INK, loc="left")
+    fig.text(0.01, 0.01, "Points/bars: descriptive within-block means and simple bootstrap intervals (no blockwise tests). "
+             "Line/band: protocol estimate θa with its cell-stratified 95% interval.", fontsize=6.5, color=MUTED)
     fig.tight_layout()
     for ext in ("png", "pdf"):
         fig.savefig(os.path.join(out, f"fig56_interaction.{ext}"), dpi=200, facecolor=SURFACE)
@@ -108,9 +112,12 @@ def figure_heatmap(table, out):
     for side in ax.spines.values():
         side.set_visible(False)
     bar = fig.colorbar(image, ax=ax, fraction=0.035, pad=0.02)
-    bar.set_label("mean T (1 = target not reached in 3000 power flows)", fontsize=7.5, color=INK)
+    bar.set_label("mean T (T = 1: target unreached or first reached at call 3000)", fontsize=7.5, color=INK)
     bar.ax.tick_params(labelsize=7, colors=MUTED)
-    ax.set_title("Mean time to target per arm and block (lower is better)", fontsize=9, color=INK, loc="left")
+    ax.set_title("Descriptive mean restricted normalized time to target by arm and block (lower is better)",
+                 fontsize=9, color=INK, loc="left")
+    fig.text(0.01, 0.005, "Unweighted average over successful runs within each block; scenarios pooled; includes successful "
+             "runs of incomplete units.", fontsize=6.5, color=MUTED)
     fig.tight_layout()
     for ext in ("png", "pdf"):
         fig.savefig(os.path.join(out, f"fig56_mean_T.{ext}"), dpi=200, facecolor=SURFACE)
@@ -141,6 +148,10 @@ def figure_attainment(table, out):
     ax.set_ylabel("share of runs at target", fontsize=8.5, color=INK)
     ax.set_title("Target attainment (solid: feasibility rules, dashed: static penalty)", fontsize=9, color=INK,
                  loc="left")
+    counts = {f"{a[0]}·{a[1]}": sum(1 for u in table.values() if a in u and u[a]["ok"]) for a in SERIES}
+    fig.text(0.01, 0.01, "Descriptive cumulative attainment among successful runs, pooled across blocks, each run equal "
+             "weight (case57 blocks contribute half as many runs). n = " + ", ".join(f"{k} {v}" for k, v in counts.items()),
+             fontsize=6.5, color=MUTED)
     fig.tight_layout()
     for ext in ("png", "pdf"):
         fig.savefig(os.path.join(out, f"fig56_attainment.{ext}"), dpi=200, facecolor=SURFACE)

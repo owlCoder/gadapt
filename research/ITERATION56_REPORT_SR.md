@@ -1,7 +1,8 @@
 # ITERATION56: tehnike za ograničenja × samoadaptacija GAdapt-a na diskretnom ORPD-u (IZVEŠTAJ)
 
-**Status: KOSTUR — napisan pre rezultata** (2026-10-24, dok lanac faza radi). Brojevi se upisuju tek iz
-`results/iteration56/analysis.json.gz`; tumačenje prati unapred zadata pravila protokola.
+**Status: KOSTUR — napisan pre rezultata** (2026-10-24, dok lanac faza radi). Test zaključivanje i sažeci:
+`analysis.json.gz`; pokretanja, ponavljanja i tragovi: `test.json.gz`; kalibracija i snaga: razvojni izlazi i
+`rehearsal.json.gz`. Tumačenje prati unapred zadata pravila protokola.
 
 - Protokol: [ITERATION56_PROTOCOL.md](ITERATION56_PROTOCOL.md) (zamrznut `3f09eb9`); pojašnjenja P1–P5:
   [ITERATION56_CLARIFICATIONS.md](ITERATION56_CLARIFICATIONS.md).
@@ -37,18 +38,24 @@ diskretnom ORPD-u; prioritet te tačne kombinacije nije dokazan.
 - FX-T izbor (a, b, σ) iz mreže 27 konfiguracija: SP (0,75; 0,2; 0,05), AP (0,5; 0,4; 0,05), FR (0,75; 0,4; 0,05),
   EC (0,75; 0,4; 0,15).
 - Proba (360 razvojnih pokretanja) i snaga: simulirana snaga 0,968 ≥ 0,8 → 10 semena po instanci (bez odstupanja).
-  **Ograničenje simulacije:** u 4 od 9 razvojnih blokova (case118 svi R, case57 R = 33) nijedna grana ne dostiže
-  cilj (T = 1 svuda, d = 0, sd = 0); zamrznuto pravilo dodaje pomak 0,05 i tim blokovima, pa je stvarna snaga za
-  θ_a verovatno manja od simulirane. Ne menja izvršavanje (pravilo je zamrznuto), ali se navodi pri tumačenju.
+  **Ograničenje simulacije:** u 4 od 9 razvojnih blokova (case118 svi R, case57 R = 33) nijedna od četiri grane
+  probe ne dostiže cilj (T = 1 svuda, d = 0, sd = 0). Simulacija svaki takav blok pretvara u konstantno d = 0,05,
+  što θ_a doprinosi 0,0222 bez varijabilnosti. Snaga 0,968 je uslovna na nametnutu alternativu; može precenjivati
+  snagu testa i ne utvrđuje snagu ako ti blokovi ostanu degenerisani. Izvršavanje se ne menja (pravilo je zamrznuto).
 
 ## 4. Primarni ishod (H56a)
-[θ_a, 95% interval, p; podržano / nije otkriveno — po pravilu §7]
+[`results.H56a.{estimate, ci, p, supported}`; samo ako je `primary_available`, inače `empty_cells` i `sensitivity`.
+Formulacija „interakcija nije otkrivena pri ovoj snazi“ samo ako interval obuhvata 0 I |θ_a| < 0,02 (§7).]
 
 ## 5. Sekundarni ishodi (Holm preko 5)
-[H56b signal pod SP; AP-protiv-SP; EC-protiv-SP; θ_a sa FX-M; kodiranje SP/SP-T]
+[H56b signal pod SP; AP-protiv-SP; EC-protiv-SP; θ_a sa FX-M; kodiranje SP/SP-T — odluke po `p_holm` preko svih
+pet; `ci` su nekorigovani.] Obrasci po blokovima, rangovi na toplotnoj mapi, razdvajanje krivih i tragovi su
+OPISNI.
 
 ## 6. Opisno (H56c, per-arm, tragovi)
-[medijana d po bloku naspram R; izvodljivost i dostizanje po grani; tragovi raznovrsnosti pod SP]
+[medijana d po bloku naspram R (`median_d_by_block`); izvodljivost („ikad nađeno izvodljivo“) i dostizanje po
+grani (`per_arm`, potpune jedinice); tragovi min/max CHT skalara i udela izvodljivih preživelih (test zapisi nemaju
+D_t/D_0, koeficijente mutacije, razlike troškova roditelja ni istoriju σ).]
 
 ## 7. Pretnje validnosti
 - Mreže vrednosti, opsezi šantova i scenariji su naše pretpostavke (merilo); termički pritisak slab (9900 MVA).
