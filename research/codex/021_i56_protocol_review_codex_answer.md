@@ -1,0 +1,37 @@
+**REVISE before freezing.** The draft has blocking problems in the fixed controls, dynamic scalarization and inference. No files were changed.
+
+**BLOCKING**
+
+1. **FX-M does not implement its stated constants; FX-T tunes random upper bounds.** `population_mutation="random"` draws the mutation count uniformly below its configured maximum. Variable mutation draws twice: the rate determinator draws a count, then the [selector draws again](/Users/danijel/Desktop/gadapt/gadapt/operations/mutation/candidate_solution_mutation/random_decision_variable_mutation_selector.py:36). Even replacing the determinator with `Strict…` leaves that second draw; my read-only probe produced counts 1–8 for configured count 8. Also, population percentages apply to **half the population**. **Fix:** implement selectors with explicit fixed counts, or define fixed *distributions* and calibrate their realized counts. Specify denominators, rounding and duplicate-repair exceptions.
+
+2. **“Re-scalarize survivors each generation” is insufficiently specified.** [ElitismCostFinder](/Users/danijel/Desktop/gadapt/gadapt/operations/cost_finding/elitism_cost_finder.py:15) evaluates only unevaluated candidates, then immediately sorts and truncates. A population-updater hook is too late to correct mixed old/new merits. **Fix:** subclass the cost finder through `GAFactory`; cache raw evaluations, freeze λ/ε for each generation, and assign consistent merits to incumbents and offspring **before truncation**. Refresh incumbent ordering/statistics before subsequent parent selection when parameters change. Compute ε₀ from the complete initial population before its first truncation. Never obtain re-scalarization by setting costs to NaN and repeating PF calls.
+
+3. **Stopping can invalidate both budgets and causal claims.** Default GAdapt exits after average-cost stagnation; `exit_function` adds an exit condition without disabling that rule. AP merit changes also make historical scalar minima incomparable. **Fix:** explicitly use generation-only stopping with an unreachable generation cap, budget callback and declared timeout handling in every arm. Report wrapper incumbents from actual evaluations; exclude post-budget sentinel results. Cost changes alone preserve genotype uniqueness, but uniqueness repair adds mutations beyond the nominal fixed counts—instrument those separately.
+
+4. **Failure and feasibility conventions are inconsistent.** SP/AP require `f`, yet failed PF defines it as undefined. `V=10` is only a pilot observation, not a guaranteed worst violation. EC eventually requires `V=0`, whereas FR accepts positive violations within tolerance. **Fix:** define tolerance-adjusted violation with zero exactly equivalent to declared feasibility; explicitly exclude failed PF from ε-feasibility and specify finite failure merits for every CHT. State whether tolerance applies to individual constraints or the instrument’s aggregated constraint categories.
+
+5. **The pooled Wilcoxon analysis lacks a valid stated null model.** Dependence among arms within one unit is handled by forming \(d_u\); that alone is harmless. However, ranking **all seeds together** makes different units share the same empirical ranking. Reusing seeds across blocks adds dependence, and block mixtures need not yield symmetric differences. [Wilcoxon requires an appropriate symmetric difference distribution](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.wilcoxon.html). **Fix:** preferably use target-attainment indicators or restricted attainment time, with a prespecified interaction contrast, equal block weights and paired-vector resampling within instance. Use independent seed streams across instances. A permutation test must preserve pairing/blocking and accommodate main effects; arbitrary label permutation tests a stronger null. ART requires proper alignment and repeated-measures structure; [ordinary ranks do not substitute for ART](https://depts.washington.edu/acelab/proj/art/).
+
+6. **H56b does not establish the claimed mediation.** Because AD-N/FR equals AD-C/FR, its difference-in-differences reduces exactly to AD-N/SP versus AD-C/SP. It tests a signal intervention under SP, not a mediated fraction of H56a. Common signal *formula* also leaves CHT-dependent survivors and trajectories. **Fix:** narrow the claim accordingly; replace both cost-diversity hooks, including their initial normalization denominators. Add an order-preserving SP transformation control to isolate sensitivity to scalar encoding. Explicitly reconcile raw SP/AP merits with §10’s compressed merits.
+
+**IMPORTANT**
+
+7. **The log-range signal is not automatically degenerate on (1,3).** The implementation uses  
+   \[
+   D_t=[\log m_{\max}-\log m_{\min}]/(n_t-1)
+   \]
+   and normalizes against initial \(D_0\). My probe returned coefficient 0.5 when the log-range halved, for both FR and SP. Saturation, outliers, category transitions and zero initial range remain consequential. \(u(f)=f/(f+f_{\rm ref})\) is monotone and bounded as claimed when both losses are positive; validate that condition. Log raw extrema, \(D_0\), clipping and parent-cost coefficients, not only the normalized coefficient.
+
+8. **A fixed σ can preserve the Gaussian operator.** Override only its scale calculation while retaining normalization, clipping, snapping and one-step nudging. Preserve the default 50:50 Gaussian/reset choice. Default blending uses fixed crossover probability 0.5; it is not an overlooked adaptive crossover. Nevertheless, structural/parent-based selection and duplicate repair also change between arms. Specify the intervention as the whole adaptive mutation policy, with component ablations if mechanistic attribution is intended.
+
+9. **Development separation is sound, but matching remains ambiguous.** No test leakage is evident. FX-T’s **1944 runs** is correct. FX-M adds **216** development runs. Its case×R-specific constants depart from §10’s one-vector-per-CHT design and can absorb resolution effects. Freeze pooling, equal-run weighting, evaluation horizon, σ aggregation, tuning-rank definition and tie-breaking before development runs.
+
+10. **Independent L* is appropriate as a best-known reference.** It is neither a bound nor an optimum. FR-only reference searches may miss regions found by other CHTs. Prespecify negative gaps, absolute-plus-relative targets, and treatment of “no reference”; that case must not silently change the primary endpoint. “Gap with censoring” needs an actual estimator—failed feasibility is not an observed loss gap.
+
+11. **Power numbers are idealized, not demonstrated.** Approximately 0.15/0.45 SD is correct for an independent normal paired contrast at 80% power, α=.05. It does not establish power for dependent ranks, ties or attainment. Simulate the final analysis. Prespecify multiplicity for H56a/H56b. With only three resolutions, each network’s exact two-sided Spearman test cannot reach .05; make H56c descriptive or redesign it.
+
+**MINOR**
+
+12. **Same-seed initialization currently checks out.** With both RNGs reset, synthetic 9/27/77-variable probes gave identical initial-population hashes for default versus `random` branches. Retain this assertion for future subclasses; isolate singleton updater state and use processes.
+
+13. **Budget accounting needs comparators.** Main test, FX-T, FX-M and references total **30.24 million PF calls**; DE/CMA add **2.16 million**. The stated timing is plausible, but excludes comparator runs, preprocessing and diagnostic overhead.
