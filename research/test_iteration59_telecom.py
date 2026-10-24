@@ -129,7 +129,8 @@ def test_analysis_requires_the_exact_inventory_and_passed_checks():
     refs = {n: dict(certified=True, C=1.0) for n in t.CONFIRMATION}
     store = {"development.json": dict(decision="GO", trivial={},
                                       references={n: dict(usable=True) for n in t.DEVELOPMENT}),
-             "manifest_confirmation.json": t.manifest("analysis", save_it=False)}
+             "manifest_confirmation.json": t.manifest("analysis", save_it=False),
+             "manifest_development.json": t.manifest("analysis", save_it=False)}
     saved = {}
     original_load, original_save = t.load, t.save
     try:

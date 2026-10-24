@@ -195,7 +195,11 @@ def resolved_ga_settings():
              "percentage_of_mutation_candidate_solutions", "percentage_of_mutation_decision_variables",
              "crossover_probability", "immigration_number", "normal_distribution_mutation_max_std_dev",
              "normal_distribution_mutation_min_std_dev", "cost_diversity_metric", "columnar_diversity_metric",
-             "ensure_unique_individuals", "strict_mutation_decision_variable_limit")
+             "ensure_unique_individuals", "strict_mutation_decision_variable_limit", "crossover_min_probability",
+             "crossover_max_probability", "number_of_crossover_parents", "parent_diversity_mutation_candidate_solution_sampling",
+             "variable_columnar_diversity_mutation_decision_variable_sampling", "must_mutate_for_same_parents",
+             "max_attempt_no", "normal_distribution_mutation_min_std_dev_decay_generations", "mutation_operator_policy",
+             "adaptive_immigration_patience", "constraint_handling", "constraint_penalty_weight")
     return {n: getattr(ga, n, None) for n in names}
 
 
@@ -297,8 +301,12 @@ def analyse():
     if check["failures"] or not check["checks"] or check["bound"] != dict(
             refs=i57.sha256(i56.path("i58_refs.json.gz")), test=i57.sha256(i56.path("i58_test.json.gz"))):
         raise SystemExit("STOP: independent check missing, failed, or not bound to these artifacts")
-    if not same_provenance(i56.load("i58_manifest.json"), build_manifest("analysis")):
-        raise SystemExit("STOP: code, library, environment or settings differ from the test manifest")
+    test_manifest = i56.load("i58_manifest.json")
+    current = build_manifest("analysis")
+    if not (same_provenance(test_manifest, current) and same_provenance(i56.load("i58_refs_manifest.json"), current)):
+        raise SystemExit("STOP: code, library, environment or settings differ from the reference/test manifests")
+    if test_manifest["refs_sha256"] != i57.sha256(i56.path("i58_refs.json.gz")):
+        raise SystemExit("STOP: the references are not the ones the test consumed")
     units = {}
     for r in data["records"]:
         t = r["task"]

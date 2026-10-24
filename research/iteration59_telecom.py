@@ -374,7 +374,12 @@ def resolved_ga_settings():
              "candidate_solution_mutation", "decision_variable_mutation", "percentage_of_mutation_candidate_solutions",
              "percentage_of_mutation_decision_variables", "crossover_probability", "immigration_number",
              "normal_distribution_mutation_max_std_dev", "normal_distribution_mutation_min_std_dev",
-             "cost_diversity_metric", "columnar_diversity_metric", "ensure_unique_individuals")
+             "cost_diversity_metric", "columnar_diversity_metric", "ensure_unique_individuals",
+             "strict_mutation_decision_variable_limit", "crossover_min_probability", "crossover_max_probability",
+             "number_of_crossover_parents", "parent_diversity_mutation_candidate_solution_sampling",
+             "variable_columnar_diversity_mutation_decision_variable_sampling", "must_mutate_for_same_parents",
+             "max_attempt_no", "normal_distribution_mutation_min_std_dev_decay_generations", "mutation_operator_policy",
+             "adaptive_immigration_patience", "constraint_handling", "constraint_penalty_weight")
     return {n: getattr(ga, n, None) for n in names}
 
 
@@ -509,7 +514,9 @@ def analyse():
     result = None
     dev = load("development.json")
     development_certified = all(dev["references"][n].get("usable") for n in DEVELOPMENT)
-    provenance_ok = same_provenance(load("manifest_confirmation.json"), manifest("analysis", save_it=False))
+    current = manifest("analysis", save_it=False)
+    provenance_ok = (same_provenance(load("manifest_confirmation.json"), current)
+                     and same_provenance(load("manifest_development.json"), current))
     eligible = (certified and development_certified and provenance_ok and inventory_ok and not persistent
                 and checks_ok and dev["decision"] == "GO" and set(cells) == set(CONFIRMATION))
     if eligible:

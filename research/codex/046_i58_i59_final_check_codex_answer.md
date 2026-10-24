@@ -1,0 +1,13 @@
+**Verdict: FIX.** Reviewed `1aaf011`; current HEAD is `e18c51a`. Read-only verification: **I58 4/4 and I59 12/12 passed**, one expected warning. No expensive stages ran or files changed.
+
+- **042 #4 — FIXED:** H59 now requires development references marked usable, alongside bound, successful checker evidence ([eligibility](/Users/danijel/Desktop/gadapt/research/iteration59_telecom.py:511)).
+- **042 #6 — NOT FIXED completely:** Confirmation checks development provenance, but analysis checks only the confirmation manifest; a conflicting development manifest is ignored ([confirmation](/Users/danijel/Desktop/gadapt/research/iteration59_telecom.py:463), [analysis](/Users/danijel/Desktop/gadapt/research/iteration59_telecom.py:512)).
+- **043 #3 — NOT FIXED completely:** Reference post-collection checks and analysis provenance checks exist, but analysis never verifies the test manifest’s stored `refs_sha256` against the consumed references ([recording](/Users/danijel/Desktop/gadapt/research/iteration58_validation.py:277), [analysis](/Users/danijel/Desktop/gadapt/research/iteration58_validation.py:294)).
+- **JSON tuple/list blocker — FIXED:** Comparisons normalize both operands; an actual manifest JSON round-trip and an in-memory `stage_test` run with collection stubbed passed both provenance comparisons. An unchanged build will **not stop spuriously from JSON conversion** ([comparisons](/Users/danijel/Desktop/gadapt/research/iteration58_validation.py:279)).
+- **I59 returned checker-LP failure — FIXED:** Returned validation now requires non-`None` shortage, rejecting the checker’s LP-failure result ([gate](/Users/danijel/Desktop/gadapt/research/iteration59_telecom.py:629)).
+
+**Newly reproduced remaining gaps:** In-memory fixtures produced supported H58 after replacing references since test collection and rerunning the checker; direct H59 analysis produced support despite contradictory development/confirmation manifests. These demonstrate acceptance of mixed archives, rather than failure of the nominal stage order.
+
+The “resolved” GA snapshots also remain partial—for example, crossover minimum/maximum probabilities and mutation-sampling settings are omitted ([I58](/Users/danijel/Desktop/gadapt/research/iteration58_validation.py:193), [I59](/Users/danijel/Desktop/gadapt/research/iteration59_telecom.py:373)).
+
+A recorded independent-validation failure blocks both claims. **Provenance mismatches can still reach claims through the gaps above.** Enforce every consumed manifest and the original reference-artifact binding at analysis before RUN.
