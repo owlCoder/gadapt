@@ -18,7 +18,7 @@ uniformnu nasumičnu pretragu, na istim I56 test instancama, ciljevima i ishodu 
 izvodljivog rešenja na cilju; T = 1 ako cilj nije dostignut)?
 
 ## 2. Izvršavanje
-- Izvršeno jednom (17:06–18:11, 8 radnika): 300 jedinica (30 instanci × 10 semena) × 7 putanja; svaka putanja tačno
+- Izvršeno jednom (prema logu lanca u scratchpad-u: 17:06–18:11, komanda `run 8`; vremena nisu u artefaktima): 300 jedinica (30 instanci × 10 semena) × 7 putanja; svaka putanja tačno
   3000 stvarnih `runpf` poziva. Nijedna jedinica izuzeta, nijedna prazna ćelija → primarna analiza dostupna,
   analiza osetljivosti nije bila potrebna.
 - Ciljevi su I56 `test_ref` ciljevi, nepromenjeni (potiču iz GAdapt referentnih pokretanja — §5).
@@ -36,17 +36,18 @@ ponavljanja, seme 57, 95% percentilni intervali. Negativno = metod brže dostiž
 | Nasumična − GAdapt, SP | +0,060 | [+0,045; +0,075] |
 | Nasumična − GAdapt, FR | +0,057 | [+0,042; +0,073] |
 
-Opisno: CMAwM je u proseku brži od GAdapt-a pod obe tehnike; DE se od GAdapt-a ne razlikuje jasno; nasumična
-pretraga je sporija. Izbor tehnike (SP / FR) ne menja sliku ni za jedan metod.
+Opisno: CMAwM ima niži opaženi srednji T od GAdapt-a pod obe tehnike. Procene DE − GAdapt su +0,012 (SP) i
++0,008 (FR); oba opisna intervala obuhvataju nulu (ekvivalencija nije ispitana). Nasumična pretraga ima viši T.
+Znaci šest agregatnih procena isti su pod SP i FR; odsustvo interakcije nije utvrđeno.
 
 ## 4. Po blokovima (opisno)
-Srednji T po bloku / broj pokretanja sa bar jednim izvodljivim rešenjem (od 40 za case14 i case118, od 20 za case57):
+Srednji T po bloku / broj pokretanja sa bar jednim izvodljivim rešenjem (od 40 za case14, od 20 za case57, od 120 za spojeni red case118):
 
 | Blok | GAdapt SP | GAdapt FR | CMAwM SP | CMAwM FR | DE SP | DE FR | Nasumična |
 |---|---|---|---|---|---|---|---|
 | case14 R=9 | 0,980 / 6 | 0,962 / 10 | 1,000 / 3 | 1,000 / 4 | 1,000 / 7 | 1,000 / 6 | 1,000 / 1 |
 | case14 R=17 | 0,714 / 40 | 0,725 / 40 | 0,231 / 39 | 0,233 / 39 | 0,688 / 40 | 0,697 / 40 | 1,000 / 34 |
-| case14 R=33 | 0,762 / 40 | 0,811 / 40 | 0,316 / 40 | 0,302 / 40 | 0,872 / 40 | 0,855 / 40 | 0,993 / 36 |
+| case14 R=33 | 0,762 / 40 | 0,811 / 40 | 0,316 / 40 | 0,302 / 40 | 0,872 / 40 | 0,855 / 40 | 0,992 / 36 |
 | case57 R=9 | 1,000 / 20 | 1,000 / 20 | 1,000 / 14 | 1,000 / 9 | 1,000 / 0 | 1,000 / 0 | 1,000 / 0 |
 | case57 R=17 | 1,000 / 20 | 1,000 / 20 | 1,000 / 17 | 0,993 / 20 | 1,000 / 0 | 1,000 / 0 | 1,000 / 0 |
 | case57 R=33 | 1,000 / 20 | 0,979 / 20 | 1,000 / 15 | 1,000 / 16 | 1,000 / 0 | 1,000 / 0 | 1,000 / 0 |
@@ -56,27 +57,37 @@ Zbirno (bez težina, 300 pokretanja): dostizanje cilja GAdapt 15% / 14% (SP / FR
 nasumična 0,3%; bar jedno izvodljivo rešenje GAdapt 49% / 50%, CMAwM 43% / 43%, DE 29% / 29%, nasumična 24%.
 
 Tri jasna obrasca:
-1. **Ceo kontrast T potiče sa case14 (R = 17, 33).** Tamo CMAwM dostiže cilj oko 2,5–3× brže (T 0,18–0,38 naspram
-   0,58–0,89) i ima nižu medijanu najboljeg izvodljivog gubitka u svakom scenariju (npr. R = 17, scenario 2: 9,028
-   naspram 9,204 / 9,323 MW); dostizanje cilja 92,5–95% naspram 47,5–60%. DE na R = 17 dostiže cilj često
+1. **Najveći doprinos kontrastima T dolazi iz case14 R = 17 i R = 33**; nenulti doprinosi postoje i u case14 R = 9
+   i case57 R = 17/33. Na case14 R = 17/33 odnos srednjih T po bloku GAdapt/CMAwM je 2,4–3,1 (po scenarijima T
+   0,18–0,38 naspram 0,58–0,89), a CMAwM ima nižu medijanu najboljeg izvodljivog gubitka u svakom scenariju (npr.
+   R = 17, scenario 2: CMAwM 9,028 SP / 9,027 FR naspram GAdapt 9,204 SP / 9,323 FR MW); dostizanje cilja 92,5–95% naspram 47,5–60%. DE na R = 17 dostiže cilj često
    (87,5–92,5%), ali kasno (T ≈ 0,69), pa je kontrast DE − GAdapt blizu nule: dostizanje i T opisuju različite
-   aspekte. U ostalih 7 blokova T ≈ 1 za sve metode (neinformativno, kao u I56).
-2. **Na case57 GAdapt je jedini metod koji uvek nađe izvodljivo rešenje** (20/20 u svakom bloku, pod obe tehnike);
-   CMAwM 9–20/20, DE i nasumična 0/20. Medijana najboljeg izvodljivog gubitka GAdapt-a je niža od CMAwM u 9 od 12
+   aspekte. Tačno četiri bloka (case57 R = 9, case118 svi R) imaju T = 1 za sva pokretanja svih konfiguracija; u
+   ostalima je dostizanje uglavnom retko (na case57 samo dva dostizanja: CMAwM FR R = 17 na pozivu 2593, GAdapt FR
+   R = 33 na 1714).
+2. **Na case57 GAdapt nađe izvodljivo rešenje u 10/10 pokretanja u svakoj ćeliji scenario × R × CHT** (60/60 po
+   CHT-u); CMAwM 1–10/10 po ćeliji (FR R = 17: 10/10 u oba scenarija), DE i nasumična 0/10. Nijedno GAdapt
+   pokretanje nije izvodljivo u početnih 32 evaluacije (prvo izvodljivo na pozivu 183–910), pa izvodljivost ne
+   potiče iz inicijalizacije; dekodiranje mreže bez greške (Codex 057). Ipak, raspodela operatora/populacije GAdapt-a
+   i CMAwM početak u sredini opsega sa σ = (R−1)/3 su konfundovani sa metodom. Medijana najboljeg izvodljivog gubitka GAdapt-a je niža od CMAwM u 9 od 12
    ćelija scenario × R × CHT (opisno; T ne beleži tu prednost jer cilj nije dostignut; medijane su uslovne na
    pokretanja sa izvodljivim rešenjem, pa poređenje nije upareno).
 3. **case118 (77 kontrola): niko** ne nađe izvodljivo rešenje u 3000 poziva (jedno GAdapt SP pokretanje izuzetak).
 
 ## 5. Pretnje validnosti i ograničenja
-- **Ciljevi potiču iz GAdapt referentnih pokretanja** (I56 `test_ref`). To može ići u korist GAdapt-a (ciljevi
-  dostižni putanjom sličnom GAdapt-ovoj); činjenica da je CMAwM ipak brži na case14 zato je konzervativna.
+- **Ciljevi potiču samo iz GAdapt referentnih pokretanja** (I56 `test_ref`); smer i veličina mogućeg uticaja na
+  poređenje nisu utvrđeni (ciljevi utiču na dostizanje, ne na brojeve izvodljivosti).
 - **SciPy DE pri 3000 poziva:** podrazumevani `popsize=15` množi se brojem promenljivih (case57: 405, case118:
-  1155 jedinki po generaciji), pa DE završi samo ~7 odnosno ~2,6 generacija — u praksi je to latinska hiperkocka
-  plus nekoliko generacija. Rezultat DE na case57/case118 ne govori o DE pri većem budžetu ili manjoj populaciji;
+  1155 jedinki), pa je pri 3000 poziva case57: 405 inicijalnih evaluacija + 6 punih evolucionih generacija + 165
+  kandidata sedme; case118: 1155 inicijalnih + 1 puna generacija + 690 kandidata druge (proveren izvor SciPy
+  1.18.1, Codex 057). Rezultat DE na case57/case118 ne govori o DE pri većem budžetu ili manjoj populaciji;
   konfiguracije su po protokolu „ograničene budžetom“ i nisu podešavane.
 - Četiri ćelije imaju cilj „samo izvodljivost“ (bez izvodljive reference, I56 §6); referenca L* je najbolje
   poznata, ne optimum; jednak broj PF poziva ne znači jednako vreme izvršavanja ni jednak trud podešavanja.
 - Podrazumevana podešavanja spoljnih metoda; nema L-SHADE / jDE (protokol); 3 mreže, jedna vrsta merila.
+- Samo dva preostala case57 scenarija (OPF izuzimanja); jaka cenzura (T = 1); bootstrap nesigurnost uslovna na
+  fiksne instance i reference; intervali tačkasti; inicijalizacija specifična za konfiguraciju; pretpostavke mreže
+  vrednosti i opsega su naše (merilo).
 - Opisna studija: nijedan obrazac iz §4 nije potvrđen kao hipoteza.
 
 ## 6. Nezavisna provera
@@ -88,12 +99,14 @@ ponavljanja i izuzimanja; T, izvodljivost, dostizanje i svih 30 referenci se nez
 protokola u manifestu odgovaraju fajlovima; heš I56 `test_ref` isti u izlazu, analizi i manifestu.
 
 ## 7. Zaključak i posledice
-1. Na jedinoj mreži gde su ciljevi dostižni pri 3000 poziva (case14), CMA-ES sa marginom je višestruko brži od
-   GAdapt-a; to je u skladu sa I47/I53 (prednost CMA-ES na glatkim AC problemima, učenje korelacija).
-2. GAdapt je opisno najpouzdaniji u nalaženju izvodljivog rešenja na srednjoj mreži (case57) — kandidat-nalaz koji
+1. Na case14 R = 17 i R = 33, gde je dostizanje često, CMA-ES sa marginom ima višestruko niži opaženi srednji T od
+   GAdapt-a; to je u skladu sa ranijim opisnim nalazima I47/I53 (prednost CMA-ES na glatkim AC problemima; mehanizam
+   ovde nije ispitan).
+2. Na case57 GAdapt je u ovom uzorku nalazio izvodljivo rešenje u svih 120 pokretanja (CMAwM 91/120, DE i
+   nasumična 0) — kandidat-nalaz koji
    bi trebalo potvrditi preregistrovano (ishod: verovatnoća izvodljivosti i najbolji izvodljiv gubitak pri fiksnom
    budžetu, a ne T), ne tumačiti kao opšta prednost.
-3. I57 daje spoljni kontekst za I56: efekti CHT unutar GAdapt-a (I56) su mali u poređenju sa razlikom između metoda
-   na case14; za tezu to znači da se doprinos ne sme predstavljati kao „GAdapt konkurentan CMA-ES“.
-4. Pouka za I58/I60 (već zamrznute): blokovi sa T = 1 svuda ne nose informaciju; I58 je zato uveo sveže mreže i
-   unapred definisane uslove informativnosti — tumačenje I58 ne sme koristiti I57 ishode.
+3. I57 daje spoljni kontekst za I56: primarna interakcija H56a (θ_a ≈ 0,02) je mala u poređenju sa razlikom između
+   metoda na case14 (opisni glavni efekat ε u I56 na case14 jeste velik); za tezu to znači da se doprinos ne sme predstavljati kao „GAdapt konkurentan CMA-ES“.
+4. Pouka za buduće protokole (I61): blokovi sa T = 1 svuda ne nose informaciju; budžet i rezoluciju birati
+   unapred zadatim razvojnim pravilom. Tumačenje već zamrznutih I58/I60 ne koristi I57 ishode.
