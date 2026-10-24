@@ -92,8 +92,26 @@ def manifest(stage):
     return out
 
 
+I60_PROVENANCE = ("i60_sha256", "i60_protocol_sha256", "refs_sha256", "i60_settings")
+
+
+def same_provenance(a, b):
+    """I58 provenance fields plus the I60 code, protocol, references and settings (Codex 051)."""
+    return i58.same_provenance(a, b) and all(i58.normalised(a[f]) == i58.normalised(b[f]) for f in I60_PROVENANCE)
+
+
+def require_i58_reference_check():
+    """The protocol binds I60 to the I58 references; their witnesses (L*) must have passed the I58 independent check."""
+    check = i56.load("i58_check.json")
+    if check["failures"] or not check["checks"] or check["bound"]["refs"] != i57.sha256(i56.path("i58_refs.json.gz")):
+        raise SystemExit("STOP: the I58 independent check of the references is missing, failed, or not bound to them")
+    if not any(row["source"] == "i58_refs.json" for row in check["checks"]):
+        raise SystemExit("STOP: the I58 independent check contains no reference witnesses")
+
+
 def stage_test(workers):
     from multiprocessing import Pool
+    require_i58_reference_check()
     pre = manifest("i60-test")
     i56.save("i60_manifest.json", pre)
     refs = i58.references()
@@ -116,7 +134,7 @@ def stage_test(workers):
         if len(p) == 2 and (p["G0"] != p["G2"] or len(p["G0"]) != i56.POPULATION_SIZE):
             raise SystemExit(f"STOP: G0/G2 initial populations differ for {key}")
     post = manifest("i60-test-after")
-    if not (i58.same_provenance(pre, post) and pre["refs_sha256"] == post["refs_sha256"]):
+    if not same_provenance(pre, post):
         raise SystemExit("STOP: provenance or references changed during the I60 test")
     i56.save("i60_test.json", dict(excluded=excluded, references=refs, records=records))
 
@@ -168,24 +186,38 @@ def analyse():
     if check["failures"] or not check["checks"] or check["bound"] != dict(
             test=i57.sha256(i56.path("i60_test.json.gz")), refs=i57.sha256(i56.path("i58_refs.json.gz"))):
         raise SystemExit("STOP: independent check missing, failed, or not bound to these artifacts")
+    require_i58_reference_check()
     pre = i56.load("i60_manifest.json")
-    if not (i58.same_provenance(pre, manifest("i60-analysis")) and pre["refs_sha256"] == i57.sha256(i56.path("i58_refs.json.gz"))):
+    if not same_provenance(pre, manifest("i60-analysis")):
         raise SystemExit("STOP: provenance differs from the I60 test manifest")
     units = {}
     for r in data["records"]:
         t = r["task"]
         units.setdefault((t["network"], t["j"], t["seed"]), {})[t["arm"]] = r
+    # I58 rules (protocol "Pravila i provera"): complete G0/G2 pairs; primary inference needs every primary network and
+    # no empty network x scenario cell; sensitivity (failed runs as T = 1) when a cell is empty or > 5% pairs are excluded
     primary = [k for k in units if k[0] in i58.PRIMARY]
+    expected_cells = {(n, n, j) for (n, j, s) in primary}
     complete = {k: units[k] for k in primary if set(units[k]) == set(ARMS) and all(r["ok"] for r in units[k].values())}
     cells = {}
     for (n, j, s), u in complete.items():
         cells.setdefault((n, n, j), []).append(u)
     networks_left = {k[0] for k in cells}
     excluded = sorted(set(primary) - set(complete))
+    empty = sorted(expected_cells - set(cells))
     result = None
-    if networks_left == set(i58.PRIMARY) and not excluded:
+    if not empty and networks_left == set(i58.PRIMARY):
         b = i56.bootstrap(cells, lambda u: u["G2"]["T"] - u["G0"]["T"], seed=60)
         result = dict(estimate=b["estimate"], ci=b["ci"], supported=b["ci"][1] < 0)
+    sensitivity = None
+    if empty or len(excluded) > 0.05 * len(primary):
+        failed = dict(T=1.0, ok=False)
+        restored = {}
+        for (n, j, s) in primary:
+            u = units[(n, j, s)]
+            restored.setdefault((n, n, j), []).append({a: (u[a] if a in u and u[a]["ok"] else failed) for a in ARMS})
+        b = i56.bootstrap(restored, lambda u: u["G2"]["T"] - u["G0"]["T"], seed=60)
+        sensitivity = dict(estimate=b["estimate"], ci=b["ci"])
     descriptive = {}
     for (n, j, s), u in units.items():
         for a, r in u.items():
@@ -199,7 +231,8 @@ def analyse():
                            attained=float(np.mean([t < 1 for t in v["T"]])) if v["T"] else None,
                            feasible=float(np.mean(v["feasible"])) if v["feasible"] else None,
                            median_best=float(np.median(v["best"])) if v["best"] else None) for k, v in descriptive.items()}
-    out = dict(H60=result, excluded=[list(map(str, k)) for k in excluded], excluded_instances=data["excluded"],
+    out = dict(H60=result, sensitivity=sensitivity, excluded=[list(map(str, k)) for k in excluded],
+               empty_cells=[list(map(str, k[1:])) for k in empty], excluded_instances=data["excluded"],
                complete=len(complete), descriptive=descriptive)
     i56.save("i60_analysis.json", out)
     print(json.dumps(dict(H60=result, complete=len(complete), excluded=out["excluded"]), indent=1))
