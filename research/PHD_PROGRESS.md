@@ -175,6 +175,12 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   030 → 031 **READY TO APPLY**; 71 testova, podrazumevano bit-identično (heš 9 sejanih pokretanja
   `afcdb859…`). PRIMENITI tek posle I56/I57 lanaca: `patch -p0`/ručno iz kopije
   `scratchpad/apidev/gadapt_repo`, pa ponoviti heš i testove u repou; README primer.
+- Paralelno (13:00–14:00): I56 dev_fxt/rehearsal GOTOVO (snaga 0,968 → 10 semena; FX-M σ = 0,001 = donja granica;
+  4/9 degenerisanih blokova — upozorenje u izveštaju). I57 kod ispravljen po Codex 033 (manifest PRE pokretanja,
+  pravila izuzimanja). **I58 ZAMRZNUT** (`3f915db`, FR unapred, sveže mreže case30/39/24_ieee_rts (+300 opisno),
+  jedna VG po sabirnici) + kod + testovi 4/4 (Codex 036 ispravke, nezavisni proverivač). Prior art mehanizma
+  (Codex 032): sprega CHT–adaptacija POZNATA (Arnold, Hellwig, CAL-SHADE) → novina sužena. Nacrt teze (Codex 034).
+  I59 predlog (telekom, Codex 037) → Codex 039 recenzija. Slike I56 (skripta pre rezultata, Codex 038).
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
