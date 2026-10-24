@@ -23,3 +23,11 @@ pre sistematske provere prior art-a; većina verovatno pada na gate-u.
   ([10.1145/1830483.1830504](https://doi.org/10.1145/1830483.1830504)), Knuth i Moore 1975 (alfa-beta). Korisno:
   GAdapt odseca na elitni skup pre statistike (`ElitismCostFinder`), pa je tačna lenja evaluacija max-po-scenarijima
   moguća kao **opt-in ubrzanje bez promene putanje** (praktično, ne za tezu).
+- **Codex 016 #1 (samoadaptacija svesna jedinstvenosti): NO-GO** (literature-auditor, 10–15%): Biedrzycki 2020
+  „darvinovska“ popravka ([10.1016/j.swevo.2019.100627](https://doi.org/10.1016/j.swevo.2019.100627)), Hansen
+  arXiv:1110.4181 (ubačena rešenja kvare adaptaciju), Yuen i Chow 2009
+  ([10.1109/TEVC.2008.2003008](https://doi.org/10.1109/TEVC.2008.2003008)), Raidl i Hu 2010
+  ([10.1007/978-3-642-12139-5_21](https://doi.org/10.1007/978-3-642-12139-5_21)), Wang i Gao 2013 (NrGA na
+  distributivnoj mreži, [10.1109/tpwrs.2013.2238259](https://doi.org/10.1109/tpwrs.2013.2238259)). Moguće samo
+  kao ablacija (jedinstvenost+popravka / memoizacija / signal bez popravljenih).
+- Sledeći krug: K6 (Codex 018) i Codex 016 #2 (literature-auditor).
