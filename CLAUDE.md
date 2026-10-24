@@ -94,9 +94,12 @@ Pure Python, no compiled code. `README.md` is also the PyPI long description.
 - `GA.execute()` validation calls the cost function on all-min and all-max values (2 real evaluations, not part of the search).
   Budget wrappers count them; with binary route choice all-min is exactly the trivial "first path" solution (see research I43).
   `probe_cost_function=False` (opt-in) skips them.
-- `VariableColumnarDiversityDecisionVariableMutationRateDeterminator` raises the number of mutated decision variables to
-  at least round(N/5), ignoring `number_of_mutation_decision_variables`; `strict_mutation_decision_variable_limit=True`
+- `VariableColumnarDiversityDecisionVariableMutationRateDeterminator` raises the UPPER LIMIT of mutated decision variables to
+  at least round(N/5), ignoring `number_of_mutation_decision_variables`; the actual count is then drawn uniformly from 1 to that limit; `strict_mutation_decision_variable_limit=True`
   (opt-in) caps it. Crossover duplicate repair (`BaseCrossover`) mutates separately with an attempt-based limit.
+- `ga_utils.average_difference` averages adjacent gaps of the sorted values, which telescopes to (max - min)/(n - 1): the default
+  cost diversity (log-shifted costs, ratio to generation 0) is a normalized log-RANGE of survivor costs, insensitive to interior
+  costs (one outlier keeps it high and the cost-diversity mutation low).
 - Columnar diversity is measured on log((v - min) + 1) by default: NOT invariant to units / position in the range
   (optimum near the upper bound of a large-range variable is reached ~10^3-10^4 worse, research I46 notes).
   `columnar_diversity_metric="linear"` (opt-in) is invariant.

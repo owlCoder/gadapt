@@ -31,3 +31,13 @@ pre sistematske provere prior art-a; većina verovatno pada na gate-u.
   distributivnoj mreži, [10.1109/tpwrs.2013.2238259](https://doi.org/10.1109/tpwrs.2013.2238259)). Moguće samo
   kao ablacija (jedinstvenost+popravka / memoizacija / signal bez popravljenih).
 - Sledeći krug: K6 (Codex 018) i Codex 016 #2 (literature-auditor).
+- **Codex 016 #2 (DC + AC provere za signal adaptacije): NO-GO** (literature-auditor, 10–15%): Horvitz–Thompson 1952,
+  uopšteni diferencni procenjivač (Cassel, Särndal, Wretman 1976, [10.1093/biomet/63.3.615](https://doi.org/10.1093/biomet/63.3.615)),
+  MFMC (Peherstorfer i sar. 2016; Qian i sar. 2018), prediction-powered inference (Angelopoulos i sar. 2023,
+  [10.1126/science.adi6000](https://doi.org/10.1126/science.adi6000)); evolution control (Jin i sar. 2002).
+- **K6 (teorija pravila raznovrsnosti troškova): NO-GO kao glavni doprinos** (Codex 018): Srinivas i Patnaik 1994
+  ([10.1109/21.286385](https://doi.org/10.1109/21.286385)), DGEA (Ursem 2002), stagnation detection (Rajabi i Witt;
+  Doerr i Rajabi). Na platou Jump_k pravilo daje Θ(n^k) kao statička mutacija → nema priče o ubrzanju.
+- **Nalaz o biblioteci (oba revizora):** `average_difference` = (max − min)/(n − 1) → podrazumevana raznovrsnost
+  troškova je normalizovan log-RASPON preživelih (unet u CLAUDE.md).
+- Ukupno odbačeno: 7 (23. okt.) + 4 danas = 11.
