@@ -1,0 +1,13 @@
+**Verdict: APPLY.** No blocking findings. Review and execution were read-only; nothing was applied to the repository.
+
+1. **Fix is correct and complete for Codex 050.** The [new guard](/Users/danijel/Desktop/gadapt/research/patches/constraint_api_v5_fix.patch:36) prevents both reading and unpacking an unrelated `cost_finder.best` when `constraint_handling=None`. I found no other unguarded consumption of constraint-specific finder state on that path. Configuration storage/checks remain, but the default factory creates `ElitismCostFinder`, validation skips constraint-specific requirements, and probes retain scalar validation.
+
+2. **Default search behavior is unchanged.** The sole executable change occurs after optimization, after population results have been collected. It changes no evaluations, RNG draws, selection, mutation, immigration, ranking, or stopping logic. Ordinary default results remain identical; custom finders with an unrelated `best` intentionally regain compatibility. This establishes search equivalence, rather than literal instruction-path identity.
+
+3. **Documentation is accurate.** The weight setter requires `0 < weight <= 1e100` and rejects booleans/non-numeric values. Constraint handling permits `"legacy"` and rejects other mutation policies. The revised result comment correctly distinguishes the historical best evaluated solution from the final population winner whose scalar supplies `min_cost`.
+
+4. **Regression genuinely reproduces the bug.** Executing the exact patched test against v4 fails with `cannot unpack non-iterable float object`; against v5 it passes. The complete library suite passes **72/72**, using exact in-memory patching with `python -B` and writes blocked. Minor, non-blocking placement issue: the new class follows `unittest.main()`, so direct script execution misses it; CI’s unittest discovery includes it.
+
+5. **I56 behavior is preserved.** Its `CHTCostFinder` has no `best` attribute: v4’s lookup returns `None`; v5 skips it. Neither version modifies results through that block. Independent fresh-process comparisons on case14/R17, 600 evaluations, matched complete serialized records exactly for instrumented **SP/AD-N** and **FR/FX-T**, including sequences and traces.
+
+I did not recompute the supplied `afcdb859…` hash or execute I61’s full 54-run archival gate. The code reasoning and targeted comparisons support preservation; I61’s required gate should still run.

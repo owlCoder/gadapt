@@ -57,15 +57,13 @@ index 7162927..8e85732 100644
          self.best_violation = float("NaN")
          self.feasible = None
 diff --git a/tests/test_constraint_handling.py b/tests/test_constraint_handling.py
-index 98a97f5..52023de 100644
+index 98a97f5..356de3d 100644
 --- a/tests/test_constraint_handling.py
 +++ b/tests/test_constraint_handling.py
-@@ -142,3 +142,28 @@ class ConstraintHandlingTest(unittest.TestCase):
+@@ -140,5 +140,30 @@ class ConstraintHandlingTest(unittest.TestCase):
+         self.assertIn("(objective, violation)", str(raised.exception))
  
- if __name__ == "__main__":
-     unittest.main()
-+
-+
+ 
 +class DefaultModeCustomCostFinderTest(unittest.TestCase):
 +    def test_unrelated_best_attribute_is_ignored_without_constraint_handling(self):
 +        # Codex 050: a custom cost finder with its own "best" attribute must not be read as the constraint result
@@ -89,3 +87,7 @@ index 98a97f5..52023de 100644
 +        self.assertTrue(result.success, result.messages)
 +        self.assertIsNone(result.feasible)
 +        self.assertTrue(math.isnan(result.best_objective))
++
++
+ if __name__ == "__main__":
+     unittest.main()
