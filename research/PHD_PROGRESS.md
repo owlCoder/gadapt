@@ -225,6 +225,13 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   * PLAN POSLE LANCA (I59 DONE): (1) I58/I60/I59 izveštaji po kosturima (Codex 051) i mapi ishoda (Codex 052);
     (2) primeniti `research/patches/constraint_api_v5_fix.patch`, heš `afcdb859…` + testovi, commit;
     (3) I61 faze redom (gate → … → analyse), svaka nov proces; gate MORA posle v5 (manifest hešira biblioteku).
+- **2026-10-24 21:50–22:10: I58 GOTOVO → `ITERATION58_REPORT_SR.md`: H58 NIJE PODRŽANA** (θ = −0,014, 95% [−0,035; +0,006];
+  134 potpune primarne jedinice, 1 izuzeta; 4/9 ćelija degenerisano pri 3000). Originalna I58 provera pala samo na
+  case300 vraćenim rešenjima sa nekonvergentnim PF-om (instrument i proverivač saglasni; pravilu nedostajala grana) →
+  **odstupanje D1** (`iteration58_check_amendment.py`, Codex 067 RUN, pre analize i uvida u ishode); original arhiviran
+  `i58_check_v1.json.gz`. Ista praznina ispravljena u I60 proverivaču pre I60. Lanac nastavljen iz scratchpad-a sesije
+  66e5645f (`chain2.sh`: D1 → I58 analyse → I60 → I59). I61 drajver: Codex 064/065/066 ispravke (`6da6ea3`, 12/12).
+  Codex 068 recenzija I58 izveštaja u toku.
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
