@@ -19,7 +19,8 @@ class GAResults:
         self._min_cost_per_generation: List[float] = []
         self._initial_population: Optional[Population] = None
         self._min_cost = float("NaN")
-        # with constraint_handling: objective and violation of the best candidate solution (min_cost is its scalar)
+        # with constraint_handling: objective and violation of the best evaluated candidate solution of the run
+        # (min_cost is the scalar of the best candidate solution of the final population)
         self.best_objective = float("NaN")
         self.best_violation = float("NaN")
         self.feasible = None

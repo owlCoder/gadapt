@@ -140,5 +140,30 @@ class ConstraintHandlingTest(unittest.TestCase):
         self.assertIn("(objective, violation)", str(raised.exception))
 
 
+class DefaultModeCustomCostFinderTest(unittest.TestCase):
+    def test_unrelated_best_attribute_is_ignored_without_constraint_handling(self):
+        # Codex 050: a custom cost finder with its own "best" attribute must not be read as the constraint result
+        from gadapt.factory.ga_factory import GAFactory
+        from gadapt.operations.cost_finding.elitism_cost_finder import ElitismCostFinder
+
+        class CostFinder(ElitismCostFinder):
+            best = 0.0
+
+        class Factory(GAFactory):
+            def _get_cost_finder(self):
+                return CostFinder()
+
+        random.seed(1)
+        np.random.seed(1)
+        ga = GA(cost_function=lambda v: (v[0] - 1) ** 2 + v[1] ** 2, factory=Factory(), exit_check="generations",
+                number_of_generations=20)
+        ga.add(-3.0, 3.0, 0.01)
+        ga.add(-3.0, 3.0, 0.01)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertIsNone(result.feasible)
+        self.assertTrue(math.isnan(result.best_objective))
+
+
 if __name__ == "__main__":
     unittest.main()

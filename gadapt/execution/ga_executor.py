@@ -78,11 +78,12 @@ class GAExecutor:
             results.min_cost_per_generation = self.population.min_cost_per_generation
             for g in best_individual:
                 results.result_values[g.decision_variable.variable_id] = g.value
-            best = getattr(self.cost_finder, "best", None)
-            if best is not None:  # constraint_handling: the best evaluated solution of the run
-                results.best_objective, results.best_violation, values = best
-                results.feasible = results.best_violation == 0
-                results.result_values = dict(values)
+            if self.ga_options.constraint_handling is not None:  # the best evaluated solution of the run
+                best = getattr(self.cost_finder, "best", None)
+                if best is not None:
+                    results.best_objective, results.best_violation, values = best
+                    results.feasible = results.best_violation == 0
+                    results.result_values = dict(values)
         except Exception as ex:
             results.success = False
             results.messages.append((message_levels.ERROR, str(ex)))
