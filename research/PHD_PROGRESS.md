@@ -166,8 +166,14 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   (72/72 ok). Pojašnjenja P1–P5 u `ITERATION56_CLARIFICATIONS.md`. Lanac faza pokrenut u scratchpad-u
   (`i56_chain.sh`: dev_fxm → dev_fxt → rehearsal → test_ref → test → analyse), bez gledanja između faza.
   Ako je prekinuto: pokrenuti samo faze bez `research/results/iteration56/<faza>.json.gz`, istim redom.
+- Paralelno (dok I56 radi): SciPy PR #26484 spojen (dokumentacija izmenjena posle naše prijave); R1 i dalje
+  neproveren (Codex 026; Abdullah 2026 navodi samoadaptaciju kao budući rad); dizajn opt-in API-ja za ograničenja
+  (`GADAPT_CONSTRAINT_API_DESIGN_SR.md`); kostur izveštaja I56; **I57 protokol ZAMRZNUT pre I56 test rezultata**
+  (`0f0749e`, opisno: GAdapt naspram CMAwM / SciPy DE / nasumična), adapteri + testovi (`e50ccb4`); `i57_chain.sh`
+  čeka „ALL DONE“ I56 lanca pa pokreće I57. Ugašen zaglavljen proces (smoke test, PID 21727).
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
-  `ITERATION56_REPORT_SR.md`, Codex recenzija izveštaja; (2) samo ČITATI issue-e.
+  `ITERATION56_REPORT_SR.md`, Codex recenzija izveštaja; zatim I57 izveštaj; (2) API u biblioteci (opt-in) prema
+  rezultatima; (3) samo ČITATI issue-e.
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
