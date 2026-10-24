@@ -120,10 +120,17 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   nepromenljiva provenijencija (čeka Zenodo odluku korisnika).
 - 2026-10-24: Issue-i: SciPy #26479 — održavalac andyfaff: ponašanje namerno, menja se docstring (potvrđuje našu
   klasifikaciju „praznina u dokumentaciji“; uneto u rad i poglavlje). Ostala 4 bez odgovora održavalaca.
-  Codex 013: plan post hoc analize osetljivosti prenosa (samo arhivirani podaci) + slika (n/a prikaz). U toku.
+  Codex 013: plan post hoc analize osetljivosti prenosa (samo arhivirani podaci) + slika (n/a prikaz).
+  * Plan zamrznut `ac5b781` PRE računanja; kod `iteration52_sensitivity.py` (testovi 2/2), izlaz
+    `results/iteration52/sensitivity.json` (`67dd9dd`). Kontrola 19/21 reprodukovana iz ćelija. Izjednačena
+    izloženost: 17–20 (P17 = 4e-5, E = 18,7); samo potpune 17/18 (pozitivni 7/7); granice 17–20; I55 arhiva isto.
+    → „preživljava, ali bez margine“ (minimum = prag 17). Uneto u §6.4, §8, §10.
+  * Slika 1: „0“ = provereno; šrafirano „n/a“ (iz koda adaptera + `r_applicable`); „?“ Nevergrad R2/R3. Okruženje
+    za sliku: matplotlib 3.11.2 po `h4_requirements_lock.txt` (scratchpad `figenv`); stara slika bit-identično
+    reprodukovana pre izmene.
+  * Codex 014 recenzija implementacije: u toku.
 - Čeka korisnika (4 pitanja): Overleaf, autorstvo, Zenodo, razgovor sa mentorom.
-- SLEDEĆI KORAK: (1) Codex 013 → zamrznuti post hoc plan (commit) → izračunati → uneti u §6.4 → Codex recenzija;
-  (2) slika sa n/a; (3) predaja TELO posle odluka korisnika; (4) pratiti issue-e (#1572, #1380, #106, #248).
+- SLEDEĆI KORAK: (1) Codex 014 → ispravke → poglavlje §7.5 (srpski) dopuniti; (3) predaja TELO posle odluka korisnika; (4) pratiti issue-e (#1572, #1380, #106, #248).
 
 - Okruženje: u `.venv` dodati `pypower` 5.1.19 i `cma` 4.5.0 (pip, 2026-10-23).
 
