@@ -87,12 +87,13 @@ def manifest(stage):
     out["i60_sha256"] = i57.sha256(os.path.join(HERE, "iteration60_epsilon.py"))
     out["i60_protocol_sha256"] = i57.sha256(os.path.join(HERE, "ITERATION60_PROTOCOL.md"))
     out["refs_sha256"] = i57.sha256(i56.path("i58_refs.json.gz"))
+    out["refs_manifest_sha256"] = i57.sha256(i56.path("i58_refs_manifest.json.gz"))
     out["i60_settings"] = dict(budget=BUDGET, generations=GENERATIONS, purpose=PURPOSE, pairs=PAIRS, arms=ARMS,
                                g2="constraint_handling=epsilon; post-budget (0, 1e150)", bootstrap=dict(reps=20000, seed=60))
     return out
 
 
-I60_PROVENANCE = ("i60_sha256", "i60_protocol_sha256", "refs_sha256", "i60_settings")
+I60_PROVENANCE = ("i60_sha256", "i60_protocol_sha256", "refs_sha256", "refs_manifest_sha256", "i60_settings")
 
 
 def same_provenance(a, b):
@@ -107,6 +108,9 @@ def require_i58_reference_check():
         raise SystemExit("STOP: the I58 independent check of the references is missing, failed, or not bound to them")
     if not any(row["source"] == "i58_refs.json" for row in check["checks"]):
         raise SystemExit("STOP: the I58 independent check contains no reference witnesses")
+    # the references must come from the same I58 code, library, environment and settings as this run (Codex 054)
+    if not i58.same_provenance(i56.load("i58_refs_manifest.json"), i58.build_manifest("i60-refs-binding")):
+        raise SystemExit("STOP: the I58 reference manifest differs from the current I58 code/library/environment/settings")
 
 
 def stage_test(workers):

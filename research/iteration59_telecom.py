@@ -515,9 +515,15 @@ def analyse():
     dev = load("development.json")
     development_certified = all(dev["references"][n].get("usable") for n in DEVELOPMENT)
     current = manifest("analysis", save_it=False)
-    provenance_ok = (same_provenance(load("manifest_confirmation.json"), current)
+    manifest_confirmation = load("manifest_confirmation.json")
+    provenance_ok = (same_provenance(manifest_confirmation, current)
                      and same_provenance(load("manifest_development.json"), current))
-    eligible = (certified and development_certified and provenance_ok and inventory_ok and not persistent
+    # the frozen development choice (B, eps) must be the same in every artifact (Codex 054)
+    norm = lambda v: json.loads(json.dumps(v))  # noqa: E731
+    choice_ok = (norm(dev["chosen"]) == norm(data["chosen"]) == norm(load("confirmation_refs.json")["chosen"])
+                 == norm(manifest_confirmation.get("chosen"))
+                 and manifest_confirmation.get("development_sha256") == bound["development"])
+    eligible = (certified and development_certified and provenance_ok and choice_ok and inventory_ok and not persistent
                 and checks_ok and dev["decision"] == "GO" and set(cells) == set(CONFIRMATION))
     if eligible:
         rng = np.random.RandomState(59)
@@ -528,7 +534,7 @@ def analyse():
         lo, hi = np.percentile(draws, [2.5, 97.5])
         result = dict(estimate=estimate, ci=[float(lo), float(hi)], supported=bool(hi < 0))
     out = dict(chosen=[budget, eps], certified=certified, development_certified=development_certified,
-               provenance_ok=provenance_ok, inventory_ok=inventory_ok, checks_ok=checks_ok,
+               provenance_ok=provenance_ok, choice_ok=choice_ok, inventory_ok=inventory_ok, checks_ok=checks_ok,
                development_decision=dev["decision"], development_trivial=dev.get("trivial"),
                trivial=data["trivial"], persistent_failures=persistent,
                H59=result, per_network={n: dict(mean_d=float(np.mean(v)), n=len(v)) for n, v in cells.items()})

@@ -127,9 +127,11 @@ def test_analysis_requires_the_exact_inventory_and_passed_checks():
                     hits={"0.05": 100 if arm == "G1" else 2000})
     full = [record(n, s, a) for n in t.CONFIRMATION for s in range(1, 16) for a in ("G0", "G1")]
     refs = {n: dict(certified=True, C=1.0) for n in t.CONFIRMATION}
-    store = {"development.json": dict(decision="GO", trivial={},
+    store = {"development.json": dict(decision="GO", trivial={}, chosen=[3000, 0.05],
                                       references={n: dict(usable=True) for n in t.DEVELOPMENT}),
-             "manifest_confirmation.json": t.manifest("analysis", save_it=False),
+             "confirmation_refs.json": dict(chosen=[3000, 0.05]),
+             "manifest_confirmation.json": dict(t.manifest("analysis", save_it=False), chosen=[3000, 0.05],
+                                                development_sha256="d"),
              "manifest_development.json": t.manifest("analysis", save_it=False)}
     saved = {}
     original_load, original_save = t.load, t.save
@@ -154,3 +156,32 @@ def test_analysis_requires_the_exact_inventory_and_passed_checks():
         t.sha = original_sha
     finally:
         t.load, t.save = original_load, original_save
+
+
+def test_analysis_rejects_a_choice_that_differs_between_artifacts(monkeypatch):
+    """Codex 054: (B, eps) must be identical in development, confirmation references, confirmation data and manifest."""
+    import iteration59_telecom as i59
+    budget, eps = i59.BUDGETS[0], i59.EPSILONS[0]
+    other = i59.EPSILONS[1]
+    records = [dict(task=dict(instance=n, seed=i59.seed_of(2, n, s), arm=a, budget=budget), ok=True,
+                    hits={str(eps): 10, str(other): 10})
+               for n in i59.CONFIRMATION for s in range(1, i59.CONFIRMATION_PAIRS + 1) for a in ("G0", "G1")]
+    refs = {n: dict(certified=True, usable=True) for n in i59.CONFIRMATION + i59.DEVELOPMENT}
+    for confirmation_eps, expected in ((eps, True), (other, False)):
+        store = {"confirmation.json": dict(chosen=[budget, confirmation_eps], references=refs, trivial={}, records=records,
+                                           development_sha256="h", confirmation_refs_sha256="h"),
+                 "development.json": dict(chosen=[budget, eps], references=refs, decision="GO"),
+                 "confirmation_refs.json": dict(chosen=[budget, eps]),
+                 "manifest_confirmation.json": dict(chosen=[budget, eps], development_sha256="h"),
+                 "manifest_development.json": dict(),
+                 "check.json": dict(failures=0, rows=[1], bound=dict(development="h", confirmation="h",
+                                                                      confirmation_refs="h"))}
+        saved = {}
+        monkeypatch.setattr(i59, "load", lambda name: store[name])
+        monkeypatch.setattr(i59, "save", lambda name, value: saved.__setitem__(name, value))
+        monkeypatch.setattr(i59, "sha", lambda path: "h")
+        monkeypatch.setattr(i59, "manifest", lambda stage, extra=None, save_it=True: dict())
+        monkeypatch.setattr(i59, "same_provenance", lambda a, b: True)
+        i59.analyse()
+        assert saved["analysis.json"]["choice_ok"] is expected
+        assert (saved["analysis.json"]["H59"] is not None) is expected
