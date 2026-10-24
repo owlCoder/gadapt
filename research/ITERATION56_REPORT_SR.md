@@ -55,17 +55,22 @@ VEĆA (lošija za adaptaciju) pod pravilima izvodljivosti nego pod statičkom ka
 - U 6 od 9 blokova (case57 i case118, sve rezolucije) nijedna od četiri grane kontrasta ne dostiže cilj u 3000
   proračuna (T = 1 svuda, d = 0). Ti blokovi ne nose informaciju; procena je u praksi zasnovana na case14.
 - Na case14 R = 17: podešena fiksna politika dostiže cilj u 85% pokretanja pod FR, podrazumevani GAdapt u 40%;
-  pod SP 57% naspram 42%. Fiksna politika je bolja pod obe tehnike, ali znatno više pod FR.
+  pod SP 57,5% naspram 42,5%. Fiksna politika je bolja pod obe tehnike, ali znatno više pod FR.
 - Bez bloka case14 R = 17 (opisna provera osetljivosti, nije deo protokola) procena je 0,012, interval
   [−0,005; 0,029].
 - Efekat je mali (≈ 2% budžeta), a donja granica intervala je blizu nule.
 
 Zaključak koji podaci podržavaju: na mreži gde su ciljevi dostižni (case14), podrazumevana samoadaptacija GAdapt-a
-pod pravilima izvodljivosti gubi od podešene fiksne politike više nego pod statičkom kaznom. Za veće mreže (case57,
-case118) pri budžetu od 3000 proračuna studija nema informaciju.
+pod pravilima izvodljivosti gubi od podešene fiksne politike više nego pod statičkom kaznom. U šest blokova
+(case57, case118) primarni FR–SP kontrast nema varijabilnost pri ovom budžetu; njihovi nulti doprinosi ostaju deo
+estimanda nad devet blokova. Zaključivanje je uslovno na zamrznute reference, kalibracione konstante (FX-M, FX-T) i
+scenarije.
+
+**Negativni jazovi (§6):** u 24 test-pokretanja najbolji izvodljiv gubitak bio je ispod L\*; najveće poboljšanje
+iznosilo je 0,3111 MW (2,894%). L\* je najbolje poznato, ne optimum.
 
 ## 5. Sekundarni ishodi (Holm preko 5)
-Nijedna sekundarna procena nije različita od nule (Holm preko pet; `ci` nekorigovani):
+Nijedan sekundarni kontrast nije statistički značajan posle Holm korekcije (preko pet; `ci` nekorigovani):
 
 | Kontrast | Procena | 95% interval | p | p_holm |
 |---|---|---|---|---|
@@ -75,21 +80,22 @@ Nijedna sekundarna procena nije različita od nule (Holm preko pet; `ci` nekorig
 | θ_a sa FX-M umesto FX-T | −0,0070 | [−0,025; 0,011] | 0,46 | 1,00 |
 | Kodiranje SP naspram SP-T | +0,0035 | [−0,010; 0,016] | 0,60 | 1,00 |
 
-Posebno: **H56b nije podržana** — zamena vrednosti u signalima zajedničkim FR skalarom pod statičkom kaznom ne
-menja vreme do cilja, a ni transformacija kazne koja čuva poredak (SP-T). Interakcija iz H56a zato nije
-objašnjena putem „vrednost troška u signalu“; verovatniji su put redosleda i sama politika mutacije. Obrasci po blokovima, rangovi na toplotnoj mapi, razdvajanje krivih i tragovi su
+Posebno: **H56b i kontrast SP–SP-T nisu statistički podržani.** Ovi rezultati ne dokazuju odsustvo efekta niti
+isključuju mehanizam preko vrednosti troška; relativna verovatnoća drugih mehanizama (redosled, sama politika
+mutacije) nije utvrđena. Obrasci po blokovima, rangovi na toplotnoj mapi, razdvajanje krivih i tragovi su
 OPISNI.
 
 ## 6. Opisno (H56c, per-arm, tragovi)
 - **H56c:** medijana d po bloku je 0 svuda osim case14 R = 17 (0,12); sa tri mreže i šest degenerisanih blokova
   nema osnove za tvrdnju o rezoluciji.
-- **ε-ograničenje (EC) je opisno najbrže** (slika `fig56_mean_T.png`): na case14 R = 17 / 33 srednje T 0,28 / 0,39
-  uz podrazumevani GAdapt, naspram 0,77 / 0,82 (FR) i 0,81 / 0,81 (SP); EC je jedina tehnika koja povremeno
-  dostiže cilj na case57 (T 0,95–0,99). Udeo dostizanja po grani (sve jedinice): EC 0,20–0,26, AP 0,17–0,24,
+- **ε-ograničenje (EC), opisno** (slika `fig56_mean_T.png`): na case14 R = 17 / 33 srednje T 0,28 / 0,39 uz
+  podrazumevani GAdapt, naspram 0,77 / 0,82 (FR) i 0,81 / 0,81 (SP); dostizanje EC/AD-N 37/40 i 36/40. Na case57
+  EC/AD-N dostiže cilj u 2/1/1 od 20 pokretanja (R = 9/17/33); uz EC, cilj na case57 povremeno dostižu i SP/FX-M pri
+  R = 9 (1/20) i SP-T/AD-N pri R = 17 (1/20). EC nije uniformno najbrži u svim blokovima (case14 R = 9: T ≈ 1). Udeo dostizanja po grani (sve jedinice): EC 0,20–0,26, AP 0,17–0,24,
   SP 0,11–0,15, FR sličan SP. **Ovo nije bila hipoteza I56** i ne sme se tumačiti konfirmatorno; to je kandidat za
   buduću preregistrovanu proveru (I58 je zamrznut sa FR pre ovih rezultata i ostaje takav).
-- Udeo pokretanja koja su ikad našla izvodljivo rešenje je ≈ 0,47–0,51 u svim granama: razlike su u dostizanju
-  cilja kvaliteta, ne u izvodljivosti.
+- Objedinjeni udeli nalaženja izvodljivog rešenja bili su 0,467–0,507 u svim granama; sličnost ovih udela ne
+  dokazuje ekvivalentnost.
 
 ## 7. Pretnje validnosti
 - Mreže vrednosti, opsezi šantova i scenariji su naše pretpostavke (merilo); termički pritisak slab (9900 MVA).
@@ -99,10 +105,11 @@ OPISNI.
 
 ## 8. Zaključak i posledice za GAdapt
 1. Prema preregistrovanom pravilu postoji interakcija tehnike za ograničenja i GAdapt-ove samoadaptacije, ali je
-   mala i u praksi zasnovana na jednoj mreži (case14); za case57 i case118 budžet od 3000 proračuna je premali da bi
-   studija išta rekla.
-2. Mehanizam nije „vrednost troška u signalu“ (H56b nulta, SP-T nulto).
-3. Praktično važniji je opisni glavni efekat tehnike: ε-ograničenje višestruko skraćuje vreme do cilja. Za
+   mala i u praksi zasnovana na jednoj mreži (case14); na case57 i case118 kontrast pri budžetu od 3000 proračuna
+   nema varijabilnost.
+2. Put „vrednost troška u signalu“ nije statistički podržan (H56b, SP-T), ali ni isključen.
+3. Praktično zanimljiv je opisni glavni efekat tehnike: na case14 R = 17/33 ε-ograničenje višestruko skraćuje vreme
+   do cilja. Za
    biblioteku: `constraint_handling="epsilon"` je već u patch-u v4; preporuka korisnicima čeka konfirmatornu
    proveru (predlog sledeće preregistracije).
 4. Za buduće studije: budžete birati tako da blokovi nisu degenerisani (pouka primenjena u I59 izboru (B, ε)).
