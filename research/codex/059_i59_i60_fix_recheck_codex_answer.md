@@ -1,0 +1,11 @@
+**Both Codex 054 findings are closed by `53ee1ab`. No remaining blocking issue found in the requested classes.** Reviewed both specified commits; no prohibited result files or logs were opened, and no files were changed.
+
+1. **I60 reference provenance is now bound.** [The guard](/Users/danijel/Desktop/gadapt/research/iteration60_epsilon.py:104) compares the reference manifest against a fresh build using **I58’s** provenance fields. I60 archives the reference-manifest hash and compares it before/after testing and during analysis. Synthetic changes to either its provenance or archived hash correctly produced STOP.
+
+2. **I59’s frozen choice is now enforced across all four artifacts.** [Analysis](/Users/danijel/Desktop/gadapt/research/iteration59_telecom.py:521) compares development, confirmation references, confirmation data and confirmation manifest, and verifies the manifest’s development hash. JSON normalization handles `(3000, 0.05)` versus `[3000, 0.05]`; serialization preserves the configured epsilon values. [Actual `stage_confirmation`](/Users/danijel/Desktop/gadapt/research/iteration59_telecom.py:470) writes both `chosen` and `development_sha256`, so neither is missing in normal execution. Choice mismatches correctly block H59.
+
+3. **I58 already checks both manifests.** [Its analysis gate](/Users/danijel/Desktop/gadapt/research/iteration58_validation.py:298) compares the reference **and** test manifests with the current build, verifies the test-consumed reference hash, and requires a passed independent check bound to both reference and test artifacts. No analogous missing-manifest guard remains.
+
+**No deterministic spurious STOP found in the stated fresh-process order with unchanged inputs/environment.** Stage labels are excluded from provenance comparisons; tuple/list settings normalize correctly; I60 accepts I58 check’s additional `bound.test` key. Repeated real `pip freeze` calls produced matching provenance across fresh processes.
+
+**Validation:** 17/17 specified tests passed. Additional synthetic fresh-process I58→I60 stages and I59 confirmation→check→analyse passed using real manifest builders and guards, with workers/solvers stubbed. Deliberate provenance and choice mismatches were rejected.
