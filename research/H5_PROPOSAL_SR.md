@@ -103,3 +103,14 @@ GAdapt-u, dijagnostički tragovi i preporuke za konfiguraciju.
 
 **Status:** USLOVNI GO ostaje; sledi nacrt protokola I56 i Codex recenzija pre zamrzavanja. R1 otvoren (navesti u
 protokolu kao poznat rizik; ako se pun tekst pojavi i pokaže istu ablaciju → STOP).
+
+## 11. R1 posle Codex 026 (2026-10-24): I DALJE NEPROVERENO
+Pun tekst Mallipeddi i sar. 2012 nije dostupan (KNU, DR-NTU, Semantic Scholar, CORE, BASE, ResearchGate). Iz
+izdavačevih odlomaka: DE, NP = 15 po metodi, CHT = SF / SP (samoadaptivna kazna) / EC / SR / ECHT, budžeti
+6000 / 12.000 / 30.000 za IEEE 30/57/118, celobrojni šantovi i diskretni otcepi (zaokruživanje). Da li variraju
+adaptaciju parametara ili rezoluciju — nepoznato. Dodatni srodni radovi (DOI provereni): Li i sar. 2020
+[10.1016/j.energy.2020.117314](https://doi.org/10.1016/j.energy.2020.117314) (EJADE-SP, adaptacija se ne izoluje);
+Yi i sar. 2023 [10.3390/math11051250](https://doi.org/10.3390/math11051250) (ε naspram SF, obe grane adaptivni
+DE); Abdullah i sar. 2026 [10.3389/fenrg.2026.1820144](https://doi.org/10.3389/fenrg.2026.1820144) (statička
+kazna / Deb / ε; „self-adaptive parameter control“ naveden kao BUDUĆI rad). Posledica: tvrdnju o novini formulisati
+uslovno („u radovima čiji smo tekst proverili“) i u izveštaju navesti R1 kao otvoren.
