@@ -171,6 +171,8 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   (`GADAPT_CONSTRAINT_API_DESIGN_SR.md`); kostur izveštaja I56; **I57 protokol ZAMRZNUT pre I56 test rezultata**
   (`0f0749e`, opisno: GAdapt naspram CMAwM / SciPy DE / nasumična), adapteri + testovi (`e50ccb4`); `i57_chain.sh`
   čeka „ALL DONE“ I56 lanca pa pokreće I57. Ugašen zaglavljen proces (smoke test, PID 21727).
+- **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
+  (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
   `ITERATION56_REPORT_SR.md`, Codex recenzija izveštaja; zatim I57 izveštaj; (2) API u biblioteci (opt-in) prema
   rezultatima; (3) samo ČITATI issue-e.
