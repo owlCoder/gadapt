@@ -15,9 +15,9 @@ ga = GA(cost_function=f_and_v,            # vraća (objective, violation), viola
 ```
 - `constraint_handling: Optional[str] = None` — `None` (podrazumevano, današnje ponašanje), `"penalty"`,
   `"adaptive_penalty"`, `"feasibility_rules"`, `"epsilon"`.
-- Parametri (samo kad je opcija uključena): `constraint_penalty_weight=1000.0`; adaptivna kazna
-  `constraint_penalty_increase=2.0`, `constraint_penalty_decrease=1.5`, `constraint_penalty_patience=3`;
-  ε: `epsilon_percentile=20`, `epsilon_control_fraction=0.5`, `epsilon_exponent=5` (Takahama i Sakai 2006).
+- Parametri: samo `constraint_penalty_weight=1000.0` (≤ 1e100). Konstante adaptivne kazne (×2, ÷1,5, 3 generacije,
+  opseg ×10⁶) i ε (20. percentil, polovina generacija, eksponent 5) su FIKSNE (iste kao I56; YAGNI) — odluka posle
+  Codex 029.
 - Funkcija troška sa uključenom opcijom vraća par; validacija u `GA.execute()` (probni pozivi, ako nisu isključeni)
   proverava oblik para.
 
