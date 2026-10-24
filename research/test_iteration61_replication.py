@@ -96,3 +96,38 @@ def test_arms_of_a_unit_share_the_initial_population(monkeypatch):
                for c, a in i61.ARMS]
     assert all(r["ok"] for r in records)
     i61.assert_paired(records)
+
+
+def test_bit_comparison_is_type_and_sign_aware():
+    assert i61.bits_equal({"a": [1.0, 2, "x"]}, {"a": [1.0, 2, "x"]})
+    assert not i61.bits_equal(0.0, -0.0) and not i61.bits_equal(1, 1.0) and not i61.bits_equal([1.0], [1.0, 2.0])
+    assert i61.bits_equal(float("inf"), float("inf"))
+
+
+def test_no_witness_is_required_when_nothing_feasible_was_found():
+    records = [dict(ok=True, task=dict(network="case30", j=2, reference=None), first_target=None, best_feasible=None)]
+    assert i61.witnesses("test", records, {"case30|2": None}) == []
+    records[0].update(best_feasible=5.0, best_feasible_x=[1.0])
+    assert [m["kind"] for _, m in i61.witnesses("test", records)] == ["best_feasible"]
+
+
+def test_analysis_rejects_references_other_than_the_consumed_ones(monkeypatch):
+    import pytest
+    store = {"test_ref.json": dict(references={"case30|2": 5.0})}
+    monkeypatch.setattr(i61, "load", lambda name: store[name])
+    monkeypatch.setattr(i61, "sha256", lambda file: "h")
+    good = dict(test_ref_sha256="h", references={"case30|2": 5.0},
+                records=[dict(task=dict(network="case30", j=2, reference=5.0))])
+    assert i61.require_consumed_references(good) == {"case30|2": 5.0}
+    for bad in (dict(good, test_ref_sha256="other"), dict(good, references={"case30|2": 4.0}),
+                dict(good, records=[dict(task=dict(network="case30", j=2, reference=4.0))])):
+        with pytest.raises(SystemExit):
+            i61.require_consumed_references(bad)
+
+
+def test_gate_is_create_once(monkeypatch, tmp_path):
+    import pytest
+    monkeypatch.setattr(i61, "OUT", str(tmp_path))
+    i61.save("roster.json", dict(dev=[], test=[], excluded=[]))
+    with pytest.raises(SystemExit, match="create-once"):
+        i61.stage_gate(1)

@@ -4,7 +4,8 @@ Frozen protocol: research/ITERATION61_PROTOCOL.md (frozen before any I58 test re
 Reuses the I56 instrument (CHT, CHTCostFinder, StudyFactory; constraint_handling=None) and the I58 BusORPD and
 independent checker; neither frozen module is modified. Stages, in order (each one a fresh process):
 
-  python research/iteration61_replication.py gate [workers]        (I56 instrument bit-identity on this library)
+  python research/iteration61_replication.py gate [workers]        (OPF roster + I56 instrument bit-identity; if the
+                                                                    current library fails, the same gate on 17e9ce7)
   python research/iteration61_replication.py dev_ref [workers]
   python research/iteration61_replication.py select_b [workers]
   python research/iteration61_replication.py fxt [workers]
@@ -17,26 +18,39 @@ independent checker; neither frozen module is modified. Stages, in order (each o
   python research/iteration61_replication.py analyse
 
 A stage that cannot continue under the protocol raises SystemExit("STOP: ...") and writes nothing further.
+The gate and the freeze are create-once: another attempt needs a new experiment directory (I61_OUT). If the gate selects
+the fallback library, every later stage must run with I61_LIBRARY set to it (the provenance check enforces this).
 """
 import hashlib
 import json
 import math
 import os
 import random
+import struct
+import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
-for p in (REPO, HERE):
+LIB = os.environ.get("I61_LIBRARY", REPO)  # root that contains the gadapt package used by every run
+FALLBACK_COMMIT = "17e9ce7"
+FALLBACK_LIB = os.path.join(REPO, ".i61_lib_" + FALLBACK_COMMIT)
+for p in (REPO, HERE):  # present in sys.path, so iteration56 does not put REPO in front of LIB
     if p not in sys.path:
-        sys.path.insert(0, p)
+        sys.path.append(p)
+if LIB in sys.path:
+    sys.path.remove(LIB)
+sys.path.insert(0, LIB)
 
 import numpy as np  # noqa: E402
 
+import gadapt  # noqa: E402
 import iteration56_cht_study as i56  # noqa: E402
 import iteration58_validation as i58  # noqa: E402
 
-OUT = os.path.join(HERE, "results", "iteration61")
+assert os.path.dirname(os.path.dirname(os.path.abspath(gadapt.__file__))) == os.path.abspath(LIB), gadapt.__file__
+
+OUT = os.environ.get("I61_OUT", os.path.join(HERE, "results", "iteration61"))
 NETWORKS = ("case30", "case39", "case24_ieee_rts")
 R = 17
 DEV_SCENARIOS = ((0.97, 6101), (1.03, 6102))  # j = 0, 1
@@ -92,15 +106,15 @@ CODE = ("iteration61_replication.py", "iteration56_cht_study.py", "iteration56_o
 
 def build_manifest(stage):
     import platform
-    import subprocess
     tree = {}
-    for root, _, files in os.walk(os.path.join(REPO, "gadapt")):
+    for root, _, files in os.walk(os.path.join(LIB, "gadapt")):
         for f in sorted(files):
             if f.endswith(".py"):
                 full = os.path.join(root, f)
-                tree[os.path.relpath(full, REPO)] = sha256(full)
+                tree[os.path.relpath(full, LIB)] = sha256(full)
     freeze = subprocess.run([sys.executable, "-m", "pip", "freeze"], capture_output=True, text=True).stdout.split()
     return dict(stage=stage, python=platform.python_version(), pip_freeze=freeze, gadapt_tree_sha256=tree,
+                library_root=os.path.relpath(LIB, REPO),
                 code_sha256={f: sha256(os.path.join(HERE, f)) for f in CODE},
                 settings=dict(networks=NETWORKS, R=R, dev=DEV_SCENARIOS, test=TEST_SCENARIOS, spread=i56.SPREAD,
                               ref_budget=REF_BUDGET, b_grid=B_GRID, n_grid=N_GRID, arms=ARMS, ref_chts=REF_CHTS,
@@ -108,23 +122,55 @@ def build_manifest(stage):
                               ga_resolved=i58.resolved_ga_settings()))
 
 
-PROVENANCE = ("python", "pip_freeze", "gadapt_tree_sha256", "code_sha256", "settings")
+PROVENANCE = ("python", "pip_freeze", "gadapt_tree_sha256", "library_root", "code_sha256", "settings")
+# artifacts each stage consumes (their producer manifests and hashes are checked before and after the stage)
+INPUTS = dict(dev_ref=(), select_b=("dev_ref",), fxt=("dev_ref", "select_b"),
+              stopcheck=("dev_ref", "select_b", "fxt"), rehearsal=("dev_ref", "select_b", "fxt", "stopcheck"),
+              power=("rehearsal",), test_ref=("dev_ref", "select_b", "fxt", "stopcheck", "rehearsal", "power"),
+              test=("test_ref",), check=("dev_ref", "stopcheck", "rehearsal", "test_ref", "test"),
+              analysis=("test_ref", "test", "check"))
 
 
 def same_provenance(a, b):
     return all(i58.normalised(a[f]) == i58.normalised(b[f]) for f in PROVENANCE)
 
 
+def artifact(stage):
+    return path(f"{stage}.json.gz")
+
+
 def require_provenance(stage):
-    """Every stage after the gate runs on exactly the gated build."""
+    """Every stage after the gate runs on exactly the gated build and consumes artifacts produced by that build."""
     gate = load("manifest_gate.json")
-    if not load("gate.json")["passed"]:
-        raise SystemExit("STOP: the instrument gate did not pass")
+    if not load("gate.json")["passed"] or gate["gate_sha256"] != sha256(artifact("gate")) \
+            or gate["roster_sha256"] != sha256(artifact("roster")):
+        raise SystemExit("STOP: the instrument gate did not pass or its record changed")
     current = build_manifest(stage)
     if not same_provenance(gate, current):
         raise SystemExit("STOP: code, library, environment or settings differ from the gated build")
-    save(f"manifest_{stage}.json", current)
+    inputs = {}
+    for producer in INPUTS[stage]:
+        if not same_provenance(load(f"manifest_{producer}.json"), current):
+            raise SystemExit(f"STOP: {producer} was produced by a different build")
+        inputs[producer] = sha256(artifact(producer))
+    if os.path.exists(path("manifest_frozen.json.gz")) and stage in ("test", "check", "analysis"):
+        frozen = load("manifest_frozen.json")
+        if not same_provenance(frozen, current):
+            raise SystemExit("STOP: the build differs from the frozen manifest")
+    current["inputs_sha256"] = inputs
+    if stage != "analysis":
+        save(f"manifest_{stage}.json", current)
     return current
+
+
+def finish(stage, before):
+    """After a (long) stage: the build and every consumed artifact are unchanged."""
+    after = build_manifest(stage + "-after")
+    if not same_provenance(before, after):
+        raise SystemExit(f"STOP: the build changed during {stage}")
+    for producer, h in before["inputs_sha256"].items():
+        if sha256(artifact(producer)) != h:
+            raise SystemExit(f"STOP: {producer} changed during {stage}")
 
 
 # ------------------------------------------------------------------ one run
@@ -220,23 +266,30 @@ def task(network, j, cht, arm, purpose, s, budget, reference=None, fixed=None, s
                 budget=budget, reference=reference, fixed=list(fixed) if fixed else None, stop=stop)
 
 
-def instances(kind):
-    """(network, j) with a successful OPF, determined before the stage's optimisation runs (§2)."""
+def preflight():
+    """§2: OPF eligibility of ALL 15 scenarios before development; both development scenarios and >= 1 test scenario
+    of every network are required. The roster is frozen (create-once, inside the gate) and reused by every stage."""
     from iteration56_orpd import ScenarioError
-    js = (0, 1) if kind == "dev" else (2, 3, 4)
-    valid, excluded = [], []
+    roster = dict(dev=[], test=[], excluded=[])
     for n in NETWORKS:
-        for j in js:
+        for j in range(5):
             try:
                 make_problem(n, j)
-                valid.append((n, j))
+                roster["dev" if j < 2 else "test"].append([n, j])
             except ScenarioError:
-                excluded.append([n, j])
-    if kind == "dev" and excluded:
-        raise SystemExit(f"STOP: development scenario OPF failed {excluded} (both are required, §2)")
-    if kind == "test" and {n for n, _ in valid} != set(NETWORKS):
-        raise SystemExit(f"STOP: a network has no test scenario with a successful OPF {excluded} (§2)")
-    return valid, excluded
+                roster["excluded"].append([n, j])
+    save("roster.json", roster)
+    if any(j < 2 for _, j in roster["excluded"]):
+        raise SystemExit(f"STOP: a development scenario OPF failed {roster['excluded']} (both are required, §2)")
+    if {n for n, _ in roster["test"]} != set(NETWORKS):
+        raise SystemExit(f"STOP: a network has no test scenario with a successful OPF {roster['excluded']} (§2)")
+    return roster
+
+
+def instances(kind):
+    """(network, j) from the frozen roster (§2)."""
+    roster = load("roster.json")
+    return [tuple(x) for x in roster[kind]], [x for x in roster["excluded"] if (x[1] < 2) == (kind == "dev")]
 
 
 def references(records):
@@ -256,17 +309,17 @@ def references(records):
     return {k: (v if math.isfinite(v) else None) for k, v in best.items()}
 
 
-def assert_paired(records, arms=ARMS):
-    """The arms of one unit start from the same generated initial population (§9)."""
-    units = {}
+def assert_paired(records):
+    """Every run with the same (network, scenario, seed) — arms, CHTs, FX-T configurations, stopped/full — starts from
+    the same generated initial population (§9)."""
+    groups = {}
     for r in records:
         if r.get("ok"):
             t = r["task"]
-            units.setdefault((t["network"], t["j"], t["s"]), {})[(t["cht"], t["arm"])] = r["generated"]
-    for key, u in units.items():
-        values = [u[a] for a in arms if a in u]
+            groups.setdefault((t["network"], t["j"], t["seed"]), []).append(r["generated"])
+    for key, values in groups.items():
         if any(v != values[0] or len(v) != i56.POPULATION_SIZE for v in values):
-            raise SystemExit(f"STOP: generated initial populations differ between arms for {key}")
+            raise SystemExit(f"STOP: generated initial populations differ within {key}")
 
 
 # ------------------------------------------------------------------ §3 gate
@@ -290,20 +343,29 @@ def gate_tasks():
     return archived
 
 
-def stage_gate(workers):
-    import subprocess
-    manifest = build_manifest("gate")
-    save("manifest_gate.json", manifest)
+def bits_equal(a, b):
+    """Type-aware recursive comparison; floats by their binary representation (§3: numerical bits)."""
+    if type(a) is not type(b):
+        return False
+    if isinstance(a, float):
+        return struct.pack("<d", a) == struct.pack("<d", b)
+    if isinstance(a, dict):
+        return a.keys() == b.keys() and all(bits_equal(a[k], b[k]) for k in a)
+    if isinstance(a, list):
+        return len(a) == len(b) and all(bits_equal(x, y) for x, y in zip(a, b))
+    return a == b
+
+
+def gate_run(label, workers):
+    """§3 on the library at LIB: 54 archived I56 runs (fresh processes), run_plain for SP/AD-N, I56 tests."""
     archived = gate_tasks()
     keys = sorted(archived)
-    tasks = [dict(archived[k]["task"]) for k in keys]
-    rerun = i56.run_pool(tasks, workers)
+    rerun = i56.run_pool([dict(archived[k]["task"]) for k in keys], workers)
     mismatches = []
     for k, new in zip(keys, rerun):
-        old = archived[k]
-        new = i58.normalised(new)
+        old, new = archived[k], i58.normalised(new)
         for f in GATE_FIELDS:
-            if (f in old or f in new) and old.get(f) != new.get(f):
+            if (f in old or f in new) and not bits_equal(old.get(f), new.get(f)):
                 mismatches.append(dict(task=list(map(str, k)), field=f))
     plain_tasks = [dict(archived[k]["task"]) for k in keys if k[2:] == ("SP", "AD-N")]
     plain = i56.run_pool(plain_tasks, workers, i56.run_plain)
@@ -311,23 +373,72 @@ def stage_gate(workers):
         k = (t["network"], t["resolution"], "SP", "AD-N")
         if p["sequence"] != archived[k]["sequence"] or p["calls"] != archived[k]["calls"]:
             mismatches.append(dict(task=list(map(str, k)), field="run_plain"))
-    tests = subprocess.run([sys.executable, "-m", "pytest", "-q", "-p", "no:cacheprovider",
-                            os.path.join(HERE, "test_iteration56_cht_study.py")], capture_output=True, text=True)
+    test_file = os.path.join(HERE, "test_iteration56_cht_study.py")
+    runner = ("import sys; sys.path[:0] = [%r, %r, %r]; import pytest; "
+              "sys.exit(pytest.main(['-q', '-p', 'no:cacheprovider', %r]))" % (LIB, REPO, HERE, test_file))
+    tests = subprocess.run([sys.executable, "-c", runner], capture_output=True, text=True,
+                           env=dict(os.environ, I61_LIBRARY=LIB))
     passed = not mismatches and tests.returncode == 0
-    save("gate.json", dict(passed=passed, runs=len(rerun), plain=len(plain), mismatches=mismatches,
-                           i56_tests=tests.stdout[-2000:], i56_tests_returncode=tests.returncode))
-    print(json.dumps(dict(passed=passed, runs=len(rerun), mismatches=len(mismatches)), indent=1))
-    if not passed:
-        raise SystemExit("STOP: the I56 instrument is not bit-identical on this library (§3)")
+    save(f"gate_{label}.json", dict(label=label, library_root=os.path.relpath(LIB, REPO), passed=passed,
+                                    runs=len(rerun), plain=len(plain), mismatches=mismatches,
+                                    archive_sha256=sha256(i56.path("test.json.gz")),
+                                    i56_tests_sha256=sha256(test_file), i56_tests=tests.stdout[-3000:],
+                                    i56_tests_returncode=tests.returncode))
+    print(json.dumps(dict(label=label, passed=passed, runs=len(rerun), mismatches=len(mismatches)), indent=1))
+    return passed
+
+
+def select_gate(label):
+    """Writes the selected gate record and the gate manifest (hash-bound to the record and the roster)."""
+    save("gate.json", dict(passed=True, selected=label, library_root=os.path.relpath(LIB, REPO),
+                           result_sha256=sha256(path(f"gate_{label}.json.gz"))))
+    save("manifest_gate.json", dict(build_manifest("gate"), gate_sha256=sha256(artifact("gate")),
+                                    roster_sha256=sha256(artifact("roster"))))
+
+
+def stage_gate(workers):
+    """Create-once. The current library first; if it is not bit-identical, the same gate on FALLBACK_COMMIT in a
+    separate tree (both outcomes kept). Later stages must use the selected library (provenance enforces it)."""
+    if any(os.path.exists(path(f)) for f in ("gate.json.gz", "gate_current.json.gz", "roster.json.gz")):
+        raise SystemExit("STOP: the gate already ran in this experiment directory (create-once; use a new I61_OUT)")
+    if os.path.abspath(LIB) != os.path.abspath(REPO):
+        raise SystemExit("STOP: start the gate with the repository library (the fallback is selected automatically)")
+    preflight()
+    if gate_run("current", workers):
+        select_gate("current")
+        return
+    if not os.path.isdir(FALLBACK_LIB):
+        os.makedirs(FALLBACK_LIB)
+        archive = subprocess.run(["git", "-C", REPO, "archive", FALLBACK_COMMIT, "gadapt"], capture_output=True,
+                                 check=True).stdout
+        subprocess.run(["tar", "-x", "-C", FALLBACK_LIB], input=archive, check=True)
+    fallback = subprocess.run([sys.executable, os.path.abspath(__file__), "gate_fallback", str(workers)],
+                              env=dict(os.environ, I61_LIBRARY=FALLBACK_LIB))
+    if fallback.returncode != 0 or not os.path.exists(path("gate.json.gz")):
+        raise SystemExit("STOP: the I56 instrument is bit-identical neither on the current library nor on "
+                         f"{FALLBACK_COMMIT} (§3)")
+    print(f"gate: FALLBACK selected — run every later stage with I61_LIBRARY={FALLBACK_LIB}")
+
+
+def stage_gate_fallback(workers):
+    if os.path.abspath(LIB) != os.path.abspath(FALLBACK_LIB) or os.path.exists(path("gate.json.gz")) \
+            or os.path.exists(path("gate_fallback.json.gz")):
+        raise SystemExit("STOP: the fallback gate runs only from stage gate, once")
+    if gate_run("fallback", workers):
+        select_gate("fallback")
+    else:
+        raise SystemExit(1)
 
 
 # ------------------------------------------------------------------ §4 development references, §5 budget
 
 def stage_dev_ref(workers):
-    require_provenance("dev_ref")
+    before = require_provenance("dev_ref")
     valid, _ = instances("dev")
     tasks = [task(n, j, c, "AD-N", "dev_ref", 1, REF_BUDGET) for n, j in valid for c in REF_CHTS]
     records = execute(tasks, workers)
+    assert_paired(records)
+    finish("dev_ref", before)
     save("dev_ref.json", dict(records=records, references=references(records)))
 
 
@@ -337,12 +448,14 @@ def t_of(record, budget):
 
 
 def stage_select_b(workers):
-    require_provenance("select_b")
+    before = require_provenance("select_b")
     refs = load("dev_ref.json")["references"]
     valid, _ = instances("dev")
     tasks = [task(n, j, c, "AD-N", "select_b", s, max(B_GRID), refs[f"{n}|{j}"])
              for n, j in valid for c in ("SP", "FR") for s in SELECT_SEEDS]
     records = execute(tasks, workers)
+    assert_paired(records)
+    finish("select_b", before)
     if not all(r["ok"] for r in records):
         raise SystemExit("STOP: a budget-selection run failed twice (the medians would be incomplete)")
     chosen, table = {}, {}
@@ -362,13 +475,15 @@ def stage_select_b(workers):
 # ------------------------------------------------------------------ §6 FX-T
 
 def stage_fxt(workers):
-    require_provenance("fxt")
+    before = require_provenance("fxt")
     refs = load("dev_ref.json")["references"]
     budgets = load("select_b.json")["chosen"]
     valid, _ = instances("dev")
     tasks = [task(n, j, c, "FX-T", "fxt", s, budgets[n], refs[f"{n}|{j}"], fixed=g)
              for n, j in valid for c in ("SP", "FR") for g in i56.FXT_GRID for s in FXT_SEEDS]
     records = execute(tasks, workers)
+    assert_paired(records)
+    finish("fxt", before)
     chosen = {}
     for c in ("SP", "FR"):
         groups = [[r["T"] for r in records if r["ok"] and r["task"]["cht"] == c and r["task"]["fixed"] == list(g)]
@@ -382,7 +497,7 @@ def stage_fxt(workers):
 # ------------------------------------------------------------------ §10 stop-at-target validation
 
 def stage_stopcheck(workers):
-    require_provenance("stopcheck")
+    before = require_provenance("stopcheck")
     refs = load("dev_ref.json")["references"]
     budgets = load("select_b.json")["chosen"]
     fxt = load("fxt.json")["chosen"]
@@ -391,6 +506,8 @@ def stage_stopcheck(workers):
     tasks = [task(n, j, c, a, "stopcheck", 1, budgets[n], refs[f"{n}|{j}"], fixed=fxt[c] if a == "FX-T" else None,
                   stop=stop) for n, j, c, a in pairs for stop in (False, True)]
     records = execute(tasks, workers)
+    assert_paired(records)
+    finish("stopcheck", before)
     mismatches, attained = [], 0
     for k in range(len(pairs)):
         full, stopped = records[2 * k], records[2 * k + 1]
@@ -435,7 +552,7 @@ def d_of(u):
 
 
 def stage_rehearsal(workers):
-    require_provenance("rehearsal")
+    before = require_provenance("rehearsal")
     refs = load("dev_ref.json")["references"]
     budgets = load("select_b.json")["chosen"]
     fxt = load("fxt.json")["chosen"]
@@ -445,8 +562,9 @@ def stage_rehearsal(workers):
                   stop=stop) for n, j in valid for s in REHEARSAL_SEEDS for c, a in ARMS]
     records = execute(tasks, workers)
     assert_paired(records)
+    finish("rehearsal", before)
     units = units_of(records)
-    pools, criteria = {}, {}
+    pools, pool_attained, criteria = {}, {}, {}
     for n in NETWORKS:
         mine = {k: u for k, u in units.items() if k[0] == n}
         complete = [u for u in mine.values() if set(u) == set(ARMS) and all(r["ok"] for r in u.values())]
@@ -460,8 +578,10 @@ def stage_rehearsal(workers):
         criteria[n] = dict(complete=len(complete), medians=medians, attained=attained,
                            variance=float(np.var(d)) if d else None, passed=bool(ok))
         pools[n] = d
+        pool_attained[n] = {f"{c}|{a}": [u[(c, a)]["first_target"] is not None for u in complete] for c, a in ARMS}
     passed = all(c["passed"] for c in criteria.values())
-    save("rehearsal.json", dict(passed=passed, criteria=criteria, pools=pools, stop=stop, records=records))
+    save("rehearsal.json", dict(passed=passed, criteria=criteria, pools=pools, pool_attained=pool_attained, stop=stop,
+                                records=records))
     if not passed:
         raise SystemExit(f"STOP: rehearsal criteria not met {criteria} (§7)")
 
@@ -535,6 +655,11 @@ def stage_power():
     cells, excluded = instances("test")
     out = dict(cells=cells, excluded=excluded)
     alt, null = tilt(pools, TARGET_THETA), tilt(pools, 0.0)
+    for t in (alt, null):  # §7 diagnostics: weighted branch-attainment rates
+        if t is not None:
+            t["weighted_attainment"] = {n: {arm: float(np.dot(w, flags)) for arm, flags in
+                                            rehearsal["pool_attained"][n].items()}
+                                        for n, w in zip(NETWORKS, t["weights"])}
     out["alternative"], out["null"] = alt, null
     for name, t in (("alternative", alt), ("null", null)):
         if t is None or t["error"] > 1e-8 or min(t["ess"]) < 10:
@@ -576,6 +701,8 @@ def frozen_choices():
 
 def stage_test_ref(workers):
     current = require_provenance("test_ref")
+    if os.path.exists(path("manifest_frozen.json.gz")) or os.path.exists(artifact("test_ref")):
+        raise SystemExit("STOP: the choices are already frozen (create-once; another freeze needs a new I61_OUT)")
     choices = frozen_choices()
     save("manifest_frozen.json", dict(current, choices=choices,
                                       hashes={f: sha256(path(f + ".gz")) for f in
@@ -584,6 +711,8 @@ def stage_test_ref(workers):
     valid, excluded = instances("test")
     tasks = [task(n, j, c, "AD-N", "test_ref", s, REF_BUDGET) for n, j in valid for c in REF_CHTS for s in (1, 2)]
     records = execute(tasks, workers)
+    assert_paired(records)
+    finish("test_ref", current)
     save("test_ref.json", dict(excluded=excluded, records=records, references=references(records)))
 
 
@@ -610,6 +739,7 @@ def stage_test(workers):
     assert len({t["seed"] for t in tasks}) == len(tasks) // len(ARMS)
     records = execute(tasks, workers)
     assert_paired(records)
+    finish("test", current)
     save("test.json", dict(excluded=excluded, choices=choices, references=refs,
                            test_ref_sha256=sha256(path("test_ref.json.gz")), manifest=current, records=records))
 
@@ -641,46 +771,71 @@ def independent_check(item):
         i58.SCENARIOS, i58._independent_case = original_scenarios, original_case
 
 
-def stage_check(workers):
-    from multiprocessing import Pool
-    data = load("test.json")
-    refs_data = load("test_ref.json")
-    items, meta = [], []
-    for key, value in refs_data["references"].items():  # the witness of every L*
-        if value is None:
-            continue
-        n, j = key.split("|")
-        r = next(r for r in refs_data["records"] if r.get("ok") and r["task"]["network"] == n
-                 and r["task"]["j"] == int(j) and r["best_feasible"] == value)
-        items.append((n, int(j), r["best_feasible_x"]))
-        meta.append(dict(kind="reference", key=key, value=value))
+def require_consumed_references(data):
+    """The references the test consumed are the current reference artifact, and every task carries them (§4, §10)."""
+    refs = load("test_ref.json")["references"]
+    if data["test_ref_sha256"] != sha256(artifact("test_ref")) or data["references"] != refs:
+        raise SystemExit("STOP: the test consumed other references than the current test_ref artifact")
     for r in data["records"]:
+        t = r["task"]
+        if t["reference"] != refs[f"{t['network']}|{t['j']}"]:
+            raise SystemExit(f"STOP: a test task carries a different reference {t}")
+    return refs
+
+
+def witnesses(source, records, references=None):
+    """Every required witness (§10): the solution of each L*, each first target and each reported best feasible."""
+    items = []
+    if references is not None:
+        for key, value in sorted(references.items()):
+            if value is None:
+                continue
+            n, j = key.split("|")
+            r = next(r for r in records if r.get("ok") and r["task"]["network"] == n and r["task"]["j"] == int(j)
+                     and r["best_feasible"] == value)
+            items.append(((n, int(j), r["best_feasible_x"]), dict(source=source, kind="reference", key=key, value=value)))
+    for r in records:
         if not r.get("ok"):
             continue
         t = r["task"]
         if r["first_target"] is not None:
-            items.append((t["network"], t["j"], r["first_target_x"]))
-            meta.append(dict(kind="first_target", task=t, reference=t["reference"]))
+            items.append(((t["network"], t["j"], r["first_target_x"]),
+                          dict(source=source, kind="first_target", task=t, reference=t["reference"])))
         if r["best_feasible"] is not None:
-            items.append((t["network"], t["j"], r["best_feasible_x"]))
-            meta.append(dict(kind="best_feasible", task=t, value=r["best_feasible"]))
+            items.append(((t["network"], t["j"], r["best_feasible_x"]),
+                          dict(source=source, kind="best_feasible", task=t, value=r["best_feasible"])))
+    return items
+
+
+def stage_check(workers):
+    from multiprocessing import Pool
+    before = require_provenance("check")
+    data = load("test.json")
+    require_consumed_references(data)
+    dev, test_ref = load("dev_ref.json"), load("test_ref.json")
+    items = (witnesses("dev_ref", dev["records"], dev["references"])
+             + witnesses("stopcheck", load("stopcheck.json")["records"])
+             + witnesses("rehearsal", load("rehearsal.json")["records"])
+             + witnesses("test_ref", test_ref["records"], test_ref["references"])
+             + witnesses("test", data["records"]))
     with Pool(workers) as pool:
-        checks = pool.map(independent_check, items, chunksize=64)
+        checks = pool.map(independent_check, [x for x, _ in items], chunksize=64)
     failures = {}
-    rows = []
-    for m, c in zip(meta, checks):
+    for (_, m), c in zip(items, checks):
         ok = bool(c.get("valid") and c.get("converged") and c.get("feasible"))
         if ok and m["kind"] in ("reference", "best_feasible"):
             ok = abs(c["losses"] - m["value"]) <= 1e-6 * max(1.0, m["value"])
         if ok and m["kind"] == "first_target" and m["reference"] is not None:
             ok = c["losses"] <= m["reference"] * 1.01 + 0.01
-        rows.append(dict(meta=m, ok=ok))
         if not ok:
-            failures[m["kind"]] = failures.get(m["kind"], 0) + 1
-    save("check.json", dict(rows=len(rows), failures=failures,
-                            bound=dict(test=sha256(path("test.json.gz")), test_ref=sha256(path("test_ref.json.gz")))))
-    print("checked", len(rows), "failures", failures)
-    if failures or not rows:
+            label = f"{m['source']}|{m['kind']}"
+            failures[label] = failures.get(label, 0) + 1
+    finish("check", before)
+    # an empty expected witness set is legitimate (feasibility targets never attained): rows may be 0
+    save("check.json", dict(expected=len(items), rows=len(checks), failures=failures,
+                            bound={k: sha256(artifact(k)) for k in INPUTS["check"]}))
+    print("checked", len(checks), "of", len(items), "failures", failures)
+    if failures or len(checks) != len(items):
         raise SystemExit(1)
 
 
@@ -706,24 +861,34 @@ def labels(b):
 
 
 def analyse():
+    require_provenance("analysis")
     data = load("test.json")
     check = load("check.json")
-    if check["failures"] or not check["rows"] or check["bound"] != dict(
-            test=sha256(path("test.json.gz")), test_ref=sha256(path("test_ref.json.gz"))):
+    if check["failures"] or check["rows"] != check["expected"] or check["bound"] != {
+            k: sha256(artifact(k)) for k in INPUTS["check"]}:
         raise SystemExit("STOP: independent check missing, failed or not bound to these artifacts")
     if not same_provenance(data["manifest"], build_manifest("analysis")):
         raise SystemExit("STOP: provenance differs from the test manifest")
-    units = units_of(data["records"])
-    planned = sorted(units)
+    require_consumed_references(data)
+    frozen = require_frozen()
+    roster, _ = instances("test")
+    planned = [(n, j, s) for n, j in roster for s in range(1, frozen["choices"]["n"] + 1)]  # §10: roster x n
+    units = {k: {} for k in planned}
+    for r in data["records"]:
+        t = r["task"]
+        units.setdefault((t["network"], t["j"], t["s"]), {})[(t["cht"], t["arm"])] = r
     complete = {k: u for k, u in units.items() if set(u) == set(ARMS) and all(r["ok"] for r in u.values())}
     excluded = sorted(set(planned) - set(complete))
     cells = {}
     for (n, j, s), u in complete.items():
         cells.setdefault((n, n, j), []).append(u)
-    expected = {(n, n, j) for n, j, s in planned}
+    expected = {(n, n, j) for n, j in roster}
     empty = sorted(expected - set(cells))
-    per_cell = {f"{n}|{j}": dict(planned=sum(1 for k in planned if k[:2] == (n, j)),
-                                 excluded=sum(1 for k in excluded if k[:2] == (n, j))) for (n, _, j) in expected}
+    per_cell = {}
+    for n, j in roster:
+        p = sum(1 for k in planned if k[:2] == (n, j))
+        e = sum(1 for k in excluded if k[:2] == (n, j))
+        per_cell[f"{n}|{j}"] = dict(planned=p, excluded=e, rate=e / p)
     primary = None
     if not empty:
         primary = bootstrap(cells, d_of)
@@ -732,7 +897,8 @@ def analyse():
     if excluded:
         failed = dict(T=1.0, ok=False)
         restored = {}
-        for (n, j, s), u in units.items():
+        for (n, j, s) in planned:
+            u = units[(n, j, s)]
             restored.setdefault((n, n, j), []).append({a: (u[a] if a in u and u[a]["ok"] else failed) for a in ARMS})
         sensitivity = bootstrap(restored, d_of)
         sensitivity.update(labels(sensitivity))
@@ -744,17 +910,17 @@ def analyse():
                                                    attained=float(np.mean([r["first_target"] is not None for r in rs])),
                                                    feasible=float(np.mean([r["best_feasible"] is not None for r in rs])))
         descriptive[f"{n}|{j}|d"] = dict(mean=float(np.mean([d_of(u) for u in us])), n=len(us))
-    out = dict(planned_units=len(planned), complete_units=len(complete), excluded_units=[list(map(str, k)) for k in excluded],
-               exclusion_rate=len(excluded) / len(planned) if planned else None,
+    out = dict(planned_units=len(planned), complete_units=len(complete),
+               excluded_units=[list(map(str, k)) for k in excluded], exclusion_rate=len(excluded) / len(planned),
                exclusion_flag=len(excluded) > 0.05 * len(planned), per_cell=per_cell,
                empty_cells=[[n, j] for n, _, j in empty], excluded_instances=data["excluded"], choices=data["choices"],
-               H61=primary, sensitivity=sensitivity, descriptive=descriptive)
+               H61=primary, sensitivity=sensitivity, sensitivity_descriptive_only=True, descriptive=descriptive)
     save("analysis.json", out)
     print(json.dumps(dict(H61=primary, complete=len(complete), excluded=len(excluded), empty=out["empty_cells"]),
                      indent=1))
 
 
-STAGES = dict(gate=stage_gate, dev_ref=stage_dev_ref, select_b=stage_select_b, fxt=stage_fxt, stopcheck=stage_stopcheck,
+STAGES = dict(gate=stage_gate, gate_fallback=stage_gate_fallback, dev_ref=stage_dev_ref, select_b=stage_select_b, fxt=stage_fxt, stopcheck=stage_stopcheck,
               rehearsal=stage_rehearsal, test_ref=stage_test_ref, test=stage_test, check=stage_check)
 
 if __name__ == "__main__":
