@@ -14,7 +14,15 @@
 Da li efekat samoadaptivne politike mutacije GAdapt-a na vreme do izvodljivog cilja zavisi od tehnike za
 rukovanje ograničenjima (CHT), i menja li se efekat pod statičkom kaznom kad signali adaptacije koji čitaju
 vrednost troška dobiju zajednički skalar? Uska novina (H5 §10): ablacija cele adaptivne politike sa istim
-operatorima × CHT × rezolucija diskretnih kontrola. Rizik R1 (Mallipeddi 2012): i dalje neproveren (Codex 026).
+operatorima × CHT × rezolucija diskretnih kontrola. Rizik R1 (Mallipeddi i sar. 2012,
+[10.1016/j.swevo.2012.03.001](https://doi.org/10.1016/j.swevo.2012.03.001); Codex 026, 053, 056): taj rad već
+poredi SF/SP/EC/SR i njihov ansambl u DE na diskretnom ORPD-u (IEEE 30/57/118), pa **glavni efekat CHT na
+diskretnom ORPD-u nije nov**; u dostupnim delovima nema grane bez adaptacije ni variranja rezolucije.
+Formulacija: I56 doprinosi kontrolisanom faktorskom studijom ablacije cele GAdapt-ove samoadaptivne politike
+mutacije naspram podešene fiksne politike sa istim operatorima, ukrštene sa CHT-om i rezolucijom diskretnih
+kontrola na ORPD-u, sa ishodom ograničenog broja AC proračuna do izvodljivog cilja; poređenja CHT-a na
+diskretnom ORPD-u već postoje, dok prioritet ove tačne kombinacije nije utvrđen i rizik R1 ostaje delimično
+otvoren.
 
 **Srodni radovi (Codex 032, H5 §12):** Interakcija rukovanja ograničenjima i adaptacije parametara već je teorijski i
 empirijski proučavana u evolutivnim strategijama, naročito za CSA i popravku neizvodljivih rešenja (Arnold 2013;
@@ -101,7 +109,9 @@ OPISNI.
 - Mreže vrednosti, opsezi šantova i scenariji su naše pretpostavke (merilo); termički pritisak slab (9900 MVA).
 - Referenca L* je najbolje poznata, ne optimum; ciljevi zavise od nje.
 - Tri mreže: nema tvrdnje o „veličini mreže“.
-- R1: pun tekst Mallipeddi i sar. 2012 nije dostupan; novina formulisana uslovno.
+- R1: pun tekst Mallipeddi i sar. 2012 nije dostupan (pročitani sažetak i odlomci §2–§5, Codex 056); glavni
+  efekat CHT na diskretnom ORPD-u je prior art; interakcija sa adaptacijom i rezolucija nisu nađene, ali ni
+  isključene.
 
 ## 8. Zaključak i posledice za GAdapt
 1. Prema preregistrovanom pravilu postoji interakcija tehnike za ograničenja i GAdapt-ove samoadaptacije, ali je
