@@ -16,3 +16,10 @@ pre sistematske provere prior art-a; većina verovatno pada na gate-u.
 
 **Moj izbor pre poređenja:** K1 (najveća praktična vrednost za infrastrukturu i jasna matematička tvrdnja), zatim K6
 (najverovatnija formalna novina, ali rizična). Ostali verovatno padaju.
+
+## Ishod gate-a (posle čitanja Codex 016)
+- **K1: NO-GO kao originalna metoda** (Codex 017, 2–5%): Rosete-Suárez, Ochoa, Sebag 1999 (rani prekid evaluacije uz
+  granicu i redosled iz prethodne generacije; DOI nije proveren), Bongard i Hornby 2010
+  ([10.1145/1830483.1830504](https://doi.org/10.1145/1830483.1830504)), Knuth i Moore 1975 (alfa-beta). Korisno:
+  GAdapt odseca na elitni skup pre statistike (`ElitismCostFinder`), pa je tačna lenja evaluacija max-po-scenarijima
+  moguća kao **opt-in ubrzanje bez promene putanje** (praktično, ne za tezu).
