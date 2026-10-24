@@ -358,7 +358,27 @@ def sha(path):
         return hashlib.sha256(f.read()).hexdigest()
 
 
-def manifest(stage, extra=None):
+PROVENANCE = ("python", "scipy", "numpy", "highs", "library_tree", "files", "data", "settings")
+
+
+def same_provenance(a, b):
+    norm = lambda v: json.loads(json.dumps(v, sort_keys=True, default=str))  # noqa: E731
+    return all(norm(a[f]) == norm(b[f]) for f in PROVENANCE)
+
+
+def resolved_ga_settings():
+    from gadapt.ga import GA
+    ga = GA(cost_function=lambda v: 0.0, probe_cost_function=False, exit_check="generations",
+            number_of_generations=10 ** 9, timeout=10 ** 6)
+    names = ("population_size", "keep_elitism_percentage", "parent_selection", "crossover", "population_mutation",
+             "candidate_solution_mutation", "decision_variable_mutation", "percentage_of_mutation_candidate_solutions",
+             "percentage_of_mutation_decision_variables", "crossover_probability", "immigration_number",
+             "normal_distribution_mutation_max_std_dev", "normal_distribution_mutation_min_std_dev",
+             "cost_diversity_metric", "columnar_diversity_metric", "ensure_unique_individuals")
+    return {n: getattr(ga, n, None) for n in names}
+
+
+def manifest(stage, extra=None, save_it=True):
     """Frozen execution archive: code/protocol/clarification hashes, the imported library tree, settings, versions."""
     import platform
     import sys as _sys
@@ -381,9 +401,10 @@ def manifest(stage, extra=None):
                                      timeout=10 ** 6, immigration_number=0, g0="f + 1000 V; post-budget 1e300",
                                      g1="feasibility_rules; post-budget (0, 1e150)", grid="ga.add(0, 16, 1) per edge"),
                              seeds="59000000 + 100000 p + 1000 i + s", bootstrap=dict(reps=20000, seed=59),
-                             tolerances=dict(residual=RESIDUAL_TOL, zero_v=ZERO_V)))
+                             tolerances=dict(residual=RESIDUAL_TOL, zero_v=ZERO_V), ga_resolved=resolved_ga_settings()))
     out.update(extra or {})
-    save(f"manifest_{stage}.json", out)
+    if save_it:
+        save(f"manifest_{stage}.json", out)
     return out
 
 
@@ -439,6 +460,8 @@ def stage_confirmation(workers):
     if dev["decision"] != "GO":
         raise SystemExit(f"development decision: {dev['decision']}")
     budget, eps = dev["chosen"]
+    if not same_provenance(load("manifest_development.json"), manifest("check", save_it=False)):
+        raise SystemExit("STOP: code, library, environment, data or settings differ from the development manifest")
     manifest("confirmation", dict(development_sha256=sha(os.path.join(OUT, "development.json.gz")), chosen=[budget, eps]))
     refs = checked_references(CONFIRMATION)
     trivial = trivial_targets(refs, CONFIRMATION, eps)
@@ -485,8 +508,10 @@ def analyse():
         cells.setdefault(n, []).append(T(u["G1"]) - T(u["G0"]))
     result = None
     dev = load("development.json")
-    eligible = (certified and inventory_ok and not persistent and checks_ok and dev["decision"] == "GO"
-                and set(cells) == set(CONFIRMATION))
+    development_certified = all(dev["references"][n].get("usable") for n in DEVELOPMENT)
+    provenance_ok = same_provenance(load("manifest_confirmation.json"), manifest("analysis", save_it=False))
+    eligible = (certified and development_certified and provenance_ok and inventory_ok and not persistent
+                and checks_ok and dev["decision"] == "GO" and set(cells) == set(CONFIRMATION))
     if eligible:
         rng = np.random.RandomState(59)
         values = {n: np.array(v) for n, v in cells.items()}
@@ -495,7 +520,8 @@ def analyse():
         estimate = float(np.mean([v.mean() for v in values.values()]))
         lo, hi = np.percentile(draws, [2.5, 97.5])
         result = dict(estimate=estimate, ci=[float(lo), float(hi)], supported=bool(hi < 0))
-    out = dict(chosen=[budget, eps], certified=certified, inventory_ok=inventory_ok, checks_ok=checks_ok,
+    out = dict(chosen=[budget, eps], certified=certified, development_certified=development_certified,
+               provenance_ok=provenance_ok, inventory_ok=inventory_ok, checks_ok=checks_ok,
                development_decision=dev["decision"], development_trivial=dev.get("trivial"),
                trivial=data["trivial"], persistent_failures=persistent,
                H59=result, per_network={n: dict(mean_d=float(np.mean(v)), n=len(v)) for n, v in cells.items()})
@@ -601,7 +627,8 @@ def stage_check():
                     c = independent_check(n, r.get("best_x")) if r.get("best_x") is not None else dict(valid=False)
                     add(r["task"], "best", c.get("valid") and c.get("routable") and abs(c["cost"] - r["best_C"]) < 1e-6, c)
                 c = independent_check(n, r["returned"]) if r.get("returned") is not None else dict(valid=False)
-                add(r["task"], "returned", r.get("returned") is not None and c.get("valid"), c)
+                add(r["task"], "returned", r.get("returned") is not None and c.get("valid")
+                    and c.get("shortage") is not None, c)  # the checker's LP must have succeeded
     bound = dict(development=sha(os.path.join(OUT, "development.json.gz")),
                  confirmation=sha(os.path.join(OUT, "confirmation.json.gz")),
                  confirmation_refs=sha(os.path.join(OUT, "confirmation_refs.json.gz")))

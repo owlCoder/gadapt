@@ -185,6 +185,24 @@ def assert_paired_initial(records):
             raise SystemExit(f"STOP: G0/G1 initial populations differ for {key}")
 
 
+def resolved_ga_settings():
+    """The GA's actual resolved settings for the I58 configuration (defaults included), JSON-normalised."""
+    from gadapt.ga import GA
+    ga = GA(cost_function=lambda v: 0.0, probe_cost_function=False, exit_check="generations",
+            number_of_generations=10 ** 9, timeout=10 ** 6)
+    names = ("population_size", "keep_elitism_percentage", "exit_check", "parent_selection", "crossover",
+             "population_mutation", "candidate_solution_mutation", "decision_variable_mutation",
+             "percentage_of_mutation_candidate_solutions", "percentage_of_mutation_decision_variables",
+             "crossover_probability", "immigration_number", "normal_distribution_mutation_max_std_dev",
+             "normal_distribution_mutation_min_std_dev", "cost_diversity_metric", "columnar_diversity_metric",
+             "ensure_unique_individuals", "strict_mutation_decision_variable_limit")
+    return {n: getattr(ga, n, None) for n in names}
+
+
+def normalised(value):
+    return json.loads(json.dumps(value, sort_keys=True, default=str))
+
+
 def build_manifest(stage):
     import platform
     import subprocess
@@ -209,7 +227,7 @@ def build_manifest(stage):
                               scenarios=SCENARIOS, budgets=[PRIMARY_BUDGET, TEST_BUDGET, REF_BUDGET], tol=i56.TOL,
                               v_fail=i56.V_FAIL, external="I57 frozen settings (CMAwM, SciPy DE best1bin, Random)",
                               seeds="10^7 p + 10^5 i + 10^3 R + 100 j + s; test p=6 s=1..15; refs p=7 s=1,2",
-                              bootstrap=dict(reps=20000, seed=58)))
+                              bootstrap=dict(reps=20000, seed=58), ga_resolved=resolved_ga_settings()))
 
 
 def pool_run(tasks, workers):
@@ -226,12 +244,23 @@ def pool_run(tasks, workers):
     return records
 
 
+PROVENANCE = ("gadapt_tree_sha256", "patch_sha256", "code_sha256", "pip_freeze", "python", "settings")
+
+
+def same_provenance(a, b):
+    return all(normalised(a[f]) == normalised(b[f]) for f in PROVENANCE)
+
+
 def stage_refs(workers):
-    i56.save("i58_refs_manifest.json", build_manifest("refs"))
+    pre = build_manifest("refs")
+    i56.save("i58_refs_manifest.json", pre)
     valid, excluded = instances()
     tasks = [dict(network=n, j=j, method=m, seed=seed_of(7, n, j, s), budget=REF_BUDGET, reference=None)
              for n, j in valid for m in METHODS for s in (1, 2)]
-    i56.save("i58_refs.json", dict(excluded=excluded, records=pool_run(tasks, workers)))
+    records = pool_run(tasks, workers)
+    if not same_provenance(pre, build_manifest("refs-after")):
+        raise SystemExit("STOP: provenance changed during the reference runs")
+    i56.save("i58_refs.json", dict(excluded=excluded, records=records))
 
 
 def references():
@@ -247,8 +276,8 @@ def stage_test(workers):
     refs = references()
     pre = dict(build_manifest("test"), refs_sha256=i57.sha256(i56.path("i58_refs.json.gz")), references=refs)
     refs_build = i56.load("i58_refs_manifest.json")
-    for field in ("gadapt_tree_sha256", "patch_sha256", "code_sha256", "pip_freeze", "python", "settings"):
-        if refs_build[field] != pre[field]:
+    for field in PROVENANCE:
+        if normalised(refs_build[field]) != normalised(pre[field]):
             raise SystemExit(f"STOP: references and test differ in {field}")
     i56.save("i58_manifest.json", pre)
     valid, excluded = instances()
@@ -257,10 +286,8 @@ def stage_test(workers):
     records = pool_run(tasks, workers)
     if i57.sha256(i56.path("i58_refs.json.gz")) != pre["refs_sha256"]:
         raise SystemExit("STOP: references changed during the test")
-    post = build_manifest("test-after")
-    for field in ("gadapt_tree_sha256", "patch_sha256", "code_sha256", "pip_freeze", "python"):
-        if post[field] != pre[field]:
-            raise SystemExit(f"STOP: {field} changed during the test")
+    if not same_provenance(pre, build_manifest("test-after")):
+        raise SystemExit("STOP: provenance changed during the test")
     i56.save("i58_test.json", dict(excluded=excluded, references=refs, records=records))
 
 
@@ -270,6 +297,8 @@ def analyse():
     if check["failures"] or not check["checks"] or check["bound"] != dict(
             refs=i57.sha256(i56.path("i58_refs.json.gz")), test=i57.sha256(i56.path("i58_test.json.gz"))):
         raise SystemExit("STOP: independent check missing, failed, or not bound to these artifacts")
+    if not same_provenance(i56.load("i58_manifest.json"), build_manifest("analysis")):
+        raise SystemExit("STOP: code, library, environment or settings differ from the test manifest")
     units = {}
     for r in data["records"]:
         t = r["task"]

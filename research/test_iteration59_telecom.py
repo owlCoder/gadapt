@@ -127,15 +127,17 @@ def test_analysis_requires_the_exact_inventory_and_passed_checks():
                     hits={"0.05": 100 if arm == "G1" else 2000})
     full = [record(n, s, a) for n in t.CONFIRMATION for s in range(1, 16) for a in ("G0", "G1")]
     refs = {n: dict(certified=True, C=1.0) for n in t.CONFIRMATION}
-    store = {"development.json": dict(decision="GO", trivial={})}
+    store = {"development.json": dict(decision="GO", trivial={},
+                                      references={n: dict(usable=True) for n in t.DEVELOPMENT}),
+             "manifest_confirmation.json": t.manifest("analysis", save_it=False)}
     saved = {}
     original_load, original_save = t.load, t.save
     try:
         t.save = lambda name, d: saved.update({name: d})
         bound = dict(development="d", confirmation="c", confirmation_refs="r")
         original_sha = t.sha
-        t.sha = lambda path: {"development.json.gz": "d", "confirmation.json.gz": "c",
-                              "confirmation_refs.json.gz": "r"}[os.path.basename(path)]
+        fake = {"development.json.gz": "d", "confirmation.json.gz": "c", "confirmation_refs.json.gz": "r"}
+        t.sha = lambda path: fake.get(os.path.basename(path)) or original_sha(path)
         renamed = [dict(r, task=dict(r["task"], arm="G2" if r["task"]["arm"] == "G1" else r["task"]["arm"])) for r in full]
         for records, checks, rows, expect in ((full, 0, [1], True), (full[:-2], 0, [1], False), (full, 1, [1], False),
                                               (full, 0, [], False), (renamed, 0, [1], False)):
