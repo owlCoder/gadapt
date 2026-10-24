@@ -69,3 +69,37 @@ paralelno nekoliko sati). Bez CI-a.
 ## 9. GO / NO-GO
 **USLOVNI GO** za pripremu protokola I56 (Codex recenzija pre zamrzavanja). **STOP** ako R1 pokaže da je
 interakcija već izmerena.
+
+## 10. Revizija posle Codex 020 (2026-10-24) — zamenjuje §3, §5, §6 gde se razlikuju
+**Nov prior art (proveren):** Premkumar i sar. 2023, IET GTD,
+[10.1049/gtd2.12738](https://doi.org/10.1049/gtd2.12738): SHADE-SFS, SHADE-SAP, DE-SFS, DE-SAP + ansambl na
+IEEE30/118 sa diskretnim otcepima/šantovima. Ukršta adaptivne i konvencionalne familije sa CHT, ali je konfundovano
+(§4: F, CR = 0,5 za sve) → nije čista ablacija adaptacije sa istim operatorima. Biswas 2018 (pun tekst): F, CR
+fiksni; diskretni šantovi 0,2 MVAr i otcepi 0,02 p.u. kao dodatni slučaj, bez promene rezolucije. Mallipeddi 2012:
+diskretni otcepi/šantovi potvrđeni; da li varira adaptaciju — NEPROVERENO (pun tekst nedostupan) → rizik R1 ostaje.
+
+**Uža tvrdnja o novini:** kada povratna sprega koju stvara rukovanje ograničenjima pomaže, a kada šteti
+samoadaptaciji vođenoj raznovrsnošću? Uzročna ablacija sa ISTIM operatorima (adaptacija uključena/isključena),
+ukrštena sa CHT-om i rezolucijom diskretnih kontrola, sa ablacijom zajedničkog signala (odvaja efekat CHT-a od
+naše skalarizacije), ponovljena preko radnih scenarija. Praktično: validiran opt-in interfejs za ograničenja u
+GAdapt-u, dijagnostički tragovi i preporuke za konfiguraciju.
+
+**Izmene dizajna:**
+- Instance = radni scenariji (npr. skaliranje opterećenja) po mreži; razvojne instance odvojene od test instanci.
+- Fiksna grana: (a) konstante procenjene samo na razvojnim instancama (opis); (b) fiksna konfiguracija podešena
+  na razvojnim instancama uz deklarisan budžet podešavanja. Jedan vektor parametara po CHT-u.
+- Signal adaptacije: pozitivne „zasluge“ m po CHT-u (Codex 020 §2): kazna m = 1 + u(P); pravila izvodljivosti
+  m = 1 + u(f) ako izvodljivo, inače 2 + V/(1+V); ε isto sa V ≤ ε(t); stohastičko rangiranje m = 1 + P(R bolji od x)
+  prema zamrznutoj referentnoj raspodeli. u, a, s i normalizacija V određeni samo na razvojnim instancama.
+  Rang u tekućoj populaciji se NE koristi. Plus ablacija zajedničkog signala.
+- Uređaji (pypower 5.1.19): otcepi 3/0/17/9, šantovi Bs 1/2/3/14, Vg 5/6/7/54 (case14/30/57/118). To su radni
+  podaci, ne specifikacije opreme → mreže vrednosti su naše pretpostavke, objaviti. Ugnježdene mreže 9/17/33 na
+  0,9–1,1 → koraci 0,025/0,0125/0,00625. Termičke granice 9900 MVA u 14/57/118 → slab termički pritisak (navesti).
+- Snaga: 15 uparenih semena otkriva samo ~0,78 SD; ~34 za 0,5 SD → simulirati snagu za cenzurisan ishod pre
+  zamrzavanja. Četiri mreže ne identifikuju opšti „efekat veličine mreže“ (tvrdnju suziti).
+- Referenca: nezavisno dobijena izvodljiva najbolje poznata rešenja po instanci i mreži vrednosti (ne iz
+  evaluacionih pokretanja), donja granica gde postoji (kontinualna relaksacija); tolerancija apsolutna + relativna.
+- PES 2014 test bed: šifrovan MATLAB → samo kao eventualna spoljna validacija, ne glavni deo.
+
+**Status:** USLOVNI GO ostaje; sledi nacrt protokola I56 i Codex recenzija pre zamrzavanja. R1 otvoren (navesti u
+protokolu kao poznat rizik; ako se pun tekst pojavi i pokaže istu ablaciju → STOP).
