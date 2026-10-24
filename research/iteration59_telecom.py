@@ -8,12 +8,17 @@ import json
 import math
 import os
 import random
+import sys
 import warnings
 from collections import deque
 
-import numpy as np
-from scipy import sparse
-from scipy.optimize import Bounds, LinearConstraint, linprog, milp
+_REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _REPO not in sys.path:  # the library is the repository's gadapt/ (not installed); as in iteration56/58
+    sys.path.insert(0, _REPO)
+
+import numpy as np  # noqa: E402
+from scipy import sparse  # noqa: E402
+from scipy.optimize import Bounds, LinearConstraint, linprog, milp  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "data", "topohub_v1.5.1_sndlib")
@@ -166,8 +171,8 @@ class Instance:
         if not self.witness_ok(y, u, x):
             raise RuntimeError("LP witness residual above tolerance")
         V = float(res.fun)
-        if V <= ZERO_V and self.meets_full_demands(y, x):
-            V = 0.0
+        if V <= ZERO_V:  # zero only with a verified full-demand routing; otherwise infeasible (Codex 069)
+            V = 0.0 if self.meets_full_demands(y, x) else max(V, ZERO_V)
         return dict(f=float(self.cost @ x) / self.c_sp, V=V, C=float(self.cost @ x))
 
     def milp_reference(self, time_limit=3600.0):
@@ -241,7 +246,10 @@ class Evaluator:
 
     def _call(self, values):
         self.calls += 1
-        x = np.rint(np.asarray(values, float))
+        raw = np.asarray(values, float)
+        if not np.all(np.isfinite(raw)) or np.any(np.abs(raw - np.rint(raw)) > 1e-9):  # P4: no silent rounding
+            raise ValueError("evaluator input must be a finite integer vector (P4)")
+        x = np.rint(raw)
         out = self.instance.evaluate(x)
         if len(self.initial) < POPULATION_SIZE:
             self.initial.append(x.tolist())
