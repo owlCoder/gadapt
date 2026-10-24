@@ -12,5 +12,9 @@ Protokol: `ITERATION56_PROTOCOL.md` (zamrznut `3f09eb9`). Kod: `iteration56_cht_
 - P4: pokretanje je „ok“ ako potroši budžet, GAdapt vrati success i omotač nema izuzetaka; inače jedno ponovno
   pokretanje u novom procesu (oba pokušaja se čuvaju); reference i kalibracija koriste samo „ok“ pokretanja.
 
+- P5: `dev_ref` je izvršen pre ispravke Codex 025 (brojanje izuzetaka u celom omotaču). Validnost: log
+  izvršavanja je prazan (GAdapt svaki progutan izuzetak cost funkcije ispisuje sa traceback-om), 72/72 ok, 0
+  grešaka, 0 ponavljanja → nijedan izuzetak nije progutan; rezultati važe. Format rezultata: `.json.gz`.
+
 ## Odstupanja
 (nema do sada)
