@@ -57,6 +57,27 @@ def test_ap_counters_reset():
     assert abs(cht.lam - 2000.0 / 1.5) < 1e-9
 
 
+def test_same_initial_population_all_test_arms():
+    tasks = [task(c, a) for c, a in st.TEST_ARMS]
+    records = st.run_pool(tasks, 8)
+    assert all(r["ok"] for r in records)
+    assert all(len(r["initial"]) == st.POPULATION_SIZE and r["initial"] == records[0]["initial"] for r in records)
+
+
+def test_instrument_counts_crossover_repairs():
+    r = st.run_pool([task("SP", "AD-N", instrument=True)], 1)[0]
+    inst = r["instrument"]
+    assert inst["crossover_repairs"] == len(inst["crossover_repair_variables"])
+    assert len(inst["v_fractions"]) > 0 and len(inst["sigmas"]) > 0
+
+
+def test_execution_error_is_structured():
+    bad = task("SP", "AD-N")
+    bad["network"] = "case_does_not_exist"
+    r = st.run(bad)
+    assert r["ok"] is False and "error" in r
+
+
 def test_runs_against_protocol():
     tasks = [task("SP", "AD-N"), task("SP", "AD-N", instrument=True), task("AP", "AD-N"), task("EC", "AD-N"),
              task("FR", "FX-T"), task("EC", "AD-C")]
@@ -64,7 +85,7 @@ def test_runs_against_protocol():
     plain = st.run_pool([dict(BASE)], 1, st.run_plain)[0]
     sp, sp_instrumented, ap, ec, fx, adc = records
     for r in records:
-        assert r["calls"] == 600 and r["complete"] and r["success"]
+        assert r["calls"] == 600 and r["complete"] and r["success"] and r["ok"]
         assert all(g["consistent"] for g in r["trace"])  # re-scalarization before truncation
     assert sp["sequence"] == plain["sequence"]  # AD-N/SP bit-identical to plain GAdapt on the same scalar
     assert sp_instrumented["sequence"] == sp["sequence"]  # logging does not change behaviour

@@ -70,6 +70,7 @@ EPS_PERCENTILE = 20
 EPS_TC, EPS_CP = 0.5, 5
 CHTS = ("SP", "AP", "FR", "EC", "SPT")
 PURPOSE = dict(test=1, dev=2, test_ref=3, dev_ref=4)
+POPULATION_SIZE = 32  # GAdapt default
 
 
 def seed_of(purpose, network, resolution, scenario_index, s):
@@ -114,7 +115,8 @@ class Evaluator(Shared):
         self.failures = 0
         self.min_violation = math.inf
         self.sequence = hashlib.sha256()
-        self.initial = []  # the first 64 evaluated genotypes (initial-population check)
+        self.initial = []  # genotypes of the initial population (first population_size evaluations)
+        self.errors = 0
 
     @property
     def done(self):
@@ -125,7 +127,11 @@ class Evaluator(Shared):
         if self.done:
             return 0.0  # post-budget: not recorded, not cached
         self.calls += 1
-        info = self.problem.evaluate(np.asarray(values, float))
+        try:
+            info = self.problem.evaluate(np.asarray(values, float))
+        except Exception:
+            self.errors += 1  # GAdapt catches cost-function exceptions; the run is then an execution failure
+            raise
         if not info["converged"]:
             raw = Raw(2.0 * self.f_ref, V_FAIL, True)
             self.failures += 1
@@ -134,7 +140,7 @@ class Evaluator(Shared):
             assert info["losses"] > 0
             raw = Raw(float(info["losses"]), v, False)
         self.cache[key] = raw
-        if len(self.initial) < 64:
+        if len(self.initial) < POPULATION_SIZE:
             self.initial.append(key)
         self.sequence.update(np.asarray(values, float).tobytes() + np.array([raw.f, raw.V], float).tobytes())
         self.min_violation = min(self.min_violation, raw.V)
@@ -324,8 +330,11 @@ class Instrument:
     """Logging-only wrappers; behaviour (and the RNG stream) is unchanged (tested)."""
 
     def __init__(self):
+        # v_fractions: nominal population mutation only (first decision-selector call per individual);
+        # sigmas: ALL Gaussian mutations, including repairs (protocol §5: "po svim Gausovim mutacijama")
         self.population_events, self.v_fractions, self.sigmas = [], [], []
-        self.repair_mutations = 0
+        self.repair_mutations = 0  # uniqueness retries inside population mutation
+        self.crossover_repairs, self.crossover_repair_variables = 0, []
 
     def install(self, selector, d):
         instrument = self
@@ -360,6 +369,19 @@ class Instrument:
                 instrument.v_fractions.append(len(c.mutated_variables_id_list) / d)
 
         decision_selector.mutate = decision_mutate
+
+    def install_repair(self, crossover):
+        """Duplicate repair in crossover uses its own selector; counted separately from nominal mutations."""
+        instrument = self
+        mutator = crossover._mutator
+        original = mutator.mutate
+
+        def repair(c, n):
+            original(c, n)
+            instrument.crossover_repairs += 1
+            instrument.crossover_repair_variables.append(len(c.mutated_variables_id_list))
+
+        mutator.mutate = repair
 
     def sigma_hook(self):
         instrument = self
@@ -398,6 +420,12 @@ class StudyFactory(Shared, GAFactory):
             return updater
         return super().get_candidate_solution_updater()
 
+    def _get_crossover(self):
+        crossover = super()._get_crossover()
+        if self.instrument is not None:
+            self.instrument.install_repair(crossover)
+        return crossover
+
     def _get_candidate_solution_mutation_selector(self):
         if self.arm in ("FX-M", "FX-T"):
             a, b, sigma = self.fixed
@@ -424,6 +452,16 @@ def make_target(reference):
 
 
 def run(task):
+    """Structured wrapper: an exception becomes an execution-failure record (retried once by execute())."""
+    import traceback
+    try:
+        return _run(task)
+    except Exception:
+        return dict(task={k: v for k, v in task.items() if k != "instrument"}, ok=False, complete=False,
+                    error=traceback.format_exc()[-2000:], T=None)
+
+
+def _run(task):
     """task: dict(network, resolution, scenario=(load_factor, scenario_seed), cht, arm, seed, budget,
     reference, fixed, instrument). Returns the outcome record (§3, §6)."""
     network, resolution = task["network"], task["resolution"]
@@ -445,8 +483,10 @@ def run(task):
         ga.add(float(lo), float(hi), float(step))
     result = ga.execute()
     first = evaluator.first_target
+    complete = evaluator.calls >= task["budget"]
     record = dict(task={k: v for k, v in task.items() if k != "instrument"}, calls=evaluator.calls,
-                  complete=evaluator.calls >= task["budget"], success=bool(result.success),
+                  complete=complete, success=bool(result.success), errors=evaluator.errors,
+                  ok=complete and bool(result.success) and evaluator.errors == 0,
                   messages=[str(m) for m in result.messages][:3],
                   T=(first / task["budget"]) if first is not None else 1.0,
                   first_target=first, first_feasible=evaluator.first_feasible,
@@ -457,7 +497,9 @@ def run(task):
     if instrument is not None:
         record["instrument"] = dict(population_events=instrument.population_events,
                                     v_fractions=instrument.v_fractions, sigmas=instrument.sigmas,
-                                    repair_mutations=instrument.repair_mutations)
+                                    repair_mutations=instrument.repair_mutations,
+                                    crossover_repairs=instrument.crossover_repairs,
+                                    crossover_repair_variables=instrument.crossover_repair_variables)
     if task["arm"] in ("FX-M", "FX-T"):
         record["fx"] = dict(population_events=factory.fx_log, sigmas=len(factory.sigma_log), v=factory.v_log)
     return record
@@ -531,6 +573,8 @@ def references(name):
     best = {}
     for r in load(name)["records"]:
         t = r["task"]
+        if not r["ok"]:
+            continue  # execution failures never supply calibration data (reported in the JSON)
         key = f"{t['network']}|{t['resolution']}|{t['scenario_index']}"
         value = r["best_feasible"] if r["best_feasible"] is not None else math.inf
         best[key] = min(best.get(key, math.inf), value)
@@ -548,9 +592,10 @@ def execute(tasks, workers):
     """Runs tasks; an early-terminated run is rerun once in a fresh process (§3)."""
     records = run_pool(tasks, workers)
     for i, r in enumerate(records):
-        if not r["complete"]:
+        if not r["ok"]:
             again = run_pool([tasks[i]], 1)[0]
             again["rerun"] = True
+            again["first_attempt"] = {k: v for k, v in r.items() if k not in ("trace", "instrument")}
             records[i] = again
     return records
 
@@ -572,7 +617,7 @@ def stage_dev_fxm(workers):
     for c in GADAPT_CHTS:
         a_runs, b_runs, s_runs = [], [], []
         for r in records:
-            if r["task"]["cht"] != c:
+            if r["task"]["cht"] != c or not r["ok"]:
                 continue
             inst = r["instrument"]
             fractions = [e["k"] / e["pool"] for e in inst["population_events"] if e["pool"] > 0]
@@ -580,8 +625,6 @@ def stage_dev_fxm(workers):
             b_runs.append(float(np.median(inst["v_fractions"])) if inst["v_fractions"] else 0.0)
             s_runs.append(float(np.median(inst["sigmas"])) if inst["sigmas"] else 0.0)
         vectors[c] = [float(np.median(a_runs)), float(np.median(b_runs)), float(np.median(s_runs))]
-    for r in records:
-        r.pop("instrument", None)  # large; the summary vectors are what the protocol uses
     save("dev_fxm.json", dict(vectors=vectors, records=records))
 
 
@@ -593,7 +636,8 @@ def stage_dev_fxt(workers):
     records = execute(tasks, workers)
     chosen = {}
     for c in GADAPT_CHTS:
-        means = [float(np.mean([r["T"] for r in records if r["task"]["cht"] == c and r["task"]["fixed"] == list(g)]))
+        means = [float(np.mean([r["T"] for r in records
+                                if r["ok"] and r["task"]["cht"] == c and r["task"]["fixed"] == list(g)]))
                  for g in FXT_GRID]
         chosen[c] = list(FXT_GRID[int(np.argmin(means))])  # argmin: ties -> lower grid index
     for r in records:
@@ -655,7 +699,8 @@ def stage_rehearsal(workers):
     table = unit_contrasts(records)
     by_block = {}
     for (n, R, j, seed), u in table.items():
-        by_block.setdefault((n, R), []).append(d_a(u))
+        if len(u) == 4 and all(r["ok"] for r in u.values()):
+            by_block.setdefault((n, R), []).append(d_a(u))
     # power simulation (§7): bounded, per block shifted so that the clipped mean is 0.05
     rng = np.random.RandomState(56023)
     test_valid, _ = instances("test")
@@ -675,7 +720,7 @@ def stage_rehearsal(workers):
     hits = 0
     for _ in range(500):
         cells = {k: [{"d": x} for x in rng.choice(shifted[k[:2]], 10)] for k in cell_keys}
-        result = bootstrap(cells, lambda u: u["d"], reps=20000, seed=int(rng.randint(1 << 30)))
+        result = bootstrap(cells, lambda u: u["d"], reps=20000, seed=56)  # the final analysis, unchanged
         hits += result["ci"][0] > 0 or result["ci"][1] < 0
     power = hits / 500
     for r in records:
@@ -722,7 +767,7 @@ def analyse():
     data = load("test.json")
     table = unit_contrasts(data["records"])
     arms = set(TEST_ARMS)
-    complete = {k: u for k, u in table.items() if set(u) == arms and all(r["complete"] for r in u.values())}
+    complete = {k: u for k, u in table.items() if set(u) == arms and all(r["ok"] for r in u.values())}
     excluded_units = sorted(set(table) - set(complete))
     cells = {}
     for (n, R, j, seed), u in complete.items():
@@ -737,12 +782,14 @@ def analyse():
         H56a_FXM=lambda u: d_a(u, fx="FX-M"),
         encoding_SP_SPT=lambda u: u[("SP", "AD-N")]["T"] - u[("SPT", "AD-N")]["T"],
     )
-    results = {name: bootstrap(cells, f) for name, f in contrasts.items()} if not empty else {}
-    if results:
-        secondary = {k: results[k]["p"] for k in contrasts if k != "H56a"}
-        for k, v in holm(secondary).items():
-            results[k]["p_holm"] = v
-        results["H56a"]["supported"] = results["H56a"]["ci"][0] > 0 or results["H56a"]["ci"][1] < 0
+    def infer(cell_map):
+        out = {name: bootstrap(cell_map, f) for name, f in contrasts.items()}
+        for k, v in holm({k: out[k]["p"] for k in contrasts if k != "H56a"}).items():
+            out[k]["p_holm"] = v
+        out["H56a"]["supported"] = out["H56a"]["ci"][0] > 0 or out["H56a"]["ci"][1] < 0
+        return out
+
+    results = infer(cells) if not empty else {}
     descriptive = {}
     for (n, R, j), units in cells.items():
         descriptive.setdefault(f"{n}|{R}", []).extend(d_a(u) for u in units)
@@ -752,11 +799,21 @@ def analyse():
         per_arm[f"{c}|{a}"] = dict(mean_T=float(np.mean([r["T"] for r in rs])),
                                    feasible=float(np.mean([r["best_feasible"] is not None for r in rs])),
                                    attained=float(np.mean([r["first_target"] is not None for r in rs])))
-    out = dict(units=len(table), complete_units=len(complete), excluded_units=[list(map(str, k)) for k in excluded_units],
+    sensitivity_needed = bool(empty) or len(excluded_units) > 0.05 * len(table)
+    sensitivity = None
+    if sensitivity_needed:
+        # §3: restore excluded units, keep completed outcomes, T = 1 only for failed (or missing) runs
+        failed = dict(T=1.0, ok=False)
+        restored = {}
+        for (n, R, j, seed), u in table.items():
+            full = {arm: (u[arm] if arm in u and u[arm]["ok"] else failed) for arm in arms}
+            restored.setdefault((n, R, j), []).append(full)
+        sensitivity = infer(restored)
+    out = dict(units=len(table), complete_units=len(complete), sensitivity=sensitivity, excluded_units=[list(map(str, k)) for k in excluded_units],
                empty_cells=[list(map(str, k)) for k in empty], excluded_instances=data["excluded"],
                no_reference=[k for k, v in data["references"].items() if v is None], results=results,
                median_d_by_block={k: float(np.median(v)) for k, v in descriptive.items()}, per_arm=per_arm,
-               primary_available=not empty, sensitivity_needed=bool(empty) or len(excluded_units) > 0.05 * len(table))
+               primary_available=not empty, sensitivity_needed=sensitivity_needed)
     save("analysis.json", out)
     print(json.dumps({k: out[k] for k in ("units", "complete_units", "primary_available", "results")}, indent=1))
 
