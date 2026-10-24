@@ -1,6 +1,6 @@
 # ITERATION56: tehnike za ograničenja × samoadaptacija GAdapt-a na diskretnom ORPD-u (IZVEŠTAJ)
 
-**Status: KOSTUR — napisan pre rezultata** (2026-10-24, dok lanac faza radi). Test zaključivanje i sažeci:
+**Status: IZVEŠTAJ** (2026-10-24; kostur napisan pre rezultata, brojevi upisani posle analize). Test zaključivanje i sažeci:
 `analysis.json.gz`; pokretanja, ponavljanja i tragovi: `test.json.gz`; kalibracija i snaga: razvojni izlazi i
 `rehearsal.json.gz`. Tumačenje prati unapred zadata pravila protokola.
 
@@ -27,7 +27,10 @@ diskretnom ORPD-u; prioritet te tačne kombinacije nije dokazan.
 ## 2. Instance i izvršavanje
 - case14 / case57 / case118 (9 / 27 / 77 kontrola), R ∈ {9, 17, 33}; test scenariji 0,90 / 1,00 / 1,10 / 1,15.
 - Izuzeto po §2: case57 (1,10) i (1,15) — OPF ne uspeva.
-- [upisati: broj jedinica, ok pokretanja, ponavljanja, izuzete jedinice, ćelije bez reference]
+- Izvršeno jednom: test reference 240/240 ok; test 4800/4800 ok (300 jedinica × 16 grana), 0 ponavljanja, 0
+  grešaka omotača; nijedna jedinica izuzeta, nijedna prazna ćelija → primarno zaključivanje dostupno, analiza
+  osetljivosti nije bila potrebna.
+- Bez izvodljive reference (cilj = samo izvodljivost, §6): case14 R = 9 (scenariji 4, 5) i case118 R = 9 (3, 5).
 
 ## 3. Kalibracija (razvojni scenariji)
 - Razvojne reference: 72/72 ok. Bez izvodljivog i pri 30.000 poziva: case14 R=9 i case118 R=9 (oba scenarija).
@@ -44,18 +47,49 @@ diskretnom ORPD-u; prioritet te tačne kombinacije nije dokazan.
   snagu testa i ne utvrđuje snagu ako ti blokovi ostanu degenerisani. Izvršavanje se ne menja (pravilo je zamrznuto).
 
 ## 4. Primarni ishod (H56a)
-[`results.H56a.{estimate, ci, p, supported}`; samo ako je `primary_available`, inače `empty_cells` i `sensitivity`.
-Formulacija „interakcija nije otkrivena pri ovoj snazi“ samo ako interval obuhvata 0 I |θ_a| < 0,02 (§7).]
+**H56a je podržana prema unapred zadatom pravilu:** θ_a = +0,0205, 95% interval [0,0020; 0,0396], p = 0,03.
+Pozitivan znak znači da je razlika „podrazumevana adaptacija − podešena fiksna politika“ u vremenu do cilja
+VEĆA (lošija za adaptaciju) pod pravilima izvodljivosti nego pod statičkom kaznom.
+
+**Tumačenje mora biti usko** (opisno, van protokola; slika `results/iteration56/fig56_interaction.png`):
+- U 6 od 9 blokova (case57 i case118, sve rezolucije) nijedna od četiri grane kontrasta ne dostiže cilj u 3000
+  proračuna (T = 1 svuda, d = 0). Ti blokovi ne nose informaciju; procena je u praksi zasnovana na case14.
+- Na case14 R = 17: podešena fiksna politika dostiže cilj u 85% pokretanja pod FR, podrazumevani GAdapt u 40%;
+  pod SP 57% naspram 42%. Fiksna politika je bolja pod obe tehnike, ali znatno više pod FR.
+- Bez bloka case14 R = 17 (opisna provera osetljivosti, nije deo protokola) procena je 0,012, interval
+  [−0,005; 0,029].
+- Efekat je mali (≈ 2% budžeta), a donja granica intervala je blizu nule.
+
+Zaključak koji podaci podržavaju: na mreži gde su ciljevi dostižni (case14), podrazumevana samoadaptacija GAdapt-a
+pod pravilima izvodljivosti gubi od podešene fiksne politike više nego pod statičkom kaznom. Za veće mreže (case57,
+case118) pri budžetu od 3000 proračuna studija nema informaciju.
 
 ## 5. Sekundarni ishodi (Holm preko 5)
-[H56b signal pod SP; AP-protiv-SP; EC-protiv-SP; θ_a sa FX-M; kodiranje SP/SP-T — odluke po `p_holm` preko svih
-pet; `ci` su nekorigovani.] Obrasci po blokovima, rangovi na toplotnoj mapi, razdvajanje krivih i tragovi su
+Nijedna sekundarna procena nije različita od nule (Holm preko pet; `ci` nekorigovani):
+
+| Kontrast | Procena | 95% interval | p | p_holm |
+|---|---|---|---|---|
+| H56b: signal pod SP (AD-N − AD-C) | +0,0015 | [−0,013; 0,016] | 0,85 | 1,00 |
+| AP naspram SP (interakcija) | +0,0093 | [−0,013; 0,031] | 0,40 | 1,00 |
+| EC naspram SP (interakcija) | +0,0030 | [−0,019; 0,025] | 0,79 | 1,00 |
+| θ_a sa FX-M umesto FX-T | −0,0070 | [−0,025; 0,011] | 0,46 | 1,00 |
+| Kodiranje SP naspram SP-T | +0,0035 | [−0,010; 0,016] | 0,60 | 1,00 |
+
+Posebno: **H56b nije podržana** — zamena vrednosti u signalima zajedničkim FR skalarom pod statičkom kaznom ne
+menja vreme do cilja, a ni transformacija kazne koja čuva poredak (SP-T). Interakcija iz H56a zato nije
+objašnjena putem „vrednost troška u signalu“; verovatniji su put redosleda i sama politika mutacije. Obrasci po blokovima, rangovi na toplotnoj mapi, razdvajanje krivih i tragovi su
 OPISNI.
 
 ## 6. Opisno (H56c, per-arm, tragovi)
-[medijana d po bloku naspram R (`median_d_by_block`); izvodljivost („ikad nađeno izvodljivo“) i dostizanje po
-grani (`per_arm`, potpune jedinice); tragovi min/max CHT skalara i udela izvodljivih preživelih (test zapisi nemaju
-D_t/D_0, koeficijente mutacije, razlike troškova roditelja ni istoriju σ).]
+- **H56c:** medijana d po bloku je 0 svuda osim case14 R = 17 (0,12); sa tri mreže i šest degenerisanih blokova
+  nema osnove za tvrdnju o rezoluciji.
+- **ε-ograničenje (EC) je opisno najbrže** (slika `fig56_mean_T.png`): na case14 R = 17 / 33 srednje T 0,28 / 0,39
+  uz podrazumevani GAdapt, naspram 0,77 / 0,82 (FR) i 0,81 / 0,81 (SP); EC je jedina tehnika koja povremeno
+  dostiže cilj na case57 (T 0,95–0,99). Udeo dostizanja po grani (sve jedinice): EC 0,20–0,26, AP 0,17–0,24,
+  SP 0,11–0,15, FR sličan SP. **Ovo nije bila hipoteza I56** i ne sme se tumačiti konfirmatorno; to je kandidat za
+  buduću preregistrovanu proveru (I58 je zamrznut sa FR pre ovih rezultata i ostaje takav).
+- Udeo pokretanja koja su ikad našla izvodljivo rešenje je ≈ 0,47–0,51 u svim granama: razlike su u dostizanju
+  cilja kvaliteta, ne u izvodljivosti.
 
 ## 7. Pretnje validnosti
 - Mreže vrednosti, opsezi šantova i scenariji su naše pretpostavke (merilo); termički pritisak slab (9900 MVA).
@@ -64,4 +98,11 @@ D_t/D_0, koeficijente mutacije, razlike troškova roditelja ni istoriju σ).]
 - R1: pun tekst Mallipeddi i sar. 2012 nije dostupan; novina formulisana uslovno.
 
 ## 8. Zaključak i posledice za GAdapt
-[šta ide u opt-in API (`GADAPT_CONSTRAINT_API_DESIGN_SR.md`), šta ne]
+1. Prema preregistrovanom pravilu postoji interakcija tehnike za ograničenja i GAdapt-ove samoadaptacije, ali je
+   mala i u praksi zasnovana na jednoj mreži (case14); za case57 i case118 budžet od 3000 proračuna je premali da bi
+   studija išta rekla.
+2. Mehanizam nije „vrednost troška u signalu“ (H56b nulta, SP-T nulto).
+3. Praktično važniji je opisni glavni efekat tehnike: ε-ograničenje višestruko skraćuje vreme do cilja. Za
+   biblioteku: `constraint_handling="epsilon"` je već u patch-u v4; preporuka korisnicima čeka konfirmatornu
+   proveru (predlog sledeće preregistracije).
+4. Za buduće studije: budžete birati tako da blokovi nisu degenerisani (pouka primenjena u I59 izboru (B, ε)).
