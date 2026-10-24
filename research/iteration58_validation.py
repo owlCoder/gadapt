@@ -40,43 +40,53 @@ def seed_of(p, network, j, s):
     return 10 ** 7 * p + 10 ** 5 * NETWORKS.index(network) + 10 ** 3 * RESOLUTION + 100 * j + s
 
 
-class BusORPD(ORPD):
-    """I56 instrument with ONE voltage set-point per generator bus, applied to every generator on that bus."""
+class BusORPD:
+    """The unchanged I56 instrument (delegate) with ONE voltage set-point per generator bus, applied to every
+    generator on that bus (composition; the frozen iteration56_orpd.py is not touched)."""
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, network, resolution, load_factor, spread, scenario_seed):
         from pypower.idx_gen import GEN_BUS
-        gen = self.base["gen"]
+        self.delegate = ORPD(network, resolution, load_factor, spread, scenario_seed)
+        d = self.delegate
+        self.resolution, self.opf_losses, self.base = d.resolution, d.opf_losses, d.base
+        self.gen_rows, self.tap_rows, self.shunt_rows = d.gen_rows, d.tap_rows, d.shunt_rows
         buses = []
-        for g in self.gen_rows:
-            b = int(gen[g, GEN_BUS])
+        for g in d.gen_rows:
+            b = int(d.base["gen"][g, GEN_BUS])
             if b not in buses:
                 buses.append(b)
-        self.bus_groups = [[g for g in self.gen_rows if int(gen[g, GEN_BUS]) == b] for b in buses]
-        first = [self.gen_rows.index(group[0]) for group in self.bus_groups]
-        n_g = len(self.gen_rows)
-        keep = first + list(range(n_g, self.d))
-        self.lo, self.hi = self.lo[keep], self.hi[keep]
+        self.bus_groups = [[g for g in d.gen_rows if int(d.base["gen"][g, GEN_BUS]) == b] for b in buses]
+        self.first = [d.gen_rows.index(group[0]) for group in self.bus_groups]
+        self.expand = [next(k for k, group in enumerate(self.bus_groups) if g in group) for g in d.gen_rows]
+        n_g = len(d.gen_rows)
+        keep = self.first + list(range(n_g, d.d))
+        self.lo, self.hi = d.lo[keep], d.hi[keep]
         self.d = len(keep)
         self.step = (self.hi - self.lo) / (self.resolution - 1)
+
+    def snap(self, x):
+        k = np.clip(np.rint((np.asarray(x, float) - self.lo) / self.step), 0, self.resolution - 1)
+        return self.lo + k * self.step
 
     def evaluate(self, x):
         x = self.snap(x)
         n_b = len(self.bus_groups)
-        per_gen = np.empty(len(self.gen_rows))
-        for value, group in zip(x[:n_b], self.bus_groups):
-            for g in group:
-                per_gen[self.gen_rows.index(g)] = value
-        full_lo, full_hi, full_step, full_d = self.lo, self.hi, self.step, self.d
-        expanded = np.concatenate([per_gen, x[n_b:]])
-        try:  # the parent evaluates the expanded vector on the parent's grid (already on grid: snap is identity)
-            self.lo = np.concatenate([per_gen, full_lo[n_b:]])
-            self.hi = np.concatenate([per_gen, full_hi[n_b:]])
-            self.step = np.concatenate([np.ones(len(per_gen)), full_step[n_b:]])
-            self.d = len(expanded)
-            return super().evaluate(expanded)
-        finally:
-            self.lo, self.hi, self.step, self.d = full_lo, full_hi, full_step, full_d
+        return self.delegate.evaluate(np.concatenate([x[:n_b][self.expand], x[n_b:]]))
+
+
+class WitnessEvaluator(i56.Evaluator):
+    """I56 evaluator that also keeps the genotype and call index of the first target attainment."""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.first_target_x = None
+
+    def _call(self, values):
+        before = self.first_target
+        result = super()._call(values)
+        if before is None and self.first_target is not None:
+            self.first_target_x = list(values)
+        return result
 
 
 def make_problem(network, j):
@@ -102,8 +112,12 @@ def gadapt_run(problem, evaluator, method, seed):
         ga.add(float(lo), float(hi), float(step))
     result = ga.execute()
     returned = None
-    if method == "G1" and result.success and not math.isnan(result.best_objective):
-        returned = [result.result_values[i] for i in sorted(result.result_values)]
+    if result.success and result.result_values:
+        returned = dict(x=[result.result_values[i] for i in sorted(result.result_values)],
+                        min_cost=result.min_cost,
+                        best_objective=None if math.isnan(result.best_objective) else result.best_objective,
+                        best_violation=None if math.isnan(result.best_violation) else result.best_violation,
+                        feasible=result.feasible)
     return bool(result.success), returned
 
 
@@ -118,7 +132,7 @@ def run(task):
 def _run(task):
     problem = make_problem(task["network"], task["j"])
     target = i56.make_target(task.get("reference"))
-    evaluator = i56.Evaluator(problem, task["budget"], target)
+    evaluator = WitnessEvaluator(problem, task["budget"], target)
     success, returned = True, None
     if task["method"] in ("G0", "G1"):
         success, returned = gadapt_run(problem, evaluator, task["method"], task["seed"])
@@ -136,6 +150,7 @@ def _run(task):
                 T10000=min(first / TEST_BUDGET, 1.0) if first is not None else 1.0,
                 best_feasible=evaluator.best_feasible if math.isfinite(evaluator.best_feasible) else None,
                 best_feasible_x=best_x[0] if best_x else None, returned=returned,
+                first_target_x=evaluator.first_target_x,
                 initial=[list(k) for k in evaluator.initial], sequence=evaluator.sequence.hexdigest())
 
 
@@ -153,6 +168,40 @@ def instances():
     return valid, excluded
 
 
+def assert_paired_initial(records):
+    """G0/G1 of the same (network, scenario, seed) must start from the same 32 genotypes (collection time)."""
+    pairs = {}
+    for r in records:
+        t = r["task"]
+        if t["method"] in ("G0", "G1") and r.get("ok"):
+            pairs.setdefault((t["network"], t["j"], t["seed"]), {})[t["method"]] = r["initial"]
+    for key, p in pairs.items():
+        if len(p) == 2 and (p["G0"] != p["G1"] or len(p["G0"]) != i56.POPULATION_SIZE):
+            raise SystemExit(f"STOP: G0/G1 initial populations differ for {key}")
+
+
+def build_manifest(stage):
+    import platform
+    import subprocess
+    library = os.path.join(REPO, "gadapt")
+    tree = {}
+    for root, _, files in os.walk(library):
+        for f in sorted(files):
+            if f.endswith(".py"):
+                full = os.path.join(root, f)
+                tree[os.path.relpath(full, REPO)] = i57.sha256(full)
+    freeze = subprocess.run([sys.executable, "-m", "pip", "freeze"], capture_output=True, text=True).stdout.split()
+    patch = os.path.join(HERE, "patches", "constraint_api.patch")
+    return dict(stage=stage, python=platform.python_version(), pip_freeze=freeze, gadapt_tree_sha256=tree,
+                patch_sha256=i57.sha256(patch),
+                code_sha256={f: i57.sha256(os.path.join(HERE, f)) for f in
+                             ("iteration58_validation.py", "iteration57_external.py", "iteration56_cht_study.py",
+                              "iteration56_orpd.py", "ITERATION58_PROTOCOL.md")},
+                settings=dict(population_size=i56.POPULATION_SIZE, probe_cost_function=False, immigration_number=0,
+                              exit_check="generations", number_of_generations=10 ** 9, sp_weight=i56.SP_WEIGHT,
+                              resolution=RESOLUTION, budgets=[PRIMARY_BUDGET, TEST_BUDGET, REF_BUDGET]))
+
+
 def pool_run(tasks, workers):
     from multiprocessing import Pool
     with Pool(workers, maxtasksperchild=1) as pool:
@@ -163,10 +212,12 @@ def pool_run(tasks, workers):
                 again = pool.apply(run, (tasks[i],))
             again["rerun"], again["first_attempt"] = True, {k: v for k, v in r.items() if k != "initial"}
             records[i] = again
+    assert_paired_initial(records)
     return records
 
 
 def stage_refs(workers):
+    i56.save("i58_refs_manifest.json", build_manifest("refs"))
     valid, excluded = instances()
     tasks = [dict(network=n, j=j, method=m, seed=seed_of(7, n, j, s), budget=REF_BUDGET, reference=None)
              for n, j in valid for m in METHODS for s in (1, 2)]
@@ -184,12 +235,10 @@ def references():
 
 def stage_test(workers):
     refs = references()
-    pre = dict(refs_sha256=i57.sha256(i56.path("i58_refs.json.gz")), references=refs,
-               code_sha256={f: i57.sha256(os.path.join(HERE, f)) for f in
-                            ("iteration58_validation.py", "iteration57_external.py", "iteration56_cht_study.py",
-                             "iteration56_orpd.py", "ITERATION58_PROTOCOL.md")})
-    import gadapt.ga as gadapt_ga
-    pre["gadapt_ga_sha256"] = i57.sha256(gadapt_ga.__file__)
+    pre = dict(build_manifest("test"), refs_sha256=i57.sha256(i56.path("i58_refs.json.gz")), references=refs)
+    refs_build = i56.load("i58_refs_manifest.json")
+    if refs_build["gadapt_tree_sha256"] != pre["gadapt_tree_sha256"] or refs_build["patch_sha256"] != pre["patch_sha256"]:
+        raise SystemExit("STOP: references and test would use different library builds")
     i56.save("i58_manifest.json", pre)
     valid, excluded = instances()
     tasks = [dict(network=n, j=j, method=m, seed=seed_of(6, n, j, s), budget=TEST_BUDGET, reference=refs[f"{n}|{j}"])
@@ -261,8 +310,8 @@ def analyse():
 
 # ------------------------------------------------------------------ independent checker (no instrument code)
 
-def independent_check(network, j, x_controls):
-    """Re-implements scenario, OPF dispatch, controls and all violations directly on pypower data."""
+def _independent_case(network, j):
+    """Scenario and OPF dispatch rebuilt from raw pypower data (independently of iteration56_orpd)."""
     import contextlib
     import io
     from pypower import api
@@ -274,6 +323,8 @@ def independent_check(network, j, x_controls):
     case["bus"][:, 3] *= factor  # QD
     with contextlib.redirect_stdout(io.StringIO()):
         opf = api.runopf(case, api.ppoption(VERBOSE=0, OUT_ALL=0))
+    if not opf["success"]:
+        return None, None
     case["gen"][:, 1] = opf["gen"][:, 1]  # PG
     online = np.flatnonzero(case["gen"][:, 7] > 0)
     gen_buses = []
@@ -282,47 +333,80 @@ def independent_check(network, j, x_controls):
             gen_buses.append(int(case["gen"][g, 0]))
     taps = np.flatnonzero((case["branch"][:, 8] != 0) & (case["branch"][:, 10] > 0))
     shunts = np.flatnonzero(case["bus"][:, 5] != 0)
+    row = {int(b): k for k, b in enumerate(case["bus"][:, 0])}
+    lo = [case["bus"][row[b], 12] for b in gen_buses] + [0.9] * len(taps) + [min(0.0, 2 * case["bus"][k, 5]) for k in shunts]
+    hi = [case["bus"][row[b], 11] for b in gen_buses] + [1.1] * len(taps) + [max(0.0, 2 * case["bus"][k, 5]) for k in shunts]
+    structure = dict(online=online, gen_buses=gen_buses, taps=taps, shunts=shunts, lo=np.array(lo), hi=np.array(hi))
+    return case, structure
+
+
+def independent_check(network, j, x_controls):
+    """Validates the vector itself (dimension, bounds, R = 17 grid; no repair) and re-derives losses and all
+    violations directly from pypower indices."""
+    from pypower import api
+    case, st = _independent_case(network, j)
+    if case is None:
+        return dict(valid=False, reason="OPF failed")
     x = np.asarray(x_controls, float)
-    for value, bus in zip(x[:len(gen_buses)], gen_buses):
+    if x.shape != st["lo"].shape:
+        return dict(valid=False, reason=f"dimension {x.shape} != {st['lo'].shape}")
+    step = (st["hi"] - st["lo"]) / (RESOLUTION - 1)
+    k = (x - st["lo"]) / np.where(step > 0, step, 1)
+    if np.any(x < st["lo"] - 1e-9) or np.any(x > st["hi"] + 1e-9) or np.any(np.abs(k - np.rint(k)) > 1e-6):
+        return dict(valid=False, reason="outside bounds or off the grid")
+    n_b, n_t = len(st["gen_buses"]), len(st["taps"])
+    for value, bus in zip(x[:n_b], st["gen_buses"]):
         case["gen"][(case["gen"][:, 0] == bus) & (case["gen"][:, 7] > 0), 5] = value  # VG
-    case["branch"][taps, 8] = x[len(gen_buses):len(gen_buses) + len(taps)]
-    case["bus"][shunts, 5] = x[len(gen_buses) + len(taps):]
+    case["branch"][st["taps"], 8] = x[n_b:n_b + n_t]
+    case["bus"][st["shunts"], 5] = x[n_b + n_t:]
+    import contextlib
+    import io
     with contextlib.redirect_stdout(io.StringIO()):
         solved, converged = api.runpf(case, api.ppoption(VERBOSE=0, OUT_ALL=0, ENFORCE_Q_LIMS=0, PF_TOL=1e-8,
                                                          PF_MAX_IT=30))
-    if not converged:
-        return dict(converged=False)
-    bus, gen, branch, base = solved["bus"], solved["gen"][online], solved["branch"], solved["baseMVA"]
+    if not converged or not all(np.isfinite(solved[a]).all() for a in ("bus", "gen", "branch")):
+        return dict(valid=True, converged=False)
+    bus, gen, branch, base = solved["bus"], solved["gen"][st["online"]], solved["branch"], solved["baseMVA"]
     losses = float(np.sum(branch[:, 13] + branch[:, 15]))
     voltage = float(np.sum(np.clip(bus[:, 7] - bus[:, 11], 0, None) + np.clip(bus[:, 12] - bus[:, 7], 0, None)))
     reactive = float(np.sum(np.clip(gen[:, 2] - gen[:, 3], 0, None) + np.clip(gen[:, 4] - gen[:, 2], 0, None))) / base
-    ref_buses = bus[bus[:, 1] == 3, 0]
-    slack = gen[np.isin(gen[:, 0], ref_buses)]
+    slack = gen[np.isin(gen[:, 0], bus[bus[:, 1] == 3, 0])]
     slack_v = float(np.sum(np.clip(slack[:, 1] - slack[:, 8], 0, None) + np.clip(slack[:, 9] - slack[:, 1], 0, None))) / base
-    s_from = np.hypot(branch[:, 13], branch[:, 14])
-    s_to = np.hypot(branch[:, 15], branch[:, 16])
     rating = branch[:, 5]
-    thermal = float(np.sum(np.where(rating > 0, np.clip(np.maximum(s_from, s_to) - rating, 0, None), 0))) / base
+    flow = np.maximum(np.hypot(branch[:, 13], branch[:, 14]), np.hypot(branch[:, 15], branch[:, 16]))
+    thermal = float(np.sum(np.where(rating > 0, np.clip(flow - rating, 0, None), 0))) / base
     violations = dict(voltage=voltage, reactive=reactive, slack=slack_v, thermal=thermal)
-    return dict(converged=True, losses=losses, violations=violations,
+    return dict(valid=True, converged=True, losses=losses, violations=violations,
                 feasible=all(v <= i56.TOL for v in violations.values()))
 
 
 def stage_check():
-    data = i56.load("i58_test.json")
-    out = []
-    for r in data["records"]:
-        t = r["task"]
-        for label in ("returned", "best_feasible_x"):
-            if r.get(label):
-                problem = make_problem(t["network"], t["j"])
-                x = problem.snap(r[label])
-                check = independent_check(t["network"], t["j"], x)
-                out.append(dict(task=t, which=label, recorded=r.get("best_feasible"), check=check))
-    bad = [c for c in out if c["which"] == "best_feasible_x" and not (
-        c["check"].get("feasible") and abs(c["check"]["losses"] - c["recorded"]) <= 1e-6 * max(1, c["recorded"]))]
-    i56.save("i58_check.json", dict(checks=out, mismatches=len(bad)))
-    print("checked", len(out), "mismatches", len(bad))
+    """Independent re-check of every witness: references (L*), first-target, best feasible, returned (G0, G1)."""
+    refs = references()
+    rows, failures = [], {}
+    for source in ("i58_refs.json", "i58_test.json"):
+        for r in i56.load(source)["records"]:
+            t = r["task"]
+            witnesses = [("best_feasible", r.get("best_feasible_x")), ("first_target", r.get("first_target_x"))]
+            if r.get("returned"):
+                witnesses.append(("returned", r["returned"]["x"]))
+            for kind, x in witnesses:
+                if x is None:
+                    continue
+                c = independent_check(t["network"], t["j"], x)
+                if kind == "returned":
+                    claimed = r["returned"].get("feasible")
+                    ok = c.get("valid") and (claimed is not True or c.get("feasible"))
+                elif kind == "best_feasible":
+                    ok = c.get("feasible") and abs(c["losses"] - r["best_feasible"]) <= 1e-6 * max(1.0, r["best_feasible"])
+                else:
+                    reference = refs.get(f"{t['network']}|{t['j']}") if source == "i58_test.json" else None
+                    ok = c.get("feasible") and (reference is None or c["losses"] <= reference * 1.01 + 0.01 + 1e-9)
+                rows.append(dict(source=source, task=t, kind=kind, ok=bool(ok), check=c))
+                if not ok:
+                    failures[kind] = failures.get(kind, 0) + 1
+    i56.save("i58_check.json", dict(checks=rows, failures=failures))
+    print("checked", len(rows), "failures by kind", failures)
 
 
 if __name__ == "__main__":

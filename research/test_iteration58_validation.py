@@ -34,8 +34,22 @@ def test_independent_checker_agrees_with_the_instrument():
         for _ in range(4):
             x = problem.snap(problem.lo + rng.random_sample(problem.d) * (problem.hi - problem.lo))
             a, b = problem.evaluate(x), i58.independent_check(network, 0, x)
+            assert b["valid"]
             assert a["converged"] == b["converged"]
             if a["converged"]:
                 assert abs(a["losses"] - b["losses"]) < 1e-9
                 for k in a["violations"]:
                     assert abs(a["violations"][k] - b["violations"][k]) < 1e-9, (network, k)
+
+
+def test_checker_rejects_vectors_off_the_grid_or_out_of_bounds():
+    problem = i58.make_problem("case39", 0)
+    x = problem.snap(problem.lo + 0.5 * (problem.hi - problem.lo))
+    assert i58.independent_check("case39", 0, x)["valid"]
+    off = x.copy()
+    off[0] += 0.3 * problem.step[0]
+    assert not i58.independent_check("case39", 0, off)["valid"]
+    out = x.copy()
+    out[0] = problem.hi[0] + problem.step[0]
+    assert not i58.independent_check("case39", 0, out)["valid"]
+    assert not i58.independent_check("case39", 0, x[:-1])["valid"]
