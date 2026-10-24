@@ -127,7 +127,7 @@ PROVENANCE = ("python", "pip_freeze", "gadapt_tree_sha256", "library_root", "cod
 INPUTS = dict(dev_ref=(), select_b=("dev_ref",), fxt=("dev_ref", "select_b"),
               stopcheck=("dev_ref", "select_b", "fxt"), rehearsal=("dev_ref", "select_b", "fxt", "stopcheck"),
               power=("rehearsal",), test_ref=("dev_ref", "select_b", "fxt", "stopcheck", "rehearsal", "power"),
-              test=("test_ref",), check=("dev_ref", "stopcheck", "rehearsal", "test_ref", "test"),
+              test=("test_ref",), check=("dev_ref", "select_b", "fxt", "stopcheck", "rehearsal", "test_ref", "test"),
               analysis=("test_ref", "test", "check"))
 
 
@@ -139,38 +139,67 @@ def artifact(stage):
     return path(f"{stage}.json.gz")
 
 
+def verify_gate():
+    gate, manifest = load("gate.json"), load("manifest_gate.json")
+    selected = path(f"gate_{gate.get('selected')}.json.gz")
+    if not (gate["passed"] and manifest["gate_sha256"] == sha256(artifact("gate"))
+            and manifest["roster_sha256"] == sha256(artifact("roster")) and os.path.exists(selected)
+            and gate["result_sha256"] == sha256(selected)
+            and all(sha256(path(f"gate_{k}.json.gz")) == h for k, h in gate["attempts_sha256"].items())):
+        raise SystemExit("STOP: the instrument gate did not pass or its records changed")
+    return manifest
+
+
+def verify_chain(stage, current):
+    """A consumed artifact: produced by this build, unchanged since (output hash), and so are its own inputs."""
+    m = load(f"manifest_{stage}.json")
+    if not same_provenance(m, current):
+        raise SystemExit(f"STOP: {stage} was produced by a different build")
+    if m.get("output_sha256") != sha256(artifact(stage)):
+        raise SystemExit(f"STOP: {stage} is not the artifact its manifest published")
+    for producer, h in m["inputs_sha256"].items():
+        if load(f"manifest_{producer}.json")["output_sha256"] != h:
+            raise SystemExit(f"STOP: {stage} consumed a {producer} artifact that is no longer the published one")
+        verify_chain(producer, current)
+
+
 def require_provenance(stage):
-    """Every stage after the gate runs on exactly the gated build and consumes artifacts produced by that build."""
-    gate = load("manifest_gate.json")
-    if not load("gate.json")["passed"] or gate["gate_sha256"] != sha256(artifact("gate")) \
-            or gate["roster_sha256"] != sha256(artifact("roster")):
-        raise SystemExit("STOP: the instrument gate did not pass or its record changed")
+    """Create-once per stage; runs on exactly the gated build; consumes only published artifacts of that build."""
+    if os.path.exists(path(f"manifest_{stage}.json.gz")):
+        raise SystemExit(f"STOP: {stage} already completed in this experiment directory (create-once)")
+    gate = verify_gate()
     current = build_manifest(stage)
     if not same_provenance(gate, current):
         raise SystemExit("STOP: code, library, environment or settings differ from the gated build")
     inputs = {}
     for producer in INPUTS[stage]:
-        if not same_provenance(load(f"manifest_{producer}.json"), current):
-            raise SystemExit(f"STOP: {producer} was produced by a different build")
+        verify_chain(producer, current)
         inputs[producer] = sha256(artifact(producer))
-    if os.path.exists(path("manifest_frozen.json.gz")) and stage in ("test", "check", "analysis"):
+    if stage in ("test", "check", "analysis"):
         frozen = load("manifest_frozen.json")
         if not same_provenance(frozen, current):
             raise SystemExit("STOP: the build differs from the frozen manifest")
     current["inputs_sha256"] = inputs
-    if stage != "analysis":
-        save(f"manifest_{stage}.json", current)
+    current["gate_sha256"], current["roster_sha256"] = gate["gate_sha256"], gate["roster_sha256"]
     return current
 
 
 def finish(stage, before):
-    """After a (long) stage: the build and every consumed artifact are unchanged."""
+    """Before publishing: the build, the gate records and every consumed artifact are unchanged."""
     after = build_manifest(stage + "-after")
     if not same_provenance(before, after):
         raise SystemExit(f"STOP: the build changed during {stage}")
+    verify_gate()
     for producer, h in before["inputs_sha256"].items():
         if sha256(artifact(producer)) != h:
             raise SystemExit(f"STOP: {producer} changed during {stage}")
+
+
+def publish(stage, before, data):
+    """Output first, then its manifest with the output hash (a manifest exists only for a completed stage)."""
+    finish(stage, before)
+    save(f"{stage}.json", data)
+    save(f"manifest_{stage}.json", dict(before, output_sha256=sha256(artifact(stage))))
 
 
 # ------------------------------------------------------------------ one run
@@ -357,7 +386,18 @@ def bits_equal(a, b):
 
 
 def gate_run(label, workers):
-    """§3 on the library at LIB: 54 archived I56 runs (fresh processes), run_plain for SP/AD-N, I56 tests."""
+    """§3 on the library at LIB; an execution exception is a failed gate (recorded), not a crash."""
+    import traceback
+    try:
+        return _gate_run(label, workers)
+    except Exception:
+        save(f"gate_{label}.json", dict(label=label, library_root=os.path.relpath(LIB, REPO), passed=False,
+                                        error=traceback.format_exc()[-3000:], manifest=build_manifest(f"gate-{label}")))
+        return False
+
+
+def _gate_run(label, workers):
+    """54 archived I56 runs (fresh processes), run_plain for SP/AD-N, I56 tests."""
     archived = gate_tasks()
     keys = sorted(archived)
     rerun = i56.run_pool([dict(archived[k]["task"]) for k in keys], workers)
@@ -382,16 +422,23 @@ def gate_run(label, workers):
     save(f"gate_{label}.json", dict(label=label, library_root=os.path.relpath(LIB, REPO), passed=passed,
                                     runs=len(rerun), plain=len(plain), mismatches=mismatches,
                                     archive_sha256=sha256(i56.path("test.json.gz")),
-                                    i56_tests_sha256=sha256(test_file), i56_tests=tests.stdout[-3000:],
-                                    i56_tests_returncode=tests.returncode))
+                                    i56_tests_sha256=sha256(test_file), i56_tests_stdout=tests.stdout,
+                                    i56_tests_stderr=tests.stderr, i56_tests_returncode=tests.returncode,
+                                    manifest=build_manifest(f"gate-{label}")))
     print(json.dumps(dict(label=label, passed=passed, runs=len(rerun), mismatches=len(mismatches)), indent=1))
     return passed
 
 
 def select_gate(label):
     """Writes the selected gate record and the gate manifest (hash-bound to the record and the roster)."""
+    attempts = {k: sha256(path(f"gate_{k}.json.gz")) for k in ("current", "fallback")
+                if os.path.exists(path(f"gate_{k}.json.gz"))}
+    selected = load(f"gate_{label}.json")
+    if not (selected["passed"] and selected["archive_sha256"] == sha256(i56.path("test.json.gz"))
+            and selected["i56_tests_sha256"] == sha256(os.path.join(HERE, "test_iteration56_cht_study.py"))):
+        raise SystemExit("STOP: the selected gate record is inconsistent")
     save("gate.json", dict(passed=True, selected=label, library_root=os.path.relpath(LIB, REPO),
-                           result_sha256=sha256(path(f"gate_{label}.json.gz"))))
+                           result_sha256=attempts[label], attempts_sha256=attempts))
     save("manifest_gate.json", dict(build_manifest("gate"), gate_sha256=sha256(artifact("gate")),
                                     roster_sha256=sha256(artifact("roster"))))
 
@@ -407,11 +454,13 @@ def stage_gate(workers):
     if gate_run("current", workers):
         select_gate("current")
         return
-    if not os.path.isdir(FALLBACK_LIB):
-        os.makedirs(FALLBACK_LIB)
-        archive = subprocess.run(["git", "-C", REPO, "archive", FALLBACK_COMMIT, "gadapt"], capture_output=True,
-                                 check=True).stdout
-        subprocess.run(["tar", "-x", "-C", FALLBACK_LIB], input=archive, check=True)
+    import shutil
+    if os.path.isdir(FALLBACK_LIB):  # never reuse an existing tree: always exactly FALLBACK_COMMIT
+        shutil.rmtree(FALLBACK_LIB)
+    os.makedirs(FALLBACK_LIB)
+    archive = subprocess.run(["git", "-C", REPO, "archive", FALLBACK_COMMIT, "gadapt"], capture_output=True,
+                             check=True).stdout
+    subprocess.run(["tar", "-x", "-C", FALLBACK_LIB], input=archive, check=True)
     fallback = subprocess.run([sys.executable, os.path.abspath(__file__), "gate_fallback", str(workers)],
                               env=dict(os.environ, I61_LIBRARY=FALLBACK_LIB))
     if fallback.returncode != 0 or not os.path.exists(path("gate.json.gz")):
@@ -438,8 +487,7 @@ def stage_dev_ref(workers):
     tasks = [task(n, j, c, "AD-N", "dev_ref", 1, REF_BUDGET) for n, j in valid for c in REF_CHTS]
     records = execute(tasks, workers)
     assert_paired(records)
-    finish("dev_ref", before)
-    save("dev_ref.json", dict(records=records, references=references(records)))
+    publish("dev_ref", before, dict(records=records, references=references(records)))
 
 
 def t_of(record, budget):
@@ -455,8 +503,8 @@ def stage_select_b(workers):
              for n, j in valid for c in ("SP", "FR") for s in SELECT_SEEDS]
     records = execute(tasks, workers)
     assert_paired(records)
-    finish("select_b", before)
     if not all(r["ok"] for r in records):
+        publish("select_b", before, dict(chosen={}, medians={}, records=records, failed=True))
         raise SystemExit("STOP: a budget-selection run failed twice (the medians would be incomplete)")
     chosen, table = {}, {}
     for n in NETWORKS:
@@ -467,7 +515,7 @@ def stage_select_b(workers):
             table[f"{n}|{b}"] = medians
             if n not in chosen and all(0.3 <= m <= 0.8 for m in medians.values()):
                 chosen[n] = b
-    save("select_b.json", dict(chosen=chosen, medians=table, records=records))
+    publish("select_b", before, dict(chosen=chosen, medians=table, records=records))
     if set(chosen) != set(NETWORKS):
         raise SystemExit(f"STOP: no admissible budget for {sorted(set(NETWORKS) - set(chosen))} (§5)")
 
@@ -483,15 +531,15 @@ def stage_fxt(workers):
              for n, j in valid for c in ("SP", "FR") for g in i56.FXT_GRID for s in FXT_SEEDS]
     records = execute(tasks, workers)
     assert_paired(records)
-    finish("fxt", before)
     chosen = {}
     for c in ("SP", "FR"):
         groups = [[r["T"] for r in records if r["ok"] and r["task"]["cht"] == c and r["task"]["fixed"] == list(g)]
                   for g in i56.FXT_GRID]
         if any(len(g) != len(valid) * len(FXT_SEEDS) for g in groups):
+            publish("fxt", before, dict(chosen=None, records=records))
             raise SystemExit(f"STOP: FX-T calibration incomplete for {c} (§6)")
         chosen[c] = list(i56.FXT_GRID[int(np.argmin([np.mean(g) for g in groups]))])  # balanced: equal weights
-    save("fxt.json", dict(chosen=chosen, records=records))
+    publish("fxt", before, dict(chosen=chosen, records=records))
 
 
 # ------------------------------------------------------------------ §10 stop-at-target validation
@@ -507,7 +555,6 @@ def stage_stopcheck(workers):
                   stop=stop) for n, j, c, a in pairs for stop in (False, True)]
     records = execute(tasks, workers)
     assert_paired(records)
-    finish("stopcheck", before)
     mismatches, attained = [], 0
     for k in range(len(pairs)):
         full, stopped = records[2 * k], records[2 * k + 1]
@@ -529,7 +576,7 @@ def stage_stopcheck(workers):
         decision = "inconclusive"
     else:
         decision = "allowed"
-    save("stopcheck.json", dict(decision=decision, attained=attained, mismatches=mismatches, records=records))
+    publish("stopcheck", before, dict(decision=decision, attained=attained, mismatches=mismatches, records=records))
     print(json.dumps(dict(decision=decision, attained=attained, mismatches=len(mismatches))))
 
 
@@ -562,7 +609,6 @@ def stage_rehearsal(workers):
                   stop=stop) for n, j in valid for s in REHEARSAL_SEEDS for c, a in ARMS]
     records = execute(tasks, workers)
     assert_paired(records)
-    finish("rehearsal", before)
     units = units_of(records)
     pools, pool_attained, criteria = {}, {}, {}
     for n in NETWORKS:
@@ -580,8 +626,8 @@ def stage_rehearsal(workers):
         pools[n] = d
         pool_attained[n] = {f"{c}|{a}": [u[(c, a)]["first_target"] is not None for u in complete] for c, a in ARMS}
     passed = all(c["passed"] for c in criteria.values())
-    save("rehearsal.json", dict(passed=passed, criteria=criteria, pools=pools, pool_attained=pool_attained, stop=stop,
-                                records=records))
+    publish("rehearsal", before, dict(passed=passed, criteria=criteria, pools=pools, pool_attained=pool_attained,
+                                      stop=stop, records=records))
     if not passed:
         raise SystemExit(f"STOP: rehearsal criteria not met {criteria} (§7)")
 
@@ -647,7 +693,7 @@ def wilson(k, n, z=1.959963984540054):
 
 
 def stage_power():
-    require_provenance("power")
+    before = require_provenance("power")
     rehearsal = load("rehearsal.json")
     if not rehearsal["passed"]:
         raise SystemExit("STOP: rehearsal did not pass")
@@ -663,7 +709,7 @@ def stage_power():
     out["alternative"], out["null"] = alt, null
     for name, t in (("alternative", alt), ("null", null)):
         if t is None or t["error"] > 1e-8 or min(t["ess"]) < 10:
-            save("power.json", out)
+            publish("power", before, out)
             raise SystemExit(f"STOP: {name} tilt unattainable, inaccurate or ESS < 10 (§7)")
     rng = np.random.default_rng(61023)
     screening = {}
@@ -676,14 +722,14 @@ def stage_power():
             break
     out["screening"] = screening
     if chosen is None:
-        save("power.json", out)
+        publish("power", before, out)
         raise SystemExit("STOP: no n <= 480 reaches power 0.8 (§7)")
     confirm = simulate(pools, alt, cells, chosen, 1000, 20000, np.random.default_rng(61024))
     false_pos = simulate(pools, null, cells, chosen, 1000, 20000, np.random.default_rng(61025))
     out.update(chosen_n=chosen, confirmation=dict(positives=confirm, wilson=wilson(confirm, 1000)),
                null_calibration=dict(positives=false_pos, wilson=wilson(false_pos, 1000)),
                passed=confirm >= 825 and false_pos <= 36)
-    save("power.json", out)
+    publish("power", before, out)
     print(json.dumps({k: out[k] for k in ("chosen_n", "confirmation", "null_calibration", "passed")}, indent=1))
     if not out["passed"]:
         raise SystemExit("STOP: power confirmation or null calibration failed (§7)")
@@ -701,7 +747,7 @@ def frozen_choices():
 
 def stage_test_ref(workers):
     current = require_provenance("test_ref")
-    if os.path.exists(path("manifest_frozen.json.gz")) or os.path.exists(artifact("test_ref")):
+    if os.path.exists(path("manifest_frozen.json.gz")):
         raise SystemExit("STOP: the choices are already frozen (create-once; another freeze needs a new I61_OUT)")
     choices = frozen_choices()
     save("manifest_frozen.json", dict(current, choices=choices,
@@ -712,8 +758,7 @@ def stage_test_ref(workers):
     tasks = [task(n, j, c, "AD-N", "test_ref", s, REF_BUDGET) for n, j in valid for c in REF_CHTS for s in (1, 2)]
     records = execute(tasks, workers)
     assert_paired(records)
-    finish("test_ref", current)
-    save("test_ref.json", dict(excluded=excluded, records=records, references=references(records)))
+    publish("test_ref", current, dict(excluded=excluded, records=records, references=references(records)))
 
 
 def require_frozen():
@@ -739,8 +784,7 @@ def stage_test(workers):
     assert len({t["seed"] for t in tasks}) == len(tasks) // len(ARMS)
     records = execute(tasks, workers)
     assert_paired(records)
-    finish("test", current)
-    save("test.json", dict(excluded=excluded, choices=choices, references=refs,
+    publish("test", current, dict(excluded=excluded, choices=choices, references=refs,
                            test_ref_sha256=sha256(path("test_ref.json.gz")), manifest=current, records=records))
 
 
@@ -814,6 +858,8 @@ def stage_check(workers):
     require_consumed_references(data)
     dev, test_ref = load("dev_ref.json"), load("test_ref.json")
     items = (witnesses("dev_ref", dev["records"], dev["references"])
+             + witnesses("select_b", load("select_b.json")["records"])
+             + witnesses("fxt", load("fxt.json")["records"])
              + witnesses("stopcheck", load("stopcheck.json")["records"])
              + witnesses("rehearsal", load("rehearsal.json")["records"])
              + witnesses("test_ref", test_ref["records"], test_ref["references"])
@@ -830,10 +876,9 @@ def stage_check(workers):
         if not ok:
             label = f"{m['source']}|{m['kind']}"
             failures[label] = failures.get(label, 0) + 1
-    finish("check", before)
     # an empty expected witness set is legitimate (feasibility targets never attained): rows may be 0
-    save("check.json", dict(expected=len(items), rows=len(checks), failures=failures,
-                            bound={k: sha256(artifact(k)) for k in INPUTS["check"]}))
+    publish("check", before, dict(expected=len(items), rows=len(checks), failures=failures,
+                                  bound={k: sha256(artifact(k)) for k in INPUTS["check"]}))
     print("checked", len(checks), "of", len(items), "failures", failures)
     if failures or len(checks) != len(items):
         raise SystemExit(1)
@@ -861,7 +906,7 @@ def labels(b):
 
 
 def analyse():
-    require_provenance("analysis")
+    before = require_provenance("analysis")
     data = load("test.json")
     check = load("check.json")
     if check["failures"] or check["rows"] != check["expected"] or check["bound"] != {
@@ -876,7 +921,10 @@ def analyse():
     units = {k: {} for k in planned}
     for r in data["records"]:
         t = r["task"]
-        units.setdefault((t["network"], t["j"], t["s"]), {})[(t["cht"], t["arm"])] = r
+        key, arm = (t["network"], t["j"], t["s"]), (t["cht"], t["arm"])
+        if key not in units or arm not in ARMS or arm in units[key]:
+            raise SystemExit(f"STOP: unplanned unit, unknown arm or duplicate record {key} {arm}")
+        units[key][arm] = r
     complete = {k: u for k, u in units.items() if set(u) == set(ARMS) and all(r["ok"] for r in u.values())}
     excluded = sorted(set(planned) - set(complete))
     cells = {}
@@ -915,7 +963,7 @@ def analyse():
                exclusion_flag=len(excluded) > 0.05 * len(planned), per_cell=per_cell,
                empty_cells=[[n, j] for n, _, j in empty], excluded_instances=data["excluded"], choices=data["choices"],
                H61=primary, sensitivity=sensitivity, sensitivity_descriptive_only=True, descriptive=descriptive)
-    save("analysis.json", out)
+    publish("analysis", before, out)
     print(json.dumps(dict(H61=primary, complete=len(complete), excluded=len(excluded), empty=out["empty_cells"]),
                      indent=1))
 

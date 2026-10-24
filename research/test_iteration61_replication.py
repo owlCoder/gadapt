@@ -6,8 +6,8 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+import iteration61_replication as i61  # noqa: E402  (first: it selects the library before iteration56 loads it)
 import iteration56_cht_study as i56  # noqa: E402
-import iteration61_replication as i61  # noqa: E402
 
 
 def test_seeds_are_unique_over_every_planned_task():
@@ -131,3 +131,20 @@ def test_gate_is_create_once(monkeypatch, tmp_path):
     i61.save("roster.json", dict(dev=[], test=[], excluded=[]))
     with pytest.raises(SystemExit, match="create-once"):
         i61.stage_gate(1)
+
+
+def test_provenance_chain_rejects_a_foreign_artifact_and_reruns(monkeypatch, tmp_path):
+    import pytest
+    monkeypatch.setattr(i61, "OUT", str(tmp_path))
+    build = {f: 1 for f in i61.PROVENANCE}
+    monkeypatch.setattr(i61, "build_manifest", lambda stage: dict(build, stage=stage))
+    monkeypatch.setattr(i61, "verify_gate", lambda: dict(build, gate_sha256="g", roster_sha256="r"))
+    before = i61.require_provenance("dev_ref")
+    i61.publish("dev_ref", before, dict(records=[]))
+    with pytest.raises(SystemExit, match="create-once"):
+        i61.require_provenance("dev_ref")
+    before = i61.require_provenance("select_b")
+    assert before["inputs_sha256"]["dev_ref"] == i61.sha256(i61.artifact("dev_ref"))
+    i61.save("dev_ref.json", dict(records=["foreign"]))  # replaced after publication
+    with pytest.raises(SystemExit, match="not the artifact"):
+        i61.require_provenance("select_b")
