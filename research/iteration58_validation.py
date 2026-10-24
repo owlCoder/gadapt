@@ -98,10 +98,15 @@ def gadapt_run(problem, evaluator, method, seed):
     from gadapt.ga import GA
     random.seed(seed)
     np.random.seed(seed)
+    # after the budget the I56 evaluator returns 0.0 without evaluating; such candidates must never be reported
     if method == "G0":
-        cost, kwargs = evaluator, {}
+        def cost(values):
+            return 1e300 if evaluator.done else evaluator(values)
+        kwargs = {}
     else:
         def cost(values):
+            if evaluator.done:
+                return 0.0, 1e150  # the largest admissible violation: never better than an evaluated solution
             evaluator(values)
             raw = evaluator.cache[tuple(values)]
             return raw.f, raw.V
