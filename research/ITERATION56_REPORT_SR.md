@@ -30,9 +30,16 @@ diskretnom ORPD-u; prioritet te tačne kombinacije nije dokazan.
 
 ## 3. Kalibracija (razvojni scenariji)
 - Razvojne reference: 72/72 ok. Bez izvodljivog i pri 30.000 poziva: case14 R=9 i case118 R=9 (oba scenarija).
-- FX-M vektori (a, b, σ) po CHT-u: [upisati]
-- FX-T izbor po CHT-u: [upisati]
-- Proba i snaga: [upisati snagu i broj semena]
+- FX-M vektori (a, b, σ), medijana medijana preko 54 razvojna AD-N pokretanja po CHT-u: SP (0,571; 0,111; 0,001),
+  AP (0,533; 0,111; 0,001), FR (0,500; 0,111; 0,001), EC (0,533; 0,111; 0,001). **σ = 0,001 je donja granica
+  GAdapt-a:** kolonska raznovrsnost na diskretnim mrežama brzo kolabira, pa Gausova mutacija radi sa minimalnim σ
+  (na mreži to je pomak od jednog koraka, zbog „mutiraj dok se ne promeni“).
+- FX-T izbor (a, b, σ) iz mreže 27 konfiguracija: SP (0,75; 0,2; 0,05), AP (0,5; 0,4; 0,05), FR (0,75; 0,4; 0,05),
+  EC (0,75; 0,4; 0,15).
+- Proba (360 razvojnih pokretanja) i snaga: simulirana snaga 0,968 ≥ 0,8 → 10 semena po instanci (bez odstupanja).
+  **Ograničenje simulacije:** u 4 od 9 razvojnih blokova (case118 svi R, case57 R = 33) nijedna grana ne dostiže
+  cilj (T = 1 svuda, d = 0, sd = 0); zamrznuto pravilo dodaje pomak 0,05 i tim blokovima, pa je stvarna snaga za
+  θ_a verovatno manja od simulirane. Ne menja izvršavanje (pravilo je zamrznuto), ali se navodi pri tumačenju.
 
 ## 4. Primarni ishod (H56a)
 [θ_a, 95% interval, p; podržano / nije otkriveno — po pravilu §7]
