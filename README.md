@@ -4,6 +4,7 @@ A comprehensive and customizable genetic algorithm library.
 
 ## Table of Contents
 - [Introduction](#introduction)
+  - [Maintenance and Ongoing Research](#maintenance-and-ongoing-research)
   - [What Innovations Does GAdapt Bring?](#what-innovations-does-gadapt-bring)
 - [Installation](#installation)
 - [Releases](#releases)
@@ -20,6 +21,19 @@ A comprehensive and customizable genetic algorithm library.
 ## Introduction
 
 [GAdapt](https://gadapt.com) is an open-source Python library for Genetic Algorithm optimization. Its distinguishing feature is **diversity-guided mutation**: instead of a fixed or time-based mutation rate, it measures how diverse the population is in every generation, and uses that to decide how much, where and how to mutate.
+
+### Maintenance and Ongoing Research
+
+This repository is a research and development fork of the [original GAdapt project](https://github.com/bpzoran/gadapt). GAdapt's original author, [bpzoran](https://github.com/bpzoran), is also the academic mentor of [owlCoder](https://github.com/owlCoder) and has entrusted them with continuing the project's development in this fork. **owlCoder maintains this fork; the original project's authorship and upstream maintenance remain attributed to the original project.**
+
+Current development and research priorities include:
+
+- Experimental evaluation of genetic algorithms and adaptive optimization strategies.
+- Reproducible experiments, tests, and research documentation.
+- Investigation of algorithm improvements and their validation through benchmarks.
+- Code quality, reliability, and long-term maintainability.
+
+Research results and proposed changes in this fork may be experimental; performance claims should be supported by reproducible evidence.
 
 ### What Innovations Does GAdapt Bring?
 
@@ -77,10 +91,10 @@ pip install gadapt
 GAdapt requires Python 3.10 or newer. [NumPy](https://numpy.org/) is installed automatically as a dependency.
 
 ## Releases
-The latest releases of GAdapt can be found at the PyPI repository: [GAdapt on PyPI](https://pypi.org/project/gadapt/)
+The original GAdapt project publishes releases on PyPI: [GAdapt on PyPI](https://pypi.org/project/gadapt/). Ongoing research and development in this fork may not be included in those releases.
 
 ## Source Code
-The source code is available on GitHub: [GAdapt on GitHub](https://github.com/bpzoran/gadapt/)
+The original upstream source code is available at [bpzoran/gadapt](https://github.com/bpzoran/gadapt/). This repository, [owlCoder/gadapt](https://github.com/owlCoder/gadapt), is the independently maintained research and development fork described above.
 
 ## API Documentation
 For detailed API documentation, refer to: [GAdapt API Documentation](https://www.gadapt.com/api/)
