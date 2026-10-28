@@ -281,6 +281,10 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   **I63 FX-T kalibracija GOTOVO 21:03** (972/972, bez ponavljanja; izabran isti vektor za SP i FR: a=0,75, b=0,1, σ=0,05); `rehearsal` radi od 21:03 (≈ 45 min), zatim power → freeze → test.
   **I64-E ZAMRZNUT** (`ITERATION64_E_SPEC.md`) i POKRENUT 21:10: `research/i64/run_e.sh 1` (MBENCH, E_PY=scratchpad eenv; jedno jezgro, nice; izlaz `research/results/iteration64_e/`, `chain.log`;
   razvoj → freeze → run po ćelijama (nastavlja se) → analyse). Ponovno pokretanje: ista skripta.
+- **2026-10-28 21:45 I64-E potvrda TEČE** (`run` od 21:24, ≈ 11 min po ćeliji, ≈ 12 h ukupno, jedno jezgro, nastavlja se po ćeliji). Izabrani parametri (razvoj): CMA σ0=0,2; IPOP 0,3; BIPOP 0,5; (1+1)-ES σ0=0,3/up=1,5/stagnacija=100.
+  Zamrzavajući komit `c015730`. Analiza: primarna je `research/i64/e_analysis.py` (izlaz `analysis_v2`; ispravke math-reviewer D1–D6, dopuna A1 u `ITERATION64_E_SPEC.md`); pokreće se sa
+  `E_FREEZE_COMMIT=c015730 MBENCH=… $E_PY research/i64/e_analysis.py` posle `run`. Lanac `run_e.sh` na kraju pravi i staru `analysis` (zamenjena). Zatim izveštaj `ITERATION64_E_REPORT_SR.md` (generator još ne postoji — napisati iz `analysis_v2`).
+  I63: `rehearsal` ≈ 60%; generator izveštaja `research/i63tools/report63.py`. Codex i dalje na limitu (do 23:28).
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
