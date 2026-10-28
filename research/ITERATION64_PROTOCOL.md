@@ -1,36 +1,68 @@
-# ITERATION64: replikacija i proširenje mentorovog benchmarka (GAdapt „stabilan, tačan, primenjiv“) — NACRT PROTOKOLA, NIJE ZAMRZNUT
+# ITERATION64: replikacija i proširenje mentorovog benchmarka (PROTOKOL v2; faza S0 se zamrzava ovim komitom, ostale faze zasebno)
 
 Izvor pitanja: mentor (preko korisnika, 2026-10-28): GAdapt je dobar, nadmašuje sve algoritme osim jednog, ali je tačniji; cilj je stabilnost i primena u industriji.
-Eksperiment mentora: https://github.com/bpzoran/gadapt_experiments (verzija `0e388356`; GAdapt diversity mutation, PyGAD random/adaptive mutation, SciPy DE best1exp;
-9 klasičnih funkcija, dimenzije 2/7/20, 1000 pokretanja, zaustavljanje stagnacijom 20 generacija, limit 600). Codex 083 (`research/codex/083_*`).
-Doprinos: replikacija, proširenje i karakterizacija pouzdanosti — NE nova metoda ni teorema (prior art poređenja adaptivnih mutacija na klasičnim funkcijama:
-Srinivas–Patnaik 1994 10.1109/21.286385; Marsili Libelli–Alba 2000 10.1007/s005000000042). Nema tvrdnje o industrijskoj spremnosti.
+Eksperiment mentora: https://github.com/bpzoran/gadapt_experiments, komit `0e388356ba954d17a8d78941bd18a4580cc9d210` (GAdapt diversity mutation, PyGAD random/adaptive mutation,
+SciPy DE best1exp; 9 klasičnih funkcija, 2/7/20 dimenzija, stagnacija, 1000 pokretanja). Recenzije: Codex 083, 084 (FREEZE AFTER FIXES, uneto).
+Doprinos: replikacija, proširenje i karakterizacija pouzdanosti — NE nova metoda ni teorema (prior art poređenja adaptivnih mutacija na klasičnim funkcijama: Srinivas–Patnaik 1994
+10.1109/21.286385; Marsili Libelli–Alba 2000 10.1007/s005000000042). Nema tvrdnje o industrijskoj spremnosti ni opšte superiornosti.
+Napomena: dijagnostika brojanja evaluacija (`research/i64/PILOT_NOTES_SR.md`, 8 semena 0..7, Sphere D=2,7) rađena je pre zamrzavanja i NEPREREGISTROVANA je; semena S0 su druga (§6).
 
-## Faze (svaka sa sopstvenim GO/STOP; skupa faza se ne pokreće bez prethodne)
-- **I64-S (sintetika, jeftina)**: najpre ovde. Odgovara na mentorovo pitanje na njegovom domenu.
-- **I64-I (infrastruktura)**: ORPD (case14/30/39/57/118 × R ∈ {9,17,33} × 2 nova scenarija) i penalizovani AC dispečing (5 mreža × 2 scenarija). Zasebna zamrznuta dopuna
-  posle uvida samo u razvojni deo I64-S; procena do ≈ 3000 CPU-sati (Codex 083), pokreće se tek po odluci.
+## Faze
+- **S0** (zamrznuta ovde): replikacija sa stvarnim brojanjem na originalnim 21 ćelijom i četiri originalne konfiguracije, 20 semena, jedno jezgro, originalna stagnacija.
+- **R, razvoj, E, I64-I**: estimandi, težine, ciljevi, budžeti, roster i pravila odlučivanja zamrznuti ovde (§2–§5); parametri CMA/IPOP/BIPOP/(1+1)-ES i konkretan roster biraju se samo na razvoju
+  i zamrzavaju zasebnim komitom PRE merenja svake faze. S0 nije deo potvrdnog uzorka. I64-I (ORPD i AC dispečing; ≈ 528 M AC poziva, 293–2347 CPU-sati) je zasebna zamrznuta dopuna.
 
-## I64-S dizajn
-1. **Replikacija (R)**: 21 kombinacija funkcija/dimenzija (Sphere, Rosenbrock, Rastrigin, Ackley, Griewank, Styblinski–Tang × {2,7,20}; Beale, Himmelblau, Booth 2D), originalne četiri konfiguracije
-   sa originalnim parametrima (pop 64, elitizam 50%, stagnacija 20, limit 600 generacija), 100 pokretanja po ćeliji sa uparenim semenima, **nezavisno brojanje stvarnih poziva** funkcije cilja po
-   fazama (inicijalizacija, generacije, probe/validacija, callback) kroz omotač; zapis putanje „najbolje do sada“ po stvarnom pozivu. Bez izmene koda mentorovih runnera (uvoz iz klona na zamrznutom heš-u).
-2. **Proširenje (E)**: iste 21 kombinacije × {originalna, pomerena, pomerena+rotirana} = 63 ćelije; konfiguracije: GAdapt (podrazumevano), GAdapt preset
-   (`normal_distribution_mutation_min_std_dev=1e-4`, `normal_distribution_mutation_min_std_dev_decay_generations=2.5`), PyGAD random, PyGAD adaptive, SciPy DE (best1exp, kao u originalu),
-   CMA-ES, IPOP-CMA-ES, BIPOP-CMA-ES (`cma`), (1+1)-ES sa restartima; L-SHADE i jDE samo ako postoji validirana implementacija (CEC-provera) u zasebnom okruženju, inače izostavljeno i prijavljeno.
-   **Budžet po pokretanju: tačno 12.000 stvarnih poziva** (spoljni omotač prekida), bez stagnacionog zaustavljanja (restarti su deo zamrznute konfiguracije); snimci na 3000 i 12.000.
-   100 semena po ćeliji; isto seme = isti početni uzorak gde je moguće; pomeraji i ortogonalne matrice iz javnog semena; minimum ostaje u domenu; rotacija sfere je negativna kontrola.
-3. **Mere** (jaz g = (f − f*)/(scale) ≥ 0, f* poznat; L = g/(1+g), neuspeh/izvršni otkaz L = 1; ne izbacuju se pokretanja): medijana jaza; kvantili 90/95%; **CVaR₀,₉** (prosek najlošijih 10%);
-   verovatnoća dostizanja ciljeva g ≤ 1e−2, 1e−4, 1e−6; ECDF dostizanja ciljeva po broju evaluacija (nedostizanje u imeniocu); SD samo opisno (nije definicija stabilnosti).
-4. **Analiza**: uparena semena, Wilcoxon + rank-biserial efekat, Holm; medijane/CVaR/verovatnoće stratifikovanim bootstrapom celih uparenih vektora (20.000, 95%); sintetika sa jednakim težinama funkcija.
-   Replikacija (R) i proširenje (E) odvojeno.
-5. **Hipoteze** (Codex 083): H64a (mentorova): „bolji“ = veća površina ispod ECDF-a dostizanja ciljeva; GAdapt nadmašuje sve konkurente osim najviše jednog, i ima niži završni medijalni jaz od tog izuzetka;
-   simultani intervali moraju podržati oba dela, neznačajno nije pobeda. Suprotan ishod: ≥ 2 konkurenta efikasnija, ili izuzetak i tačniji. Neodlučeno ako intervali ne razrešavaju.
-   H64b (preset): agregatni CVaR gubitka manji ≥ 20% bez pada verovatnoće dostizanja većeg od 5 procentnih poena naspram podrazumevanog GAdapt-a.
-6. **Budžet (S)**: R ≈ 21 × 4 × 100 pokretanja (do 600 generacija); E ≈ 63 × 9 × 100 × 12.000 ≈ 680 M jeftinih evaluacija; GAdapt overhead ~ms/generaciji — procena CPU-sati posle merenja na razvoju.
-7. **Zamrzavanje**: protokol, zavisnosti (zaključane verzije), javna semena, raspored pomeraja/rotacija, heš mentorovog repoa i biblioteke pre prvog merenja; kod omotača i
-   nezavisni proverivač (nezavisno brojanje poziva vs. prijavljeni najbolji) pre merenja; create-once faze kao u I63.
+## 1. Replikacija — vernost (S0 i R)
+Klon `0e388356…`, originalni GAdapt 0.5.0 (PyPI) i zaključano kompatibilno okruženje (`requirements.txt` mentora; verzije u manifestu). Eksplicitno `saturation_criterias=[20]` (skalarna 20; lista
+`[15]` bi je prepisala), populacija 64, elitizam 50%, limit 600 generacija, četiri uključene konfiguracije. Originalne razlike zaustavljanja se zadržavaju (DE: tolerancija `tol=1e-7` i callback
+sa `min_delta=1e-12`; PyGAD `saturate_20`; GAdapt `exit_check="min_cost"`, `max_attempt_no=20`). PyGAD: mentorova selekcija po rangu bez vraćanja, BLX-α = 0,5, mutacione verovatnoće 0,1 odnosno [0,6; 0,1].
+GAdapt: originalni operatori, mutacioni procenti 60/60, imigracija 0, jedinstvenost isključena. Manifest beleži sva razrešena podešavanja. Eventualna razlika prema istorijskoj biblioteci se prijavljuje.
+Funkcije i granice iz mentorovog `functions/` i use-case modula (Rosenbrock zadržava uzak opseg [0,5; 1,5] — zaključak ne obuhvata standardni širi domen).
 
-## Otvorena pitanja pre zamrzavanja (za Codex recenziju)
-(a) Koji tačno algoritam mentor misli kao „izuzetak“ (verovatno DE ili CMA-ES) — protokol ne zavisi od toga, hipoteza se ocenjuje preko rangiranja. (b) Validacija L-SHADE/jDE implementacije. (c) Kako tačno uračunati
-GAdapt-ove probe (`probe_cost_function`) — prijavljuju se zasebno, i uračunavaju se u budžet. (d) Da li preset zahteva i varijantu sa bit-identičnim podrazumevanim (da).
+## 2. Estimandi (zamrznuti za sve faze)
+- **Normalizacija.** Za funkciju/dimenziju i: s_i = median_{k=1..4096}[f_i(U_k) − f_i*] > 0, U_k unapred generisane uniformne tačke originalnog domena (seme zapisano, vrednosti arhivirane PRE optimizacije);
+  isti s_i za sve algoritme i transformacije. g = max(0, (f − f*)/s_i); vrednost ispod f* − 1e−12·s_i blokira instrument. f* = 0 za sve osim Styblinski–Tang: f* = D(a⁴ − 16a² + 5a)/2, a = negativni
+  globalno minimizujući koren 4a³ − 32a + 5 = 0 (visoka preciznost). L = g/(1+g); algoritamski otkaz (bez konačnog rezultata) L = 1; greška instrumenta = STOP.
+- **Brojanje.** Jednonitni omotač broji svaki fizički poziv (duplikati, validacione all-min/all-max probe GAdapt-a, PyGAD ručna početna evaluacija i dodatne adaptive evaluacije, `best_solution()`
+  ponovna računanja, DE callback); keširan fitnes nije novi poziv. Primarni rezultat = najmanji konačan f među prvim B pozivima (S0: svi pozivi do izvornog završetka), uključujući probe; pri jednakosti prvi vektor.
+  Čuvaju se kopija vektora, faza i trag „najbolje do sada“ po pozivu. Izvorni povratni rezultat se beleži odvojeno (pri nasilnom prekidu u E označen nedostupnim).
+- **ECDF površina.** Za cilj τ ∈ {1e−2, 1e−4, 1e−6}, T_τ = prvi stvarni poziv sa g ≤ τ, ili ∞. A = (1/(3B)) Σ_τ Σ_{b=1..B} 1(T_τ ≤ b); nedostizanje daje nulu. S0/R: B = 12.000 služi analizi
+  putanje (posle izvornog završetka najbolje ostaje konstantno, bez dodatnih poziva); završna preciznost koristi izvorni kraj.
+- **CVaR₀,₉** za n = 100: sortirano L rastuće, CVaR = (1/10) Σ_{r=91..100} L_(r) (veze zadržavaju multiplicitet). Agregat = ponderisan prosek ćelijskih CVaR.
+- **Težine.** Funkcije 1/9, njihove dimenzije jednaka unutrašnja težina (2D funkcije jedna ćelija), E varijante 1/3. ΔA_j = E_w[A_G − A_j]; ΔM_j = M_j − M_G (M = ponderisan prosek ćelijskih završnih medijana g).
+  Neodređene razlike beskonačnosti blokiraju odgovarajući zaključak.
+
+## 3. Hipoteze i pravila odlučivanja
+- **H64a (mentorova)**: GAdapt nadmašuje sve konkurente osim najviše jednog, i ima niži završni medijalni jaz od tog izuzetka. Prolazi ako svi konkurenti imaju donju simultanu granicu ΔA > 0, ILI postoji jedan e
+  takav da to važi za sve j ≠ e i donja granica ΔM_e > 0. U E se konkurenti uzimaju svih deset (uključujući preset); fokalni GAdapt se ne bira naknadno. Veze nisu pobede.
+  Suprotan ishod: dva dokazano efikasnija konkurenta, ili jedan dokazano efikasniji i preciznijeg; ostalo = neodlučeno.
+- **H64b (preset)**: R_0 = agregatni CVaR podrazumevanog GAdapt-a > 0; donja granica 0,8·R_0 − R_preset ≥ 0; donje granice razlika verovatnoće dostizanja ≥ −0,05 za sva tri cilja. Dva nulta rizika nisu poboljšanje.
+- **Inferencija**: 20.000 stratifikovanih bootstrap uzoraka celih uparenih vektora (po ćeliji); simultani intervali preko maksimalnog standardizovanog odstupanja. Porodice: S0 šest kontrasta (α = 0,01); R šest (0,01);
+  E-H64a dvadeset (0,02); H64b četiri (0,01); nominalni FWER ukupno 0,05 (bootstrap nije konačnouzoračka garancija). Nulta procenjena varijansa blokira potvrdu. Snimak na 3000 je opisan. Wilcoxon/rank-biserial samo opisno.
+
+## 4. Konfiguracije proširenja (E, zasebno zamrzavanje) i razvoj
+E: GAdapt-M (mentorova konfiguracija) i ista konfiguracija sa presetom (`normal_distribution_mutation_min_std_dev=1e-4`, `…_decay_generations=2.5`; podrazumevano isključeno, bit-identičan trag preset-off),
+PyGAD random i adaptive, SciPy DE, CMA sa restartima iste populacije, IPOP-CMA-ES, BIPOP-CMA-ES (`cma`), (1+1)-ES sa restartima; L-SHADE/jDE samo uz validiranu implementaciju (CEC-provera, zasebno okruženje), inače izostavljeno
+i prijavljeno. Sve promenljive normalizovane na [0,1]; original f(l + w·y); pomerena/rotirana f(x* + w·Qᵀ(y − o)), w = u − l, o ∈ [0,25; 0,75]^D, Q ortogonalna (Q = I za samo pomeranje); o, Q, x* arhivirani; minimum
+dostižan; rotirana Sphere = negativna kontrola (jednaka pomerenoj do tolerancije). U E nema spoljašnje stagnacije: pri izvornom završetku pre B sledi unapred definisan restart sa zajedničkim preostalim budžetom (važi i za DE).
+Budžet B = 12.000 stvarnih poziva; spoljni omotač podiže `BudgetReached(BaseException)` pre poziva B+1 (poziv B se potpuno izvršava); proverava se da svaka biblioteka propušta signal; nema lažnog fitnesa.
+Samo razvoj bira CMA σ₀, populacije, tolerancije i IPOP/BIPOP raspored, odnosno korak, adaptaciju i restart (1+1)-ES, iz unapred navedenih kandidata uz jednak kalibracioni budžet.
+Ponavljanja: 100 semena po ćeliji (R i E); semena §6.
+
+## 5. Procena CPU
+T_CPU = [N_f·t_f + Σ_a N_gen,a·h_a + T_start + T_zapis + T_analiza]/3600; početna aproksimacija GAdapt overhead h_G = 0,001·(P/32)·(D/10) s/generaciji. Okvirno: S0 1–2 h (jedno jezgro), R 5–10 h, razvoj 0,5–2 h po
+rosteru, E 10–40 h, I64-I zasebno. E sa 11 konfiguracija: 831,6 M poziva (devet: 680,4 M).
+
+## 6. Seme, S0
+Sortirana ćelija c = 3i + v (i = indeks funkcije/dimenzije, v varijanta), seme = 64.000.000 + 1.000.000·p + 1.000·c + s; p = 0/1/2/3 za S0/razvoj/R/E; s = 1..20 (S0), 1..5 (razvoj), 1..100 (R, E).
+Postavljaju se Python, NumPy i bibliotečki RNG (PyGAD `random_seed`, SciPy DE `seed`, GAdapt preko `random`/`numpy`); isto seme ne znači identičnu početnu populaciju.
+
+## 7. S0 — tačan opseg
+21 originalna ćelija × četiri originalne konfiguracije × 20 semena (p = 0, s = 1..20) = 1.680 pokretanja, jedno jezgro, originalna stagnacija, bez dodatnog evaluacionog limita (limit 600 generacija je mentorov).
+Objavljuje se: originalni proseci/generacije mentora, stvarni pozivi po pokretanju i fazi, razlika generacije vs pozivi, ΔA i ΔM sa simultanim intervalima (šest kontrasta, α = 0,01), CVaR₀,₉, verovatnoće dostizanja.
+Ishod može biti podržano, suprotno ili neodlučeno; GO za kasnije faze zavisi od ispravnosti instrumenta i troška, ne od pozitivnog rangiranja. Create-once identitet (jedan direktorijum `research/results/iteration64_s0`), heševi svih tranzitivnih izvora, manifest. S0 poziva mentorove funkcije `execute_gadapt_experiment`, `execute_pygad_experiment` i
+`execute_scipy_de_experiment` NEPROMENJENE, sa `num_runs=1` po semenu; konstrukcije GA/pygad.GA/DE parametara su doslovno one iz `runners/experiment.py` (doslovan prepis parametara, hešovan). Jedina intervencija je
+injektovanje semena u SciPy DE (`rng=seed`, mentorov poziv ga ne postavlja) i brojač poziva funkcije cilja (GAdapt: brojač sa `__deepcopy__` koji vraća self jer `GA.execute()` duboko kopira GA). Gateovi pre merenja:
+(1) brojanje: zbir faza = ukupan broj poziva omotača, bez negativnih ili dvostrukih brojanja; (2) determinizam: isto seme daje identičan trag poziva u dva izvršavanja za 3 ćelije × 4 konfiguracije (seme van S0 opsega: p = 9);
+(3) svedok: najbolji prijavljeni f se reprodukuje nezavisnim ponovnim računanjem iz zapisanog vektora. Greška instrumenta = STOP; tehnički neuspeh pokretanja se ponavlja jednom istim semenom, ponovljen neuspeh = STOP.
+Mentorova DE callback evaluacija i PyGAD `best_solution()` se broje kao stvarni pozivi (po Codex 084).
