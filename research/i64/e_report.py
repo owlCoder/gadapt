@@ -33,6 +33,21 @@ import statistics as st
 w("| varijanta | " + " | ".join(CFG) + " |\n|---|" + "---|" * len(CFG))
 for var in ("orig", "shift", "rot"):
     w(f"| {var} (A / med. gap) | " + " | ".join(f"{st.mean(grp[(var,c)]['A']):.3f} / {st.mean(grp[(var,c)]['g']):.2g}" for c in CFG) + " |")
+w("\n## 4b. Po varijanti: broj ćelija u kojima GAdapt-M ima veći A / manju medijanu jaza od konkurenta (od 21 po varijanti)\n")
+w("| varijanta | konkurent | veći A: GAdapt / konkurent | manja medijana jaza: GAdapt / konkurent / jednako |\n|---|---|---|---|")
+for var in ("orig", "shift", "rot"):
+    cells = sorted({tuple(k.split("|")[:3]) for k in a["per_cell"] if k.split("|")[2] == var})
+    for c in CFG[1:]:
+        aw = al = gw = gl = ge = 0
+        for f, d, v in cells:
+            g, o = a["per_cell"][f"{f}|{d}|{v}|gadapt"], a["per_cell"][f"{f}|{d}|{v}|{c}"]
+            aw += g["A"] > o["A"]; al += g["A"] < o["A"]
+            gw += g["median_gap"] < o["median_gap"]; gl += g["median_gap"] > o["median_gap"]; ge += g["median_gap"] == o["median_gap"]
+        w(f"| {var} | {c} | {aw} / {al} | {gw} / {gl} / {ge} |")
+w("\n## 4c. Prosek CVaR₀,₉(L) po varijanti (ćelije jednako ponderisane)\n")
+w("| varijanta | " + " | ".join(CFG) + " |\n|---|" + "---|" * len(CFG))
+for var in ("orig", "shift", "rot"):
+    w(f"| {var} | " + " | ".join(f"{st.mean(v['cvar90'] for k, v in a['per_cell'].items() if k.split('|')[2] == var and k.split('|')[3] == c):.4f}" for c in CFG) + " |")
 w("\n## 5. Ograničenja (unapred)\nKlasične funkcije (nisu CEC/BBOB); optimum u domenu; 100 semena (retki otkazi nisu pouzdano procenljivi; CVaR-bootstrap nije gladak kad ~10% pokretanja otkaže — zato je prikazan broj pokretanja sa L > 0,5); L-SHADE/jDE izostavljeni;"
   " CMA bez margine; GAdapt/PyGAD/DE u izvornom domenu a CMA/ES na jediničnoj kocki; GAdapt iz repozitorijuma (0.5.2+), ne PyPI 0.5.0; razvoj parametara na rotiranim ćelijama iz drugih semena.")
 open(os.path.join(os.path.dirname(HERE), "ITERATION64_E_REPORT_SR.md"), "w").write("\n".join(L) + "\n"); print("written")

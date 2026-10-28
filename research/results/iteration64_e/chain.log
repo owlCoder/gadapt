@@ -1,0 +1,296 @@
+=== normalizers Wed Oct 28 21:10:34 CET 2026
+=== dev Wed Oct 28 21:10:35 CET 2026
+=== freeze Wed Oct 28 21:23:55 CET 2026
+=== run Wed Oct 28 21:23:55 CET 2026
+cell 0 ('sphere', 2, 'orig') done
+cell 1 ('sphere', 2, 'shift') done
+cell 2 ('sphere', 2, 'rot') done
+cell 3 ('sphere', 7, 'orig') done
+cell 4 ('sphere', 7, 'shift') done
+cell 5 ('sphere', 7, 'rot') done
+cell 6 ('sphere', 20, 'orig') done
+cell 7 ('sphere', 20, 'shift') done
+cell 8 ('sphere', 20, 'rot') done
+cell 9 ('rosenbrock', 2, 'orig') done
+cell 10 ('rosenbrock', 2, 'shift') done
+cell 11 ('rosenbrock', 2, 'rot') done
+cell 12 ('rosenbrock', 7, 'orig') done
+cell 13 ('rosenbrock', 7, 'shift') done
+cell 14 ('rosenbrock', 7, 'rot') done
+cell 15 ('rosenbrock', 20, 'orig') done
+Process SpawnPoolWorker-85:
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/pool.py", line 131, in worker
+    put((job, i, result))
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/queues.py", line 397, in put
+    self._writer.send_bytes(obj)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/connection.py", line 206, in send_bytes
+    self._send_bytes(m[offset:offset + size])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/connection.py", line 437, in _send_bytes
+    self._send(header)
+    ~~~~~~~~~~^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/connection.py", line 400, in _send
+    n = write(self._handle, buf)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/process.py", line 320, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/pool.py", line 136, in worker
+    put((job, i, (False, wrapped)))
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/queues.py", line 397, in put
+    self._writer.send_bytes(obj)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/connection.py", line 206, in send_bytes
+    self._send_bytes(m[offset:offset + size])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/connection.py", line 437, in _send_bytes
+    self._send(header)
+    ~~~~~~~~~~^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/connection.py", line 400, in _send
+    n = write(self._handle, buf)
+BrokenPipeError: [Errno 32] Broken pipe
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/resource_tracker.py:396: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown: {'/mp-2q_mfyu6', '/mp-tbo3xw5b', '/mp-5qmfy9mf', '/mp-7ti1_5j2', '/mp-1rjzf9m9', '/mp-3hi0qs0p'}
+  warnings.warn(
+skip normalizers
+skip dev
+skip freeze
+=== run Wed Oct 28 23:07:09 CET 2026
+cell 16 ('rosenbrock', 20, 'shift') done
+cell 17 ('rosenbrock', 20, 'rot') done
+cell 18 ('rastrigin', 2, 'orig') done
+cell 19 ('rastrigin', 2, 'shift') done
+cell 20 ('rastrigin', 2, 'rot') done
+cell 21 ('rastrigin', 7, 'orig') done
+cell 22 ('rastrigin', 7, 'shift') done
+cell 23 ('rastrigin', 7, 'rot') done
+cell 24 ('rastrigin', 20, 'orig') done
+cell 25 ('rastrigin', 20, 'shift') done
+cell 26 ('rastrigin', 20, 'rot') done
+cell 27 ('ackley', 2, 'orig') done
+cell 28 ('ackley', 2, 'shift') done
+cell 29 ('ackley', 2, 'rot') done
+cell 30 ('ackley', 7, 'orig') done
+cell 31 ('ackley', 7, 'shift') done
+cell 32 ('ackley', 7, 'rot') done
+cell 33 ('ackley', 20, 'orig') done
+cell 34 ('ackley', 20, 'shift') done
+cell 35 ('ackley', 20, 'rot') done
+cell 36 ('griewank', 2, 'orig') done
+cell 37 ('griewank', 2, 'shift') done
+cell 38 ('griewank', 2, 'rot') done
+cell 39 ('griewank', 7, 'orig') done
+cell 40 ('griewank', 7, 'shift') done
+cell 41 ('griewank', 7, 'rot') done
+cell 42 ('griewank', 20, 'orig') done
+cell 43 ('griewank', 20, 'shift') done
+cell 44 ('griewank', 20, 'rot') done
+cell 45 ('styblinski_tang', 2, 'orig') done
+cell 46 ('styblinski_tang', 2, 'shift') done
+/Users/danijel/Desktop/gadapt/research/i64/e_algos.py:65: RuntimeWarning: overflow encountered in multiply
+  y = x + sigma * rng.standard_normal(d)
+/Users/danijel/Desktop/gadapt/research/i64/e_algos.py:65: RuntimeWarning: overflow encountered in multiply
+  y = x + sigma * rng.standard_normal(d)
+cell 47 ('styblinski_tang', 2, 'rot') done
+cell 48 ('styblinski_tang', 7, 'orig') done
+cell 49 ('styblinski_tang', 7, 'shift') done
+cell 50 ('styblinski_tang', 7, 'rot') done
+cell 51 ('styblinski_tang', 20, 'orig') done
+cell 52 ('styblinski_tang', 20, 'shift') done
+cell 53 ('styblinski_tang', 20, 'rot') done
+cell 54 ('beale', 2, 'orig') done
+cell 55 ('beale', 2, 'shift') done
+cell 56 ('beale', 2, 'rot') done
+cell 57 ('himmelblau', 2, 'orig') done
+cell 58 ('himmelblau', 2, 'shift') done
+cell 59 ('himmelblau', 2, 'rot') done
+cell 60 ('booth', 2, 'orig') done
+cell 61 ('booth', 2, 'shift') done
+cell 62 ('booth', 2, 'rot') done
+=== analyse Wed Oct 28 23:52:59 CET 2026
+{
+ "verdict": "opposite",
+ "tstar": 3.5874398021225873,
+ "alpha": 0.02,
+ "bootstrap": 20000,
+ "contrasts": {
+  "dA|gadapt_preset": {
+   "estimate": 0.003781738683127556,
+   "lower": -0.0010864004006032324,
+   "upper": 0.008649877766858344
+  },
+  "dA|pygad_random": {
+   "estimate": 0.058814993141289434,
+   "lower": 0.05192299670901561,
+   "upper": 0.06570698957356326
+  },
+  "dA|pygad_adaptive": {
+   "estimate": 0.12069025720164604,
+   "lower": 0.11413333409424833,
+   "upper": 0.12724718030904375
+  },
+  "dA|de": {
+   "estimate": 0.03358370713305895,
+   "lower": 0.02788835666212647,
+   "upper": 0.03927905760399143
+  },
+  "dA|cma": {
+   "estimate": -0.08860355624142663,
+   "lower": -0.09529094282171027,
+   "upper": -0.08191616966114298
+  },
+  "dA|ipop": {
+   "estimate": -0.09666282921810702,
+   "lower": -0.10335092147172405,
+   "upper": -0.08997473696449
+  },
+  "dA|bipop": {
+   "estimate": -0.09561146776406032,
+   "lower": -0.10227498650608868,
+   "upper": -0.08894794902203196
+  },
+  "dA|es11": {
+   "estimate": 0.025718542524005482,
+   "lower": 0.016328240135493128,
+   "upper": 0.03510884491251784
+  },
+  "dM|gadapt_preset": {
+   "estimate": 0.00011623419475326716,
+   "lower": -0.0014767873978830412,
+   "upper": 0.0017092557873895754
+  },
+  "dM|pygad_random": {
+   "estimate": 0.010479957958667657,
+   "lower": 0.009008819485789254,
+   "upper": 0.01195109643154606
+  },
+  "dM|pygad_adaptive": {
+   "estimate": 0.02253432259896925,
+   "lower": 0.020844971797037856,
+   "upper": 0.024223673400900647
+  },
+  "dM|de": {
+   "estimate": 0.010746420874528644,
+   "lower": 0.009307751924042226,
+   "upper": 0.012185089825015061
+  },
+  "dM|cma": {
+   "estimate": 0.004919284018371456,
+   "lower": 0.0029835379649733413,
+   "upper": 0.00685503007176957
+  },
+  "dM|ipop": {
+   "estimate": 0.003497461326982847,
+   "lower": 0.0016704717035606774,
+   "upper": 0.0053244509504050165
+  },
+  "dM|bipop": {
+   "estimate": 0.0030170353300672226,
+   "lower": 0.0015417609876080055,
+   "upper": 0.00449230967252644
+  },
+  "dM|es11": {
+   "estimate": 0.025921697033042247,
+   "lower": 0.023963555186249923,
+   "upper": 0.02787983887983457
+  }
+ },
+ "aggregate": {
+  "gadapt": {
+   "A": 0.6732050137174209,
+   "cvar90": 0.011723968810383126,
+   "median_gap": 0.004288672615106708,
+   "reach": [
+    0.8975308641975304,
+    0.7760493827160491,
+    0.6465432098765431
+   ]
+  },
+  "gadapt_preset": {
+   "A": 0.6694232750342936,
+   "cvar90": 0.012061290392002145,
+   "median_gap": 0.0044049068098599735,
+   "reach": [
+    0.8956790123456788,
+    0.7708641975308639,
+    0.653827160493827
+   ]
+  },
+  "pygad_random": {
+   "A": 0.6143900205761317,
+   "cvar90": 0.021574498030991606,
+   "median_gap": 0.014768630573774356,
+   "reach": [
+    0.8251851851851848,
+    0.6834567901234565,
+    0.6130864197530863
+   ]
+  },
+  "pygad_adaptive": {
+   "A": 0.552514756515775,
+   "cvar90": 0.03350916524501544,
+   "median_gap": 0.026822995214075964,
+   "reach": [
+    0.773086419753086,
+    0.6577777777777776,
+    0.5765432098765431
+   ]
+  },
+  "de": {
+   "A": 0.639621306584362,
+   "cvar90": 0.01849035910454364,
+   "median_gap": 0.015035093489635346,
+   "reach": [
+    0.849876543209876,
+    0.7566666666666664,
+    0.7166666666666663
+   ]
+  },
+  "cma": {
+   "A": 0.7618085699588476,
+   "cvar90": 0.014471135728924944,
+   "median_gap": 0.009207956633478159,
+   "reach": [
+    0.8680246913580241,
+    0.8150617283950614,
+    0.8135802469135798
+   ]
+  },
+  "ipop": {
+   "A": 0.7698678429355281,
+   "cvar90": 0.014224840860563765,
+   "median_gap": 0.007786133942089555,
+   "reach": [
+    0.8791358024691356,
+    0.8392592592592589,
+    0.8371604938271602
+   ]
+  },
+  "bipop": {
+   "A": 0.7688164814814816,
+   "cvar90": 0.01421407007464059,
+   "median_gap": 0.00730570794517393,
+   "reach": [
+    0.8812345679012341,
+    0.8397530864197527,
+    0.8386419753086414
+   ]
+  },
+  "es11": {
+   "A": 0.6474864711934157,
+   "cvar90": 0.044901101739411316,
+   "median_gap": 0.03021036964814895,
+   "reach": [
+    0.7611111111111106,
+ 
+E ALL DONE Wed Oct 28 23:56:15 CET 2026

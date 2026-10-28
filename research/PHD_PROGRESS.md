@@ -290,6 +290,13 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   H63 NIJE ocenjena; nema ponavljanja (jedan naslednik). Test faza nije izvršena, test scenariji nisu otvoreni. Grana teze „I63 STOP“: H56a ostaje lokalni nereplikovani nalaz (case14).
   Odluka korisnika potrebna: da li se pokreće eksplicitno DESKRIPTIVNA (nepotvrdna) ekstenzija istog estimanda sa n = 160 (≈ 61 M PF, ≈ 70 CPU-sati), npr. kao I63-D; vidi završnu poruku.
   Posle STOP-a E ubrzan na 9 radnika (23:07, nastavlja po ćeliji).
+- **2026-10-29 00:30 I64-E GOTOVO** (63 ćelije × 9 konfiguracija × 100 semena; run 21:24–23:56; analiza `analysis_v2` = stara `analysis` identične tačkaste ocene; obelodanjeno: izlaz stare analize bio je delimično vidljiv u logu lanca pre pokretanja v2) → `ITERATION64_E_REPORT_SR.md`.
+  **H64a po zamrznutom pravilu: SUPROTAN ishod** (tri CMA varijante dokazano efikasnije: ΔA −0,089/−0,097/−0,096, simultani intervali < 0); GAdapt dokazano efikasniji od PyGAD (×2), DE i (1+1)-ES. Tumačenje (post hoc, porodica CMA kao jedan algoritam): mentorova slika
+  „nadmašuje sve osim jednog“ važi, jer je izuzetak porodica CMA-ES. **Presudan nalaz: zavisi od rotacije.** CVaR₀,₉(L): GAdapt 0,0033 (orig/shift, najbolji od svih) ali 0,0386 pod rotacijom (CMA porodica 0,019); ECDF A: 0,63/0,63/0,52 (orig/shift/rot) naspram CMA ≈ 0,70 svuda;
+  medijana jaza GAdapt 0,0013 → 0,014 pod rotacijom. H64b (preset): NE podržana (CVaR 0,0117 → 0,0121; preset nema efekta). Agregatni CVaR GAdapt-M 0,0117 je najniži od svih devet, ali to je zbir neokrenutih ćelija.
+  ZAKLJUČAK: GAdapt-ova prednost u tačnosti/stabilnosti je prednost osno-poravnatih (separabilnih) problema; na nesepariabilnim/rotiranim je CMA porodica bolja; infrastrukturni problemi su tipično nesepariabilni.
+  ODLUKA (autonomno, korisnik 2026-10-29: bez AskUserQuestion): sledeća metoda = opt-in OPERATOR NEZAVISAN OD ROTACIJE u biblioteci (mutacija razlikom roditelja, DE/UNDX/PCX tip; prior art je obilan → NE tvrdi novinu, inženjerski doprinos),
+  podrazumevano bit-identično, preregistrovan test E2 (rotirane ćelije) da li zatvara jaz prema CMA porodici. I63-D (deskriptivna ekstenzija) odobrena od korisnika: pokrenuti posle E2 ako CPU dozvoljava (≈ 70 CPU-sati).
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
