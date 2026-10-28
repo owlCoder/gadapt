@@ -260,6 +260,11 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   (osim attempt_* arhive) obrisati pre ponovnog pokretanja; ako je pao gate ili freeze usred rada, SystemExit "EXISTS: ..." traži kontrolisan oporavak i
   dokumentovano odstupanje (NE brisati STOP.json). NE menjati `gadapt/` ni `research/iteration5[68]_*.py`, `iteration61_*`, `iteration63_*` dok lanac radi.
   Ishodi: STOP (bilo koja faza) → izveštaj kao u I61, grana teze „I63 STOP“; sprovedena potvrda → `ITERATION63_REPORT_SR.md` po §8 + Codex recenzija.
+- **2026-10-28 (mentor):** korisnik: mentor kaže da je GAdapt dobar, nadmašuje sve algoritme osim jednog, ali je tačniji; cilj stabilnost i industrijska primena
+  (memorija `mentor-success-criterion`). Mentorov eksperiment: `github.com/bpzoran/gadapt_experiments` (klon u scratchpad `ext/`, verzija `0e388356`; GAdapt vs PyGAD random/adaptive vs SciPy DE,
+  9 klasičnih funkcija, stagnacija 20, metrike AFI/REC/AUCC/SD). Codex 083: GO za replikaciju+proširenje, NO-GO za unapred proglašenu superiornost; nedostaci dizajna: budžet u generacijama
+  (ne evaluacijama), različite izloženosti cilju, SD nije stabilnost, nema pomeranja/rotacije. Nacrt `ITERATION64_PROTOCOL.md` (I64-S sintetika pa I64-I infrastruktura); NIJE zamrznut.
+  Ne pokretati CPU-težak rad dok I63 radi (9 od 10 jezgara). Nacrt koda/omotača u scratchpad-u moguć. Dodatno odbačeni kandidati: H7 (ograničena jedinstvenost), H8 (zaključak preko intervala reference).
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
