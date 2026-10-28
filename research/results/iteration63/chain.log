@@ -1,0 +1,93 @@
+=== gate Wed Oct 28 19:14:27 CET 2026
+{
+ "label": "current",
+ "passed": true,
+ "runs": 54,
+ "mismatches": 0
+}
+=== normalizers Wed Oct 28 19:16:42 CET 2026
+=== fxt Wed Oct 28 19:16:43 CET 2026
+=== rehearsal Wed Oct 28 21:03:37 CET 2026
+{
+ "passed": true,
+ "criteria": {
+  "case30": {
+   "complete": {
+    "0": 20,
+    "1": 20
+   },
+   "feasible": {
+    "0|FR|AD-N": 20,
+    "0|FR|FX-T": 20,
+    "0|SP|AD-N": 20,
+    "0|SP|FX-T": 20,
+    "1|FR|AD-N": 20,
+    "1|FR|FX-T": 20,
+    "1|SP|AD-N": 20,
+    "1|SP|FX-T": 20
+   },
+   "non_tie": {
+    "FR": 14,
+    "SP": 12
+   },
+   "nonzero": 14,
+   "variance": 0.125,
+   "passed": true
+  },
+  "case39": {
+   "complete": {
+    "0": 20,
+    "1": 20
+   },
+   "feasible": {
+    "0|FR|AD-N": 20,
+    "0|FR|FX-T": 20,
+    "0|SP|AD-N": 20,
+    "0|SP|FX-T": 20,
+    "1|FR|AD-N": 19,
+    "1|FR|FX-T": 19,
+    "1|SP|AD-N": 20,
+    "1|SP|FX-T": 20
+   },
+   "non_tie": {
+    "FR": 36,
+    "SP": 34
+   },
+   "nonzero": 26,
+   "variance": 0.43187499999999995,
+   "passed": true
+  },
+  "case24_ieee_rts": {
+   "complete": {
+    "0": 20,
+    "1": 20
+   },
+   "feasible": {
+    "0|FR|AD-N": 20,
+    "0|FR|FX-T": 20,
+    "0|SP|AD-N": 20,
+    "0|SP|FX-T": 20,
+    "1|FR|AD-N": 20,
+    "1|FR|FX-T": 20,
+    "1|SP|AD-N": 20,
+    "1|SP|FX-T": 20
+   },
+   "non_tie": {
+    "FR": 29,
+    "SP": 29
+   },
+   "nonzero": 22,
+   "variance": 0.3225,
+   "passed": true
+  }
+ }
+}
+=== power Wed Oct 28 21:58:25 CET 2026
+{
+ "chosen_n": 160,
+ "confirmation_ok": true,
+ "calibration_ok": false,
+ "passed": false
+}
+STOP: power confirmation or null/equivalence calibration failed (§6); final
+stage power exited non-zero Wed Oct 28 23:06:24 CET 2026

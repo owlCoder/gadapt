@@ -285,6 +285,11 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   Zamrzavajući komit `c015730`. Analiza: primarna je `research/i64/e_analysis.py` (izlaz `analysis_v2`; ispravke math-reviewer D1–D6, dopuna A1 u `ITERATION64_E_SPEC.md`); pokreće se sa
   `E_FREEZE_COMMIT=c015730 MBENCH=… $E_PY research/i64/e_analysis.py` posle `run`. Lanac `run_e.sh` na kraju pravi i staru `analysis` (zamenjena). Zatim izveštaj `ITERATION64_E_REPORT_SR.md` (generator još ne postoji — napisati iz `analysis_v2`).
   I63: `rehearsal` ≈ 60%; generator izveštaja `research/i63tools/report63.py`. Codex i dalje na limitu (do 23:28).
+- **2026-10-28 23:06 I63 KONAČAN STOP u fazi `power`** → `ITERATION63_REPORT_SR.md` (generisan): razvojna proba PROŠLA (izvodljivost ≥ 19/20, var(d) 0,125–0,43), n = 160 izabran, potvrda snage PROŠLA (snaga 0,89–0,94), kalibracija nule PROŠLA;
+  PALA samo kalibracija lažne ekvivalencije na granicama θ = ±0,05 (49–58 od 1000, gornja Wilsonova granica 0,055–0,074 > 0,05). Kriterijum je dizajnerski nedostižan (na granici ekvivalencije stopa greške = nominalna veličina testa 5%).
+  H63 NIJE ocenjena; nema ponavljanja (jedan naslednik). Test faza nije izvršena, test scenariji nisu otvoreni. Grana teze „I63 STOP“: H56a ostaje lokalni nereplikovani nalaz (case14).
+  Odluka korisnika potrebna: da li se pokreće eksplicitno DESKRIPTIVNA (nepotvrdna) ekstenzija istog estimanda sa n = 160 (≈ 61 M PF, ≈ 70 CPU-sati), npr. kao I63-D; vidi završnu poruku.
+  Posle STOP-a E ubrzan na 9 radnika (23:07, nastavlja po ćeliji).
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj

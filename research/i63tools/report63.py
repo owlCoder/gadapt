@@ -19,6 +19,14 @@ if ex("rehearsal"):
         w(f"| {n} | {c['complete']} | {min(c['feasible'].values())} | {c['non_tie']} | {c['nonzero']} | {c['variance']:.4f} | {c['passed']} |")
 if ex("power"):
     p = load("power"); w(f"\n## Snaga\nizabrani n = {p.get('chosen_n')}, potvrda = {p.get('confirmation_ok')}, kalibracija = {p.get('calibration_ok')}, prošla = {p.get('passed')}.\n")
+    if "calibration" in p:
+        w("### Kalibracija (1000 simuliranih eksperimenata; kriterijum: Wilsonova gornja granica stope pogrešnog zaključka ≤ 0,05)\n")
+        w("| varijanta i cilj θ | pozitivan | negativan | ekvivalentan | gornja granica (poz / neg / ekv) | prolazi |\n|---|---|---|---|---|---|")
+        for k, v in p["calibration"].items():
+            var, t = k.split("|"); t = float(t)
+            checks = {0.0: (v["wilson_pos"][1] <= 0.05 and v["wilson_neg"][1] <= 0.05)}.get(t, v["wilson_equiv"][1] <= 0.05)
+            w(f"| {k} | {v['counts']['positive']} | {v['counts']['negative']} | {v['counts']['equivalent']} | {v['wilson_pos'][1]:.3f} / {v['wilson_neg'][1]:.3f} / {v['wilson_equiv'][1]:.3f} | {checks} |")
+        w("\nPali su samo kriterijumi lažne ekvivalencije na granicama θ = ±0,05. Na granici ekvivalencije stopa pogrešne ekvivalencije ravna je veličini testa (nominalno 5%), pa Wilsonova gornja granica ≤ 0,05 sa 1000 simulacija nije dostižna ni za test tačne veličine 5%; to je osobina zamrznutog pravila, ne podatak o H56a. Pravilo se ne ublažava naknadno (§6).\n")
 if ex("analysis"):
     a = load("analysis"); h = a["H63"]
     w("## Primarni rezultat\n")
