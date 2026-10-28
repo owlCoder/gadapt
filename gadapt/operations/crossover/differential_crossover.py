@@ -1,5 +1,9 @@
+import math
 import random
 import sys
+from decimal import Decimal
+
+from gadapt.ga_model.candidate_solution import CandidateSolution
 
 from gadapt.operations.crossover.base_crossover import BaseCrossover
 from gadapt.operations.candidate_solution_update.base_candidate_solution_updater import (
@@ -15,11 +19,14 @@ class DifferentialCrossover(BaseCrossover):
 
     Each offspring is a parent plus a scaled difference of two other members of the population, applied to ALL decision
     variables together with the same scale factor (dithered in [0.5, 1.0] per offspring, as in differential evolution):
-    offspring1 = mother + F1 * (a - b), offspring2 = father + F2 * (c - d), where a, b, c, d are distinct random members.
-    The shift follows the shape of the population, so the operator does not depend on the orientation of the coordinate
-    axes (unlike blending and uniform crossover, which act on every decision variable separately).
-    The crossover probability applies to the pair: with that probability the pair is combined, otherwise the offspring
-    copy the parents. Values are reflected into the variable range and moved to the variable's grid (step).
+    offspring1 = mother + F1 * (a - b), offspring2 = father + F2 * (c - d), where a, b, c, d are distinct random members
+    that are neither the mother nor the father. The proposed (unbounded) step is equivariant under rotations of the
+    coordinate system, Q(m + F(a - b)) = Qm + F(Qa - Qb); unlike blending and uniform crossover it does not act on every
+    decision variable separately. Reflection into the variable range, snapping to the grid, and the mutation operators
+    are still coordinate-wise, so the whole algorithm is not rotation invariant.
+    The crossover probability applies to the pair and is a single Bernoulli trial: with that probability the pair is
+    combined, otherwise the offspring copy the parents (the probability is not raised until a crossover happens).
+    If the population has fewer than four other members, the offspring are interpolated between the parents.
     """
 
     F_MIN = 0.5
@@ -30,8 +37,25 @@ class DifferentialCrossover(BaseCrossover):
         self._population = None
 
     def _mate_pair(self, mother, father, population):
+        """Like BaseCrossover._mate_pair, but the crossover probability is a single Bernoulli trial per pair."""
         self._population = population
-        return super(DifferentialCrossover, self)._mate_pair(mother, father, population)
+        if len(mother) != len(father):
+            raise Exception("Mother and father must have the same number of decision variables!")
+        self._mother = mother
+        self._father = father
+        self._offspring1 = CandidateSolution(population.population_generation)
+        self._offspring2 = CandidateSolution(population.population_generation)
+        c_o_p = self._get_crossover_probability(population)
+        if math.isnan(c_o_p):
+            raise Exception("Crossover probability is not a number!")
+        self._cross_genetic_material(c_o_p)
+        self._offspring1.mother_id = self._mother.candidate_solution_id
+        self._offspring2.mother_id = self._mother.candidate_solution_id
+        self._offspring1.father_id = self._father.candidate_solution_id
+        self._offspring2.father_id = self._father.candidate_solution_id
+        self._all_decision_variables_crossed()
+        self._increase_generation()
+        return self._offspring1, self._offspring2
 
     def _combine(self):
         raise NotImplementedError("DifferentialCrossover combines whole candidate solutions")
@@ -48,9 +72,11 @@ class DifferentialCrossover(BaseCrossover):
             value = low
         step = getattr(decision_variable, "step", None)
         if step is not None and step > 0 and step > sys.float_info.min:
-            value = low + round((value - low) / step) * step
-            value = min(max(value, low), high)
-            value = round(value, decision_variable.decimal_places)
+            k_max = math.floor((high - low) / step + 1e-9)
+            k = min(max(int(round((value - low) / step)), 0), k_max)
+            value = low + k * step
+            decimals = max(0, -Decimal(repr(step)).normalize().as_tuple().exponent, -Decimal(repr(low)).normalize().as_tuple().exponent)
+            value = round(value, decimals)
         return value
 
     def _cross_genetic_material(self, crossover_prob: float):
@@ -59,14 +85,15 @@ class DifferentialCrossover(BaseCrossover):
         crossed = random.random() <= crossover_prob
         shifts1 = shifts2 = None
         if crossed:
-            pool = [c for c in self._population.candidate_solutions if len(c) == n]
+            pool = [c for c in self._population.candidate_solutions
+                    if len(c) == n and c is not self._mother and c is not self._father]
             if len(pool) >= 4:
                 a, b, c, d = random.sample(pool, 4)
                 f1 = random.uniform(self.F_MIN, self.F_MAX)
                 f2 = random.uniform(self.F_MIN, self.F_MAX)
                 shifts1 = [f1 * (a[i].value - b[i].value) for i in range(n)]
                 shifts2 = [f2 * (c[i].value - d[i].value) for i in range(n)]
-            else:  # too small a population: move the parents towards each other and beyond
+            else:  # too small a population: interpolate between the parents (F <= 1 never goes beyond them)
                 f1 = random.uniform(self.F_MIN, self.F_MAX)
                 shifts1 = [f1 * (self._father[i].value - self._mother[i].value) for i in range(n)]
                 shifts2 = [-s for s in shifts1]
