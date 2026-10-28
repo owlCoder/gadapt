@@ -139,10 +139,12 @@ Odgovarajuća formulacija za README glasi:
 
 Dokumentacija treba da objasni izbor tehnike, raspored ε i značenje izlaznih polja. Telekom korist ostaje neproverena; nova provera zahteva novi protokol.
 
-## 7.9 Prelaz ka I61 i I62
+## 7.9 I61, I63 i I62
 
-Praktične provere ne zamenjuju replikaciju centralnog nalaza o interakciji. I61 zato ponavlja kontrast adaptivna naspram podešene fiksne politike, ukršten sa FR i statičkom kaznom. Zamrznuti protokol predviđa razvojni izbor informativnog budžeta, proveru instrumenta, kalibraciju komparatora i proveru snage. I61 koristi topologije odvojene od I56, ali iste kao I58, uz druge scenarije i reference. To ostaje ograničenje nezavisnosti replikacije. Studija koristi istraživački instrument iz I56 i ne predstavlja novu proveru bibliotečkog patch-a v4.
+Praktične provere ne zamenjuju replikaciju centralnog nalaza o interakciji. I61 je zato trebalo da ponovi kontrast adaptivna naspram podešene fiksne politike, ukršten sa FR i statičkom kaznom, na topologijama odvojenim od I56 (iste kao I58, uz druge scenarije i reference). Zamrznuti protokol je zahtevao razvojni izbor informativnog budžeta. **I61 je stao na tom pravilu (§5):** nijedna mreža nije imala budžet B ∈ {3000, 6000, 12000} za koji su sve četiri razvojne medijane vremena dostizanja u [0,3; 0,8]; faze posle izbora budžeta nisu izvršene, a test scenariji nisu otvoreni. H61 nije ocenjena, što nije negativan rezultat za H56a. Opisni uzrok je cilj f ≤ 1,01·L* + 0,01 MW, koji je na nekim scenarijima nedostižan u 12.000 poziva (case30, scenario 0: 0/10), dok se na drugima dostiže pri vrlo različitim budžetima; povećanje budžeta ne bi pomoglo, jer T = h/B opada sa B.
+
+Zbog toga je zamrznut tačno jedan naslednik, I63, sa drugim procenjivačem (kvalitet najboljeg izvodljivog rešenja pri fiksnom budžetu od 12.000 poziva, uparena „pobeda“ FX-T nad AD-N sa pragom 0,1% kontinualnog OPF normalizatora) i sa obelodanjivanjem da su I61 razvojni podaci služili kao pilot za izbor procenjivača i budžeta. I63 ne tvrdi novu metodu: fiksni budžet i ECDF su deo COCO prakse, a poređenje tehnika za ograničenja na ORPD-u postoji kod Mallipeddi i sar. (2012). Ako I63 stane na nekom zamrznutom pravilu, to je konačan ishod i H56a ostaje lokalni, nereplikovan nalaz; I64 se ne planira.
 
 I62 je za sada predlog za jači spoljni kontekst. Predviđa validirane L-SHADE i jDE implementacije, zadržavanje CMAwM poređenja i razvojno podešenu kaznu. Time treba proveriti koliko zaključci zavise od jednog nepodešenog kaznenog koeficijenta i skupa konkurenata. Predlog nije zamrznut i nema rezultate.
 
-Ova dva koraka odgovaraju na različite preostale potrebe: I61 proverava ponovljivost empirijske interakcije, a I62 praktičan položaj biblioteke prema jačim poređenjima. H58 = N i H60 = N ostaju deo glavnog dokaza i određuju granicu sadašnje tvrdnje o korisnosti ugrađenih opcija.
+Ova dva koraka odgovaraju na različite preostale potrebe: I63 proverava ponovljivost empirijske interakcije, a I62 praktičan položaj biblioteke prema jačim poređenjima. H58 = N i H60 = N ostaju deo glavnog dokaza i određuju granicu sadašnje tvrdnje o korisnosti ugrađenih opcija.
