@@ -243,6 +243,10 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   **I61 POKRENUT 23:06** (`chain3.sh`, scratchpad sesije 66e5645f, 9 radnika): gate → … → analyse, staje na prvom STOP-u.
   Ako je prekinuto: faze su create-once — nastaviti od prve faze bez `manifest_<faza>.json.gz` u `results/iteration61/`
   (ako je pala usred faze bez manifesta: izlaz te faze obrisati pre ponovnog pokretanja); gate se ne ponavlja.
+- **2026-10-25 02:40 (evidentirano 2026-10-28): I61 STOP u §5** → `ITERATION61_REPORT_SR.md` (`deebe08`): nijedna mreža nema B sa sve četiri
+  razvojne medijane T u [0,3; 0,8] (60/60 select_b ok); fxt…analyse NISU izvršene, test scenariji neotvoreni; H61 NIJE ocenjena
+  (nije negativan rezultat za H56a). Lanac više ne radi; skripta lanca iz stare sesije je izgubljena. Grana teze: „I61 STOP“ (Codex 075).
+  2026-10-28: Codex 076 (strateški pregled: legitimnost naslednika I63 sa širim budžetom + najbolji neodbačeni put do doprinosa) u toku.
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
