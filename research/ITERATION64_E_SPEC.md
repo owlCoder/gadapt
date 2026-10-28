@@ -18,3 +18,9 @@ Status: ZAMRZNUTO ovim komitom (Codex 086 nije stigao: limit do 23:28; samopregl
 7. **CPU**: ≈ 56.700 pokretanja × 0,3–2 s ≈ 5–30 CPU-sati (procena); pokreće se na jednom jezgru uz nice dok I63 koristi devet.
 8. **Obelodanjivanja**: (a) ishodi S0 su poznati pre zamrzavanja E; dizajn E nije podešavan prema njima (potiče iz Codex 083/084); (b) probno izvršavanje celog cevovoda sa B = 600, 2 semena, u privremenom direktorijumu (izlazi odbačeni);
    (c) normalizacija f* za Styblinski–Tang u dvostrukoj preciznosti; (d) PyGAD i DE dobijaju seme preko globalnog RNG-a / `rng`.
+
+## Dopuna A1 (2026-10-28, PRE uvida u ijedan E rezultat): ispravljena analiza
+Nezavisna matematička recenzija analize (agent `math-reviewer`, Codex nedostupan) našla je 0 blokirajućih i 6 neblokirajućih nedostataka (otkaz → L = 1 umesto NaN; NaN/inf u kontrastima blokira zaključak; nulta varijansa H64b ne sme da obori
+H64a; strukturne provere; dokumentovanje neglatkosti CVaR bootstrapa; manifest analize). Ispravke su u `research/i64/e_analysis.py` (izlaz `analysis_v2`), a kod koji proizvodi podatke (`e_study.py` razvoj/freeze/run, `e_algos.py`, `e_common.py`) je NEPROMENJEN.
+Lanac `run_e.sh` na kraju još pokreće staru `e_study.py analyse` (izlaz `analysis`); **primarna je `analysis_v2`**, stara je zamenjena i prijavljuje se samo ako se razlikuje. Provenijencija: `e_analysis.py` proverava heševe `e_algos.py`/`e_common.py`
+iz manifesta `run` i da je `e_study.py` u zamrzavajućem komitu (`E_FREEZE_COMMIT`) bajt-identičan zapisanom heševu. Pri jednakom broju ćelija i semenima (63 × 9 × 100) i familija: H64a 16 kontrasta α = 0,02; H64b 4 kontrasta α = 0,01.
