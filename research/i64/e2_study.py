@@ -47,7 +47,9 @@ def gadapt_diff_runner(g, d, seed, lo=0.0, hi=1.0):
                 ensure_unique_individuals=False, logging=False, timeout=10 ** 7)
         for _ in range(d):
             ga.add(min_value=float(lo), max_value=float(hi), step=None)
-        ga.execute()
+        result = ga.execute()
+        if not result.success:
+            raise RuntimeError("GA.execute() returned success=False (technical failure, not a restart)")
     e_algos._restart_loop(single, seed, g)
 
 
@@ -85,6 +87,10 @@ def stage_run(workers):
     if os.path.exists(path("run")):
         raise SystemExit("EXISTS: run exists (create-once)")
     from multiprocessing import Pool
+    em = es.load("manifest_run")
+    cur = es.manifest("e2")
+    if json.loads(json.dumps(em["pip_freeze"])) != json.loads(json.dumps(cur["pip_freeze"])) or em["python"] != cur["python"]:
+        raise SystemExit("STOP: environment differs from the one that produced the archived E records")
     # E provenance: the archived E raw data must be the ones published by E (hash of every part recorded here)
     parts = {f"run_part_{ci}": sha(os.path.join(E_OUT, f"run_part_{ci}.json.gz")) for ci in range(len(es.CELLS))}
     allrecs = []
@@ -94,8 +100,8 @@ def stage_run(workers):
             allrecs.extend(load(part)["records"])
             continue
         tasks = [dict(config="gadapt_diff", params=None, cell=ci, seed=es.seed_of("run", ci, s), purpose="run") for s in range(1, N_SEEDS + 1)]
-        with Pool(workers, maxtasksperchild=50) as pool:
-            records = list(pool.imap(run_task2, tasks, chunksize=2))
+        with Pool(workers, maxtasksperchild=1) as pool:
+            records = list(pool.imap(run_task2, tasks, chunksize=1))
         for i, r in enumerate(records):
             if not r.get("ok"):
                 with Pool(1, maxtasksperchild=1) as pool:
@@ -193,15 +199,22 @@ def analyse():
         t = float(np.quantile(np.max(np.abs(boots - point) / se, axis=1), 0.95))
         lo, hi = point - t * se, point + t * se
     res = {n: dict(estimate=float(p), lower=float(a), upper=float(b)) for n, p, a, b in zip(names, point, lo, hi)}
-    h1 = (not blocked) and res[names[0]]["lower"] > 0 and res[names[1]]["lower"] >= 0
-    h2 = (not blocked) and res[names[2]]["lower"] >= -0.05 and res[names[3]]["lower"] >= 0
-    h3 = (not blocked) and res[names[4]]["lower"] > -0.05
+    cm_rot = wsum(rot, lambda ci: cvar(list(arr[(ci, "gadapt")][:, 1])))
+    def tri(sup, opp):
+        return "blocked" if blocked else ("supported" if sup else ("opposite" if opp else "undecided"))
+    # H64e1: dA_rot lower > 0 AND 0.8*CVaR(M) - CVaR(D) lower >= 0 AND CVaR_rot(M) > 0; opposite: dA_rot upper < 0 or the CVaR contrast upper < 0
+    e1 = tri(res[names[0]]["lower"] > 0 and res[names[1]]["lower"] >= 0 and cm_rot > 0, res[names[0]]["upper"] < 0 or res[names[1]]["upper"] < 0)
+    # H64e2 (tolerated harm): dA_nonrot lower >= -0.05 AND 1.5*CVaR(M) - CVaR(D) lower >= 0; opposite: either upper bound entirely on the harmful side
+    e2 = tri(res[names[2]]["lower"] >= -0.05 and res[names[3]]["lower"] >= 0, res[names[2]]["upper"] < -0.05 or res[names[3]]["upper"] < 0)
+    # H64e3 (non-inferiority to IPOP, margin 0.05 on dA): lower > -0.05; opposite: upper < -0.05
+    e3 = tri(res[names[4]]["lower"] > -0.05, res[names[4]]["upper"] < -0.05)
+    h1, h2, h3 = e1 == "supported", e2 == "supported", e3 == "supported"
     cfgs = ("gadapt", "gadapt_diff", "ipop", "cma", "bipop", "de")
     agg = {}
     for var, cells in (("orig", [c for c in range(n_cells) if es.CELLS[c][2] == "orig"]), ("shift", [c for c in range(n_cells) if es.CELLS[c][2] == "shift"]), ("rot", rot)):
         agg[var] = {c: dict(A=wsum(cells, lambda ci: arr[(ci, c)][:, 0].mean()), cvar90=wsum(cells, lambda ci: cvar(list(arr[(ci, c)][:, 1]))),
                             median_gap=wsum(cells, lambda ci: float(np.median(arr[(ci, c)][:, 2])))) for c in cfgs}
-    out = dict(blocked=blocked, tstar=t, alpha=0.05, bootstrap=R, contrasts=res, H64e1=bool(h1), H64e2=bool(h2), H64e3=bool(h3),
+    out = dict(blocked=blocked, tstar=t, alpha=0.05, bootstrap=R, contrasts=res, H64e1=e1, H64e2=e2, H64e3=e3, CVaR_rot_M=float(cm_rot),
                supported=bool(h1 and h2 and h3), aggregate_by_variant=agg, git_head=d2.get("git_head"))
     save("analysis", out)
     print(json.dumps(out, indent=1)[:5000])
