@@ -47,6 +47,20 @@ w("| ćelija | konfiguracija | poziva | generacija | medijana jaza | CVaR₀,₉
 for k, v in sorted(a["descriptive"].items()):
     f, d, c = k.split("|")
     w(f"| {f} d={d} | {c} | {v['calls_mean']:.0f} | {v['gens_mean']:.1f} | {v['gap_median']:.3g} | {v['cvar90']:.4f} | {v['reach'][0]:.2f} | {v['reach'][1]:.2f} | {v['reach'][2]:.2f} |")
+w("\n## 4b. Po ćelijama: ko pobeđuje (mehanički prebrojano iz tabele 4)\n")
+cells = sorted({tuple(k.split("|")[:2]) for k in a["descriptive"]})
+w("| konkurent | ćelije gde GAdapt ima manju medijanu jaza | ćelije gde konkurent ima manju | jednako | ćelije gde GAdapt ima veći A (srednja ECDF površina) | gde konkurent ima veći A |\n|---|---|---|---|---|---|")
+for c in cfg[1:]:
+    gw = cw = tie = aw = al = 0
+    for f, d in cells:
+        g, o = a["descriptive"][f"{f}|{d}|gadapt"], a["descriptive"][f"{f}|{d}|{c}"]
+        if g["gap_median"] < o["gap_median"]: gw += 1
+        elif g["gap_median"] > o["gap_median"]: cw += 1
+        else: tie += 1
+        if g["A_mean"] > o["A_mean"]: aw += 1
+        elif g["A_mean"] < o["A_mean"]: al += 1
+    w(f"| {c} | {gw} | {cw} | {tie} | {aw} | {al} |")
+w("\nAgregatna ΔM je ponderisana srednja vrednost medijana NORMALIZOVANOG jaza, pa je dominiraju ćelije sa velikim jazom (multimodalne i 20-dimenzione); prebrojavanje gore pokazuje koliko je pobeda raspoređeno po ćelijama.\n")
 w("\n## 5. Ograničenja (unapred)\nJednokorisnički S0 ima 20 semena po ćeliji; zaključak važi za mentorove konfiguracije i funkcije bez rotacije i pomeranja; okruženje GAdapt 0.5.0 (PyPI) i PyGAD 3.5.0. "
   "Mentorova zaokruživanja izlaza (10 decimala) zamenjena su nezaokruženim svedokom. Ovo nije dokaz opšte superiornosti ni industrijske spremnosti.")
 open(os.path.join(os.path.dirname(HERE), "ITERATION64_S0_REPORT_SR.md"), "w").write("\n".join(lines) + "\n")

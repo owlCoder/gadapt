@@ -1,0 +1,102 @@
+=== gate Wed Oct 28 20:39:18 CET 2026
+{
+ "passed": true,
+ "mismatches": 0
+}
+=== run Wed Oct 28 20:39:30 CET 2026
+cell sphere 2 done
+cell sphere 7 done
+cell sphere 20 done
+cell rosenbrock 2 done
+cell rosenbrock 7 done
+cell rosenbrock 20 done
+cell rastrigin 2 done
+cell rastrigin 7 done
+cell rastrigin 20 done
+cell ackley 2 done
+cell ackley 7 done
+cell ackley 20 done
+cell griewank 2 done
+cell griewank 7 done
+cell griewank 20 done
+cell styblinski_tang 2 done
+cell styblinski_tang 7 done
+cell styblinski_tang 20 done
+cell beale 2 done
+cell himmelblau 2 done
+cell booth 2 done
+=== analyse Wed Oct 28 20:55:43 CET 2026
+{
+ "verdict": "supported",
+ "contrasts": {
+  "dA|pygad_random": {
+   "estimate": 0.16384979423868312,
+   "lower": 0.14374181481481477,
+   "upper": 0.18395777366255148
+  },
+  "dA|pygad_adaptive": {
+   "estimate": 0.20444537037037033,
+   "lower": 0.18772965912981215,
+   "upper": 0.2211610816109285
+  },
+  "dA|de": {
+   "estimate": 0.04731404320987653,
+   "lower": 0.03332385287104509,
+   "upper": 0.061304233548707975
+  },
+  "dM|pygad_random": {
+   "estimate": 0.045261357031678905,
+   "lower": 0.03830301371177791,
+   "upper": 0.0522197003515799
+  },
+  "dM|pygad_adaptive": {
+   "estimate": 0.0434455168856241,
+   "lower": 0.03713571896583243,
+   "upper": 0.049755314805415764
+  },
+  "dM|de": {
+   "estimate": 0.007141212289235354,
+   "lower": 0.0035264380708113405,
+   "upper": 0.010755986507659366
+  }
+ },
+ "aggregate": {
+  "gadapt": {
+   "calls_mean": 10184.103703703704,
+   "gens_mean": 317.1907407407407,
+   "A": 0.6983036008230452,
+   "A_search_only": 0.6984375514403292,
+   "search_calls_mean": 10182.103703703704,
+   "cvar90": 0.006271343179853254,
+   "median_gap": 0.0009981238034914245
+  },
+  "pygad_random": {
+   "calls_mean": 16514.807407407403,
+   "gens_mean": 260.00370370370365,
+   "A": 0.534453806584362,
+   "A_search_only": 0.592570267489712,
+   "search_calls_mean": 8257.403703703701,
+   "cvar90": 0.05318832725202421,
+   "median_gap": 0.04625948083517033
+  },
+  "pygad_adaptive": {
+   "calls_mean": 25155.26296296296,
+   "gens_mean": 264.55740740740737,
+   "A": 0.49385823045267485,
+   "A_search_only": 0.5385802469135802,
+   "search_calls_mean": 16794.55,
+   "cvar90": 0.058865958428857765,
+   "median_gap": 0.044443640689115535
+  },
+  "de": {
+   "calls_mean": 11886.555555555555,
+   "gens_mean": 189.25555555555553,
+   "A": 0.6509895576131688,
+   "A_search_only": 0.6531490226337447,
+   "search_calls_mean": 11697.3,
+   "cvar90": 0.015709955640799526,
+   "median_gap": 0.008139336092726778
+  }
+ }
+}
+S0 ALL DONE Wed Oct 28 20:56:16 CET 2026
