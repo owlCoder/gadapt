@@ -1,6 +1,6 @@
 # ITERATION64-E: proširenje (pomereno/rotirano, jednak budžet, jači konkurenti) — specifikacija za zamrzavanje (dopuna protokola v2 §4)
 
-Status: NACRT dok Codex 086 ne potvrdi; zamrzava se komitom PRE razvojnih merenja. Realizacija: `research/i64/e_study.py`, `e_algos.py`, `e_common.py` (testovi `test_e_*.py`).
+Status: ZAMRZNUTO ovim komitom (Codex 086 nije stigao: limit do 23:28; samopregled koda: zaštita od praznog restarta dodata, native-domen mapiranje i analiza provereni testovima). Razvojna merenja slede posle komita. Realizacija: `research/i64/e_study.py`, `e_algos.py`, `e_common.py` (testovi `test_e_*.py`).
 
 1. **Ćelije**: 21 funkcija/dimenzija × {orig, shift, rot} = 63 ćelije (c = 3·i + v u redosledu FUNCS; i = indeks u listi funkcija sa dimenzijama). Pomeraj o ∈ [0,25; 0,75]^D i Haar-ortogonalna Q generišu se jednom po ćeliji iz javnog semena
    `default_rng([64, purpose, c])` (dev: purpose 1, run: purpose 3), zajedničke svim konfiguracijama; f* i normalizatori s_i su isti kao u S0 (seme 64001).

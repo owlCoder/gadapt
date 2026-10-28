@@ -20,11 +20,16 @@ def _native(g, lo, hi):
     return lambda x: g((np.asarray(x, float) - lo) / w)
 
 
-def _restart_loop(single_run, seed):
-    """Calls single_run(rng) repeatedly until the budget wrapper raises BudgetReached (shared remaining budget)."""
-    k = 0
+def _restart_loop(single_run, seed, budget=None):
+    """Calls single_run(rng, k) repeatedly until the budget wrapper raises BudgetReached (shared remaining budget).
+    Guard: a restart that made no objective call twice in a row would loop forever, so it is an error."""
+    k, idle = 0, 0
     while True:
+        before = getattr(budget, "n", None)
         single_run(np.random.default_rng([seed, k]), k)
+        idle = idle + 1 if (before is not None and budget.n == before) else 0
+        if idle >= 2:
+            raise RuntimeError("runner restarted twice without any objective call")
         k += 1
 
 
@@ -39,7 +44,7 @@ def cma_runner(g, d, seed, sigma0=0.3, popsize=None, incfactor=1):
         while not es.stop():
             xs = es.ask()
             es.tell(xs, [g(x) for x in xs])
-    _restart_loop(single, seed)
+    _restart_loop(single, seed, g)
 
 
 def bipop_runner(g, d, seed, sigma0=0.3, popsize=None):
@@ -68,7 +73,7 @@ def es11_runner(g, d, seed, sigma0=0.3, up=1.5, stagnation=1000):
             else:
                 fails += 1
                 sigma *= up ** (-0.25)
-    _restart_loop(single, seed)
+    _restart_loop(single, seed, g)
 
 
 def de_runner(g, d, seed, popsize=64, lo=0.0, hi=1.0):
@@ -81,7 +86,7 @@ def de_runner(g, d, seed, popsize=64, lo=0.0, hi=1.0):
         init = rng.uniform(lo, hi, (popsize, d))
         differential_evolution(gx, [(lo, hi)] * d, strategy="best1exp", popsize=max(1, popsize // d), maxiter=10 ** 6, mutation=(0.5, 1),
                                recombination=0.7, tol=0, atol=0, polish=False, init=init, rng=int(rng.integers(1, 2 ** 31)))
-    _restart_loop(single, seed)
+    _restart_loop(single, seed, g)
 
 
 def gadapt_runner(g, d, seed, preset=False, lo=0.0, hi=1.0):
@@ -105,7 +110,7 @@ def gadapt_runner(g, d, seed, preset=False, lo=0.0, hi=1.0):
         for _ in range(d):
             ga.add(min_value=float(lo), max_value=float(hi), step=None)
         ga.execute()
-    _restart_loop(single, seed)
+    _restart_loop(single, seed, g)
 
 
 def pygad_runner(g, d, seed, adaptive=False, mentor_dir=None, lo=0.0, hi=1.0):
@@ -125,7 +130,7 @@ def pygad_runner(g, d, seed, adaptive=False, mentor_dir=None, lo=0.0, hi=1.0):
                       gene_space=[{"low": float(lo), "high": float(hi)}] * d, fitness_func=lambda inst, sol, idx: 0 - gx(sol), suppress_warnings=True,
                       keep_elitism=32, crossover_type=blend_crossover_pygad, **mut)
         ga.run()
-    _restart_loop(single, seed)
+    _restart_loop(single, seed, g)
 
 
 RUNNERS = {"cma": cma_runner, "ipop": lambda g, d, s, **k: cma_runner(g, d, s, incfactor=2, **k), "bipop": bipop_runner, "es11": es11_runner,

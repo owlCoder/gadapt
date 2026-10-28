@@ -37,3 +37,9 @@ def test_native_domain_budget_exact(name):
     except e.BudgetReached:
         pass
     assert b.n == B and b.best < 0.3
+
+
+def test_idle_restart_guard():
+    b = e.Budget(lambda y: 0.0, 10)
+    with pytest.raises(RuntimeError):
+        a._restart_loop(lambda rng, k: None, 1, b)

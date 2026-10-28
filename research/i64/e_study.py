@@ -219,14 +219,24 @@ def stage_freeze():
 
 
 def stage_run(workers):
+    """Resumable by cell: each cell's records are stored in run_part_<c>.json.gz (deterministic tasks); `run` is assembled at the end."""
     m = require("run", ("normalizers", "dev", "freeze"))
     fr = load("freeze")
     params = fr["params"]
-    tasks = [dict(config=c, params=params.get(c), cell=ci, seed=seed_of("run", ci, s), purpose="run")
-             for ci in range(len(CELLS)) for s in range(1, N_SEEDS + 1) for c in CONFIGS]
-    assert len({(t["cell"], t["seed"], t["config"]) for t in tasks}) == len(tasks)
-    records = execute(tasks, workers)
-    save("run", dict(records=records))
+    allrecs = []
+    for ci in range(len(CELLS)):
+        part = f"run_part_{ci}"
+        if os.path.exists(path(part)):
+            allrecs.extend(load(part)["records"])
+            continue
+        tasks = [dict(config=c, params=params.get(c), cell=ci, seed=seed_of("run", ci, s), purpose="run")
+                 for s in range(1, N_SEEDS + 1) for c in CONFIGS]
+        assert len({(t["cell"], t["seed"], t["config"]) for t in tasks}) == len(tasks)
+        records = execute(tasks, workers)
+        save(part, dict(records=records))
+        allrecs.extend(records)
+        print("cell", ci, CELLS[ci], "done", flush=True)
+    save("run", dict(records=allrecs))
     save("manifest_run", m)
 
 
