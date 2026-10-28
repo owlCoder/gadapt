@@ -297,6 +297,11 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   ZAKLJUČAK: GAdapt-ova prednost u tačnosti/stabilnosti je prednost osno-poravnatih (separabilnih) problema; na nesepariabilnim/rotiranim je CMA porodica bolja; infrastrukturni problemi su tipično nesepariabilni.
   ODLUKA (autonomno, korisnik 2026-10-29: bez AskUserQuestion): sledeća metoda = opt-in OPERATOR NEZAVISAN OD ROTACIJE u biblioteci (mutacija razlikom roditelja, DE/UNDX/PCX tip; prior art je obilan → NE tvrdi novinu, inženjerski doprinos),
   podrazumevano bit-identično, preregistrovan test E2 (rotirane ćelije) da li zatvara jaz prema CMA porodici. I63-D (deskriptivna ekstenzija) odobrena od korisnika: pokrenuti posle E2 ako CPU dozvoljava (≈ 70 CPU-sati).
+- **2026-10-29 01:00 I64-E2 GOTOVO — NEGATIVAN preregistrovan rezultat** (`ITERATION64_E2_REPORT_SR.md`): opt-in `crossover="differential"` NE zatvara rotacijski jaz: ΔA_rot(D−M) = −0,036 [−0,047; −0,025]; CVaR_rot raste (0,8·C(M)−C(D) = −0,025 [−0,029; −0,021]); ΔA_nonrot −0,042;
+  ΔA_rot prema IPOP −0,18 [−0,19; −0,17]. H64e1 suprotno, H64e2 neodlučeno, H64e3 suprotno. Operator ostaje u biblioteci (podrazumevano isključen, bit-identično, bez preporuke); NE ponavljati sa drugim F.
+  Codex 087 recenzija primenjena (jedan Bernoulli po paru, donori ≠ roditelji, mreža u granicama, `result.success` provera, `maxtasksperchild=1`); reprodukcija 126/126 E tragova.
+  **SLEDEĆA METODA (autonomno):** (1) I64-I infrastruktura (diskretni ORPD, istih 9 konfiguracija) — odlučuje da li je GAdapt na stvarnom problemu u „osno-poravnatom“ ili „CMA“ režimu; (2) I63-D deskriptivna ekstenzija (odobrio korisnik), obe uporedo na slobodnim jezgrima.
+  E tumačenje: porodično grupisanje CMA NIJE potvrda H64a (Codex 087); samo post hoc obrazac.
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
