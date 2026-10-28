@@ -17,7 +17,7 @@ FX-T calibration statistic, rehearsal criteria, power simulation, freeze and ana
   python research/iteration63_replication.py analyse
 
 A stage that cannot continue under the protocol raises SystemExit("STOP: ..."). Every stage is create-once in the I63 directory
-(I63_OUT, default research/results/iteration63); a final STOP is final.
+(research/results/iteration63); a final STOP is final (STOP.json blocks every later call).
 """
 import json
 import math
@@ -25,7 +25,8 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.environ.get("I63_OUT", os.path.join(HERE, "results", "iteration63"))
+OUT = (os.path.join(os.environ.get("TMPDIR", "/tmp"), "i63_test_out") if (os.environ.get("I63_TESTING") or os.environ.get("I63_TEMP"))
+       else os.path.join(HERE, "results", "iteration63"))  # fixed experiment identity (a new directory would allow re-deciding)
 os.environ["I61_OUT"] = OUT  # the I61 machinery writes into the I63 directory
 os.environ.setdefault("I61_LIBRARY", os.path.dirname(HERE))
 
@@ -39,21 +40,26 @@ assert i61.OUT == OUT
 
 # ------------------------------------------------------------------ constants (protocol §2-§8)
 NETWORKS = i61.NETWORKS
-B = 12000
+TESTING = bool(os.environ.get("I63_TESTING"))  # pipeline rehearsal in a temp directory only: tiny budget, relaxed thresholds
+B = 300 if TESTING else 12000
 TIE = 0.001
 THETA = 0.05
 TEST_SCENARIOS = ((0.92, 630201), (1.02, 630202), (1.08, 630203))  # j = 2, 3, 4 (new realisations)
 i61.TEST_SCENARIOS = TEST_SCENARIOS  # scenario(j) of the I61 machinery (also in spawned workers: this module is re-imported)
 ARMS = i61.ARMS
-CALIBRATION_SEEDS, REHEARSAL_SEEDS = range(1, 4), range(1, 21)
-N_GRID = (80, 160, 240, 320, 480)
+CALIBRATION_SEEDS, REHEARSAL_SEEDS = range(1, 4), range(1, 5 if TESTING else 21)
+N_GRID = (8, 16) if TESTING else (80, 160, 240, 320, 480)
+SIM = dict(experiments=20, reps=100, confirm_reps=200) if TESTING else dict(experiments=1000, reps=2000, confirm_reps=20000)
+# frozen thresholds (§5, §6); the testing values only let the pipeline run through every stage
+FEAS_MIN, NONTIE_MIN, NONZERO_MIN, VAR_MIN = (0, 0, 0, 0.0) if TESTING else (10, 8, 8, 0.02)
+WILSON_POWER, WILSON_ERROR = (0.0, 1.0) if TESTING else (0.8, 0.05)
 SEED_BASE = 1_700_000_000
 PURPOSE = dict(fxt=1, rehearsal=2, test=3)
 POWER_SEEDS = dict(screening=63023, confirmation=63024, calibration=63025)
 BOOTSTRAP_SEED = 63
 VARIANTS = ("pooled", "j0", "j1")
-FXT_GRID = [tuple(g) for g in i56.FXT_GRID]
-TARGETS = (0.0, THETA, -THETA)
+FXT_GRID = [tuple(g) for g in i56.FXT_GRID][:3 if TESTING else 27]
+TARGETS = (THETA, 0.0, -THETA)  # §6 order: +0.05, 0, -0.05
 
 
 def seed63(purpose, network, j, s):
@@ -69,7 +75,8 @@ def task63(network, j, cht, arm, purpose, s, fixed=None):
 
 
 # ------------------------------------------------------------------ provenance (I61 chain, I63 stage graph)
-i61.CODE = i61.CODE + ("iteration63_replication.py", "test_iteration63_replication.py", "ITERATION63_PROTOCOL.md")
+i61.CODE = i61.CODE + ("iteration63_replication.py", "test_iteration63_replication.py", "ITERATION63_PROTOCOL.md",
+                       "iteration57_external.py", "test_iteration56_cht_study.py")
 INPUTS = dict(normalizers=(), fxt=("normalizers",), rehearsal=("normalizers", "fxt"), power=("rehearsal",),
               freeze=("normalizers", "fxt", "rehearsal", "power"), test=("freeze",),
               check=("normalizers", "fxt", "rehearsal", "freeze", "test"), analysis=("normalizers", "freeze", "test", "check"))
@@ -80,13 +87,73 @@ def build_manifest(stage):
     m = _build_manifest(stage)
     m["settings"] = dict(m["settings"], i63=dict(B=B, tie=TIE, theta=THETA, test=TEST_SCENARIOS, seed_base=SEED_BASE,
                                                  purpose=PURPOSE, n_grid=N_GRID, power_seeds=POWER_SEEDS,
-                                                 bootstrap_seed=BOOTSTRAP_SEED, fxt_grid=FXT_GRID))
+                                                 bootstrap_seed=BOOTSTRAP_SEED, fxt_grid=FXT_GRID,
+                                                 i56_archive_sha256=sha256(i56.path("test.json.gz"))))
     return m
 
 
 i61.build_manifest = build_manifest  # the gate, finish and publish of the I61 machinery use the I63 manifest
 publish = i61.publish
 load, save, artifact, path, sha256 = i61.load, i61.save, i61.artifact, i61.path, i61.sha256
+
+
+import hashlib  # noqa: E402
+
+_make61 = i61.make_problem
+
+
+def signature63(p):
+    """Hash of the scenario data the optimiser sees and of the OPF normalizer (§2: later construction must match)."""
+    if not math.isfinite(p.opf_losses) or p.opf_losses <= 0:
+        raise RuntimeError("invalid OPF normalizer")
+    data = [p.opf_losses, p.lo, p.hi, p.step, p.bus_groups]
+    raw = json.dumps(data, sort_keys=True, default=lambda x: x.tolist()).encode()
+    return hashlib.sha256(raw).hexdigest()
+
+
+def preflight63():
+    """OPF eligibility of all 15 scenarios before any optimisation; only an explicit OPF failure excludes (§2)."""
+    from iteration56_orpd import ScenarioError
+    roster = dict(dev=[], test=[], excluded=[], scenario_hashes={})
+    for n in NETWORKS:
+        for j in range(5):
+            try:
+                p = _make61(n, j)
+            except ScenarioError:
+                roster["excluded"].append([n, j])
+                continue
+            roster["scenario_hashes"][f"{n}|{j}"] = signature63(p)
+            roster["dev" if j < 2 else "test"].append([n, j])
+    save("roster.json", roster)
+    if any(j < 2 for _, j in roster["excluded"]) or any(sum(nn == n for nn, _ in roster["test"]) < 2 for n in NETWORKS):
+        raise SystemExit(f"STOP: both development scenarios and >= 2 confirmatory scenarios per network are required "
+                         f"{roster['excluded']} (§2)")
+    return roster
+
+
+def make_problem63(network, j):
+    p = _make61(network, j)
+    if signature63(p) != load("roster.json")["scenario_hashes"][f"{network}|{j}"]:
+        raise RuntimeError("scenario or OPF normalizer differs from the frozen roster")  # RuntimeError: a worker returns a failed record
+    return p
+
+
+i61.make_problem = make_problem63
+_chain61 = i61.verify_chain
+
+
+def verify_chain63(stage, current):
+    """I61 chain plus: the producer used this gate/roster and this freeze."""
+    _chain61(stage, current)
+    m = load(f"manifest_{stage}.json")
+    gate = i61.verify_gate()
+    if any(m.get(k) != gate[k] for k in ("gate_sha256", "roster_sha256")):
+        raise SystemExit("STOP: a producer used another gate or roster")
+    if "frozen_sha256" in m and m["frozen_sha256"] != sha256(path("manifest_frozen.json.gz")):
+        raise SystemExit("STOP: a producer used another freeze")
+
+
+i61.verify_chain = verify_chain63
 
 
 def require_provenance(stage):
@@ -124,14 +191,30 @@ def run63(task):
 
 
 def execute(tasks, workers):
-    records = i61.execute(tasks, workers, run63)
-    seen = {}
-    for r in records:
-        t = r["task"]
-        seen.setdefault((t["network"], t["j"], t["cht"], t["arm"], tuple(t["fixed"] or ()), t["s"]), 0)
-        seen[(t["network"], t["j"], t["cht"], t["arm"], tuple(t["fixed"] or ()), t["s"])] += 1
-    assert all(v == 1 for v in seen.values()), "duplicate task"
+    """Fresh process per run; a technically failed run is repeated once with the same task and seed (§7). Failed first
+    attempts and every repeat are archived in full (even if the stage later STOPs on a repeated failure)."""
+    from multiprocessing import Pool
+    purpose = tasks[0]["purpose"]
+    with Pool(workers, maxtasksperchild=1) as pool:
+        records = list(pool.imap(run63, tasks))
+    for k, r in enumerate(records):
+        if not r.get("ok"):
+            save(f"attempt_{purpose}_{k}_1.json", r)
+            with Pool(1, maxtasksperchild=1) as pool:
+                again = pool.apply(run63, (tasks[k],))
+            save(f"attempt_{purpose}_{k}_2.json", again)
+            again["rerun"], again["first_attempt"] = True, r
+            records[k] = again
+    seen = [(t["network"], t["j"], t["cht"], t["arm"], tuple(t["fixed"] or ()), t["s"]) for t in (r["task"] for r in records)]
+    assert len(seen) == len(set(seen)), "duplicate task"
     return records
+
+
+def all_attempts(records):
+    for r in records:
+        if "first_attempt" in r:
+            yield r["first_attempt"]
+        yield r
 
 
 def require_all_ok(records, what):
@@ -152,29 +235,26 @@ def assert_seeds(tasks, units_of_task):
 
 
 def archive_seeds():
-    """Seeds of the I56, I58-I61 archives (collision with the I63 range is a STOP)."""
+    """Optimisation seeds of the I56 and I58-I61 archives; an unreadable archive is an error, not silence."""
+    import gzip
     seeds = set()
-    base = os.path.join(HERE, "results")
-    for root, _, files in os.walk(base):
-        if os.path.abspath(root).startswith(os.path.abspath(OUT)):
+    for name in ("iteration56", "iteration58", "iteration59", "iteration60", "iteration61"):
+        folder = os.path.join(HERE, "results", name)
+        if not os.path.isdir(folder):
             continue
-        for f in files:
-            if f.endswith(".json.gz") and not f.startswith("manifest"):
-                import gzip
-                try:
-                    with gzip.open(os.path.join(root, f), "rt") as fh:
-                        data = json.load(fh)
-                except Exception:
-                    continue
-                stack = [data]
-                while stack:
-                    x = stack.pop()
-                    if isinstance(x, dict):
-                        if isinstance(x.get("seed"), int):
-                            seeds.add(x["seed"])
-                        stack.extend(x.values())
-                    elif isinstance(x, list):
-                        stack.extend(x)
+        for f in sorted(os.listdir(folder)):
+            if not f.endswith(".json.gz") or f.startswith("manifest"):
+                continue
+            with gzip.open(os.path.join(folder, f), "rt") as fh:
+                stack = [json.load(fh)]
+            while stack:
+                x = stack.pop()
+                if isinstance(x, dict):
+                    if isinstance(x.get("seed"), int):
+                        seeds.add(x["seed"])
+                    stack.extend(x.values())
+                elif isinstance(x, list):
+                    stack.extend(x)
     return seeds
 
 
@@ -234,7 +314,19 @@ def normalizers():
 # ------------------------------------------------------------------ stages
 
 def stage_gate(workers):
-    i61.stage_gate(workers)
+    """Create-once. The library is the repository's current one (selected before the gate; no automatic fallback)."""
+    if any(os.path.exists(path(f)) for f in ("roster.json.gz", "gate_current.json.gz", "gate.json.gz", "manifest_gate.json.gz")):
+        raise SystemExit("STOP: the gate was already attempted (create-once)")
+    if os.path.abspath(i61.LIB) != os.path.abspath(i61.REPO):
+        raise SystemExit("STOP: the gate runs on the repository library")
+    before = build_manifest("gate-before")
+    preflight63()
+    if not i61.gate_run("current", workers):
+        raise SystemExit("STOP: the frozen I56 instrument is not bit-identical on the selected library (§2)")
+    attempt = load("gate_current.json")
+    if not (i61.same_provenance(before, attempt["manifest"]) and i61.same_provenance(before, build_manifest("gate-after"))):
+        raise SystemExit("STOP: provenance changed during the gate")
+    i61.select_gate("current")
 
 
 def independent_opf_loss(network, j):
@@ -353,8 +445,9 @@ def stage_rehearsal(workers):
         non_tie = {c: sum(1 for x in rows if x["w"][c] != 1) for c in ("FR", "SP")}
         d = np.array([x["d"] for x in rows], float)
         nonzero, variance = int(np.sum(d != 0)), float(np.mean((d - d.mean()) ** 2)) if len(d) else None
-        ok = (all(v == len(REHEARSAL_SEEDS) for v in complete.values()) and all(v >= 10 for v in feasible.values())
-              and all(v >= 8 for v in non_tie.values()) and nonzero >= 8 and variance is not None and variance >= 0.02)
+        ok = (all(v == len(REHEARSAL_SEEDS) for v in complete.values()) and all(v >= FEAS_MIN for v in feasible.values())
+              and all(v >= NONTIE_MIN for v in non_tie.values()) and nonzero >= NONZERO_MIN and variance is not None
+              and variance >= VAR_MIN)
         criteria[n] = dict(complete=complete, feasible=feasible, non_tie=non_tie, nonzero=nonzero, variance=variance,
                            passed=bool(ok))
         pools[n] = rows
@@ -379,10 +472,14 @@ def variant_pools(rehearsal, variant):
 def tilt63(pools, target):
     """Tilt with a common lambda (I61 solver); strict attainability, error <= 1e-8, ESS_iv >= N_iv/2 (§6)."""
     t = i61.tilt(pools, target)
+    if t is None and TESTING:  # pipeline rehearsal on tiny synthetic data: uniform weights stand in for an unattainable tilt
+        w = [np.full(len(pools[n]), 1.0 / len(pools[n])) for n in NETWORKS]
+        t = dict(lam=0.0, weights=[x.tolist() for x in w], error=0.0, ess=[float(len(x)) for x in w],
+                 max_weight=[float(x.max()) for x in w])
     if t is None:
         return None
     t["n_pool"] = [len(pools[n]) for n in NETWORKS]
-    t["ess_ok"] = all(e >= m / 2 for e, m in zip(t["ess"], t["n_pool"]))
+    t["ess_ok"] = TESTING or all(e >= m / 2 for e, m in zip(t["ess"], t["n_pool"]))
     return t
 
 
@@ -449,11 +546,11 @@ def stage_power():
     wanted = [(v, THETA) for v in VARIANTS] + [(v, 0.0) for v in VARIANTS]
     screening, chosen = {}, None
     for n in N_GRID:
-        res = series(pools, tilts, cells, n, 1000, 2000, rng, wanted)
-        screening[n] = {key_of(*k): dict(counts=c, wilson_pos=i61.wilson(c["positive"], 1000),
-                                         wilson_equiv=i61.wilson(c["equivalent"], 1000)) for k, c in res.items()}
-        if all(i61.wilson(res[(v, THETA)]["positive"], 1000)[0] >= 0.8
-               and i61.wilson(res[(v, 0.0)]["equivalent"], 1000)[0] >= 0.8 for v in VARIANTS):
+        res = series(pools, tilts, cells, n, SIM["experiments"], SIM["reps"], rng, wanted)
+        screening[n] = {key_of(*k): dict(counts=c, wilson_pos=i61.wilson(c["positive"], SIM["experiments"]),
+                                         wilson_equiv=i61.wilson(c["equivalent"], SIM["experiments"])) for k, c in res.items()}
+        if all(i61.wilson(res[(v, THETA)]["positive"], SIM["experiments"])[0] >= WILSON_POWER
+               and i61.wilson(res[(v, 0.0)]["equivalent"], SIM["experiments"])[0] >= WILSON_POWER for v in VARIANTS):
             chosen = n
             break
     out["screening"] = screening
@@ -461,19 +558,19 @@ def stage_power():
         publish("power", before, out)
         raise SystemExit("STOP: no n <= 480 reaches power 0.8 in all three transfer variants (§6); final")
     rng = np.random.default_rng(POWER_SEEDS["confirmation"])
-    conf = series(pools, tilts, cells, chosen, 1000, 20000, rng, [(v, THETA) for v in VARIANTS] + [(v, 0.0) for v in VARIANTS])
-    confirmation = {key_of(*k): dict(counts=c, wilson_pos=i61.wilson(c["positive"], 1000),
-                                     wilson_equiv=i61.wilson(c["equivalent"], 1000)) for k, c in conf.items()}
-    conf_ok = all(i61.wilson(conf[(v, THETA)]["positive"], 1000)[0] >= 0.8
-                  and i61.wilson(conf[(v, 0.0)]["equivalent"], 1000)[0] >= 0.8 for v in VARIANTS)
+    conf = series(pools, tilts, cells, chosen, SIM["experiments"], SIM["confirm_reps"], rng, [(v, THETA) for v in VARIANTS] + [(v, 0.0) for v in VARIANTS])
+    confirmation = {key_of(*k): dict(counts=c, wilson_pos=i61.wilson(c["positive"], SIM["experiments"]),
+                                     wilson_equiv=i61.wilson(c["equivalent"], SIM["experiments"])) for k, c in conf.items()}
+    conf_ok = all(i61.wilson(conf[(v, THETA)]["positive"], SIM["experiments"])[0] >= WILSON_POWER
+                  and i61.wilson(conf[(v, 0.0)]["equivalent"], SIM["experiments"])[0] >= WILSON_POWER for v in VARIANTS)
     rng = np.random.default_rng(POWER_SEEDS["calibration"])
-    cal = series(pools, tilts, cells, chosen, 1000, 20000, rng, [(v, t) for v in VARIANTS for t in TARGETS])
-    calibration = {key_of(*k): dict(counts=c, wilson_pos=i61.wilson(c["positive"], 1000),
-                                    wilson_neg=i61.wilson(c["negative"], 1000), wilson_equiv=i61.wilson(c["equivalent"], 1000))
+    cal = series(pools, tilts, cells, chosen, SIM["experiments"], SIM["confirm_reps"], rng, [(v, t) for v in VARIANTS for t in TARGETS])
+    calibration = {key_of(*k): dict(counts=c, wilson_pos=i61.wilson(c["positive"], SIM["experiments"]),
+                                    wilson_neg=i61.wilson(c["negative"], SIM["experiments"]), wilson_equiv=i61.wilson(c["equivalent"], SIM["experiments"]))
                    for k, c in cal.items()}
-    cal_ok = all(i61.wilson(cal[(v, 0.0)]["positive"], 1000)[1] <= 0.05 and i61.wilson(cal[(v, 0.0)]["negative"], 1000)[1] <= 0.05
-                 and i61.wilson(cal[(v, THETA)]["equivalent"], 1000)[1] <= 0.05
-                 and i61.wilson(cal[(v, -THETA)]["equivalent"], 1000)[1] <= 0.05 for v in VARIANTS)
+    cal_ok = all(i61.wilson(cal[(v, 0.0)]["positive"], SIM["experiments"])[1] <= WILSON_ERROR and i61.wilson(cal[(v, 0.0)]["negative"], SIM["experiments"])[1] <= WILSON_ERROR
+                 and i61.wilson(cal[(v, THETA)]["equivalent"], SIM["experiments"])[1] <= WILSON_ERROR
+                 and i61.wilson(cal[(v, -THETA)]["equivalent"], SIM["experiments"])[1] <= WILSON_ERROR for v in VARIANTS)
     out.update(chosen_n=chosen, confirmation=confirmation, calibration=calibration, passed=bool(conf_ok and cal_ok),
                confirmation_ok=bool(conf_ok), calibration_ok=bool(cal_ok))
     publish("power", before, out)
@@ -534,8 +631,8 @@ def stage_check(workers):
     before = require_provenance("check")
     items = []
     for source in ("fxt", "rehearsal", "test"):
-        for r in load(f"{source}.json")["records"]:
-            if r.get("ok") and r["best_feasible"] is not None:
+        for r in all_attempts(load(f"{source}.json")["records"]):
+            if r.get("best_feasible") is not None:
                 t = r["task"]
                 items.append(((t["network"], t["j"], r["best_feasible_x"]), dict(source=source, value=r["best_feasible"])))
     with Pool(workers) as pool:
@@ -601,6 +698,7 @@ def analyse():
             fin = [x for x in g if x is not None]
             row[f"{c}|{a}"] = dict(feasible=len(fin) / len(g), mean_gap=float(np.mean(fin)) if fin else None,
                                    median_gap=float(np.median(fin)) if fin else None)
+            row[f"MW|{c}|{a}"] = [None if u[(c, a)]["best_feasible"] is None else u[(c, a)]["best_feasible"] - rr for u in us]
         for c in ("FR", "SP"):
             row[f"W|{c}"] = float(np.mean([win2(u[(c, 'FX-T')]["best_feasible"], u[(c, 'AD-N')]["best_feasible"], rr) / 2 for u in us]))
         descriptive[f"{n}|{j}"] = row
@@ -614,15 +712,18 @@ STAGES = dict(gate=stage_gate, normalizers=stage_normalizers, fxt=stage_fxt, reh
               check=stage_check)
 
 if __name__ == "__main__":
+    actions = dict(STAGES, power=lambda _: stage_power(), freeze=lambda _: stage_freeze(), analyse=lambda _: analyse())
     stage = sys.argv[1] if len(sys.argv) > 1 else ""
     workers = int(sys.argv[2]) if len(sys.argv) > 2 else 8
-    if stage == "power":
-        stage_power()
-    elif stage == "freeze":
-        stage_freeze()
-    elif stage == "analyse":
-        analyse()
-    elif stage in STAGES:
-        STAGES[stage](workers)
-    else:
-        print(__doc__)
+    if stage not in actions:
+        raise SystemExit(__doc__)
+    if os.path.exists(path("STOP.json.gz")):
+        raise SystemExit("STOP: the experiment is terminal (STOP.json)")
+    with open(path("attempts.log"), "a") as log:  # an interrupted stage (crash) may be restarted; a protocol STOP may not
+        log.write(f"{stage}\n")
+    try:
+        actions[stage](workers)
+    except SystemExit as exc:
+        if str(exc.code).startswith("STOP:"):
+            save("STOP.json", dict(stage=stage, reason=str(exc.code)))
+        raise

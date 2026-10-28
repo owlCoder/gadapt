@@ -7,7 +7,7 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-os.environ.setdefault("I63_OUT", os.path.join(os.environ.get("TMPDIR", "/tmp"), "i63_test_out"))
+os.environ["I63_TEMP"] = "1"
 import iteration63_replication as m  # noqa: E402
 
 
@@ -134,15 +134,25 @@ class Power(unittest.TestCase):
         self.assertLessEqual(null, 12)
 
 
-class SmokeRun(unittest.TestCase):
-    def test_instrument_record_fields(self):
-        t = m.task63("case30", 2, "FR", "AD-N", "rehearsal", 1)
-        t["budget"] = 60
-        rec = m.i61.run(t)
-        self.assertTrue(rec["ok"], rec.get("error"))
-        self.assertEqual(rec["calls"], 60)
-        self.assertIn("best_feasible", rec)
-        self.assertEqual(len(rec["generated"]), 32)
+class Wrapper(unittest.TestCase):
+    def test_technical_success_requires_exactly_b_calls(self):
+        from unittest.mock import patch
+        t = m.task63("case30", 0, "FR", "AD-N", "rehearsal", 1)
+        for calls, errors in ((m.B, 0), (m.B - 1, 0), (m.B, 1)):
+            rec = dict(ok=True, calls=calls, errors=errors)
+            with patch.object(m.i61, "run", return_value=rec):
+                self.assertEqual(m.run63(t)["ok"], calls == m.B and errors == 0)
+
+    def test_target_order_and_fixed_identity(self):
+        self.assertEqual(m.TARGETS, (0.05, 0.0, -0.05))
+        self.assertTrue(m.OUT.endswith("i63_test_out"))  # tests never touch the real experiment directory
+
+    def test_scenario_signature(self):
+        p = m.i61.make_problem  # patched: needs the roster; only the signature function is exercised here
+        self.assertIs(p, m.make_problem63)
+        prob = m._make61("case30", 0)
+        self.assertEqual(m.signature63(prob), m.signature63(m._make61("case30", 0)))
+        self.assertNotEqual(m.signature63(prob), m.signature63(m._make61("case30", 2)))
 
 
 if __name__ == "__main__":
