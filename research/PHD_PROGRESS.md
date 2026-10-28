@@ -265,6 +265,11 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   9 klasičnih funkcija, stagnacija 20, metrike AFI/REC/AUCC/SD). Codex 083: GO za replikaciju+proširenje, NO-GO za unapred proglašenu superiornost; nedostaci dizajna: budžet u generacijama
   (ne evaluacijama), različite izloženosti cilju, SD nije stabilnost, nema pomeranja/rotacije. Nacrt `ITERATION64_PROTOCOL.md` (I64-S sintetika pa I64-I infrastruktura); NIJE zamrznut.
   Ne pokretati CPU-težak rad dok I63 radi (9 od 10 jezgara). Nacrt koda/omotača u scratchpad-u moguć. Dodatno odbačeni kandidati: H7 (ograničena jedinstvenost), H8 (zaključak preko intervala reference).
+- **2026-10-28 20:39 I64-S0 POKRENUT** (protokol v2 `ITERATION64_PROTOCOL.md` zamrznut za S0; Codex 084 ispravke): `research/i64/run_s0.sh` (MBENCH=scratchpad klon `gadapt_experiments@0e388356`,
+  S0_PY=scratchpad `menv` sa mentorovim `requirements.txt`; jedno jezgro, nice; izlaz `research/results/iteration64_s0/`, log `chain.log`). 1.680 pokretanja (21 ćelija × 4 konfiguracije × 20 semena), ≈ 16–30 min.
+  Posle: `ITERATION64_S0_REPORT_SR.md` po §7, Codex recenzija, pa odluka o R/razvoju/E (zasebno zamrzavanje). Ponovno pokretanje: ista skripta preskače gotove faze;
+  scratchpad `menv`/klon moraju postojati (inače: `git clone` komit 0e388356 + `pip install -r requirements.txt` u novom venv-u).
+  Obelodanjivanje: probna serija sa semenima 1..3 videla agregate (napomena u protokolu).
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
