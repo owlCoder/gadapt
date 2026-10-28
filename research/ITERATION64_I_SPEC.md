@@ -1,0 +1,14 @@
+# ITERATION64-I: infrastruktura (diskretni ORPD) pod istim konfiguracijama i merama stabilnosti — NACRT specifikacije (NIJE ZAMRZNUT; čeka Codex recenziju posle 23:28)
+
+Pitanje (mentorov kriterijum „stabilan, tačan, primenljiv“ na stvarnom infrastrukturnom problemu): da li prednost/mane iz S0/E (sintetika) važe na diskretnom ORPD-u, gde je cena evaluacije stvarni AC tok snaga?
+Doprinos: karakterizacija pouzdanosti pod jednakim budžetom stvarnih PF poziva; ne nova metoda. Prior art za poređenje CHT i optimizatora na ORPD-u: Mallipeddi i sar. 2012 (10.1016/j.swevo.2012.03.001); I57 (opisno).
+
+1. **Problemi**: BusORPD (I58 instrument, nepromenjen) na case30, case39, case24_ieee_rts, R = 17, sa NOVIM scenarijima (isti kao I63 potvrdni: faktor opterećenja 0,92/1,02/1,08, seme 630201–630203; case30 j=4 izuzet zbog neuspelog OPF-a) — **posle** zatvaranja I63 (da se ne preklapa sa njegovim CPU-om); razvoj parametara na I63 razvojnim scenarijima (j = 0, 1). Normalizator r_ij = gubitak kontinualnog OPF-a (kao I63).
+2. **Skalar**: kazna f + 1000·V (isti SP kao I56/I57), iste tolerancije; dekodiranje y ∈ [0,1]^D → rešetka R = 17 (`BusORPD.snap`, najbliža tačka); neuspeo PF = 2·r, V_FAIL kao u I56. Izvodljivost i dalje po instrumentu (V = 0).
+3. **Konfiguracije**: istih 9 iz E (GAdapt-M, preset, PyGAD random/adaptive, DE, CMA, IPOP, BIPOP, (1+1)-ES) uz parametre zamrznute u E razvoju; GAdapt/PyGAD/DE rade na diskretnoj rešetki preko `step` (GAdapt `ga.add(min, max, step)`), CMA/ES na kontinualnoj kocki sa dekodiranjem (bez marginalne varijante; obelodanjeno).
+4. **Budžet**: B = 12.000 stvarnih PF poziva po pokretanju (spoljni `BudgetReached`), snimci na 3.000 i 12.000.
+5. **Ishodi** (bez ciljeva koji mogu biti nedostižni; pouka I61): G = (f_best,feas(B) − r)/r ili ∞ pri neizvodljivom; L = G/(1+G), neizvodljivo L = 1; mere: P(izvodljivo), medijana G, kvantili 90/95%, CVaR₀,₉(L); ECDF-površina nad ciljevima G ≤ {0,05; 0,02; 0,01} samo opisno.
+6. **Dizajn**: 3 mreže × 2–3 potvrdna scenarija = 8 ćelija (case30: 2, case39: 3, case24_ieee_rts: 3) × 9 konfiguracija × 30 semena = 2.160 pokretanja × 12.000 PF ≈ 25,9 M PF ≈ 25–33 CPU-sata pri 3,3–4,5 ms/PF (≈ 3 h na deset jezgara).
+7. **Hipoteze** (pre rezultata): H64c: GAdapt-M ima P(izvodljivo) ≥ svih konkurenata (I57: jedini uvek nalazi izvodljivo na case57) i niži CVaR₀,₉(L) od najmanje polovine konkurenata; H64d: preset smanjuje CVaR₀,₉(L) ≥ 20% bez pada P(izvodljivo) > 5 p.p.
+   Simultani bootstrap isti kao E (celi upareni vektori po ćeliji), α = 0,05 podeljen na dve porodice. Neodlučeno ako intervali ne razrešavaju. Nema tvrdnje o industrijskoj spremnosti.
+8. **Zamrzavanje**: protokol, kod, zavisnosti, biblioteka, scenariji i normalizatori hešovani pre merenja; create-once; nezavisni proverivač najboljeg izvodljivog svedoka (I58 `independent_check`).
