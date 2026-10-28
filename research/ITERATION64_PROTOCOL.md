@@ -66,3 +66,8 @@ injektovanje semena u SciPy DE (`rng=seed`, mentorov poziv ga ne postavlja) i br
 (1) brojanje: zbir faza = ukupan broj poziva omotača, bez negativnih ili dvostrukih brojanja; (2) determinizam: isto seme daje identičan trag poziva u dva izvršavanja za 3 ćelije × 4 konfiguracije (seme van S0 opsega: p = 9);
 (3) svedok: najbolji prijavljeni f se reprodukuje nezavisnim ponovnim računanjem iz zapisanog vektora. Greška instrumenta = STOP; tehnički neuspeh pokretanja se ponavlja jednom istim semenom, ponovljen neuspeh = STOP.
 Mentorova DE callback evaluacija i PyGAD `best_solution()` se broje kao stvarni pozivi (po Codex 084).
+## Obelodanjivanja pre S0 (2026-10-28)
+1. Dijagnostika brojanja (`research/i64/PILOT_NOTES_SR.md`): 8 semena (0..7) na Sphere D=2,7; nepreregistrovano; semena van S0 opsega.
+2. Probna serija cevovoda (gate, run, analyse) u privremenom direktorijumu sa `S0_SEEDS=3`, `S0_FULL_BOOT=0` (smanjen bootstrap): koristila je semena s=1..3 iz pravog S0 opsega (p=0),
+   pa su ishodi tih 3 od 20 semena i agregati bili VIDLJIVI pre pravog pokretanja; nikakva odluka dizajna nije izvedena iz njih. Pravi S0 koristi svih 20 semena.
+3. Pokretanje SciPy DE sa injektovanim semenom (`rng=seed`) je jedina izmena mentorovog poziva (mentorov poziv nije seedovan).
