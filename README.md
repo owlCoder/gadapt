@@ -205,6 +205,7 @@ Supported values:
 Supported crossover algorithms:
 - *"blending"* - Blending crossover combines variable values from the two parents into new variable values in offsprings. One value of the offspring variable comes from a combination of the two corresponding values of the parental decision variables  
 - *"uniform"* - Uniform crossover combines candidate solutions in a uniform way.
+- *"differential"* - (opt-in) Differential crossover: each offspring is a parent plus a scaled difference of two other members of the population, applied to all decision variables together (scale in [0.5, 1.0]). Unlike *"blending"* and *"uniform"*, which treat every decision variable separately, it does not depend on the orientation of the coordinate axes, so it suits problems with strongly coupled decision variables. The crossover probability applies to the pair of parents. Example: `GA(cost_function=f, crossover="differential")`.
 
 Supported methods for determining the crossover probability (the probability that the values of a decision variable are crossed between the two parents):
 - *"fixed"* - The probability is defined by the *crossover_probability* parameter. This is used when no method is specified.  

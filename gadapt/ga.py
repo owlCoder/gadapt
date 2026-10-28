@@ -944,6 +944,13 @@ class GA:
         corresponding values of the parental decision variables
 
         **"uniform"** - Decision variables from parents' candidate solutions are combined in a uniform way.
+
+        **"differential"** - (opt-in) Each offspring is a parent plus a scaled difference of two other members of the
+        population, applied to all decision variables together (scale dithered in [0.5, 1.0], as in differential
+        evolution). Blending and uniform crossover treat every decision variable separately and therefore depend on
+        the orientation of the coordinate axes; "differential" follows the shape of the population and does not. It is
+        meant for problems whose decision variables are strongly coupled. The crossover probability applies to the
+        pair of parents.
         """
         return self._crossover
 

@@ -115,6 +115,7 @@ from gadapt.operations.decision_variable_update.variable_columnar_diversity_deci
 )
 from gadapt.operations.crossover.blending_crossover import BlendingCrossover
 from gadapt.operations.crossover.uniform_crossover import UniformCrossover
+from gadapt.operations.crossover.differential_crossover import DifferentialCrossover
 from gadapt.operations.exit_check.number_of_generations_exit_checker import (
     NumberOfGenerationsExitChecker,
 )
@@ -597,6 +598,8 @@ class GAFactory(BaseGAFactory):
             ms.strip()
             for ms in self._ga.crossover.split(definitions.PARAM_SEPARATOR)
         ]
+        if definitions.DIFFERENTIAL in crossover_strings:
+            return DifferentialCrossover(candidate_solution_updater, candidate_solution_mutation_selector, crossover_probability_determinator)
         if definitions.BLENDING in crossover_strings:
             return BlendingCrossover(candidate_solution_updater, candidate_solution_mutation_selector, crossover_probability_determinator)
         if definitions.UNIFORM in crossover_strings:
