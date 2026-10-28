@@ -140,3 +140,61 @@ Agregatna ΔM je ponderisana srednja vrednost medijana NORMALIZOVANOG jaza, pa j
 
 ## 5. Ograničenja (unapred)
 Jednokorisnički S0 ima 20 semena po ćeliji; zaključak važi za mentorove konfiguracije i funkcije bez rotacije i pomeranja; okruženje GAdapt 0.5.0 (PyPI) i PyGAD 3.5.0. Mentorova zaokruživanja izlaza (10 decimala) zamenjena su nezaokruženim svedokom. Ovo nije dokaz opšte superiornosti ni industrijske spremnosti.
+
+## 6. Post hoc osetljivosti (samo iz arhive; Codex 085) — NISU deo zamrznute primarne analize
+
+### 6.1 Preciznost pri najviše B fizičkih poziva (jednak budžet; ranije završena pokretanja zadržavaju rezultat)
+
+| B | konfiguracija | M_B (ponderisan prosek ćelijskih medijana g) | CVaR₀,₉ (L) | P(g≤1e−2) | ćelije: GAdapt bolji / gori / jednak (medijana) |
+|---|---|---|---|---|---|
+| 3000 | gadapt | 0.009634 | 0.0193 | 0.809 | — |
+| 3000 | pygad_random | 0.0685 | 0.0659 | 0.620 | 21 / 0 / 0 |
+| 3000 | pygad_adaptive | 0.08347 | 0.0786 | 0.594 | 20 / 1 / 0 |
+| 3000 | de | 0.05404 | 0.0501 | 0.694 | 17 / 4 / 0 |
+| 12000 | gadapt | 0.00132 | 0.0065 | 0.939 | — |
+| 12000 | pygad_random | 0.04626 | 0.0532 | 0.739 | 13 / 6 / 2 |
+| 12000 | pygad_adaptive | 0.04654 | 0.0589 | 0.706 | 13 / 6 / 2 |
+| 12000 | de | 0.009336 | 0.0179 | 0.883 | 10 / 10 / 1 |
+
+### 6.2 ECDF površina: svi pozivi vs samo „search“ pozivi (ispravljeno: početna ručna evaluacija = search poziv 1)
+
+| konfiguracija | A (svi fizički pozivi) | A (samo search) |
+|---|---|---|
+| gadapt | 0.6983 | 0.6984 |
+| pygad_random | 0.5345 | 0.5926 |
+| pygad_adaptive | 0.4939 | 0.5386 |
+| de | 0.6510 | 0.6531 |
+
+### 6.3 Doprinos funkcija agregatnom ΔM prema DE (pri izvornom zaustavljanju) i izostavljanje po jedne funkcije
+
+| funkcija | doprinos ΔM(DE) | ΔM(DE) bez te funkcije (renormalizovano) |
+|---|---|---|
+| ackley | -5.207e-06 | 0.00804 |
+| beale | -4.125e-10 | 0.008034 |
+| booth | -1.618e-15 | 0.008034 |
+| griewank | 0.002955 | 0.004709 |
+| himmelblau | -1.097e-19 | 0.008034 |
+| rastrigin | 0.004193 | 0.003317 |
+| rosenbrock | -1.747e-06 | 0.008036 |
+| sphere | -4.242e-10 | 0.008034 |
+| styblinski_tang | 3.08e-09 | 0.008034 |
+
+Ukupno ΔM(DE) = 0.007141; ΔM(PyGAD random) = 0.04526; ΔM(PyGAD adaptive) = 0.04345.
+
+### 6.4 Bez semena 1–3 (viđena u probi pre glavnog pokretanja): ΔA i ΔM tačkaste procene na semenima 4–20
+
+- pygad_random: ΔA = 0.1661, ΔM = 0.04652
+- pygad_adaptive: ΔA = 0.2037, ΔM = 0.04541
+- de: ΔA = 0.0479, ΔM = 0.007234
+
+## 7. Odstupanja i napomene (Codex 085)
+
+- Primarna analiza sprovedena po protokolu; nema odstupanja u primarnim računskim koracima (nezavisno reprodukovano, t* = 3,2138).
+- Provenijencija S0: manifest hešira drajver i protokol, ne i sve tranzitivne izvore (mentorov klon pinovan je komitom; razrešena podešavanja su u drajveru); normalizator arhivira s, f*, minimum uzorka, ne i uzorke; seme normalizatora (64001) je u drajveru.
+- Semena u kodu: `c` = indeks u listi `FUNCS` (ne `3i+v`), uparivanje konfiguracija očuvano; PyGAD dobija globalno postavljena semena, bez `random_seed`.
+- Styblinski–Tang f* računat u dvostrukoj preciznosti. Faza svakog događaja nije sačuvana (samo indeks pretraživačkih poziva). CVaR za n = 20: prosek dva najlošija ishoda.
+- Pomoćna kolona „A (samo search)“ u tabeli 2 koristi neispravan nulti indeks za PyGAD (početna ručna evaluacija); ispravljena vrednost je u 6.2.
+
+## 8. Šta S0 sme da tvrdi (formulacija)
+
+S0 podržava operacionalizovanu H64a: među četiri ispitane konfiguracije GAdapt ima veći ponderisani prosečni ECDF A do 12.000 fizičkih poziva od sva tri konkurenta, prema simultanim bootstrap intervalima sa nominalnim porodičnim α = 0,01 (prolaz grane „svi ΔA pozitivni“; „izuzetak“ nije potreban). Završna preciznost je **manji ponderisani prosek ćelijskih medijana pri izvornom zaustavljanju**, ne pri jednakom budžetu, i veliki deo agregata dolazi iz dve ćelije (Rastrigin-20, Griewank-7). Po ćelijama SciPy DE ima manju medijanu u 14 od 21 ćelije, GAdapt veći A u 17 od 21. S0 NE tvrdi opštu veću preciznost, prednost u većini ćelija, industrijsku pouzdanost, korist preseta ni uzročnu ulogu mutacionog operatora; funkcije nisu pomerene ni rotirane. Prethodni uvid u semena 1–3 obelodanjen je.
