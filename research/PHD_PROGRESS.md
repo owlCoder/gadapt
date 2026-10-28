@@ -276,6 +276,11 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   Nalaz o računovodstvu: PyGAD `best_solution()` udvostručuje stvarne pozive; DE 20D troši ≈ 36k poziva. Sme se tvrditi samo operacionalizovana H64a (vidi §8 izveštaja); NE opšta preciznost/pouzdanost/industrija.
   Sledeće: I64-E (`ITERATION64_E_SPEC.md`, Codex 086 recenzija u toku) → razvoj (jedno jezgro, nice) → freeze → potvrda 56.700 pokretanja (≈ 5–30 CPU-sati, 1 jezgro dok I63 radi).
   E koristi native domen za GAdapt/PyGAD/DE; L-SHADE/jDE izostavljeni (obelodanjeno). Okruženje: scratchpad `eenv` (mentorov requirements + cma); ako izgubljeno: `python -m venv eenv; pip install -r gadapt_experiments/requirements.txt cma pytest`.
+- **2026-10-28 21:10 CODEX LIMIT** (`ERROR: usage limit ... try again at 11:28 PM`): nastavljeno samostalno (memorija `codex-limit-fallback`); re-probe pri svakom cron buđenju posle 23:28
+  (`codex exec` sa trivijalnim zadatkom). Na čekanju: Codex 086 (E spec — samopregled urađen), kasnije recenzija S0 odstupanja i E izveštaja.
+  **I63 FX-T kalibracija GOTOVO 21:03** (972/972, bez ponavljanja; izabran isti vektor za SP i FR: a=0,75, b=0,1, σ=0,05); `rehearsal` radi od 21:03 (≈ 45 min), zatim power → freeze → test.
+  **I64-E ZAMRZNUT** (`ITERATION64_E_SPEC.md`) i POKRENUT 21:10: `research/i64/run_e.sh 1` (MBENCH, E_PY=scratchpad eenv; jedno jezgro, nice; izlaz `research/results/iteration64_e/`, `chain.log`;
+  razvoj → freeze → run po ćelijama (nastavlja se) → analyse). Ponovno pokretanje: ista skripta.
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
