@@ -1,0 +1,17 @@
+# ITERATION64-E2: da li opt-in diferencijalni krosover zatvara jaz GAdapt-a pod rotacijom? — specifikacija (zamrzava se komitom PRE merenja)
+
+Motivacija (E, 2026-10-29, `ITERATION64_E_REPORT_SR.md`): GAdapt-ova prednost u tačnosti i repu raspodele (CVaR₀,₉ 0,0033 vs CMA ≈ 0,017–0,020) važi na originalnim i pomerenim funkcijama, ali nestaje pod rotacijom (CVaR 0,0386 vs ≈ 0,019; ECDF-površina 0,52 vs ≈ 0,70).
+Uzrok koji se testira: GAdapt-ov krosover (blending/uniform) deluje po koordinatama, pa zavisi od orijentacije osa. Intervencija: opt-in `crossover="differential"` (commit `025d92b`; roditelj + F·(razlika dva člana populacije), F ∈ [0,5; 1,0] dithered, sve promenljive zajedno; podrazumevano ponašanje bit-identično).
+Doprinos: inženjerska provera opcije (diferencijalna rekombinacija je poznata: Storn–Price 1997 DE, 10.1023/A:1008202821328; rotaciono invarijantni operatori za GA/ES: UNDX 10.1162/evco.1997.5.1.19... — DOI se proverava pre izveštaja); NE novi metod ni teorema.
+
+1. **Ćelije, seme, transformacije**: IDENTIČNE kao E (63 ćelije; `default_rng([64, 3, c])`; seme 64.000.000 + 3·10⁶ + 1000·c + s, s = 1..100), pa je poređenje upareno sa arhiviranim E zapisima (GAdapt-M, CMA, IPOP, BIPOP, DE, PyGAD, (1+1)-ES, preset) bez ponovnog izvršavanja.
+2. **Nova konfiguracija**: GAdapt-D = GAdapt-M (isti parametri, native domen, B = 12.000 stvarnih poziva, bez stagnacije, restart ako biblioteka vrati ranije) sa jedinom razlikom `crossover="differential"`. F nije podešavan (nema razvojne faze; jedini razvojni uvid: dva sejana dimnjačarska poziva na Sphere D=5, 60 generacija).
+3. **Hipoteze (pre rezultata)**, uparene, sa simultanim bootstrapom celih uparenih vektora po ćeliji (isti kao E; porodica od tri kontrasta, α = 0,05, 20.000 ponavljanja, seme 66):
+   - **H64e1 (zatvaranje jaza pod rotacijom)**: na 21 ROT ćeliji, ΔA = A(GAdapt-D) − A(GAdapt-M) ima donju granicu > 0 I smanjenje agregatnog CVaR₀,₉ ≥ 20% (donja granica 0,8·CVaR(M) − CVaR(D) ≥ 0).
+   - **H64e2 (bez štete na osno-poravnatim ćelijama)**: na 42 ćelije orig+shift, donja granica ΔA(D − M) ≥ −0,05 I donja granica 1,25·... (CVaR(D) ne sme biti veći od 1,5 × CVaR(M): gornja granica CVaR(D) − 1,5·CVaR(M) ≤ 0).
+   - **H64e3 (pozicija prema CMA porodici, opisno + jedan kontrast)**: na ROT ćelijama ΔA(D − IPOP) i ΔCVaR; kontrast ΔA(D − IPOP) uključen u porodicu (treći kontrast, donja granica > −0,05 označava „na nivou“).
+   Podržano samo ako sve tri hipoteze imaju znak definisan unapred; inače se prijavljuje koja nije i „neodlučeno/suprotno“. Svi ishodi se prijavljuju.
+4. **Težine/mere**: kao E (1/9 po funkciji, jednako po dimenzijama; unutar podskupa ćelija renormalizovano); jaz g, L = g/(1+g), otkaz L = 1; ECDF ciljevi {1e−2, 1e−4, 1e−6}; CVaR₀,₉ = prosek najgorih 10 od 100.
+5. **Izvršavanje**: 63 ćelije × 100 semena = 6.300 pokretanja, tačno 12.000 poziva, fresh proces po pokretanju (Pool, maxtasksperchild), tehnički neuspeh ponavlja se jednom istim semenom, ponovljen neuspeh = STOP. Biblioteka: repozitorijum na `025d92b` (hešovano drvo `gadapt/`); heš E zapisa (`run_part_*`) verifikovan.
+6. **Obelodanjivanja**: motivacija iz E rezultata (rotacijski jaz) je poznata pre dizajna; F i konfiguracija nisu podešavani na E podacima; smoke test na Sphere D=5 (dva poziva) viđen. Analiza se piše i testira na probnoj arhivi PRE otvaranja E2 rezultata.
+7. **CPU**: 6.300 × ≈ 1–2 s ≈ 2–4 CPU-sata (≈ 15–25 min na 9 jezgara).
