@@ -247,6 +247,19 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   razvojne medijane T u [0,3; 0,8] (60/60 select_b ok); fxt…analyse NISU izvršene, test scenariji neotvoreni; H61 NIJE ocenjena
   (nije negativan rezultat za H56a). Lanac više ne radi; skripta lanca iz stare sesije je izgubljena. Grana teze: „I61 STOP“ (Codex 075).
   2026-10-28: Codex 076 (strateški pregled: legitimnost naslednika I63 sa širim budžetom + najbolji neodbačeni put do doprinosa) u toku.
+- **2026-10-28 (nastavak):** Codex 076 + dva adversarijalna prior-art audita (literature-auditor): (c) karakterizacija zavisnosti adaptacije od
+  predstavljanja troška = NIJE USTANOVLJENO, NO-GO (Storch 2005/2006 Th.5, Fialho 2010, Neumann/Oliveto/Witt 2009); (b) zakon praga kazne λ* za signal
+  adaptacije = NIJE USTANOVLJENO, NO-GO (Zhou & He 2007, Runarsson & Yao 2000, Li & Zhang 2015) — `H6_COST_SIGNAL_PRIOR_ART_AUDIT_SR.md`. Odbačeno ukupno 14.
+  Codex 076/077: I63 „samo veći B“ je NO-GO (T=h/B opada sa B); jedan konačan naslednik sa estimandom „kvalitet pri fiksnom budžetu B=12.000, uparena pobeda W,
+  prag 0,001“. **`ITERATION63_PROTOCOL.md` v2 ZAMRZNUT `7c1f698`** (Codex 078 ispravke), driver `iteration63_replication.py` + 17 testova, Codex 079/080 ispravke
+  uneti, probno izvršavanje celog cevovoda u `I63_TESTING=1` režimu (privremeni direktorijum) prošlo; obelodanjivanja u `ITERATION63_PRERUN_NOTES.md`
+  (jedan 60-pozivni smoke test pre gate-a, ishod nije gledan).
+  **I63 POKRENUT 2026-10-28 19:14:** `research/run_i63_chain.sh 9` (nohup caffeinate; log `research/results/iteration63/chain.log`): gate → normalizers → fxt → rehearsal →
+  power → freeze → test → check → analyse, staje na prvom protokolarnom STOP-u (`STOP.json.gz` = konačno). Procena ≈ 21–29 h na deset jezgara (ceo test n≤480).
+  Ako je prekinuto (pad/struja): pokrenuti ISTU skriptu opet — preskače faze sa `manifest_<faza>.json.gz`; ako je faza pala usred rada bez manifesta, izlaz te faze
+  (osim attempt_* arhive) obrisati pre ponovnog pokretanja; ako je pao gate ili freeze usred rada, SystemExit "EXISTS: ..." traži kontrolisan oporavak i
+  dokumentovano odstupanje (NE brisati STOP.json). NE menjati `gadapt/` ni `research/iteration5[68]_*.py`, `iteration61_*`, `iteration63_*` dok lanac radi.
+  Ishodi: STOP (bilo koja faza) → izveštaj kao u I61, grana teze „I63 STOP“; sprovedena potvrda → `ITERATION63_REPORT_SR.md` po §8 + Codex recenzija.
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
