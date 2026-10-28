@@ -22,3 +22,18 @@ def test_exact_budget_and_progress(name):
         pass
     assert b.n == B, (name, b.n)
     assert b.best < 0.2 and np.isfinite(b.best)
+
+
+@pytest.mark.parametrize("name", ["gadapt", "gadapt_preset", "pygad_random", "pygad_adaptive", "de"])
+def test_native_domain_budget_exact(name):
+    if name.startswith("pygad") and not MENTOR:
+        pytest.skip("MBENCH not set")
+    d, B = 3, 500
+    b = e.Budget(lambda y: float(np.sum((np.asarray(y) - 0.3) ** 2)), B)  # objective on the unit cube; native domain [-5, 5]
+    kw = dict(mentor_dir=MENTOR, lo=-5.0, hi=5.0) if name.startswith("pygad") else dict(lo=-5.0, hi=5.0)
+    try:
+        a.RUNNERS[name](b, d, 3, **kw)
+        pytest.fail("no BudgetReached")
+    except e.BudgetReached:
+        pass
+    assert b.n == B and b.best < 0.3

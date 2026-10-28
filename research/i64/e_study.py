@@ -43,6 +43,7 @@ FUNCS = [("sphere", sphere_func, -5.12, 5.12, (2, 7, 20)), ("rosenbrock", rosenb
 VARIANTS = ("orig", "shift", "rot")
 CELLS = [(n, d, v) for n, _, _, _, dims in FUNCS for d in dims for v in VARIANTS]  # 63 cells, c = 3 i + v
 CONFIGS = ("gadapt", "gadapt_preset", "pygad_random", "pygad_adaptive", "de", "cma", "ipop", "bipop", "es11")
+NATIVE = ('gadapt', 'gadapt_preset', 'pygad_random', 'pygad_adaptive', 'de')  # run on the mentor's native domain [lo, hi]
 SEED_BASE = 64_000_000
 PURPOSE = dict(dev=1, run=3)
 N_SEEDS = int(os.environ.get("E_SEEDS", "100"))
@@ -77,12 +78,15 @@ def run_task(task):
     """task: dict(config, params, cell, seed, purpose). Returns the record (events of the best-so-far trace by call)."""
     try:
         name, d, v = CELLS[task["cell"]]
+        lo_, hi_ = bounds_of(name)
         tf, info = cell_transform(task["cell"], task["purpose"])
         g = ec.make_objective(func_of(name), tf)
         budget = ec.Budget(g, B)
         kw = dict(task.get("params") or {})
         if task["config"].startswith("pygad"):
             kw["mentor_dir"] = MBENCH
+        if task["config"] in NATIVE:
+            kw["lo"], kw["hi"] = float(lo_), float(hi_)
         t0 = time.time()
         try:
             e_algos.RUNNERS[task["config"]](budget, d, task["seed"], **kw)
@@ -275,11 +279,30 @@ def stage_analyse():
                    cvar90=float(sum(w[ci] * cvar(list(arr[(ci, c)][:, 1])) for ci in cells)),
                    median_gap=float(sum(w[ci] * np.median(arr[(ci, c)][:, 2]) for ci in cells)),
                    reach=[float(sum(w[ci] * np.mean(arr[(ci, c)][:, 2] <= t) for ci in cells)) for t in TAUS]) for c in CONFIGS}
-    # H64b: preset vs default GAdapt
-    r0, rp = agg["gadapt"]["cvar90"], agg["gadapt_preset"]["cvar90"]
+    # H64b: preset vs default GAdapt, four contrasts with their own simultaneous bootstrap (alpha 0.01, protocol 3):
+    #   (1) 0.8*R0 - R_preset >= 0 (lower bound), (2..4) reach_preset - reach_default >= -0.05 for each target (lower bound)
+    def b_stats(idx):
+        def cv(c):
+            return sum(w[ci] * cvar(list(arr[(ci, c)][idx[ci], 1])) for ci in cells)
+
+        def rc(c, t):
+            return sum(w[ci] * np.mean(arr[(ci, c)][idx[ci], 2] <= t) for ci in cells)
+        return np.array([0.8 * cv("gadapt") - cv("gadapt_preset")] + [rc("gadapt_preset", t) - rc("gadapt", t) for t in TAUS])
+    full = {ci: np.arange(n) for ci in cells}
+    bp = b_stats(full)
+    rng_b = np.random.default_rng(65)
+    bb = np.array([b_stats({ci: rng_b.integers(0, n, n) for ci in cells}) for _ in range(R)])
+    bse = bb.std(axis=0, ddof=1)
+    if np.any(bse <= 0):
+        raise SystemExit("STOP: zero bootstrap variance in H64b blocks confirmation (protocol 3)")
+    bt = float(np.quantile(np.max(np.abs(bb - bp) / bse, axis=1), 1 - 0.01))
+    blo = bp - bt * bse
+    r0 = sum(w[ci] * cvar(list(arr[(ci, "gadapt")][:, 1])) for ci in cells)
+    h64b = dict(R0=float(r0), Rpreset=float(sum(w[ci] * cvar(list(arr[(ci, "gadapt_preset")][:, 1])) for ci in cells)),
+                point=[float(x) for x in bp], lower=[float(x) for x in blo], tstar=bt,
+                supported=bool(r0 > 0 and blo[0] >= 0 and all(blo[1:] >= -0.05)))
     out = dict(verdict="supported" if supported else ("opposite" if opposite else "undecided"), tstar=tstar, alpha=alpha, bootstrap=R,
-               contrasts=contrasts, aggregate=agg, h64b_point=dict(R0=r0, Rpreset=rp, reduction=(r0 - rp) / r0 if r0 > 0 else None),
-               note="H64b requires its own simultaneous intervals (four contrasts, alpha 0.01); the point values here are descriptive until computed")
+               contrasts=contrasts, aggregate=agg, h64b=h64b)
     save("analysis", out)
     print(json.dumps(out, indent=1)[:4000])
 
