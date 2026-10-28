@@ -25,7 +25,7 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = (os.path.join(os.environ.get("TMPDIR", "/tmp"), "i63_test_out") if (os.environ.get("I63_TESTING") or os.environ.get("I63_TEMP"))
+OUT = (os.path.join(os.environ.get("TMPDIR", "/tmp"), "i63_test_out") if (os.environ.get("I63_TESTING") == "1" or os.environ.get("I63_TEMP") == "1")
        else os.path.join(HERE, "results", "iteration63"))  # fixed experiment identity (a new directory would allow re-deciding)
 os.environ["I61_OUT"] = OUT  # the I61 machinery writes into the I63 directory
 os.environ.setdefault("I61_LIBRARY", os.path.dirname(HERE))
@@ -40,7 +40,7 @@ assert i61.OUT == OUT
 
 # ------------------------------------------------------------------ constants (protocol §2-§8)
 NETWORKS = i61.NETWORKS
-TESTING = bool(os.environ.get("I63_TESTING"))  # pipeline rehearsal in a temp directory only: tiny budget, relaxed thresholds
+TESTING = os.environ.get("I63_TESTING") == "1"  # pipeline rehearsal in a temp directory only: tiny budget, relaxed thresholds
 B = 300 if TESTING else 12000
 TIE = 0.001
 THETA = 0.05
@@ -106,7 +106,7 @@ def signature63(p):
     """Hash of the scenario data the optimiser sees and of the OPF normalizer (§2: later construction must match)."""
     if not math.isfinite(p.opf_losses) or p.opf_losses <= 0:
         raise RuntimeError("invalid OPF normalizer")
-    data = [p.opf_losses, p.lo, p.hi, p.step, p.bus_groups]
+    data = [p.base, p.resolution, p.opf_losses, p.lo, p.hi, p.step, p.bus_groups]
     raw = json.dumps(data, sort_keys=True, default=lambda x: x.tolist()).encode()
     return hashlib.sha256(raw).hexdigest()
 
@@ -194,15 +194,17 @@ def execute(tasks, workers):
     """Fresh process per run; a technically failed run is repeated once with the same task and seed (§7). Failed first
     attempts and every repeat are archived in full (even if the stage later STOPs on a repeated failure)."""
     from multiprocessing import Pool
-    purpose = tasks[0]["purpose"]
+    import uuid
+    purpose, invocation, records = tasks[0]["purpose"], uuid.uuid4().hex, []
     with Pool(workers, maxtasksperchild=1) as pool:
-        records = list(pool.imap(run63, tasks))
+        for k, r in enumerate(pool.imap(run63, tasks)):
+            save(f"attempt_{purpose}_{invocation}_{k}_1.json", r)  # every first attempt is archived under a unique name
+            records.append(r)
     for k, r in enumerate(records):
         if not r.get("ok"):
-            save(f"attempt_{purpose}_{k}_1.json", r)
             with Pool(1, maxtasksperchild=1) as pool:
                 again = pool.apply(run63, (tasks[k],))
-            save(f"attempt_{purpose}_{k}_2.json", again)
+            save(f"attempt_{purpose}_{invocation}_{k}_2.json", again)
             again["rerun"], again["first_attempt"] = True, r
             records[k] = again
     seen = [(t["network"], t["j"], t["cht"], t["arm"], tuple(t["fixed"] or ()), t["s"]) for t in (r["task"] for r in records)]
@@ -316,16 +318,19 @@ def normalizers():
 def stage_gate(workers):
     """Create-once. The library is the repository's current one (selected before the gate; no automatic fallback)."""
     if any(os.path.exists(path(f)) for f in ("roster.json.gz", "gate_current.json.gz", "gate.json.gz", "manifest_gate.json.gz")):
-        raise SystemExit("STOP: the gate was already attempted (create-once)")
+        raise SystemExit("EXISTS: gate artifacts exist; controlled recovery required (create-once)")
     if os.path.abspath(i61.LIB) != os.path.abspath(i61.REPO):
         raise SystemExit("STOP: the gate runs on the repository library")
     before = build_manifest("gate-before")
     preflight63()
-    if not i61.gate_run("current", workers):
+    roster_sha = sha256(path("roster.json.gz"))
+    if not i61._gate_run("current", workers):
         raise SystemExit("STOP: the frozen I56 instrument is not bit-identical on the selected library (§2)")
     attempt = load("gate_current.json")
     if not (i61.same_provenance(before, attempt["manifest"]) and i61.same_provenance(before, build_manifest("gate-after"))):
         raise SystemExit("STOP: provenance changed during the gate")
+    if sha256(path("roster.json.gz")) != roster_sha:
+        raise SystemExit("STOP: the roster changed during the gate")
     i61.select_gate("current")
 
 
@@ -587,7 +592,7 @@ def stage_freeze():
     if not power.get("passed"):
         raise SystemExit("STOP: power stage did not pass")
     if os.path.exists(path("manifest_frozen.json.gz")):
-        raise SystemExit("STOP: the choices are already frozen (create-once)")
+        raise SystemExit("EXISTS: frozen artifact exists; controlled recovery required (create-once)")
     choices = dict(fxt=load("fxt.json")["chosen"], n=power["chosen_n"], cells=test_cells())
     save("manifest_frozen.json", dict(current, choices=choices,
                                       hashes={f: sha256(path(f + ".gz")) for f in
@@ -647,7 +652,7 @@ def stage_check(workers):
                                   bound={k: sha256(artifact(k)) for k in INPUTS["check"]}))
     print("checked", len(checks), "failures", failures)
     if failures or len(checks) != len(items):
-        raise SystemExit(1)
+        raise SystemExit("STOP: independent check failed (§7)")
 
 
 def bootstrap(cells, reps=20000, seed=BOOTSTRAP_SEED):
