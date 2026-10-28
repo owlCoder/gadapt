@@ -270,6 +270,12 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   Posle: `ITERATION64_S0_REPORT_SR.md` po §7, Codex recenzija, pa odluka o R/razvoju/E (zasebno zamrzavanje). Ponovno pokretanje: ista skripta preskače gotove faze;
   scratchpad `menv`/klon moraju postojati (inače: `git clone` komit 0e388356 + `pip install -r requirements.txt` u novom venv-u).
   Obelodanjivanje: probna serija sa semenima 1..3 videla agregate (napomena u protokolu).
+- **2026-10-28 21:00 I64-S0 GOTOVO** → `ITERATION64_S0_REPORT_SR.md` (generisan iz arhive; Codex 085 nezavisno reprodukovao sve brojeve): **H64a podržana po zamrznutom agregatnom pravilu**
+  (GAdapt veći ECDF A do 12.000 stvarnih poziva od sva tri konkurenta; ΔA: PyGAD-r 0,164, PyGAD-a 0,204, DE 0,047; svi donji simultani intervali > 0). ALI: završna preciznost nije pri jednakom budžetu; po ćelijama
+  DE ima manju medijanu jaza u 14/21 (GAdapt 6/21), GAdapt veći A u 17/21; pri jednakih 12.000 poziva 10:10:1 (GAdapt:DE:jednako), 13:6:2 prema PyGAD; agregat ΔM(DE) dolazi iz Rastrigin-20 i Griewank-7.
+  Nalaz o računovodstvu: PyGAD `best_solution()` udvostručuje stvarne pozive; DE 20D troši ≈ 36k poziva. Sme se tvrditi samo operacionalizovana H64a (vidi §8 izveštaja); NE opšta preciznost/pouzdanost/industrija.
+  Sledeće: I64-E (`ITERATION64_E_SPEC.md`, Codex 086 recenzija u toku) → razvoj (jedno jezgro, nice) → freeze → potvrda 56.700 pokretanja (≈ 5–30 CPU-sati, 1 jezgro dok I63 radi).
+  E koristi native domen za GAdapt/PyGAD/DE; L-SHADE/jDE izostavljeni (obelodanjeno). Okruženje: scratchpad `eenv` (mentorov requirements + cma); ako izgubljeno: `python -m venv eenv; pip install -r gadapt_experiments/requirements.txt cma pytest`.
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
