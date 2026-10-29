@@ -307,6 +307,10 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   (b) **I64-I** (ORPD, 9 konfiguracija, 8 ćelija × 30 semena = 2.160 pokretanja, ≈ 30 CPU-sati ≈ 8 h na 4 radnika; spec zamrznut `a17f7dc` posle Codex 088; `research/i64/run_i.sh 4` sa `MBENCH` i `I_PY=scratchpad/ienv/bin/python`; izlaz `research/results/iteration64_i/`; analiza `analysis.json.gz`, izveštaj: napisati generator).
   Oba okruženja (scratchpad `ienv`, `eenv`) su rekonstruktibilna: `ienv` = `pip install -r <pip freeze iz .venv> pygad==3.5.0 pytest`; `eenv` = `gadapt_experiments/requirements.txt` + cma + pytest.
   Posle: izveštaji (I63-D, I64-I), poglavlje 8 teze (E/E2/I), ažuriranje `MENTOR_SUMMARY`, odluka o sledećoj metodi prema rezultatima I64-I.
+- **2026-10-29 ~02:00 TRI LANCA + nova metoda:** (1) I64-I (ORPD) i (2) I63-D teku (vidi gore); (3) **I64-E3 POKRENUT** (`research/i64/e3_study.py run 3`; hibrid GAdapt→CMA; spec zamrznut `f228044`; dev: frac = 0,3; 6.300 pokretanja; izlaz `results/iteration64_e3/`, parts `run3_part_*`;
+  nastavlja se po ćeliji; analiza `e3_study.py analyse` (okruženje `eenv`, MBENCH, PYTHONPATH=repo); H64g1–g3; izveštaj: napisati generator po uzoru na `e2_report.py`).
+  Usput: **I64-G** — indeks sprege κ (E razvoj, post hoc: ρ = −0,39/−0,52; ORPD κ = 0,60–0,80; predikcija P-G1/P-G2 upisana PRE I64-I rezultata, `ITERATION64_G_SPEC.md`). Odbačen razvojni pokušaj GAdapt-PCA (jednokratno učenje koordinata; 3 semena; bez koristi).
+  PLAN posle rezultata: ako H64g podržane → preporuka „GAdapt→CMA“ kao recept (README, ne biblioteka: `cma` nije zavisnost); ako ne → κ + izbor algoritma po problemu kao preporuka; u oba slučaja ažurirati CH8 i MENTOR_SUMMARY.
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
