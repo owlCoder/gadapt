@@ -73,7 +73,7 @@ w("- Provenijencija S0: manifest hešira drajver i protokol, ne i sve tranzitivn
 w("- Semena u kodu: `c` = indeks u listi `FUNCS` (ne `3i+v`), uparivanje konfiguracija očuvano; PyGAD dobija globalno postavljena semena, bez `random_seed`.")
 w("- Styblinski–Tang f* računat u dvostrukoj preciznosti. Faza svakog događaja nije sačuvana (samo indeks pretraživačkih poziva). CVaR za n = 20: prosek dva najlošija ishoda.")
 w("- Pomoćna kolona „A (samo search)“ u tabeli 2 koristi neispravan nulti indeks za PyGAD (početna ručna evaluacija); ispravljena vrednost je u 6.2.")
-w("\n## 8. Šta S0 sme da tvrdi (formulacija)\n")
+w("\n## 8. Šta S0 sme da tvrdi (formulacija; ćelijska brojanja su POST HOC, opisna)\n")
 w("S0 podržava operacionalizovanu H64a: među četiri ispitane konfiguracije GAdapt ima veći ponderisani prosečni ECDF A do 12.000 fizičkih poziva od sva tri konkurenta, prema simultanim bootstrap intervalima sa nominalnim porodičnim α = 0,01 (prolaz grane „svi ΔA pozitivni“; „izuzetak“ nije potreban). Završna preciznost je **manji ponderisani prosek ćelijskih medijana pri izvornom zaustavljanju**, ne pri jednakom budžetu, i veliki deo agregata dolazi iz dve ćelije (Rastrigin-20, Griewank-7). Po ćelijama SciPy DE ima manju medijanu u 14 od 21 ćelije, GAdapt veći A u 17 od 21. S0 NE tvrdi opštu veću preciznost, prednost u većini ćelija, industrijsku pouzdanost, korist preseta ni uzročnu ulogu mutacionog operatora; funkcije nisu pomerene ni rotirane. Prethodni uvid u semena 1–3 obelodanjen je.")
 path = os.path.join(os.path.dirname(HERE), "ITERATION64_S0_REPORT_SR.md")
 body = open(path).read().split("\n## 6. Post hoc")[0]

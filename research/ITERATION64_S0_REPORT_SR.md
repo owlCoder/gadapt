@@ -127,7 +127,7 @@ supported = True, opposite = False, kandidati za „izuzetak“ = ['pygad_random
 | styblinski_tang d=7 | pygad_adaptive | 38336 | 399.0 | 9.87e-13 | 0.0855 | 0.90 | 0.90 | 0.90 |
 | styblinski_tang d=7 | pygad_random | 30339 | 473.1 | 4.89e-16 | 0.0000 | 1.00 | 1.00 | 0.90 |
 
-## 4b. Po ćelijama: ko pobeđuje (mehanički prebrojano iz tabele 4)
+## 4b. (POST HOC, opisno) Po ćelijama: ko pobeđuje (mehanički prebrojano iz tabele 4)
 
 | konkurent | ćelije gde GAdapt ima manju medijanu jaza | ćelije gde konkurent ima manju | jednako | ćelije gde GAdapt ima veći A (srednja ECDF površina) | gde konkurent ima veći A |
 |---|---|---|---|---|---|
@@ -195,6 +195,6 @@ Ukupno ΔM(DE) = 0.007141; ΔM(PyGAD random) = 0.04526; ΔM(PyGAD adaptive) = 0.
 - Styblinski–Tang f* računat u dvostrukoj preciznosti. Faza svakog događaja nije sačuvana (samo indeks pretraživačkih poziva). CVaR za n = 20: prosek dva najlošija ishoda.
 - Pomoćna kolona „A (samo search)“ u tabeli 2 koristi neispravan nulti indeks za PyGAD (početna ručna evaluacija); ispravljena vrednost je u 6.2.
 
-## 8. Šta S0 sme da tvrdi (formulacija)
+## 8. Šta S0 sme da tvrdi (formulacija; ćelijska brojanja su POST HOC, opisna)
 
 S0 podržava operacionalizovanu H64a: među četiri ispitane konfiguracije GAdapt ima veći ponderisani prosečni ECDF A do 12.000 fizičkih poziva od sva tri konkurenta, prema simultanim bootstrap intervalima sa nominalnim porodičnim α = 0,01 (prolaz grane „svi ΔA pozitivni“; „izuzetak“ nije potreban). Završna preciznost je **manji ponderisani prosek ćelijskih medijana pri izvornom zaustavljanju**, ne pri jednakom budžetu, i veliki deo agregata dolazi iz dve ćelije (Rastrigin-20, Griewank-7). Po ćelijama SciPy DE ima manju medijanu u 14 od 21 ćelije, GAdapt veći A u 17 od 21. S0 NE tvrdi opštu veću preciznost, prednost u većini ćelija, industrijsku pouzdanost, korist preseta ni uzročnu ulogu mutacionog operatora; funkcije nisu pomerene ni rotirane. Prethodni uvid u semena 1–3 obelodanjen je.

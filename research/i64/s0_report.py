@@ -47,7 +47,7 @@ w("| ćelija | konfiguracija | poziva | generacija | medijana jaza | CVaR₀,₉
 for k, v in sorted(a["descriptive"].items()):
     f, d, c = k.split("|")
     w(f"| {f} d={d} | {c} | {v['calls_mean']:.0f} | {v['gens_mean']:.1f} | {v['gap_median']:.3g} | {v['cvar90']:.4f} | {v['reach'][0]:.2f} | {v['reach'][1]:.2f} | {v['reach'][2]:.2f} |")
-w("\n## 4b. Po ćelijama: ko pobeđuje (mehanički prebrojano iz tabele 4)\n")
+w("\n## 4b. (POST HOC, opisno) Po ćelijama: ko pobeđuje (mehanički prebrojano iz tabele 4)\n")
 cells = sorted({tuple(k.split("|")[:2]) for k in a["descriptive"]})
 w("| konkurent | ćelije gde GAdapt ima manju medijanu jaza | ćelije gde konkurent ima manju | jednako | ćelije gde GAdapt ima veći A (srednja ECDF površina) | gde konkurent ima veći A |\n|---|---|---|---|---|---|")
 for c in cfg[1:]:
