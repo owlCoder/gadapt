@@ -1,7 +1,6 @@
 # Poglavlje 1. Uvod: problem, istraživačka pitanja i doprinosi
 
-*Nacrt, 24. oktobar 2026. Napisan pre rezultata studija I56–I59; doprinosi su formulisani uslovno i biće
-usklađeni sa ishodima bez naknadnog proširivanja tvrdnji.*
+*Nacrt, 24. oktobar 2026. Usklađeno sa završenim I56–I61, I63 STOP i S0/E/E2/E3; I64-I/I2, I63-D i E4 ostaju otvorene.*
 
 ## 1.1 Problem
 

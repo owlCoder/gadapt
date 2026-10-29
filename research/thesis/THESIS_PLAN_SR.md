@@ -1,3 +1,5 @@
+# Plan teze (izvor: Codex 094, 2026-10-29) — zamenski tekst CH1 §1.3–1.4, novi redosled CH1–CH9, tabela tvrdnja→dokaz→status, rečenice za dopunu
+
 **1. Zamenski tekst za CH1, §1.3–1.4**
 
 ### 1.3 Istraživačka pitanja

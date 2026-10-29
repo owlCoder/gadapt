@@ -8,8 +8,7 @@ Optimizacija u elektroenergetskim sistemima retko je problem sa kontinualnim pro
 granicama. Regulacioni transformatori menjaju prenosni odnos u koracima, kondenzatorske baterije i prigušnice
 uključuju se po stepenima, a zadati naponi generatora u praksi se biraju sa konačnom rezolucijom. Istovremeno,
 skoro svaka tačka koju optimizator predloži krši neko ograničenje: napon sabirnice izlazi iz dozvoljenog opsega,
-generator ne može da proizvede traženu reaktivnu snagu ili je grana preopterećena. U prethodnim poglavljima videli
-smo da GAdapt na glatkom, kontinualnom dispečingu zaostaje za CMA-ES za nekoliko redova veličine. Zbog toga je
+generator ne može da proizvede traženu reaktivnu snagu ili je grana preopterećena. U I47 razlika se odnosila na jaz penalizovanog skora pri 3000 PF poziva; na case14–case57 nijedna metoda nije našla izvodljivost. Zbog toga je
 prirodno pitanje gde se GAdapt-ove osobine, a pre svega rad na eksplicitnim mrežama vrednosti i samoadaptacija
 vođena raznovrsnošću, susreću sa stvarnom potrebom infrastrukture. Diskretni problem raspodele reaktivne snage
 (optimal reactive power dispatch, ORPD) je takvo mesto: odluke su prirodno na mreži vrednosti, a teškoća
@@ -91,6 +90,4 @@ nezavisno recenzirani pre ijednog test merenja, a svako pojašnjenje zapisano je
 Ograničenja su jednako važna. Kontrast meri ceo paket adaptivne politike, ne pojedinačni mehanizam. Ablacija
 zajedničkog signala menja vrednosti u signalima, ali ne može da izdvoji „posredovani udeo“ efekta. Tri mreže ne
 dozvoljavaju zaključak o uticaju veličine mreže. Na razvojnim scenarijima, u četiri od devet blokova nijedna
-varijanta nije dostigla cilj, pa je simulirana snaga od 0,968 uslovna i verovatno precenjena. Najzad, rezultat ove
-studije je empirijsko znanje o jednoj biblioteci na jednoj klasi problema; praktična korist ugrađene opcije za
-rukovanje ograničenjima testira se zasebno, konfirmatorno, na svežim mrežama (I58) i u drugom domenu (I59).
+varijanta nije dostigla cilj, pa je simulirana snaga od 0,968 uslovna i verovatno precenjena. I58/I60 nisu potvrdile ubrzanje ugrađenih opcija; I59 nije stigao do potvrde.

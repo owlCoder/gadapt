@@ -1,7 +1,6 @@
 # Poglavlje 6. Rukovanje ograničenjima u biblioteci GAdapt
 
-*Nacrt, 24. oktobar 2026. Opisuje opt-in funkciju koja je razvijena i recenzirana dok je studija I56 trajala; u
-biblioteku se unosi tek posle studija I56 i I57, a njena korisnost se konfirmatorno proverava u I58 i I59.*
+*Nacrt, 24. oktobar 2026. Opisuje opt-in funkciju koja je razvijena i recenzirana dok je studija I56 trajala; opcija je ugrađena; provere I58/I60 nisu potvrdile ubrzanje, a I59 nije izvršio potvrdu.*
 
 ## 6.1 Polazno stanje
 

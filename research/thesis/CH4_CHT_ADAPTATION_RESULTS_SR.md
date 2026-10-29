@@ -40,8 +40,7 @@ Najupečatljivija razlika u podacima nije interakcija, već glavni efekat tehnik
 i 33 nivoa kontrola, ε-ograničenje skraćuje srednje vreme do cilja podrazumevanog GAdapt-a sa 0,77 i 0,82 (pravila
 izvodljivosti) na 0,28 i 0,39, i dostiže cilj u 37 i 36 od 40 pokretanja. Na mreži sa 57 sabirnica ε-ograničenje
 retko dostiže cilj, a cilj tamo povremeno dostižu i dve druge grane. ε-ograničenje nije uniformno najbolje: pri
-najgrubljoj rezoluciji ni ono ne pomaže. Ovaj nalaz nije bio predmet preregistrovane hipoteze i ne sme se
-tumačiti konfirmatorno; on je kandidat za sledeću preregistrovanu proveru. Konfirmatorna validacija ugrađene
+najgrubljoj rezoluciji ni ono ne pomaže. Opisni ε nalaz motivisao je I60, koja nije potvrdila prenos koristi. Konfirmatorna validacija ugrađene
 opcije (studija I58) zamrznuta je sa pravilima izvodljivosti pre ovih rezultata i ostaje takva.
 
 ## 4.5 Šta ovo znači i šta ne znači
