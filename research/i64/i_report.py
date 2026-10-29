@@ -12,7 +12,9 @@ for k, v in a["contrasts"].items():
     w(f"| {k} | {v['estimate']:.4g} | {v['lower']:.4g} | {v['upper']:.4g} |")
 w("\nP(c) − P(G) > 0 šteti GAdapt-u; CVaR(c) − CVaR(G) > 0 koristi GAdapt-u.\n")
 w("## 2. Agregati po konfiguraciji (ćelije jednako ponderisane)\n")
-for B_ in ("12000", "3000"):
+BS = sorted({k.split("|")[3] for k in a["descriptive"]}, key=int, reverse=True)
+BMAX = BS[0]
+for B_ in BS:
     agg = collections.defaultdict(lambda: collections.defaultdict(list))
     for k, v in a["descriptive"].items():
         net, j, c, b = k.split("|")
@@ -23,13 +25,13 @@ for B_ in ("12000", "3000"):
     for c in CFG:
         w(f"| {c} | {st.mean(agg[c]['P']):.3f} | {st.mean(agg[c]['cv']):.4f} | {st.mean(agg[c]['g']):.4g} |")
     w("")
-w("## 3. Po ćeliji (B = 12.000): P(izvodljivo) / medijana G\n")
+w("## 3. Po ćeliji (najveći budžet): P(izvodljivo) / medijana G\n")
 cells = sorted({tuple(k.split("|")[:2]) for k in a["descriptive"]})
 w("| ćelija | " + " | ".join(CFG) + " |\n|---|" + "---|" * len(CFG))
 for net, j in cells:
     row = []
     for c in CFG:
-        v = a["descriptive"][f"{net}|{j}|{c}|12000"]; mg = v["median_G"]
+        v = a["descriptive"][f"{net}|{j}|{c}|{BMAX}"]; mg = v["median_G"]
         row.append(f"{v['P_feasible']:.2f} / {mg if mg == 'inf' else format(mg, '.3g')}")
     w(f"| {net} {j} | " + " | ".join(row) + " |")
 w("\n## 4. Ograničenja\nDiskretni ORPD sa tri mreže i osam ćelija; 30 semena (retki otkazi nisu pouzdano procenljivi; CVaR je prosek 3 najgora od 30); CMA porodica kontinualna sa zaokruživanjem (bez margine); I57 (CMAwM) samo opisni kontekst; r je kontinualni OPF, ne optimum diskretnog problema; svedok na 3.000 poziva nije nezavisno proveren. Nema tvrdnje o industrijskoj spremnosti.")
