@@ -54,6 +54,19 @@ def sha(path):
         return hashlib.sha256(fh.read()).hexdigest()
 
 
+def ensure_copies():
+    """Workers are spawned and re-import this module (so i61.OUT = D_OUT there too): the scenario roster must be readable from D_OUT.
+    Byte-identical copies of the frozen I63 roster/normalizers are placed (and checked) there."""
+    import shutil
+    for f in ("roster", "normalizers"):
+        os.makedirs(D_OUT, exist_ok=True)
+        dst = d_path(f)
+        if not os.path.exists(dst):
+            shutil.copyfile(src_path(f), dst)
+        if sha(dst) != sha(src_path(f)):
+            raise SystemExit(f"STOP: {f} in D_OUT differs from the frozen I63 artifact")
+
+
 def source_state():
     n = src_load("power")["chosen_n"] if os.path.exists(src_path("power")) else int(os.environ.get("D_N", "0"))
     if n <= 0:
@@ -76,6 +89,7 @@ def same(a, b):
 
 
 def stage_gate(workers):
+    ensure_copies()
     if os.path.exists(d_path("gate")):
         raise SystemExit("EXISTS: gate exists (create-once)")
     before = provenance()
@@ -87,6 +101,7 @@ def stage_gate(workers):
 
 
 def require_gate():
+    ensure_copies()
     g = load("gate")
     if not (g["passed"] and same(g["manifest"], provenance())):
         raise SystemExit("STOP: build differs from the gated one")
