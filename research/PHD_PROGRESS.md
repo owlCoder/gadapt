@@ -311,6 +311,10 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   nastavlja se po ćeliji; analiza `e3_study.py analyse` (okruženje `eenv`, MBENCH, PYTHONPATH=repo); H64g1–g3; izveštaj: napisati generator po uzoru na `e2_report.py`).
   Usput: **I64-G** — indeks sprege κ (E razvoj, post hoc: ρ = −0,39/−0,52; ORPD κ = 0,60–0,80; predikcija P-G1/P-G2 upisana PRE I64-I rezultata, `ITERATION64_G_SPEC.md`). Odbačen razvojni pokušaj GAdapt-PCA (jednokratno učenje koordinata; 3 semena; bez koristi).
   PLAN posle rezultata: ako H64g podržane → preporuka „GAdapt→CMA“ kao recept (README, ne biblioteka: `cma` nije zavisnost); ako ne → κ + izbor algoritma po problemu kao preporuka; u oba slučaja ažurirati CH8 i MENTOR_SUMMARY.
+- **2026-10-29 02:40 I64-E3 GOTOVO** (`ITERATION64_E3_REPORT_SR.md`; hibrid GAdapt→CMA, frac = 0,3, 63 ćelije × 100 semena): **zamrznuta pravila: H64g1 PODRŽANA** (rotacijski jaz zatvoren prema GAdapt-M: ΔA_rot = +0,103 [0,093; 0,113]; 0,8·C(M) − C(H) = +0,0121 [0,0094; 0,0148]),
+  **H64g2 SUPROTNO** (rep na orig+shift 1,8× veći od GAdapt-M: 0,0048/0,0043 vs 0,0026/0,0025, preko tolerisanih 1,5×; ΔA_nonrot = +0,065), **H64g3 NEODLUČENO** (ΔA_rot(H − IPOP) = −0,043 [−0,052; −0,035], granica −0,05). Ukupno „podržano“: NE.
+  Opisno (prosek tri varijante): hibrid ima NAJNIŽI CVaR (0,0070) i najnižu medijanu jaza (0,0029) od svih devet, ECDF-površina 0,751 vs IPOP 0,770 i GAdapt-M 0,673. Praktični zaključak: „globalno GAdapt, pa lokalno CMA“ je najbolji recept koji smo našli za stabilnost+tačnost; NIJE GAdapt sam (70% budžeta troši CMA).
+  Sledeće: I64-I (ORPD) pokazuje važi li to na stvarnom problemu; ako da → recept u README i u CH8; hibrid za ORPD zahteva diskretno dekodiranje (nije u I64-I) → mogući I64-I2.
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj

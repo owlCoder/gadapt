@@ -16,5 +16,9 @@ for var, d in a["aggregate_by_variant"].items():
     for c, v in d.items():
         w(f"| {c} | {v['A']:.4f} | {v['cvar90']:.4f} | {v['median_gap']:.3g} |")
     w("")
-w("## 3. Napomena o tumačenju\nHibrid NIJE GAdapt sam: poslednjih 70% budžeta troši CMA-ES. Rezultat se zato čita kao provera industrijskog recepta „globalna pretraga, pa lokalno doterivanje“, ne kao svojstvo GAdapt-a. Nema tvrdnje o novoj metodi (hibridni algoritmi su poznati). Interpretaciju upisati posle ishoda; unapred zadata pravila odluke su u specifikaciji.\n")
+w("## 2b. Prosek po tri varijante (jednaka težina varijanti; opisno)\n\n| konfiguracija | A | CVaR₀,₉ | medijana jaza |\n|---|---|---|---|")
+for c in ("gadapt", "gadapt_hyb", "ipop", "cma", "bipop", "de"):
+    vs = [a["aggregate_by_variant"][v][c] for v in ("orig", "shift", "rot")]
+    w(f"| {c} | {sum(x['A'] for x in vs)/3:.4f} | {sum(x['cvar90'] for x in vs)/3:.4f} | {sum(x['median_gap'] for x in vs)/3:.3g} |")
+w("\n## 3. Napomena o tumačenju\nHibrid NIJE GAdapt sam: poslednjih 70% budžeta troši CMA-ES. Rezultat se zato čita kao provera industrijskog recepta „globalna pretraga, pa lokalno doterivanje“, ne kao svojstvo GAdapt-a. Nema tvrdnje o novoj metodi (hibridni algoritmi su poznati). Zamrznuta pravila odluke daju mešan ishod: pogledati hipoteze u odeljku 1. Opisno: hibrid ima najniži CVaR od svih konfiguracija osim GAdapt-M na osno-poravnatim ćelijama, i znatno niži od CMA porodice u svim varijantama; njegova ECDF-površina je u blizini IPOP-a. Ovo je opisna slika iste arhive, ne dodatna hipoteza.\n")
 open(os.path.join(os.path.dirname(HERE), "ITERATION64_E3_REPORT_SR.md"), "w").write("\n".join(L) + "\n"); print("written")

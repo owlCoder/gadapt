@@ -20,6 +20,8 @@ Njegov eksperiment (`bpzoran/gadapt_experiments`, komit `0e388356`) smo **replic
 - **I64-E2 (negativan, preregistrovan):** opcioni diferencijalni krosover u biblioteci NE zatvara taj jaz (pogoršava efikasnost na svim varijantama).
 - **I63** (replikacija jedne ORPD interakcije): konačan STOP u fazi snage zbog nedostižnog kriterijuma kalibracije (greška dizajna protokola, ne podatak); deskriptivna ekstenzija I63-D i infrastrukturna studija **I64-I** (stvarni ORPD, devet konfiguracija) su u toku.
 
+- **I64-E3 (hibrid GAdapt → CMA-ES, 30% / 70% budžeta):** najbolji praktični recept do sada. Zamrznuta pravila: rotacijski jaz zatvoren (podržano), ali rep na osno-poravnatim funkcijama 1,8× veći od čistog GAdapt-a (suprotno), a neinferiornost prema IPOP-u neodlučena. U proseku tri varijante hibrid ima najniži CVaR (0,0070 naspram 0,0117 GAdapt, 0,0142 IPOP) i najnižu medijanu jaza, uz efikasnost blizu IPOP-a. To NIJE čist GAdapt (većinu budžeta troši CMA).
+
 ## 4. Šta nije utvrđeno (bez uljepšavanja)
 Originalna nova metoda ili teorema nije nađena: 16 kandidata odbačeno je na proverenoj literaturi (npr. kontrola koraka, invarijantnost signala, teorija kazne, ograničena jedinstvenost). Doprinos disertacije je trenutno: replikacija i proširenje
 benchmarka sa stvarnim brojanjem poziva, revizija integriteta evaluacija (alat + studije), preregistrovane studije (uključujući negativne i nezaključne) i inženjerski ispravne opcione funkcije biblioteke. Da li to dovoljno za doktorat je odluka mentora.

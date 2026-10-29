@@ -36,6 +36,12 @@ Da bi se proverilo da li koordinatni krosover objašnjava rotacijski jaz, u bibl
 
 Ishod (jedna simultana porodica od pet kontrasta): **opcija ne zatvara jaz**. Pod rotacijom ΔA(D − M) = −0,036 (interval od −0,047 do −0,025), a CVaR se pogoršava; na osno-poravnatim ćelijama ΔA = −0,042; prema IPOP-u ΔA = −0,18. H64e1 i H64e3 su suprotni, H64e2 neodlučena. Opcija ostaje u biblioteci dokumentovana, podrazumevano isključena i bez preporuke; nije ponavljana sa drugim parametrima.
 
+## 8.4c Studija E3: hibrid GAdapt → CMA-ES (industrijski recept)
+
+Pošto ni opcioni krosover ni jednokratno učenje koordinata nisu pomogli, testiran je uobičajeni recept „globalna pretraga, pa lokalno doterivanje“: GAdapt troši prvih 30% budžeta (udeo izabran na razvoju među 0,3/0,5/0,7), zatim CMA-ES startuje iz najboljeg rešenja sa malim korakom. Hibridi su poznati (npr. Krasnogor i Smith 2005); ovo je empirijska provera, ne nova metoda, i hibrid nije GAdapt sam. Isti 63 ćelije i semena kao E, uparene sa arhiviranim zapisima.
+
+Zamrznuta pravila daju mešan ishod: **H64g1 podržana** (pod rotacijom ΔA = +0,103, CVaR se smanjuje više od 20%), **H64g2 suprotno** (na osno-poravnatim ćelijama rep je 1,8× veći od GAdapt-M, iznad tolerisanih 1,5×, uz ΔA = +0,065), **H64g3 neodlučeno** (neinferiornost prema IPOP-u pod rotacijom: −0,043, interval [−0,052; −0,035] seče granicu −0,05). Opisno, u proseku tri varijante hibrid ima najniži CVaR (0,0070 naspram 0,0117 za GAdapt-M i 0,0142 za IPOP) i najnižu medijanu jaza (0,0029), uz ECDF-površinu 0,751 (IPOP 0,770, GAdapt-M 0,673). Slika je konzistentna sa tim da GAdapt doprinosi pouzdanom globalnom istraživanju, a CMA brzim lokalnim usavršavanjem na spregnutim problemima.
+
 ## 8.5 Infrastrukturna faza (nije zamrznuta)
 
 Faza I64-I proverava iste mere na diskretnom ORPD-u pod jednakim budžetom stvarnih proračuna toka snage. Dok nije zamrznuta i izvršena, poglavlje ne sadrži nikakvu tvrdnju o industrijskoj primeni.
