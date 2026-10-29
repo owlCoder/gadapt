@@ -1,6 +1,6 @@
 # Poglavlje 1. Uvod: problem, istraživačka pitanja i doprinosi
 
-*Nacrt, 24. oktobar 2026. Usklađeno sa završenim I56–I61, I63 STOP i S0/E/E2/E3; I64-I/I2, I63-D i E4 ostaju otvorene.*
+*Nacrt, 24. oktobar 2026. Usklađeno sa završenim I56–I61, I63 STOP i S0/E/E2/E3; I64-I/I2 i E4 su završene; I63-D ostaje otvorena deskriptivna ekstenzija.*
 
 ## 1.1 Problem
 
@@ -24,8 +24,8 @@ dijagnostička: na izboru ruta i na AC ekonomskom dispečingu GAdapt je zaostaja
 naprednijim metodama, na dispečingu i za nekoliko redova veličine iza CMA-ES. Poglavlje 2 sumira šta je ta
 dijagnostika pouzdano utvrdila, a šta nije. Prirodan sledeći korak, popravka zaostatka u konvergenciji, pokazao se
 kao istraživački ćorsokak: za svaki proveren predlog, od kontrole koraka iz rasipanja do učenja korelacija,
-postoje objavljeni radovi koji ga već sadrže. Ukupno je dvanaest kandidata za novu metodu odbačeno pre
-implementacije, svaki sa proverenim izvorima. Istraživanje je preusmereno na kontrolisano ispitivanje GAdapt-a; originalnost tačne faktorske kombinacije ostaje nepotvrđena.
+postoje objavljeni radovi koji ga već sadrže. Više kandidata za novu metodu odbačeno je pre
+implementacije, svaki sa proverenim izvorima (tačan broj navesti samo uz zaseban trag kandidata). Istraživanje je preusmereno na kontrolisano ispitivanje GAdapt-a; originalnost tačne faktorske kombinacije ostaje nepotvrđena.
 
 Pregled iz 2025. godine o metaheurističkom optimalnom toku snage beleži da malo radova ispituje kako tehnike za
 rukovanje ograničenjima i podešavanje parametara utiču na rad metaheuristika. Na diskretnim kontrolama, gde je
@@ -46,7 +46,7 @@ kutija pri istom budžetu simulacija? (Poglavlje 5, studija I57, opisno.)
 Doprinosi su empirijski i inženjerski; disertacija ne tvrdi novu optimizacionu metodu.
 
 1. **Eksperimentalni instrumenti** sa evidentiranjem poziva, zamrznutim protokolima i zasebnim proverivačima; ORPD
-   studije su završene, dok je telekom instrument stigao do razvojnog NO-GO. Potpuna ponovljivost nezavisnim
+   studije su završene (I63-D je deskriptivna i otvorena), dok je telekom instrument stigao do razvojnog NO-GO. Potpuna ponovljivost nezavisnim
    izvršavanjem nije ustanovljena.
 2. **Kontrolisana procena interakcije** tehnike za ograničenja i GAdapt-ove samoadaptacije (IP1). Interakcija
    ograničenja i adaptacije je u evolutivnim strategijama poznata; doprinos je specifična, kontrolisana

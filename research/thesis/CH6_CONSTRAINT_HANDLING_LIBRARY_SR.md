@@ -68,5 +68,4 @@ evaluacija.
 Tvrdnja je inženjerska: GAdapt sada ima ispravno implementirane, dokumentovane i testirane standardne tehnike za
 rukovanje ograničenjima, bez promene podrazumevanog ponašanja. Same tehnike nisu nove i navedene su sa izvorima.
 Da li ugrađena opcija stvarno ubrzava pronalaženje dobrih izvodljivih rešenja u odnosu na uobičajenu upotrebu sa
-kaznom pitanje je na koje odgovaraju konfirmatorne studije I58 (sveže elektroenergetske mreže sa termičkim
-ograničenjima) i I59 (planiranje kapaciteta telekom mreže); ovo poglavlje taj odgovor ne pretpostavlja.
+kaznom pitanje je na koje odgovaraju studije I58 i I60 (koje nisu potvrdile ubrzanje) i I59 (koji nije stigao do konfirmatorne faze); implementaciona ispravnost i empirijska korist ostaju odvojene tvrdnje.

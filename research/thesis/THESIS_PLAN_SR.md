@@ -99,10 +99,10 @@ Oznake poglavlja u ovoj listi odnose se na postojeće datoteke.
 
 **5. Rečenice za dopunu po završetku otvorenih studija**
 
-**I64-I:** „Na osam ORPD ćelija pri 12.000 stvarnih PF poziva, GAdapt-M ima verovatnoću nalaženja izvodljivosti [VALUE] i CVaR₀,₉ [VALUE]; simultani kontrasti daju H64c = [VALUE] i H64d = [VALUE]. Zaključak važi za ispitane konfiguracije i ne ustanovljava industrijsku spremnost.“
+**I64-I:** „Na osam ORPD ćelija pri 12.000 stvarnih PF poziva, GAdapt-M ima verovatnoću nalaženja izvodljivosti 0,746 i CVaR₀,₉ 0,2973; simultani kontrasti daju H64c = neodlučena i H64d = suprotna. Zaključak važi za ispitane konfiguracije i ne ustanovljava industrijsku spremnost.“
 
-**I64-I2:** „Za hibrid su razlike CVaR(reference) − CVaR(hibrid), sa simultanim intervalima, [VALUE] prema GAdapt-M i [VALUE] prema IPOP-u, a razlike izvodljivosti [VALUE] i [VALUE]; H64h1 = [VALUE], H64h2 = [VALUE]. Zaseban doprinos GAdapt faze ostaje neidentifikovan.“
+**I64-I2:** „Za hibrid je CVaR(M) − CVaR(H) = −0,0799 [−0,2656; 0,1058] i CVaR(IPOP) − CVaR(H) = −0,1253 [−0,2502; −0,0004]; razlike izvodljivosti P(H) − P(M) = −0,0042 [−0,0355; 0,0271] i P(H) − P(IPOP) = −0,0292 [−0,0643; 0,0059]; H64h1 = neodlučena, H64h2 = suprotna (napomena: polje `i_run_sha256` u I2 arhivi je prazno). Zaseban doprinos GAdapt faze ostaje neidentifikovan.“
 
 **I63-D:** „Deskriptivna procena θ₆₃ iznosi [VALUE], sa 95% intervalom [VALUE] i 90% intervalom [VALUE]; smer i osetljivost po mrežama su [VALUE]. Estimand se razlikuje od H56a; rezultat ne menja I63 STOP niti ostvaruje konfirmatornu replikaciju.“
 
-**I64-E4:** „Posle zamene svih neispravnih `resample` zapisa, ishodi H64k1–k5 su redom [VALUE], [VALUE], [VALUE], [VALUE] i [VALUE], uz simultane intervale [VALUE]. Poređenje sa `permuted` odnosi se na kompletne režime, `ungated` ostaje opisna kontrola, a algoritamska originalnost i industrijska korist nisu ustanovljene.“
+**I64-E4:** „Posle zamene svih neispravnih `resample` zapisa, jedna simultana porodica od sedam kontrasta daje H64k1–k5 redom: neodlučena, podržana, neodlučena, neodlučena i suprotna; jezgro H64k1–k4 nije podržano. Poređenje sa `permuted` odnosi se na kompletne režime, `ungated` ostaje opisna kontrola, a algoritamska originalnost i industrijska korist nisu ustanovljene.“

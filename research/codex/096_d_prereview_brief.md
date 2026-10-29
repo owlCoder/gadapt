@@ -1,0 +1,10 @@
+# Brief 096 — pre-result review + independent reproduction code for I63-D (read-only)
+
+Context: GAdapt PhD repo (/Users/danijel/Desktop/gadapt). I63-D is a DESCRIPTIVE (non-confirmatory) extension of the frozen I63 estimand (theta_63), run in research/results/iteration63d/. 7 of 8 cell parts (run_part_*.json.gz) are finished; the last (case24_ieee_rts j4) is still computing. Do NOT modify any file. Do not run anything that writes into research/results (compute in memory only; no network needed).
+
+Tasks:
+1. Review research/i63tools/d_study.py (stage_run, stage_check, stage_analyse), research/i63tools/report_d.py and the functions it uses from research/iteration63_replication.py (task63, run63, units_of, d_of, win2, gap, bootstrap, ARMS, NETWORKS, check_item). Look for bugs that would make the final estimate or report wrong or misleading: indexing/cell mix-ups, FR/SP and AD-N/FX-T mixups, handling of infeasible runs (gap None, win2 ties), cell weighting, bootstrap resampling unit, CI levels, report text claims that overreach (it must stay descriptive, not confirmatory, no claim on H56a).
+2. Without importing project analysers, write an INDEPENDENT reproduction script (Python, numpy only + gzip/json) that, given the run_part_*.json.gz records and normalizers from research/results/iteration63 (source), recomputes: per-cell d, theta_63 point estimate, the network means, leave-one-network-out, per-cell feasibility and median gap. Use ITERATION63_PROTOCOL.md for the frozen definitions. Test it in memory on the 7 finished parts (partial: report per-cell numbers only, no theta_63 over all cells) and compare per-cell d_mean with what the project analysis code gives for those cells (you may import the project code only for this comparison step, labelled as such). Put the full script text in your answer so I can save it.
+3. List anything the final report (ITERATION63D_REPORT_SR.md) should additionally state to be defensible (limitations, forbidden claims).
+
+Answer in Serbian, concise: verdict per item (MATCH/MISMATCH/BUG), concrete line references.

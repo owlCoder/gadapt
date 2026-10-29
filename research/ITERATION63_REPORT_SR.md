@@ -38,7 +38,7 @@ izabrani n = 160, potvrda = True, kalibracija = False, prošla = False.
 | j1|+0.00 | 29 | 25 | 940 | 0.041 / 0.037 / 0.953 | True |
 | j1|-0.05 | 0 | 947 | 50 | 0.004 / 0.959 / 0.065 | False |
 
-Pali su samo kriterijumi lažne ekvivalencije na granicama θ = ±0,05. Na granici ekvivalencije stopa pogrešne ekvivalencije ravna je veličini testa (nominalno 5%), pa Wilsonova gornja granica ≤ 0,05 sa 1000 simulacija nije dostižna ni za test tačne veličine 5%; to je osobina zamrznutog pravila, ne podatak o H56a. Pravilo se ne ublažava naknadno (§6).
+Pali su samo kriterijumi lažne ekvivalencije na granicama θ = ±0,05. Na granici ekvivalencije stopa pogrešne ekvivalencije ravna je veličini testa (nominalno 5%), pa zahtev da Wilsonova gornja granica ne pređe 0,05 sa 1000 simulacija veoma retko biva ispunjen (približno 2,1% simulacionih serija pri stvarnoj veličini 5%); njegov neuspeh je osobina zamrznutog pravila, ne podatak o H56a. Pravilo se ne ublažava naknadno (§6).
 
 
 ## Ograničenja
