@@ -302,6 +302,11 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   Codex 087 recenzija primenjena (jedan Bernoulli po paru, donori ≠ roditelji, mreža u granicama, `result.success` provera, `maxtasksperchild=1`); reprodukcija 126/126 E tragova.
   **SLEDEĆA METODA (autonomno):** (1) I64-I infrastruktura (diskretni ORPD, istih 9 konfiguracija) — odlučuje da li je GAdapt na stvarnom problemu u „osno-poravnatom“ ili „CMA“ režimu; (2) I63-D deskriptivna ekstenzija (odobrio korisnik), obe uporedo na slobodnim jezgrima.
   E tumačenje: porodično grupisanje CMA NIJE potvrda H64a (Codex 087); samo post hoc obrazac.
+- **2026-10-29 01:14 DVA LANCA TEČU:**
+  (a) **I63-D** (deskriptivna ekstenzija; korisnik odobrio): `research/i63tools/run_d.sh 5` (gate prošao; 8 ćelija × 160 semena × 4 grane = 5.120 pokretanja, ≈ 71 CPU-sat ≈ 14 h na 5 radnika; izlaz `research/results/iteration63d/`, nastavlja po ćeliji; zatim check → analyse; izveštaj: napisati generator iz `analysis` + oznaka „DESKRIPTIVNO“).
+  (b) **I64-I** (ORPD, 9 konfiguracija, 8 ćelija × 30 semena = 2.160 pokretanja, ≈ 30 CPU-sati ≈ 8 h na 4 radnika; spec zamrznut `a17f7dc` posle Codex 088; `research/i64/run_i.sh 4` sa `MBENCH` i `I_PY=scratchpad/ienv/bin/python`; izlaz `research/results/iteration64_i/`; analiza `analysis.json.gz`, izveštaj: napisati generator).
+  Oba okruženja (scratchpad `ienv`, `eenv`) su rekonstruktibilna: `ienv` = `pip install -r <pip freeze iz .venv> pygad==3.5.0 pytest`; `eenv` = `gadapt_experiments/requirements.txt` + cma + pytest.
+  Posle: izveštaji (I63-D, I64-I), poglavlje 8 teze (E/E2/I), ažuriranje `MENTOR_SUMMARY`, odluka o sledećoj metodi prema rezultatima I64-I.
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
