@@ -46,6 +46,14 @@ def path(name):
     return os.path.join(OUT, name + ".json.gz")
 
 
+def reserve(name):
+    """Create-once: exclusive reservation of an output name (race-free across processes)."""
+    try:
+        os.close(os.open(path(name) + ".lock", os.O_CREAT | os.O_EXCL | os.O_WRONLY))
+    except FileExistsError:
+        raise SystemExit(f"EXISTS: {name} is reserved or exists (create-once)")
+
+
 def save(name, data):
     tmp = path(name) + ".tmp"
     with gzip.open(tmp, "wt") as fh:
@@ -95,12 +103,24 @@ def r_manifest():
     m = es.manifest("r")
     m["r_files"] = {"r_study.py": sha(os.path.join(HERE, "r_study.py")), "ITERATION64_R_SPEC.md": sha(os.path.join(os.path.dirname(HERE), "ITERATION64_R_SPEC.md"))}
     m["r_settings"] = dict(configs=CONFIGS, pairs=PAIRS, seeds=N_SEEDS, boot=BOOT, boot_seed=BOOT_SEED, alpha=ALPHA, bounds=[BOUND_SHIFT, BOUND_THR])
-    m["git_head"] = subprocess.run(["git", "-C", os.path.dirname(os.path.dirname(HERE)), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
+    repo = os.path.dirname(os.path.dirname(HERE))
+    fc = os.environ.get("R_FREEZE_COMMIT", "")
+    if not fc:
+        raise SystemExit("STOP: set R_FREEZE_COMMIT to the commit that froze the R spec and code")
+    for rel, key in (("research/i64/r_study.py", "r_study.py"), ("research/ITERATION64_R_SPEC.md", "ITERATION64_R_SPEC.md")):
+        blob = subprocess.run(["git", "-C", repo, "show", f"{fc}:{rel}"], capture_output=True).stdout
+        if hashlib.sha256(blob).hexdigest() != m["r_files"][key]:
+            raise SystemExit(f"STOP: {rel} differs from the freezing commit {fc}")
+    m["freeze_commit"] = fc
+    dirty = subprocess.run(["git", "-C", MBENCH, "status", "--porcelain"], capture_output=True, text=True).stdout.strip()
+    if dirty:
+        raise SystemExit("STOP: mentor clone has uncommitted changes")
+    m["git_head"] = subprocess.run(["git", "-C", repo, "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
     return m
 
 
 def same_build(a, b):
-    keys = ("python", "pip_freeze", "gadapt_tree", "files", "protocol", "mentor_head", "settings", "r_files", "r_settings")
+    keys = ("python", "pip_freeze", "gadapt_tree", "files", "protocol", "mentor_head", "settings", "r_files", "r_settings", "freeze_commit")
     return all(json.loads(json.dumps(a[k])) == json.loads(json.dumps(b[k])) for k in keys)
 
 
@@ -129,12 +149,11 @@ def e_record(cell, config, seed_index):
 
 
 def stage_check_repro():
-    if os.path.exists(path("check_repro")):
-        raise SystemExit("EXISTS: check_repro exists (create-once)")
+    reserve("check_repro")
     env_check()
     params = es.load("freeze")["params"]
     res = []
-    # cells 1 and 2 are sphere d=2 shift / rot; cell 40 and 41 are mid-list shift / rot (rastrigin or similar, see CELLS)
+    # cells 1, 2: sphere d=2 shift / rot; cells 28, 29: ackley d=2 shift / rot (printed with cell_def)
     for cell, cfg in ((1, "gadapt"), (2, "gadapt"), (2, "ipop"), (3 * 9 + 1, "gadapt"), (3 * 9 + 2, "ipop")):
         old = e_record(cell, cfg, 1)
         new = es.run_task(dict(config=cfg, params=params.get(cfg), cell=cell, seed=es.seed_of("run", cell, 1), purpose="run"))
@@ -176,9 +195,9 @@ def valid_records(records, k, params):
 
 
 def stage_run(workers):
+    from multiprocessing import Pool
     if os.path.exists(path("run")):
         raise SystemExit("EXISTS: run exists (create-once)")
-    from multiprocessing import Pool
     cr = require_build("run")
     env_check()
     params = es.load("freeze")["params"]
@@ -187,7 +206,7 @@ def stage_run(workers):
         part = f"run_part_{k}"
         if os.path.exists(path(part)):
             p = load(part)
-            if not same_build(p["manifest"], cr["manifest"]) or not valid_records(p["records"], k, params):
+            if not same_build(p["manifest"], cr["manifest"]) or p["e_inputs"] != cr["e_inputs"] or not valid_records(p["records"], k, params):
                 raise SystemExit(f"STOP: existing {part} is not valid for this build")
             allrecs.extend(p["records"])
             continue
@@ -204,7 +223,7 @@ def stage_run(workers):
         bad = [r for r in records if not r.get("ok")]
         if bad or not valid_records(records, k, params):
             raise SystemExit(f"STOP: {len(bad)} runs failed technically twice or the records are invalid: {bad[0].get('error') if bad else ''}")
-        save(part, dict(records=records, manifest=cr["manifest"]))
+        save(part, dict(records=records, manifest=cr["manifest"], e_inputs=cr["e_inputs"]))
         allrecs.extend(records)
         print("pair", k, name, d, "done", flush=True)
     save("run", dict(records=allrecs, e_inputs=e_inputs(), manifest=cr["manifest"]))
@@ -231,8 +250,7 @@ def area_of(events, nc):
 
 
 def stage_analyse():
-    if os.path.exists(path("analysis")):
-        raise SystemExit("EXISTS: analysis exists (create-once)")
+    reserve("analysis")
     cr = require_build("analyse")
     run = load("run")
     if run["e_inputs"] != e_inputs() or not same_build(run["manifest"], cr["manifest"]):
@@ -305,7 +323,7 @@ def stage_analyse():
                H64r1=h1, H64r2=h2, H64r3=h3,
                aggregates={f"{v}|{c}": float(agg(lambda k, vv, cc: A[(k, vv, cc)].mean())(v, c)) for v in ("shift", "rot", "rotm") for c in CONFIGS},
                per_pair={f"{PAIRS[k][1]}|{PAIRS[k][2]}": {f"{v}|{c}": float(A[(k, v, c)].mean()) for v in ("shift", "rot", "rotm") for c in CONFIGS} for k, _, _ in PAIRS},
-               e_inputs=run["e_inputs"], boot=BOOT, boot_seed=BOOT_SEED, alpha=ALPHA, git_head=r_manifest()["git_head"])
+               e_inputs=run["e_inputs"], boot=BOOT, boot_seed=BOOT_SEED, alpha=ALPHA, git_head=r_manifest()["git_head"], freeze_commit=cr["manifest"]["freeze_commit"])
     save("analysis", out)
     print(json.dumps({k: out[k] for k in ("estimates", "lower", "upper", "H64r1", "H64r2", "H64r3", "aggregates")}, indent=1))
 
