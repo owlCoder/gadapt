@@ -13,3 +13,6 @@ Post hoc: Spearman ρ(κ, A_GAdapt − A_IPOP) = −0,389; ρ(κ, CVaR_IPOP − 
 - **Predikcija P-G2**: u ≥ 6 od 8 ćelija IPOP ima nižu ćelijsku medijanu G (ili jednaku) od GAdapt-M.
 - Ishod: „potvrđeno“ ako su obe ≥ 6/8; „opovrgnuto“ ako je GAdapt-M bolji u ≥ 6/8 po obe; inače „neodlučeno“. Prag 6/8 proverava konzistentnost; zavisne ćelije ne opravdavaju nezavisni sign-test. Pozitivan ishod ne validira κ kao pravilo izbora algoritma. Izuzetak: izvodljivost (P(izvodljivo)) se ne predviđa; I57 je pokazao da GAdapt ume biti jedini koji uvek nalazi izvodljivo na case57.
 - Posledica za tezu: ako je potvrđeno i opovrgnuto nije, κ ide u literaturu kao praktična dijagnostika sa jasnim ograničenjem (klasične funkcije + 8 ORPD ćelija); ako je opovrgnuto, κ se odbacuje.
+
+## Ishod predikcije (2026-10-29; I64-I završen; mehanički iz `iteration64_i/analysis.json.gz`)
+Po ćelijama (B = 12.000), IPOP naspram GAdapt-M: niži CVaR₀,₉ u **5 od 8** ćelija (P-G1 zahtevao ≥ 6), medijana G ≤ GAdapt-M u **7 od 8** (P-G2 zahtevao ≥ 6). **Ishod: NEODLUČENO** (P-G1 nije ispunjena). κ nije potvrđen kao pokazatelj izbora algoritma; ne sme se tvrditi da predviđa. Napomena: dve ćelije (case30 j=3, case39 j=4) su skoro potpuno neizvodljive za sve konfiguracije (medijana G beskonačna), pa porede samo ostale.

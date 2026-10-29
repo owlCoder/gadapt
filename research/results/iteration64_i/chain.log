@@ -1,3 +1,108 @@
 === run Thu Oct 29 01:14:02 CET 2026
 cell case30 2 done
 cell case30 3 done
+cell case39 2 done
+cell case39 3 done
+cell case39 4 done
+cell case24_ieee_rts 2 done
+cell case24_ieee_rts 3 done
+cell case24_ieee_rts 4 done
+=== analyse Thu Oct 29 12:50:37 CET 2026
+{
+ "blocked": false,
+ "H64c": "undecided",
+ "H64d": "opposite",
+ "contrasts": {
+  "P(gadapt_preset)-P(G)": {
+   "estimate": -0.004166666666666652,
+   "lower": -0.016666666666666607,
+   "upper": 0.008333333333333304
+  },
+  "P(pygad_random)-P(G)": {
+   "estimate": -0.07916666666666661,
+   "lower": -0.11336523464264908,
+   "upper": -0.04496809869068413
+  },
+  "P(pygad_adaptive)-P(G)": {
+   "estimate": -0.125,
+   "lower": -0.14286696005440377,
+   "upper": -0.10713303994559623
+  },
+  "P(de)-P(G)": {
+   "estimate": -0.12083333333333335,
+   "lower": -0.1334408589212334,
+   "upper": -0.1082258077454333
+  },
+  "P(cma)-P(G)": {
+   "estimate": 0.008333333333333304,
+   "lower": -0.00963114059027477,
+   "upper": 0.026297807256941377
+  },
+  "P(ipop)-P(G)": {
+   "estimate": 0.02499999999999991,
+   "lower": -0.004253763353789429,
+   "upper": 0.05425376335378925
+  },
+  "P(bipop)-P(G)": {
+   "estimate": 0.02083333333333326,
+   "lower": -0.006551824467913973,
+   "upper": 0.04821849113458049
+  },
+  "P(es11)-P(G)": {
+   "estimate": 0.004166666666666652,
+   "lower": -0.024375924982679133,
+   "upper": 0.032709258316012436
+  },
+  "CVaR(gadapt_preset)-CVaR(G)": {
+   "estimate": 0.04224462674068541,
+   "lower": -0.06263945121464963,
+   "upper": 0.14712870469602046
+  },
+  "CVaR(pygad_random)-CVaR(G)": {
+   "estimate": 0.11656088679894377,
+   "lower": -0.0025801138011377484,
+   "upper": 0.2357018873990253
+  },
+  "CVaR(pygad_adaptive)-CVaR(G)": {
+   "estimate": 0.17245635950899174,
+   "lower": 0.012903784685537517,
+   "upper": 0.33200893433244594
+  },
+  "CVaR(de)-CVaR(G)": {
+   "estimate": 0.09143197836861527,
+   "lower": -0.02757720162988049,
+   "upper": 0.21044115836711103
+  },
+  "CVaR(cma)-CVaR(G)": {
+   "estimate": -0.046126997751383736,
+   "lower": -0.16513592050148324,
+   "upper": 0.07288192499871575
+  },
+  "CVaR(ipop)-CVaR(G)": {
+   "estimate": -0.04541505280234637,
+   "lower": -0.164428607484786,
+   "upper": 0.07359850188009325
+  },
+  "CVaR(bipop)-CVaR(G)": {
+   "estimate": -0.043959973298736243,
+   "lower": -0.162976945826513,
+   "upper": 0.07505699922904054
+  },
+  "CVaR(es11)-CVaR(G)": {
+   "estimate": 0.04029690820444165,
+   "lower": -0.14294880014154687,
+   "upper": 0.22354261655043017
+  },
+  "0.8CVaR(G)-CVaR(preset)": {
+   "estimate": -0.10169629010516132,
+   "lower": -0.2020222818442074,
+   "upper": -0.0013702983661152551
+  },
+  "P(preset)-P(G)": {
+   "estimate": -0.004166666666666652,
+   "lower": -0.016666666666666607,
+   "upper": 0.008333333333333304
+  }
+ }
+}
+I ALL DONE Thu Oct 29 12:50:56 CET 2026
