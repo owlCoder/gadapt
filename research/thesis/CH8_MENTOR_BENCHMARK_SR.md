@@ -1,6 +1,6 @@
 # Poglavlje 8. Replikacija i proširenje mentorovog benchmarka: stabilnost, tačnost i stvarni troškovi
 
-*Nacrt, 28. oktobar 2026. Merodavni su zamrznuti protokoli i generisani izveštaji: `ITERATION64_PROTOCOL.md`, `ITERATION64_S0_REPORT_SR.md`, `ITERATION64_E_SPEC.md` i (kada postoji) `ITERATION64_E_REPORT_SR.md`. Odeljci 8.4 i 8.5 popunjavaju se tek posle završetka studije E i ne sadrže nikakav unapred pretpostavljen ishod.*
+*Nacrt, 29. oktobar 2026. Merodavni su zamrznuti protokoli i generisani izveštaji: `ITERATION64_PROTOCOL.md`, `ITERATION64_S0_REPORT_SR.md`, `ITERATION64_E_SPEC.md`/`_REPORT_SR.md`, `ITERATION64_E2_SPEC.md`/`_REPORT_SR.md`. Odeljak 8.5 (infrastruktura) se popunjava tek posle završetka I64-I.*
 
 ## 8.1 Pitanje i poreklo
 
@@ -20,11 +20,21 @@ S0 pokreće mentorove funkcije bez izmene (jedine intervencije su brojač poziva
 
 Zaključak S0 sme biti samo operacionalizovan: veća efikasnost do 12.000 poziva među četiri konfiguracije, na neokrenutim klasičnim funkcijama, sa 20 semena. Ne sme se tvrditi opšta veća preciznost, prednost u većini ćelija, industrijska pouzdanost niti uzročna uloga mutacionog operatora. Obelodanjeno je da su tri od dvadeset semena bila viđena u probnoj seriji pre glavnog pokretanja.
 
-## 8.4 Studija E: pomerene i rotirane funkcije, jednak budžet, jači konkurenti (rezultati čekaju)
+## 8.4 Studija E: pomerene i rotirane funkcije, jednak budžet, jači konkurenti
 
-E koristi 63 ćelije (21 funkcija/dimenzija × {original, pomereno, pomereno i rotirano}), tačno 12.000 stvarnih poziva po pokretanju, 100 semena, i devet konfiguracija: GAdapt, GAdapt sa opcionim presetom stabilnosti, PyGAD random i adaptive, SciPy DE, CMA-ES, IPOP-CMA-ES, BIPOP-CMA-ES i (1+1)-ES sa restartima. Mere stabilnosti su raspodela greške, prosek najgorih 10% ishoda (CVaR), verovatnoća dostizanja ciljeva i ECDF. Hipoteze su unapred zadate u oba smera: H64a (mentorova tvrdnja, pri jednakom budžetu i rotaciji) i H64b (preset smanjuje CVaR najmanje 20% bez pada uspešnosti većeg od 5 procentnih poena).
+E koristi 63 ćelije (21 funkcija/dimenzija × {original, pomereno, pomereno i rotirano}), tačno 12.000 stvarnih poziva po pokretanju, 100 semena i devet konfiguracija: GAdapt, GAdapt sa opcionim presetom stabilnosti, PyGAD random i adaptive, SciPy DE, CMA-ES, IPOP-CMA-ES, BIPOP-CMA-ES i (1+1)-ES sa restartima. Zamrznute hipoteze su H64a (mentorova tvrdnja pri jednakom budžetu i rotaciji) i H64b (preset smanjuje CVaR najmanje 20% bez pada uspešnosti većeg od 5 procentnih poena). Svi brojevi dolaze iz generisanog izveštaja `ITERATION64_E_REPORT_SR.md`.
 
-*[Rezultati se upisuju iz `ITERATION64_E_REPORT_SR.md` posle analize; nijedan ishod nije pretpostavljen.]*
+**H64a po zamrznutom pravilu: suprotan ishod.** Tri CMA varijante (CMA, IPOP, BIPOP) imaju dokazano veću ECDF-površinu od GAdapt-a (ΔA između −0,097 i −0,089, simultani intervali potpuno negativni). GAdapt je dokazano efikasniji od oba PyGAD-a, od DE-a i od (1+1)-ES. Naknadno (post hoc, bez statusa potvrde): obrazac „GAdapt nadmašuje sve osim CMA porodice“ liči na mentorov opis, ali grupisanje CMA varijanti u jedan algoritam nije bilo unapred zadato i ne potvrđuje H64a.
+
+**Presudna zavisnost od rotacije.** GAdapt-ov rep raspodele (CVaR₀,₉ normalizovanog gubitka) iznosi 0,0033 na originalnim i pomerenim funkcijama, što je najbolje od svih devet konfiguracija, ali 0,0386 pod rotacijom, gde CMA porodica ima oko 0,019. ECDF-površina GAdapt-a pada sa 0,63 na 0,52, dok je CMA porodice oko 0,70 u sve tri varijante. Medijana jaza raste za red veličine (0,0013 na 0,014). Agregatni CVaR GAdapt-a (0,0117) je najniži od svih zato što većina ćelija nije okrenuta. Pomereno i rotirano koriste različite pomeraje, pa razlika među varijantama nije izolovan efekat rotacije. Ne sme se tvrditi da je krosover uzrok.
+
+**H64b: nije podržana.** Preset ne menja CVaR (0,0117 naspram 0,0121); nema dokaza da stabilizuje GAdapt.
+
+## 8.4b Studija E2: opcioni diferencijalni krosover (negativan preregistrovan rezultat)
+
+Da bi se proverilo da li koordinatni krosover objašnjava rotacijski jaz, u biblioteku je dodat opcioni `crossover="differential"` (roditelj plus skalirana razlika dva člana populacije, svi parametri zajedno; podrazumevano ponašanje bit-identično, proveren heš niza poziva). Operator je rotaciono ekvivarijantan samo kao neograničen korak predloga; refleksija na granice, diskretizacija i mutacioni operatori ostaju koordinatni. E2 je zamrznut pre merenja i koristi iste ćelije i semena kao E, uparene sa arhiviranim zapisima (arhivirani E tragovi GAdapt-a reprodukovani su bit-tačno, 126 od 126).
+
+Ishod (jedna simultana porodica od pet kontrasta): **opcija ne zatvara jaz**. Pod rotacijom ΔA(D − M) = −0,036 (interval od −0,047 do −0,025), a CVaR se pogoršava; na osno-poravnatim ćelijama ΔA = −0,042; prema IPOP-u ΔA = −0,18. H64e1 i H64e3 su suprotni, H64e2 neodlučena. Opcija ostaje u biblioteci dokumentovana, podrazumevano isključena i bez preporuke; nije ponavljana sa drugim parametrima.
 
 ## 8.5 Infrastrukturna faza (nije zamrznuta)
 

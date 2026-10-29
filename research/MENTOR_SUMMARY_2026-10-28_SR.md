@@ -15,11 +15,10 @@ Njegov eksperiment (`bpzoran/gadapt_experiments`, komit `0e388356`) smo **replic
   Zato je poređenje „po generacijama“ pristrasno u korist DE-a po brzini i protiv PyGAD-a po preciznosti.
 - **Ograničenja:** funkcije nisu pomerene ni rotirane (četiri imaju optimum u ishodištu); 20 semena; ne sme se tvrditi opšta veća preciznost, industrijska pouzdanost ni uzročna uloga mutacije.
 
-## 3. Šta je u toku (rezultati još ne postoje)
-- **I64-E** (zamrznut, pokrenut): isti zadatak na **pomerenim i rotiranim** funkcijama, **jednak budžet od 12.000 stvarnih poziva**, uz jače konkurente (CMA-ES, IPOP, BIPOP, (1+1)-ES sa restartima) i **test opcionog „preseta stabilnosti“** GAdapt-a
-  (manja donja granica koraka mutacije uz smanjenje pri stagnaciji; podrazumevano isključen). Mere stabilnosti: raspodela greške, prosek najgorih 10% (CVaR), verovatnoća dostizanja cilja, ECDF. 56.700 pokretanja.
-- **I63** (replikacija jedne interakcije iz ORPD studije): zamrznut, računa; ishod nije poznat.
-- Infrastrukturna faza (ORPD i AC dispečing) sa istim merama stabilnosti je planirana, ali nije zamrznuta.
+## 3. Šta je završeno posle S0 (rezultati)
+- **I64-E (pomereno/rotirano, jednak budžet od 12.000 stvarnih poziva, devet konfiguracija, 100 semena):** po zamrznutom pravilu H64a **suprotan ishod** — tri varijante CMA-ES (CMA, IPOP, BIPOP) su dokazano efikasnije od GAdapt-a; GAdapt je dokazano efikasniji od oba PyGAD-a, DE-a i (1+1)-ES. **Rep raspodele (prosek najgorih 10%, CVaR) je kod GAdapt-a najbolji od svih na osno-poravnatim funkcijama (0,0033), ali 2× lošiji od CMA porodice pod rotacijom (0,039 naspram ≈ 0,019).** Dakle prednost u tačnosti/stabilnosti važi za osno-poravnate (separabilne) probleme; za spregnute promenljive, tipične u infrastrukturi, CMA porodica je bolja. Preset „stabilnosti“ ne pomaže.
+- **I64-E2 (negativan, preregistrovan):** opcioni diferencijalni krosover u biblioteci NE zatvara taj jaz (pogoršava efikasnost na svim varijantama).
+- **I63** (replikacija jedne ORPD interakcije): konačan STOP u fazi snage zbog nedostižnog kriterijuma kalibracije (greška dizajna protokola, ne podatak); deskriptivna ekstenzija I63-D i infrastrukturna studija **I64-I** (stvarni ORPD, devet konfiguracija) su u toku.
 
 ## 4. Šta nije utvrđeno (bez uljepšavanja)
 Originalna nova metoda ili teorema nije nađena: 16 kandidata odbačeno je na proverenoj literaturi (npr. kontrola koraka, invarijantnost signala, teorija kazne, ograničena jedinstvenost). Doprinos disertacije je trenutno: replikacija i proširenje
