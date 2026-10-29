@@ -1,6 +1,6 @@
 # Poglavlje 1. Uvod: problem, istraživačka pitanja i doprinosi
 
-*Nacrt, 24. oktobar 2026. Usklađeno sa završenim I56–I61, I63 STOP i S0/E/E2/E3; I64-I/I2 i E4 su završene; I63-D ostaje otvorena deskriptivna ekstenzija.*
+*Nacrt, 24. oktobar 2026. Usklađeno sa završenim I56–I61, I63 STOP i S0/E/E2/E3; I64-I/I2 i E4 su završene; I63-D je završena (deskriptivno).*
 
 ## 1.1 Problem
 
@@ -46,7 +46,7 @@ kutija pri istom budžetu simulacija? (Poglavlje 5, studija I57, opisno.)
 Doprinosi su empirijski i inženjerski; disertacija ne tvrdi novu optimizacionu metodu.
 
 1. **Eksperimentalni instrumenti** sa evidentiranjem poziva, zamrznutim protokolima i zasebnim proverivačima; ORPD
-   studije su završene (I63-D je deskriptivna i otvorena), dok je telekom instrument stigao do razvojnog NO-GO. Potpuna ponovljivost nezavisnim
+   studije su završene (I63-D je deskriptivna), dok je telekom instrument stigao do razvojnog NO-GO. Potpuna ponovljivost nezavisnim
    izvršavanjem nije ustanovljena.
 2. **Kontrolisana procena interakcije** tehnike za ograničenja i GAdapt-ove samoadaptacije (IP1). Interakcija
    ograničenja i adaptacije je u evolutivnim strategijama poznata; doprinos je specifična, kontrolisana

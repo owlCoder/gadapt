@@ -10,7 +10,7 @@
 
 **IP3.** Da li unapred određene intervencije — preset, diferencijalni krosover, hibrid i kompenzaciona mutacija — ispunjavaju svoje kriterijume poboljšanja? E2 daje negativne, E3 mešovite rezultate; E4 ostaje otvorena. Poređenja celih konfiguracija ne identifikuju pojedinačni uzročni mehanizam.
 
-**IP4.** Da li relativni učinak adaptivne i podešene fiksne politike mutacije zavisi od rukovanja ograničenjima na ispitanom diskretnom ORPD-u, i kakve su granice prenosa tog nalaza? H56a je mali lokalni nalaz, praktično zasnovan na case14. I61 i I63 završeni su STOP-om bez ocenjivanja svojih hipoteza; I63-D ostaje otvorena deskriptivna ekstenzija.
+**IP4.** Da li relativni učinak adaptivne i podešene fiksne politike mutacije zavisi od rukovanja ograničenjima na ispitanom diskretnom ORPD-u, i kakve su granice prenosa tog nalaza? H56a je mali lokalni nalaz, praktično zasnovan na case14. I61 i I63 završeni su STOP-om bez ocenjivanja svojih hipoteza; I63-D (završena) daje deskriptivnu procenu θ₆₃ = 0,0139 [−0,0090; 0,0372], istog znaka kao I56, ali male i neprecizne.
 
 **IP5.** Kakav je položaj GAdapt-a i hibrida prema izabranim konkurentima na ORPD-u, i da li ugrađene standardne tehnike za ograničenja potvrđeno ubrzavaju dostizanje cilja? I57 je opisna; I58/I60 nisu potvrdile ubrzanje, I59 je razvojni NO-GO, a I64-I/I2 ostaju otvorene.
 
@@ -34,7 +34,7 @@ Originalnost se vezuje za konkretne dokaze, dijagnoze i njihovu sintezu. Ne tvrd
 | **CH3. Mentorov benchmark: efikasnost, tačnost i rizik** | Prikazuje S0/E i ishode intervencija E2/E3, uz otvoreno mesto za E4; izvor su sadašnji CH8 i odgovarajući izveštaji I64. |
 | **CH4. Dijagnostika GAdapt-a na infrastrukturnim modelima** | Razdvaja potvrđena svojstva implementacije od neidentifikovanih uzroka zaostatka prema I42–I48/I53 i sadašnjem CH2. |
 | **CH5. Diskretni ORPD: model i eksperimentalni dizajn** | Definiše kontrole, ograničenja, reference i estimande prema sadašnjem CH3 i protokolu I56. |
-| **CH6. Lokalna interakcija i granice replikacije** | Prikazuje I56, STOP ishode I61/I63 i otvorenu deskriptivnu I63-D prema sadašnjem CH4, §7.9 i izveštajima. |
+| **CH6. Lokalna interakcija i granice replikacije** | Prikazuje I56, STOP ishode I61/I63 i završenu deskriptivnu I63-D prema sadašnjem CH4, §7.9 i izveštajima. |
 | **CH7. Spoljna poređenja i prenos na ORPD** | Prikazuje opisnu I57 i rezerviše zaključke I64-I/I2 do završetka provera, prema sadašnjem CH5 i zamrznutim specifikacijama. |
 | **CH8. Bibliotečka implementacija i provere korisnosti** | Povezuje implementaciju sa nepotvrđenim ubrzanjem I58/I60, razvojnim NO-GO I59 i odstupanjem D1, prema sadašnjim CH6/CH7. |
 | **CH9. Sinteza nalaza, pretnje validnosti i zaključak** | Objedinjuje statuse dokaza iz prethodnih poglavlja i razdvaja istraživačke nalaze od preporuka za primenu. |
@@ -74,7 +74,7 @@ Oznake poglavlja u ovoj listi odnose se na postojeće datoteke.
   **Zamena:** „I63 nije zadovoljio zamrznuti kriterijum kalibracije; zahtev za gornju granicu stope greške problematičan je pri nominalnoj veličini testa, ali nije matematički nemoguć ishod simulacije.“
 
 - **CH7, §7.9:** „H56a ostaje lokalni, nereplikovan nalaz; nijedan naknadni naslednik se ne planira.“  
-  **Zamena:** „H56a ostaje lokalni nalaz bez konfirmatorne replikacije; otvorena I63-D ima isključivo deskriptivan status.“
+  **Zamena:** „H56a ostaje lokalni nalaz bez konfirmatorne replikacije; I63-D ima isključivo deskriptivan status.“
 
 - **CH7, završetak:** „Ova dva koraka odgovaraju na različite preostale potrebe: I63 proverava ponovljivost empirijske interakcije, a I62 praktičan položaj biblioteke prema jačim poređenjima.“  
   **Zamena:** „I63 je završen STOP-om; I62 ostaje nezamrznut predlog bez rezultata.“

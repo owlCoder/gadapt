@@ -147,4 +147,4 @@ Zbog toga je zamrznut tačno jedan naslednik, I63, sa drugim procenjivačem (kva
 
 I62 je za sada predlog za jači spoljni kontekst. Predviđa validirane L-SHADE i jDE implementacije, zadržavanje CMAwM poređenja i razvojno podešenu kaznu. Time treba proveriti koliko zaključci zavise od jednog nepodešenog kaznenog koeficijenta i skupa konkurenata. Predlog nije zamrznut i nema rezultate.
 
-I63 je završen STOP-om; I62 ostaje nezamrznut predlog bez rezultata. H58 = N i H60 = N ostaju deo glavnog dokaza i određuju granicu sadašnje tvrdnje o korisnosti ugrađenih opcija.
+I63 je završen STOP-om; deskriptivna ekstenzija I63-D (izveštaj `ITERATION63D_REPORT_SR.md`) daje θ₆₃ = 0,0139 [−0,0090; 0,0372] — isti znak kao I56, mala i neprecizna procena, drugačiji estimand, bez konfirmatorne replikacije; I62 ostaje nezamrznut predlog bez rezultata. H58 = N i H60 = N ostaju deo glavnog dokaza i određuju granicu sadašnje tvrdnje o korisnosti ugrađenih opcija.
