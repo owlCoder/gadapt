@@ -319,7 +319,7 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   Codex 089 (reprodukcija E2/E3 = sve tačno), 090 (revizija formulacija — primenjena), 091 (sledeća metoda), 092 (revizija kompenzacione mutacije, u toku). Audit literature: novost kompenzacione mutacije NIJE ustanovljena (Bouter 2020 itd.).
   Greške iz Codex 091 DOI: RV-GOMEA = 10.1145/3071178.3071272 / 10.1145/3377930.3390225; Guo & Yang = 10.1109/TEVC.2013.2297160; Hansen adaptive encoding = ..._21.
   Posle: izveštaji (I, I2, D, E4) iz generatora (`i_report.py`, `report_d.py`, `e*_report.py`), nezavisna Codex reprodukcija, ažuriranje CH8/MENTOR_SUMMARY, README preporuka samo ako ishodi dopuštaju.
-- **2026-10-29 05:52 I63-D PAUZIRAN (SIGSTOP)** radi prioriteta I64-I i E4 (opterećenje 20 na 10 jezgara). Nastaviti sa `pkill -CONT -f d_study.py` kada I64-I/E4 završe (procesi su živi; nema gubitka; ako su procesi izgubljeni — `research/i63tools/run_d.sh 5` nastavlja po ćeliji).
+- **2026-10-29 05:52 I63-D bio pauziran, nastavljen 06:20 (nice 15)** radi prioriteta I64-I i E4 (opterećenje 20 na 10 jezgara). Nastaviti sa `pkill -CONT -f d_study.py` kada I64-I/E4 završe (procesi su živi; nema gubitka; ako su procesi izgubljeni — `research/i63tools/run_d.sh 5` nastavlja po ćeliji).
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
