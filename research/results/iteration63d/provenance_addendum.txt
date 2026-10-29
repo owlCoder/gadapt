@@ -1,0 +1,20 @@
+I63-D provenance addendum (2026-10-29)
+
+Deviation: the `gadapt/` tree changed after the I63-D gate (01:01) and while the `run` stage was in progress:
+opt-in compensatory_mutation (commits 226c757 04:59, 6368959 05:19; edits to ga.py, ga_options.py,
+base_candidate_solution_mutation_selector.py, new file compensatory_mutation.py). Workers (spawn, maxtasksperchild=1)
+import the live tree per task, so tasks started after 04:59 ran on the changed tree (opt-in features off by default).
+The first `check` stage correctly STOPPED ("build differs from the gated one").
+
+Evidence that results are unaffected:
+ 1. Gate-time tree reconstructed from commit bc60030 (`git archive`); all gadapt_tree_sha256 entries equal gate.json.gz manifest.
+ 2. replay_d.py replays a stratified sample (4 random seeds x 4 arms x 8 cells = 128 tasks, rng seed 20261029) on that tree and
+    compares call-sequence hash, best_feasible, calls, generations, first_target, T, failures with the archived records:
+    128/128 identical (replay_d_out.json).
+ 3. `check` (independent PF witness; library-independent) and `analyse` (statistics on records) were executed with the
+    gate-time files temporarily placed into gadapt/ (3 files restored from bc60030, compensatory_mutation.py moved away) so that
+    the frozen provenance comparison passes; the working tree was then restored (diff against pre-swap backup: identical).
+    check: 3820 witnesses, 0 failures. analysis.json.gz produced.
+Remaining caveat: the equivalence is shown on a 128-task sample (2.5% of 5120), not on every task.
+Independent reproduction of per-cell and global estimates: research/i63tools/reproduce_i63d.py (Codex 096) gives
+theta_63 = 0.013889, identical to the project analysis (0.01388888...).

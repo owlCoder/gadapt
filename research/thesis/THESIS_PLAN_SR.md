@@ -103,6 +103,6 @@ Oznake poglavlja u ovoj listi odnose se na postojeće datoteke.
 
 **I64-I2:** „Za hibrid je CVaR(M) − CVaR(H) = −0,0799 [−0,2656; 0,1058] i CVaR(IPOP) − CVaR(H) = −0,1253 [−0,2502; −0,0004]; razlike izvodljivosti P(H) − P(M) = −0,0042 [−0,0355; 0,0271] i P(H) − P(IPOP) = −0,0292 [−0,0643; 0,0059]; H64h1 = neodlučena, H64h2 = suprotna (napomena: polje `i_run_sha256` u I2 arhivi je prazno). Zaseban doprinos GAdapt faze ostaje neidentifikovan.“
 
-**I63-D:** „Deskriptivna procena θ₆₃ iznosi [VALUE], sa 95% intervalom [VALUE] i 90% intervalom [VALUE]; smer i osetljivost po mrežama su [VALUE]. Estimand se razlikuje od H56a; rezultat ne menja I63 STOP niti ostvaruje konfirmatornu replikaciju.“
+**I63-D:** „Deskriptivna procena θ₆₃ iznosi 0,0139, sa 95% intervalom [−0,0090; 0,0372] i 90% intervalom [−0,0052; 0,0332]; smer je isti kao u I56, ali je procena mala i neprecizna (case30 −0,006; case39 +0,034; case24_ieee_rts +0,014). Estimand se razlikuje od H56a; rezultat ne menja I63 STOP niti ostvaruje konfirmatornu replikaciju.“
 
 **I64-E4:** „Posle zamene svih neispravnih `resample` zapisa, jedna simultana porodica od sedam kontrasta daje H64k1–k5 redom: neodlučena, podržana, neodlučena, neodlučena i suprotna; jezgro H64k1–k4 nije podržano. Poređenje sa `permuted` odnosi se na kompletne režime, `ungated` ostaje opisna kontrola, a algoritamska originalnost i industrijska korist nisu ustanovljene.“

@@ -7,3 +7,41 @@
 }
 === run Thu Oct 29 01:04:58 CET 2026
 cell case30 2 done
+cell case30 3 done
+cell case39 2 done
+cell case39 3 done
+cell case39 4 done
+cell case24_ieee_rts 2 done
+cell case24_ieee_rts 3 done
+cell case24_ieee_rts 4 done
+=== check Thu Oct 29 22:52:57 CET 2026
+STOP: build differs from the gated one
+stage check failed
+skip gate
+skip run
+=== check Thu Oct 29 23:14:42 CET 2026
+checked 3820 failures 0
+=== analyse Thu Oct 29 23:14:47 CET 2026
+{
+ "label": "DESCRIPTIVE; not confirmatory; I63 stopped in power and this does not replace it",
+ "H63_descriptive": {
+  "estimate": 0.01388888888888889,
+  "ci95": [
+   -0.009027777777777779,
+   0.03715277777777778
+  ],
+  "ci90": [
+   -0.005208333333333333,
+   0.03315972222222222
+  ],
+  "positive": false,
+  "negative": false,
+  "equivalent": true
+ },
+ "network_means": {
+  "case30": -0.00625,
+  "case39": 0.034375,
+  "case24_ieee_rts": 0.013541666666666669
+ }
+}
+D ALL DONE Thu Oct 29 23:14:48 CET 2026
