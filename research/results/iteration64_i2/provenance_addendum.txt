@@ -1,0 +1,11 @@
+I2 pre-run provenance addendum (Codex 095): I2's run.json.gz recorded i_run_sha256=null because the I run did not exist when I2 executed; hashes of the I64-I artifacts at analysis time:
+iteration64_i/run.json.gz  e4bdbf1790bcb57809f8128d84c5a54d9f0c3a851d814dcf28ebba4ae543e379
+iteration64_i/manifest_pre.json.gz  ca71df60ea70cd5668c3787331d85fbc2ea3a22acfa85fe5948115398f3f2257
+iteration64_i/run_part_0.json.gz  485da8a345a768c42349ef250025b7a19d649cfd0c4e242e5f3af33610bc7b87
+iteration64_i/run_part_1.json.gz  150eb61a6dafcd3055b52b31f38aa2586d54ed63a4055dbfdfbf21f12986227c
+iteration64_i/run_part_2.json.gz  55ca279251253c7f8835161808e08fabcd3f1f6327b3cb7eeeeeb3baeac8f6f4
+iteration64_i/run_part_3.json.gz  0e730066699b6b52e0950b693d6c7a64229edaa04b0b797aed09fe3cdaed0361
+iteration64_i/run_part_4.json.gz  c9dfbed0815af9a64d6f92d9597de613f0a45292bd5632f135f4b75633a2afb8
+iteration64_i/run_part_5.json.gz  cc41bc340a13ba4748f2e1ba546d5695e575e19acb6a28af5a76014f1da02baf
+iteration64_i/run_part_6.json.gz  47a87ce9835ac2b873b011c39c397cc6b54cc88a94e64d7240de8776ba03cc1e
+iteration64_i/run_part_7.json.gz  01fdbcedaee36821e9dc1acf913bebb3762152e9b513c221227a136b6bab218b

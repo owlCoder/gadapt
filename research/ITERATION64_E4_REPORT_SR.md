@@ -2,7 +2,7 @@
 
 Specifikacija: [ITERATION64_E4_SPEC.md](ITERATION64_E4_SPEC.md) (zamrznuta `226c757`, dopuna A1 `6368959`). Uparivanje sa arhiviranim E zapisima po ključu (ćelija, seme); 63 ćelije × 100 semena, 12.000 stvarnih poziva.
 
-## 1. Ishod hipoteza (jedna simultana porodica od pet kontrasta, α = 0.05, t* = 2.665, 20000 ponavljanja)
+## 1. Ishod hipoteza (jedna simultana porodica od sedam kontrasta, α = 0.05, t* = 2.665, 20000 ponavljanja)
 
 - **H64k1** (zatvaranje jaza prema GAdapt-M pod rotacijom): **undecided**
 - **H64k2** (tolerisana šteta na orig+shift): **supported**
@@ -66,5 +66,5 @@ Specifikacija: [ITERATION64_E4_SPEC.md](ITERATION64_E4_SPEC.md) (zamrznuta `226c
 | de | 0.6124 | 0.0391 | 0.0335 |
 
 ## 3. Tumačenje (post hoc, oprezno)
-Mali dobitak efikasnosti prema GAdapt-M pod rotacijom (ΔA ≈ +0,014) nije razlučiv od kontrole sa slučajnim partnerom ni od Bouter-stil resample kontrole (intervali obuhvataju nulu), pa se NE može pripisati iskorišćavanju elitnih korelacija; rep raspodele se ne smanjuje za traženih 20%. Jaz prema IPOP-u ostaje velik. Opcija je dokumentovana i podrazumevano isključena, bez preporuke. Kontrola `permuted` meri razliku kompletnih režima (Codex 092); `resample` je ispravljen i ponovljen (dopuna A1); algoritamska originalnost i industrijska korist nisu ustanovljene.
+Mali dobitak efikasnosti prema GAdapt-M pod rotacijom (ΔA ≈ +0,014) nije razlučiv od kontrole sa slučajnim partnerom ni od Bouter-stil resample kontrole (intervali obuhvataju nulu), pa se NE može pripisati iskorišćavanju elitnih korelacija; pad CVaR-a od najmanje 20% nije potvrđen (kontrast c2 obuhvata nulu). Na orig+shift su potvrđene samo tolerisane margine (H64k2); tačkasti CVaR raste za oko 16%. Jaz prema IPOP-u ostaje velik. Opcija je dokumentovana i podrazumevano isključena, bez preporuke. Kontrola `permuted` meri razliku kompletnih režima (Codex 092); `resample` je ispravljen i ponovljen (dopuna A1); algoritamska originalnost i industrijska korist nisu ustanovljene.
 

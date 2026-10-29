@@ -14,5 +14,5 @@ w("\nCVaR(ref) − CVaR(H) > 0 koristi hibridu; P(H) − P(ref) ≥ −0,05 zna�
 w("## 2. Agregati (ćelije jednako ponderisane)\n\n| konfiguracija | P(izvodljivo) | CVaR₀,₉(L) |\n|---|---|---|")
 for c, v in a["aggregate"].items():
     w(f"| {c} | {v['P']:.3f} | {v['cvar90']:.4f} |")
-w("\n## 3. Tumačenje\nPrednost hibrida iz E3 (sintetičke funkcije) se NE prenosi na ovaj ORPD skup: hibrid nije dokazano bolji od GAdapt-M, a rep je lošiji od IPOP-a (H64h2 suprotno). Zaseban doprinos GAdapt faze nije identifikovan. Rezultat važi za osam ćelija i 30 semena; nema tvrdnje o industrijskoj spremnosti.\n")
+w("\n## 3. Tumačenje\nPrednost hibrida iz E3 (sintetičke funkcije) nije potvrđena na ovom ORPD skupu: hibrid nije dokazano bolji od GAdapt-M (H64h1 neodlučeno), a njegov rep je lošiji od IPOP-ovog (H64h2 suprotno). Zaseban doprinos GAdapt faze nije identifikovan. Rezultat važi za osam ćelija i 30 semena; nema tvrdnje o industrijskoj spremnosti.\n")
 open(os.path.join(os.path.dirname(HERE), "ITERATION64_I2_REPORT_SR.md"), "w").write("\n".join(L) + "\n"); print("written")
