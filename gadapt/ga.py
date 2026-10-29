@@ -132,6 +132,7 @@ class GA:
         columnar_diversity_metric: str = "log_relative",
         constraint_handling: Optional[str] = None,
         constraint_penalty_weight: float = 1000.0,
+        compensatory_mutation: Optional[str] = None,
         **deprecated_kwargs,
     ) -> None:
         """
@@ -303,6 +304,12 @@ class GA:
                 returns a float. These two calls are real cost function evaluations,
                 and they are not part of the search. False skips them (the cost
                 function must still be callable).
+            compensatory_mutation: None (default, off) or "gated". After the usual mutation of a candidate solution, each mutated decision
+                variable can drag one partner decision variable along the correlation of the elite (the best evaluated candidate
+                solutions): partner shift = clipped regression slope times the shift of the mutated variable, in range-normalised
+                coordinates. "gated" accepts a pair only when two interleaved halves of the elite agree on the sign of the
+                correlation and both have |rho| >= 0.5. No additional cost function evaluations. Meant for problems with coupled
+                decision variables. The values "ungated", "permuted" and "resample" are experimental controls for studies.
             strict_mutation_decision_variable_limit: False (default) or True. By
                 default, when candidate_solution_mutation contains
                 "variable_columnar_diversity", the number of mutated decision
@@ -381,6 +388,7 @@ class GA:
         self.cost_diversity_metric = cost_diversity_metric
         self.probe_cost_function = probe_cost_function
         self.strict_mutation_decision_variable_limit = strict_mutation_decision_variable_limit
+        self.compensatory_mutation = compensatory_mutation
         self.columnar_diversity_metric = columnar_diversity_metric
         self.constraint_handling = constraint_handling
         self.constraint_penalty_weight = constraint_penalty_weight
@@ -1010,6 +1018,16 @@ class GA:
         if not isinstance(value, bool):
             raise ValueError("strict_mutation_decision_variable_limit must be True or False")
         self._strict_mutation_decision_variable_limit = value
+
+    @property
+    def compensatory_mutation(self) -> Optional[str]:
+        return self._compensatory_mutation
+
+    @compensatory_mutation.setter
+    def compensatory_mutation(self, value: Optional[str]) -> None:
+        if value is not None and value not in ("gated", "ungated", "permuted", "resample"):
+            raise ValueError("compensatory_mutation must be None or \"gated\"")
+        self._compensatory_mutation = value
 
     @property
     def columnar_diversity_metric(self) -> str:

@@ -21,6 +21,7 @@ class GAOptions:
         self._cost_function = ga.cost_function
         self.cost_diversity_metric = ga.cost_diversity_metric
         self.strict_mutation_decision_variable_limit = ga.strict_mutation_decision_variable_limit
+        self.compensatory_mutation = ga.compensatory_mutation
         self.columnar_diversity_metric = ga.columnar_diversity_metric
         self.constraint_handling = ga.constraint_handling
         self.constraint_penalty_weight = ga.constraint_penalty_weight

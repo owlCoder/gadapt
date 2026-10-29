@@ -71,9 +71,14 @@ class BaseCandidateSolutionMutationSelector(ABC):
                     controller.before_candidate_mutation(
                         c, self.population.options.cost_function
                     )
+                comp_mode = getattr(self.population.options, "compensatory_mutation", None)
+                before = [v.value for v in c] if comp_mode is not None else None
                 self._decision_variable_mutation_selector.mutate(
                     c, self.population.options.number_of_mutation_decision_variables
                 )
+                if comp_mode is not None:
+                    from gadapt.operations.mutation.compensatory_mutation import CompensatoryMutation
+                    CompensatoryMutation(comp_mode).apply(self.population, c, before)
                 if (not self.population.options.ensure_unique_individuals) or (not self.population.contained_candidate_solution(c)):
                     candidate_solutions_added = True
             self.population.register_candidate_solution(c)
