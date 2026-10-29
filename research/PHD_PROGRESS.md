@@ -320,6 +320,10 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   Greške iz Codex 091 DOI: RV-GOMEA = 10.1145/3071178.3071272 / 10.1145/3377930.3390225; Guo & Yang = 10.1109/TEVC.2013.2297160; Hansen adaptive encoding = ..._21.
   Posle: izveštaji (I, I2, D, E4) iz generatora (`i_report.py`, `report_d.py`, `e*_report.py`), nezavisna Codex reprodukcija, ažuriranje CH8/MENTOR_SUMMARY, README preporuka samo ako ishodi dopuštaju.
 - **2026-10-29 05:52 I63-D bio pauziran, nastavljen 06:20 (nice 15)** radi prioriteta I64-I i E4 (opterećenje 20 na 10 jezgara). Nastaviti sa `pkill -CONT -f d_study.py` kada I64-I/E4 završe (procesi su živi; nema gubitka; ako su procesi izgubljeni — `research/i63tools/run_d.sh 5` nastavlja po ćeliji).
+- **2026-10-29 11:55 I64-E4 GOTOVO** (`ITERATION64_E4_REPORT_SR.md`; kompenzaciona mutacija + kontrole; `cr` ponovljen ispravljenim kodom): **jezgro NIJE podržano.** H64k1 neodlučeno (ΔA_rot(G−M) = +0,014 [0,005; 0,023]; ali CVaR ne pada 20%: −0,0032 [−0,0066; +0,0003]); H64k2 PODRŽANO (nema štete orig+shift);
+  H64k3 neodlučeno (G − permuted: −0,003 [−0,012; +0,007]); H64k4 neodlučeno (G − resample: −0,003 [−0,011; +0,006]); H64k5 SUPROTNO (G − IPOP: −0,132 [−0,142; −0,122]). Dobitak se ne može pripisati iskorišćavanju korelacija; jaz prema IPOP-u ostaje. Opcija ostaje u biblioteci (isključena, bez preporuke).
+  **ZAKLJUČAK SERIJE E2–E4:** nijedna intervencija u samom GAdapt-u (preset, diferencijalni krosover, kompenzaciona mutacija) nije zatvorila rotacijski jaz; jedino hibrid sa CMA-om (E3) jeste, ali on nije GAdapt. Ne dodavati nove operatore serijski (Codex 093).
+  Preostalo: I64-I (7/8), I2 (analiza čeka I), I63-D (3/8). Posle: izveštaji, nezavisna Codex reprodukcija, popuna CH8/CH9, MENTOR_SUMMARY.
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj

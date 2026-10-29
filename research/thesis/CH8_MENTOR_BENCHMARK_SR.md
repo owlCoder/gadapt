@@ -42,6 +42,12 @@ Pošto opcioni krosover nije pomogao, a razvojni pokušaj GAdapt-PCA (četiri ro
 
 Zamrznuta pravila daju mešan ishod: **H64g1 podržana** (pod rotacijom ΔA = +0,103, CVaR se smanjuje više od 20%), **H64g2 suprotno** (na osno-poravnatim ćelijama rep je 1,8× veći od GAdapt-M, iznad tolerisanih 1,5×, uz ΔA = +0,065), **H64g3 neodlučeno** (neinferiornost prema IPOP-u pod rotacijom: −0,043, interval [−0,052; −0,035] seče granicu −0,05). Post hoc, među šest prikazanih konfiguracija, u proseku tri varijante hibrid ima najniže agregate CVaR/M (0,0070/0,00293; GAdapt-M 0,0117/0,00429; IPOP 0,0142/0,00779); A je 0,7511 prema 0,7699 za IPOP. Neinferiornost prema IPOP-u nije potvrđena. Bez ablacija nije utvrđen zaseban doprinos GAdapt i CMA faze.
 
+## 8.4d Studija E4: opciona kompenzaciona mutacija sa kontrolama (nije podržana)
+
+Poslednja intervencija u samom GAdapt-u: `compensatory_mutation` (posle uobičajene mutacije svaka mutirana promenljiva povlači jednog partnera duž korelacije elite; bez dodatnih evaluacija; podrazumevano isključena). Novost nije ustanovljena (uslovno uzorkovanje iz elitne kovarijanse poznato je iz RV-GOMEA; Bouter i sar. 2020, 10.1145/3377930.3390225), pa je ovo inženjerska opcija sa obaveznim kontrolama: bez kapije, slučajan partner i uslovno uzorkovanje u stilu Boutera. Kontrola uslovnog uzorkovanja ispravljena je posle nezavisne revizije koda i ponovljena (dopuna A1).
+
+Ishod prema zamrznutim pravilima: jezgro (H64k1–k4) **nije podržano**. Pod rotacijom je ΔA prema GAdapt-M +0,014 (interval od 0,005 do 0,023), ali se CVaR ne smanjuje za traženih 20%; šteta na osno-poravnatim ćelijama nije dokazana (H64k2 podržana); razlika prema kontroli sa slučajnim partnerom i prema uslovnom uzorkovanju obuhvata nulu (H64k3/k4 neodlučene), pa dobitak ne možemo pripisati iskorišćavanju veza; prema IPOP-u je ΔA −0,132 (H64k5 suprotno). Zaključak serije E2–E4: nijedna ispitana intervencija u samom GAdapt-u nije zatvorila rotacijski jaz; to je uspeo jedino hibrid sa CMA-om (E3), koji nije GAdapt.
+
 ## 8.5 Infrastrukturna faza (nije zamrznuta)
 
 Faza I64-I proverava iste mere na diskretnom ORPD-u pod jednakim budžetom stvarnih proračuna toka snage. Dok nije zamrznuta i izvršena, poglavlje ne sadrži nikakvu tvrdnju o industrijskoj primeni.
