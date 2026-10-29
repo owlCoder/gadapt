@@ -47,15 +47,20 @@ class CompensatoryMutation:
     @staticmethod
     def _fit(dv, value):
         low, high = dv.min_value, dv.max_value
-        if high > low:
-            span = high - low
-            value = (value - low) % (2 * span)
-            value = low + (value if value <= span else 2 * span - value)
+        if not high > low:
+            return low
+        span = high - low
+        value = (value - low) % (2 * span)
+        value = low + (value if value <= span else 2 * span - value)
         step = getattr(dv, "step", None)
         if step is not None and step > 0:
-            k_max = math.floor((high - low) / step + 1e-9)
+            k_max = math.floor(span / step + 1e-9)
             k = min(max(int(round((value - low) / step)), 0), k_max)
-            value = round(low + k * step, max(0, getattr(dv, "decimal_places", 0)))
+            value = low + k * step
+            from decimal import Decimal
+            decimals = max(0, -Decimal(repr(step)).normalize().as_tuple().exponent, -Decimal(repr(low)).normalize().as_tuple().exponent)
+            value = round(value, decimals)
+            value = min(max(value, low), high)
         return value
 
     def apply(self, population, c, before):
@@ -106,7 +111,8 @@ class CompensatoryMutation:
             elif self.mode == "resample":
                 xi_new = (c[i].value - lo[i]) / rng_[i]
                 var_c = max(C[j, j] - C[j, i] ** 2 / (C[i, i] + self.EPS), 0.0)
-                new_norm = mu[j] + b * (xi_new - mu[i]) + math.sqrt(var_c) * random.gauss(0.0, 1.0)
+                a_slope = C[j, i] / (C[i, i] + self.EPS)  # the conditional mean uses the unclipped regression slope (Gaussian conditional)
+                new_norm = mu[j] + a_slope * (xi_new - mu[i]) + math.sqrt(var_c) * random.gauss(0.0, 1.0)
                 c[j].value = self._fit(c[j].decision_variable, lo[j] + new_norm * rng_[j]); used.add(j)
             else:
                 new_norm = (c[j].value - lo[j]) / rng_[j] + b * delta_i

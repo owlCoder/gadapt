@@ -123,6 +123,36 @@ def stage_run(workers):
     save("run", dict(records=allrecs, e_parts_sha256=parts, git_head=freeze))
 
 
+def stage_run_cr(workers):
+    """Amendment A1 (Codex 092): the `gadapt_cr` (resample) control of the first pass is invalid (clipped slope in the conditional mean). This stage re-runs
+    ONLY gadapt_cr for all cells with the corrected code; the analysis ignores the cr records of the first pass."""
+    if os.path.exists(path("run_cr")):
+        raise SystemExit("EXISTS: run_cr exists (create-once)")
+    from multiprocessing import Pool
+    allrecs = []
+    for ci in range(len(es.CELLS)):
+        part = f"run4cr_part_{ci}"
+        if os.path.exists(path(part)):
+            allrecs.extend(load(part)["records"])
+            continue
+        tasks = [dict(config="gadapt_cr", params=None, cell=ci, seed=es.seed_of("run", ci, s), purpose="run") for s in range(1, N_SEEDS + 1)]
+        with Pool(workers, maxtasksperchild=1) as pool:
+            records = list(pool.imap(run_task2, tasks, chunksize=1))
+        for i, r in enumerate(records):
+            if not r.get("ok"):
+                with Pool(1, maxtasksperchild=1) as pool:
+                    again = pool.apply(run_task2, (tasks[i],))
+                again["rerun"], again["first_attempt"] = True, r
+                records[i] = again
+        bad = [r for r in records if not r.get("ok")]
+        if bad:
+            raise SystemExit(f"STOP: {len(bad)} cr runs failed twice: {bad[0].get('error')}")
+        save(part, dict(records=records))
+        allrecs.extend(records)
+        print("cr cell", ci, es.CELLS[ci], "done", flush=True)
+    save("run_cr", dict(records=allrecs))
+
+
 def cvar(values, share=0.1):
     k = max(1, int(math.ceil(share * len(values))))
     return float(np.mean(sorted(values)[-k:]))
@@ -167,6 +197,11 @@ def analyse():
                 add(r)
     for r in d2["records"]:
         assert r["ok"] and r["calls"] == B
+        if r["task"]["config"] != "gadapt_cr":   # amendment A1: first-pass cr records are invalid
+            add(r)
+    crd = load("run_cr")
+    for r in crd["records"]:
+        assert r["ok"] and r["calls"] == B and r["task"]["config"] == "gadapt_cr"
         add(r)
     arr = {}
     for k, v in raw.items():
@@ -233,6 +268,8 @@ if __name__ == "__main__":
     st = sys.argv[1] if len(sys.argv) > 1 else ""
     if st == "run":
         stage_run(int(sys.argv[2]) if len(sys.argv) > 2 else 8)
+    elif st == "run_cr":
+        stage_run_cr(int(sys.argv[2]) if len(sys.argv) > 2 else 8)
     elif st == "analyse":
         analyse()
     else:
