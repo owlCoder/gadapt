@@ -14,3 +14,8 @@
 **Publikacione jedinice (kandidati, nisu gotove):** (1) granice efikasnosti/tačnosti/rizika GAdapt-a pri stvarnom budžetu (S0/E/E2/E3 + I): Evolutionary Computation, odnosno Energies ako je fokus ORPD; nedostaju nezavisne instance, jači diskretni konkurenti, kontrola istog pomeraja za rotaciju, ablacija hibrida. (2) proverljivost izvršavanja optimizacionih biblioteka (alat + 21 biblioteka): TELO; traži jasnu centralnu tezu i potpuniju validaciju detektora.
 
 **Preostale nedelje:** završiti 4 studije bez menjanja kriterijuma; nezavisno reprodukovati; dogovoriti obim sa mentorom; najviše jedna ciljana dopuna; uskladiti CH1–CH8; pisati radove i reprodukcioni paket; ako mentor traži novu metodu, priznati da sadašnji paket to ne ispunjava i dogovoriti rok.
+
+## Ažuriranje 2026-10-29 (posle I64-I, I2, E4)
+- **Stvarni ORPD:** GAdapt je u izvodljivosti dokazano bolji od PyGAD-a i DE-a i nerazlučiv od CMA porodice; u repu dokazano bolji samo od PyGAD-adaptive; kriterijum konkurentnosti H64c neodlučen. To podržava „primenljiv uz CMA porodicu“, a NE „bolji od svih osim jednog“.
+- **Intervencije u samom GAdapt-u** (preset, diferencijalni krosover, kompenzaciona mutacija): nijedna nije dala potvrđenu korist; hibrid sa CMA-om pomaže na sintetici (E3), ali ne prenosi se na ORPD (I2).
+- **Za mentora:** (1) Nova metoda nije nađena; 16+ kandidata odbačeno na prior art, a tri opt-in intervencije su testirane i nisu podržane. (2) Preporuka za industriju trenutno: GAdapt-M kao pouzdana opcija za diskretne ograničene probleme; za kontinualne spregnute probleme CMA porodica. (3) Odluka o obimu: empirijski doktorat sa negativnim rezultatima ili nova metoda (novi rok).

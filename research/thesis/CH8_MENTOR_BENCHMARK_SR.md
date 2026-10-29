@@ -48,9 +48,15 @@ Poslednja intervencija u samom GAdapt-u: `compensatory_mutation` (posle uobičaj
 
 Ishod prema zamrznutim pravilima: jezgro (H64k1–k4) **nije podržano**. Pod rotacijom je ΔA prema GAdapt-M +0,014 (interval od 0,005 do 0,023), ali se CVaR ne smanjuje za traženih 20%; šteta na osno-poravnatim ćelijama nije dokazana (H64k2 podržana); razlika prema kontroli sa slučajnim partnerom i prema uslovnom uzorkovanju obuhvata nulu (H64k3/k4 neodlučene), pa dobitak ne možemo pripisati iskorišćavanju veza; prema IPOP-u je ΔA −0,132 (H64k5 suprotno). Zaključak serije E2–E4: nijedna ispitana intervencija u samom GAdapt-u nije zatvorila rotacijski jaz; to je uspeo jedino hibrid sa CMA-om (E3), koji nije GAdapt.
 
-## 8.5 Infrastrukturna faza (nije zamrznuta)
+## 8.5 Infrastrukturna faza: diskretni ORPD pod jednakim budžetom (I64-I i I64-I2)
 
-Faza I64-I proverava iste mere na diskretnom ORPD-u pod jednakim budžetom stvarnih proračuna toka snage. Dok nije zamrznuta i izvršena, poglavlje ne sadrži nikakvu tvrdnju o industrijskoj primeni.
+I64-I primenjuje devet konfiguracija na osam ORPD ćelija (case30 ×2, case39 ×3, case24_ieee_rts ×3, R = 17, 30 semena) sa tačno 12.000 stvarnih proračuna toka snage po pokretanju i nezavisnom proverom svakog prijavljenog izvodljivog rešenja. Ishod su verovatnoća izvodljivosti i rep raspodele (CVaR₀,₉ normalizovanog gubitka). Zamrznuta pravila: **H64c** (GAdapt-M nije lošiji u izvodljivosti za više od 5 p.p. i ima niži CVaR od najmanje četiri konkurenta) je **neodlučena**; **H64d** (preset) je **suprotna**.
+
+Opisno: GAdapt-M ima verovatnoću izvodljivosti 0,746 i dokazano je bolji od oba PyGAD-a i od SciPy DE u izvodljivosti (razlike −0,08, −0,125 i −0,12 sa simultanim intervalima ispod nule); od CMA, IPOP, BIPOP i (1+1)-ES nije razlučiv (npr. IPOP minus GAdapt-M: +0,025, interval od −0,004 do +0,054). U repu je dokazano bolji samo od PyGAD-adaptive; prema CMA porodici tačkaste procene idu u korist CMA, ali intervali obuhvataju nulu. Dve ćelije (case30 j=3, case39 j=4) su za sve konfiguracije skoro potpuno neizvodljive, pa agregati zavise od preostalih šest.
+
+**Prenos iz sintetike izostaje.** I64-I2 (hibrid GAdapt→CMA-ES, uparen sa I zapisima) ne prenosi prednost iz E3: hibrid nije dokazano bolji od GAdapt-M (H64h1 neodlučena), a njegov rep je lošiji od IPOP-ovog (H64h2 suprotna). Preregistrovana predikcija da indeks sprege κ (0,60–0,80 na svim ćelijama) predviđa nadmoć CMA porodice potvrđena je samo delimično (5 od 8 ćelija po CVaR, 7 od 8 po medijani; kriterijum 6/8) i ostaje **neodlučena**; κ se ne sme tretirati kao validiran izbor algoritma.
+
+Zaključak poglavlja za mentorov kriterijum (pretežno opisan, bez tvrdnje o industrijskoj spremnosti): na stvarnom ORPD-u GAdapt-M je među konfiguracijama sa najvećom verovatnoćom izvodljivosti i dokazano bolji od PyGAD-a i DE-a, ali nije dokazano ni bolji ni lošiji od CMA porodice; preset, diferencijalni krosover, kompenzaciona mutacija i hibrid nisu dali potvrđenu korist.
 
 ## 8.6 Šta poglavlje doprinosi
 
