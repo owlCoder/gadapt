@@ -17,7 +17,7 @@ Specifikacija: [ITERATION64_E2_SPEC.md](ITERATION64_E2_SPEC.md) (zamrznuta `aeff
 | 1.5*CVaR_nonrot(M)-CVaR_nonrot(D) | 9.15e-05 | -0.000238 | 0.000421 |
 | dA_rot(D-IPOP) | -0.1824 | -0.192 | -0.1728 |
 
-## 2. Agregati po varijanti (ćelije jednako ponderisane unutar varijante)
+## 2. Agregati po varijanti (težine: funkcije jednake, dimenzije jednake unutar funkcije; „medijana jaza“ = ponderisani prosek ćelijskih medijana normalizovanog jaza; CVaR = ponderisani prosek ćelijskih CVaR₀,₉(L))
 
 **orig**
 
@@ -53,5 +53,5 @@ Specifikacija: [ITERATION64_E2_SPEC.md](ITERATION64_E2_SPEC.md) (zamrznuta `aeff
 | de | 0.6124 | 0.0391 | 0.0335 |
 
 ## 3. Zaključak
-Opt-in diferencijalni krosover **ne zatvara** rotacijski jaz GAdapt-a i na svim varijantama smanjuje efikasnost (ΔA < 0 sa intervalom koji ne obuhvata nulu); rep raspodele pod rotacijom je lošiji. Opcija ostaje u biblioteci kao dokumentovana, podrazumevano isključena, BEZ preporuke. Rezultat je preregistrovan i negativan; nije ponovljen sa drugim F. Operator je rotaciono ekvivarijantan samo kao neograničen korak; mutacioni operatori ostaju koordinatni, pa sam krosover ne menja ponašanje celog algoritma dovoljno.
+Opt-in diferencijalni krosover **ne zatvara** rotacijski jaz GAdapt-a: A je niži pod rotacijom i na objedinjenom orig+shift podskupu (ΔA < 0, simultani intervali ispod nule); pojedinačne varijante opisno prate isti smer; rep raspodele pod rotacijom je lošiji. Opcija ostaje u biblioteci kao dokumentovana, podrazumevano isključena, BEZ preporuke. Rezultat je preregistrovan i negativan; nije ponovljen sa drugim F. Uzrok neuspeha nije izolovan (operator je rotaciono ekvivarijantan samo kao neograničen korak; mutacioni operatori ostaju koordinatni).
 

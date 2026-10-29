@@ -24,7 +24,7 @@ h = a["h64b"]
 w("\n## 3. H64b (preset naspram GAdapt-M)\n")
 w(f"R₀ (CVaR GAdapt-M) = {h['R0']:.4f}; R_preset = {h['Rpreset']:.4f}; tačkaste vrednosti [0,8·R₀ − R_preset, Δreach(1e−2), Δreach(1e−4), Δreach(1e−6)] = {[round(x,4) for x in h['point']]}; donje simultane granice = {[round(x,4) for x in h['lower']]}; t* = {h['tstar']:.3f}; flags {h['flags']}.")
 w(f"**H64b podržana: {h['supported']}** (zahteva R₀ > 0, donju granicu 0,8·R₀ − R_preset ≥ 0 i donje granice razlika dostizanja ≥ −0,05).\n")
-w("## 4. Po varijanti i funkciji (opisno: ECDF površina A, medijana jaza; ćelije ponderisane jednako u okviru grupe)\n")
+w("## 4. Po varijanti (POST HOC, opisno: ECDF površina A / ponderisani prosek ćelijskih medijana normalizovanog jaza; ćelije jednako ponderisane unutar varijante — drugačije od protokolskih težina u odeljku 2)\n")
 import collections
 grp = collections.defaultdict(lambda: collections.defaultdict(list))
 for k, v in a["per_cell"].items():
@@ -33,7 +33,7 @@ import statistics as st
 w("| varijanta | " + " | ".join(CFG) + " |\n|---|" + "---|" * len(CFG))
 for var in ("orig", "shift", "rot"):
     w(f"| {var} (A / med. gap) | " + " | ".join(f"{st.mean(grp[(var,c)]['A']):.3f} / {st.mean(grp[(var,c)]['g']):.2g}" for c in CFG) + " |")
-w("\n## 4b. Po varijanti: broj ćelija u kojima GAdapt-M ima veći A / manju medijanu jaza od konkurenta (od 21 po varijanti)\n")
+w("\n## 4b. (POST HOC, opisno) Po varijanti: broj ćelija u kojima GAdapt-M ima veći A / manju medijanu jaza od konkurenta (od 21 po varijanti)\n")
 w("| varijanta | konkurent | veći A: GAdapt / konkurent | manja medijana jaza: GAdapt / konkurent / jednako |\n|---|---|---|---|")
 for var in ("orig", "shift", "rot"):
     cells = sorted({tuple(k.split("|")[:3]) for k in a["per_cell"] if k.split("|")[2] == var})
@@ -44,7 +44,7 @@ for var in ("orig", "shift", "rot"):
             aw += g["A"] > o["A"]; al += g["A"] < o["A"]
             gw += g["median_gap"] < o["median_gap"]; gl += g["median_gap"] > o["median_gap"]; ge += g["median_gap"] == o["median_gap"]
         w(f"| {var} | {c} | {aw} / {al} | {gw} / {gl} / {ge} |")
-w("\n## 4c. Prosek CVaR₀,₉(L) po varijanti (ćelije jednako ponderisane)\n")
+w("\n## 4c. (POST HOC, opisno) Prosek CVaR₀,₉(L) po varijanti (ćelije jednako ponderisane)\n")
 w("| varijanta | " + " | ".join(CFG) + " |\n|---|" + "---|" * len(CFG))
 for var in ("orig", "shift", "rot"):
     w(f"| {var} | " + " | ".join(f"{st.mean(v['cvar90'] for k, v in a['per_cell'].items() if k.split('|')[2] == var and k.split('|')[3] == c):.4f}" for c in CFG) + " |")

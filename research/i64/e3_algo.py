@@ -1,4 +1,4 @@
-"""GAdapt-PCA (E3): one-shot adaptive encoding around GAdapt (Hansen 2008, 10.1007/978-3-540-87700-4_20: the idea is known; this is an engineering test).
+"""GAdapt-PCA (E3): one-shot adaptive encoding around GAdapt (Hansen 2008, 10.1007/978-3-540-87700-4_21: the idea is known; this is an engineering test).
 Phase 1: GAdapt-M (mentor configuration) on the original coordinates for `frac` of the call budget. Phase 2: the covariance of the best `elite` share of
 ALL phase-1 evaluations gives a rotated, whitened frame y = c + V (s o z), z in [-Z, Z]^D (s_i = max(sqrt(lambda_i), 1e-3 sqrt(lambda_max))); GAdapt-M runs on z
 for the remaining budget (restarts allowed); y is reflected into the unit cube. Exact total budget: both phases count against the same Budget."""

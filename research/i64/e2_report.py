@@ -10,12 +10,12 @@ w(f"- **H64e1** (zatvaranje jaza pod rotacijom prema GAdapt-M): **{a['H64e1']}**
 w("| kontrast | procena | donja | gornja |\n|---|---|---|---|")
 for k, v in a["contrasts"].items():
     w(f"| {k} | {v['estimate']:.4g} | {v['lower']:.4g} | {v['upper']:.4g} |")
-w("\n## 2. Agregati po varijanti (ćelije jednako ponderisane unutar varijante)\n")
+w("\n## 2. Agregati po varijanti (težine: funkcije jednake, dimenzije jednake unutar funkcije; „medijana jaza“ = ponderisani prosek ćelijskih medijana normalizovanog jaza; CVaR = ponderisani prosek ćelijskih CVaR₀,₉(L))\n")
 for var, d in a["aggregate_by_variant"].items():
     w(f"**{var}**\n\n| konfiguracija | A | CVaR₀,₉ | medijana jaza |\n|---|---|---|---|")
     for c, v in d.items():
         w(f"| {c} | {v['A']:.4f} | {v['cvar90']:.4f} | {v['median_gap']:.3g} |")
     w("")
-w("## 3. Zaključak\nOpt-in diferencijalni krosover **ne zatvara** rotacijski jaz GAdapt-a i na svim varijantama smanjuje efikasnost (ΔA < 0 sa intervalom koji ne obuhvata nulu); rep raspodele pod rotacijom je lošiji. Opcija ostaje u biblioteci kao dokumentovana, podrazumevano isključena, BEZ preporuke. "
-  "Rezultat je preregistrovan i negativan; nije ponovljen sa drugim F. Operator je rotaciono ekvivarijantan samo kao neograničen korak; mutacioni operatori ostaju koordinatni, pa sam krosover ne menja ponašanje celog algoritma dovoljno.\n")
+w("## 3. Zaključak\nOpt-in diferencijalni krosover **ne zatvara** rotacijski jaz GAdapt-a: A je niži pod rotacijom i na objedinjenom orig+shift podskupu (ΔA < 0, simultani intervali ispod nule); pojedinačne varijante opisno prate isti smer; rep raspodele pod rotacijom je lošiji. Opcija ostaje u biblioteci kao dokumentovana, podrazumevano isključena, BEZ preporuke. "
+  "Rezultat je preregistrovan i negativan; nije ponovljen sa drugim F. Uzrok neuspeha nije izolovan (operator je rotaciono ekvivarijantan samo kao neograničen korak; mutacioni operatori ostaju koordinatni).\n")
 open(os.path.join(os.path.dirname(HERE), "ITERATION64_E2_REPORT_SR.md"), "w").write("\n".join(L) + "\n"); print("written")

@@ -1,4 +1,4 @@
-# ITERATION64-E2: hibrid GAdapt→CMA (globalna pretraga + lokalno doterivanje) — izveštaj (generisan iz arhive)
+# ITERATION64-E3: hibrid GAdapt→CMA (globalna pretraga + lokalno doterivanje) — izveštaj (generisan iz arhive)
 
 Specifikacija: [ITERATION64_E3_SPEC.md](ITERATION64_E3_SPEC.md) (zamrznuta `f228044`). Uparivanje sa arhiviranim E zapisima po ključu (ćelija, seme); 63 ćelije × 100 semena, 12.000 stvarnih poziva.
 
@@ -17,7 +17,7 @@ Specifikacija: [ITERATION64_E3_SPEC.md](ITERATION64_E3_SPEC.md) (zamrznuta `f228
 | 1.5*CVaR_nonrot(M)-CVaR_nonrot(H) | -0.0006964 | -0.001109 | -0.0002838 |
 | dA_rot(H-IPOP) | -0.04335 | -0.05189 | -0.03482 |
 
-## 2. Agregati po varijanti (ćelije jednako ponderisane unutar varijante)
+## 2. Agregati po varijanti (težine: funkcije jednake, dimenzije jednake unutar funkcije; „medijana jaza“ = ponderisani prosek ćelijskih medijana normalizovanog jaza; CVaR = ponderisani prosek ćelijskih CVaR₀,₉(L))
 
 **orig**
 
@@ -64,5 +64,5 @@ Specifikacija: [ITERATION64_E3_SPEC.md](ITERATION64_E3_SPEC.md) (zamrznuta `f228
 | de | 0.6396 | 0.0185 | 0.015 |
 
 ## 3. Napomena o tumačenju
-Hibrid NIJE GAdapt sam: poslednjih 70% budžeta troši CMA-ES. Rezultat se zato čita kao provera industrijskog recepta „globalna pretraga, pa lokalno doterivanje“, ne kao svojstvo GAdapt-a. Nema tvrdnje o novoj metodi (hibridni algoritmi su poznati). Zamrznuta pravila odluke daju mešan ishod: pogledati hipoteze u odeljku 1. Opisno: hibrid ima najniži CVaR od svih konfiguracija osim GAdapt-M na osno-poravnatim ćelijama, i znatno niži od CMA porodice u svim varijantama; njegova ECDF-površina je u blizini IPOP-a. Ovo je opisna slika iste arhive, ne dodatna hipoteza.
+Hibrid NIJE GAdapt sam: poslednjih 70% budžeta troši CMA-ES. Rezultat se zato čita kao provera industrijskog recepta „globalna pretraga, pa lokalno doterivanje“, ne kao svojstvo GAdapt-a. Nema tvrdnje o novoj metodi (hibridni algoritmi su poznati). Zamrznuta pravila odluke daju mešan ishod: pogledati hipoteze u odeljku 1. Post hoc, opisno (ista arhiva, ne dodatna hipoteza): hibrid ima viši orig/shift CVaR od GAdapt-M i preseta, a niži od prikazanih CMA varijanti; pod rotacijom A zaostaje za IPOP-om (neinferiornost nije potvrđena). Bez ablacija nije utvrđen zaseban doprinos GAdapt i CMA faze.
 
