@@ -1,0 +1,10 @@
+# Brief 098 — review of ITERATION64_R_SPEC.md and research/i64/r_study.py BEFORE freezing (read-only, do not modify files)
+
+Repo /Users/danijel/Desktop/gadapt. Context: Codex 093 noted that in E the `shift` and `rot` cells use different offsets o, so the GAdapt loss under rotation is confounded. R adds `rotm` = (Q of E's rot cell, o of E's shift cell) for GAdapt-M and IPOP only (4,200 new runs), compares against archived E shift/rot records, 4 contrasts, 3 preregistered hypotheses H64r1-r3 (spec §7).
+
+Check, with file:line and concrete counterexamples:
+1. Is the design really isolating what it claims (rotm differs from shift only by Q, from rot only by o)? Verify in research/i64/e_study.py (cell_transform, CELLS indexing 3k+v, rng streams) and e_common.transform that o and Q are exactly what rotm_transform takes, including dimension 2 cells, the orig cell, and that Q does not depend on o's draw order (rng stream consumption: for `rot` the rng draws o first then A; confirm Q taken from the rot cell is therefore independent of the shift cell's o).
+2. Statistics: weights (1/9)/dims, independent seed resampling for archived vs new cells (is independence justified? seeds differ per cell), max-studentised simultaneous interval over 4 contrasts, decision rules (equivalence bound ±0.03 for H64r1; ≥0.05 thresholds), whether H64r3's difference-of-differences is sensible, multiplicity, and whether any rule can give a verdict that contradicts its own interval.
+3. Code defects in r_study.py: seed uniqueness (seed_of("run", 63+k, s) vs E cells 0..62 and other studies), budget/ok handling, record/archive hashing and create-once, the check_repro stage, env_check, anything that would break provenance or reproducibility. Also whether the weights/aggregates match E's analysis (research/i64/e_analysis.py).
+4. Anything the spec should add before freezing (e.g. what is forbidden to claim, ECDF target handling, the weighting of Beale/Himmelblau/Booth which only have d=2).
+Answer in Serbian, concise: list BUG / MISMATCH / OK with line references and exact proposed fixes.
