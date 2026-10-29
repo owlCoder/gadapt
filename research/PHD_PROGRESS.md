@@ -315,6 +315,10 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
   **H64g2 SUPROTNO** (rep na orig+shift 1,8× veći od GAdapt-M: 0,0048/0,0043 vs 0,0026/0,0025, preko tolerisanih 1,5×; ΔA_nonrot = +0,065), **H64g3 NEODLUČENO** (ΔA_rot(H − IPOP) = −0,043 [−0,052; −0,035], granica −0,05). Ukupno „podržano“: NE.
   Opisno (prosek tri varijante): hibrid ima NAJNIŽI CVaR (0,0070) i najnižu medijanu jaza (0,0029) od svih devet, ECDF-površina 0,751 vs IPOP 0,770 i GAdapt-M 0,673. Praktični zaključak: „globalno GAdapt, pa lokalno CMA“ je najbolji recept koji smo našli za stabilnost+tačnost; NIJE GAdapt sam (70% budžeta troši CMA).
   Sledeće: I64-I (ORPD) pokazuje važi li to na stvarnom problemu; ako da → recept u README i u CH8; hibrid za ORPD zahteva diskretno dekodiranje (nije u I64-I) → mogući I64-I2.
+- **2026-10-29 ~05:20 ČETIRI LANCA + Codex paralelno:** I64-I (2/8 ćelija), I64-I2 (5/8; hibrid na ORPD), I63-D (1/8), **I64-E4 POKRENUT** (kompenzaciona mutacija, opt-in `compensatory_mutation`, kontrole ungated/permuted/resample; spec zamrznut `226c757`; `e4_study.py run 3`; izlaz `iteration64_e4/run4_part_*`; analiza `e4_study.py analyse`; hipoteze H64k1–k5).
+  Codex 089 (reprodukcija E2/E3 = sve tačno), 090 (revizija formulacija — primenjena), 091 (sledeća metoda), 092 (revizija kompenzacione mutacije, u toku). Audit literature: novost kompenzacione mutacije NIJE ustanovljena (Bouter 2020 itd.).
+  Greške iz Codex 091 DOI: RV-GOMEA = 10.1145/3071178.3071272 / 10.1145/3377930.3390225; Guo & Yang = 10.1109/TEVC.2013.2297160; Hansen adaptive encoding = ..._21.
+  Posle: izveštaji (I, I2, D, E4) iz generatora (`i_report.py`, `report_d.py`, `e*_report.py`), nezavisna Codex reprodukcija, ažuriranje CH8/MENTOR_SUMMARY, README preporuka samo ako ishodi dopuštaju.
 - **PRAVILO dok lanci rade:** NE menjati `gadapt/` ni `research/iteration56_*.py`, `research/iteration57_*.py`
   (svaki radnik je nov proces koji ih uvozi → kontaminacija studije). Razvoj API-ja u kopiji u scratchpad-u.
 - SLEDEĆI KORAK: (1) po završetku lanca: provera `ok`/ponavljanja, analiza, izveštaj
