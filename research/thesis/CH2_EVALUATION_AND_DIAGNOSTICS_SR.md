@@ -1,6 +1,6 @@
 # Poglavlje 2. Osnove evaluacije i dijagnostički nalazi
 
-*Nacrt, 24. oktobar 2026. Prvi tekst napisao Codex (zadatak 044, iz izveštaja I42–I55); preuzet posle čitanja. Svih 7 navedenih DOI-jeva provereno na Crossref-u 2026-10-24. Poglavlje motiviše istraživanje i ne nosi tvrdnju o originalnosti.*
+*Nacrt, 24. oktobar 2026. Prvi tekst napisao Codex (zadatak 044, iz izveštaja I42–I55); preuzet posle čitanja. Svih 7 navedenih DOI-jeva provereno na Crossref-u 2026-10-24. Evaluacioni postupci imaju prethodnike; empirijski doprinos čine konkretni nalazi, dijagnoze i ograničenja provera.*
 
 ## 2.1 Pouzdano računovodstvo evaluacija kao uslov poređenja
 

@@ -143,4 +143,4 @@ Najzad, tri mreže i pretpostavljene mreže vrednosti uređaja ne predstavljaju 
 
 ## 5.8 Prelaz ka bibliotečkoj funkcionalnosti
 
-Spoljašnji kontekst određuje domet narednog koraka. Ugradnja standardnih tehnika za rukovanje ograničenjima može korisniku olakšati modelovanje i pravilno izveštavanje izvodljivog rešenja, ali sama po sebi ne uklanja opaženi zaostatak prema CMAwM. Poglavlje 6 zato opisuje interfejs, redosled ocenjivanja i proveru ispravnosti opt-in funkcije. Njena praktična korisnost proverava se zasebno u I58 i I59, prema unapred zamrznutim protokolima, bez pretpostavljanja povoljnog ishoda iz nalaza I57.
+Spoljašnji kontekst određuje domet narednog koraka. Ugradnja standardnih tehnika za rukovanje ograničenjima može korisniku olakšati modelovanje i pravilno izveštavanje izvodljivog rešenja, ali sama po sebi ne uklanja opaženi zaostatak prema CMAwM. Poglavlje 6 zato opisuje interfejs, redosled ocenjivanja i proveru ispravnosti opt-in funkcije. I58/I60 nisu potvrdile ubrzanje; H59 je nedostupna posle razvojnog NO-GO.
