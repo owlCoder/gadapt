@@ -17,5 +17,5 @@ else:
     for v, d in a["aggregate_by_variant"].items():
         for c, x in d.items():
             w(f"| {v} | {c} | {x['A']:.4f} | {x['cvar90']:.4f} | {x['median_gap']:.5f} |")
-w("\n## Ograničenja\nProcenjuje se efekat zamene prve faze (30%) uniformnim uzorkovanjem u ovom fiksiranom hibridu; ne tvrdi se da GAdapt samostalno nadmašuje slučajno uzorkovanje, mehanizam, niti važenje za druge udele, budžete, σ₀ ili CMA varijante. Bootstrap obuhvata samo varijaciju algoritamskih semena.")
+w("\n## Ograničenja\nProcenjuje se efekat zamene prve faze (30%) uniformnim uzorkovanjem u ovom fiksiranom hibridu; ne tvrdi se da GAdapt samostalno nadmašuje slučajno uzorkovanje, mehanizam, niti važenje za druge udele, budžete, σ₀ ili CMA varijante. Bootstrap obuhvata samo varijaciju algoritamskih semena. Moguća zbunjujuća okolnost: CMA faza kreće iz najbolje slučajne tačke sa σ₀ = 0,05 (podešeno za hibrid sa GAdapt fazom), što može biti slab start za slučajnu inicijalizaciju; σ₀ nije varirano, pa efekat treba čitati kao efekat zamene u ovom fiksiranom hibridu, ne kao čistu meru kvaliteta GAdapt faze.")
 open(os.path.join(os.path.dirname(os.path.dirname(HERE)), "research", "ITERATION64_A_REPORT_SR.md"), "w").write("\n".join(L) + "\n"); print("written")
