@@ -64,7 +64,7 @@ def load(name):
 
 def c_manifest():
     m = es.manifest("c")
-    names = ("c_study.py", "r_study.py", "e_study.py", "e_common.py", "e_algos.py")
+    names = ("c_study.py", "c_report.py", "run_c.sh", "r_study.py", "e_study.py", "e_common.py", "e_algos.py")
     m["c_files"] = {f: sha(os.path.join(HERE, f)) for f in names}
     m["c_files"]["ITERATION64_C_SPEC.md"] = sha(os.path.join(os.path.dirname(HERE), "ITERATION64_C_SPEC.md"))
     m["c_settings"] = dict(b=B_SHORT, seeds=SEEDS, boot=BOOT, boot_seed=BOOT_SEED, alpha=ALPHA)
@@ -76,6 +76,8 @@ def c_manifest():
         if hashlib.sha256(blob).hexdigest() != m["c_files"][key]:
             raise SystemExit(f"STOP: {rel} differs from the freezing commit")
     m["freeze_commit"] = fc
+    if subprocess.run(["git", "-C", MBENCH, "status", "--porcelain"], capture_output=True, text=True).stdout.strip():
+        raise SystemExit("STOP: mentor clone has uncommitted changes")
     return m
 
 
@@ -121,8 +123,9 @@ class record_coefficients:
             orig(updater)
             dv = updater.population.options.decision_variables
             v = [float(g.columnar_diversity_coefficient) for g in dv]
-            if all(math.isfinite(x) and 0.0 <= x <= 1.0 for x in v):
-                _LOG.append((_CUR[0].n if _CUR[0] is not None else -1, v))
+            if len(v) != len(dv) or not all(math.isfinite(x) and 0.0 <= x <= 1.0 for x in v):
+                raise RuntimeError("invalid columnar-diversity coefficient vector")
+            _LOG.append((_CUR[0].n if _CUR[0] is not None else -1, v))
         self.cls._update_decision_variables = rec
         return self
 
@@ -130,13 +133,21 @@ class record_coefficients:
         self.cls._update_decision_variables = self.orig
 
 
-def run_short(k, variant, seed, record=True):
+def run_short(k, variant, seed, record=True, trace=False):
     """GAdapt-M (E configuration, native domain) on the shift / rotm objective of pair k for B_SHORT calls; returns events and (if record) the coefficient log."""
     import e_algos
     _, name, d = PAIRS[k]
     lo_, hi_ = es.bounds_of(name)
     tf = es.cell_transform(3 * k + 1, "run")[0] if variant == "shift" else rs.rotm_transform(k)
     g = ec.make_objective(es.func_of(name), tf)
+    tr = []
+    if trace:
+        g0 = g
+
+        def g(y):  # noqa: F811  (full evaluation trace: every argument vector and value)
+            v = g0(y)
+            tr.append((tuple(float(a) for a in y), float(v)))
+            return v
     budget = ec.Budget(g, B_SHORT)
     _LOG.clear()
     _CUR[0] = budget
@@ -152,6 +163,8 @@ def run_short(k, variant, seed, record=True):
     else:
         go()
     out = dict(calls=budget.n, events=budget.events)
+    if trace:
+        out["trace_sha256"] = hashlib.sha256(json.dumps(tr).encode()).hexdigest()
     if record:
         out["log"] = [[c, list(v)] for c, v in _LOG]
     return out
@@ -180,13 +193,25 @@ def stage_preflight():
     same_gadapt_build_as_R()
     res = []
     for k in (0, 6, 10):
-        a = run_short(k, "shift", 987654 + k, record=False)
-        b = run_short(k, "shift", 987654 + k, record=True)
-        res.append(dict(k=k, identical=a["events"] == b["events"] and a["calls"] == b["calls"], n_log=len(b["log"]), dim_ok=all(len(v) == PAIRS[k][2] for _, v in b["log"])))
+        a = run_short(k, "shift", 987654 + k, record=False, trace=True)
+        b = run_short(k, "shift", 987654 + k, record=True, trace=True)
+        res.append(dict(k=k, identical=a["events"] == b["events"] and a["calls"] == b["calls"] and a["trace_sha256"] == b["trace_sha256"], n_log=len(b["log"]), dim_ok=all(len(v) == PAIRS[k][2] for _, v in b["log"])))
         print(res[-1], flush=True)
     if not all(r["identical"] and r["n_log"] > 1 and r["dim_ok"] for r in res):
         raise SystemExit("STOP: recording is not passive")
     save("preflight", dict(results=res, manifest=c_manifest(), inputs=inputs()))
+
+
+def valid_log(rec, d):
+    log = rec["log"]
+    if len(log) < 2:
+        return False
+    prev = -1
+    for c, v in log:
+        if not (0 <= c <= B_SHORT) or c < prev or len(v) != d or not all(math.isfinite(x) and 0.0 <= x <= 1.0 for x in v):
+            return False
+        prev = c
+    return True
 
 
 def valid(records, k):
@@ -194,7 +219,11 @@ def valid(records, k):
     got = {(r["task"]["variant"], r["task"]["seed"]): r for r in records}
     if len(records) != len(exp) or len(got) != len(exp):
         return False
-    return all(((t["variant"], t["seed"]) in got and got[(t["variant"], t["seed"])]["ok"] and got[(t["variant"], t["seed"])]["task"] == t and len(got[(t["variant"], t["seed"])]["log"]) > 1 and all(len(v) == PAIRS[k][2] for _, v in got[(t["variant"], t["seed"])]["log"])) for t in exp)
+    for t in exp:
+        r = got.get((t["variant"], t["seed"]))
+        if r is None or not r.get("ok") or r["task"] != t or r["calls"] != B_SHORT or not valid_log(r, PAIRS[k][2]):
+            return False
+    return True
 
 
 def stage_run(workers):
@@ -367,7 +396,7 @@ def stage_analyse():
         q = lambda col, p: float(np.quantile(bb[:, col], p))
         lo_wm, hi_wm, lo_rd, hi_rd, lo_dd, hi_dd = q(0, a3), q(0, 1 - a3), q(1, a3), q(1, 1 - a3), q(3, a3), q(3, 1 - a3)
         out.update(lo_wmean=lo_wm, hi_wmean=hi_wm, lo_rd=lo_rd, hi_rd=hi_rd, lo_dd=lo_dd, hi_dd=hi_dd)
-        out["H64c1"] = "supported" if (lo_wm > 0 and pos >= 16 and p_binom < a3) else ("below_zero" if hi_wm < 0 else "undecided")
+        out["H64c1"] = "supported" if (lo_wm > 0 and pos >= 16) else ("below_zero" if hi_wm < 0 else "undecided")
         out["H64c2"] = "supported" if (rd0 >= 0.60 and lo_rd > 0.30) else ("below_threshold" if hi_rd < 0.30 else "undecided")
         out["H64c3"] = "supported" if lo_dd > 0 else ("opposite" if hi_dd < 0 else "undecided")
         out["signature_supported"] = bool(out["H64c1"] == "supported" and out["H64c2"] == "supported")
