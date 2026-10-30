@@ -1,0 +1,3 @@
+# Brief 103 — audit of research/thesis/CH9_APPLICATION_GUIDANCE_SR.md (read-only; do not modify files)
+
+Verify every row of the §9.2 table and every number against the generated reports (research/ITERATION64_{S0,E,E2,E3,E4,I,I2,R,A}_REPORT_SR.md, ITERATION64_G* if present, CH8) and Codex 093 'forbidden claims'. Flag: wrong/unsupported numbers; guidance phrased as stronger than the evidence (e.g. "GAdapt je opravdan izbor", "CMA je pouzdaniji izbor", "najbolji rep"); missing caveats (only 21 cells/2 configs/seed-only uncertainty, post hoc labels); contradictions with CH8. Give exact replacement sentences in Serbian, ordered by severity. Concise.
