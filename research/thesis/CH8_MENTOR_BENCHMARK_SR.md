@@ -60,6 +60,12 @@ U E su ćelije `shift` i `rot` koristile različite pomeraje, pa pad GAdapt-a po
 
 Tumačenje je namerno usko: pad GAdapt-a pod ortogonalnom transformacijom (Haar, moguće sa refleksijom) nije artefakt različitih pomeraja i znatno je veći nego kod IPOP-a, za ovih 21 ćelija i dve konfiguracije; neizvesnost obuhvata samo semena. Pad je neravnomerno raspoređen (npr. Rastrigin-7, Styblinski–Tang-7/20, Ackley-20), a studija ne ustanovljava mehanizam niti da je osno poravnanje isto što i separabilnost.
 
+## 8.4f Studija C: da li koeficijenti kolonske raznovrsnosti nose potpis gubitka pod transformacijom?
+
+R je pokazao da GAdapt-M gubi 0,081 ECDF površine pod ortogonalnom transformacijom Q, ali ne zašto. Studija C (`ITERATION64_C_SPEC.md`, zamrznuta pre pokretanja posle dva Codex pregleda (105, 106), nezavisno reprodukovana, Codex 107) testira hipotezu da Q ujednačava raspon populacije po koordinatama, pa se koeficijenti kolonske raznovrsnosti (koje koordinatno-lokalni regulatori GAdapt-a koriste) izjednačavaju. Na 21 paru funkcija/dimenzija, `shift` naspram `rotm` (isti pomeraj), GAdapt-M, prvih 1.200 poziva, 30 semena, snimani su koeficijenti po generaciji. Rezultat: **sve tri hipoteze su neodlučene**. Ponderisani pad koeficijenta varijacije koeficijenata iznosi 0,013 [−0,047; 0,071] i pozitivan je u samo 14 od 21 parova; Spearman ρ sa stvarnim padom A iznosi 0,27 [−0,08; 0,62], dok trivijalna osnovna linija („uporedi prvih 10% oba oblika problema") ima ρ = 0,58. Dakle koeficijentni potpis nije potvrđen i ne dodaje ništa jednostavnom poređenju ranih rezultata.
+
+Tumačenje je usko: korelaciona studija na 21 fiksnu ćeliju, meri se samo log-relative koeficijent (ne dijagonala kovarijanse), bez intervencije ili medijacije. Mehanizam gubitka pod rotacijom ostaje neutvrđen; nalaz R (da je gubitak stvaran i nije artefakt pomeraja) ostaje.
+
 ## 8.5 Infrastrukturna faza: diskretni ORPD pod jednakim budžetom (I64-I i I64-I2)
 
 I64-I primenjuje devet konfiguracija na osam ORPD ćelija (case30 ×2, case39 ×3, case24_ieee_rts ×3, R = 17, 30 semena) sa tačno 12.000 stvarnih proračuna toka snage po pokretanju i nezavisnom proverom svakog prijavljenog izvodljivog rešenja. Ishod su verovatnoća izvodljivosti i rep raspodele (CVaR₀,₉ normalizovanog gubitka). Zamrznuta pravila: **H64c** (GAdapt-M nije lošiji u izvodljivosti za više od 5 p.p. i ima niži CVaR od najmanje četiri konkurenta) je **neodlučena**; **H64d** (preset) je **suprotna**.
