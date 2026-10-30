@@ -1,14 +1,23 @@
-# GAdapt PhD Research Rules (read first)
+# GAdapt: Repository Instructions for Coding and Research Agents
+
+These instructions apply to work in `owlCoder/gadapt`. For specialized workflows, use the repository skills in `.agents/skills/`:
+
+- `literature-auditor`: independent, read-only review of prior art and novelty.
+- `math-reviewer`: read-only proof and mathematical assumption checks.
+- `implementation-engineer`: implementation and validation only after a research protocol is approved.
+
+Read each skill's `SKILL.md` when its workflow is needed. All research gates and repository constraints in this document remain in effect.
 
 ## Resume protocol (every new session, after crash/power loss)
 1. Read `research/PHD_PROGRESS.md` — the single source of truth for where work stopped. Continue from its "NEXT STEP".
-2. Update `research/PHD_PROGRESS.md` after every meaningful step and commit it LOCALLY immediately (crash safety).
-   Push only in batches (end of a phase/session or when the user asks): every push to `main` triggers
-   `robustness-tests.yml` (no path filter) and burns CI minutes.
-3. Work directly on `main` of `owlCoder/gadapt` (clone: `~/Desktop/gadapt`); no feature branches, no PRs (user-authorized).
-   Commit messages: no `Co-Authored-By` or other AI attribution.
+2. Update `research/PHD_PROGRESS.md` after every meaningful research step. During an explicitly authorized ongoing
+   research session, commit progress LOCALLY for crash recovery. For one-off changes, only commit when requested.
+   Push only with authorization, in batches (end of a phase/session or when asked): pushes to `main` can trigger
+   `robustness-tests.yml` and consume CI minutes.
+3. The established research workflow uses `main` of `owlCoder/gadapt` (local clone: `~/Desktop/gadapt`);
+   do not create feature branches or pull requests unless the maintainer changes this workflow. Record changes accurately.
 4. Python: `.venv/bin/python` (numpy, scipy, networkx, hypothesis, pytest). Tests: `.venv/bin/python -m pytest -q research/test_iteration41_*.py`.
-5. Effort: at most `high`. Spawn agents sparingly (one at a time, only for long literature searches).
+5. If reasoning effort is configurable, use at most `high`. Delegate sparingly, mainly for substantial independent literature reviews.
 
 ## Objective
 Produce a defensible original scientific contribution to GAdapt for infrastructure optimization.
@@ -47,8 +56,9 @@ Self-adaptive genetic algorithm library (Python 3.10+, NumPy only), published on
 Pure Python, no compiled code. `README.md` is also the PyPI long description.
 
 ## Running and verifying
-- There is **no test suite**. Verify a change by running the README examples (`from gadapt.ga import GA`) and,
-  for anything that affects search behaviour or speed, by a paired-seed benchmark. `benchmarks/std_dev_floor.py` is a template
+- The library does not have a comprehensive package-level test suite, but research tests exist. Verify relevant changes
+  using the README examples (`from gadapt.ga import GA`), applicable research tests, and,
+  for changes affecting search behaviour or speed, paired-seed benchmarks. `benchmarks/std_dev_floor.py` is a template
   (multiprocessing, the experiments' GA configuration, gap to the known optimum, Wilcoxon per cell); run it from a scratch directory.
 - Use the repo's pyenv Python (`.python-version` = 3.12). Other interpreters on this machine lack NumPy.
 - `logging=True` writes a `log/` folder into the current working directory (git-ignored). Run experiments
@@ -117,4 +127,4 @@ Pure Python, no compiled code. `README.md` is also the PyPI long description.
   warning property alias automatically) and to the README "Previous Parameter Names" table.
   Renaming an option value (a token like `"cost_diversity"`): add it to `DEPRECATED_OPTION_VALUES`.
 - Known typo kept in sync with the README: "Calculation not succesful" (`ga_strings.py`).
-- Don't commit, push or bump the version unless asked.
+- For ad-hoc work, do not commit or push unless asked. For explicitly authorized ongoing research, follow the local crash-safety commit protocol above; push only with permission. Never bump the package version without explicit approval.
