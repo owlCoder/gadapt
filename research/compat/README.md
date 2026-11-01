@@ -4,6 +4,21 @@ The 2026-11-01 migration moved 341 original root files byte-identically into `re
 
 The curated `studies/`, `tools/` and `literature/` symlinks are for **navigation only**. I56/I58/I61/I63 derive `HERE`, `REPO` and `OUT` from `__file__`, so executing them directly from `legacy/flat/` or the curated symlink view can change resource paths and invalidate provenance.
 
+## Read-only committed-tree gate (new)
+
+Before performing any worktree restore, first verify the exact historical blob,
+file-mode and symlink-target provenance against committed Git history:
+
+```sh
+python -m unittest discover -s research/compat -p 'test_migration_git_tree.py' -v
+python research/compat/check_migration_git_tree.py
+```
+
+The checker is read-only and needs only Python, Git and the full repository
+history. Its six synthetic regression tests were passed in isolation; the real
+full-clone invocation remains **NOT_TESTED** in the reporting environment.
+See [the committed-tree audit](../ITERATION65_GIT_TREE_PROVENANCE_GATE_2026-11-01.md).
+
 ## Opt-in restoration in a full Git clone
 
 ```sh
