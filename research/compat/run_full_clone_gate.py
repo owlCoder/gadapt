@@ -165,6 +165,15 @@ def perform(root: Path, python: Path, directory: Path, timeout: int, expected: s
     return 0 if gate["status"] == "PASS" else 1
 
 
+def preserve_venv_python(path: Path) -> Path:
+    """Make an absolute path without dereferencing a virtualenv's python symlink.
+
+    On Linux, .venv/bin/python often points at the system interpreter. Calling
+    Path.resolve() here discards the venv path and therefore its site-packages.
+    """
+    return Path(os.path.abspath(path))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[2])
@@ -179,7 +188,7 @@ def main() -> int:
                         help="seconds per command, 1..120; no expensive experiments")
     args = parser.parse_args()
     root = args.root.resolve()
-    python = (args.python if args.python is not None else root / ".venv/bin/python").resolve()
+    python = preserve_venv_python(args.python if args.python is not None else root / ".venv/bin/python")
     if not (1 <= args.timeout <= 120):
         parser.error("--timeout must be 1..120")
     if not args.run:
