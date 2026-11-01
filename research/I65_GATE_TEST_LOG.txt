@@ -1,0 +1,6 @@
+..........................x............xx................                [100%]
+=========================== short test summary info ============================
+XFAIL test_audited_budget.py::test_original_monitor_rejects_nonmonotone_timestamp - Original reference monitor does not validate nonmonotone evaluation timestamps
+XFAIL test_i65_instrumentation.py::test_original_budget_counts_failed_evaluation_attempts - I64 Budget increments only AFTER objective returns, undercounts raised attempts
+XFAIL test_i65_instrumentation.py::test_original_budget_snapshots_witness_before_evaluation - I64 Budget snapshots witness AFTER objective, fails if input was mutated in place
+54 passed, 3 xfailed in 2.25s

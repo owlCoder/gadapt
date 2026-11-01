@@ -1,0 +1,169 @@
+{
+  "cases": {
+    "exact_budget": {
+      "after_witness": 7,
+      "before_witness": 6,
+      "limit": 7,
+      "trace": [
+        {
+          "error_type": null,
+          "n": 1,
+          "outcome": "finite",
+          "phase": "search",
+          "value": 0.09,
+          "x": [
+            0.5
+          ]
+        },
+        {
+          "error_type": null,
+          "n": 2,
+          "outcome": "finite",
+          "phase": "search",
+          "value": 0.04000000000000001,
+          "x": [
+            0.4
+          ]
+        },
+        {
+          "error_type": null,
+          "n": 3,
+          "outcome": "finite",
+          "phase": "search",
+          "value": 0.009999999999999995,
+          "x": [
+            0.3
+          ]
+        },
+        {
+          "error_type": null,
+          "n": 4,
+          "outcome": "finite",
+          "phase": "search",
+          "value": 0.0024999999999999988,
+          "x": [
+            0.25
+          ]
+        },
+        {
+          "error_type": null,
+          "n": 5,
+          "outcome": "finite",
+          "phase": "search",
+          "value": 9.999999999999963e-05,
+          "x": [
+            0.21
+          ]
+        },
+        {
+          "error_type": null,
+          "n": 6,
+          "outcome": "finite",
+          "phase": "search",
+          "value": 0.0,
+          "x": [
+            0.2
+          ]
+        },
+        {
+          "error_type": null,
+          "n": 7,
+          "outcome": "finite",
+          "phase": "recheck",
+          "value": 0.0,
+          "x": [
+            0.2
+          ]
+        }
+      ],
+      "trace_sha256": "5b9d26fe414e110805b9e9fbdcbab024d3c109d7308c18b233f12ef52da0665a",
+      "verification": {
+        "attempts": 7,
+        "best": 0.0,
+        "status": "VALIDATED_WITNESS",
+        "x": [
+          0.2
+        ]
+      }
+    },
+    "exception_attempts": {
+      "attempted": 2,
+      "limit": 3,
+      "recheck": {
+        "attempts": 2,
+        "reason": "no_finite_search_result",
+        "status": "NOT_SOLVED"
+      },
+      "trace": [
+        {
+          "error_type": "ArithmeticError",
+          "n": 1,
+          "outcome": "exception",
+          "phase": "search",
+          "value": null,
+          "x": [
+            1.0
+          ]
+        },
+        {
+          "error_type": "ArithmeticError",
+          "n": 2,
+          "outcome": "exception",
+          "phase": "search",
+          "value": null,
+          "x": [
+            1.0
+          ]
+        }
+      ]
+    },
+    "mutable_input": {
+      "recorded_best": [
+        2.0
+      ],
+      "trace": [
+        {
+          "error_type": null,
+          "n": 1,
+          "outcome": "finite",
+          "phase": "search",
+          "value": 4.0,
+          "x": [
+            2.0
+          ]
+        },
+        {
+          "error_type": null,
+          "n": 2,
+          "outcome": "finite",
+          "phase": "recheck",
+          "value": 4.0,
+          "x": [
+            2.0
+          ]
+        }
+      ],
+      "witness": {
+        "attempts": 2,
+        "best": 4.0,
+        "status": "VALIDATED_WITNESS",
+        "x": [
+          2.0
+        ]
+      }
+    },
+    "stagnation": {
+      "completed_generations": 21,
+      "event_count": 1,
+      "events": [
+        {
+          "generation": 20,
+          "incumbent": 1.0,
+          "kind": "STAGNATION",
+          "physical_attempts": 90
+        }
+      ]
+    }
+  },
+  "kind": "VALIDATION_FIXTURES_NOT_SCIENTIFIC_EXPERIMENTS"
+}

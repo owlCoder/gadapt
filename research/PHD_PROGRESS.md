@@ -382,3 +382,14 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - **2026-10-30 I64-N razvojna sonda (EKSPLORATIVNO, nije preregistrovano; `research/i64/n_explore.py`, nota `ITERATION64_N_DEV_NOTE_SR.md`):** gate za Graph-GAdapt (Codex 104, pravac 2). Nominalni Potts (10 promenljivih × 8 kategorija, B=3000, 12 problema × 16 preimenovanja × 4 semena): GAdapt-M je praktično invarijantan na proizvoljan redosled oznaka (odnos između/unutar preimenovanja 1,11 ≈ šum semena) i jednak je label-free varijanti iste biblioteke (srednji jaz 0,0896 vs 0,0876), bolji od hill-climb (0,159) i random (0,379). Zaključak: nema demonstriranog defekta zavisnosti od oznaka koji bi Graph-GAdapt popravljao → pravac 2 NO-GO na nivou sonde (ne nastavlja se u pilot). Pravac 1 (sertifikat) testiran i negativan (I64-C); pravac 3 NO-GO (nije nov). Dakle sva tri Codex 104 pravca su iscrpljena bez nove metode.
   SLEDEĆI KORAK: čeka mentorovu odluku o obimu.
 - **2026-10-30 push:** korisnik je tražio commit+push. Radi limita GitHub-a (100 MB) uklonjen je iz 108 lokalnih commit-ova jedan fajl (`research/results/iteration64_e/run.json.gz`, 128 MB, SHA-256 1f0f4525…1e271f, ostaje na disku van gita). Hešovi commit-ova su se promenili; mapa stari→novi u `research/results/COMMIT_HASH_MAP_2026-10-30.txt`, stara istorija u lokalnoj grani `backup/pre-push-2026-10-30`. Zamrznuti commit-ovi iz manifesta (R b38c6fd5, A 3e107a16, C 122178d3) → 8921a327, 24b42aeb, b1ff0221.
+
+
+## Najnoviji handoff — 2026-11-01: I65 DRAFT i nedestruktivno sređivanje research/
+
+- Korisnik je odobrio arhiviranje istraživačkih dokumenata u `owlCoder/gadapt`.
+- I65: audit literature (`novelty not established`); cilj je uski benchmark COCO f21/f24.
+- I65 DRAFT nije preregistrovan niti zamrznut; COCO f21/f24 konfirmatornih run-ova **0**.
+- Izolovana instrumentacija: lokalno ponovo `54 passed, 3 xfailed` (očekivane regresione greške u starom brojaču/monitoru), **bez** GAdapt/CMA/COCO integracionog gate-a.
+- Dokumenti I65, fixtures i testni log arhivirani su kao research-only, sa zasebnim provenance addendum-om.
+- `research/README.md` pretvoren u indeks; originalna verzija sačuvana bajt-identično u `research/archive/README_PRE_I65_2026-11-01.md`; stari protokoli i rezultati nisu obrisani.
+- **SLEDEĆI KORAK:** nezavisan prior-art/method review i zatvaranje AGENTS novelty gate-a pre implementacije algoritamske intervencije; COCO/pycma/GAdapt integracija i nezavisan svedok; potom zaseban FREEZE pre bilo kog held-out benchmarka. Nema skupih CI runova automatski, nema ponavljanja radi pozitivnog ishoda.
