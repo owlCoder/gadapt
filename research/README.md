@@ -29,3 +29,8 @@ python research/compat/restore_legacy_paths.py --apply --verify
 ```
 
 Prva komanda je dry-run. Druga pravi samo nedostajuće symlink-ove, bez prepisivanja podataka. **Puna regresiona kompatibilnost istorijskih skripti nije još demonstrirana.** Ne pokreći skupe testove bez istraživačkih kapija.
+
+
+### Važno posle migracije — 2026-11-01
+
+Direktno izvršavanje skripti iz preglednih `studies/` Git symlink-ova ili `legacy/flat/` može dati pogrešne `HERE/REPO/OUT` putanje. Za istorijski CLI koristiti **isključivo** `research/<originalni_naziv>.py` nakon `python research/compat/restore_legacy_paths.py --apply --verify`. [Bezbednosna provera i preostali blokatori](ITERATION65_MIGRATION_COMPAT_GATE_2026-11-01_SR.md).

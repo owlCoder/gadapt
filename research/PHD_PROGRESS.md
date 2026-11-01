@@ -403,3 +403,12 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - Stare direktne root putanje su premeštene; da bi istorijske komande radile, u lokalnom checkout-u se prvo koristi python research/compat/restore_legacy_paths.py --apply --verify (opt-in symlink rehidratacija). Puna regresija nije urađena. Frozen protokoli ostali su bajt-identični.
 - I65 ostaje DRAFT / NO-FREEZE / NOT_RUN i novelty not established. Migracija nije dokaz stabilnosti, naučne novine ili industrijske pouzdanosti.
 - SLEDEĆI KORAK: nezavisno proveriti nove putanje + lokalni restore i kritične CLI/test entrypoint-e u zaključanim okruženjima, rešiti identifikovane blokere I65 instrumentacije, pa tek zatim razmotriti freeze i konfirmatorni COCO f21/f24 benchmark. Ne ponavljati eksperimente do pozitivnog ishoda.
+
+
+## 2026-11-01 — I65 migracioni kompatibilni gate (bez novih algoritama i eksperimenata)
+
+- Kritični rizik potvrđen statičkim pregledom I56/I58/I61/I63: `__file__` vezuje HERE/REPO/OUT za originalni root `research/`, pa pokretanje fizički premeštenih skripti direktno iz `legacy/flat/` nije dozvoljeno kao istorijska replikacija.
+- `research/__init__.py` sada fail-closed: uklonjen implicitni legacy import fallback koji bi bez prethodnog restore-a dozvolio pogrešno poreklo biblioteke. Restore alat ima dvoprolazni preflight bez delimičnog stvaranja veza pri SHA grešci; migracioni aliasi su precizno ignorisani u `research/.gitignore`.
+- **Izolovani lokalni testovi 9/9 PASS**, SHA-identični novi kod i testovi; ponovo I65 instrumentacija **54 PASS, 3 očekivana XFAIL**. Zamrznuti kod i `gadapt/` nisu izmenjeni.
+- Full 341/341 runtime restore i I41/I63/I64 suite u celom stvarnom klonu: **NOT_TESTED** (trenutni alat nije checkout repozitorijuma). Ne tvrditi potpunu kompatibilnost; detalji `ITERATION65_MIGRATION_COMPAT_GATE_2026-11-01_SR.md`.
+- **SLEDEĆI KORAK:** izvršiti read-only `--verify` pa `--apply --verify` na pravom lokalnom klonu, zatim jeftine stare I41/I63/I64 pytest testove. Tek uz pozitivan integracioni gate razmatrati COCO/pycma realne adaptere. I65 **novelty not established / NO-FREEZE / NOT_RUN**, bez novih konfirmatornih trčanja.
