@@ -54,6 +54,13 @@ class FullCloneGateTests(unittest.TestCase):
              patch.object(local_gate, 'run_cmd', side_effect=fake_step or self.fake_step):
             return local_gate.perform(self.root, self.python, self.reports, 120, None)
 
+    def test_venv_python_symlink_is_not_dereferenced(self):
+        venv_python = self.root / '.venv' / 'bin' / 'python'
+        venv_python.parent.mkdir(parents=True)
+        venv_python.symlink_to(self.python)
+        self.assertEqual(local_gate.preserve_venv_python(venv_python), venv_python)
+        self.assertNotEqual(local_gate.preserve_venv_python(venv_python), venv_python.resolve())
+
     def test_no_real_clone_is_blocked(self):
         check = local_gate.prerequisites(self.root, self.python, None)
         self.assertEqual(check['status'], 'BLOCKED')
