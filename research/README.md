@@ -12,6 +12,7 @@
 - [**Mentor meeting notes**](MENTOR_MEETING_NOTES_SR.md) · [Mentor summary](MENTOR_SUMMARY_2026-10-28_SR.md) (both currently Serbian sources).
 - [**Research reviews**](codex/) · [Thesis](thesis/) (historical Serbian drafts).
 - [**Original historical materials**](legacy/) · [Compatibility tools](compat/) · [Migration map](MIGRATION_MANIFEST_2026-11-01.json).
+- [**Consolidated evidence and negative results**](EVIDENCE_SYNTHESIS.md) · [**Research direction and decision gate**](RESEARCH_DECISION_2026-11-01.md).
 - [**English-language documentation policy**](LANGUAGE_POLICY.md) · [Per-document translation audit](LANGUAGE_AUDIT_2026-11-01.json).
 
 ## Current research status

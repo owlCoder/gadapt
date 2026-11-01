@@ -1,7 +1,7 @@
-# Bajt-identični istorijski izvorni fajlovi
+# Historical original files and compatibility aliases
 
-Sadrži **341 originala** migriranih iz korena research/. Sadržaj NIJE izmenjen; dokumentacija koristi izvorne hash-eve iz [manifesta](../../MIGRATION_MANIFEST_2026-11-01.json).
+The physical migration preserved the Git blob SHA of **341 original files** (see the [migration manifest](../../MIGRATION_MANIFEST_2026-11-01.json)). Among current `_SR.md` entries here, **87 are regular, untranslated Serbian historical reports** and **20 are symlink aliases pointing to active English reports** at the research root. They are not all 107 distinct Serbian documents.
 
-Pre pokretanja starih komandi: `python research/compat/restore_legacy_paths.py --apply --verify`.
+Start with the [English original-report index](INDEX_EN.md) or [evidence synthesis](../../EVIDENCE_SYNTHESIS.md), not with an unstructured filename list.
 
-Potpuna regresija eksperimenata posle migracije nije završena i nijedna konfirmatorna analiza nije ponovljena.
+Do **not** execute original Python CLI scripts from this folder. First run `python research/compat/restore_legacy_paths.py --verify`, then explicitly opt into `--apply --verify` in a real clone. Historical regression remains not fully tested after migration. No experimental rerun or frozen report rewrite occurred.

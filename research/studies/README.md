@@ -1,5 +1,7 @@
 # Research studies by iteration
 
+Start with the [consolidated English synthesis](../EVIDENCE_SYNTHESIS.md) for defensible outcomes, including negative/STOP results. Historical Serbian source reports remain intact in [legacy/flat](../legacy/flat/).
+
 English-language navigation for the entire historical GAdapt research series. A linked historical `_SR.md` report is not automatically translated; check the [language audit](../LANGUAGE_AUDIT_2026-11-01.json).
 
 - [I02](i02/)

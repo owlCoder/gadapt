@@ -1,0 +1,70 @@
+# GAdapt evidence synthesis — one English entry point for historical results
+
+**Evidence cut-off:** 2026-11-01, repository `owlCoder/gadapt`.  
+**Nature:** a cross-study **review**, not a translated source report, rerun, meta-analysis, new experiment or preregistered result. Source protocols, raw archives and contradictory or negative conclusions remain authoritative. This file was prepared by reading the linked reports and the existing thesis drafts; statements must not be extended beyond the exact studied cells.
+
+## Executive outcome
+
+**There is a defensible empirical characterization of GAdapt, but no established original optimization algorithm, general superiority or production-ready infrastructure guarantee.** Evaluation efficiency, final accuracy, feasibility and tail risk favor different methods in different conditions. The original mentor benchmark and later shifted/rotated and discrete-ORPD tests must be reported **together**.
+
+| Research question | Strongest evidence | Defensible outcome | Important restriction |
+|---|---|---|---|
+| Is GAdapt efficient on the mentor's original functions? | [I64-S0](ITERATION64_S0_REPORT_SR.md) | On 21 original cells with four methods, ECDF A=**0.698** for GAdapt and **0.651** for SciPy DE; frozen H64a supported | DE had a smaller final cell median in **14/21** cells; original stopping and equal budgets are different comparisons |
+| Does that efficiency survive harder transformations? | [I64-E](ITERATION64_E_REPORT_SR.md), [I64-R](ITERATION64_R_REPORT_SR.md) | Across the extended E roster, A GAdapt=**0.6732**, IPOP=**0.7699**, BIPOP=**0.7688**. At matched shifts Q decreases GAdapt A by **0.0809** versus **0.0101** for IPOP | R uses 21 fixed function–dimension pairs, one sampled Q per pair; not all transformations or industrial problems |
+| Can an opt-in GAdapt operator close the gap? | [E2](ITERATION64_E2_REPORT_SR.md), [E4](ITERATION64_E4_REPORT_SR.md), [C](ITERATION64_C_REPORT_SR.md) | Differential crossover fails its primary conditions; compensatory mutation's small change cannot be distinguished from negative controls; proposed diversity-coefficient signature is undecided | These experiments do not identify a universal mechanism |
+| Is GAdapt→CMA a new or better general optimizer? | [E3](ITERATION64_E3_REPORT_SR.md), [A](ITERATION64_A_REPORT_SR.md), [I2](ITERATION64_I2_REPORT_SR.md) | Fixed 30/70 hybrid helps some synthetic cases; a GAdapt first stage contributes against random sampling in that **fixed** setup | Hybrid is not methodologically novel; preregistered E3 overall outcome is mixed; **ORPD transfer not confirmed** |
+| Does GAdapt solve discrete infrastructure tasks robustly? | [I](ITERATION64_I_REPORT_SR.md), [I2](ITERATION64_I2_REPORT_SR.md) | At 12,000 actual PF calls over eight cells, GAdapt feasible fraction **0.746**, IPOP **0.771**; hybrid **0.742** | Small set of networks and 30 seeds; IPOP's ORPD CVaR **0.2518** vs hybrid **0.3772**; no industrial reliability |
+| Can we trust optimization-library evaluation accounting? | [I49](legacy/flat/ITERATION49_REPORT_SR.md), [I50](legacy/flat/ITERATION50_REPORT_SR.md), [I52](legacy/flat/ITERATION52_REPORT_SR.md), [I55](legacy/flat/ITERATION55_REPORT_SR.md) | The audit found recorded/documented inconsistencies, with I49 positive prevalence finding **4/9** libraries and further transport to real AC dispatch in I52 | Prior instances of the underlying defects were already known; I50 revealed a nonspecific C1 detector; originality of integrated audit not established |
+| Does constraint handling make GAdapt faster? | [I56](legacy/flat/ITERATION56_REPORT_SR.md), [I58](legacy/flat/ITERATION58_REPORT_SR.md), [I60](legacy/flat/ITERATION60_REPORT_SR.md), [I59](legacy/flat/ITERATION59_REPORT_SR.md) | I56 has a small localized adaptation × constraint-handling interaction, θ≈**+0.0205** [**0.0020, 0.0396**] | H58 and H60 failed to confirm speed improvements; I59 stopped at developmental NO-GO; the interaction was **not** independently confirmed |
+
+## Historical sequence without document duplication
+
+### 1. I41–I48: mechanisms, limits and falsification
+
+- **I41 and I42:** Certified row reductions and the H1 structural VIG proposal did not pass their methodological/structural novelty gates. The [I42 report](legacy/flat/ITERATION42_REPORT_SR.md) explicitly gives **H1 NO-GO**, not an optimizer innovation.
+- **I43–I46:** An evaluation/optimizer-operator deficit was investigated. [I43](legacy/flat/ITERATION43_REPORT_SR.md) remained **UNRESOLVED**; [I45](legacy/flat/ITERATION45_REPORT_SR.md) found GAdapt-specific weakness in 5/6 selected comparisons; [I46](legacy/flat/ITERATION46_REPORT_SR.md) did not isolate a causal component.
+- **I47:** A linear diversity metric improved unit invariance as an opt-in engineering property but did **not** establish an AC-dispatch performance gain. See [I47](legacy/flat/ITERATION47_REPORT_SR.md).
+- **I48:** On multimodal valve-point dispatch, IPOP-CMA-ES was significantly better than GAdapt on two of three evaluated instances. See [I48](legacy/flat/ITERATION48_REPORT_SR.md). This rules out a blanket GAdapt superiority narrative.
+
+### 2. I49–I55: measurement integrity as a potentially publishable empirical line
+
+- [I49](legacy/flat/ITERATION49_REPORT_SR.md) validated an audit tool against injected defects and reported classified findings in 4/9 libraries, with a wide Clopper–Pearson 95% interval [0.14, 0.79]. **None of the four individual findings was first discovered here.**
+- [I50](legacy/flat/ITERATION50_REPORT_SR.md) introduced an independent new sample and found that the original C1 class was not sufficiently specific. This limits the scope of any claim about tool validity.
+- [I52](legacy/flat/ITERATION52_REPORT_SR.md) applied instrumentation to real AC-dispatch objective evaluations and supported its prespecified transfer hypothesis. It also documents mechanisms in SciPy/scikit-opt rather than asserting a general new theory.
+- [I55](legacy/flat/ITERATION55_REPORT_SR.md) provides corrected D3x and call-trace archive evidence, including reproducibility limitations. A standalone paper still needs independent detector-validity review, a clearly differentiated contribution and complete source/trace reproducibility.
+
+### 3. I56–I63: constrained infrastructure optimization, with STOP outcomes retained
+
+- [I56](legacy/flat/ITERATION56_REPORT_SR.md) identified a **small, local** interaction between adaptation and constraint handling under its preregistered design, concentrated in case14. It cannot establish a universal mechanism.
+- [I57](legacy/flat/ITERATION57_REPORT_SR.md) was descriptive external context, not a confirmatory equivalence or superiority proof: CMA-ES with margins can be faster on case14, while GAdapt often shows more feasible hits on case57 under the tested model.
+- [I58](legacy/flat/ITERATION58_REPORT_SR.md): FR versus penalty θ≈**−0.014** [**−0.035, +0.006**], outcome **N**. [I60](legacy/flat/ITERATION60_REPORT_SR.md): epsilon-handling θ≈**−0.011** [**−0.035, +0.012**], outcome **N**. Neither confirmed the anticipated acceleration.
+- [I59](legacy/flat/ITERATION59_REPORT_SR.md) met a prespecified **development NO-GO**, so it supplies **no telecom confirmatory outcome**, not evidence of a negative confirmatory effect.
+- [I61](legacy/flat/ITERATION61_REPORT_SR.md) and [I63](legacy/flat/ITERATION63_REPORT_SR.md) stopped on their frozen calibration gates: **no confirmatory replication** of H56a. [I63-D](legacy/flat/ITERATION63D_REPORT_SR.md) is *descriptive* only: θ₆₃=**0.0139**, 95% interval [**−0.0090, 0.0372**]; it did not supersede I63's STOP.
+
+### 4. I64: mentor benchmark replicated, extended and challenged
+
+- **S0:** Real evaluation-call accounting separated search from validation, callbacks and PyGAD re-evaluations. GAdapt's better aggregate ECDF A does not mean it wins most final-median cells or is consistently more accurate. See [S0](ITERATION64_S0_REPORT_SR.md).
+- **E:** Equal physical-call, stronger baselines reverse the main efficiency hierarchy: **IPOP/CMA/BIPOP outrank GAdapt** in aggregate A. See [E](ITERATION64_E_REPORT_SR.md).
+- **R:** A matched-shift comparison supports greater loss for GAdapt from an added Haar-orthogonal Q. Haar Q can include reflection, so it is **not strictly rotation**; mechanisms were **not** isolated. See [R](ITERATION64_R_REPORT_SR.md).
+- **E2/E4/C:** The opt-in fixes/mechanism claims did not pass their required decision families. See [E2](ITERATION64_E2_REPORT_SR.md), [E4](ITERATION64_E4_REPORT_SR.md), [C](ITERATION64_C_REPORT_SR.md).
+- **E3/A:** A GAdapt→CMA hybrid improves some synthetic outcomes; the A ablation identifies a first-stage effect *conditional on the fixed σ₀=0.05 setup* rather than a universal GAdapt advantage. See [E3](ITERATION64_E3_REPORT_SR.md) and [A](ITERATION64_A_REPORT_SR.md).
+- **I/I2:** On actual power-flow evaluations, the hybrid does not show confirmed superiority to GAdapt and has a worse tail than IPOP. I2's `i_run_sha256` provenance field was empty in the original archive and supplemented later, a discrepancy to disclose, not silently repair. See [I](ITERATION64_I_REPORT_SR.md), [I2](ITERATION64_I2_REPORT_SR.md).
+
+### 5. I65: proposed only, not an observed optimizer
+
+The [I65 DRAFT](ITERATION65_DRAFT_PROTOCOL_SR.md) proposes stopping, restarting or switching policies around a 20-*completed*-generation significant-improvement detector on held-out COCO f21/f24. [Prior art](ITERATION65_PRIOR_ART_AUDIT_DRAFT_SR.md) already covers IPOP/BIPOP, memetic hybrids and switching. **`novelty not established`; no FREEZE; zero confirmatory f21/f24 runs.** A restricted instrumentation subset passed local synthetic checks, but GAdapt/CMA/COCO integration and true witness checks remain **NOT_TESTED**. See [instrumentation gate](ITERATION65_INSTRUMENTATION_GATE_REPORT_SR.md) and [migration gate](ITERATION65_MIGRATION_COMPAT_GATE_2026-11-01_SR.md).
+
+## Quality and claim-control table
+
+| Claim type | What may be stated | What may NOT be stated |
+|---|---|---|
+| Efficiency | Better ECDF area for GAdapt on *specific S0 cells* | Generally fastest across transformed functions |
+| Accuracy | Better weighted aggregate cell medians in S0 at *original stopping* | More accurate than DE on most cells or at every budget |
+| Stability | Some controlled tail and feasibility comparisons | Near-zero failure probability, deployment reliability or universal guarantee |
+| Novelty | Specific empirical characterization and audit tooling as research contributions **subject to review** | New restart algorithm, first proof of EAF/ECDF or first ever evaluation-integrity detector |
+| Scientific independence | Original sources, frozen negative outcomes and declared protocol deviations remain accessible | Recast I59/I61/I63 STOP as successful or failed confirmation |
+| Industry | A constrained shortlist and independent verification workflow | Safe production ORPD optimizer without separate validation |
+
+## Practical reuse
+
+For literature, cite the **underlying frozen report**, not this synthesis as if it were primary evidence. For doctoral writing, align [thesis chapter map](thesis/) and [supervisor briefing](MENTOR_SUMMARY_2026-10-28_SR.md). For execution, use [legacy compatibility](compat/) and only run cheap tests after full-clone verification; do not rerun experiments to seek positive results. For the current decision gate, see [Research direction](RESEARCH_DECISION_2026-11-01.md).

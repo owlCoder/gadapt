@@ -1,6 +1,6 @@
 # GAdapt research evidence index
 
-[Studies](studies/) · [Raw outputs](results/) · [Prior art](literature/) · [Translation audit](LANGUAGE_AUDIT_2026-11-01.json)
+[Consolidated evidence](EVIDENCE_SYNTHESIS.md) · [Research decision](RESEARCH_DECISION_2026-11-01.md) · [Studies](studies/) · [Raw outputs](results/) · [Prior art](literature/) · [Translation audit](LANGUAGE_AUDIT_2026-11-01.json)
 
 ## Key I64/I65 evidence
 

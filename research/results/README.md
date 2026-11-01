@@ -1,9 +1,8 @@
-# Arhiva sirovih rezultata
+# Raw research result archive (no experimental changes)
 
-**Nije premestano, brisano ili regenerisano.** U Git stablu je 2717 izlaznih fajlova i 319.3 MiB. Ovde ne uključujemo nepotrebne `__pycache__` artefakte. Originalna struktura i heševi sirovih eksperimenata ostali su isti.
+**Inventory:** 2717 tracked original experimental output files as of the 2026-11-01 cleanup. The raw result paths, original Git blob SHA values and data contents have **not** been moved or recomputed. The previous archival inventory reported approximately **319.3 MiB**; this is a repository-content count, not a guarantee that future Git LFS/data downloads are complete.
 
-| Skup | Fajlova | MiB |
-|---|---:|---:|
+| Dataset directory | Output files | MiB |
 | [iteration42](iteration42/) | 1 | 0.02 |
 | [iteration43](iteration43/) | 1 | 0.08 |
 | [iteration44](iteration44/) | 1 | 0.07 |
@@ -38,4 +37,6 @@
 | [iteration64_r](iteration64_r/) | 2 | 0.01 |
 | [iteration64_s0](iteration64_s0/) | 5 | 3.20 |
 
-Pojedinačni stari CSV/JSON izlazi direktno u `results/` nisu preseljeni jer ih postojeći manifesti i testovi referenciraju.
+Historical CSV/JSON result files directly under `results/` are deliberately preserved at their original paths, because manifests, analyses and tests may refer to them. Directories with `exploratory`, `dev` or `posthoc` in the name are **not confirmatory primary evidence** merely because they contain raw files. No numerical experiment was run as part of this documentation cleanup.
+
+[Research evidence index](../EVIDENCE_SYNTHESIS.md) · [Studies](../studies/) · [Data policy](../DATA_POLICY.md)

@@ -1,34 +1,39 @@
 {
-  "schema": "gadapt-language-audit-v1",
-  "audited_at": "2026-11-01",
-  "source_commit": "675f684c27e3e25ecc0c5f11ad356e2e1e3572f3",
-  "language_convention": "English for active documentation; old _SR basename retained for compatibility, not as a language guarantee",
-  "canonical_serbian_named_documents": 141,
-  "english_translation_completed": 24,
-  "untranslated_sources": 117,
-  "source_serbian_view_symlinks": 107,
-  "by_location": {
-    "research_root": {
-      "total": 22,
-      "translated": 22
+  "schema": "gadapt-language-audit-v2-content-vs-symlinks",
+  "date": "2026-11-01",
+  "source_repository": "owlCoder/gadapt",
+  "audited_tree_head": "ba1fc60138b6c5e88739549e09c2ac5820392231",
+  "content_documents_count": 121,
+  "complete_english_translations": 24,
+  "untranslated_content_documents": 97,
+  "symlink_aliases_to_root": 20,
+  "symlink_navigation_views": 87,
+  "symlink_total": 107,
+  "archive_preserved_originals": 24,
+  "exact_duplicate_content_sha_groups": 0,
+  "counts_by_region": {
+    "active_root": {
+      "sources": 22,
+      "english": 22,
+      "serbian": 0
     },
-    "other": {
-      "total": 1,
-      "translated": 1
-    },
-    "i64_notes": {
-      "total": 1,
-      "translated": 1
+    "supplementary": {
+      "sources": 2,
+      "english": 2,
+      "serbian": 0
     },
     "historical_legacy": {
-      "total": 107,
-      "translated": 0
+      "sources": 87,
+      "english": 0,
+      "serbian": 87
     },
     "thesis": {
-      "total": 10,
-      "translated": 0
+      "sources": 10,
+      "english": 0,
+      "serbian": 10
     }
   },
+  "definition": "Content documents are Git regular blobs (100644) excluding archive copies and curated views; symlinks (120000) are aliases and do NOT count as independent untranslated documents.",
   "documents": [
     {
       "path": "research/ITERATION64_A_REPORT_SR.md",
@@ -36,7 +41,8 @@
       "bytes_original": 1892,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "60df2b027444c028abf513a70fa40e0fc42434b1",
-      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_A_REPORT_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_A_REPORT_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/ITERATION64_C_REPORT_SR.md",
@@ -44,7 +50,8 @@
       "bytes_original": 2711,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "828ca4497ae5c23a37c123d0fefa9493859c39f5",
-      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_C_REPORT_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_C_REPORT_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/ITERATION64_E2_REPORT_SR.md",
@@ -52,7 +59,8 @@
       "bytes_original": 2736,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "39faf297a7bd35299a10dc7df6875c42e65dceda",
-      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_E2_REPORT_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_E2_REPORT_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/ITERATION64_E3_REPORT_SR.md",
@@ -60,7 +68,8 @@
       "bytes_original": 3188,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "db84414824490bc9bb0c67b6b5463dd945acdb9c",
-      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_E3_REPORT_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_E3_REPORT_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/ITERATION64_E4_REPORT_SR.md",
@@ -68,7 +77,8 @@
       "bytes_original": 3609,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "1e4dae9444ef84e0a16fe1d16b8bc1a1306d9f01",
-      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_E4_REPORT_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_E4_REPORT_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/ITERATION64_E_REPORT_SR.md",
@@ -76,7 +86,8 @@
       "bytes_original": 6029,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "6471553e1aa9830559963bd0a2bf853a51d931ad",
-      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_E_REPORT_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_E_REPORT_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/ITERATION64_I2_REPORT_SR.md",
@@ -84,7 +95,8 @@
       "bytes_original": 1510,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "714b6d1d1e330ce83276aec8e4a8ebef20ff9973",
-      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_I2_REPORT_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_I2_REPORT_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/ITERATION64_I_REPORT_SR.md",
@@ -92,7 +104,8 @@
       "bytes_original": 4527,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "d834ff48fe4ed253a8cefa4c931a564b23a268f8",
-      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_I_REPORT_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_I_REPORT_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/ITERATION64_N_DEV_NOTE_SR.md",
@@ -100,7 +113,8 @@
       "bytes_original": 894,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "efde18378dc1b54e69c17e84d139ecb5943a6824",
-      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_N_DEV_NOTE_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_N_DEV_NOTE_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/ITERATION64_R_REPORT_SR.md",
@@ -108,7 +122,8 @@
       "bytes_original": 2842,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "fa26f19346edcc63245f7953ecd659e822c922a9",
-      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_R_REPORT_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_R_REPORT_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/ITERATION64_S0_REPORT_SR.md",
@@ -116,7 +131,8 @@
       "bytes_original": 14423,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "fcb755f7f91190b40cfcd6ba1b2d6c3f6ae18b45",
-      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_S0_REPORT_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_S0_REPORT_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/ITERATION65_DRAFT_PROTOCOL_SR.md",
@@ -124,7 +140,8 @@
       "bytes_original": 16339,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "91026f44598254db3bfbca4c8ab98b10a28376b6",
-      "original_archive_path": "research/archive/serbian_originals/i65/ITERATION65_DRAFT_PROTOCOL_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/i65/ITERATION65_DRAFT_PROTOCOL_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/ITERATION65_GITHUB_PROVENANCE_ADDENDUM_SR.md",
@@ -132,7 +149,8 @@
       "bytes_original": 1040,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "2c4a86ce67d8badfdaabe117fa9b89560f4ed8be",
-      "original_archive_path": "research/archive/serbian_originals/other/ITERATION65_GITHUB_PROVENANCE_ADDENDUM_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/other/ITERATION65_GITHUB_PROVENANCE_ADDENDUM_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/ITERATION65_INSTRUMENTATION_GATE_REPORT_SR.md",
@@ -140,7 +158,8 @@
       "bytes_original": 5204,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "f2d4be0aec708317afcf356461ee3b5a2c31840b",
-      "original_archive_path": "research/archive/serbian_originals/i65/ITERATION65_INSTRUMENTATION_GATE_REPORT_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/i65/ITERATION65_INSTRUMENTATION_GATE_REPORT_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/ITERATION65_INSTRUMENTATION_VALIDATION_SR.md",
@@ -148,7 +167,8 @@
       "bytes_original": 4394,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "79395d2ab5b63e19252cc64cbc08b83da40b472b",
-      "original_archive_path": "research/archive/serbian_originals/i65/ITERATION65_INSTRUMENTATION_VALIDATION_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/i65/ITERATION65_INSTRUMENTATION_VALIDATION_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/ITERATION65_MIGRATION_COMPAT_GATE_2026-11-01_SR.md",
@@ -156,7 +176,8 @@
       "bytes_original": 3968,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "6c6406549ea532dfbf95c40676877df040703049",
-      "original_archive_path": "research/archive/serbian_originals/i65/ITERATION65_MIGRATION_COMPAT_GATE_2026-11-01_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/i65/ITERATION65_MIGRATION_COMPAT_GATE_2026-11-01_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/ITERATION65_PRIOR_ART_AUDIT_DRAFT_SR.md",
@@ -164,7 +185,8 @@
       "bytes_original": 7595,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "b119784cdd9c80f2f3cf131c364d7a70038c4840",
-      "original_archive_path": "research/archive/serbian_originals/i65/ITERATION65_PRIOR_ART_AUDIT_DRAFT_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/i65/ITERATION65_PRIOR_ART_AUDIT_DRAFT_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/ITERATION65_RECOMMENDATION_AND_DECISION_SR.md",
@@ -172,7 +194,8 @@
       "bytes_original": 3980,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "9f1d14cc0dcdf5aee2e29739d3c39483491a5ac9",
-      "original_archive_path": "research/archive/serbian_originals/i65/ITERATION65_RECOMMENDATION_AND_DECISION_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/i65/ITERATION65_RECOMMENDATION_AND_DECISION_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/MENTOR_MEETING_NOTES_SR.md",
@@ -180,7 +203,8 @@
       "bytes_original": 5478,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "279735ae2d6547b3cc2f7ad6c79b53a4e58d914d",
-      "original_archive_path": "research/archive/serbian_originals/mentor/MENTOR_MEETING_NOTES_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/mentor/MENTOR_MEETING_NOTES_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/MENTOR_SUMMARY_2026-10-24_SR.md",
@@ -188,7 +212,8 @@
       "bytes_original": 1835,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "123197e3ff74eac38e205d85164db2bca3d1bcdd",
-      "original_archive_path": "research/archive/serbian_originals/other/MENTOR_SUMMARY_2026-10-24_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/other/MENTOR_SUMMARY_2026-10-24_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/MENTOR_SUMMARY_2026-10-28_SR.md",
@@ -196,7 +221,8 @@
       "bytes_original": 7006,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "57466e4fabf58ea9a1a5deb37719fb3b36a84bd1",
-      "original_archive_path": "research/archive/serbian_originals/mentor/MENTOR_SUMMARY_2026-10-28_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/mentor/MENTOR_SUMMARY_2026-10-28_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/REORGANIZATION_REPORT_2026-11-01_SR.md",
@@ -204,7 +230,8 @@
       "bytes_original": 1445,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "3c5226a0b43d5d3a72560d49e1d43623fcc67b8a",
-      "original_archive_path": "research/archive/serbian_originals/other/REORGANIZATION_REPORT_2026-11-01_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/other/REORGANIZATION_REPORT_2026-11-01_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/exploratory_scipy_global/NOTES_SR.md",
@@ -212,7 +239,8 @@
       "bytes_original": 1323,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "15b1eee42cdc59cbaa9c17d6a19ed2c9499ea189",
-      "original_archive_path": "research/archive/serbian_originals/supplementary/exploratory_scipy_global__NOTES_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/supplementary/exploratory_scipy_global__NOTES_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/i64/PILOT_NOTES_SR.md",
@@ -220,7 +248,8 @@
       "bytes_original": 2000,
       "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
       "english_git_blob_sha": "fb700808f4d5b013ee0866cc0ffca663d315ad55",
-      "original_archive_path": "research/archive/serbian_originals/supplementary/i64__PILOT_NOTES_SR.md"
+      "original_archive_path": "research/archive/serbian_originals/supplementary/i64__PILOT_NOTES_SR.md",
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/DIAGNOSTIC_STUDY_DRAFT_SR.md",
@@ -228,7 +257,8 @@
       "bytes_original": 20869,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/DIRECTION_DECISION_2026-10-23_SR.md",
@@ -236,7 +266,8 @@
       "bytes_original": 5708,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/DOCTORAL_GADAPT_INDUSTRY_ROADMAP_SR.md",
@@ -244,7 +275,8 @@
       "bytes_original": 5094,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/GADAPT_CONSTRAINT_API_DESIGN_SR.md",
@@ -252,7 +284,8 @@
       "bytes_original": 3243,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/H1_PRIOR_ART_AUDIT_SR.md",
@@ -260,7 +293,8 @@
       "bytes_original": 9070,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/H3_PRIOR_ART_AUDIT_SR.md",
@@ -268,7 +302,8 @@
       "bytes_original": 3034,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/H4_FEASIBILITY_SR.md",
@@ -276,7 +311,8 @@
       "bytes_original": 1064,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/H4_PRIOR_ART_AUDIT_SR.md",
@@ -284,7 +320,8 @@
       "bytes_original": 4374,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/H5_PROPOSAL_SR.md",
@@ -292,7 +329,8 @@
       "bytes_original": 12040,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/H6_COST_SIGNAL_PRIOR_ART_AUDIT_SR.md",
@@ -300,7 +338,8 @@
       "bytes_original": 3323,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/H7_BOUNDED_UNIQUENESS_PRIOR_ART_AUDIT_SR.md",
@@ -308,7 +347,8 @@
       "bytes_original": 2237,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/H8_INTERVAL_INFERENCE_PRIOR_ART_AUDIT_SR.md",
@@ -316,7 +356,8 @@
       "bytes_original": 1817,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/IDEATION_2026-10-24_CLAUDE_BLIND_SR.md",
@@ -324,7 +365,8 @@
       "bytes_original": 6000,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/IDEATION_2026-10-28_CLAUDE_BLIND_SR.md",
@@ -332,7 +374,8 @@
       "bytes_original": 2052,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION10_REPORT_SR.md",
@@ -340,7 +383,8 @@
       "bytes_original": 7390,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION11_REPORT_SR.md",
@@ -348,7 +392,8 @@
       "bytes_original": 7885,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION12_REPORT_SR.md",
@@ -356,7 +401,8 @@
       "bytes_original": 2806,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION13_REPORT_SR.md",
@@ -364,7 +410,8 @@
       "bytes_original": 6079,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION14_REPORT_SR.md",
@@ -372,7 +419,8 @@
       "bytes_original": 4776,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION15_REPORT_SR.md",
@@ -380,7 +428,8 @@
       "bytes_original": 5122,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION16_REPORT_SR.md",
@@ -388,7 +437,8 @@
       "bytes_original": 5292,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION17_REPORT_SR.md",
@@ -396,7 +446,8 @@
       "bytes_original": 8752,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION18_REPORT_SR.md",
@@ -404,7 +455,8 @@
       "bytes_original": 6763,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION19_REPORT_SR.md",
@@ -412,7 +464,8 @@
       "bytes_original": 6059,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION20_REPORT_SR.md",
@@ -420,7 +473,8 @@
       "bytes_original": 6145,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION21_REPORT_SR.md",
@@ -428,7 +482,8 @@
       "bytes_original": 4877,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION22_REPORT_SR.md",
@@ -436,7 +491,8 @@
       "bytes_original": 5513,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION23_REPORT_SR.md",
@@ -444,7 +500,8 @@
       "bytes_original": 7803,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION24_REPORT_SR.md",
@@ -452,7 +509,8 @@
       "bytes_original": 11995,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION25_REPORT_SR.md",
@@ -460,7 +518,8 @@
       "bytes_original": 9054,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION26_REPORT_SR.md",
@@ -468,7 +527,8 @@
       "bytes_original": 5908,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION27_REPORT_SR.md",
@@ -476,7 +536,8 @@
       "bytes_original": 11726,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION28_LITERATURE_NOVELTY_AUDIT_SR.md",
@@ -484,7 +545,8 @@
       "bytes_original": 8347,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION28_REPORT_SR.md",
@@ -492,7 +554,8 @@
       "bytes_original": 12149,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION29_PRIOR_ART_SR.md",
@@ -500,7 +563,8 @@
       "bytes_original": 5884,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION29_REPORT_SR.md",
@@ -508,7 +572,8 @@
       "bytes_original": 11884,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION30_REPORT_SR.md",
@@ -516,7 +581,8 @@
       "bytes_original": 7676,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION31_REPORT_SR.md",
@@ -524,7 +590,8 @@
       "bytes_original": 7400,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION32_REPORT_SR.md",
@@ -532,7 +599,8 @@
       "bytes_original": 9608,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION33_GEANT_MODEL_AUDIT_SR.md",
@@ -540,7 +608,8 @@
       "bytes_original": 3193,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION33_PRIOR_ART_AND_NEXT_HYPOTHESIS_SR.md",
@@ -548,7 +617,8 @@
       "bytes_original": 6358,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION33_REPORT_SR.md",
@@ -556,7 +626,8 @@
       "bytes_original": 10555,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION34_IMPLEMENTATION_REPORT_SR.md",
@@ -564,7 +635,8 @@
       "bytes_original": 4687,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION34_REPORT_SR.md",
@@ -572,7 +644,8 @@
       "bytes_original": 10135,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION35_REPORT_SR.md",
@@ -580,7 +653,8 @@
       "bytes_original": 5512,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION36_REPORT_SR.md",
@@ -588,7 +662,8 @@
       "bytes_original": 6909,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION38_REPORT_SR.md",
@@ -596,7 +671,8 @@
       "bytes_original": 5558,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION39_REPORT_SR.md",
@@ -604,7 +680,8 @@
       "bytes_original": 8304,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION40_METHOD_GATE_AND_DATA_BLOCKER_SR.md",
@@ -612,7 +689,8 @@
       "bytes_original": 5050,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION41_ALGORITHM_PROOF_AND_RESEARCH_DECISION_SR.md",
@@ -620,7 +698,8 @@
       "bytes_original": 8540,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION42_REPORT_SR.md",
@@ -628,7 +707,8 @@
       "bytes_original": 4790,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION43_REPORT_SR.md",
@@ -636,7 +716,8 @@
       "bytes_original": 4622,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION44_REPORT_SR.md",
@@ -644,7 +725,8 @@
       "bytes_original": 3840,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION45_REPORT_SR.md",
@@ -652,7 +734,8 @@
       "bytes_original": 3193,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION46_REPORT_SR.md",
@@ -660,7 +743,8 @@
       "bytes_original": 4054,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION47_REPORT_SR.md",
@@ -668,7 +752,8 @@
       "bytes_original": 4823,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION48_REPORT_SR.md",
@@ -676,7 +761,8 @@
       "bytes_original": 3008,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION49_REPORT_SR.md",
@@ -684,7 +770,8 @@
       "bytes_original": 7260,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION50_REPORT_SR.md",
@@ -692,7 +779,8 @@
       "bytes_original": 8297,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION51_REPORT_SR.md",
@@ -700,7 +788,8 @@
       "bytes_original": 1233,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION52_REPORT_SR.md",
@@ -708,7 +797,8 @@
       "bytes_original": 4775,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION53_REPORT_SR.md",
@@ -716,7 +806,8 @@
       "bytes_original": 8023,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION55_REPORT_SR.md",
@@ -724,7 +815,8 @@
       "bytes_original": 3458,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION56_REPORT_SR.md",
@@ -732,7 +824,8 @@
       "bytes_original": 9802,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION57_PROPOSAL_SR.md",
@@ -740,7 +833,8 @@
       "bytes_original": 2004,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION57_REPORT_SR.md",
@@ -748,7 +842,8 @@
       "bytes_original": 9143,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION58_PROPOSAL_SR.md",
@@ -756,7 +851,8 @@
       "bytes_original": 2716,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION58_REPORT_SR.md",
@@ -764,7 +860,8 @@
       "bytes_original": 9344,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION59_PROPOSAL_SR.md",
@@ -772,7 +869,8 @@
       "bytes_original": 3550,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION59_REPORT_SR.md",
@@ -780,7 +878,8 @@
       "bytes_original": 4050,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION5_REPORT_SR.md",
@@ -788,7 +887,8 @@
       "bytes_original": 9960,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION60_PROPOSAL_SR.md",
@@ -796,7 +896,8 @@
       "bytes_original": 1991,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION60_REPORT_SR.md",
@@ -804,7 +905,8 @@
       "bytes_original": 6631,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION61_PROPOSAL_SR.md",
@@ -812,7 +914,8 @@
       "bytes_original": 11226,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION61_REPORT_SR.md",
@@ -820,7 +923,8 @@
       "bytes_original": 2613,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION62_PROPOSAL_SR.md",
@@ -828,7 +932,8 @@
       "bytes_original": 9995,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION63D_REPORT_SR.md",
@@ -836,7 +941,8 @@
       "bytes_original": 4114,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION63_REPORT_SR.md",
@@ -844,143 +950,8 @@
       "bytes_original": 2650,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/ITERATION64_A_REPORT_SR.md",
-      "original_git_blob_sha": "5397bd466b80427277a8dfe96d4c942f926b90cc",
-      "bytes_original": 32,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/ITERATION64_C_REPORT_SR.md",
-      "original_git_blob_sha": "e554c60f15679662bce6457565567103bfac3965",
-      "bytes_original": 32,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/ITERATION64_E2_REPORT_SR.md",
-      "original_git_blob_sha": "97af023f9b93c2e09926fb224463660a76695122",
-      "bytes_original": 33,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/ITERATION64_E3_REPORT_SR.md",
-      "original_git_blob_sha": "7cc20778d1ec0d614246931ad91d481a3c79595d",
-      "bytes_original": 33,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/ITERATION64_E4_REPORT_SR.md",
-      "original_git_blob_sha": "f1e6053412a09895f1340a615071daa258b50a42",
-      "bytes_original": 33,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/ITERATION64_E_REPORT_SR.md",
-      "original_git_blob_sha": "674956c7b9e40febb487283a0e6e33ecb4f2eb6e",
-      "bytes_original": 32,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/ITERATION64_I2_REPORT_SR.md",
-      "original_git_blob_sha": "4b3587a00e0c7f24526d228b8fe84cd29b9a1be1",
-      "bytes_original": 33,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/ITERATION64_I_REPORT_SR.md",
-      "original_git_blob_sha": "aaeb40caecf0c7f2b9e1afbae081e1d2a1cfab99",
-      "bytes_original": 32,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/ITERATION64_N_DEV_NOTE_SR.md",
-      "original_git_blob_sha": "c2d56ade53edd5668354285b9dd6ded5e0bdebd5",
-      "bytes_original": 34,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/ITERATION64_R_REPORT_SR.md",
-      "original_git_blob_sha": "8883037260469c3e1a7cf0e91a2ed858590fae1e",
-      "bytes_original": 32,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/ITERATION64_S0_REPORT_SR.md",
-      "original_git_blob_sha": "ab89dd18a9e49e9d6bcaa4df8bd8d17a10d276aa",
-      "bytes_original": 33,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/ITERATION65_DRAFT_PROTOCOL_SR.md",
-      "original_git_blob_sha": "09a4bd662b46033093cc0b337437de372994cef4",
-      "bytes_original": 38,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/ITERATION65_GITHUB_PROVENANCE_ADDENDUM_SR.md",
-      "original_git_blob_sha": "da2182e08a0c453e64ebd29f15ce78689e62c86e",
-      "bytes_original": 50,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/ITERATION65_INSTRUMENTATION_GATE_REPORT_SR.md",
-      "original_git_blob_sha": "986b8b4d1016b2545fe5a5b0ee8081e89c37eb45",
-      "bytes_original": 51,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/ITERATION65_INSTRUMENTATION_VALIDATION_SR.md",
-      "original_git_blob_sha": "49730d539091f5916686789a512fcf5dd2ca3a07",
-      "bytes_original": 50,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/ITERATION65_PRIOR_ART_AUDIT_DRAFT_SR.md",
-      "original_git_blob_sha": "a63d5abad5de47fa6b71e8a5d8d48b98a50bec8e",
-      "bytes_original": 45,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/ITERATION65_RECOMMENDATION_AND_DECISION_SR.md",
-      "original_git_blob_sha": "20390c8f0b8b0c9fa06c9224ae8bec03e11022b5",
-      "bytes_original": 51,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION6_REPORT_SR.md",
@@ -988,7 +959,8 @@
       "bytes_original": 13192,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION7_REPORT_SR.md",
@@ -996,7 +968,8 @@
       "bytes_original": 16909,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION8_REPORT_SR.md",
@@ -1004,7 +977,8 @@
       "bytes_original": 6310,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ITERATION9_REPORT_SR.md",
@@ -1012,31 +986,8 @@
       "bytes_original": 6026,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/MENTOR_MEETING_NOTES_SR.md",
-      "original_git_blob_sha": "fde6afc8ac79a08261c0ac3c8ec603d2d839e047",
-      "bytes_original": 32,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/MENTOR_SUMMARY_2026-10-24_SR.md",
-      "original_git_blob_sha": "f4caf92f0be64a88a9fa90defb2e5d635908dc9c",
-      "bytes_original": 37,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
-    },
-    {
-      "path": "research/legacy/flat/MENTOR_SUMMARY_2026-10-28_SR.md",
-      "original_git_blob_sha": "095efa94e5e9050f3fb47bd518780e6374fe053d",
-      "bytes_original": 37,
-      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
-      "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/ORACLE_DIAGNOSIS_PRIOR_ART_AUDIT_SR.md",
@@ -1044,7 +995,8 @@
       "bytes_original": 2827,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/POST_I36_GO_NO_GO_NOVELTY_AUDIT_SR.md",
@@ -1052,7 +1004,8 @@
       "bytes_original": 11629,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/POST_I41_NOVELTY_AUDIT_SR.md",
@@ -1060,7 +1013,8 @@
       "bytes_original": 13014,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/SAZETAK_REZULTATA_SR.md",
@@ -1068,7 +1022,8 @@
       "bytes_original": 59697,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/legacy/flat/STRATEGY_AFTER_I47_SR.md",
@@ -1076,7 +1031,8 @@
       "bytes_original": 2678,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/thesis/CH1_INTRODUCTION_SR.md",
@@ -1084,7 +1040,8 @@
       "bytes_original": 5453,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/thesis/CH2_EVALUATION_AND_DIAGNOSTICS_SR.md",
@@ -1092,7 +1049,8 @@
       "bytes_original": 13164,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/thesis/CH3_DISCRETE_ORPD_DESIGN_SR.md",
@@ -1100,7 +1058,8 @@
       "bytes_original": 8162,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/thesis/CH4_CHT_ADAPTATION_RESULTS_SR.md",
@@ -1108,7 +1067,8 @@
       "bytes_original": 5064,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/thesis/CH5_EXTERNAL_CONTEXT_SR.md",
@@ -1116,7 +1076,8 @@
       "bytes_original": 15023,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/thesis/CH6_CONSTRAINT_HANDLING_LIBRARY_SR.md",
@@ -1124,7 +1085,8 @@
       "bytes_original": 6167,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/thesis/CH7_CONFIRMATORY_CHECKS_SR.md",
@@ -1132,7 +1094,8 @@
       "bytes_original": 17241,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/thesis/CH8_MENTOR_BENCHMARK_SR.md",
@@ -1140,7 +1103,8 @@
       "bytes_original": 16854,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/thesis/CH9_APPLICATION_GUIDANCE_SR.md",
@@ -1148,7 +1112,8 @@
       "bytes_original": 4433,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
     },
     {
       "path": "research/thesis/THESIS_PLAN_SR.md",
@@ -1156,19 +1121,507 @@
       "bytes_original": 11501,
       "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
       "english_git_blob_sha": null,
-      "original_archive_path": null
+      "original_archive_path": null,
+      "mode": "100644"
+    }
+  ],
+  "aliases_to_root": [
+    {
+      "path": "research/legacy/flat/ITERATION64_A_REPORT_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "5397bd466b80427277a8dfe96d4c942f926b90cc",
+      "root_target": "research/ITERATION64_A_REPORT_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_C_REPORT_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "e554c60f15679662bce6457565567103bfac3965",
+      "root_target": "research/ITERATION64_C_REPORT_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_E2_REPORT_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "97af023f9b93c2e09926fb224463660a76695122",
+      "root_target": "research/ITERATION64_E2_REPORT_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_E3_REPORT_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "7cc20778d1ec0d614246931ad91d481a3c79595d",
+      "root_target": "research/ITERATION64_E3_REPORT_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_E4_REPORT_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "f1e6053412a09895f1340a615071daa258b50a42",
+      "root_target": "research/ITERATION64_E4_REPORT_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_E_REPORT_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "674956c7b9e40febb487283a0e6e33ecb4f2eb6e",
+      "root_target": "research/ITERATION64_E_REPORT_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_I2_REPORT_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "4b3587a00e0c7f24526d228b8fe84cd29b9a1be1",
+      "root_target": "research/ITERATION64_I2_REPORT_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_I_REPORT_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "aaeb40caecf0c7f2b9e1afbae081e1d2a1cfab99",
+      "root_target": "research/ITERATION64_I_REPORT_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_N_DEV_NOTE_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "c2d56ade53edd5668354285b9dd6ded5e0bdebd5",
+      "root_target": "research/ITERATION64_N_DEV_NOTE_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_R_REPORT_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "8883037260469c3e1a7cf0e91a2ed858590fae1e",
+      "root_target": "research/ITERATION64_R_REPORT_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_S0_REPORT_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "ab89dd18a9e49e9d6bcaa4df8bd8d17a10d276aa",
+      "root_target": "research/ITERATION64_S0_REPORT_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    },
+    {
+      "path": "research/legacy/flat/ITERATION65_DRAFT_PROTOCOL_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "09a4bd662b46033093cc0b337437de372994cef4",
+      "root_target": "research/ITERATION65_DRAFT_PROTOCOL_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    },
+    {
+      "path": "research/legacy/flat/ITERATION65_GITHUB_PROVENANCE_ADDENDUM_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "da2182e08a0c453e64ebd29f15ce78689e62c86e",
+      "root_target": "research/ITERATION65_GITHUB_PROVENANCE_ADDENDUM_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    },
+    {
+      "path": "research/legacy/flat/ITERATION65_INSTRUMENTATION_GATE_REPORT_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "986b8b4d1016b2545fe5a5b0ee8081e89c37eb45",
+      "root_target": "research/ITERATION65_INSTRUMENTATION_GATE_REPORT_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    },
+    {
+      "path": "research/legacy/flat/ITERATION65_INSTRUMENTATION_VALIDATION_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "49730d539091f5916686789a512fcf5dd2ca3a07",
+      "root_target": "research/ITERATION65_INSTRUMENTATION_VALIDATION_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    },
+    {
+      "path": "research/legacy/flat/ITERATION65_PRIOR_ART_AUDIT_DRAFT_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "a63d5abad5de47fa6b71e8a5d8d48b98a50bec8e",
+      "root_target": "research/ITERATION65_PRIOR_ART_AUDIT_DRAFT_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    },
+    {
+      "path": "research/legacy/flat/ITERATION65_RECOMMENDATION_AND_DECISION_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "20390c8f0b8b0c9fa06c9224ae8bec03e11022b5",
+      "root_target": "research/ITERATION65_RECOMMENDATION_AND_DECISION_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    },
+    {
+      "path": "research/legacy/flat/MENTOR_MEETING_NOTES_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "fde6afc8ac79a08261c0ac3c8ec603d2d839e047",
+      "root_target": "research/MENTOR_MEETING_NOTES_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    },
+    {
+      "path": "research/legacy/flat/MENTOR_SUMMARY_2026-10-24_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "f4caf92f0be64a88a9fa90defb2e5d635908dc9c",
+      "root_target": "research/MENTOR_SUMMARY_2026-10-24_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    },
+    {
+      "path": "research/legacy/flat/MENTOR_SUMMARY_2026-10-28_SR.md",
+      "mode": "120000",
+      "symlink_blob_sha": "095efa94e5e9050f3fb47bd518780e6374fe053d",
+      "root_target": "research/MENTOR_SUMMARY_2026-10-28_SR.md",
+      "classification": "SYMLINK_ALIAS_TO_ACTIVE_ROOT_NOT_AN_UNTRANSLATED_DOCUMENT"
+    }
+  ],
+  "aliases_navigation": [
+    {
+      "path": "research/literature/H1_PRIOR_ART_AUDIT_SR.md",
+      "symlink_blob_sha": "60e211a5e06e1edf051a67f935a07fd3fb424634"
+    },
+    {
+      "path": "research/literature/H3_PRIOR_ART_AUDIT_SR.md",
+      "symlink_blob_sha": "da0bf0e235a4ee754c24d1c574f2c247562cdc8e"
+    },
+    {
+      "path": "research/literature/H4_FEASIBILITY_SR.md",
+      "symlink_blob_sha": "9edc641ed0db573a320376ffbd2f5d9d913e5a8c"
+    },
+    {
+      "path": "research/literature/H4_PRIOR_ART_AUDIT_SR.md",
+      "symlink_blob_sha": "96e1b2f9b496fb3fdcc3acb1295b4ed43a467b2b"
+    },
+    {
+      "path": "research/literature/H5_PROPOSAL_SR.md",
+      "symlink_blob_sha": "80f10349ae667ba3ce50f317f9a0670a2a88118c"
+    },
+    {
+      "path": "research/literature/H6_COST_SIGNAL_PRIOR_ART_AUDIT_SR.md",
+      "symlink_blob_sha": "ee5755f37548e604bdb54e44e944fbd15a497b7f"
+    },
+    {
+      "path": "research/literature/H7_BOUNDED_UNIQUENESS_PRIOR_ART_AUDIT_SR.md",
+      "symlink_blob_sha": "ea640b4602c1041571d63caf76471ac8b12f8abb"
+    },
+    {
+      "path": "research/literature/H8_INTERVAL_INFERENCE_PRIOR_ART_AUDIT_SR.md",
+      "symlink_blob_sha": "48420074143118f42df43b358440c55f25519413"
+    },
+    {
+      "path": "research/literature/IDEATION_2026-10-24_CLAUDE_BLIND_SR.md",
+      "symlink_blob_sha": "4af2ac20d6e1709f0cb36168ff8aa420348b91cf"
+    },
+    {
+      "path": "research/literature/IDEATION_2026-10-28_CLAUDE_BLIND_SR.md",
+      "symlink_blob_sha": "90f3ee961e4051996272bd2e7a43dd83315d8315"
+    },
+    {
+      "path": "research/literature/ORACLE_DIAGNOSIS_PRIOR_ART_AUDIT_SR.md",
+      "symlink_blob_sha": "7b7ef906b7d2154ff122625b9cdeae31da9a89c7"
+    },
+    {
+      "path": "research/literature/POST_I36_GO_NO_GO_NOVELTY_AUDIT_SR.md",
+      "symlink_blob_sha": "01aac36c1176544fdd3b1a1c6da6d24e08caec72"
+    },
+    {
+      "path": "research/literature/POST_I41_NOVELTY_AUDIT_SR.md",
+      "symlink_blob_sha": "3285f7c3e06240daa2eb4d4918a569e12c6ae661"
+    },
+    {
+      "path": "research/overview/DIRECTION_DECISION_2026-10-23_SR.md",
+      "symlink_blob_sha": "2f81198bf667741d2d12f53e90a08265247a2096"
+    },
+    {
+      "path": "research/overview/DOCTORAL_GADAPT_INDUSTRY_ROADMAP_SR.md",
+      "symlink_blob_sha": "149c8dc9de6039722404ea1a91e3486843a9dfe9"
+    },
+    {
+      "path": "research/overview/GADAPT_CONSTRAINT_API_DESIGN_SR.md",
+      "symlink_blob_sha": "42acc290e46a5c812564b214bc098834c5a685ca"
+    },
+    {
+      "path": "research/overview/ITERATION63D_REPORT_SR.md",
+      "symlink_blob_sha": "e39ed156101eb9f628f4ffed272ddedd4dde9062"
+    },
+    {
+      "path": "research/overview/SAZETAK_REZULTATA_SR.md",
+      "symlink_blob_sha": "282622014c9ceefe1ace3759fba5529269a80352"
+    },
+    {
+      "path": "research/overview/STRATEGY_AFTER_I47_SR.md",
+      "symlink_blob_sha": "3816802855a07241d10b1e5cd2ed76ccabcca61d"
+    },
+    {
+      "path": "research/studies/i05/ITERATION5_REPORT_SR.md",
+      "symlink_blob_sha": "4c792731d95e5ade0275c89f2da84f6daa1a9325"
+    },
+    {
+      "path": "research/studies/i06/ITERATION6_REPORT_SR.md",
+      "symlink_blob_sha": "ecab24b11c58a9d0f8265f88fec96d979a44df7b"
+    },
+    {
+      "path": "research/studies/i07/ITERATION7_REPORT_SR.md",
+      "symlink_blob_sha": "15aea056167a7f55f9296f734536a1949cc67cc7"
+    },
+    {
+      "path": "research/studies/i08/ITERATION8_REPORT_SR.md",
+      "symlink_blob_sha": "49206191187d6b4d582f741c3dfd02ee76989955"
+    },
+    {
+      "path": "research/studies/i09/ITERATION9_REPORT_SR.md",
+      "symlink_blob_sha": "4541a92595b2d3c32aa34059761c7b5170851874"
+    },
+    {
+      "path": "research/studies/i10/ITERATION10_REPORT_SR.md",
+      "symlink_blob_sha": "10e6ad23de860de91429dd8095f5418627836ac5"
+    },
+    {
+      "path": "research/studies/i11/ITERATION11_REPORT_SR.md",
+      "symlink_blob_sha": "6e48a8997e3ab93db347807df6d0ac5abd7b5072"
+    },
+    {
+      "path": "research/studies/i12/ITERATION12_REPORT_SR.md",
+      "symlink_blob_sha": "6b56ac19b71014311dc77dd9707083182cc33e4b"
+    },
+    {
+      "path": "research/studies/i13/ITERATION13_REPORT_SR.md",
+      "symlink_blob_sha": "9af67fc1d6755134d38e940d07c1ad6a4c6d7f7c"
+    },
+    {
+      "path": "research/studies/i14/ITERATION14_REPORT_SR.md",
+      "symlink_blob_sha": "894acd09e886ccefca1d6cf33693ec121a29c3ae"
+    },
+    {
+      "path": "research/studies/i15/ITERATION15_REPORT_SR.md",
+      "symlink_blob_sha": "4ba7b162c2fa9213db9be6370306982c2013fc64"
+    },
+    {
+      "path": "research/studies/i16/ITERATION16_REPORT_SR.md",
+      "symlink_blob_sha": "5b3e98d86b66a2a346d06032c24f54d5c38751d4"
+    },
+    {
+      "path": "research/studies/i17/ITERATION17_REPORT_SR.md",
+      "symlink_blob_sha": "327a5ec35d718844d23113c72470162ae2b36671"
+    },
+    {
+      "path": "research/studies/i18/ITERATION18_REPORT_SR.md",
+      "symlink_blob_sha": "d1f96f3567c0111081ce552e04d8764a2e5854ed"
+    },
+    {
+      "path": "research/studies/i19/ITERATION19_REPORT_SR.md",
+      "symlink_blob_sha": "5292ff6ce0364b7762cc610a7c413afcfdbe3aa2"
+    },
+    {
+      "path": "research/studies/i20/ITERATION20_REPORT_SR.md",
+      "symlink_blob_sha": "d5fb63ec675fbd1148d56abcc42bafbbd4b94a81"
+    },
+    {
+      "path": "research/studies/i21/ITERATION21_REPORT_SR.md",
+      "symlink_blob_sha": "09a956780f9fe6ba17f34bc4b650448894f435d0"
+    },
+    {
+      "path": "research/studies/i22/ITERATION22_REPORT_SR.md",
+      "symlink_blob_sha": "b234bf236f775705dfc6af2db4277a8fa9cc93ce"
+    },
+    {
+      "path": "research/studies/i23/ITERATION23_REPORT_SR.md",
+      "symlink_blob_sha": "8f0cccb337e93de043643fced962160f0c83f40c"
+    },
+    {
+      "path": "research/studies/i24/ITERATION24_REPORT_SR.md",
+      "symlink_blob_sha": "505fc7f3cbadc0a96b7066ccbd10ffaca03e2a32"
+    },
+    {
+      "path": "research/studies/i25/ITERATION25_REPORT_SR.md",
+      "symlink_blob_sha": "7aec47bb50d95a3a2803f008ca14fe1b1dc03f05"
+    },
+    {
+      "path": "research/studies/i26/ITERATION26_REPORT_SR.md",
+      "symlink_blob_sha": "506167f8d79ead156ca86bdf81a60da916ad61e1"
+    },
+    {
+      "path": "research/studies/i27/ITERATION27_REPORT_SR.md",
+      "symlink_blob_sha": "4be22cdfed95c0c77cc14cb14fee1be8aa5bcb90"
+    },
+    {
+      "path": "research/studies/i28/ITERATION28_LITERATURE_NOVELTY_AUDIT_SR.md",
+      "symlink_blob_sha": "6286dc2eb74f1b16305f1f8d36a958abeef8b5e6"
+    },
+    {
+      "path": "research/studies/i28/ITERATION28_REPORT_SR.md",
+      "symlink_blob_sha": "5ba0d09ecf49a79a208fc5802fe044732ad1561d"
+    },
+    {
+      "path": "research/studies/i29/ITERATION29_PRIOR_ART_SR.md",
+      "symlink_blob_sha": "7ebe9e4ca1596a29cc5609e01007c8ca0ca55388"
+    },
+    {
+      "path": "research/studies/i29/ITERATION29_REPORT_SR.md",
+      "symlink_blob_sha": "bd29779268c34881453c3318788a930322871358"
+    },
+    {
+      "path": "research/studies/i30/ITERATION30_REPORT_SR.md",
+      "symlink_blob_sha": "c711e8a425077d62badc33eaf633106be1ca664d"
+    },
+    {
+      "path": "research/studies/i31/ITERATION31_REPORT_SR.md",
+      "symlink_blob_sha": "af924fb885d17134eb7c5dd20ac3a48aa9bc1b2f"
+    },
+    {
+      "path": "research/studies/i32/ITERATION32_REPORT_SR.md",
+      "symlink_blob_sha": "44b2977e5ce7489c4f045a38a79e54a664b13646"
+    },
+    {
+      "path": "research/studies/i33/ITERATION33_GEANT_MODEL_AUDIT_SR.md",
+      "symlink_blob_sha": "0b304c5b932a4d2409f6bbd2b8fc6a46468e34f0"
+    },
+    {
+      "path": "research/studies/i33/ITERATION33_PRIOR_ART_AND_NEXT_HYPOTHESIS_SR.md",
+      "symlink_blob_sha": "58336989259393372c9a1f2b231955d8ae5cae8c"
+    },
+    {
+      "path": "research/studies/i33/ITERATION33_REPORT_SR.md",
+      "symlink_blob_sha": "4f8c3b9c2a8a4cad82416ba2f7b3086a8dcf1dc3"
+    },
+    {
+      "path": "research/studies/i34/ITERATION34_IMPLEMENTATION_REPORT_SR.md",
+      "symlink_blob_sha": "b9981a84b1c8f14778355b6147034332325ca442"
+    },
+    {
+      "path": "research/studies/i34/ITERATION34_REPORT_SR.md",
+      "symlink_blob_sha": "16082408f78a41d9291729597fc3e865c58032b8"
+    },
+    {
+      "path": "research/studies/i35/ITERATION35_REPORT_SR.md",
+      "symlink_blob_sha": "96d5e97b16a54e98492c04ab60e8021bccbab529"
+    },
+    {
+      "path": "research/studies/i36/ITERATION36_REPORT_SR.md",
+      "symlink_blob_sha": "73962efdcced5238af6adc2dbae44607b967baa5"
+    },
+    {
+      "path": "research/studies/i38/ITERATION38_REPORT_SR.md",
+      "symlink_blob_sha": "34ad8cf5c60ca719745c34cf6c6c63fc274dd4a8"
+    },
+    {
+      "path": "research/studies/i39/ITERATION39_REPORT_SR.md",
+      "symlink_blob_sha": "540ca021c5d64f833cada49b26520320cf15722d"
+    },
+    {
+      "path": "research/studies/i40/ITERATION40_METHOD_GATE_AND_DATA_BLOCKER_SR.md",
+      "symlink_blob_sha": "a3bf0da84a260d8e2b44cf42abf0e3bc17bed8a0"
+    },
+    {
+      "path": "research/studies/i41/ITERATION41_ALGORITHM_PROOF_AND_RESEARCH_DECISION_SR.md",
+      "symlink_blob_sha": "9ae069f7e0712dc103f2add4f1abbff0e918eb27"
+    },
+    {
+      "path": "research/studies/i42/ITERATION42_REPORT_SR.md",
+      "symlink_blob_sha": "06690e31227a0d7f8f0dc7acfb3966be1f04c1b7"
+    },
+    {
+      "path": "research/studies/i43/ITERATION43_REPORT_SR.md",
+      "symlink_blob_sha": "5b1456c0177bc01251e302076f2848d21e9ea09d"
+    },
+    {
+      "path": "research/studies/i44/ITERATION44_REPORT_SR.md",
+      "symlink_blob_sha": "726bc3b34e7da644f968763eaba8d65e11a08561"
+    },
+    {
+      "path": "research/studies/i45/ITERATION45_REPORT_SR.md",
+      "symlink_blob_sha": "6d196870dd192c563cca9252c17dfe7fa5ef82d2"
+    },
+    {
+      "path": "research/studies/i46/ITERATION46_REPORT_SR.md",
+      "symlink_blob_sha": "928541b2a5f978cfc988ebc8214de465e861b218"
+    },
+    {
+      "path": "research/studies/i47/ITERATION47_REPORT_SR.md",
+      "symlink_blob_sha": "533103a3d3e29aea106bdcb1ffd4a970c5248e86"
+    },
+    {
+      "path": "research/studies/i48/ITERATION48_REPORT_SR.md",
+      "symlink_blob_sha": "646a1bb8e8f4f7894b90acf593cdf685246578c2"
+    },
+    {
+      "path": "research/studies/i49/ITERATION49_REPORT_SR.md",
+      "symlink_blob_sha": "188466983498dca0a4bc404f6d1b65591fe60796"
+    },
+    {
+      "path": "research/studies/i50/ITERATION50_REPORT_SR.md",
+      "symlink_blob_sha": "2be57351fec74cc4129017c942d9eeb378c72157"
+    },
+    {
+      "path": "research/studies/i51/ITERATION51_REPORT_SR.md",
+      "symlink_blob_sha": "521bb07c965e6582a2062977e3fa7932578c9561"
+    },
+    {
+      "path": "research/studies/i52/ITERATION52_REPORT_SR.md",
+      "symlink_blob_sha": "dafcc80faeaa95db250f3ea62a82b3fd1e578b47"
+    },
+    {
+      "path": "research/studies/i53/ITERATION53_REPORT_SR.md",
+      "symlink_blob_sha": "c01193d33e50c759e96acd85de28c7ebfc54ad85"
+    },
+    {
+      "path": "research/studies/i55/ITERATION55_REPORT_SR.md",
+      "symlink_blob_sha": "3ab9096d79716d67d7541ede3a2f35e3f8be8144"
+    },
+    {
+      "path": "research/studies/i56/ITERATION56_REPORT_SR.md",
+      "symlink_blob_sha": "18603b85d74463ffb1d19cb50f2ce93cef5a5370"
+    },
+    {
+      "path": "research/studies/i57/ITERATION57_PROPOSAL_SR.md",
+      "symlink_blob_sha": "50d152c0fb134122624c05ec6e9d9b5d194381e9"
+    },
+    {
+      "path": "research/studies/i57/ITERATION57_REPORT_SR.md",
+      "symlink_blob_sha": "eaef93ae12f843c2acf249888c5f111938c3a576"
+    },
+    {
+      "path": "research/studies/i58/ITERATION58_PROPOSAL_SR.md",
+      "symlink_blob_sha": "70f6ed09a2b45cc2dc865d2c38d9a2a870486313"
+    },
+    {
+      "path": "research/studies/i58/ITERATION58_REPORT_SR.md",
+      "symlink_blob_sha": "6b00293b740bebf35e9c9886ceafeb6d0eb2c03a"
+    },
+    {
+      "path": "research/studies/i59/ITERATION59_PROPOSAL_SR.md",
+      "symlink_blob_sha": "b3bd45f60b2aff69fb85ec171a54b7bb45ce9f4d"
+    },
+    {
+      "path": "research/studies/i59/ITERATION59_REPORT_SR.md",
+      "symlink_blob_sha": "23a915a4c122b1dde9b54a2193b7b1719cf35613"
+    },
+    {
+      "path": "research/studies/i60/ITERATION60_PROPOSAL_SR.md",
+      "symlink_blob_sha": "2301a5661c98d3e7ad3727c4b4ddb8d2afae1e81"
+    },
+    {
+      "path": "research/studies/i60/ITERATION60_REPORT_SR.md",
+      "symlink_blob_sha": "c170128c35d71ac354379bc1855f2f11112d4aea"
+    },
+    {
+      "path": "research/studies/i61/ITERATION61_PROPOSAL_SR.md",
+      "symlink_blob_sha": "a7e5ca9797e30e8d8e86ef0f03ec8d054d623555"
+    },
+    {
+      "path": "research/studies/i61/ITERATION61_REPORT_SR.md",
+      "symlink_blob_sha": "a353da865f865d67d50e36e4f0928704c60674c2"
+    },
+    {
+      "path": "research/studies/i62/ITERATION62_PROPOSAL_SR.md",
+      "symlink_blob_sha": "8ad8f338b0af4a3e37e50b6a23719c90d2a81cee"
+    },
+    {
+      "path": "research/studies/i63/ITERATION63_REPORT_SR.md",
+      "symlink_blob_sha": "0e209ce66ed63ca164f2d1b3303ff3b7d04a8ece"
+    },
+    {
+      "path": "research/studies/integrity/DIAGNOSTIC_STUDY_DRAFT_SR.md",
+      "symlink_blob_sha": "deee5fff6522c6dba1e16fd37beb2c1993b5a9dc"
     }
   ],
   "limitations": [
-    "Name-suffix and Git symlink counts do not measure semantic duplication.",
-    "Current translations preserve every original data-table row exactly for I64 reports; all original Serbian blobs remain available.",
-    "Not-yet-translated thesis and frozen historical sources remain Serbian in legacy/thesis; do not label them English.",
-    "Translated text is a language rendition, not a new experiment or changed claim.",
-    "A full translation of 141 documents was NOT completed in this commit.",
-    "Exact same-stem English counterpart search does not establish absence of semantic duplicates under different filenames."
-  ],
-  "second_batch_base_commit": "82e4faeeab09e05e74be7456eb70cc9118de8384",
-  "second_batch_translations_tree": "038b32fe14ff1faf1bf4106579649ee9591628ce",
-  "same_stem_english_counterparts_identified_in_initial_tree": 0,
-  "initial_14_translations_tree": "6ae7a3e486ce5ce2199d0c0a3b7530811e70c591"
+    "This is a mode/SHA and filename-level audit, not a full semantic-duplicate detector.",
+    "An English synopsis is not a full translation. Historical 87 reports and ten thesis files remain Serbian.",
+    "Twenty earlier legacy/flat links to active root SR files were mistakenly counted as untranslated documents in v1; corrected here without changing the v1 archival blob.",
+    "Frozen studies, result archives, scientific code and the chronological research handoff are unchanged.",
+    "Non-_SR Serbian text may still exist elsewhere, including historical entries in PHD_PROGRESS.md."
+  ]
 }
