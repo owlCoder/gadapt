@@ -57,6 +57,8 @@ class AuditedBudget:
         a = np.array(x, dtype=float, copy=True)
         if a.ndim != 1 or len(a) < 1:
             raise ValueError("expected 1D nonempty candidate")
+        if not np.all(np.isfinite(a)):
+            raise ValueError("expected finite candidate coordinates")
         return tuple(float(t) for t in a.tolist())
 
     def evaluate(self, x, *, phase: str = "search", evaluator=None) -> float:
@@ -112,12 +114,31 @@ class AuditedBudget:
             raise RuntimeError("witness already checked")
         if independent is self.objective or not callable(independent):
             raise ValueError("independent witness evaluator required")
+        # Never certify under an invalid tolerance: infinity would make every
+        # finite discrepancy pass math.isclose, including an incorrect oracle.
+        try:
+            atol, rtol = float(atol), float(rtol)
+        except (TypeError, ValueError, OverflowError) as ex:
+            raise ValueError("invalid witness tolerances") from ex
+        if not (math.isfinite(atol) and math.isfinite(rtol)
+                and atol >= 0 and rtol >= 0):
+            raise ValueError("invalid witness tolerances")
         if self.best_x is None:
             return {"status": "NOT_SOLVED", "reason": "no_finite_search_result",
                     "attempts": self.attempts}
         x = np.asarray(self.best_x, dtype=float)
         if bounds is not None:
-            lo, hi = (np.asarray(z, dtype=float) for z in bounds)
+            try:
+                lo, hi = (np.asarray(z, dtype=float) for z in bounds)
+            except (TypeError, ValueError, OverflowError) as ex:
+                raise ValueError("invalid witness bounds") from ex
+            # A wrong shape can broadcast silently, and NaN comparisons are
+            # False. Neither must ever produce VALIDATED_WITNESS.
+            if (lo.shape != x.shape or hi.shape != x.shape
+                    or not np.all(np.isfinite(lo))
+                    or not np.all(np.isfinite(hi)) or np.any(lo > hi)):
+                return {"status": "INVALID_RESULT", "reason": "invalid_bounds",
+                        "attempts": self.attempts}
             if np.any(x < lo) or np.any(x > hi):
                 return {"status": "INVALID_RESULT", "reason": "out_of_bounds",
                         "attempts": self.attempts}
