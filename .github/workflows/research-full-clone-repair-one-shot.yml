@@ -31,7 +31,7 @@ jobs:
         run: |
           python -m venv .venv
           .venv/bin/python -m pip install --disable-pip-version-check --no-cache-dir -e .
-          .venv/bin/python -m pip install --disable-pip-version-check --no-cache-dir 'numpy==1.26.4' 'scipy>=1.15,<1.17' 'pytest>=8,<10' 'hypothesis>=6,<7' 'cma>=3,<5' 'networkx>=3,<4'
+          .venv/bin/python -m pip install --disable-pip-version-check --no-cache-dir 'numpy==1.26.4' 'scipy>=1.15,<1.17' 'pytest>=8,<10' 'hypothesis>=6,<7' 'cma>=3,<5' 'networkx>=3,<4' 'PYPOWER==5.1.19'
           .venv/bin/python -m pip check
 
       - name: Full-clone regression gate (bounded; no confirmatory research)
