@@ -52,11 +52,23 @@ def allowed_python(candidate: Path, root: Path) -> tuple[bool, str]:
     if not candidate.is_file():
         return False, "Python executable not found: " + str(candidate)
     try:
-        p = run_cmd([str(candidate), "-c", "import sys;print(f'{sys.version_info.major}.{sys.version_info.minor}')"],
-                    cwd=root, timeout=12)
-        version = p.stdout.strip()
-        return p.returncode == 0 and version == "3.12", version
-    except (OSError, subprocess.TimeoutExpired) as ex:
+        # Verify the *exact* interpreter that will execute all test steps. A
+        # path to .venv/bin/python is often a symlink to base Python; using
+        # Path.resolve() here silently leaves the venv and its dependencies.
+        check = ("import json,sys,numpy as np;"
+                 "print(json.dumps({'python': f'{sys.version_info.major}.{sys.version_info.minor}',"
+                 "'venv':sys.prefix!=sys.base_prefix,'numpy':np.__version__}))")
+        p = run_cmd([str(candidate), "-c", check], cwd=root, timeout=12)
+        if p.returncode:
+            return False, "interpreter/dependencies: " + p.stdout.strip()[:400]
+        info = json.loads(p.stdout.strip())
+        version = info["python"]
+        if info["venv"] is not True:
+            return False, version + " (not a virtualenv interpreter)"
+        if info["numpy"] != "1.26.4":
+            return False, version + " (NumPy " + info["numpy"] + ", expected 1.26.4)"
+        return version == "3.12", version
+    except (OSError, ValueError, KeyError, subprocess.TimeoutExpired) as ex:
         return False, str(ex)
 
 
@@ -179,7 +191,8 @@ def main() -> int:
                         help="seconds per command, 1..120; no expensive experiments")
     args = parser.parse_args()
     root = args.root.resolve()
-    python = (args.python if args.python is not None else root / ".venv/bin/python").resolve()
+    # Preserve the venv symlink: resolve() dereferences it to system Python.
+    python = (args.python if args.python is not None else root / ".venv/bin/python").absolute()
     if not (1 <= args.timeout <= 120):
         parser.error("--timeout must be 1..120")
     if not args.run:

@@ -62,3 +62,17 @@ gate. See the [gate report](../FULL_CLONE_EXECUTION_GATE_2026-11-01.md).
 ## Still not proven
 
 The entire I41/I56/I61/I63/I64 historical regression suite has **not been run in a full clone** after migration. Synthetic compatibility tests are not a substitute for full optimization integration. The [gate report](../ITERATION65_MIGRATION_COMPAT_GATE_2026-11-01_SR.md) gives exact remaining commands and blockers.
+
+## First real full-checkout attempt (2026-11-01)
+
+[GitHub Actions run #41357664531](https://github.com/owlCoder/gadapt/actions/runs/41357664531)
+**completed with FAILURE** at GA import. The full-history Python 3.12
+checkout did actually pass all **341 Git provenance checks**, restored all
+**341 historical aliases**, and passed **25 compatibility tests**. It did
+not reach the actual historical I41/I63/I64/I65 suite.
+
+The exact root cause was `.resolve()` on the `.venv/bin/python` symlink,
+plus a separately introduced NumPy 2.x dependency conflict. Both were
+corrected in the gate runner/workflow without touching GAdapt itself.
+See [full log-based diagnosis](../FULL_CLONE_WORKFLOW_REPAIR_2026-11-01.md).
+Only a subsequent independently verified run can close the remaining gate.

@@ -27,11 +27,14 @@ jobs:
         run: |
           python -m venv .venv
           .venv/bin/python -m pip install --disable-pip-version-check --no-cache-dir -e .
-          .venv/bin/python -m pip install --disable-pip-version-check --no-cache-dir 'scipy>=1.15,<2' 'pytest>=8,<10' 'hypothesis>=6,<7' 'cma>=3,<5' 'networkx>=3,<4'
+          # Install the package's exact NumPy dependency in the *same*
+          # transaction as SciPy so the resolver cannot replace it with 2.x.
+          .venv/bin/python -m pip install --disable-pip-version-check --no-cache-dir 'numpy==1.26.4' 'scipy>=1.15,<1.17' 'pytest>=8,<10' 'hypothesis>=6,<7' 'cma>=3,<5' 'networkx>=3,<4'
+          .venv/bin/python -m pip check
 
       - name: Execute bounded full-checkout core regression and capture SHA logs
         run: |
-          python research/compat/run_full_clone_gate.py \
+          .venv/bin/python research/compat/run_full_clone_gate.py \
             --python "$GITHUB_WORKSPACE/.venv/bin/python" \
             --expected-head "$GITHUB_SHA" \
             --run \

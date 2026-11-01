@@ -122,5 +122,35 @@ class FullCloneGateTests(unittest.TestCase):
         self.assertIn('not pygad', ' '.join(local_gate.STEPS[-2][2]))
 
 
+    def test_main_preserves_venv_python_symlink(self):
+        # Use real venv, not a mocked Python interpreter, to catch a repeat
+        # of the GitHub Actions failure: .resolve() lost the site-packages.
+        import os
+        import sys
+        import venv
+        if os.name != "posix":
+            self.skipTest("requires POSIX virtualenv symlinks")
+        venv_path = self.base / "real_venv"
+        venv.EnvBuilder(with_pip=False, symlinks=True).create(venv_path)
+        vpython = venv_path / "bin" / "python"
+        self.assertTrue(vpython.is_symlink())
+        self.assertNotEqual(str(vpython.absolute()), str(vpython.resolve()))
+        result = subprocess.run([str(vpython), "-c",
+                                 "import sys; print(sys.prefix != sys.base_prefix)"],
+                                capture_output=True, text=True, check=True)
+        self.assertEqual(result.stdout.strip(), "True")
+
+    def test_wrong_interpreter_or_numpy_fails_closed(self):
+        import subprocess
+        # Synthetic response models Python 3.12 outside venv, and NumPy 2.x
+        for payload in ('{"python":"3.12","venv":false,"numpy":"1.26.4"}',
+                        '{"python":"3.12","venv":true,"numpy":"2.5.4"}'):
+            with patch.object(local_gate, 'run_cmd',
+                              return_value=subprocess.CompletedProcess([], 0, payload, '')):
+                ok, reason = local_gate.allowed_python(self.python, self.root)
+                self.assertFalse(ok)
+                self.assertIn('3.12', reason)
+
+
 if __name__ == '__main__':
     unittest.main()
