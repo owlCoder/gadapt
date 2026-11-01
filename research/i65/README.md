@@ -1,32 +1,27 @@
-# I65 — instrumentacija i testovi (research-only; UNFROZEN)
+# I65 — research-only instrumentation and tests (UNFROZEN)
 
-**Status 2026-11-01:** `novelty not established`, `FREEZE=NO`,
-`COCO f21/f24 = NOT_RUN`, `GAdapt/CMA integration = NOT_TESTED`.
+**2026-11-01 status:** `novelty not established`; `NO-FREEZE`; `COCO f21/f24 NOT_RUN`; `GAdapt/CMA integration NOT_TESTED`.
 
-Devet Python fajlova u ovom direktorijumu su **sandbox-only**, bez promena
-u `gadapt/` ili GAdapt podrazumevanim parametrima:
+The nine Python files in this directory are **research-only** and do not modify GAdapt's library defaults:
 
-- `audited_budget.py`: sekvencijalni brojač fizičkih poziva i nezavisni witness.
-- `stagnation_checked.py`: provereno pravilo 20 završenih generacija.
-- `e_common_snapshot.py`, `stagnation_reference.py`: lokalni poredbni izvori.
-- `make_gate_fixtures.py` i `test_*.py`: testne fixtures, regresioni i DE smoke test.
+- `audited_budget.py` — sequential physical-attempt accounting and a charged final witness.
+- `stagnation_checked.py` — 20-completed-generation stagnation semantics.
+- `e_common_snapshot.py`, `stagnation_reference.py` — comparison/reference sources.
+- `make_gate_fixtures.py`, `test_*.py` — deterministic fixtures, regression and SciPy DE smoke tests.
 
-## Lokalno pokretanje
+From the root of a clone with installed NumPy, SciPy and pytest:
 
-Iz korena repozitorijuma, uz instalirane NumPy/SciPy/pytest:
-
-```bash
+```sh
 python -m pytest -q -rx research/i65
 python research/i65/make_gate_fixtures.py
 ```
 
-Pri pripremi arhive: **54 passed, 3 xfailed**; log:
-[../I65_GATE_TEST_LOG.txt](../I65_GATE_TEST_LOG.txt).
-Tri očekivana neuspeha odnose se na prethodne reference, ne na COCO ishod.
-I65 tests `!=` GAdapt/CMA/COCO integration; nijedan held-out run nije izvršen.
+The archived **isolated** run recorded **54 passed, 3 xfailed** ([test log](../I65_GATE_TEST_LOG.txt)). Three intentional xfails relate to older reference instrumentation, not failed optimizer experiments. This is not the result of a full-clone migration regression. No held-out COCO benchmarks have been performed.
 
-- [DRAFT protokol](../ITERATION65_DRAFT_PROTOCOL_SR.md)
-- [Prior-art](../ITERATION65_PRIOR_ART_AUDIT_DRAFT_SR.md)
-- [Gate izveštaj](../ITERATION65_INSTRUMENTATION_GATE_REPORT_SR.md)
-- [Sirove **testne** fixtures](../I65_INSTRUMENTATION_FIXTURES.json)
-- [Provenijencija GitHub arhive](../ITERATION65_GITHUB_PROVENANCE_ADDENDUM_SR.md)
+- [I65 DRAFT](../ITERATION65_DRAFT_PROTOCOL_SR.md)
+- [Prior-art audit](../ITERATION65_PRIOR_ART_AUDIT_DRAFT_SR.md)
+- [Instrumentation gate](../ITERATION65_INSTRUMENTATION_GATE_REPORT_SR.md)
+- [Raw **test** fixtures](../I65_INSTRUMENTATION_FIXTURES.json)
+- [GitHub provenance](../ITERATION65_GITHUB_PROVENANCE_ADDENDUM_SR.md)
+- [Research decision](../RESEARCH_DECISION_2026-11-01.md)
+- [Supervisor decision package](../SUPERVISOR_DECISION_PACKAGE_2026-11-01.md)

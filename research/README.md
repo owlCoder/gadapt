@@ -9,10 +9,10 @@
 - [**Literature and prior-art audits**](literature/) — novelty gates and negative hypotheses.
 - [**Dissertation and research decisions**](overview/) · [Infrastructure domains](domains/).
 - [**Research tools**](tools/) · [I64 code](i64/) · [I65 instrumentation](i65/).
-- [**Mentor meeting notes**](MENTOR_MEETING_NOTES_SR.md) · [Mentor summary](MENTOR_SUMMARY_2026-10-28_SR.md) (both currently Serbian sources).
+- [**Mentor meeting notes**](MENTOR_MEETING_NOTES_SR.md) · [Mentor summary](MENTOR_SUMMARY_2026-10-28_SR.md) (active English translations; historical `_SR` names retained).
 - [**Research reviews**](codex/) · [Thesis](thesis/) (historical Serbian drafts).
 - [**Original historical materials**](legacy/) · [Compatibility tools](compat/) · [Migration map](MIGRATION_MANIFEST_2026-11-01.json).
-- [**Consolidated evidence and negative results**](EVIDENCE_SYNTHESIS.md) · [**Research direction and decision gate**](RESEARCH_DECISION_2026-11-01.md).
+- [**Consolidated evidence and negative results**](EVIDENCE_SYNTHESIS.md) · [**Research direction and decision gate**](RESEARCH_DECISION_2026-11-01.md) · [**Supervisor decision package**](SUPERVISOR_DECISION_PACKAGE_2026-11-01.md).
 - [**English-language documentation policy**](LANGUAGE_POLICY.md) · [Per-document translation audit](LANGUAGE_AUDIT_2026-11-01.json).
 
 ## Current research status
@@ -23,7 +23,7 @@
 
 ## Documentation migration
 
-The 341 historical root files were moved without changes to their Git blob SHAs; curated topic views use symlinks. English is now the documentation language. Historical `_SR` suffixes may remain on English-translated active files **only for backward link compatibility**. As of this audit, **14 of 141 canonical `_SR.md` documents have complete English translations**, with Serbian originals archived unchanged. No claim of full translation is made.
+The 341 historical root files were moved without changes to their Git blob SHAs; curated topic views use symlinks. English is now the documentation language. Historical `_SR` suffixes may remain on English-translated active files **only for backward link compatibility**. As of this audit, **24 of 121 regular content `_SR.md` documents have complete English translations**, with Serbian originals archived unchanged. **97** Serbian original sources remain (87 historical and ten thesis manuscripts); **107** symlinks are navigational views, not additional content. The obsolete count included 20 aliases as content. No claim of full translation is made.
 
 To reproduce an older CLI, **do not execute it from the curated Git symlink view**. Restore original root aliases first:
 
@@ -32,4 +32,4 @@ python research/compat/restore_legacy_paths.py --verify
 python research/compat/restore_legacy_paths.py --apply --verify
 ```
 
-Full historical regression after migration has not yet been demonstrated. [Compatibility gate report](ITERATION65_MIGRATION_COMPAT_GATE_2026-11-01_SR.md) (Serbian, not yet translated).
+Full historical regression after migration has not yet been demonstrated. [Compatibility gate report](ITERATION65_MIGRATION_COMPAT_GATE_2026-11-01_SR.md) (translated active source at its historical path).
