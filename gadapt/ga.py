@@ -117,6 +117,8 @@ class GA:
         timeout=600,
         factory: Optional[BaseGAFactory] = None,
         normal_distribution_mutation_min_std_dev_decay_generations: Optional[float] = None,
+        mutation_focus_generations: Optional[float] = None,
+        mutation_focus_exploration_probability: float = 0.1,
         cost_diversity_metric: str = "log_relative",
         mutation_operator_policy: str = "legacy",
         mutation_operator_credit: str = "objective",
@@ -289,6 +291,18 @@ class GA:
                 variables, the lower bound never goes below one step. A good starting point is
                 2.5, together with normal_distribution_mutation_min_std_dev of 1e-4.
 
+            mutation_focus_generations: None (default) or a number of generations. If it is None,
+                the mutation does not depend on the stagnation of the minimal cost. Otherwise, for
+                every such number of consecutive generations in which the minimal cost does not improve,
+                the number of mutated decision variables in a candidate solution is halved (at least one
+                is mutated), and the random decision variable mutator (a new value anywhere in the range)
+                is chosen half as often. It is restored when the minimal cost improves. A converged
+                population is then refined by a few small changes, instead of many large ones.
+
+            mutation_focus_exploration_probability: The probability (0 to 1, default 0.1) that a
+                candidate solution is mutated without the focus (mutation_focus_generations), so the
+                randomness is kept. Used only if mutation_focus_generations is set.
+
             cost_diversity_metric: 'log_relative' (legacy default) or
                 'affine_invariant' (experimental, scale/offset-invariant measure).
             adaptive_immigration_patience: None (disabled by default) or a
@@ -445,6 +459,8 @@ class GA:
         self.normal_distribution_mutation_max_std_dev = normal_distribution_mutation_max_std_dev
         self.normal_distribution_mutation_min_std_dev = normal_distribution_mutation_min_std_dev
         self.normal_distribution_mutation_min_std_dev_decay_generations = normal_distribution_mutation_min_std_dev_decay_generations
+        self.mutation_focus_generations = mutation_focus_generations
+        self.mutation_focus_exploration_probability = mutation_focus_exploration_probability
         self.timeout = timeout
         self._current_dv_id = 0
         self._factory = factory
@@ -1094,6 +1110,32 @@ class GA:
         self._normal_distribution_mutation_min_std_dev_decay_generations = (
             value if value is None or isinstance(value, bool) else ga_utils.try_get_float(value)
         )
+
+    @property
+    def mutation_focus_generations(self) -> Optional[float]:
+        """
+        None (default) or a number of generations. If it is None, the mutation does not depend on the stagnation
+        of the minimal cost. Otherwise, for every such number of consecutive generations without an improvement
+        of the minimal cost, the number of mutated decision variables is halved (at least one is mutated), and the
+        random decision variable mutator is chosen half as often. It is restored when the minimal cost improves.
+        """
+        return self._mutation_focus_generations
+
+    @mutation_focus_generations.setter
+    def mutation_focus_generations(self, value: Optional[float]):
+        # a bool is kept as it is (float(True) would silently become 1.0), so that the validation rejects it
+        self._mutation_focus_generations = value if value is None or isinstance(value, bool) else ga_utils.try_get_float(value)
+
+    @property
+    def mutation_focus_exploration_probability(self) -> float:
+        """
+        The probability that a candidate solution is mutated without the focus (mutation_focus_generations).
+        """
+        return self._mutation_focus_exploration_probability
+
+    @mutation_focus_exploration_probability.setter
+    def mutation_focus_exploration_probability(self, value: float):
+        self._mutation_focus_exploration_probability = ga_utils.try_get_float(value)
 
     @property
     def logging(self) -> bool:

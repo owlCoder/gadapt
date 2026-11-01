@@ -26,6 +26,7 @@ class BaseDecisionVariableMutationSelector(ABC):
         self._decision_variable_mutation_rate_determinator = decision_variable_mutation_rate_determinator
         self._decision_variable_mutator = decision_variable_mutator
         self.number_of_mutation_decision_variables = -1
+        self.focus = None  # a MutationFocus, if the late-stage mutation focus is on
 
     def mutate(self, c, number_of_mutation_decision_variables: int):
         """
@@ -35,6 +36,8 @@ class BaseDecisionVariableMutationSelector(ABC):
             number_of_mutation_decision_variables: Number of mutation decision variables
         """
         self.candidate_solution = c
+        if self.focus is not None:
+            self.focus.begin_candidate_solution()
         if number_of_mutation_decision_variables > len(c):
             self.number_of_mutation_decision_variables = len(c)
         else:

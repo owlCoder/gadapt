@@ -53,6 +53,8 @@ class GAOptions:
         self._normal_distribution_mutation_min_std_dev = ga.normal_distribution_mutation_min_std_dev
         self._normal_distribution_mutation_max_std_dev = ga.normal_distribution_mutation_max_std_dev
         self._normal_distribution_mutation_min_std_dev_decay_generations = ga.normal_distribution_mutation_min_std_dev_decay_generations
+        self._mutation_focus_generations = ga.mutation_focus_generations
+        self._mutation_focus_exploration_probability = ga.mutation_focus_exploration_probability
         self._stagnation_generations_function = None
         self._logging = ga.logging
         self._decision_variables = ga._decision_variables
@@ -142,6 +144,22 @@ class GAOptions:
     @normal_distribution_mutation_min_std_dev_decay_generations.setter
     def normal_distribution_mutation_min_std_dev_decay_generations(self, value):
         self._normal_distribution_mutation_min_std_dev_decay_generations = value
+
+    @property
+    def mutation_focus_generations(self):
+        return self._mutation_focus_generations
+
+    @mutation_focus_generations.setter
+    def mutation_focus_generations(self, value):
+        self._mutation_focus_generations = value
+
+    @property
+    def mutation_focus_exploration_probability(self):
+        return self._mutation_focus_exploration_probability
+
+    @mutation_focus_exploration_probability.setter
+    def mutation_focus_exploration_probability(self, value):
+        self._mutation_focus_exploration_probability = value
 
     @property
     def stagnation_generations_function(self):

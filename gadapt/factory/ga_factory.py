@@ -119,6 +119,7 @@ from gadapt.operations.crossover.differential_crossover import DifferentialCross
 from gadapt.operations.exit_check.number_of_generations_exit_checker import (
     NumberOfGenerationsExitChecker,
 )
+from gadapt.operations.mutation.mutation_focus import MutationFocus
 from gadapt.operations.mutation.decision_variable_mutation.composed_decision_variable_mutator import (
     ComposedDecisionVariableMutator,
 )
@@ -152,6 +153,23 @@ class GAFactory(BaseGAFactory):
         super().__init__()
         self.decision_variable_mutation_rate_determinator = None
         self.candidate_solution_mutation_rate_determinator = None
+        self._mutation_focus = None
+        self._mutation_focus_options = None
+
+    def _get_mutation_focus(self):
+        """
+        The mutation focus shared by the mutation components, or None if mutation_focus_generations is not set.
+        """
+        if self._options.mutation_focus_generations is None:
+            return None
+        if self._mutation_focus is None or self._mutation_focus_options is not self._options:
+            self._mutation_focus = MutationFocus(
+                self._options.mutation_focus_generations,
+                self._options.mutation_focus_exploration_probability,
+                self._options.get_stagnation_generations_function,
+            )
+            self._mutation_focus_options = self._options
+        return self._mutation_focus
 
     def _get_cost_finder(self) -> BaseCostFinder:
         """
@@ -224,6 +242,7 @@ class GAFactory(BaseGAFactory):
             main_decision_variable_mutator = ComposedDecisionVariableMutator()
             for mutator in decision_variable_mutators:
                 main_decision_variable_mutator.append(mutator)
+            main_decision_variable_mutator.focus = self._get_mutation_focus()
         return main_decision_variable_mutator
 
     def _get_decision_variable_mutator(self) -> BaseDecisionVariableMutator:
@@ -439,6 +458,9 @@ class GAFactory(BaseGAFactory):
             helper_decision_variable_mutation_rate_determinator = (
                 main_decision_variable_mutation_rate_determinator
             )
+        focus = self._get_mutation_focus()
+        main_decision_variable_mutation_rate_determinator.focus = focus
+        helper_decision_variable_mutation_rate_determinator.focus = focus
         return (
             main_decision_variable_mutation_rate_determinator,
             helper_decision_variable_mutation_rate_determinator,
@@ -512,6 +534,7 @@ class GAFactory(BaseGAFactory):
                 decision_variable_mutation_selectors,
                 helper_decision_variable_mutation_rate_determinator,
             )
+        decision_variable_mutation_selector.focus = self._get_mutation_focus()
         return decision_variable_mutation_selector
 
     def get_composed_decision_variable_mutation_selector(

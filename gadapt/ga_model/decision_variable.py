@@ -144,7 +144,10 @@ class DecisionVariable:
                 # Step is too small relative to range — treat as continuous
                 return numpy.random.uniform(low=self.min_value, high=self.max_value)
             # Discrete case: pick a random step multiple within bounds
-            max_steps = int(decision_variable_range / self.step)
+            # A range that is a whole number of steps can give a ratio just below it (e.g. 10.2 / 0.1 = 101.99999999999999),
+            # which truncation would turn into one step less, losing the top value of the grid.
+            steps_in_range = decision_variable_range / self.step
+            max_steps = round(steps_in_range) if math.isclose(steps_in_range, round(steps_in_range), rel_tol=1e-9, abs_tol=1e-9) else int(steps_in_range)
             random_step = numpy.random.randint(0, max_steps + 1)
             value = self.min_value + random_step * self.step
             return round(min(value, self.max_value), self.decimal_places)

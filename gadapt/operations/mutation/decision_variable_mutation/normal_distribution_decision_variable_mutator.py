@@ -82,15 +82,18 @@ class NormalDistributionDecisionVariableMutator(BaseDecisionVariableMutator):
             number_of_steps = round(
                 (normal_distribution_random_value * decision_variable_range) / effective_step
             )
-            value = decision_variable.min_value + number_of_steps * effective_step
+            # Rounded to the decimals of the step, so the value is exactly a grid value (and equal to curr_value
+            # when it is the same grid value), without the floating-point error of min_value + k * step.
+            decimal_places = decision_variable.decimal_places
+            value = round(decision_variable.min_value + number_of_steps * effective_step, decimal_places)
 
             # If snapping produced the same value, nudge by ±1 step
             if value == curr_value:
                 direction = random.choice([-1, 1])
-                value = value + direction * effective_step
+                value = round(value + direction * effective_step, decimal_places)
                 # If nudge goes out of bounds, try the other direction
                 if value < decision_variable.min_value or value > decision_variable.max_value:
-                    value = curr_value - direction * effective_step
+                    value = round(curr_value - direction * effective_step, decimal_places)
                 # Final clamp for safety
                 value = max(decision_variable.min_value, min(value, decision_variable.max_value))
 

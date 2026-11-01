@@ -512,6 +512,22 @@ class CommonOptionsValidator(BaseOptionsValidator):
                 "Normal Distribution Mutation Min Std Dev Decay Generations must be None or a positive number!"
             )
             rslt &= False
+        focus_generations = self.options.mutation_focus_generations
+        if focus_generations is not None and (
+            isinstance(focus_generations, bool)
+            or not isinstance(focus_generations, (int, float))
+            or not focus_generations > 0
+        ):
+            self._add_message("Mutation Focus Generations must be None or a positive number!")
+            rslt &= False
+        exploration_probability = self.options.mutation_focus_exploration_probability
+        if (
+            isinstance(exploration_probability, bool)
+            or not isinstance(exploration_probability, (int, float))
+            or not 0.0 <= exploration_probability <= 1.0
+        ):
+            self._add_message("Mutation Focus Exploration Probability must be a number between 0 and 1!")
+            rslt &= False
         if self.options.timeout is None:
             self._add_message("Timeout must not be None!")
             rslt &= False
