@@ -1,31 +1,31 @@
-# I65 — provera instrumentacije (lokalni reference-test; 2026-11-01)
+# I65 — instrumentation validation (isolated reference tests, 2026-11-01)
 
-**Obim:** bez izmena originalnog repozitorijuma. U izolovanom test paketu `i65/` nalazi se byte-identična kopija `research/i64/e_common.py` iz GitHub-a (Git blob SHA `3aab99773a7e4a95b7972a3c8061c50bd471618d`), referentna mašina stagnacije i unit testovi. Testirani su postojeći `Budget` i nezavisni *proposed monitor*, ali **ne** svi integracioni ulazi GAdapt/DE/CMA/COCO. Rezultati nisu konfirmatorni i nisu nezavisna recenzija.
+**Scope:** The original repository was not modified during this initial validation. An isolated `i65/` package contained a byte-identical copy of GitHub's `research/i64/e_common.py` (Git blob SHA `3aab99773a7e4a95b7972a3c8061c50bd471618d`), a reference stagnation state machine and unit tests. The original `Budget` and a separately proposed stagnation monitor were tested, **not all GAdapt/DE/CMA/COCO integration paths**. These are not confirmatory results or independent human review.
 
-**Izvršenje:** `python -m pytest -q test_i65_instrumentation.py`, iz `research/i65/`.
+**Execution:** `python -m pytest -q test_i65_instrumentation.py`, in `research/i65/`.
 
-**Ishod:** `12 passed, 2 xfailed` (očekivano neuspešna regresiona testa). Nije bilo novih optimizacionih pokretanja i nije napravljen nijedan GitHub commit/push.
+**Outcome:** `12 passed, 2 xfailed` (intentionally expected-failing regression cases). No optimization experiments were run and no GitHub commits/pushes were made at the time of this initial report.
 
-| Provera | Ishod | Šta je provereno / ograničenje |
+| Check | Outcome | What was checked / limitation |
 |---|---|---|
-| `Budget`: B/B+1 | PASS | B-ti poziv se izvrši, B+1 odbija; `BudgetReached` je `BaseException`. |
-| Fizičke probe/duplikati/callback | PASS (direktni test) | Svaki uspešan prolazak kroz omotač se broji. Nije dokazano da svi stvarni bibliotečki callback-i koriste ovaj ulaz. |
-| Nevalidni `nan/±inf`, ties | PASS | Broje se i ne postaju najniži konačni svedok; prvi vektor pri istoj ceni ostaje. |
-| `deepcopy` | PASS | Omotač vraća isti objekat (važno za GAdapt kopiranje). |
-| STAGNATION posle tačno 20 | PASS — referenca | Događaj samo nakon 20 **dovršenih** generacija; u toku nepotpune generacije ne nastaje. |
-| Strogo `delta > eps_abs+eps_rel*max(1,abs(previous))` | PASS — referenca | Tie nije značajan; značajno poboljšanje resetuje brojač. |
-| Restart, global incumbent, različite dužine generacija | PASS — referenca | Resetuje se brojač, čuva se globalni best; događaj beleži stvarni `nfev`. |
-| Seed replay reference mašine | PASS — referenca | Fiksno seme daje identičan heš događaja; ne obuhvata stvarni `GA.execute()` ni SciPy. |
-| Originalni brojač na izuzetku | **XFAIL — otkrivena rupa** | `Budget.__call__` radi `v=float(self.g(y))` pre `self.n+=1`; ako evaluacija baci izuzetak, fizički pokušaj nije upisan. Bez safe-fail politike i resurse je moguće ponovo koristiti. |
-| Originalni svedok pri mutiranju ulaza | **XFAIL — otkrivena rupa** | `best_y` se kopira tek nakon `g(y)`; evaluator koji mutira listu menja zapis svedoka. Nije dokazano da je to uticalo na već korišćene COCO/I64 funkcije. |
+| `Budget`: B/B+1 | PASS | The Bth evaluation is allowed; B+1 is rejected. `BudgetReached` derives from `BaseException`. |
+| Physical probes, duplicates, callbacks | PASS (direct test) | Every successful invocation through the wrapper was counted. This does not demonstrate that all real library callbacks use that wrapper. |
+| Invalid `nan/±inf`, ties | PASS | Nonfinite values are counted but cannot become the best finite witness; on equal costs the first input remains. |
+| `deepcopy` | PASS | The wrapper returns the same object instance, relevant when GAdapt clones its objects. |
+| STAGNATION after exactly 20 generations | PASS — reference | A stagnation event fires only after 20 **completed** generations, not during an incomplete generation. |
+| Strict `delta > eps_abs+eps_rel*max(1,abs(previous))` | PASS — reference | A tie is not significant; significant improvement resets the counter. |
+| Restart, global incumbent, variable generation lengths | PASS — reference | Restart resets the stagnation counter but retains the global incumbent; events record the actual `nfev`. |
+| Seed replay of the reference state machine | PASS — reference | The same seed yields the same event hash. This does not cover real `GA.execute()` or SciPy runs. |
+| Original call counter on exceptions | **XFAIL — discovered gap** | `Budget.__call__` computes `v=float(self.g(y))` before `self.n+=1`. A raised exception leaves the actual physical attempt unrecorded. Without fail-safe behavior resources might be reused. |
+| Original witness with mutable input | **XFAIL — discovered gap** | `best_y` is copied only after `g(y)`. An evaluator that mutates the input can change the recorded witness. There is no evidence this affected the previously used I64/COCO-style functions. |
 
-## Predloženo otklanjanje — nije implementirano u repozitorijumu
+## Proposed remedies — not implemented in the production repository at the time of this report
 
-1. Na samoj granici izvršavanja rezervisati `attempt_id` i uvećati `attempted_physical_evaluations` **pre** poziva. Zasebno brojati `returned_finite`, `returned_nonfinite`, `raised_exception`, `invalid_decoding` i `completed`. Svaki pokušaj u B ulazi u budžet, čak i kada izuzetak ili prekid nastane u spoljašnjem solveru. Obaviti idempotentnost/jedinstveni ID probe kod batch/async poziva.
-2. Kopirati ulazni niz `x_pre` pre poziva, a za najboljeg svedoka sačuvati upravo `x_pre` i cenu; nezavisno ponovno proveriti cenu drugim evaluacionim putem. Validation/witness pozivi koji fizički izvršavaju funkciju **moraju** imati obezbeđenu budžetsku rezervaciju (ili biti jasno označeni kao odvojeni, dodatni verifikacioni budžet — ne smeju ulaziti u „B=12k“ uspeh).
-3. Instrumentirati GAdapt završetak generacije u adaptorskom sloju (`exit_check` nije ekvivalent), SciPy DE `callback(intermediate_result=...)` bez dodatnog `func(x)` (ako ga pozove — naplatiti), CMA `ask/tell` nakon cele evaluirane serije. Pri B preseku nepotpunu generaciju ne brojati kao novu generaciju stagnacije. Nema `success=True` iz biblioteke kao zamene za kvalitet.
-4. Pre FREEZE dopuniti integracione testove nad GAdapt/DE/CMA, proći through `B-1, B, B+1`, `max_calls=1`, nulta poboljšanja, negativne i nefinite vrednosti, mutable witness, callback, replay između **dva procesa**, restart inicijalizaciju, witness i *default bit-identity hash*. `cocoex`/`cma` nisu instalirani u dostupnom lokalnom sandboxu, stoga ovi gateovi nisu ispunjeni.
+1. Reserve an `attempt_id` and increment `attempted_physical_evaluations` **before** calling the evaluator. Separately count `returned_finite`, `returned_nonfinite`, `raised_exception`, `invalid_decoding`, and `completed`. Every attempted call consumes budget B even if an external solver raises or stops. In batched/asynchronous evaluation, require idempotency and unique probe IDs.
+2. Snapshot the input `x_pre` before invocation. Save that exact candidate and its cost for the incumbent; independently verify cost by a second evaluation path. Physical validation/witness calls must use a reserved slot within B, or be explicitly counted as a separate disclosed verification budget, never hidden inside a claimed `B=12k` result.
+3. Instrument a real GAdapt *completed-generation* event in an adapter (the default `exit_check` is not equivalent). Use SciPy DE's `callback(intermediate_result=...)` without an additional `func(x)`, or count any such callback evaluation. Perform CMA `ask/tell` only after a fully evaluated batch. A partially evaluated generation at the B boundary is not a completed generation for stagnation purposes. Library `success=True` is not a substitute for validated solution quality.
+4. Before FREEZE, add real integration tests for GAdapt/DE/CMA, including B−1/B/B+1, `max_calls=1`, no improvement, negative/nonfinite costs, mutated witnesses, callbacks, two-process deterministic replay, restart population initialization, independent witness and default behavior bit-identity hash. `cocoex` and `cma` were not installed in the available sandbox; these gates were therefore **not satisfied**.
 
-## Šta nije potvrđeno
+## What was not established
 
-Nema nezavisnog code review-a, nijednog integracionog testa stvarnog algoritskog prelaska, nijedne izvedene COCO f21/f24 instance, niti reprodukcije arhiviranih I64 rezultata u ovoj sesiji. U ovom stanju je **NO-FREEZE / NO-RUN** za veliku potvrdu. Dva XFAIL slučaja nisu dokaz da su raniji nalazi kompromitovani, ali su blokatori pre nove konfirmatorne serije.
+There was no independent code review, no integration test of a real algorithm switch, no official COCO f21/f24 instance evaluation, and no replay of prior I64 results in this session. The status remained **NO-FREEZE / NO-RUN** for major confirmation. The two XFAIL cases do not establish that earlier scientific findings were compromised, but they are blockers that must be addressed before a new confirmatory experiment.

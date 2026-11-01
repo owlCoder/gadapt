@@ -1,10 +1,10 @@
-# I64 — dijagnostika brojanja evaluacija u mentorovom benchmarku (NEPREREGISTROVANO, samo orijentacija za dizajn)
+# I64 — Evaluation-call accounting diagnostic for the mentor's benchmark (NOT preregistered; design guidance only)
 
-Datum 2026-10-28. Skripta: `mbench_count_diagnostic.py` (mentorove klase/operatori i parametri iz `gadapt_experiments@0e388356`, Sphere, pop 64, stagnacija 20, limit 600;
-GAdapt koristi zajednički brojač jer `GA.execute()` duboko kopira GA). 8 pokretanja po konfiguraciji, semena 0..7. Ne koristi se kao dokaz; ne utiče na protokol osim što potvrđuje
-da je brojanje stvarnih poziva neophodno.
+**Date:** 2026-10-28. Script: `mbench_count_diagnostic.py`, using mentor classes/operators and parameters from `gadapt_experiments@0e388356`, Sphere, population 64, stagnation 20, generation limit 600. GAdapt needs a shared counter because `GA.execute()` deep-copies the GA. Eight runs per configuration, seeds 0–7. This probe is **not scientific evidence** and does not change the protocol, except by confirming the need to account for actual objective-function calls.
 
-| Sphere | konfiguracija | poziva/pokretanju (sr.) | generacija | poziva/gen. | sr. završna greška |
+The table retains the source report's numeric notation: the dot separates thousands in call counts, while a comma denotes decimals in other columns (e.g., 9.942 = 9,942 calls; 309,6 = 309.6 generations).
+
+| Sphere | Configuration | Calls per run (mean) | Generations | Calls per generation | Mean final error |
 |---|---|---|---|---|---|
 | D=7 | GAdapt diversity | 9.942 | 309,6 | 32,1 | 9,4e−9 |
 | D=7 | PyGAD random | 19.232 | 600 (limit) | 32,1 | 4,0e−9 |
@@ -15,7 +15,6 @@ da je brojanje stvarnih poziva neophodno.
 | D=2 | PyGAD adaptive | 38.400 | 600 (limit) | 64,0 | 7,7e−120 |
 | D=2 | SciPy DE | 3.558 | 53,8 | 66,2 | 1,9e−19 |
 
-Opažanja (opisno, jedna funkcija): (1) generacija nije jedinica troška: DE i PyGAD adaptive evaluiraju ≈ 64 po generaciji, GAdapt i PyGAD random ≈ 32; PyGAD adaptive troši 2× evaluacija od PyGAD random za iste generacije.
-(2) Obe PyGAD konfiguracije stižu do limita od 600 generacija (stagnaciono pravilo se ne aktivira jer fitnes i dalje blago opada), pa im je „tačnost pri zaustavljanju“ posledica 2–4× većeg budžeta nego kod GAdapt-a.
-(3) Na Sphere u ovom podešavanju SciPy DE je i brži i tačniji od GAdapt-a po broju evaluacija; mentorova formulacija „tačniji od onog jednog“ ovde nije potvrđena za DE, što samo ukazuje da treba tačno saznati koji algoritam i koja funkcija.
-Ovo je razlog za I64-S: isti budžet u stvarnim evaluacijama, nezavisno brojanje, više funkcija, pomerene/rotirane varijante, i mere repa raspodele.
+**Descriptive observations from one function:** (1) Generations are not a common cost unit: DE and PyGAD adaptive use about 64 calls per generation, while GAdapt and PyGAD random use about 32. PyGAD adaptive uses twice the calls of PyGAD random for the same generation count. (2) Both PyGAD configurations reach the 600-generation cap because the fitness continues to improve slightly; their apparent "final accuracy at stopping" comes from 2–4 times GAdapt's evaluation budget. (3) On Sphere in this setup, SciPy DE is both faster and more accurate than GAdapt in physical calls. The mentor's claim that GAdapt is "more accurate than that one" is not supported here if the exception is DE; the actual algorithm and function need to be identified first.
+
+This motivated I64-S: equal real-evaluation budgets, independent accounting, more functions, shifted/rotated variants and tail-risk metrics.

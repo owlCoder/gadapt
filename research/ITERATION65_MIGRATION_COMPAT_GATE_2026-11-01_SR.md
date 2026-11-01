@@ -1,22 +1,22 @@
-# I65 — migracioni kompatibilni gate, 2026-11-01
+# I65 — Research-layout migration compatibility gate (2026-11-01)
 
-**Status: DELIMIČNI GO za alat za restauraciju; NO-GO za proglašavanje potpune istorijske regresije.** Nema novog optimizacionog benchmarka, promene GA default-a, COCO pokretanja ili promene zamrznutih studija.
+**Status: PARTIAL GO for the path-restoration tool; NO-GO for claiming full historical regression compatibility.** This is not a new optimization benchmark and does not change GA defaults, COCO results or frozen research protocols.
 
-## Obuhvat
+## Scope and verification
 
-1. GitHub baza: pre migracije `0e7cacda2040643a41ff923dd2a71ffbc3f5dfef`, posle migracije `92a31c109edf60810e383833bac1bf8d7430d603`. Provereno: 341 starih root fajlova fizički premešteno sa **identičnim Git blob SHA**, 2.717 starih sirovih izlaznih fajlova nepromenjeno; 64 generisana `__pycache__` fajla uklonjena.
-2. **Kritična statička revizija GitHub izvora:** I56 `iteration56_cht_study.py`, I58 `iteration58_validation.py`, I61 `iteration61_replication.py` i I63 `iteration63_replication.py` zasnivaju `HERE` i/ili `REPO` na `os.path.abspath(__file__)`; `OUT` u I56/I61/I63 zavisi od lokacije. Pozivanje direktno iz `research/legacy/flat/` ili `research/studies/iNN/` **nije** zamena za stare CLI putanje.
-3. **Korekcija:** `research/__init__.py` više ne dodaje implicitno `legacy/flat` u import putanju. Pre aktivnog istorijskog importa potrebna je **eksplicitna** opt-in restauracija starih root symlink-ova.
-4. Restaurator `research/compat/restore_legacy_paths.py`: preflight svih 341 navoda *pre* stvaranja prve veze, opcioni Git blob SHA audit, fail-closed pri korisničkom postojećem fajlu, konfliktnoj simboličkoj vezi ili pogrešnom SHA, idempotentnost. `research/.gitignore` sadrži samo 341 tačno određen historijski alias i održava Git status preglednim.
-5. **Lokalni mali sintetički testovi** (Python stdlib, Git, privremeni direktorijumi): `python -m unittest discover -s research/compat -p test_migration_compat.py -v` → **9/9 PASS**. Testiraju dry-run, apply+idempotenciju, neprepisivanje korisničkih podataka, pogrešan symlink, nepostojeći canonical, dvoprolazni SHA preflight, duplirani alias, originalni `HERE`/`REPO` i čitanje GitHub navigacionog simlinka. Nisu testovi istinitih I41/I63 objektiva.
-6. **Ponovljen lokalni I65 instrumentacioni test paket**: `python -m pytest -q -rx research/i65/test_*.py` → **54 passed, 3 xfailed** (I64 failed attempt undercount, mutable input snapshot after evaluation, original stagnation timestamp guard). Nema promene brojeva; ovo NIJE provereno unutar kompletnog novog repozitorijuma.
-7. Sadržaj oba nova koda/tes­ta je nezavisno potvrđen Git blob SHA-om između lokalnog prolaznog testa i GitHub staging-a: `restore_legacy_paths.py` = `6908ce90ec1edb73ed7821f4ba8820617213bace`; `test_migration_compat.py` = `1d369d0f91b2b674a34403c3416d7e3d8aa7e54a`.
+1. **GitHub provenance:** before migration, head `0e7cacda2040643a41ff923dd2a71ffbc3f5dfef`; after migration, head `92a31c109edf60810e383833bac1bf8d7430d603`. Verified: 341 original research-root files were relocated with **identical Git blob SHA**; 2,717 historical raw output files remained unchanged; 64 generated `__pycache__` objects were removed from tracked sources.
+2. **Critical static review of GitHub sources:** I56 `iteration56_cht_study.py`, I58 `iteration58_validation.py`, I61 `iteration61_replication.py` and I63 `iteration63_replication.py` derive `HERE` and/or `REPO` from `os.path.abspath(__file__)`; `OUT` in I56/I61/I63 is location-dependent. Running modules directly from `research/legacy/flat/` or `research/studies/iNN/` is **not** equivalent to using the historical CLI paths.
+3. **Correction:** `research/__init__.py` no longer silently adds `legacy/flat` to the package import search path. The historical root symlinks must be restored explicitly, opt-in, before importing active legacy modules.
+4. **Restoration tool `research/compat/restore_legacy_paths.py`:** a complete preflight over all 341 entries before creating the first link; optional original Git blob SHA verification; fail-closed behavior for existing user files, conflicting symlinks or wrong hashes; idempotent operation. `research/.gitignore` names exactly the 341 legacy aliases, keeping local Git status readable.
+5. **Cheap local synthetic tests** (Python standard library, Git, temporary directories): `python -m unittest discover -s research/compat -p test_migration_compat.py -v` → **9/9 PASS**. They cover dry-run behavior, idempotent apply, no overwrite of user data, conflicting symlinks, missing canonical files, preflight on mismatched hashes, duplicate aliases, old `HERE`/`REPO` semantics, and reading through GitHub navigation symlinks. These are **not tests of real I41 or I63 objective functions**.
+6. **Local I65 instrumentation tests rerun:** `python -m pytest -q -rx research/i65/test_*.py` → **54 passed, 3 xfailed**, covering old I64 failed-attempt undercounting, mutable-input witness snapshots and the original stagnation timestamp/monotonicity guard. The result was **not** measured inside the full migrated repository clone.
+7. Source-code provenance: local passing Python sources were checked against their staged Git blob SHA values. `restore_legacy_paths.py` = `6908ce90ec1edb73ed7821f4ba8820617213bace`; `test_migration_compat.py` = `1d369d0f91b2b674a34403c3416d7e3d8aa7e54a`.
 
-## Sledeća stvarna stopa / preostali blokatori
+## Outstanding blockers and next physical gate
 
-Na trenutnom okruženju nema pune lokalne Git klonirane biblioteke, niti instaliranih `cocoex`, `cma`, `gadapt`; konektor omogućava čitanje i pisanje GitHub izvora, ali ne i lokalni checkout za izvršavanje celog projekta. Zato **nisu** izvršeni: `python research/compat/restore_legacy_paths.py --apply --verify` nad stvarnih 341 originala, realni `research/test_iteration41_*.py`, `research/test_iteration63_replication.py`, I64 skripte ili originalni GA import-testovi u tom checkout-u. Eksplicitni `NOT_TESTED` je deo rezultata.
+The execution environment had no complete Git clone of the library or installed `cocoex`, `cma`, and `gadapt`. The connector could read/write GitHub source files but could not run the full repository. Therefore **none** of these operations were executed in that environment: the full 341-file `--apply --verify` restore, actual `research/test_iteration41_*.py` runs, `research/test_iteration63_replication.py`, I64 regression scripts or original GA import tests. Their status must be `NOT_TESTED`.
 
-Završni realni gate na računaru sa punim klonom i zaključanim okruženjem, *bez* run-ova velikog budžeta:
+The final gate on a computer with a full Git clone and locked dependencies, **without expensive optimizer runs**, is:
 
 ```sh
 python -m unittest discover -s research/compat -p 'test_migration_compat.py' -v
@@ -27,4 +27,4 @@ python -m pytest -q research/test_iteration63_replication.py
 python -m pytest -q research/i64/test_e_common.py research/i64/test_e_algos.py
 ```
 
-Prelazak na istraživački `FREEZE` ostaje blokiran: `I65 novelty not established`, integracioni GAdapt/CMA/COCO gate `NOT_TESTED`. Za današnji gate ishod je **instrumentacioni lokalni GO, ukupni regresioni NO-GO dok pune provere nisu izvršene**.
+Research `FREEZE` remains blocked: `I65 novelty not established` and GAdapt/CMA/COCO integration `NOT_TESTED`. The overall decision is **GO for local synthetic instrumentation tests, NO-GO for claiming complete regression compatibility** until the complete-clone checks have passed.

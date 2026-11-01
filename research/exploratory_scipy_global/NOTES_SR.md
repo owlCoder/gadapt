@@ -1,15 +1,12 @@
-# Eksplorativno (NIJE preregistrovano): SciPy globalni optimizatori kroz alat za praksu
+# Exploratory (NOT preregistered): SciPy global optimizers tested with the execution-integrity audit tool
 
-**Datum:** 2026-10-23. Alat: `research/integrity_audit_tool.py`, budžet 1000, N ∈ {2, 10}, 3 semena, okruženje iz
-`h4_requirements_lock.txt` (SciPy 1.18.1). Izlazi su `<optimizator>.json` u ovom direktorijumu.
+**Date:** 2026-10-23. Tool: `research/integrity_audit_tool.py`; call budget 1,000; N ∈ {2, 10}; three seeds; environment from `h4_requirements_lock.txt` (SciPy 1.18.1). Outputs are `<optimizer>.json` in this directory.
 
-| Optimizator | Nalaz | Dokumentacija | Razvrstavanje |
+| Optimizer | Observation | Documentation | Classification |
 |---|---|---|---|
-| `dual_annealing` | C4 u 1/18 (najviše 1050 poziva) | `maxfun`: „Soft limit … will be exceeded … just after the local search is done“ | dokumentovano |
-| `shgo` | C4 u 18/18 (najviše **5131** poziva za `maxfev` 1000) | `maxfev` je tačan samo za neke lokalne metode; inače se proverava po globalnoj iteraciji | dokumentovano, ali do 5× |
-| `direct` | C4 u 6/18 (najviše 1013) | `maxfun`: „Approximate upper bound“ | dokumentovano |
-| `basinhopping` | R3 u 3/18, samo na platou | „`lowest_optimization_result` will only be updated if a local minimization was successful.“ | dokumentovano |
+| `dual_annealing` | C4 in 1/18 runs (at most 1,050 calls) | `maxfun`: "Soft limit ... will be exceeded ... just after the local search is done" | Documented |
+| `shgo` | C4 in 18/18 runs (up to **5,131** calls for `maxfev` 1,000) | `maxfev` is exact only for some local methods; otherwise checked at global-iteration boundaries | Documented, but up to 5× |
+| `direct` | C4 in 6/18 runs (at most 1,013 calls) | `maxfun`: "Approximate upper bound" | Documented |
+| `basinhopping` | R3 in 3/18 runs, only on a plateau | "`lowest_optimization_result` will only be updated if a local minimization was successful." | Documented |
 
-`basinhopping` ima istu politiku kao `differential_evolution` (neuspeh lokalne minimizacije poništava bolji rezultat),
-ali je dokumentuje. Ta napomena je dodata kao komentar na [scipy #26479](https://github.com/scipy/scipy/issues/26479).
-Nova prijava nije potrebna. `basinhopping` nema parametar budžeta, pa C4 tu nije primenljiv.
+`basinhopping` uses the same policy as `differential_evolution`: a failed local minimization can invalidate an otherwise better solution, but `basinhopping` documents that behavior. This was added as a comment on [SciPy #26479](https://github.com/scipy/scipy/issues/26479); no new issue is needed. `basinhopping` has no direct evaluation-budget argument, so C4 does not apply to it.

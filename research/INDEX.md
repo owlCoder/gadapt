@@ -17,6 +17,6 @@
 | I64-I | [Report](ITERATION64_I_REPORT_SR.md) | Discrete ORPD comparisons; strong global claims unresolved |
 | I64-I2 | [Report](ITERATION64_I2_REPORT_SR.md) | Hybrid benefit not established for ORPD; IPOP tail better |
 | I64-N | [Development note](ITERATION64_N_DEV_NOTE_SR.md) | Nominal-label-ordering probe is exploratory, not preregistered |
-| I65 | [Draft](ITERATION65_DRAFT_PROTOCOL_SR.md) — Serbian pending | No frozen COCO experiment, no confirmatory results |
+| I65 | [Draft](ITERATION65_DRAFT_PROTOCOL_SR.md) — English translation | No frozen COCO experiment, no confirmatory results |
 
 **Important:** English translations replace only the language, not the historical statistical result. Original Serbian blobs are archived under [archive/serbian_originals/](archive/serbian_originals/). See the [manifest](LANGUAGE_AUDIT_2026-11-01.json) for pending documents and precise source hashes.

@@ -1,44 +1,44 @@
-# I65 — audit postojećih dokaza i prior art (DRAFT; 2026-11-01)
+# I65 — audit of existing evidence and prior art (DRAFT, 2026-11-01)
 
-**Status:** samostalni radni audit; `novelty not established`; bez izmene GitHub repozitorijuma, bez nove optimizacione serije. Repozitorijum: `owlCoder/gadapt:main`; `bpzoran/gadapt` i `bpzoran/gadapt_experiments` samo za čitanje. Pregledani: `AGENTS.md`, `PHD_PROGRESS.md` (poslednji deo do 2026-10-30), `MENTOR_MEETING_NOTES_SR.md`, `MENTOR_SUMMARY_2026-10-28_SR.md`, `ITERATION64_PROTOCOL.md`, `ITERATION64_S0_REPORT_SR.md`, izveštaji I64-E/E3/A/R/I/I2, specifikacije E/E3 i izvorni I64 E/E3 benchmark moduli. Nije revidirana svaka stara sirova arhiva, niti se tvrdi ponavljanje njihovih analiza.
+**Status:** independent working audit; `novelty not established`; at the time of drafting, no GitHub repository changes and no new optimizer experiments. The working repo was `owlCoder/gadapt:main`; `bpzoran/gadapt` and `bpzoran/gadapt_experiments` were read-only. Sources inspected included `AGENTS.md`, `PHD_PROGRESS.md` through the 2026-10-30 handoff, `MENTOR_MEETING_NOTES_SR.md`, `MENTOR_SUMMARY_2026-10-28_SR.md`, `ITERATION64_PROTOCOL.md`, `ITERATION64_S0_REPORT_SR.md`, I64-E/E3/A/R/I/I2 reports, E/E3 specifications, and the original I64 E/E3 benchmark modules. Not every old raw archive was independently reviewed, and the audit does not claim to have reproduced all prior analyses.
 
-## 1. Matrica postojećih nalaza — zašto se eksperimenti ne ponavljaju
+## 1. Existing-evidence matrix: why earlier experiments must not be repeated
 
-| Studija | Šta je dokazano u njenom fiksnom dizajnu | Negativno, kontradiktorno ili otvoreno |
+| Study | Established in its fixed design | Negative, contradictory, or unresolved findings |
 |---|---|---|
-| I64-S0 | Mentorova replika: 21 ćelija, 4 metode, 20 semena, 1.680 pokretanja. GAdapt-M ima A=0,698; DE A=0,651. | DE ima bolju završnu ćelijsku medijanu u 14/21 ćelija; izvorni broj generacija nije uporediv sa pozivima; S0 nije BBOB. |
-| I64-E | 12.000 stvarnih poziva, pomeraj/rotacije, 63 ćelije, devet metoda. GAdapt-M A=0,6732; IPOP=0,7699; BIPOP=0,7688; DE=0,6396. | Originalni H64a suprotan; CMA porodica je agregatno efikasnija, bez opšteg dokaza o infrastrukturnoj superiornosti. |
-| I64-E3 | 30% budžeta GAdapt, 70% CMA; na rotaciji A hibrida 0,7196 prema M 0,6167. | H64g2 suprotna zbog lošijeg ne-rotiranog repa; H64g3 neodlučna prema IPOP; hibrid nije nova metoda. |
-| I64-A | Zamena prve 30% faze slučajnim uzorkovanjem smanjuje A za 0,131 rot / 0,178 nonrot. | Efekat je uslovan na fiksni CMA start `sigma0=0.05`; nije izolovana univerzalna prednost GAdapt-a. |
-| I64-R | Uparen isti pomeraj; dodatna Q smanjuje GAdapt A za 0,0809 [0,0721; 0,0897], IPOP za 0,0101 [0,0036; 0,0166]. | Ne generalizovati sa 21 fiksnog Q i jednog skupa funkcija. Mehanizam nije ustanovljen. |
-| I64-I | Diskretni ORPD, 8 ćelija × 30 semena, 12k PF: GAdapt feasibility 0,746; IPOP 0,771. | GAdapt vs CMA/IPOP/BIPOP: intervali obuhvataju 0; 2 ćelije skoro neizvodljive; reference nisu sertifikovani diskretni optimumi. |
-| I64-I2 | ORPD hibrid feasibility 0,742; CVaR 0,3772. | Nije potvrđen bolji rep od GAdapt-M; rep lošiji od IPOP (0,2518). Provenance caveat: `i_run_sha256` prazan u I2 arhivi, naknadna provera. |
-| I64-E2/E4/C/N (kontekst) | Diferencijalni crossover i kompenzaciona mutacija nisu dokazano zatvorili jaz; C mehanizam nije potvrđen, N Potts sonda nije pokazala očekivani deficit. | Ne dodavati varijante samo zato što postojeći rezultat nije pozitivan. |
+| I64-S0 | Mentor benchmark replication: 21 cells, four methods, 20 seeds, 1,680 runs. GAdapt-M A=0.698; DE A=0.651. | DE has a better final cell median in 14/21 cells. The original generation counts are not equivalent to objective calls. S0 is not BBOB. |
+| I64-E | 12,000 actual calls, shifted/rotated functions, 63 cells, nine methods. GAdapt-M A=0.6732, IPOP=0.7699, BIPOP=0.7688, DE=0.6396. | Frozen H64a outcome is opposite; the CMA family has greater aggregate evaluation efficiency, without universal infrastructure superiority. |
+| I64-E3 | First 30% of the budget GAdapt, remaining 70% CMA. On rotated cells, hybrid A=0.7196 versus M A=0.6167. | H64g2 opposite because of worse nonrotated tail; H64g3 undecided against IPOP; the hybrid is not a novel method. |
+| I64-A | Replacing the initial 30% phase with random sampling reduces A by 0.131 under Q and 0.178 without Q. | This is conditional on a fixed CMA initialization at `sigma0=0.05`, not a general independent advantage for GAdapt. |
+| I64-R | Same-shift paired design. Additional Q reduces GAdapt A by 0.0809 [0.0721, 0.0897] and IPOP A by 0.0101 [0.0036, 0.0166]. | Do not generalize from 21 fixed Q choices and one function roster. The causal mechanism remains unidentified. |
+| I64-I | Discrete ORPD, eight cells × 30 seeds and 12,000 physical PF calls: GAdapt feasibility 0.746, IPOP 0.771. | GAdapt–CMA/IPOP/BIPOP intervals contain zero. Two cells are nearly infeasible. References are not certified discrete optima. |
+| I64-I2 | ORPD hybrid feasibility 0.742, CVaR 0.3772. | Better tail than GAdapt-M unconfirmed; worse than IPOP (0.2518). Provenance caveat: `i_run_sha256` blank in the archived I2 file, checked subsequently. |
+| I64-E2/E4/C/N (context) | Differential crossover and compensatory mutation have not been shown to close the gap; the C mechanism was unsupported, and the N Potts probe found no anticipated label-dependence defect. | Do not add or retune variants merely because existing results are negative. |
 
-**Aktuelni handoff:** `PHD_PROGRESS.md` završava stanjem 2026-10-30: mentorska odluka o obimu doktorata i dalje se čeka; nova metoda nije potvrđena. Nije korektno iz starijih "SLEDEĆI KORAK" izvući dozvolu za konfirmatorno pokretanje.
+**Active handoff at the time of this audit:** `PHD_PROGRESS.md` ended with the 2026-10-30 status: a supervisor decision about dissertation scope was still pending and no new method was confirmed. An older "NEXT STEP" is not authorization to run an expensive confirmatory experiment.
 
-## 2. Izvorna instrumentacija koja već postoji
+## 2. Existing instrumentation
 
-- `research/i64/e_common.py`: `Budget`, `BudgetReached(BaseException)`, najbolji svedok i evaluacioni događaji; potvrđeni Git blob SHA `3aab99773a7e4a95b7972a3c8061c50bd471618d`.
-- `research/i64/e_algos.py`: GAdapt-M, DE `best1exp` 64 početnih jedinki, CMA restart, IPOP, BIPOP i ostali; CMA u jediničnom prostoru, GAdapt/DE u nativnim jedinicama (poznata neinvarijantnost GAdapt-a na jedinice).
-- `research/i64/e3_algo.py`: već implementiran fiksni GAdapt→CMA hibrid; ne implementirati ponovo pod drugim nazivom.
-- GAdapt ima originalni `exit_check="min_cost", max_attempt_no=20`; to nije identično opisanom *significant* kriterijumu sa dva epsilon parametra; SciPy `tol` meri disperziju vrednosti u populaciji (nije stagnacija). Sve metode moraju biti računovodstveno uporedive po fizičkim pozivima, ne generacijama.
+- `research/i64/e_common.py`: reference `Budget`, `BudgetReached(BaseException)`, incumbent witness and evaluation events. Verified Git blob SHA: `3aab99773a7e4a95b7972a3c8061c50bd471618d`.
+- `research/i64/e_algos.py`: GAdapt-M, DE `best1exp` with 64 initial candidates, CMA restarts, IPOP, BIPOP and other methods. CMA operates on the unit cube; GAdapt/DE use native coordinates. GAdapt's sensitivity to unit changes is a known comparison issue.
+- `research/i64/e3_algo.py`: the fixed GAdapt→CMA hybrid already exists. It must not be reimplemented under a new name and represented as a novel method.
+- GAdapt's original `exit_check="min_cost", max_attempt_no=20` is not equivalent to the proposed *significant-improvement* criterion with two epsilons. SciPy's `tol` measures population-value dispersion, not completed-generation stagnation. All compared methods require comparable **physical call** accounting, not generation counts.
 
-## 3. Prior-art: tačna podudaranja i granica tvrdnje
+## 3. Closest prior art and limits on novelty claims
 
-| Izvor i DOI | Šta već postoji | Odnos prema kandidatu |
+| Source and DOI | Existing method / finding | Relationship to proposed candidate |
 |---|---|---|
-| Auger & Hansen (2005), `10.1109/CEC.2005.1554902` | Restarti CMA-ES sa rastućom populacijom (IPOP). | Restart kao takav: **poznat**, nema novine. |
-| Hansen (2009), `10.1145/1570256.1570333` | BIPOP: dva režima populacija/budžetsko prebacivanje. | Portfolio restart politika: **poznata**. |
-| Wineberg & Opawale (2018), `10.13164/mendel.2018.1.017` | Stagnacioni kriterijumi za IPOP-slične DE restarte, `EqualFunValHist`. | Konkretnija potvrda da sama detekcija stagnacije/restart nema prvenstvo. |
-| Zhang et al. (2023), `10.1109/MCI.2022.3222057` | Kontrolisano vreme prelaska između metaheuristika pomoću (deep) Q-learning; uključuje HSES univarijatno → CMA. | Sekvencijalno switching vreme: **poznato**; zadato pravilo 20 generacija je jednostavniji inženjerski slučaj. |
-| Scientific Reports (2021), `10.1038/s41598-021-04549-1` | IR-CMA-ES prelazi na DE redistribuciju kad stagnira CMA. | Srodna politika zastoja i promene algoritma (suprotan smer); novost kandidata nije ustanovljena. |
-| Muñoz, Sun, Kirley & Halgamuge (2015), `10.1016/j.ins.2015.05.010` | Pregled izbora algoritma, portfolio, hibrida i procene pejzaža za black-box optimizaciju. | Izbor algoritma po osobinama zadatka: poznat. |
-| Krasnogor & Smith (2005), `10.1109/TEVC.2005.850260` | Memetičke/hibridne metode; već citirano u I64-E3. | GAdapt→CMA kao obrazac globalno/lokalno: poznat. |
+| Auger & Hansen (2005), `10.1109/CEC.2005.1554902` | CMA-ES restarts with an increasing population (IPOP). | Restart as such is **known**, not novel. |
+| Hansen (2009), `10.1145/1570256.1570333` | BIPOP uses two population/budget regimes. | Portfolio restart policy is **known**. |
+| Wineberg & Opawale (2018), `10.13164/mendel.2018.1.017` | Stagnation criteria for IPOP-like DE restarts; `EqualFunValHist`. | Further evidence that stagnation detection and restart are established ideas. |
+| Zhang et al. (2023), `10.1109/MCI.2022.3222057` | Switching time between metaheuristics controlled by (deep) Q-learning, including univariate HSES → CMA. | Sequential algorithm switching is **known**; a fixed 20-generation rule is a simpler engineering case. |
+| Scientific Reports (2021), `10.1038/s41598-021-04549-1` | IR-CMA-ES switches to a DE redistribution phase after CMA stagnation. | Related stagnation-triggered algorithm switching, in the opposite direction. Novelty remains unestablished. |
+| Muñoz, Sun, Kirley & Halgamuge (2015), `10.1016/j.ins.2015.05.010` | Review of algorithm selection, portfolios, hybrids and landscape features for black-box optimization. | Problem-feature-based algorithm selection is established prior art. |
+| Krasnogor & Smith (2005), `10.1109/TEVC.2005.850260` | Memetic and hybrid algorithms; already cited in I64-E3. | Global-to-local GAdapt→CMA hybrid is an established design pattern. |
 
-**Provenijencija DOI:** provereno preko indeksnih/izdavačkih strana navedenih ispod (za Science Reports originalni izdavač). Direktni Crossref API upiti u ovoj sesiji nisu bili dostupni; zato ovo nije tvrdnja o dodatnoj nezavisnoj Crossref verifikaciji. Ne tvrdi se iscrpan sistematski pregled literature.
+**DOI provenance:** the DOI associations were checked against the indexing/publisher pages linked below (using the original publisher for the Scientific Reports item). Direct Crossref API verification was unavailable during this audit; this is not a claim of a further independent Crossref audit. The review is not an exhaustive systematic literature survey.
 
-**Izvori:**
+**Sources:**
 - https://dblp.org/rec/conf/cec/AugerH05.html
 - https://cma-es.github.io/index.html
 - https://explore.metascienceobservatory.org/papers/W2097263684
@@ -48,11 +48,11 @@
 - https://research.monash.edu/en/publications/algorithm-selection-for-black-box-continuous-optimization-problem/
 - https://github.com/owlCoder/gadapt/blob/main/research/ITERATION64_E3_SPEC.md
 
-## 4. Naučni gate
+## 4. Scientific gate
 
-- **Istraživačko pitanje:** može li jednostavna, unapred definisana stagnaciona politika dati bolji rep rezultata pod 12k poziva na f21/f24 nego fiksni E3 i IPOP?
-- **Precizna novina metode:** `novelty not established`. Sama promene algoritma/restart nije novo; nema osnova za claim o novom doktoratskom algoritmu.
-- **Formalne pretpostavke:** f: X→R∪{nonfinite} deterministička na fiksnoj instanci; sekvencijalni brojač poziva; svaki attempted call rezerviše jednu jedinicu B; evaluacioni budget i seed logovi verni.
-- **Teorema za proveru instrumentacije, NE naučni doprinos:** ako se brojač uveća *pre* svakog poziva evaluatoru i proveri `n < B` pre rezervacije, onda indukcijom `n ≤ B`, a nijedan evaluator nije pozvan nakon B-te rezervacije. Za paralelizam/vektorizaciju moraju se atomarno rezervisati stavke svake serije; ne pretpostavljati primenu ove tvrdnje na njih bez dokaza.
-- **Falsifikacija:** nema prednosti ili se rep pogorša u odnosu na IPOP/E3, neuspešna verifikacija svedoka, nefer brojanje, prebacivanje pre 20 kompletnih generacija, ili nezavisne instance ponište prednost.
-- **GO/NO-GO:** GO samo za jeftin instrumentacioni gate i recenziju uskog *empirijskog* protokola. **NO-GO za tvrdnju o novoj metodi**; STOP pre implementacije algoritamske intervencije prema `AGENTS.md` dok istraživačka kapija nije posebno razrešena. Ne zamrzavati i ne pokretati skup eksperiment samo radi pozitivnog ishoda.
+- **Research question:** can a simple, prespecified stagnation rule improve the final tail at 12,000 calls on f21/f24 compared with fixed E3 and IPOP?
+- **Precise novelty claim:** `novelty not established`. Simple optimizer switching or restart is not a new algorithmic contribution. There is no basis for claiming a new doctoral-level optimizer.
+- **Formal assumptions:** `f: X → R ∪ {nonfinite}` is deterministic for a fixed instance; an evaluator uses sequential attempt accounting; each attempt reserves one unit of B; budgets and seed logs are truthful.
+- **Instrumentation bound, NOT a scientific theorem contribution:** if `n` is checked against `B` and incremented **before** each invocation, induction gives `n ≤ B`, with no call beyond the Bth reserved attempt. Parallel/batched evaluation requires atomic reservation for every element; do not assume the sequential argument applies there.
+- **Falsification:** no improvement, or worse tail relative to IPOP/E3; unsuccessful independent witness checking; unfair physical-call counts; switching before 20 completed generations; held-out instances reversing the putative advantage.
+- **GO/NO-GO:** GO only for a cheap instrumentation gate and independent review of a restricted *empirical* protocol. **NO-GO for a novelty claim**. Under `AGENTS.md`, STOP before implementing a new algorithmic intervention until the novelty gate is separately resolved. Do not freeze or run expensive confirmation simply to obtain a positive outcome.

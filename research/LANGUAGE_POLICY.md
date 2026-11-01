@@ -6,7 +6,7 @@
 
 - The [language audit](LANGUAGE_AUDIT_2026-11-01.json) finds **141 canonical `_SR.md` documents** plus **107 symlink views** that point to existing historical content. Views are not independent duplicate research documents.
 - **14 documents have been fully translated into English on their existing paths**, with their earlier Serbian Git blobs saved unchanged under `research/archive/serbian_originals/`. This approach preserves links from frozen protocols, reviews and progress logs. The legacy `_SR` basename remains for backward compatibility only; the **content** is English.
-- **127 canonical documents remain untranslated Serbian originals.** They are **not** claimed to have an English counterpart. Do not delete them or replace them with a short English abstract pretending to be a complete translation. They remain available in legacy/thesis/current historical files.
+- **117 canonical documents remain untranslated Serbian originals.** They are **not** claimed to have an English counterpart. Do not delete them or replace them with a short English abstract pretending to be a complete translation. They remain available in legacy/thesis/current historical files.
 - The navigational Markdown files in `research/studies/` have English descriptions; the links retain their frozen historical names. English-only navigation does not mean every linked historical file has been translated.
 
 ## Rules for future translations
