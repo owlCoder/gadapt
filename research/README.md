@@ -32,4 +32,4 @@ python research/compat/restore_legacy_paths.py --verify
 python research/compat/restore_legacy_paths.py --apply --verify
 ```
 
-Full historical regression after migration has not yet been demonstrated. [Compatibility gate report](ITERATION65_MIGRATION_COMPAT_GATE_2026-11-01_SR.md) (translated active source at its historical path).
+**Full-clone historical core regression now verified:** [GitHub Actions #41358768925](https://github.com/owlCoder/gadapt/actions/runs/41358768925), Python 3.12, 341 restored aliases, I41 11 PASS, I63 17 PASS, I64 15 PASS (4 external PyGAD tests intentionally excluded), I65 88 PASS / 3 expected XFAIL. See [SHA-verified full-clone report](FULL_CLONE_REGRESSION_SUCCESS_2026-11-01.md). The earlier [compatibility-gate draft](ITERATION65_MIGRATION_COMPAT_GATE_2026-11-01_SR.md) remains for historical traceability. Physical OPF/PF solver entrypoint counts and an independent witness model are **still unverified**, as documented in [ORPD accounting audit](I65_ORPD_SOLVER_CALL_BOUNDARY_2026-11-01.md).

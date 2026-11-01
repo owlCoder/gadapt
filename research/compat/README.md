@@ -76,3 +76,10 @@ plus a separately introduced NumPy 2.x dependency conflict. Both were
 corrected in the gate runner/workflow without touching GAdapt itself.
 See [full log-based diagnosis](../FULL_CLONE_WORKFLOW_REPAIR_2026-11-01.md).
 Only a subsequent independently verified run can close the remaining gate.
+
+## Verified real full-clone core compatibility (2026-11-01)
+
+The final automatic follow-up [run #41358768925](https://github.com/owlCoder/gadapt/actions/runs/41358768925) 
+**succeeded on Python 3.12** with all **11/11** real gate steps and their SHA-256 logs independently checked. On the complete pinned Git checkout, all **341** legacy paths restored with hash verification; I41 **11 passed**, I63 **17 passed**, I64 **15 passed / 4 external PyGAD deselected**, I65 **88 passed / 3 intentional xfails**. The earlier failure sections above remain historical records. See [the complete PASS report](../FULL_CLONE_REGRESSION_SUCCESS_2026-11-01.md).
+
+**Remaining boundaries:** this is a defined core software regression, not an end-to-end rerun of every I56/I58/I61/MBENCH experiment, nor independent OPF/PF nested-physical-call accounting or witness-model certification.
