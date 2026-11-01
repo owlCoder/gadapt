@@ -17,9 +17,11 @@ python -m pytest -q -rx research/i65
 python research/i65/make_gate_fixtures.py
 ```
 
-The archived **isolated** run recorded **54 passed, 3 xfailed** ([test log](../I65_GATE_TEST_LOG.txt)). Three intentional xfails relate to older reference instrumentation, not failed optimizer experiments. This is not the result of a full-clone migration regression. No held-out COCO benchmarks have been performed.
+The earlier archived **isolated** run recorded **54 passed, 3 xfailed** ([test log](../I65_GATE_TEST_LOG.txt)). Three intentional xfails relate to older reference instrumentation, not failed optimizer experiments. This is not the result of a full-clone migration regression. No held-out COCO benchmarks have been performed.
 
 **New isolated gate (same date):** reproduced 10 failed cases in an adversarial preflight of the original research evaluator; after a narrow fix, **22/22 passed**, including the two existing SciPy DE smoke tests, under Python 3.13.5 / NumPy 2.3.5 / SciPy 1.17.0 / pytest 9.0.2. This was **not** the full historical I65 regression in a pinned checkout. Read the [detailed preflight report](../ITERATION65_BUDGET_PREFLIGHT_GATE_2026-11-01.md).
+
+**Reproduced complete isolated I65 pytest suite (same date):** using all nine SHA-matched I65 Python modules/tests (not a full GAdapt clone), **74 passed, 3 xfailed**, with the three original reference defects preserved as expected negatives. No optimizer benchmarks. See [full isolated I65 gate](../ITERATION65_ISOLATED_REGRESSION_GATE_2026-11-01.md) and [raw log](../I65_ISOLATED_REGRESSION_TEST_LOG_2026-11-01.txt). Full Python-3.12 clone regression remains NOT_TESTED.
 
 - [I65 DRAFT](../ITERATION65_DRAFT_PROTOCOL_SR.md)
 - [Prior-art audit](../ITERATION65_PRIOR_ART_AUDIT_DRAFT_SR.md)

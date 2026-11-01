@@ -1,0 +1,34 @@
+ISOLATED I65 INSTRUMENTATION TEST LOG (2026-11-01)
+Python 3.13.5, NumPy 2.3.5, SciPy 1.17.0, pytest 9.0.2
+PWD: reconstructed I65-only SHA-matched source, NOT full repo checkout
+Command: python -m pytest -q -rx test_audited_budget.py test_audited_budget_preflight.py test_i65_instrumentation.py test_scipy_de_adapter.py test_stagnation_checked.py
+FILE_SHA_MAP and LIST_FILES pair one-to-one in order.
+..........................x................................xx........... [ 93%]
+.....                                                                    [100%]
+=========================== short test summary info ============================
+XFAIL test_audited_budget.py::test_original_monitor_rejects_nonmonotone_timestamp - Original reference monitor does not validate nonmonotone evaluation timestamps
+XFAIL test_i65_instrumentation.py::test_original_budget_counts_failed_evaluation_attempts - I64 Budget increments only AFTER objective returns, undercounts raised attempts
+XFAIL test_i65_instrumentation.py::test_original_budget_snapshots_witness_before_evaluation - I64 Budget snapshots witness AFTER objective, fails if input was mutated in place
+74 passed, 3 xfailed in 2.07s
+
+FILE_SHA_MAP
+6c2c930ea006e0bc0bd6bdcaba1c181c1dba39e1
+3aab99773a7e4a95b7972a3c8061c50bd471618d
+985b7fa6bd1e834219fa7867dbd00e87e418cb19
+2177f8844245114ea69f6ece86a7ab5307f5edbd
+d7d713eed5325f287ec00069ae354c5fe3f25de5
+a1cd77c2ceda49e2f458e73f0e677bcd20b6a595
+d7e3b16161aa57fa65f2113f3b8804eb9769062b
+fe22edbe0a0530bef44c7da0f4fcbd49d3678e68
+fc9ecca100157bdfe7b59afe6645721e8239b2e4
+
+LIST_FILES
+audited_budget.py
+e_common_snapshot.py
+stagnation_checked.py
+stagnation_reference.py
+test_audited_budget.py
+test_audited_budget_preflight.py
+test_i65_instrumentation.py
+test_scipy_de_adapter.py
+test_stagnation_checked.py
