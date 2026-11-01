@@ -204,3 +204,7 @@ requirements_local.txt
 /experiments/experiment.py
 /experiments/experiment_pygad.py
 /benchmarks/*
+
+# Ignore generated research Python caches (cleanup 2026-11-01)
+research/**/__pycache__/
+research/**/*.pyc

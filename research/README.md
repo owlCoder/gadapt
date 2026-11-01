@@ -1,26 +1,31 @@
-# GAdapt research — pregled i navigacija
+# GAdapt research — početna stranica
 
-**Poslednji pregled: 2026-11-01.** Ovo je indeks, a ne novi eksperimentalni rezultat.
+**Status: 2026-11-01.** [Istraživački handoff](PHD_PROGRESS.md) i [obavezna pravila](../AGENTS.md) imaju prednost. Stara merenja nisu prepravljana niti ponovo pokretana.
 
-## Počni ovde
-- [PHD_PROGRESS.md](PHD_PROGRESS.md) — autoritativni handoff; pročitati NAJNOVIJI „SLEDEĆI KORAK“.
-- [AGENTS.md](../AGENTS.md) — obavezne istraživačke kapije.
-- [Mentorski sažetak](MENTOR_SUMMARY_2026-10-28_SR.md) i [beleške](MENTOR_MEETING_NOTES_SR.md).
-- [INDEX.md](INDEX.md) — hronologija i najvažniji dokazi.
-- [DATA_POLICY.md](DATA_POLICY.md) — raw podaci, heševi i Git pravila.
+## Navigacija
 
-## I65 — aktivni DRAFT, NE konfirmatorni rezultat
-- [Prior art](ITERATION65_PRIOR_ART_AUDIT_DRAFT_SR.md)
-- [Benchmark protokol DRAFT](ITERATION65_DRAFT_PROTOCOL_SR.md)
-- [Validacija instrumentacije](ITERATION65_INSTRUMENTATION_GATE_REPORT_SR.md)
-- [Zaključak GO/NO-GO](ITERATION65_RECOMMENDATION_AND_DECISION_SR.md)
-- [I65 instrumentacija i testovi](i65/README.md)
-- [Testni sirovi tragovi](I65_INSTRUMENTATION_FIXTURES.json)
+- [**Studije po iteracijama (I02–I65)**](studies/) — protokoli, izveštaji, testovi i kod, sortirani po iteracijama.
+- [**Sirovi rezultati**](results/) — postojeća struktura i hash-evi nepromenjeni; [pravila za podatke](DATA_POLICY.md).
+- [**Literatura, novost, negativne hipoteze**](literature/).
+- [**Metodologija, doktorski plan, odluke**](overview/) · [Infrastrukturni domeni](domains/).
+- [**Istraživački alati**](tools/) · [I64 implementacija](i64/) · [I65 instrumentacija](i65/).
+- [**Mentorski sažetak](MENTOR_SUMMARY_2026-10-28_SR.md) · [beleške sa sastanka](MENTOR_MEETING_NOTES_SR.md).
+- [**Codex recenzije**](codex/) · [Rad za TELO](paper_integrity_audit/) · [Teza](thesis/).
+- [**Istorijski izvori**](legacy/) · [Kompatibilnost](compat/) · [Kompletan manifest migracije](MIGRATION_MANIFEST_2026-11-01.json).
 
-Lokalni sandbox: **54 passed, 3 xfailed**. **I65 COCO f21/f24 = NOT_RUN; FREEZE = NE**.
-Ne postoji potvrđena nova metoda niti dokazana industrijska spremnost.
+## Sadašnje naučno stanje
 
-## Istorijska dokumentacija
-Raniji veliki `research/README.md` (I34 i stariji materijal) sačuvan je
-**bajt-identično** u [archive/README_PRE_I65_2026-11-01.md](archive/README_PRE_I65_2026-11-01.md).
-Nijedan istorijski protokol, rezultat ili test nije obrisan ili premešten.
+- I64-S0/E/E3/A/R/I/I2 već testirani i dokumentovani; nalaz o rotacijskoj osetljivosti i nepouzdanom prenosu sintetičkog hibrida na ORPD ostaje ograničen na testirane ćelije.
+- **I65 = DRAFT / NO-FREEZE / COCO f21/f24 NOT_RUN.** Instrumentacioni testovi nisu dokaz uspeha optimizatora.
+- Nema potvrde originalne metode, univerzalne superiornosti ili industrijske spremnosti.
+
+## Kompatibilnost nakon fizičke migracije
+
+Iz korena je premesteno **341 istorijskih fajlova** u [legacy/flat](legacy/flat/) bez promene njihovog Git blob SHA. Za navigaciju su izložene simboličke veze u studijama, literaturi i alatima. Stare eksplicitne putanje se ne nalaze u čistom checkout-u. Za reprodukciju starih CLI komandi u lokalnom clone-u:
+
+```sh
+python research/compat/restore_legacy_paths.py --verify
+python research/compat/restore_legacy_paths.py --apply --verify
+```
+
+Prva komanda je dry-run. Druga pravi samo nedostajuće symlink-ove, bez prepisivanja podataka. **Puna regresiona kompatibilnost istorijskih skripti nije još demonstrirana.** Ne pokreći skupe testove bez istraživačkih kapija.

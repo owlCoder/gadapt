@@ -1,0 +1,3405 @@
+{
+  "schema": "GAdapt research migration v1",
+  "date": "2026-11-01",
+  "source_commit": "0e7cacda2040643a41ff923dd2a71ffbc3f5dfef",
+  "statement": "341 root files moved without byte changes to legacy/flat; 341 curated symlinks; raw results unchanged; generated cache artifacts untracked",
+  "notes": [
+    "Git blob SHA for every canonical new source equals original",
+    "Legacy old root paths not available until compatibility symlink restoration",
+    "Frozen source content not edited",
+    "Historical tests and experiment executables NOT validated after migration"
+  ],
+  "moved_files": [
+    {
+      "old": "research/AOS_ITERATION_PROTOCOL.md",
+      "canonical": "research/legacy/flat/AOS_ITERATION_PROTOCOL.md",
+      "view": "research/studies/aos/AOS_ITERATION_PROTOCOL.md",
+      "sha": "36748fa32114d06218f67f058913b3435005e3c7",
+      "bytes": 7034,
+      "mode": "100644",
+      "name": "AOS_ITERATION_PROTOCOL.md"
+    },
+    {
+      "old": "research/AOS_ITERATION_REPORT.md",
+      "canonical": "research/legacy/flat/AOS_ITERATION_REPORT.md",
+      "view": "research/studies/aos/AOS_ITERATION_REPORT.md",
+      "sha": "8323a67c08c55929886f13489891a8cce0737304",
+      "bytes": 13525,
+      "mode": "100644",
+      "name": "AOS_ITERATION_REPORT.md"
+    },
+    {
+      "old": "research/DIAGNOSTIC_STUDY_DRAFT_SR.md",
+      "canonical": "research/legacy/flat/DIAGNOSTIC_STUDY_DRAFT_SR.md",
+      "view": "research/studies/integrity/DIAGNOSTIC_STUDY_DRAFT_SR.md",
+      "sha": "e8f2acf3413881b8b4d61bf9545530542a3022ad",
+      "bytes": 20869,
+      "mode": "100644",
+      "name": "DIAGNOSTIC_STUDY_DRAFT_SR.md"
+    },
+    {
+      "old": "research/DIRECTION_DECISION_2026-10-23_SR.md",
+      "canonical": "research/legacy/flat/DIRECTION_DECISION_2026-10-23_SR.md",
+      "view": "research/overview/DIRECTION_DECISION_2026-10-23_SR.md",
+      "sha": "cdfb9d5346108a5ad6c4fc3c39c74c3ed7cf83cf",
+      "bytes": 5708,
+      "mode": "100644",
+      "name": "DIRECTION_DECISION_2026-10-23_SR.md"
+    },
+    {
+      "old": "research/DISSERTATION_PROTOCOL.md",
+      "canonical": "research/legacy/flat/DISSERTATION_PROTOCOL.md",
+      "view": "research/overview/DISSERTATION_PROTOCOL.md",
+      "sha": "a4538d233e01fd1ee5228e5d08ff1bc2cc3323c7",
+      "bytes": 6618,
+      "mode": "100644",
+      "name": "DISSERTATION_PROTOCOL.md"
+    },
+    {
+      "old": "research/DOCTORAL_GADAPT_INDUSTRY_ROADMAP_SR.md",
+      "canonical": "research/legacy/flat/DOCTORAL_GADAPT_INDUSTRY_ROADMAP_SR.md",
+      "view": "research/overview/DOCTORAL_GADAPT_INDUSTRY_ROADMAP_SR.md",
+      "sha": "11006ff2d8a7b59aaa71961b44514b8b8622f612",
+      "bytes": 5094,
+      "mode": "100644",
+      "name": "DOCTORAL_GADAPT_INDUSTRY_ROADMAP_SR.md"
+    },
+    {
+      "old": "research/GADAPT_CONSTRAINT_API_DESIGN_SR.md",
+      "canonical": "research/legacy/flat/GADAPT_CONSTRAINT_API_DESIGN_SR.md",
+      "view": "research/overview/GADAPT_CONSTRAINT_API_DESIGN_SR.md",
+      "sha": "019de3c50e8eaa19ee1e5a3c3c668a6334a8dee4",
+      "bytes": 3243,
+      "mode": "100644",
+      "name": "GADAPT_CONSTRAINT_API_DESIGN_SR.md"
+    },
+    {
+      "old": "research/H1_PRIOR_ART_AUDIT_SR.md",
+      "canonical": "research/legacy/flat/H1_PRIOR_ART_AUDIT_SR.md",
+      "view": "research/literature/H1_PRIOR_ART_AUDIT_SR.md",
+      "sha": "4531cf7e16404b7783c16dabdef723de44f88457",
+      "bytes": 9070,
+      "mode": "100644",
+      "name": "H1_PRIOR_ART_AUDIT_SR.md"
+    },
+    {
+      "old": "research/H3_PRIOR_ART_AUDIT_SR.md",
+      "canonical": "research/legacy/flat/H3_PRIOR_ART_AUDIT_SR.md",
+      "view": "research/literature/H3_PRIOR_ART_AUDIT_SR.md",
+      "sha": "37305f2216224970ee6bca64b33b0f7d8028dd29",
+      "bytes": 3034,
+      "mode": "100644",
+      "name": "H3_PRIOR_ART_AUDIT_SR.md"
+    },
+    {
+      "old": "research/H4_FEASIBILITY_SR.md",
+      "canonical": "research/legacy/flat/H4_FEASIBILITY_SR.md",
+      "view": "research/literature/H4_FEASIBILITY_SR.md",
+      "sha": "0dce90fa7c60646feec6b620fedca0829f0a1209",
+      "bytes": 1064,
+      "mode": "100644",
+      "name": "H4_FEASIBILITY_SR.md"
+    },
+    {
+      "old": "research/H4_PRIOR_ART_AUDIT_SR.md",
+      "canonical": "research/legacy/flat/H4_PRIOR_ART_AUDIT_SR.md",
+      "view": "research/literature/H4_PRIOR_ART_AUDIT_SR.md",
+      "sha": "a70b60945c57f318191314e6341bc5e1e175ea9b",
+      "bytes": 4374,
+      "mode": "100644",
+      "name": "H4_PRIOR_ART_AUDIT_SR.md"
+    },
+    {
+      "old": "research/H5_PROPOSAL_SR.md",
+      "canonical": "research/legacy/flat/H5_PROPOSAL_SR.md",
+      "view": "research/literature/H5_PROPOSAL_SR.md",
+      "sha": "7fb7be25344c3c143ab54f4ffcab912f3898e800",
+      "bytes": 12040,
+      "mode": "100644",
+      "name": "H5_PROPOSAL_SR.md"
+    },
+    {
+      "old": "research/H6_COST_SIGNAL_PRIOR_ART_AUDIT_SR.md",
+      "canonical": "research/legacy/flat/H6_COST_SIGNAL_PRIOR_ART_AUDIT_SR.md",
+      "view": "research/literature/H6_COST_SIGNAL_PRIOR_ART_AUDIT_SR.md",
+      "sha": "9bb9bf9f3346991aece447f696bcb991256f6178",
+      "bytes": 3323,
+      "mode": "100644",
+      "name": "H6_COST_SIGNAL_PRIOR_ART_AUDIT_SR.md"
+    },
+    {
+      "old": "research/H7_BOUNDED_UNIQUENESS_PRIOR_ART_AUDIT_SR.md",
+      "canonical": "research/legacy/flat/H7_BOUNDED_UNIQUENESS_PRIOR_ART_AUDIT_SR.md",
+      "view": "research/literature/H7_BOUNDED_UNIQUENESS_PRIOR_ART_AUDIT_SR.md",
+      "sha": "426045d39ad605e1f73e940a2670fd139dad8c86",
+      "bytes": 2237,
+      "mode": "100644",
+      "name": "H7_BOUNDED_UNIQUENESS_PRIOR_ART_AUDIT_SR.md"
+    },
+    {
+      "old": "research/H8_INTERVAL_INFERENCE_PRIOR_ART_AUDIT_SR.md",
+      "canonical": "research/legacy/flat/H8_INTERVAL_INFERENCE_PRIOR_ART_AUDIT_SR.md",
+      "view": "research/literature/H8_INTERVAL_INFERENCE_PRIOR_ART_AUDIT_SR.md",
+      "sha": "22185388f5eea95f7e4f9bcec6118b879d322bca",
+      "bytes": 1817,
+      "mode": "100644",
+      "name": "H8_INTERVAL_INFERENCE_PRIOR_ART_AUDIT_SR.md"
+    },
+    {
+      "old": "research/IDEATION_2026-10-24_CLAUDE_BLIND_SR.md",
+      "canonical": "research/legacy/flat/IDEATION_2026-10-24_CLAUDE_BLIND_SR.md",
+      "view": "research/literature/IDEATION_2026-10-24_CLAUDE_BLIND_SR.md",
+      "sha": "2785ed7545ca86d3e3050c8cdbc652a4cb8a1de2",
+      "bytes": 6000,
+      "mode": "100644",
+      "name": "IDEATION_2026-10-24_CLAUDE_BLIND_SR.md"
+    },
+    {
+      "old": "research/IDEATION_2026-10-28_CLAUDE_BLIND_SR.md",
+      "canonical": "research/legacy/flat/IDEATION_2026-10-28_CLAUDE_BLIND_SR.md",
+      "view": "research/literature/IDEATION_2026-10-28_CLAUDE_BLIND_SR.md",
+      "sha": "d4f2d7dfcda11905d7c1f088941f058be1ac2df3",
+      "bytes": 2052,
+      "mode": "100644",
+      "name": "IDEATION_2026-10-28_CLAUDE_BLIND_SR.md"
+    },
+    {
+      "old": "research/IEEE_INFRASTRUCTURE.md",
+      "canonical": "research/legacy/flat/IEEE_INFRASTRUCTURE.md",
+      "view": "research/domains/IEEE_INFRASTRUCTURE.md",
+      "sha": "1d73cf94374a86b02d0b63ebc82a84654afa3de8",
+      "bytes": 2332,
+      "mode": "100644",
+      "name": "IEEE_INFRASTRUCTURE.md"
+    },
+    {
+      "old": "research/INTEGRITY_AUDIT_TOOL.md",
+      "canonical": "research/legacy/flat/INTEGRITY_AUDIT_TOOL.md",
+      "view": "research/studies/integrity/INTEGRITY_AUDIT_TOOL.md",
+      "sha": "47cdf4c3d17aed6a6f6e6e2636e460e22ad8f4b0",
+      "bytes": 3803,
+      "mode": "100644",
+      "name": "INTEGRITY_AUDIT_TOOL.md"
+    },
+    {
+      "old": "research/ITERATION10_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION10_PROTOCOL.md",
+      "view": "research/studies/i10/ITERATION10_PROTOCOL.md",
+      "sha": "bc86d8325d6c03d71bc2a5286b4343df320c48d5",
+      "bytes": 2909,
+      "mode": "100644",
+      "name": "ITERATION10_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION10_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION10_REPORT_SR.md",
+      "view": "research/studies/i10/ITERATION10_REPORT_SR.md",
+      "sha": "f6245935d7613d37455e6573d494d91768ccf756",
+      "bytes": 7390,
+      "mode": "100644",
+      "name": "ITERATION10_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION11_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION11_PROTOCOL.md",
+      "view": "research/studies/i11/ITERATION11_PROTOCOL.md",
+      "sha": "9a8262430f665ece97d5b8bbb604f0c037404eda",
+      "bytes": 4104,
+      "mode": "100644",
+      "name": "ITERATION11_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION11_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION11_REPORT_SR.md",
+      "view": "research/studies/i11/ITERATION11_REPORT_SR.md",
+      "sha": "fa7363329f77c32912acf3d7fd3504194e7853cf",
+      "bytes": 7885,
+      "mode": "100644",
+      "name": "ITERATION11_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION12_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION12_PROTOCOL.md",
+      "view": "research/studies/i12/ITERATION12_PROTOCOL.md",
+      "sha": "9c0dcc600b17cf20ac3ba24983a3fddcff1bb97b",
+      "bytes": 3532,
+      "mode": "100644",
+      "name": "ITERATION12_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION12_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION12_REPORT_SR.md",
+      "view": "research/studies/i12/ITERATION12_REPORT_SR.md",
+      "sha": "4877feb4d15412d6c1bb04eaa5f09e632e6112c1",
+      "bytes": 2806,
+      "mode": "100644",
+      "name": "ITERATION12_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION13_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION13_PROTOCOL.md",
+      "view": "research/studies/i13/ITERATION13_PROTOCOL.md",
+      "sha": "40853eef67f5ba3139dd0ca8c663c13527fa70bb",
+      "bytes": 2884,
+      "mode": "100644",
+      "name": "ITERATION13_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION13_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION13_REPORT_SR.md",
+      "view": "research/studies/i13/ITERATION13_REPORT_SR.md",
+      "sha": "84277968caa653508ef5251693504f6a9aa5f4d4",
+      "bytes": 6079,
+      "mode": "100644",
+      "name": "ITERATION13_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION14_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION14_PROTOCOL.md",
+      "view": "research/studies/i14/ITERATION14_PROTOCOL.md",
+      "sha": "6a225464900a8766f28ed3b3aaae38dcb109dbe5",
+      "bytes": 4814,
+      "mode": "100644",
+      "name": "ITERATION14_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION14_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION14_REPORT_SR.md",
+      "view": "research/studies/i14/ITERATION14_REPORT_SR.md",
+      "sha": "e0c128370a9684c3b96d5f79b7e0849bf8a6178e",
+      "bytes": 4776,
+      "mode": "100644",
+      "name": "ITERATION14_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION15_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION15_PROTOCOL.md",
+      "view": "research/studies/i15/ITERATION15_PROTOCOL.md",
+      "sha": "765f3de71a63f9ec41fec2ae32644718bb0f585e",
+      "bytes": 3184,
+      "mode": "100644",
+      "name": "ITERATION15_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION15_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION15_REPORT_SR.md",
+      "view": "research/studies/i15/ITERATION15_REPORT_SR.md",
+      "sha": "9da51a1f0821b70d2f2047bf38bc97ecaf3be993",
+      "bytes": 5122,
+      "mode": "100644",
+      "name": "ITERATION15_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION16_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION16_PROTOCOL.md",
+      "view": "research/studies/i16/ITERATION16_PROTOCOL.md",
+      "sha": "d779379e8c8d39e76413775fbc1f95f30a4ed2c4",
+      "bytes": 3361,
+      "mode": "100644",
+      "name": "ITERATION16_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION16_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION16_REPORT_SR.md",
+      "view": "research/studies/i16/ITERATION16_REPORT_SR.md",
+      "sha": "8ff81747ff5da11ee4d7ed7712e3fa66e5725993",
+      "bytes": 5292,
+      "mode": "100644",
+      "name": "ITERATION16_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION17_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION17_PROTOCOL.md",
+      "view": "research/studies/i17/ITERATION17_PROTOCOL.md",
+      "sha": "099166a7f756ee129fde1dccd49d039cb279424c",
+      "bytes": 5614,
+      "mode": "100644",
+      "name": "ITERATION17_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION17_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION17_REPORT_SR.md",
+      "view": "research/studies/i17/ITERATION17_REPORT_SR.md",
+      "sha": "fff593df56a3f64882eaad7280c22b7efa2e91ed",
+      "bytes": 8752,
+      "mode": "100644",
+      "name": "ITERATION17_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION18_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION18_PROTOCOL.md",
+      "view": "research/studies/i18/ITERATION18_PROTOCOL.md",
+      "sha": "e56deb6be880ba4d9bb78978797068e63a8fa9b9",
+      "bytes": 4186,
+      "mode": "100644",
+      "name": "ITERATION18_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION18_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION18_REPORT_SR.md",
+      "view": "research/studies/i18/ITERATION18_REPORT_SR.md",
+      "sha": "2abe53bf853a0d5c6340836f9c350bd6c2cdefe9",
+      "bytes": 6763,
+      "mode": "100644",
+      "name": "ITERATION18_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION19_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION19_PROTOCOL.md",
+      "view": "research/studies/i19/ITERATION19_PROTOCOL.md",
+      "sha": "7794d3ecc1edeeeb6f38abf6f3034a79d2998686",
+      "bytes": 4282,
+      "mode": "100644",
+      "name": "ITERATION19_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION19_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION19_REPORT_SR.md",
+      "view": "research/studies/i19/ITERATION19_REPORT_SR.md",
+      "sha": "bfb6d0fe196d19af484de9bc9b3ba79ee36a5743",
+      "bytes": 6059,
+      "mode": "100644",
+      "name": "ITERATION19_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION20_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION20_PROTOCOL.md",
+      "view": "research/studies/i20/ITERATION20_PROTOCOL.md",
+      "sha": "4c7fa619a61b2348258adbdf0cebaa9b6b49fd00",
+      "bytes": 4606,
+      "mode": "100644",
+      "name": "ITERATION20_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION20_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION20_REPORT_SR.md",
+      "view": "research/studies/i20/ITERATION20_REPORT_SR.md",
+      "sha": "97264f5bbd2f3bf167674a46a9d3d6dc08b0de67",
+      "bytes": 6145,
+      "mode": "100644",
+      "name": "ITERATION20_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION21_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION21_PROTOCOL.md",
+      "view": "research/studies/i21/ITERATION21_PROTOCOL.md",
+      "sha": "ecf8ec73edefc2ab94c7edd74fa5d9b865ff28a8",
+      "bytes": 4238,
+      "mode": "100644",
+      "name": "ITERATION21_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION21_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION21_REPORT_SR.md",
+      "view": "research/studies/i21/ITERATION21_REPORT_SR.md",
+      "sha": "d42821e87c0d4bdf5d0a586505646c48b37347f3",
+      "bytes": 4877,
+      "mode": "100644",
+      "name": "ITERATION21_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION22_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION22_PROTOCOL.md",
+      "view": "research/studies/i22/ITERATION22_PROTOCOL.md",
+      "sha": "bf2d447baa26649a5bde38748ab9ac1fb0f85b71",
+      "bytes": 5011,
+      "mode": "100644",
+      "name": "ITERATION22_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION22_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION22_REPORT_SR.md",
+      "view": "research/studies/i22/ITERATION22_REPORT_SR.md",
+      "sha": "abe74a1627d24dc403af3bf4865a6ac88120a229",
+      "bytes": 5513,
+      "mode": "100644",
+      "name": "ITERATION22_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION23_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION23_PROTOCOL.md",
+      "view": "research/studies/i23/ITERATION23_PROTOCOL.md",
+      "sha": "c936bb192b93a677c21cb99d7fb897128e3c1453",
+      "bytes": 4410,
+      "mode": "100644",
+      "name": "ITERATION23_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION23_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION23_REPORT_SR.md",
+      "view": "research/studies/i23/ITERATION23_REPORT_SR.md",
+      "sha": "7f58a0e3bc3184e71a8e7665a32db6589bae3aec",
+      "bytes": 7803,
+      "mode": "100644",
+      "name": "ITERATION23_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION24_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION24_PROTOCOL.md",
+      "view": "research/studies/i24/ITERATION24_PROTOCOL.md",
+      "sha": "e0a7921e5231094ee11b59e264f66040065ebaa3",
+      "bytes": 6097,
+      "mode": "100644",
+      "name": "ITERATION24_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION24_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION24_REPORT_SR.md",
+      "view": "research/studies/i24/ITERATION24_REPORT_SR.md",
+      "sha": "960bea6982cd6390ebc5da59fc47482a63fb98ac",
+      "bytes": 11995,
+      "mode": "100644",
+      "name": "ITERATION24_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION25_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION25_PROTOCOL.md",
+      "view": "research/studies/i25/ITERATION25_PROTOCOL.md",
+      "sha": "ba9cfc86350b1f8c2da7f9b589dc693a75109310",
+      "bytes": 5225,
+      "mode": "100644",
+      "name": "ITERATION25_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION25_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION25_REPORT_SR.md",
+      "view": "research/studies/i25/ITERATION25_REPORT_SR.md",
+      "sha": "154730324fcb193a4067ae4441dc39ab6c33efc8",
+      "bytes": 9054,
+      "mode": "100644",
+      "name": "ITERATION25_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION26_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION26_PROTOCOL.md",
+      "view": "research/studies/i26/ITERATION26_PROTOCOL.md",
+      "sha": "df8eaeda472b6e9841c1062584b0ef10e311a981",
+      "bytes": 5564,
+      "mode": "100644",
+      "name": "ITERATION26_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION26_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION26_REPORT_SR.md",
+      "view": "research/studies/i26/ITERATION26_REPORT_SR.md",
+      "sha": "ef09c52f42f4edd6a60810d29e95b9ac32ad0470",
+      "bytes": 5908,
+      "mode": "100644",
+      "name": "ITERATION26_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION27_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION27_PROTOCOL.md",
+      "view": "research/studies/i27/ITERATION27_PROTOCOL.md",
+      "sha": "31bb27a0d6265ce62190cb7b834276755a53e8dd",
+      "bytes": 6365,
+      "mode": "100644",
+      "name": "ITERATION27_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION27_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION27_REPORT_SR.md",
+      "view": "research/studies/i27/ITERATION27_REPORT_SR.md",
+      "sha": "9f570155abb3515cd668e6d0eec95b6768493764",
+      "bytes": 11726,
+      "mode": "100644",
+      "name": "ITERATION27_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION28_LITERATURE_NOVELTY_AUDIT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION28_LITERATURE_NOVELTY_AUDIT_SR.md",
+      "view": "research/studies/i28/ITERATION28_LITERATURE_NOVELTY_AUDIT_SR.md",
+      "sha": "657daadb611efc3d5b4c9a034f067f8985d4dc2a",
+      "bytes": 8347,
+      "mode": "100644",
+      "name": "ITERATION28_LITERATURE_NOVELTY_AUDIT_SR.md"
+    },
+    {
+      "old": "research/ITERATION28_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION28_PROTOCOL.md",
+      "view": "research/studies/i28/ITERATION28_PROTOCOL.md",
+      "sha": "a806e7e52e282a3b5702ef03a919e7aa7d5b9827",
+      "bytes": 6203,
+      "mode": "100644",
+      "name": "ITERATION28_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION28_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION28_REPORT_SR.md",
+      "view": "research/studies/i28/ITERATION28_REPORT_SR.md",
+      "sha": "9ceb5c00e0607ec7a270c10a30a6a0879cd78d14",
+      "bytes": 12149,
+      "mode": "100644",
+      "name": "ITERATION28_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION29_PRIOR_ART_SR.md",
+      "canonical": "research/legacy/flat/ITERATION29_PRIOR_ART_SR.md",
+      "view": "research/studies/i29/ITERATION29_PRIOR_ART_SR.md",
+      "sha": "7ce618822e3c4b684d190d858fe9201ff819e123",
+      "bytes": 5884,
+      "mode": "100644",
+      "name": "ITERATION29_PRIOR_ART_SR.md"
+    },
+    {
+      "old": "research/ITERATION29_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION29_PROTOCOL.md",
+      "view": "research/studies/i29/ITERATION29_PROTOCOL.md",
+      "sha": "25fe78d9b0ba991daae9426e768bddaa188d683b",
+      "bytes": 8274,
+      "mode": "100644",
+      "name": "ITERATION29_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION29_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION29_REPORT_SR.md",
+      "view": "research/studies/i29/ITERATION29_REPORT_SR.md",
+      "sha": "6087439496a02a93a97470121dc30b60fb214b9a",
+      "bytes": 11884,
+      "mode": "100644",
+      "name": "ITERATION29_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION2_REPORT.md",
+      "canonical": "research/legacy/flat/ITERATION2_REPORT.md",
+      "view": "research/studies/i02/ITERATION2_REPORT.md",
+      "sha": "beea5e9aeb64f12e30044aced70dd29f3e142b9f",
+      "bytes": 5962,
+      "mode": "100644",
+      "name": "ITERATION2_REPORT.md"
+    },
+    {
+      "old": "research/ITERATION30_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION30_PROTOCOL.md",
+      "view": "research/studies/i30/ITERATION30_PROTOCOL.md",
+      "sha": "c656ceb3c2c09f77af5e367b098159e182185992",
+      "bytes": 5135,
+      "mode": "100644",
+      "name": "ITERATION30_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION30_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION30_REPORT_SR.md",
+      "view": "research/studies/i30/ITERATION30_REPORT_SR.md",
+      "sha": "94ac14acf72c139c8502397090e897f033a4ef2a",
+      "bytes": 7676,
+      "mode": "100644",
+      "name": "ITERATION30_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION31_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION31_PROTOCOL.md",
+      "view": "research/studies/i31/ITERATION31_PROTOCOL.md",
+      "sha": "47a0afb6acd1945983526723235ce64af7abfcdc",
+      "bytes": 5155,
+      "mode": "100644",
+      "name": "ITERATION31_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION31_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION31_REPORT_SR.md",
+      "view": "research/studies/i31/ITERATION31_REPORT_SR.md",
+      "sha": "efb29b491af67cb8ececc133d2a880a5d21ac07e",
+      "bytes": 7400,
+      "mode": "100644",
+      "name": "ITERATION31_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION32_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION32_PROTOCOL.md",
+      "view": "research/studies/i32/ITERATION32_PROTOCOL.md",
+      "sha": "69d3c367669df34f07713c4ffc06345ccd48e960",
+      "bytes": 5995,
+      "mode": "100644",
+      "name": "ITERATION32_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION32_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION32_REPORT_SR.md",
+      "view": "research/studies/i32/ITERATION32_REPORT_SR.md",
+      "sha": "c014b6cb5cfea45d0532a84f0f165e5925339d73",
+      "bytes": 9608,
+      "mode": "100644",
+      "name": "ITERATION32_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION33_GEANT_MODEL_AUDIT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION33_GEANT_MODEL_AUDIT_SR.md",
+      "view": "research/studies/i33/ITERATION33_GEANT_MODEL_AUDIT_SR.md",
+      "sha": "a9d0e46106a74366219b6035221ea67daf2d6f34",
+      "bytes": 3193,
+      "mode": "100644",
+      "name": "ITERATION33_GEANT_MODEL_AUDIT_SR.md"
+    },
+    {
+      "old": "research/ITERATION33_PRIOR_ART_AND_NEXT_HYPOTHESIS_SR.md",
+      "canonical": "research/legacy/flat/ITERATION33_PRIOR_ART_AND_NEXT_HYPOTHESIS_SR.md",
+      "view": "research/studies/i33/ITERATION33_PRIOR_ART_AND_NEXT_HYPOTHESIS_SR.md",
+      "sha": "b7fda12af55cadb361e488adb1d665a569f4352c",
+      "bytes": 6358,
+      "mode": "100644",
+      "name": "ITERATION33_PRIOR_ART_AND_NEXT_HYPOTHESIS_SR.md"
+    },
+    {
+      "old": "research/ITERATION33_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION33_PROTOCOL.md",
+      "view": "research/studies/i33/ITERATION33_PROTOCOL.md",
+      "sha": "f5108723d90e6125c12d0e55df0f34ff3c10d129",
+      "bytes": 6708,
+      "mode": "100644",
+      "name": "ITERATION33_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION33_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION33_REPORT_SR.md",
+      "view": "research/studies/i33/ITERATION33_REPORT_SR.md",
+      "sha": "bab9075d50e498baf6f85861cda7540a843ebb59",
+      "bytes": 10555,
+      "mode": "100644",
+      "name": "ITERATION33_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION34_IMPLEMENTATION_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION34_IMPLEMENTATION_REPORT_SR.md",
+      "view": "research/studies/i34/ITERATION34_IMPLEMENTATION_REPORT_SR.md",
+      "sha": "b05b0914197b480515a082b20705dbe9cf9c26c4",
+      "bytes": 4687,
+      "mode": "100644",
+      "name": "ITERATION34_IMPLEMENTATION_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION34_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION34_PROTOCOL.md",
+      "view": "research/studies/i34/ITERATION34_PROTOCOL.md",
+      "sha": "bbfb78c1e66de786c753c1ff254e67d635948467",
+      "bytes": 6150,
+      "mode": "100644",
+      "name": "ITERATION34_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION34_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION34_REPORT_SR.md",
+      "view": "research/studies/i34/ITERATION34_REPORT_SR.md",
+      "sha": "b6e9a2ff9f1e9533bf717a5edbd998cec802fe40",
+      "bytes": 10135,
+      "mode": "100644",
+      "name": "ITERATION34_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION35_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION35_PROTOCOL.md",
+      "view": "research/studies/i35/ITERATION35_PROTOCOL.md",
+      "sha": "f8fe376157a0b17a195ba0c58a10295b284c2bb2",
+      "bytes": 4248,
+      "mode": "100644",
+      "name": "ITERATION35_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION35_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION35_REPORT_SR.md",
+      "view": "research/studies/i35/ITERATION35_REPORT_SR.md",
+      "sha": "89e9d721002d107a941bc747c41e4d2f55eee56b",
+      "bytes": 5512,
+      "mode": "100644",
+      "name": "ITERATION35_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION36_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION36_PROTOCOL.md",
+      "view": "research/studies/i36/ITERATION36_PROTOCOL.md",
+      "sha": "807aa5971ae8f496278565b8ac56c54c88feeea7",
+      "bytes": 3729,
+      "mode": "100644",
+      "name": "ITERATION36_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION36_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION36_REPORT_SR.md",
+      "view": "research/studies/i36/ITERATION36_REPORT_SR.md",
+      "sha": "9fc11755b4e0b0989173b6e0870c4c53fa0970fa",
+      "bytes": 6909,
+      "mode": "100644",
+      "name": "ITERATION36_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION37_COST_RATE_METHOD_GATE.md",
+      "canonical": "research/legacy/flat/ITERATION37_COST_RATE_METHOD_GATE.md",
+      "view": "research/studies/i37/ITERATION37_COST_RATE_METHOD_GATE.md",
+      "sha": "577e447032d42474dc35484afcffd06460f7f44d",
+      "bytes": 6560,
+      "mode": "100644",
+      "name": "ITERATION37_COST_RATE_METHOD_GATE.md"
+    },
+    {
+      "old": "research/ITERATION38_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION38_PROTOCOL.md",
+      "view": "research/studies/i38/ITERATION38_PROTOCOL.md",
+      "sha": "7641ae0d040bc807c9027f9b8ec12e73c28ccb8e",
+      "bytes": 7461,
+      "mode": "100644",
+      "name": "ITERATION38_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION38_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION38_REPORT_SR.md",
+      "view": "research/studies/i38/ITERATION38_REPORT_SR.md",
+      "sha": "e1d5978b9484fe898e88e19e961d67c89be0c41d",
+      "bytes": 5558,
+      "mode": "100644",
+      "name": "ITERATION38_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION39_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION39_PROTOCOL.md",
+      "view": "research/studies/i39/ITERATION39_PROTOCOL.md",
+      "sha": "1434c18694a4126e982a865a140c0449aedd047d",
+      "bytes": 5930,
+      "mode": "100644",
+      "name": "ITERATION39_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION39_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION39_REPORT_SR.md",
+      "view": "research/studies/i39/ITERATION39_REPORT_SR.md",
+      "sha": "2e2e8e3eaab21d86b19b87794c64a090fa569862",
+      "bytes": 8304,
+      "mode": "100644",
+      "name": "ITERATION39_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION40_METHOD_GATE_AND_DATA_BLOCKER_SR.md",
+      "canonical": "research/legacy/flat/ITERATION40_METHOD_GATE_AND_DATA_BLOCKER_SR.md",
+      "view": "research/studies/i40/ITERATION40_METHOD_GATE_AND_DATA_BLOCKER_SR.md",
+      "sha": "0377d3c77caf5463d21d0058537e7dab989d5d68",
+      "bytes": 5050,
+      "mode": "100644",
+      "name": "ITERATION40_METHOD_GATE_AND_DATA_BLOCKER_SR.md"
+    },
+    {
+      "old": "research/ITERATION40_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION40_PROTOCOL.md",
+      "view": "research/studies/i40/ITERATION40_PROTOCOL.md",
+      "sha": "00ad006c5192e717a9802ac9d1e983ea4be99c32",
+      "bytes": 6108,
+      "mode": "100644",
+      "name": "ITERATION40_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION41_ALGORITHM_PROOF_AND_RESEARCH_DECISION_SR.md",
+      "canonical": "research/legacy/flat/ITERATION41_ALGORITHM_PROOF_AND_RESEARCH_DECISION_SR.md",
+      "view": "research/studies/i41/ITERATION41_ALGORITHM_PROOF_AND_RESEARCH_DECISION_SR.md",
+      "sha": "081703d47657aaeb7b70c684ea680ec4c95f9c0d",
+      "bytes": 8540,
+      "mode": "100644",
+      "name": "ITERATION41_ALGORITHM_PROOF_AND_RESEARCH_DECISION_SR.md"
+    },
+    {
+      "old": "research/ITERATION41_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION41_PROTOCOL.md",
+      "view": "research/studies/i41/ITERATION41_PROTOCOL.md",
+      "sha": "d44b26c90e1a397cf6c9c66726c2b2e7d759e1c1",
+      "bytes": 4629,
+      "mode": "100644",
+      "name": "ITERATION41_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION42_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION42_PROTOCOL.md",
+      "view": "research/studies/i42/ITERATION42_PROTOCOL.md",
+      "sha": "4f0f0ebaaf2908f32b3a65b5607aebb43843c8f3",
+      "bytes": 5555,
+      "mode": "100644",
+      "name": "ITERATION42_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION42_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION42_REPORT_SR.md",
+      "view": "research/studies/i42/ITERATION42_REPORT_SR.md",
+      "sha": "4d8dc0a0afce6370d25c4e802f459c0916f0026a",
+      "bytes": 4790,
+      "mode": "100644",
+      "name": "ITERATION42_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION43_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION43_PROTOCOL.md",
+      "view": "research/studies/i43/ITERATION43_PROTOCOL.md",
+      "sha": "22f269701d41365ab00afd152e61d9dd46cab7c2",
+      "bytes": 5875,
+      "mode": "100644",
+      "name": "ITERATION43_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION43_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION43_REPORT_SR.md",
+      "view": "research/studies/i43/ITERATION43_REPORT_SR.md",
+      "sha": "2d02aa62d8b743c28767b978779f986ad8977716",
+      "bytes": 4622,
+      "mode": "100644",
+      "name": "ITERATION43_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION44_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION44_PROTOCOL.md",
+      "view": "research/studies/i44/ITERATION44_PROTOCOL.md",
+      "sha": "db146c67d236093ceee4fc011f3d8127c5344578",
+      "bytes": 4672,
+      "mode": "100644",
+      "name": "ITERATION44_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION44_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION44_REPORT_SR.md",
+      "view": "research/studies/i44/ITERATION44_REPORT_SR.md",
+      "sha": "77ea3ae9a881a08fb0081da509d9e31244d38570",
+      "bytes": 3840,
+      "mode": "100644",
+      "name": "ITERATION44_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION45_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION45_PROTOCOL.md",
+      "view": "research/studies/i45/ITERATION45_PROTOCOL.md",
+      "sha": "ce2ac8b1d6c7b35b46a4be0161eb5efaf2d51a09",
+      "bytes": 2755,
+      "mode": "100644",
+      "name": "ITERATION45_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION45_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION45_REPORT_SR.md",
+      "view": "research/studies/i45/ITERATION45_REPORT_SR.md",
+      "sha": "f93c56849c270d0f94741a7d6e66ef62b0a38eda",
+      "bytes": 3193,
+      "mode": "100644",
+      "name": "ITERATION45_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION46_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION46_PROTOCOL.md",
+      "view": "research/studies/i46/ITERATION46_PROTOCOL.md",
+      "sha": "26f740673d6c71919a93b0a972bf710b2681abc1",
+      "bytes": 3291,
+      "mode": "100644",
+      "name": "ITERATION46_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION46_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION46_REPORT_SR.md",
+      "view": "research/studies/i46/ITERATION46_REPORT_SR.md",
+      "sha": "522e801aa2cdf4cfff640167e321ed95a575c6bf",
+      "bytes": 4054,
+      "mode": "100644",
+      "name": "ITERATION46_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION47_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION47_PROTOCOL.md",
+      "view": "research/studies/i47/ITERATION47_PROTOCOL.md",
+      "sha": "88bdf882d3e1c15ab64073a86a04e3c580c4a435",
+      "bytes": 5708,
+      "mode": "100644",
+      "name": "ITERATION47_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION47_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION47_REPORT_SR.md",
+      "view": "research/studies/i47/ITERATION47_REPORT_SR.md",
+      "sha": "a62a883c2173e8aa0a7f0cfbd8ddf1adec774614",
+      "bytes": 4823,
+      "mode": "100644",
+      "name": "ITERATION47_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION48_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION48_PROTOCOL.md",
+      "view": "research/studies/i48/ITERATION48_PROTOCOL.md",
+      "sha": "d64b1d7c5aea080bae36430065fd72daa3173917",
+      "bytes": 3937,
+      "mode": "100644",
+      "name": "ITERATION48_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION48_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION48_REPORT_SR.md",
+      "view": "research/studies/i48/ITERATION48_REPORT_SR.md",
+      "sha": "fb37c50212d2904792a4e57f8df96a279c9aee14",
+      "bytes": 3008,
+      "mode": "100644",
+      "name": "ITERATION48_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION49_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION49_PROTOCOL.md",
+      "view": "research/studies/i49/ITERATION49_PROTOCOL.md",
+      "sha": "52d92bf4cd7d5889bb4f233eb2237ce99c33008d",
+      "bytes": 7027,
+      "mode": "100644",
+      "name": "ITERATION49_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION49_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION49_REPORT_SR.md",
+      "view": "research/studies/i49/ITERATION49_REPORT_SR.md",
+      "sha": "84b191e866ed520956c052f0e0895aecf84d4e3e",
+      "bytes": 7260,
+      "mode": "100644",
+      "name": "ITERATION49_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION4_REPORT.md",
+      "canonical": "research/legacy/flat/ITERATION4_REPORT.md",
+      "view": "research/studies/i04/ITERATION4_REPORT.md",
+      "sha": "55e5e31c43f4e7bdbafc0ef903f4e31b6cab87e0",
+      "bytes": 10027,
+      "mode": "100644",
+      "name": "ITERATION4_REPORT.md"
+    },
+    {
+      "old": "research/ITERATION50_ELIGIBILITY.md",
+      "canonical": "research/legacy/flat/ITERATION50_ELIGIBILITY.md",
+      "view": "research/studies/i50/ITERATION50_ELIGIBILITY.md",
+      "sha": "c80b860c93a8b0d27339a5b90e6a65d1c2676dd4",
+      "bytes": 10598,
+      "mode": "100644",
+      "name": "ITERATION50_ELIGIBILITY.md"
+    },
+    {
+      "old": "research/ITERATION50_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION50_PROTOCOL.md",
+      "view": "research/studies/i50/ITERATION50_PROTOCOL.md",
+      "sha": "98c82af4b7dcd453226e63aed87ae10108e4ea9f",
+      "bytes": 8406,
+      "mode": "100644",
+      "name": "ITERATION50_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION50_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION50_REPORT_SR.md",
+      "view": "research/studies/i50/ITERATION50_REPORT_SR.md",
+      "sha": "8d9a5fc726772752f476ad2d9f824b0898fe9604",
+      "bytes": 8297,
+      "mode": "100644",
+      "name": "ITERATION50_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION51_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION51_PROTOCOL.md",
+      "view": "research/studies/i51/ITERATION51_PROTOCOL.md",
+      "sha": "283281aa61380a7588bdd970c98d0a3d13602578",
+      "bytes": 1901,
+      "mode": "100644",
+      "name": "ITERATION51_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION51_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION51_REPORT_SR.md",
+      "view": "research/studies/i51/ITERATION51_REPORT_SR.md",
+      "sha": "3cc05b5322b2e037b9a52629ae5b302f30bd95b8",
+      "bytes": 1233,
+      "mode": "100644",
+      "name": "ITERATION51_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION52_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION52_PROTOCOL.md",
+      "view": "research/studies/i52/ITERATION52_PROTOCOL.md",
+      "sha": "dc0bb3b7ef33c913f1c52435eb75fa97918ae8ad",
+      "bytes": 3586,
+      "mode": "100644",
+      "name": "ITERATION52_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION52_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION52_REPORT_SR.md",
+      "view": "research/studies/i52/ITERATION52_REPORT_SR.md",
+      "sha": "c5ee0a11a6a3047efa85dd13403baa04d9a46b02",
+      "bytes": 4775,
+      "mode": "100644",
+      "name": "ITERATION52_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION52_SENSITIVITY_PLAN.md",
+      "canonical": "research/legacy/flat/ITERATION52_SENSITIVITY_PLAN.md",
+      "view": "research/studies/i52/ITERATION52_SENSITIVITY_PLAN.md",
+      "sha": "23cd396bd8b72c5d49cd81250ef8e372bf76ea8d",
+      "bytes": 3277,
+      "mode": "100644",
+      "name": "ITERATION52_SENSITIVITY_PLAN.md"
+    },
+    {
+      "old": "research/ITERATION53_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION53_PROTOCOL.md",
+      "view": "research/studies/i53/ITERATION53_PROTOCOL.md",
+      "sha": "a500ad00fc724b71439bc202340fed690fd72c67",
+      "bytes": 7484,
+      "mode": "100644",
+      "name": "ITERATION53_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION53_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION53_REPORT_SR.md",
+      "view": "research/studies/i53/ITERATION53_REPORT_SR.md",
+      "sha": "70022a53f06f162d6fb85620b86c3702b76aff8b",
+      "bytes": 8023,
+      "mode": "100644",
+      "name": "ITERATION53_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION54_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION54_PROTOCOL.md",
+      "view": "research/studies/i54/ITERATION54_PROTOCOL.md",
+      "sha": "854b0ed7ed066aa5cf041b423fb4ba006947d010",
+      "bytes": 3818,
+      "mode": "100644",
+      "name": "ITERATION54_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION55_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION55_PROTOCOL.md",
+      "view": "research/studies/i55/ITERATION55_PROTOCOL.md",
+      "sha": "d537b2da951a3b44a17328e06e571f07009727f7",
+      "bytes": 5330,
+      "mode": "100644",
+      "name": "ITERATION55_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION55_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION55_REPORT_SR.md",
+      "view": "research/studies/i55/ITERATION55_REPORT_SR.md",
+      "sha": "dfaa36189703ba26962fca465b5da4ec4f5672a1",
+      "bytes": 3458,
+      "mode": "100644",
+      "name": "ITERATION55_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION56_CLARIFICATIONS.md",
+      "canonical": "research/legacy/flat/ITERATION56_CLARIFICATIONS.md",
+      "view": "research/studies/i56/ITERATION56_CLARIFICATIONS.md",
+      "sha": "e3e8826f7763a1319bd10d754d5a8724814ef0dd",
+      "bytes": 1411,
+      "mode": "100644",
+      "name": "ITERATION56_CLARIFICATIONS.md"
+    },
+    {
+      "old": "research/ITERATION56_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION56_PROTOCOL.md",
+      "view": "research/studies/i56/ITERATION56_PROTOCOL.md",
+      "sha": "69d739a5b0d95b5bdab84b8fc53f6bde6869a053",
+      "bytes": 12903,
+      "mode": "100644",
+      "name": "ITERATION56_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION56_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION56_REPORT_SR.md",
+      "view": "research/studies/i56/ITERATION56_REPORT_SR.md",
+      "sha": "8ef3e9817cdb5b91d972ee365b1dca8594db82f3",
+      "bytes": 9802,
+      "mode": "100644",
+      "name": "ITERATION56_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION57_PROPOSAL_SR.md",
+      "canonical": "research/legacy/flat/ITERATION57_PROPOSAL_SR.md",
+      "view": "research/studies/i57/ITERATION57_PROPOSAL_SR.md",
+      "sha": "0f2103bfc34f009067dbf66581d52fda7fd1f40b",
+      "bytes": 2004,
+      "mode": "100644",
+      "name": "ITERATION57_PROPOSAL_SR.md"
+    },
+    {
+      "old": "research/ITERATION57_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION57_PROTOCOL.md",
+      "view": "research/studies/i57/ITERATION57_PROTOCOL.md",
+      "sha": "e0fca709cfc1afbea123e70800484544f6843ed3",
+      "bytes": 3848,
+      "mode": "100644",
+      "name": "ITERATION57_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION57_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION57_REPORT_SR.md",
+      "view": "research/studies/i57/ITERATION57_REPORT_SR.md",
+      "sha": "5fce007a69c4f61daa5e730799b6635258b91217",
+      "bytes": 9143,
+      "mode": "100644",
+      "name": "ITERATION57_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION58_PROPOSAL_SR.md",
+      "canonical": "research/legacy/flat/ITERATION58_PROPOSAL_SR.md",
+      "view": "research/studies/i58/ITERATION58_PROPOSAL_SR.md",
+      "sha": "391529de537ec64a0a1fab8582366859aba17244",
+      "bytes": 2716,
+      "mode": "100644",
+      "name": "ITERATION58_PROPOSAL_SR.md"
+    },
+    {
+      "old": "research/ITERATION58_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION58_PROTOCOL.md",
+      "view": "research/studies/i58/ITERATION58_PROTOCOL.md",
+      "sha": "7d75559f2f2d4b284267d5e22a71027adfb3aab7",
+      "bytes": 3911,
+      "mode": "100644",
+      "name": "ITERATION58_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION58_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION58_REPORT_SR.md",
+      "view": "research/studies/i58/ITERATION58_REPORT_SR.md",
+      "sha": "d0eb3ba9fdb22a8761be2ca3db7370a124a996ae",
+      "bytes": 9344,
+      "mode": "100644",
+      "name": "ITERATION58_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION59_CLARIFICATIONS.md",
+      "canonical": "research/legacy/flat/ITERATION59_CLARIFICATIONS.md",
+      "view": "research/studies/i59/ITERATION59_CLARIFICATIONS.md",
+      "sha": "2338f5823535009fcc89c70f7672fa05128b2cc6",
+      "bytes": 1900,
+      "mode": "100644",
+      "name": "ITERATION59_CLARIFICATIONS.md"
+    },
+    {
+      "old": "research/ITERATION59_PROPOSAL_SR.md",
+      "canonical": "research/legacy/flat/ITERATION59_PROPOSAL_SR.md",
+      "view": "research/studies/i59/ITERATION59_PROPOSAL_SR.md",
+      "sha": "8eff333a7cd1a2b27e8ce4347ae0d522d40f2a4f",
+      "bytes": 3550,
+      "mode": "100644",
+      "name": "ITERATION59_PROPOSAL_SR.md"
+    },
+    {
+      "old": "research/ITERATION59_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION59_PROTOCOL.md",
+      "view": "research/studies/i59/ITERATION59_PROTOCOL.md",
+      "sha": "9404481ebeba0e5db6494b73025c7b53e49748e7",
+      "bytes": 4420,
+      "mode": "100644",
+      "name": "ITERATION59_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION59_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION59_REPORT_SR.md",
+      "view": "research/studies/i59/ITERATION59_REPORT_SR.md",
+      "sha": "b5dbb0f3fab4490e4f2c42481be85e67eca4c197",
+      "bytes": 4050,
+      "mode": "100644",
+      "name": "ITERATION59_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION5_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION5_PROTOCOL.md",
+      "view": "research/studies/i05/ITERATION5_PROTOCOL.md",
+      "sha": "3a411c889a0c323fc12228659dc99c541c0e4612",
+      "bytes": 7023,
+      "mode": "100644",
+      "name": "ITERATION5_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION5_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION5_REPORT_SR.md",
+      "view": "research/studies/i05/ITERATION5_REPORT_SR.md",
+      "sha": "8eb65bc1f80c27a4f6c1186f27d83e98438b3f00",
+      "bytes": 9960,
+      "mode": "100644",
+      "name": "ITERATION5_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION60_PROPOSAL_SR.md",
+      "canonical": "research/legacy/flat/ITERATION60_PROPOSAL_SR.md",
+      "view": "research/studies/i60/ITERATION60_PROPOSAL_SR.md",
+      "sha": "af3296f5f6c75cbcb2aeab79118e4692417e05b1",
+      "bytes": 1991,
+      "mode": "100644",
+      "name": "ITERATION60_PROPOSAL_SR.md"
+    },
+    {
+      "old": "research/ITERATION60_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION60_PROTOCOL.md",
+      "view": "research/studies/i60/ITERATION60_PROTOCOL.md",
+      "sha": "ff5a396a39d6550d85773125fa50bc4fab04bc3e",
+      "bytes": 3386,
+      "mode": "100644",
+      "name": "ITERATION60_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION60_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION60_REPORT_SR.md",
+      "view": "research/studies/i60/ITERATION60_REPORT_SR.md",
+      "sha": "25cb2797789233d7d341063d56dcb5fe67b50268",
+      "bytes": 6631,
+      "mode": "100644",
+      "name": "ITERATION60_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION61_PROPOSAL_SR.md",
+      "canonical": "research/legacy/flat/ITERATION61_PROPOSAL_SR.md",
+      "view": "research/studies/i61/ITERATION61_PROPOSAL_SR.md",
+      "sha": "2fa1d78c5078230a486e668dbe4dcd401a8e64b9",
+      "bytes": 11226,
+      "mode": "100644",
+      "name": "ITERATION61_PROPOSAL_SR.md"
+    },
+    {
+      "old": "research/ITERATION61_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION61_PROTOCOL.md",
+      "view": "research/studies/i61/ITERATION61_PROTOCOL.md",
+      "sha": "912252c967f77433a06f6d9249733b8c32f82fa1",
+      "bytes": 11153,
+      "mode": "100644",
+      "name": "ITERATION61_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION61_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION61_REPORT_SR.md",
+      "view": "research/studies/i61/ITERATION61_REPORT_SR.md",
+      "sha": "f4d5304f7166cf4f3881a3d318a50c886a774793",
+      "bytes": 2613,
+      "mode": "100644",
+      "name": "ITERATION61_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION62_PROPOSAL_SR.md",
+      "canonical": "research/legacy/flat/ITERATION62_PROPOSAL_SR.md",
+      "view": "research/studies/i62/ITERATION62_PROPOSAL_SR.md",
+      "sha": "4099c1631c936d57166331eb926e56bcba69c68d",
+      "bytes": 9995,
+      "mode": "100644",
+      "name": "ITERATION62_PROPOSAL_SR.md"
+    },
+    {
+      "old": "research/ITERATION63D_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION63D_REPORT_SR.md",
+      "view": "research/overview/ITERATION63D_REPORT_SR.md",
+      "sha": "01e075c468a0c04f93202bacb5a59217256b3aff",
+      "bytes": 4114,
+      "mode": "100644",
+      "name": "ITERATION63D_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION63_PRERUN_NOTES.md",
+      "canonical": "research/legacy/flat/ITERATION63_PRERUN_NOTES.md",
+      "view": "research/studies/i63/ITERATION63_PRERUN_NOTES.md",
+      "sha": "085a6f0b01bf8dbbe0fbbd10e24904f8d5e9a60d",
+      "bytes": 1889,
+      "mode": "100644",
+      "name": "ITERATION63_PRERUN_NOTES.md"
+    },
+    {
+      "old": "research/ITERATION63_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION63_PROTOCOL.md",
+      "view": "research/studies/i63/ITERATION63_PROTOCOL.md",
+      "sha": "ab8d10f0ea18c789d162d4cb30a8c57eccff21fe",
+      "bytes": 13563,
+      "mode": "100644",
+      "name": "ITERATION63_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION63_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION63_REPORT_SR.md",
+      "view": "research/studies/i63/ITERATION63_REPORT_SR.md",
+      "sha": "1cd779942fb26e276310e35f05ef59bba8ee34b3",
+      "bytes": 2650,
+      "mode": "100644",
+      "name": "ITERATION63_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION6_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION6_PROTOCOL.md",
+      "view": "research/studies/i06/ITERATION6_PROTOCOL.md",
+      "sha": "9ded0c6ab63bd5c4b7ff75a758b946df8cce4cb9",
+      "bytes": 8331,
+      "mode": "100644",
+      "name": "ITERATION6_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION6_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION6_REPORT_SR.md",
+      "view": "research/studies/i06/ITERATION6_REPORT_SR.md",
+      "sha": "cc271b0e6c160747b8648e8e6e989bca39760d65",
+      "bytes": 13192,
+      "mode": "100644",
+      "name": "ITERATION6_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION7_LITERATURE.md",
+      "canonical": "research/legacy/flat/ITERATION7_LITERATURE.md",
+      "view": "research/studies/i07/ITERATION7_LITERATURE.md",
+      "sha": "e6941c6915e994cd2c6663389035d30e1d8a0eb4",
+      "bytes": 5321,
+      "mode": "100644",
+      "name": "ITERATION7_LITERATURE.md"
+    },
+    {
+      "old": "research/ITERATION7_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION7_PROTOCOL.md",
+      "view": "research/studies/i07/ITERATION7_PROTOCOL.md",
+      "sha": "0c0ead1dace3a0c2a60aee1f7339b821686fe439",
+      "bytes": 11341,
+      "mode": "100644",
+      "name": "ITERATION7_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION7_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION7_REPORT_SR.md",
+      "view": "research/studies/i07/ITERATION7_REPORT_SR.md",
+      "sha": "bf9c905a76d6d7679781bd7a57e5d7c728689a73",
+      "bytes": 16909,
+      "mode": "100644",
+      "name": "ITERATION7_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION8_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION8_PROTOCOL.md",
+      "view": "research/studies/i08/ITERATION8_PROTOCOL.md",
+      "sha": "5976f287da9af4ad4b3bcd1c50453c5085545115",
+      "bytes": 5031,
+      "mode": "100644",
+      "name": "ITERATION8_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION8_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION8_REPORT_SR.md",
+      "view": "research/studies/i08/ITERATION8_REPORT_SR.md",
+      "sha": "14d2d704ab5ddf5acc173d14d4a288b854ded73a",
+      "bytes": 6310,
+      "mode": "100644",
+      "name": "ITERATION8_REPORT_SR.md"
+    },
+    {
+      "old": "research/ITERATION9_PROTOCOL.md",
+      "canonical": "research/legacy/flat/ITERATION9_PROTOCOL.md",
+      "view": "research/studies/i09/ITERATION9_PROTOCOL.md",
+      "sha": "bfe9ae6994c766ed6d84e07a77566ca9a4a77514",
+      "bytes": 3604,
+      "mode": "100644",
+      "name": "ITERATION9_PROTOCOL.md"
+    },
+    {
+      "old": "research/ITERATION9_REPORT_SR.md",
+      "canonical": "research/legacy/flat/ITERATION9_REPORT_SR.md",
+      "view": "research/studies/i09/ITERATION9_REPORT_SR.md",
+      "sha": "d6a6afe7a680f93180d949b2517c814e4a4644fb",
+      "bytes": 6026,
+      "mode": "100644",
+      "name": "ITERATION9_REPORT_SR.md"
+    },
+    {
+      "old": "research/LICENSE_PYPOWER_BSD.txt",
+      "canonical": "research/legacy/flat/LICENSE_PYPOWER_BSD.txt",
+      "view": "research/environments/LICENSE_PYPOWER_BSD.txt",
+      "sha": "fd07b4bf2332c4162a097938b0fb4be34b70dc41",
+      "bytes": 1803,
+      "mode": "100644",
+      "name": "LICENSE_PYPOWER_BSD.txt"
+    },
+    {
+      "old": "research/ORACLE_DIAGNOSIS_PRIOR_ART_AUDIT_SR.md",
+      "canonical": "research/legacy/flat/ORACLE_DIAGNOSIS_PRIOR_ART_AUDIT_SR.md",
+      "view": "research/literature/ORACLE_DIAGNOSIS_PRIOR_ART_AUDIT_SR.md",
+      "sha": "b5d631289baa5678a06f9a933b08ab5400855ece",
+      "bytes": 2827,
+      "mode": "100644",
+      "name": "ORACLE_DIAGNOSIS_PRIOR_ART_AUDIT_SR.md"
+    },
+    {
+      "old": "research/PAIRED_CREDIT_PROTOCOL.md",
+      "canonical": "research/legacy/flat/PAIRED_CREDIT_PROTOCOL.md",
+      "view": "research/studies/integrity/PAIRED_CREDIT_PROTOCOL.md",
+      "sha": "3dbd92f6a4859fb8ceceb7ec98043415108925d5",
+      "bytes": 7632,
+      "mode": "100644",
+      "name": "PAIRED_CREDIT_PROTOCOL.md"
+    },
+    {
+      "old": "research/POST_I36_GO_NO_GO_NOVELTY_AUDIT_SR.md",
+      "canonical": "research/legacy/flat/POST_I36_GO_NO_GO_NOVELTY_AUDIT_SR.md",
+      "view": "research/literature/POST_I36_GO_NO_GO_NOVELTY_AUDIT_SR.md",
+      "sha": "d78722296d204d2c3cf4daa75645fe13d4a233a8",
+      "bytes": 11629,
+      "mode": "100644",
+      "name": "POST_I36_GO_NO_GO_NOVELTY_AUDIT_SR.md"
+    },
+    {
+      "old": "research/POST_I41_NOVELTY_AUDIT_SR.md",
+      "canonical": "research/legacy/flat/POST_I41_NOVELTY_AUDIT_SR.md",
+      "view": "research/literature/POST_I41_NOVELTY_AUDIT_SR.md",
+      "sha": "5ebeed9f936fab52a8af852b324ad8edeb1d29f9",
+      "bytes": 13014,
+      "mode": "100644",
+      "name": "POST_I41_NOVELTY_AUDIT_SR.md"
+    },
+    {
+      "old": "research/RTE_SNAPSHOT.md",
+      "canonical": "research/legacy/flat/RTE_SNAPSHOT.md",
+      "view": "research/domains/RTE_SNAPSHOT.md",
+      "sha": "0ef364270b5e4f7b114e450e42b12779308291d6",
+      "bytes": 1005,
+      "mode": "100644",
+      "name": "RTE_SNAPSHOT.md"
+    },
+    {
+      "old": "research/SAZETAK_REZULTATA_SR.md",
+      "canonical": "research/legacy/flat/SAZETAK_REZULTATA_SR.md",
+      "view": "research/overview/SAZETAK_REZULTATA_SR.md",
+      "sha": "79a4ea3faef4005508a7b1c1b8c1fccaca5cd151",
+      "bytes": 59697,
+      "mode": "100644",
+      "name": "SAZETAK_REZULTATA_SR.md"
+    },
+    {
+      "old": "research/STRATEGY_AFTER_I47_SR.md",
+      "canonical": "research/legacy/flat/STRATEGY_AFTER_I47_SR.md",
+      "view": "research/overview/STRATEGY_AFTER_I47_SR.md",
+      "sha": "aa735c263816f80c298ec10cf60cc0984edf39cc",
+      "bytes": 2678,
+      "mode": "100644",
+      "name": "STRATEGY_AFTER_I47_SR.md"
+    },
+    {
+      "old": "research/analyze_aos_geant_temporal.py",
+      "canonical": "research/legacy/flat/analyze_aos_geant_temporal.py",
+      "view": "research/tools/analyze_aos_geant_temporal.py",
+      "sha": "05dcf09f1768946821b23df0650884894a781b18",
+      "bytes": 4182,
+      "mode": "100644",
+      "name": "analyze_aos_geant_temporal.py"
+    },
+    {
+      "old": "research/analyze_aos_ieee14.py",
+      "canonical": "research/legacy/flat/analyze_aos_ieee14.py",
+      "view": "research/tools/analyze_aos_ieee14.py",
+      "sha": "081b232c0f3e6e298ef5bbe4ab3b20a434ac1d0d",
+      "bytes": 5947,
+      "mode": "100644",
+      "name": "analyze_aos_ieee14.py"
+    },
+    {
+      "old": "research/analyze_geant.py",
+      "canonical": "research/legacy/flat/analyze_geant.py",
+      "view": "research/tools/analyze_geant.py",
+      "sha": "d28a69fff4fee363f018055573e21649b034b6ff",
+      "bytes": 2211,
+      "mode": "100644",
+      "name": "analyze_geant.py"
+    },
+    {
+      "old": "research/analyze_geant_local_refinement.py",
+      "canonical": "research/legacy/flat/analyze_geant_local_refinement.py",
+      "view": "research/tools/analyze_geant_local_refinement.py",
+      "sha": "b543dacae959c89aa6df93a5a6853b795b5cbf15",
+      "bytes": 3917,
+      "mode": "100644",
+      "name": "analyze_geant_local_refinement.py"
+    },
+    {
+      "old": "research/analyze_geant_temporal.py",
+      "canonical": "research/legacy/flat/analyze_geant_temporal.py",
+      "view": "research/tools/analyze_geant_temporal.py",
+      "sha": "25dad79c9488bbfa71bfe65448c231139a853c52",
+      "bytes": 3360,
+      "mode": "100644",
+      "name": "analyze_geant_temporal.py"
+    },
+    {
+      "old": "research/analyze_ieee118_allocation.py",
+      "canonical": "research/legacy/flat/analyze_ieee118_allocation.py",
+      "view": "research/tools/analyze_ieee118_allocation.py",
+      "sha": "c2ac6613a1d5480cb5d19e2ac17f38ad4ac3f21f",
+      "bytes": 6331,
+      "mode": "100644",
+      "name": "analyze_ieee118_allocation.py"
+    },
+    {
+      "old": "research/analyze_ieee14.py",
+      "canonical": "research/legacy/flat/analyze_ieee14.py",
+      "view": "research/tools/analyze_ieee14.py",
+      "sha": "05a830f15a6e7573bb634faec2dc427f3e3aba36",
+      "bytes": 2835,
+      "mode": "100644",
+      "name": "analyze_ieee14.py"
+    },
+    {
+      "old": "research/analyze_ieee14_local_refinement.py",
+      "canonical": "research/legacy/flat/analyze_ieee14_local_refinement.py",
+      "view": "research/tools/analyze_ieee14_local_refinement.py",
+      "sha": "7e025c31b28a8f9f6b911c6a1c573b3899c5aeff",
+      "bytes": 4705,
+      "mode": "100644",
+      "name": "analyze_ieee14_local_refinement.py"
+    },
+    {
+      "old": "research/analyze_ieee14_six_method_pilot.py",
+      "canonical": "research/legacy/flat/analyze_ieee14_six_method_pilot.py",
+      "view": "research/tools/analyze_ieee14_six_method_pilot.py",
+      "sha": "0336480f991711c52a6ba027443a18d4c48ba7ef",
+      "bytes": 5895,
+      "mode": "100644",
+      "name": "analyze_ieee14_six_method_pilot.py"
+    },
+    {
+      "old": "research/analyze_iteration6_rte.py",
+      "canonical": "research/legacy/flat/analyze_iteration6_rte.py",
+      "view": "research/studies/i06/analyze_iteration6_rte.py",
+      "sha": "ce70c5fa616b34462f0d1b3627f07c3d42ddf226",
+      "bytes": 2239,
+      "mode": "100644",
+      "name": "analyze_iteration6_rte.py"
+    },
+    {
+      "old": "research/analyze_iteration7_source_rated.py",
+      "canonical": "research/legacy/flat/analyze_iteration7_source_rated.py",
+      "view": "research/studies/i07/analyze_iteration7_source_rated.py",
+      "sha": "051775fcd6065615d2854b34823e66ecd52ba150",
+      "bytes": 7728,
+      "mode": "100644",
+      "name": "analyze_iteration7_source_rated.py"
+    },
+    {
+      "old": "research/analyze_paired_credit_geant.py",
+      "canonical": "research/legacy/flat/analyze_paired_credit_geant.py",
+      "view": "research/tools/analyze_paired_credit_geant.py",
+      "sha": "c234e2ef0972b0d941b0e478bcf89f6fd9914833",
+      "bytes": 3852,
+      "mode": "100644",
+      "name": "analyze_paired_credit_geant.py"
+    },
+    {
+      "old": "research/analyze_paired_credit_ieee14.py",
+      "canonical": "research/legacy/flat/analyze_paired_credit_ieee14.py",
+      "view": "research/tools/analyze_paired_credit_ieee14.py",
+      "sha": "fd14e2edc9359de9cb6441e6c6a57a0bdd44f9c4",
+      "bytes": 4853,
+      "mode": "100644",
+      "name": "analyze_paired_credit_ieee14.py"
+    },
+    {
+      "old": "research/aos_geant_temporal.py",
+      "canonical": "research/legacy/flat/aos_geant_temporal.py",
+      "view": "research/tools/aos_geant_temporal.py",
+      "sha": "5d5af5eff395186d2c7f59d2eb3f1696b708675f",
+      "bytes": 9567,
+      "mode": "100644",
+      "name": "aos_geant_temporal.py"
+    },
+    {
+      "old": "research/aos_ieee14_pilot.py",
+      "canonical": "research/legacy/flat/aos_ieee14_pilot.py",
+      "view": "research/tools/aos_ieee14_pilot.py",
+      "sha": "63ad3a50c0ac6166fc148a72cdee52745a37ff14",
+      "bytes": 7284,
+      "mode": "100644",
+      "name": "aos_ieee14_pilot.py"
+    },
+    {
+      "old": "research/benchmark_affine.py",
+      "canonical": "research/legacy/flat/benchmark_affine.py",
+      "view": "research/tools/benchmark_affine.py",
+      "sha": "f9ff43a256370fa56ceb78dd3f0a0913c35a4b93",
+      "bytes": 3636,
+      "mode": "100644",
+      "name": "benchmark_affine.py"
+    },
+    {
+      "old": "research/compare_iteration6_replications.py",
+      "canonical": "research/legacy/flat/compare_iteration6_replications.py",
+      "view": "research/studies/i06/compare_iteration6_replications.py",
+      "sha": "6665d860d5f04463be87331f01a0731d0a5c0f97",
+      "bytes": 2597,
+      "mode": "100644",
+      "name": "compare_iteration6_replications.py"
+    },
+    {
+      "old": "research/geant_capacity.py",
+      "canonical": "research/legacy/flat/geant_capacity.py",
+      "view": "research/tools/geant_capacity.py",
+      "sha": "cb573211c55d0dbe0058f9e76c7a39fdb355e51c",
+      "bytes": 9362,
+      "mode": "100644",
+      "name": "geant_capacity.py"
+    },
+    {
+      "old": "research/geant_dynamic_probe.py",
+      "canonical": "research/legacy/flat/geant_dynamic_probe.py",
+      "view": "research/tools/geant_dynamic_probe.py",
+      "sha": "5d627691d18bc7483f7fa2d6065474348a6ba0e6",
+      "bytes": 2942,
+      "mode": "100644",
+      "name": "geant_dynamic_probe.py"
+    },
+    {
+      "old": "research/geant_local_refinement.py",
+      "canonical": "research/legacy/flat/geant_local_refinement.py",
+      "view": "research/tools/geant_local_refinement.py",
+      "sha": "98301cddefbc7d9cb29467cd96b25aa0bc258b8e",
+      "bytes": 8968,
+      "mode": "100644",
+      "name": "geant_local_refinement.py"
+    },
+    {
+      "old": "research/geant_temporal_benchmark.py",
+      "canonical": "research/legacy/flat/geant_temporal_benchmark.py",
+      "view": "research/tools/geant_temporal_benchmark.py",
+      "sha": "dfcbb7ddb253baa6bee5a9753d9cc9ae54ec4f40",
+      "bytes": 9111,
+      "mode": "100644",
+      "name": "geant_temporal_benchmark.py"
+    },
+    {
+      "old": "research/h4_api_smoke.py",
+      "canonical": "research/legacy/flat/h4_api_smoke.py",
+      "view": "research/tools/h4_api_smoke.py",
+      "sha": "4e1c4bcde98f7c46348f533ca83071c46fe0bf45",
+      "bytes": 3224,
+      "mode": "100644",
+      "name": "h4_api_smoke.py"
+    },
+    {
+      "old": "research/h4_requirements_lock.txt",
+      "canonical": "research/legacy/flat/h4_requirements_lock.txt",
+      "view": "research/environments/h4_requirements_lock.txt",
+      "sha": "46c36e13bae4b7889e8bf0cb398428c4eec846ec",
+      "bytes": 868,
+      "mode": "100644",
+      "name": "h4_requirements_lock.txt"
+    },
+    {
+      "old": "research/ieee118_allocation.py",
+      "canonical": "research/legacy/flat/ieee118_allocation.py",
+      "view": "research/tools/ieee118_allocation.py",
+      "sha": "5b09e04860b3502ee6d5f3add9ccd486c22a8c13",
+      "bytes": 14336,
+      "mode": "100644",
+      "name": "ieee118_allocation.py"
+    },
+    {
+      "old": "research/ieee14_best_known_reference.py",
+      "canonical": "research/legacy/flat/ieee14_best_known_reference.py",
+      "view": "research/tools/ieee14_best_known_reference.py",
+      "sha": "0658172e7090bede80c19cb5cf1ff7c43c918d8d",
+      "bytes": 4261,
+      "mode": "100644",
+      "name": "ieee14_best_known_reference.py"
+    },
+    {
+      "old": "research/ieee14_cma_es.py",
+      "canonical": "research/legacy/flat/ieee14_cma_es.py",
+      "view": "research/tools/ieee14_cma_es.py",
+      "sha": "1a11155aa5cef9ff311fb7cee7c5be9db1613fed",
+      "bytes": 4834,
+      "mode": "100644",
+      "name": "ieee14_cma_es.py"
+    },
+    {
+      "old": "research/ieee14_local_refinement.py",
+      "canonical": "research/legacy/flat/ieee14_local_refinement.py",
+      "view": "research/tools/ieee14_local_refinement.py",
+      "sha": "972aff16df048de9b0eef0b6564eea527ebc0307",
+      "bytes": 10591,
+      "mode": "100644",
+      "name": "ieee14_local_refinement.py"
+    },
+    {
+      "old": "research/ieee14_voltage.py",
+      "canonical": "research/legacy/flat/ieee14_voltage.py",
+      "view": "research/tools/ieee14_voltage.py",
+      "sha": "9b0c21de6e7c66d7085f3e1870ac6bbff2651606",
+      "bytes": 8500,
+      "mode": "100644",
+      "name": "ieee14_voltage.py"
+    },
+    {
+      "old": "research/ieee_grid_benchmark.py",
+      "canonical": "research/legacy/flat/ieee_grid_benchmark.py",
+      "view": "research/tools/ieee_grid_benchmark.py",
+      "sha": "842120f8f5e23193075be9e55d5c7f08afdedadf",
+      "bytes": 10648,
+      "mode": "100644",
+      "name": "ieee_grid_benchmark.py"
+    },
+    {
+      "old": "research/integrity_audit_examples.py",
+      "canonical": "research/legacy/flat/integrity_audit_examples.py",
+      "view": "research/tools/integrity_audit_examples.py",
+      "sha": "e24844ebbd04017569dd426721b3ea70839b6e8d",
+      "bytes": 1298,
+      "mode": "100644",
+      "name": "integrity_audit_examples.py"
+    },
+    {
+      "old": "research/integrity_audit_tool.py",
+      "canonical": "research/legacy/flat/integrity_audit_tool.py",
+      "view": "research/tools/integrity_audit_tool.py",
+      "sha": "d389f3968b4686bcbc7745b438e308185b659633",
+      "bytes": 9273,
+      "mode": "100644",
+      "name": "integrity_audit_tool.py"
+    },
+    {
+      "old": "research/iteration10_posthoc_source_p.py",
+      "canonical": "research/legacy/flat/iteration10_posthoc_source_p.py",
+      "view": "research/studies/i10/iteration10_posthoc_source_p.py",
+      "sha": "6e4886f0690d63cfa3007fea912de7b5fd76eaf9",
+      "bytes": 4273,
+      "mode": "100644",
+      "name": "iteration10_posthoc_source_p.py"
+    },
+    {
+      "old": "research/iteration10_slack_scenario.py",
+      "canonical": "research/legacy/flat/iteration10_slack_scenario.py",
+      "view": "research/studies/i10/iteration10_slack_scenario.py",
+      "sha": "47dea13dd44f9f02481e5a4d4e955aaa086c81a8",
+      "bytes": 8507,
+      "mode": "100644",
+      "name": "iteration10_slack_scenario.py"
+    },
+    {
+      "old": "research/iteration11_original_matpower_native_pf.py",
+      "canonical": "research/legacy/flat/iteration11_original_matpower_native_pf.py",
+      "view": "research/studies/i11/iteration11_original_matpower_native_pf.py",
+      "sha": "957fd79c19a7d5f5c0250f6961164e904631928e",
+      "bytes": 13185,
+      "mode": "100644",
+      "name": "iteration11_original_matpower_native_pf.py"
+    },
+    {
+      "old": "research/iteration12_local_pypower_qlim_patch.py",
+      "canonical": "research/legacy/flat/iteration12_local_pypower_qlim_patch.py",
+      "view": "research/studies/i12/iteration12_local_pypower_qlim_patch.py",
+      "sha": "bfb10fb89c10c18307dce10b4fd991c0005df731",
+      "bytes": 14415,
+      "mode": "100644",
+      "name": "iteration12_local_pypower_qlim_patch.py"
+    },
+    {
+      "old": "research/iteration12_native_q_repair.py",
+      "canonical": "research/legacy/flat/iteration12_native_q_repair.py",
+      "view": "research/studies/i12/iteration12_native_q_repair.py",
+      "sha": "4653b8774ecf233747d47116d1b5998aca77fa53",
+      "bytes": 7254,
+      "mode": "100644",
+      "name": "iteration12_native_q_repair.py"
+    },
+    {
+      "old": "research/iteration13_local_pypower_qlim_patch.py",
+      "canonical": "research/legacy/flat/iteration13_local_pypower_qlim_patch.py",
+      "view": "research/studies/i13/iteration13_local_pypower_qlim_patch.py",
+      "sha": "8b087385dedb3d562a6940fbd14fb9498805a826",
+      "bytes": 14518,
+      "mode": "100644",
+      "name": "iteration13_local_pypower_qlim_patch.py"
+    },
+    {
+      "old": "research/iteration13_native_q_diagnostic.py",
+      "canonical": "research/legacy/flat/iteration13_native_q_diagnostic.py",
+      "view": "research/studies/i13/iteration13_native_q_diagnostic.py",
+      "sha": "a6b12c938b4f5fc98d726903fb8f3a683f35e0fc",
+      "bytes": 4427,
+      "mode": "100644",
+      "name": "iteration13_native_q_diagnostic.py"
+    },
+    {
+      "old": "research/iteration14_original_acopf.py",
+      "canonical": "research/legacy/flat/iteration14_original_acopf.py",
+      "view": "research/studies/i14/iteration14_original_acopf.py",
+      "sha": "db6739aca49a5bcc0fbf999938b72f348c95aecd",
+      "bytes": 12484,
+      "mode": "100644",
+      "name": "iteration14_original_acopf.py"
+    },
+    {
+      "old": "research/iteration15_source_opf_solver_diagnostics.py",
+      "canonical": "research/legacy/flat/iteration15_source_opf_solver_diagnostics.py",
+      "view": "research/studies/i15/iteration15_source_opf_solver_diagnostics.py",
+      "sha": "9498de6685bd5d67ed442f570c5216d542765559",
+      "bytes": 7370,
+      "mode": "100644",
+      "name": "iteration15_source_opf_solver_diagnostics.py"
+    },
+    {
+      "old": "research/iteration16_ieee_original_acopf.py",
+      "canonical": "research/legacy/flat/iteration16_ieee_original_acopf.py",
+      "view": "research/studies/i16/iteration16_ieee_original_acopf.py",
+      "sha": "fafbdcfdab1e9718e48a13bb141e5bdcdda69fde",
+      "bytes": 10296,
+      "mode": "100644",
+      "name": "iteration16_ieee_original_acopf.py"
+    },
+    {
+      "old": "research/iteration17_ieee14_gadapt_economic_pf.py",
+      "canonical": "research/legacy/flat/iteration17_ieee14_gadapt_economic_pf.py",
+      "view": "research/studies/i17/iteration17_ieee14_gadapt_economic_pf.py",
+      "sha": "6cf71cf01117d82aa09768c5a2b3aef7fbf908af",
+      "bytes": 17411,
+      "mode": "100644",
+      "name": "iteration17_ieee14_gadapt_economic_pf.py"
+    },
+    {
+      "old": "research/iteration18_ieee118_gadapt_transfer.py",
+      "canonical": "research/legacy/flat/iteration18_ieee118_gadapt_transfer.py",
+      "view": "research/studies/i18/iteration18_ieee118_gadapt_transfer.py",
+      "sha": "45d9443136f74be8d1ca858987c0d873130a2613",
+      "bytes": 10695,
+      "mode": "100644",
+      "name": "iteration18_ieee118_gadapt_transfer.py"
+    },
+    {
+      "old": "research/iteration19_ieee118_forensic_diagnostic.py",
+      "canonical": "research/legacy/flat/iteration19_ieee118_forensic_diagnostic.py",
+      "view": "research/studies/i19/iteration19_ieee118_forensic_diagnostic.py",
+      "sha": "ae2355aa7b2b9a213de887a65eee2bf8cddf8bbd",
+      "bytes": 13630,
+      "mode": "100644",
+      "name": "iteration19_ieee118_forensic_diagnostic.py"
+    },
+    {
+      "old": "research/iteration20_ieee118_reactive_sensitivity.py",
+      "canonical": "research/legacy/flat/iteration20_ieee118_reactive_sensitivity.py",
+      "view": "research/studies/i20/iteration20_ieee118_reactive_sensitivity.py",
+      "sha": "768e052faa5cef4ae8ff894c7ff0dec57fc668ca",
+      "bytes": 11805,
+      "mode": "100644",
+      "name": "iteration20_ieee118_reactive_sensitivity.py"
+    },
+    {
+      "old": "research/iteration21_ieee118_four_qmin_controls.py",
+      "canonical": "research/legacy/flat/iteration21_ieee118_four_qmin_controls.py",
+      "view": "research/studies/i21/iteration21_ieee118_four_qmin_controls.py",
+      "sha": "8a66ad1342761f50905ed883a18ede2311a2f635",
+      "bytes": 9437,
+      "mode": "100644",
+      "name": "iteration21_ieee118_four_qmin_controls.py"
+    },
+    {
+      "old": "research/iteration22_ieee118_qmidpoint_repair.py",
+      "canonical": "research/legacy/flat/iteration22_ieee118_qmidpoint_repair.py",
+      "view": "research/studies/i22/iteration22_ieee118_qmidpoint_repair.py",
+      "sha": "e31230ff5b52a2aa2e65ce13491ce81b4f7bcf35",
+      "bytes": 11000,
+      "mode": "100644",
+      "name": "iteration22_ieee118_qmidpoint_repair.py"
+    },
+    {
+      "old": "research/iteration23_ieee118_qbracket.py",
+      "canonical": "research/legacy/flat/iteration23_ieee118_qbracket.py",
+      "view": "research/studies/i23/iteration23_ieee118_qbracket.py",
+      "sha": "82472571a94e9968dcd7a783c9defcc6efc8e677",
+      "bytes": 9966,
+      "mode": "100644",
+      "name": "iteration23_ieee118_qbracket.py"
+    },
+    {
+      "old": "research/iteration24_ieee118_fivepv_real_gadapt.py",
+      "canonical": "research/legacy/flat/iteration24_ieee118_fivepv_real_gadapt.py",
+      "view": "research/studies/i24/iteration24_ieee118_fivepv_real_gadapt.py",
+      "sha": "63f5a34b673d0351410f3e5b942b5cc0bbc96b21",
+      "bytes": 11646,
+      "mode": "100644",
+      "name": "iteration24_ieee118_fivepv_real_gadapt.py"
+    },
+    {
+      "old": "research/iteration25_ieee118_stress_holdout.py",
+      "canonical": "research/legacy/flat/iteration25_ieee118_stress_holdout.py",
+      "view": "research/studies/i25/iteration25_ieee118_stress_holdout.py",
+      "sha": "3220212b86764df7553959ebb3a31a1500ccd048",
+      "bytes": 11584,
+      "mode": "100644",
+      "name": "iteration25_ieee118_stress_holdout.py"
+    },
+    {
+      "old": "research/iteration27_real_scenario_credit_benchmark.py",
+      "canonical": "research/legacy/flat/iteration27_real_scenario_credit_benchmark.py",
+      "view": "research/studies/i27/iteration27_real_scenario_credit_benchmark.py",
+      "sha": "cffdd628525cf838e384ad9a5300a56698d9c3a3",
+      "bytes": 17423,
+      "mode": "100644",
+      "name": "iteration27_real_scenario_credit_benchmark.py"
+    },
+    {
+      "old": "research/iteration28_newseed_scenario_credit_replication.py",
+      "canonical": "research/legacy/flat/iteration28_newseed_scenario_credit_replication.py",
+      "view": "research/studies/i28/iteration28_newseed_scenario_credit_replication.py",
+      "sha": "7fa0e891c1a1a886c0e30bc04103652e5e798d8e",
+      "bytes": 8214,
+      "mode": "100644",
+      "name": "iteration28_newseed_scenario_credit_replication.py"
+    },
+    {
+      "old": "research/iteration29_real_scenario_earlystop_benchmark.py",
+      "canonical": "research/legacy/flat/iteration29_real_scenario_earlystop_benchmark.py",
+      "view": "research/studies/i29/iteration29_real_scenario_earlystop_benchmark.py",
+      "sha": "2fefb9a69a4f001a22e4b13493f8f1ee9834aa9f",
+      "bytes": 8233,
+      "mode": "100644",
+      "name": "iteration29_real_scenario_earlystop_benchmark.py"
+    },
+    {
+      "old": "research/iteration30_spatial_load_holdout.py",
+      "canonical": "research/legacy/flat/iteration30_spatial_load_holdout.py",
+      "view": "research/studies/i30/iteration30_spatial_load_holdout.py",
+      "sha": "a2576a1fe843a9d02fe040a95d1bde416814f3f7",
+      "bytes": 10683,
+      "mode": "100644",
+      "name": "iteration30_spatial_load_holdout.py"
+    },
+    {
+      "old": "research/iteration31_fitness_budget_ablation.py",
+      "canonical": "research/legacy/flat/iteration31_fitness_budget_ablation.py",
+      "view": "research/studies/i31/iteration31_fitness_budget_ablation.py",
+      "sha": "1f5694ab1dd2ed595028f854f46467627070d93d",
+      "bytes": 11347,
+      "mode": "100644",
+      "name": "iteration31_fitness_budget_ablation.py"
+    },
+    {
+      "old": "research/iteration32_ieee14_topology_transfer.py",
+      "canonical": "research/legacy/flat/iteration32_ieee14_topology_transfer.py",
+      "view": "research/studies/i32/iteration32_ieee14_topology_transfer.py",
+      "sha": "6bf2f68b04e38545cd60ca73feb129d6337ee0fa",
+      "bytes": 15288,
+      "mode": "100644",
+      "name": "iteration32_ieee14_topology_transfer.py"
+    },
+    {
+      "old": "research/iteration33_geant_routing_budget.py",
+      "canonical": "research/legacy/flat/iteration33_geant_routing_budget.py",
+      "view": "research/studies/i33/iteration33_geant_routing_budget.py",
+      "sha": "368675d9c07d0a0490584e1cb6356b8bb7d3a06a",
+      "bytes": 13870,
+      "mode": "100644",
+      "name": "iteration33_geant_routing_budget.py"
+    },
+    {
+      "old": "research/iteration34_censor_credit_geant.py",
+      "canonical": "research/legacy/flat/iteration34_censor_credit_geant.py",
+      "view": "research/studies/i34/iteration34_censor_credit_geant.py",
+      "sha": "cd9ac86f8f0658383ddf394582e99f26c4b4037a",
+      "bytes": 12993,
+      "mode": "100644",
+      "name": "iteration34_censor_credit_geant.py"
+    },
+    {
+      "old": "research/iteration35_censor_credit_ieee118.py",
+      "canonical": "research/legacy/flat/iteration35_censor_credit_ieee118.py",
+      "view": "research/studies/i35/iteration35_censor_credit_ieee118.py",
+      "sha": "b20691e30125593d47b26f3482c01feb7edb6686",
+      "bytes": 10131,
+      "mode": "100644",
+      "name": "iteration35_censor_credit_ieee118.py"
+    },
+    {
+      "old": "research/iteration36_censor_credit_ieee14.py",
+      "canonical": "research/legacy/flat/iteration36_censor_credit_ieee14.py",
+      "view": "research/studies/i36/iteration36_censor_credit_ieee14.py",
+      "sha": "72990bbac9f416520cd9ad409d0a13a1f28b0a16",
+      "bytes": 9579,
+      "mode": "100644",
+      "name": "iteration36_censor_credit_ieee14.py"
+    },
+    {
+      "old": "research/iteration38_cut_feasibility_certificate.py",
+      "canonical": "research/legacy/flat/iteration38_cut_feasibility_certificate.py",
+      "view": "research/studies/i38/iteration38_cut_feasibility_certificate.py",
+      "sha": "bf8298cee532f6174cd07624682407e7183aa120",
+      "bytes": 3691,
+      "mode": "100644",
+      "name": "iteration38_cut_feasibility_certificate.py"
+    },
+    {
+      "old": "research/iteration38_joint_capacity_experiment.py",
+      "canonical": "research/legacy/flat/iteration38_joint_capacity_experiment.py",
+      "view": "research/studies/i38/iteration38_joint_capacity_experiment.py",
+      "sha": "02de31dd72fefde67a153578a6342527793e82df",
+      "bytes": 8494,
+      "mode": "100644",
+      "name": "iteration38_joint_capacity_experiment.py"
+    },
+    {
+      "old": "research/iteration38_joint_capacity_model.py",
+      "canonical": "research/legacy/flat/iteration38_joint_capacity_model.py",
+      "view": "research/studies/i38/iteration38_joint_capacity_model.py",
+      "sha": "fbfb442f21f68cb0aae0b6231692ae17e34c4546",
+      "bytes": 16397,
+      "mode": "100644",
+      "name": "iteration38_joint_capacity_model.py"
+    },
+    {
+      "old": "research/iteration39_modular_common_plan_experiment.py",
+      "canonical": "research/legacy/flat/iteration39_modular_common_plan_experiment.py",
+      "view": "research/studies/i39/iteration39_modular_common_plan_experiment.py",
+      "sha": "97a3ca556c6819028a198b367cd7d6f298919da5",
+      "bytes": 5403,
+      "mode": "100644",
+      "name": "iteration39_modular_common_plan_experiment.py"
+    },
+    {
+      "old": "research/iteration39_source_modular_capacity.py",
+      "canonical": "research/legacy/flat/iteration39_source_modular_capacity.py",
+      "view": "research/studies/i39/iteration39_source_modular_capacity.py",
+      "sha": "99987e3dbd4f04bdb212127895b86fc7348eedbc",
+      "bytes": 6852,
+      "mode": "100644",
+      "name": "iteration39_source_modular_capacity.py"
+    },
+    {
+      "old": "research/iteration40_pinned_source_loader.py",
+      "canonical": "research/legacy/flat/iteration40_pinned_source_loader.py",
+      "view": "research/studies/i40/iteration40_pinned_source_loader.py",
+      "sha": "6c8a665c9ebc49ecf98d26a072c60292742554a0",
+      "bytes": 6173,
+      "mode": "100644",
+      "name": "iteration40_pinned_source_loader.py"
+    },
+    {
+      "old": "research/iteration40_temporal_calibrated_plan.py",
+      "canonical": "research/legacy/flat/iteration40_temporal_calibrated_plan.py",
+      "view": "research/studies/i40/iteration40_temporal_calibrated_plan.py",
+      "sha": "9c31b6043d42034664a4e882af31733828641b07",
+      "bytes": 11836,
+      "mode": "100644",
+      "name": "iteration40_temporal_calibrated_plan.py"
+    },
+    {
+      "old": "research/iteration41_certified_temporal_rows.py",
+      "canonical": "research/legacy/flat/iteration41_certified_temporal_rows.py",
+      "view": "research/studies/i41/iteration41_certified_temporal_rows.py",
+      "sha": "c4fecaf93f1b1b3a9d1a26c85d1890058d5be45c",
+      "bytes": 9569,
+      "mode": "100644",
+      "name": "iteration41_certified_temporal_rows.py"
+    },
+    {
+      "old": "research/iteration42_phase0_vig.py",
+      "canonical": "research/legacy/flat/iteration42_phase0_vig.py",
+      "view": "research/studies/i42/iteration42_phase0_vig.py",
+      "sha": "90e39915319a4f6f643118db8be12fc353198610",
+      "bytes": 7897,
+      "mode": "100644",
+      "name": "iteration42_phase0_vig.py"
+    },
+    {
+      "old": "research/iteration43_budget_operator_diagnostic.py",
+      "canonical": "research/legacy/flat/iteration43_budget_operator_diagnostic.py",
+      "view": "research/studies/i43/iteration43_budget_operator_diagnostic.py",
+      "sha": "9f6006bffc0c8f623c8d738aa02fcee47bc42836",
+      "bytes": 9542,
+      "mode": "100644",
+      "name": "iteration43_budget_operator_diagnostic.py"
+    },
+    {
+      "old": "research/iteration44_mutation_mechanism.py",
+      "canonical": "research/legacy/flat/iteration44_mutation_mechanism.py",
+      "view": "research/studies/i44/iteration44_mutation_mechanism.py",
+      "sha": "f2a671a2ba70b2718c64e8982f5159251296c678",
+      "bytes": 6910,
+      "mode": "100644",
+      "name": "iteration44_mutation_mechanism.py"
+    },
+    {
+      "old": "research/iteration45_generic_vs_specific.py",
+      "canonical": "research/legacy/flat/iteration45_generic_vs_specific.py",
+      "view": "research/studies/i45/iteration45_generic_vs_specific.py",
+      "sha": "3dc7b4b8c6bb0d65a4e557bfefca9ef8d9be6c5b",
+      "bytes": 7218,
+      "mode": "100644",
+      "name": "iteration45_generic_vs_specific.py"
+    },
+    {
+      "old": "research/iteration46_component_ablation.py",
+      "canonical": "research/legacy/flat/iteration46_component_ablation.py",
+      "view": "research/studies/i46/iteration46_component_ablation.py",
+      "sha": "2909a2c0919e6c0808b5682c944f37749abb10f2",
+      "bytes": 8421,
+      "mode": "100644",
+      "name": "iteration46_component_ablation.py"
+    },
+    {
+      "old": "research/iteration46_exploratory_hamming_probe.py",
+      "canonical": "research/legacy/flat/iteration46_exploratory_hamming_probe.py",
+      "view": "research/studies/i46/iteration46_exploratory_hamming_probe.py",
+      "sha": "8ae1f53ccf5875c49c5770b7f9de466a288d1da4",
+      "bytes": 1679,
+      "mode": "100644",
+      "name": "iteration46_exploratory_hamming_probe.py"
+    },
+    {
+      "old": "research/iteration47_exploratory_translation_linear_probe.py",
+      "canonical": "research/legacy/flat/iteration47_exploratory_translation_linear_probe.py",
+      "view": "research/studies/i47/iteration47_exploratory_translation_linear_probe.py",
+      "sha": "c65d61827d40c3bb73d6b2a3f3a1aa132df7810c",
+      "bytes": 1599,
+      "mode": "100644",
+      "name": "iteration47_exploratory_translation_linear_probe.py"
+    },
+    {
+      "old": "research/iteration47_exploratory_translation_probe.py",
+      "canonical": "research/legacy/flat/iteration47_exploratory_translation_probe.py",
+      "view": "research/studies/i47/iteration47_exploratory_translation_probe.py",
+      "sha": "b5551132f6385de15a67fab15d75c5f5bbfdabcd",
+      "bytes": 843,
+      "mode": "100644",
+      "name": "iteration47_exploratory_translation_probe.py"
+    },
+    {
+      "old": "research/iteration47_exploratory_units_probe.py",
+      "canonical": "research/legacy/flat/iteration47_exploratory_units_probe.py",
+      "view": "research/studies/i47/iteration47_exploratory_units_probe.py",
+      "sha": "151ec4dea7f7d179816fdb4d28c78541bb79ec65",
+      "bytes": 823,
+      "mode": "100644",
+      "name": "iteration47_exploratory_units_probe.py"
+    },
+    {
+      "old": "research/iteration47_invariance.py",
+      "canonical": "research/legacy/flat/iteration47_invariance.py",
+      "view": "research/studies/i47/iteration47_invariance.py",
+      "sha": "d266cf3ff8fc59e86c22d7b8c5f4ab0f9f789688",
+      "bytes": 14863,
+      "mode": "100644",
+      "name": "iteration47_invariance.py"
+    },
+    {
+      "old": "research/iteration48_valve_dispatch.py",
+      "canonical": "research/legacy/flat/iteration48_valve_dispatch.py",
+      "view": "research/studies/i48/iteration48_valve_dispatch.py",
+      "sha": "95715f192fbdb4563a2260135758c745098b3261",
+      "bytes": 9082,
+      "mode": "100644",
+      "name": "iteration48_valve_dispatch.py"
+    },
+    {
+      "old": "research/iteration49_integrity_audit.py",
+      "canonical": "research/legacy/flat/iteration49_integrity_audit.py",
+      "view": "research/studies/i49/iteration49_integrity_audit.py",
+      "sha": "dc14a1c95a1f3bb1ba083f705a75503321bbeafd",
+      "bytes": 16736,
+      "mode": "100644",
+      "name": "iteration49_integrity_audit.py"
+    },
+    {
+      "old": "research/iteration50_classify.py",
+      "canonical": "research/legacy/flat/iteration50_classify.py",
+      "view": "research/studies/i50/iteration50_classify.py",
+      "sha": "eb0e05481bd7b8877b5c917dcfee3402b354749d",
+      "bytes": 2814,
+      "mode": "100644",
+      "name": "iteration50_classify.py"
+    },
+    {
+      "old": "research/iteration50_integrity_audit.py",
+      "canonical": "research/legacy/flat/iteration50_integrity_audit.py",
+      "view": "research/studies/i50/iteration50_integrity_audit.py",
+      "sha": "17ed62641f2066cdbc8b19b817b9114f144e784c",
+      "bytes": 23363,
+      "mode": "100644",
+      "name": "iteration50_integrity_audit.py"
+    },
+    {
+      "old": "research/iteration51_d3x.py",
+      "canonical": "research/legacy/flat/iteration51_d3x.py",
+      "view": "research/studies/i51/iteration51_d3x.py",
+      "sha": "b363ad8b52a9e7c3e4b6953599992dfb352e2bd0",
+      "bytes": 5728,
+      "mode": "100644",
+      "name": "iteration51_d3x.py"
+    },
+    {
+      "old": "research/iteration52_dispatch_integrity.py",
+      "canonical": "research/legacy/flat/iteration52_dispatch_integrity.py",
+      "view": "research/studies/i52/iteration52_dispatch_integrity.py",
+      "sha": "bb617ed3d1273d2afe80f18c41a0e32c6d8b8de0",
+      "bytes": 9946,
+      "mode": "100644",
+      "name": "iteration52_dispatch_integrity.py"
+    },
+    {
+      "old": "research/iteration52_sensitivity.py",
+      "canonical": "research/legacy/flat/iteration52_sensitivity.py",
+      "view": "research/studies/i52/iteration52_sensitivity.py",
+      "sha": "7ebb04d05f4a639b76dab97dd6db4f0180aabc67",
+      "bytes": 6991,
+      "mode": "100644",
+      "name": "iteration52_sensitivity.py"
+    },
+    {
+      "old": "research/iteration53_oracle_step.py",
+      "canonical": "research/legacy/flat/iteration53_oracle_step.py",
+      "view": "research/studies/i53/iteration53_oracle_step.py",
+      "sha": "5d546c4930e34b65e83fe30ae957e57f03c4c25c",
+      "bytes": 14511,
+      "mode": "100644",
+      "name": "iteration53_oracle_step.py"
+    },
+    {
+      "old": "research/iteration54_oracle_geometry.py",
+      "canonical": "research/legacy/flat/iteration54_oracle_geometry.py",
+      "view": "research/studies/i54/iteration54_oracle_geometry.py",
+      "sha": "3e7f2e373faab9fe62fd36f2c5182da4e3a4db4c",
+      "bytes": 8577,
+      "mode": "100644",
+      "name": "iteration54_oracle_geometry.py"
+    },
+    {
+      "old": "research/iteration55_d3x_traces.py",
+      "canonical": "research/legacy/flat/iteration55_d3x_traces.py",
+      "view": "research/studies/i55/iteration55_d3x_traces.py",
+      "sha": "866cfab60c9dfc88c578e4c42a90840959e56bdf",
+      "bytes": 6861,
+      "mode": "100644",
+      "name": "iteration55_d3x_traces.py"
+    },
+    {
+      "old": "research/iteration55_recompute.py",
+      "canonical": "research/legacy/flat/iteration55_recompute.py",
+      "view": "research/studies/i55/iteration55_recompute.py",
+      "sha": "b0e18f1fbadb16636472358aab9f10f135842fc3",
+      "bytes": 4979,
+      "mode": "100644",
+      "name": "iteration55_recompute.py"
+    },
+    {
+      "old": "research/iteration56_cht_study.py",
+      "canonical": "research/legacy/flat/iteration56_cht_study.py",
+      "view": "research/studies/i56/iteration56_cht_study.py",
+      "sha": "462e08368b70d869015d1056366964b4d10b92e1",
+      "bytes": 37478,
+      "mode": "100644",
+      "name": "iteration56_cht_study.py"
+    },
+    {
+      "old": "research/iteration56_dev_pilot.py",
+      "canonical": "research/legacy/flat/iteration56_dev_pilot.py",
+      "view": "research/studies/i56/iteration56_dev_pilot.py",
+      "sha": "7beecfdc7e1a23dff8c060654c94776dde39aaef",
+      "bytes": 1900,
+      "mode": "100644",
+      "name": "iteration56_dev_pilot.py"
+    },
+    {
+      "old": "research/iteration56_figures.py",
+      "canonical": "research/legacy/flat/iteration56_figures.py",
+      "view": "research/studies/i56/iteration56_figures.py",
+      "sha": "9fefc6f6b99e2dff12ea8783dfb49479d4f54aa4",
+      "bytes": 8236,
+      "mode": "100644",
+      "name": "iteration56_figures.py"
+    },
+    {
+      "old": "research/iteration56_orpd.py",
+      "canonical": "research/legacy/flat/iteration56_orpd.py",
+      "view": "research/studies/i56/iteration56_orpd.py",
+      "sha": "43f2f279f7e6362250dc9277e58e0d939a98c12f",
+      "bytes": 6078,
+      "mode": "100644",
+      "name": "iteration56_orpd.py"
+    },
+    {
+      "old": "research/iteration57_external.py",
+      "canonical": "research/legacy/flat/iteration57_external.py",
+      "view": "research/studies/i57/iteration57_external.py",
+      "sha": "0a116254f574e66ab50ae239d180eacc85713a35",
+      "bytes": 10655,
+      "mode": "100644",
+      "name": "iteration57_external.py"
+    },
+    {
+      "old": "research/iteration58_check_amendment.py",
+      "canonical": "research/legacy/flat/iteration58_check_amendment.py",
+      "view": "research/studies/i58/iteration58_check_amendment.py",
+      "sha": "2b34b10d56f61b3343757a51ef8d233142cc3a86",
+      "bytes": 7588,
+      "mode": "100644",
+      "name": "iteration58_check_amendment.py"
+    },
+    {
+      "old": "research/iteration58_validation.py",
+      "canonical": "research/legacy/flat/iteration58_validation.py",
+      "view": "research/studies/i58/iteration58_validation.py",
+      "sha": "9747faea9c31526a163bd8439c74708214c07a3c",
+      "bytes": 26189,
+      "mode": "100644",
+      "name": "iteration58_validation.py"
+    },
+    {
+      "old": "research/iteration59_telecom.py",
+      "canonical": "research/legacy/flat/iteration59_telecom.py",
+      "view": "research/studies/i59/iteration59_telecom.py",
+      "sha": "df4312bf9d6e8882f45d728d022387bc9b4417a6",
+      "bytes": 35702,
+      "mode": "100644",
+      "name": "iteration59_telecom.py"
+    },
+    {
+      "old": "research/iteration60_epsilon.py",
+      "canonical": "research/legacy/flat/iteration60_epsilon.py",
+      "view": "research/studies/i60/iteration60_epsilon.py",
+      "sha": "e5f4f0760e8c57a0a1174c38f337eaaaa93b094e",
+      "bytes": 13597,
+      "mode": "100644",
+      "name": "iteration60_epsilon.py"
+    },
+    {
+      "old": "research/iteration61_replication.py",
+      "canonical": "research/legacy/flat/iteration61_replication.py",
+      "view": "research/studies/i61/iteration61_replication.py",
+      "sha": "69396f215b7af5fddda71f4d2e78a4c468d7f74d",
+      "bytes": 48809,
+      "mode": "100644",
+      "name": "iteration61_replication.py"
+    },
+    {
+      "old": "research/iteration63_replication.py",
+      "canonical": "research/legacy/flat/iteration63_replication.py",
+      "view": "research/studies/i63/iteration63_replication.py",
+      "sha": "4913ab4c6dfb67625ef8ec9bf9c6b5b9280087aa",
+      "bytes": 36474,
+      "mode": "100644",
+      "name": "iteration63_replication.py"
+    },
+    {
+      "old": "research/iteration6_grid_probe.py",
+      "canonical": "research/legacy/flat/iteration6_grid_probe.py",
+      "view": "research/studies/i06/iteration6_grid_probe.py",
+      "sha": "8727336bb665706caaa76f84abd2bdf56e8b8296",
+      "bytes": 2038,
+      "mode": "100644",
+      "name": "iteration6_grid_probe.py"
+    },
+    {
+      "old": "research/iteration6_repro_probe.py",
+      "canonical": "research/legacy/flat/iteration6_repro_probe.py",
+      "view": "research/studies/i06/iteration6_repro_probe.py",
+      "sha": "0632e788f37c5a29e302c73282712d369eb77600",
+      "bytes": 3400,
+      "mode": "100644",
+      "name": "iteration6_repro_probe.py"
+    },
+    {
+      "old": "research/iteration6_rte_stress.py",
+      "canonical": "research/legacy/flat/iteration6_rte_stress.py",
+      "view": "research/studies/i06/iteration6_rte_stress.py",
+      "sha": "b762a26806cee35d6a24c89c5730b4e2a71fd0cd",
+      "bytes": 2401,
+      "mode": "100644",
+      "name": "iteration6_rte_stress.py"
+    },
+    {
+      "old": "research/iteration7_conversion_probe.py",
+      "canonical": "research/legacy/flat/iteration7_conversion_probe.py",
+      "view": "research/studies/i07/iteration7_conversion_probe.py",
+      "sha": "735cdb44ae3ce71e41c482c50c4323cb8abd568c",
+      "bytes": 1995,
+      "mode": "100644",
+      "name": "iteration7_conversion_probe.py"
+    },
+    {
+      "old": "research/iteration7_leaf_certificate.py",
+      "canonical": "research/legacy/flat/iteration7_leaf_certificate.py",
+      "view": "research/studies/i07/iteration7_leaf_certificate.py",
+      "sha": "9c6e3001d96e4842706a73a988562b607d45ab05",
+      "bytes": 6478,
+      "mode": "100644",
+      "name": "iteration7_leaf_certificate.py"
+    },
+    {
+      "old": "research/iteration7_rte_audit.py",
+      "canonical": "research/legacy/flat/iteration7_rte_audit.py",
+      "view": "research/studies/i07/iteration7_rte_audit.py",
+      "sha": "a3c81a35e8fedb1adf4f2a3a40144ef955a713f4",
+      "bytes": 11126,
+      "mode": "100644",
+      "name": "iteration7_rte_audit.py"
+    },
+    {
+      "old": "research/iteration7_rte_source_physics.py",
+      "canonical": "research/legacy/flat/iteration7_rte_source_physics.py",
+      "view": "research/studies/i07/iteration7_rte_source_physics.py",
+      "sha": "6a2920088a666708a9f8f9eb271545c4ab16b518",
+      "bytes": 10179,
+      "mode": "100644",
+      "name": "iteration7_rte_source_physics.py"
+    },
+    {
+      "old": "research/iteration7_rte_topology.py",
+      "canonical": "research/legacy/flat/iteration7_rte_topology.py",
+      "view": "research/studies/i07/iteration7_rte_topology.py",
+      "sha": "125646b3b910325cd122528bb59d4422088c6ebc",
+      "bytes": 5279,
+      "mode": "100644",
+      "name": "iteration7_rte_topology.py"
+    },
+    {
+      "old": "research/iteration7_source_rated_pilot.py",
+      "canonical": "research/legacy/flat/iteration7_source_rated_pilot.py",
+      "view": "research/studies/i07/iteration7_source_rated_pilot.py",
+      "sha": "85b999ee1cd864a94d54e2ebdaff033edf57d7bd",
+      "bytes": 5876,
+      "mode": "100644",
+      "name": "iteration7_source_rated_pilot.py"
+    },
+    {
+      "old": "research/iteration7_source_rating_map.py",
+      "canonical": "research/legacy/flat/iteration7_source_rating_map.py",
+      "view": "research/studies/i07/iteration7_source_rating_map.py",
+      "sha": "68d43cf27dc000f122ed8ea425d6ffe390b805a3",
+      "bytes": 8519,
+      "mode": "100644",
+      "name": "iteration7_source_rating_map.py"
+    },
+    {
+      "old": "research/iteration8_reactive_screen.py",
+      "canonical": "research/legacy/flat/iteration8_reactive_screen.py",
+      "view": "research/studies/i08/iteration8_reactive_screen.py",
+      "sha": "03655944257b5b53c5ba167f4a79d04e13b33ec7",
+      "bytes": 11939,
+      "mode": "100644",
+      "name": "iteration8_reactive_screen.py"
+    },
+    {
+      "old": "research/iteration9_source_generators.py",
+      "canonical": "research/legacy/flat/iteration9_source_generators.py",
+      "view": "research/studies/i09/iteration9_source_generators.py",
+      "sha": "0b9d84ca20cca07f2220ae075809d12ec4640b39",
+      "bytes": 12767,
+      "mode": "100644",
+      "name": "iteration9_source_generators.py"
+    },
+    {
+      "old": "research/paired_credit_geant.py",
+      "canonical": "research/legacy/flat/paired_credit_geant.py",
+      "view": "research/tools/paired_credit_geant.py",
+      "sha": "abb5dad951a3d567b71f9ec507dc6e0399f73d8b",
+      "bytes": 6739,
+      "mode": "100644",
+      "name": "paired_credit_geant.py"
+    },
+    {
+      "old": "research/paired_credit_ieee14.py",
+      "canonical": "research/legacy/flat/paired_credit_ieee14.py",
+      "view": "research/tools/paired_credit_ieee14.py",
+      "sha": "8bd64819df7c3caf5e7082436fba56c9751f4896",
+      "bytes": 6373,
+      "mode": "100644",
+      "name": "paired_credit_ieee14.py"
+    },
+    {
+      "old": "research/plot_aos.py",
+      "canonical": "research/legacy/flat/plot_aos.py",
+      "view": "research/tools/plot_aos.py",
+      "sha": "6ab0235b854a62458cb53cba09a7a76cad2c331b",
+      "bytes": 4735,
+      "mode": "100644",
+      "name": "plot_aos.py"
+    },
+    {
+      "old": "research/plot_iteration5_ieee14.py",
+      "canonical": "research/legacy/flat/plot_iteration5_ieee14.py",
+      "view": "research/studies/i05/plot_iteration5_ieee14.py",
+      "sha": "6b45ebc56a5bf92cf4ff413acc89fd66a95c7096",
+      "bytes": 3613,
+      "mode": "100644",
+      "name": "plot_iteration5_ieee14.py"
+    },
+    {
+      "old": "research/plot_iteration6_ieee118.py",
+      "canonical": "research/legacy/flat/plot_iteration6_ieee118.py",
+      "view": "research/studies/i06/plot_iteration6_ieee118.py",
+      "sha": "d8ed933a13fcfa0d8dc5e99eff1574b8a1f1355d",
+      "bytes": 3945,
+      "mode": "100644",
+      "name": "plot_iteration6_ieee118.py"
+    },
+    {
+      "old": "research/test_integrity_audit_tool.py",
+      "canonical": "research/legacy/flat/test_integrity_audit_tool.py",
+      "view": "research/tools/test_integrity_audit_tool.py",
+      "sha": "2a16c30d3507cb34cc01f885775d7157962524ed",
+      "bytes": 3805,
+      "mode": "100644",
+      "name": "test_integrity_audit_tool.py"
+    },
+    {
+      "old": "research/test_iteration10_posthoc_source_p.py",
+      "canonical": "research/legacy/flat/test_iteration10_posthoc_source_p.py",
+      "view": "research/studies/i10/test_iteration10_posthoc_source_p.py",
+      "sha": "142b97d6e9d3d789e0b5a0e6d7a8a133d258f3e1",
+      "bytes": 1401,
+      "mode": "100644",
+      "name": "test_iteration10_posthoc_source_p.py"
+    },
+    {
+      "old": "research/test_iteration10_slack_scenario.py",
+      "canonical": "research/legacy/flat/test_iteration10_slack_scenario.py",
+      "view": "research/studies/i10/test_iteration10_slack_scenario.py",
+      "sha": "32253dad0a1175788ca196767879f53215e1a3b9",
+      "bytes": 1829,
+      "mode": "100644",
+      "name": "test_iteration10_slack_scenario.py"
+    },
+    {
+      "old": "research/test_iteration11_native_pf.py",
+      "canonical": "research/legacy/flat/test_iteration11_native_pf.py",
+      "view": "research/studies/i11/test_iteration11_native_pf.py",
+      "sha": "593d3df29cb3dd934cc966d873943e469b940c88",
+      "bytes": 2703,
+      "mode": "100644",
+      "name": "test_iteration11_native_pf.py"
+    },
+    {
+      "old": "research/test_iteration12_native_q_repair.py",
+      "canonical": "research/legacy/flat/test_iteration12_native_q_repair.py",
+      "view": "research/studies/i12/test_iteration12_native_q_repair.py",
+      "sha": "d3186c4673fb028d4dde71fd1982d3476823a8f3",
+      "bytes": 2482,
+      "mode": "100644",
+      "name": "test_iteration12_native_q_repair.py"
+    },
+    {
+      "old": "research/test_iteration13_native_q_diagnostic.py",
+      "canonical": "research/legacy/flat/test_iteration13_native_q_diagnostic.py",
+      "view": "research/studies/i13/test_iteration13_native_q_diagnostic.py",
+      "sha": "9040644347ce1e3266739780574585ca04eb3ded",
+      "bytes": 1766,
+      "mode": "100644",
+      "name": "test_iteration13_native_q_diagnostic.py"
+    },
+    {
+      "old": "research/test_iteration14_original_acopf.py",
+      "canonical": "research/legacy/flat/test_iteration14_original_acopf.py",
+      "view": "research/studies/i14/test_iteration14_original_acopf.py",
+      "sha": "4b49e7b02944a86cb6a7a770105a3ab6ebd68b03",
+      "bytes": 3014,
+      "mode": "100644",
+      "name": "test_iteration14_original_acopf.py"
+    },
+    {
+      "old": "research/test_iteration15_source_opf_solver_diagnostics.py",
+      "canonical": "research/legacy/flat/test_iteration15_source_opf_solver_diagnostics.py",
+      "view": "research/studies/i15/test_iteration15_source_opf_solver_diagnostics.py",
+      "sha": "4ef62f8f1dae8ca95dedc507450b6c6941c24d84",
+      "bytes": 1845,
+      "mode": "100644",
+      "name": "test_iteration15_source_opf_solver_diagnostics.py"
+    },
+    {
+      "old": "research/test_iteration16_ieee_original_acopf.py",
+      "canonical": "research/legacy/flat/test_iteration16_ieee_original_acopf.py",
+      "view": "research/studies/i16/test_iteration16_ieee_original_acopf.py",
+      "sha": "6aef027e3227ad17f2e586a39ab462d00dadc99d",
+      "bytes": 2018,
+      "mode": "100644",
+      "name": "test_iteration16_ieee_original_acopf.py"
+    },
+    {
+      "old": "research/test_iteration17_ieee14_gadapt_economic_pf.py",
+      "canonical": "research/legacy/flat/test_iteration17_ieee14_gadapt_economic_pf.py",
+      "view": "research/studies/i17/test_iteration17_ieee14_gadapt_economic_pf.py",
+      "sha": "726559c45c0eac4d5659287961b45e2ed356f8a7",
+      "bytes": 3995,
+      "mode": "100644",
+      "name": "test_iteration17_ieee14_gadapt_economic_pf.py"
+    },
+    {
+      "old": "research/test_iteration18_ieee118_gadapt_transfer.py",
+      "canonical": "research/legacy/flat/test_iteration18_ieee118_gadapt_transfer.py",
+      "view": "research/studies/i18/test_iteration18_ieee118_gadapt_transfer.py",
+      "sha": "5b7c0ec06b1f522638a9f4fa5f0bf78892f1de6d",
+      "bytes": 2269,
+      "mode": "100644",
+      "name": "test_iteration18_ieee118_gadapt_transfer.py"
+    },
+    {
+      "old": "research/test_iteration19_ieee118_forensic_diagnostic.py",
+      "canonical": "research/legacy/flat/test_iteration19_ieee118_forensic_diagnostic.py",
+      "view": "research/studies/i19/test_iteration19_ieee118_forensic_diagnostic.py",
+      "sha": "d6e8bbf72682b25ab5b2e9bbd82403514235d154",
+      "bytes": 3112,
+      "mode": "100644",
+      "name": "test_iteration19_ieee118_forensic_diagnostic.py"
+    },
+    {
+      "old": "research/test_iteration20_ieee118_reactive_sensitivity.py",
+      "canonical": "research/legacy/flat/test_iteration20_ieee118_reactive_sensitivity.py",
+      "view": "research/studies/i20/test_iteration20_ieee118_reactive_sensitivity.py",
+      "sha": "c0ce45b7561f3a2e6d5c0990e45c7bc558ad476a",
+      "bytes": 2425,
+      "mode": "100644",
+      "name": "test_iteration20_ieee118_reactive_sensitivity.py"
+    },
+    {
+      "old": "research/test_iteration21_ieee118_four_qmin_controls.py",
+      "canonical": "research/legacy/flat/test_iteration21_ieee118_four_qmin_controls.py",
+      "view": "research/studies/i21/test_iteration21_ieee118_four_qmin_controls.py",
+      "sha": "1131b3fff5ff5b7fa0964a2e18a677bf09d5e640",
+      "bytes": 2309,
+      "mode": "100644",
+      "name": "test_iteration21_ieee118_four_qmin_controls.py"
+    },
+    {
+      "old": "research/test_iteration22_ieee118_qmidpoint_repair.py",
+      "canonical": "research/legacy/flat/test_iteration22_ieee118_qmidpoint_repair.py",
+      "view": "research/studies/i22/test_iteration22_ieee118_qmidpoint_repair.py",
+      "sha": "ef01617c8172cf3f9b987cd0508150c61c3c2aad",
+      "bytes": 2187,
+      "mode": "100644",
+      "name": "test_iteration22_ieee118_qmidpoint_repair.py"
+    },
+    {
+      "old": "research/test_iteration23_ieee118_qbracket.py",
+      "canonical": "research/legacy/flat/test_iteration23_ieee118_qbracket.py",
+      "view": "research/studies/i23/test_iteration23_ieee118_qbracket.py",
+      "sha": "efcd778a018192fb19cf25759c80c29937c09b75",
+      "bytes": 1575,
+      "mode": "100644",
+      "name": "test_iteration23_ieee118_qbracket.py"
+    },
+    {
+      "old": "research/test_iteration24_ieee118_fivepv_real_gadapt.py",
+      "canonical": "research/legacy/flat/test_iteration24_ieee118_fivepv_real_gadapt.py",
+      "view": "research/studies/i24/test_iteration24_ieee118_fivepv_real_gadapt.py",
+      "sha": "7e6285189841d6394c27cfbb1364765ba425d84c",
+      "bytes": 2878,
+      "mode": "100644",
+      "name": "test_iteration24_ieee118_fivepv_real_gadapt.py"
+    },
+    {
+      "old": "research/test_iteration25_ieee118_stress_holdout.py",
+      "canonical": "research/legacy/flat/test_iteration25_ieee118_stress_holdout.py",
+      "view": "research/studies/i25/test_iteration25_ieee118_stress_holdout.py",
+      "sha": "f312270fcf21016ffd390dd7770e4967534a928d",
+      "bytes": 2163,
+      "mode": "100644",
+      "name": "test_iteration25_ieee118_stress_holdout.py"
+    },
+    {
+      "old": "research/test_iteration27_real_scenario_credit_benchmark.py",
+      "canonical": "research/legacy/flat/test_iteration27_real_scenario_credit_benchmark.py",
+      "view": "research/studies/i27/test_iteration27_real_scenario_credit_benchmark.py",
+      "sha": "2ce17594a5c719c033e4c7e04757f6111cff6629",
+      "bytes": 4884,
+      "mode": "100644",
+      "name": "test_iteration27_real_scenario_credit_benchmark.py"
+    },
+    {
+      "old": "research/test_iteration28_newseed_replication.py",
+      "canonical": "research/legacy/flat/test_iteration28_newseed_replication.py",
+      "view": "research/studies/i28/test_iteration28_newseed_replication.py",
+      "sha": "d5900c6c0c74d4b5cfbc0e5f9e95731aa3f2cf60",
+      "bytes": 3767,
+      "mode": "100644",
+      "name": "test_iteration28_newseed_replication.py"
+    },
+    {
+      "old": "research/test_iteration29_earlystop_protocol.py",
+      "canonical": "research/legacy/flat/test_iteration29_earlystop_protocol.py",
+      "view": "research/studies/i29/test_iteration29_earlystop_protocol.py",
+      "sha": "315e966cb193c58dfe331d2e24c8f97ae4bd960d",
+      "bytes": 1765,
+      "mode": "100644",
+      "name": "test_iteration29_earlystop_protocol.py"
+    },
+    {
+      "old": "research/test_iteration30_spatial_load_holdout.py",
+      "canonical": "research/legacy/flat/test_iteration30_spatial_load_holdout.py",
+      "view": "research/studies/i30/test_iteration30_spatial_load_holdout.py",
+      "sha": "698650022659da4a80e8bdbd300485601bd2cb9f",
+      "bytes": 2904,
+      "mode": "100644",
+      "name": "test_iteration30_spatial_load_holdout.py"
+    },
+    {
+      "old": "research/test_iteration31_fitness_budget_ablation.py",
+      "canonical": "research/legacy/flat/test_iteration31_fitness_budget_ablation.py",
+      "view": "research/studies/i31/test_iteration31_fitness_budget_ablation.py",
+      "sha": "bf5bf67a4ef02e5ae2b684c2a0af63d340878195",
+      "bytes": 6015,
+      "mode": "100644",
+      "name": "test_iteration31_fitness_budget_ablation.py"
+    },
+    {
+      "old": "research/test_iteration32_ieee14_topology_transfer.py",
+      "canonical": "research/legacy/flat/test_iteration32_ieee14_topology_transfer.py",
+      "view": "research/studies/i32/test_iteration32_ieee14_topology_transfer.py",
+      "sha": "407bad17a429de3ac861f10558c9f7b0e99f16de",
+      "bytes": 7338,
+      "mode": "100644",
+      "name": "test_iteration32_ieee14_topology_transfer.py"
+    },
+    {
+      "old": "research/test_iteration33_geant_routing_budget.py",
+      "canonical": "research/legacy/flat/test_iteration33_geant_routing_budget.py",
+      "view": "research/studies/i33/test_iteration33_geant_routing_budget.py",
+      "sha": "af96dfd957a33cda79f617f18e9f7a2cf9dc4d99",
+      "bytes": 6739,
+      "mode": "100644",
+      "name": "test_iteration33_geant_routing_budget.py"
+    },
+    {
+      "old": "research/test_iteration34_censor_credit_geant.py",
+      "canonical": "research/legacy/flat/test_iteration34_censor_credit_geant.py",
+      "view": "research/studies/i34/test_iteration34_censor_credit_geant.py",
+      "sha": "a1f8cd0f20c1bbfcbcd2cb0ce9de2e383b4a0221",
+      "bytes": 4874,
+      "mode": "100644",
+      "name": "test_iteration34_censor_credit_geant.py"
+    },
+    {
+      "old": "research/test_iteration35_censor_credit_ieee118.py",
+      "canonical": "research/legacy/flat/test_iteration35_censor_credit_ieee118.py",
+      "view": "research/studies/i35/test_iteration35_censor_credit_ieee118.py",
+      "sha": "1a6ead9d232a229a0658688ff949b0995d43f8d4",
+      "bytes": 4779,
+      "mode": "100644",
+      "name": "test_iteration35_censor_credit_ieee118.py"
+    },
+    {
+      "old": "research/test_iteration36_censor_credit_ieee14.py",
+      "canonical": "research/legacy/flat/test_iteration36_censor_credit_ieee14.py",
+      "view": "research/studies/i36/test_iteration36_censor_credit_ieee14.py",
+      "sha": "0142799c5adb87f76eb450bfdee6572e662e91c0",
+      "bytes": 4859,
+      "mode": "100644",
+      "name": "test_iteration36_censor_credit_ieee14.py"
+    },
+    {
+      "old": "research/test_iteration38_cut_feasibility_certificate.py",
+      "canonical": "research/legacy/flat/test_iteration38_cut_feasibility_certificate.py",
+      "view": "research/studies/i38/test_iteration38_cut_feasibility_certificate.py",
+      "sha": "a0d458c12fd7410eb9a73728436a43b7e913de85",
+      "bytes": 1089,
+      "mode": "100644",
+      "name": "test_iteration38_cut_feasibility_certificate.py"
+    },
+    {
+      "old": "research/test_iteration38_joint_capacity.py",
+      "canonical": "research/legacy/flat/test_iteration38_joint_capacity.py",
+      "view": "research/studies/i38/test_iteration38_joint_capacity.py",
+      "sha": "a5e6d39ed54f7a544eb089745033e9dce99b494b",
+      "bytes": 4400,
+      "mode": "100644",
+      "name": "test_iteration38_joint_capacity.py"
+    },
+    {
+      "old": "research/test_iteration39_source_modular_capacity.py",
+      "canonical": "research/legacy/flat/test_iteration39_source_modular_capacity.py",
+      "view": "research/studies/i39/test_iteration39_source_modular_capacity.py",
+      "sha": "d75f02ac4052bcb242719a017d2fb9b3b7ca7fe2",
+      "bytes": 3113,
+      "mode": "100644",
+      "name": "test_iteration39_source_modular_capacity.py"
+    },
+    {
+      "old": "research/test_iteration40_source_transport.py",
+      "canonical": "research/legacy/flat/test_iteration40_source_transport.py",
+      "view": "research/studies/i40/test_iteration40_source_transport.py",
+      "sha": "2397326767957a2fcab702dd1766841892aacf72",
+      "bytes": 6009,
+      "mode": "100644",
+      "name": "test_iteration40_source_transport.py"
+    },
+    {
+      "old": "research/test_iteration40_temporal_calibrated_plan.py",
+      "canonical": "research/legacy/flat/test_iteration40_temporal_calibrated_plan.py",
+      "view": "research/studies/i40/test_iteration40_temporal_calibrated_plan.py",
+      "sha": "815945082cb075e91f3b5a16be698cb41d7eac78",
+      "bytes": 3865,
+      "mode": "100644",
+      "name": "test_iteration40_temporal_calibrated_plan.py"
+    },
+    {
+      "old": "research/test_iteration41_certified_temporal_rows.py",
+      "canonical": "research/legacy/flat/test_iteration41_certified_temporal_rows.py",
+      "view": "research/studies/i41/test_iteration41_certified_temporal_rows.py",
+      "sha": "6ba62265061f91b5a2669a25f128d9c8d02396e6",
+      "bytes": 7553,
+      "mode": "100644",
+      "name": "test_iteration41_certified_temporal_rows.py"
+    },
+    {
+      "old": "research/test_iteration41_property_falsification.py",
+      "canonical": "research/legacy/flat/test_iteration41_property_falsification.py",
+      "view": "research/studies/i41/test_iteration41_property_falsification.py",
+      "sha": "b9232cfe8d504c37d54fb984c24155460ce652bd",
+      "bytes": 3911,
+      "mode": "100644",
+      "name": "test_iteration41_property_falsification.py"
+    },
+    {
+      "old": "research/test_iteration42_phase0_vig.py",
+      "canonical": "research/legacy/flat/test_iteration42_phase0_vig.py",
+      "view": "research/studies/i42/test_iteration42_phase0_vig.py",
+      "sha": "ec6cb29e8886080a5924d19e6557b6095e637fd4",
+      "bytes": 3400,
+      "mode": "100644",
+      "name": "test_iteration42_phase0_vig.py"
+    },
+    {
+      "old": "research/test_iteration43_budget_operator_diagnostic.py",
+      "canonical": "research/legacy/flat/test_iteration43_budget_operator_diagnostic.py",
+      "view": "research/studies/i43/test_iteration43_budget_operator_diagnostic.py",
+      "sha": "69160be77d690713ef033d46f09d3b057b326161",
+      "bytes": 2204,
+      "mode": "100644",
+      "name": "test_iteration43_budget_operator_diagnostic.py"
+    },
+    {
+      "old": "research/test_iteration44_mutation_mechanism.py",
+      "canonical": "research/legacy/flat/test_iteration44_mutation_mechanism.py",
+      "view": "research/studies/i44/test_iteration44_mutation_mechanism.py",
+      "sha": "b49a851e82eb80fb49f5faeeb9c27d122fcbe1cf",
+      "bytes": 3071,
+      "mode": "100644",
+      "name": "test_iteration44_mutation_mechanism.py"
+    },
+    {
+      "old": "research/test_iteration45_generic_vs_specific.py",
+      "canonical": "research/legacy/flat/test_iteration45_generic_vs_specific.py",
+      "view": "research/studies/i45/test_iteration45_generic_vs_specific.py",
+      "sha": "df558ce8f661fc24b9fe55063114e3e846b6565d",
+      "bytes": 1142,
+      "mode": "100644",
+      "name": "test_iteration45_generic_vs_specific.py"
+    },
+    {
+      "old": "research/test_iteration46_component_ablation.py",
+      "canonical": "research/legacy/flat/test_iteration46_component_ablation.py",
+      "view": "research/studies/i46/test_iteration46_component_ablation.py",
+      "sha": "59510d0fd3e951e71e885dc4b2a301cb95dbd2c0",
+      "bytes": 1831,
+      "mode": "100644",
+      "name": "test_iteration46_component_ablation.py"
+    },
+    {
+      "old": "research/test_iteration47_invariance.py",
+      "canonical": "research/legacy/flat/test_iteration47_invariance.py",
+      "view": "research/studies/i47/test_iteration47_invariance.py",
+      "sha": "9e18ebd6e40aca6e535ee5e75c7a4c9cf9766e05",
+      "bytes": 2366,
+      "mode": "100644",
+      "name": "test_iteration47_invariance.py"
+    },
+    {
+      "old": "research/test_iteration48_valve_dispatch.py",
+      "canonical": "research/legacy/flat/test_iteration48_valve_dispatch.py",
+      "view": "research/studies/i48/test_iteration48_valve_dispatch.py",
+      "sha": "88e9dda129081eb8d588b171d2f5f3d2582ce512",
+      "bytes": 2456,
+      "mode": "100644",
+      "name": "test_iteration48_valve_dispatch.py"
+    },
+    {
+      "old": "research/test_iteration49_integrity_audit.py",
+      "canonical": "research/legacy/flat/test_iteration49_integrity_audit.py",
+      "view": "research/studies/i49/test_iteration49_integrity_audit.py",
+      "sha": "533c96d026b9bc1864e68ce5203e499cf412e738",
+      "bytes": 1459,
+      "mode": "100644",
+      "name": "test_iteration49_integrity_audit.py"
+    },
+    {
+      "old": "research/test_iteration52_sensitivity.py",
+      "canonical": "research/legacy/flat/test_iteration52_sensitivity.py",
+      "view": "research/studies/i52/test_iteration52_sensitivity.py",
+      "sha": "a5aa134f8dea844649b69bd73e2f20da2b8fbef5",
+      "bytes": 831,
+      "mode": "100644",
+      "name": "test_iteration52_sensitivity.py"
+    },
+    {
+      "old": "research/test_iteration53_oracle_step.py",
+      "canonical": "research/legacy/flat/test_iteration53_oracle_step.py",
+      "view": "research/studies/i53/test_iteration53_oracle_step.py",
+      "sha": "61c7afeb1199574c26b755c7ef114127837aba2f",
+      "bytes": 5716,
+      "mode": "100644",
+      "name": "test_iteration53_oracle_step.py"
+    },
+    {
+      "old": "research/test_iteration54_oracle_geometry.py",
+      "canonical": "research/legacy/flat/test_iteration54_oracle_geometry.py",
+      "view": "research/studies/i54/test_iteration54_oracle_geometry.py",
+      "sha": "57aec6e407322e5bf9c1ac00335f7bc3e50f1c36",
+      "bytes": 3121,
+      "mode": "100644",
+      "name": "test_iteration54_oracle_geometry.py"
+    },
+    {
+      "old": "research/test_iteration55_d3x_traces.py",
+      "canonical": "research/legacy/flat/test_iteration55_d3x_traces.py",
+      "view": "research/studies/i55/test_iteration55_d3x_traces.py",
+      "sha": "2d3ebb365433634da81263d9fe97d24f95fd3958",
+      "bytes": 1504,
+      "mode": "100644",
+      "name": "test_iteration55_d3x_traces.py"
+    },
+    {
+      "old": "research/test_iteration56_cht_study.py",
+      "canonical": "research/legacy/flat/test_iteration56_cht_study.py",
+      "view": "research/studies/i56/test_iteration56_cht_study.py",
+      "sha": "d21bdda89600e575e9868d9517df3f8b5918fca9",
+      "bytes": 4605,
+      "mode": "100644",
+      "name": "test_iteration56_cht_study.py"
+    },
+    {
+      "old": "research/test_iteration57_external.py",
+      "canonical": "research/legacy/flat/test_iteration57_external.py",
+      "view": "research/studies/i57/test_iteration57_external.py",
+      "sha": "e673d9f0132b7a8472f832577685e2d422606cfc",
+      "bytes": 1246,
+      "mode": "100644",
+      "name": "test_iteration57_external.py"
+    },
+    {
+      "old": "research/test_iteration58_validation.py",
+      "canonical": "research/legacy/flat/test_iteration58_validation.py",
+      "view": "research/studies/i58/test_iteration58_validation.py",
+      "sha": "a815a86cd7902c419b72cb96e032b5c824a869ee",
+      "bytes": 2354,
+      "mode": "100644",
+      "name": "test_iteration58_validation.py"
+    },
+    {
+      "old": "research/test_iteration59_telecom.py",
+      "canonical": "research/legacy/flat/test_iteration59_telecom.py",
+      "view": "research/studies/i59/test_iteration59_telecom.py",
+      "sha": "2451ba75da50a786898a1b24033b17ccc9c89267",
+      "bytes": 9373,
+      "mode": "100644",
+      "name": "test_iteration59_telecom.py"
+    },
+    {
+      "old": "research/test_iteration60_epsilon.py",
+      "canonical": "research/legacy/flat/test_iteration60_epsilon.py",
+      "view": "research/studies/i60/test_iteration60_epsilon.py",
+      "sha": "d20e519d5522821ac8fc574775b8296e2069cd24",
+      "bytes": 3161,
+      "mode": "100644",
+      "name": "test_iteration60_epsilon.py"
+    },
+    {
+      "old": "research/test_iteration61_replication.py",
+      "canonical": "research/legacy/flat/test_iteration61_replication.py",
+      "view": "research/studies/i61/test_iteration61_replication.py",
+      "sha": "7b9dc073242bba5bae39af11b0b86b3f914ec85e",
+      "bytes": 7147,
+      "mode": "100644",
+      "name": "test_iteration61_replication.py"
+    },
+    {
+      "old": "research/test_iteration63_replication.py",
+      "canonical": "research/legacy/flat/test_iteration63_replication.py",
+      "view": "research/studies/i63/test_iteration63_replication.py",
+      "sha": "846b5261acff4358d45d8590642097361053c275",
+      "bytes": 7317,
+      "mode": "100644",
+      "name": "test_iteration63_replication.py"
+    },
+    {
+      "old": "research/test_iteration6_policy.py",
+      "canonical": "research/legacy/flat/test_iteration6_policy.py",
+      "view": "research/studies/i06/test_iteration6_policy.py",
+      "sha": "29954609444a09667e5a5842cdcace7749a1a700",
+      "bytes": 2754,
+      "mode": "100644",
+      "name": "test_iteration6_policy.py"
+    },
+    {
+      "old": "research/test_iteration7_audit.py",
+      "canonical": "research/legacy/flat/test_iteration7_audit.py",
+      "view": "research/studies/i07/test_iteration7_audit.py",
+      "sha": "29aa36e6516b59a9c2273a2ff326b713b4d322ea",
+      "bytes": 2121,
+      "mode": "100644",
+      "name": "test_iteration7_audit.py"
+    },
+    {
+      "old": "research/test_iteration7_leaf_certificate.py",
+      "canonical": "research/legacy/flat/test_iteration7_leaf_certificate.py",
+      "view": "research/studies/i07/test_iteration7_leaf_certificate.py",
+      "sha": "eb48eeef0ca22a78319bfd0ddd9abf86efd8fb89",
+      "bytes": 3194,
+      "mode": "100644",
+      "name": "test_iteration7_leaf_certificate.py"
+    },
+    {
+      "old": "research/test_iteration7_rate_source.py",
+      "canonical": "research/legacy/flat/test_iteration7_rate_source.py",
+      "view": "research/studies/i07/test_iteration7_rate_source.py",
+      "sha": "87c497f5d99a96d4f6ca5bc64bf72b93e7cf5e2b",
+      "bytes": 1382,
+      "mode": "100644",
+      "name": "test_iteration7_rate_source.py"
+    },
+    {
+      "old": "research/test_iteration7_source_physics.py",
+      "canonical": "research/legacy/flat/test_iteration7_source_physics.py",
+      "view": "research/studies/i07/test_iteration7_source_physics.py",
+      "sha": "1c41d229c6d250400fb45670773ce1088496b7dd",
+      "bytes": 2451,
+      "mode": "100644",
+      "name": "test_iteration7_source_physics.py"
+    },
+    {
+      "old": "research/test_iteration7_source_pilot.py",
+      "canonical": "research/legacy/flat/test_iteration7_source_pilot.py",
+      "view": "research/studies/i07/test_iteration7_source_pilot.py",
+      "sha": "0654e857b462d626477956dc9cac9d0efa5756fd",
+      "bytes": 781,
+      "mode": "100644",
+      "name": "test_iteration7_source_pilot.py"
+    },
+    {
+      "old": "research/test_iteration7_stats.py",
+      "canonical": "research/legacy/flat/test_iteration7_stats.py",
+      "view": "research/studies/i07/test_iteration7_stats.py",
+      "sha": "5a60d5999c372ba7e368845136f2a358bec7e98a",
+      "bytes": 1756,
+      "mode": "100644",
+      "name": "test_iteration7_stats.py"
+    },
+    {
+      "old": "research/test_iteration8_reactive_screen.py",
+      "canonical": "research/legacy/flat/test_iteration8_reactive_screen.py",
+      "view": "research/studies/i08/test_iteration8_reactive_screen.py",
+      "sha": "dd5e8c63f6649721aadbd8bd4c44b58eee2410f5",
+      "bytes": 2770,
+      "mode": "100644",
+      "name": "test_iteration8_reactive_screen.py"
+    },
+    {
+      "old": "research/test_iteration9_source_generators.py",
+      "canonical": "research/legacy/flat/test_iteration9_source_generators.py",
+      "view": "research/studies/i09/test_iteration9_source_generators.py",
+      "sha": "0d07f0b991cf95597c9a8d57fc53d412342b809d",
+      "bytes": 3253,
+      "mode": "100644",
+      "name": "test_iteration9_source_generators.py"
+    }
+  ],
+  "removed_generated_caches": [
+    {
+      "path": "research/__pycache__/integrity_audit_examples.cpython-314.pyc",
+      "sha": "a182e0fc70a4954bc8723e2e1a897f913e990bdf",
+      "bytes": 2955
+    },
+    {
+      "path": "research/__pycache__/integrity_audit_tool.cpython-314.pyc",
+      "sha": "b429cff0a7a9d48b9c7b318218adffb50768606d",
+      "bytes": 15551
+    },
+    {
+      "path": "research/__pycache__/iteration38_joint_capacity_model.cpython-314.pyc",
+      "sha": "85cdbf96301b82ae3a90744b2e83e386babe468e",
+      "bytes": 32504
+    },
+    {
+      "path": "research/__pycache__/iteration39_source_modular_capacity.cpython-314.pyc",
+      "sha": "1b5dfb94a9eb3ba67e6e1617fb7b27ab037d31a3",
+      "bytes": 12914
+    },
+    {
+      "path": "research/__pycache__/iteration41_certified_temporal_rows.cpython-314.pyc",
+      "sha": "49cf5a54d983add290d8055e4d329fa2f62ad79d",
+      "bytes": 15457
+    },
+    {
+      "path": "research/__pycache__/iteration42_phase0_vig.cpython-314.pyc",
+      "sha": "a09a09c8cdef6e0101c13a6c05ff9a7d028c4d51",
+      "bytes": 14850
+    },
+    {
+      "path": "research/__pycache__/iteration43_budget_operator_diagnostic.cpython-314.pyc",
+      "sha": "a2d245858b0fb9fc87acfa6a3f1ddc104b4e6fef",
+      "bytes": 20687
+    },
+    {
+      "path": "research/__pycache__/iteration44_mutation_mechanism.cpython-314.pyc",
+      "sha": "22f759f31c7d0f78170fc2ee13bcc6f089a927e7",
+      "bytes": 14341
+    },
+    {
+      "path": "research/__pycache__/iteration45_generic_vs_specific.cpython-314.pyc",
+      "sha": "726df7db03806cbe117fa26565184e3df263d2d2",
+      "bytes": 14472
+    },
+    {
+      "path": "research/__pycache__/iteration46_component_ablation.cpython-314.pyc",
+      "sha": "2a3c42eee23673f520f18333c800e2723508b69b",
+      "bytes": 16226
+    },
+    {
+      "path": "research/__pycache__/iteration47_invariance.cpython-314.pyc",
+      "sha": "780fe69eab2dad3d6c48385e4167223045431872",
+      "bytes": 31424
+    },
+    {
+      "path": "research/__pycache__/iteration48_valve_dispatch.cpython-314.pyc",
+      "sha": "f2e060619ee4040116f32080cb55d60d7d04a195",
+      "bytes": 19819
+    },
+    {
+      "path": "research/__pycache__/iteration49_integrity_audit.cpython-314.pyc",
+      "sha": "16ba6e78d6f582e6963706eb657bb6279e86c7d0",
+      "bytes": 35624
+    },
+    {
+      "path": "research/__pycache__/iteration50_integrity_audit.cpython-314.pyc",
+      "sha": "9c5b28e36a23b56ac4f1d7cc5e1b4617c240012a",
+      "bytes": 46852
+    },
+    {
+      "path": "research/__pycache__/iteration52_dispatch_integrity.cpython-314.pyc",
+      "sha": "49a54039881d3ed8126a8daf39ba41028c76ae4e",
+      "bytes": 21112
+    },
+    {
+      "path": "research/__pycache__/iteration52_sensitivity.cpython-314.pyc",
+      "sha": "5f5adb1b84aacbf8a99d27177ae27f71e01ad6f7",
+      "bytes": 14643
+    },
+    {
+      "path": "research/__pycache__/iteration53_oracle_step.cpython-314.pyc",
+      "sha": "c9fea70dbfb57bfbf91e956f89fb02807d4a8f06",
+      "bytes": 27671
+    },
+    {
+      "path": "research/__pycache__/iteration54_oracle_geometry.cpython-314.pyc",
+      "sha": "94e883494ecfc579acaeb237f37754800554469b",
+      "bytes": 17553
+    },
+    {
+      "path": "research/__pycache__/iteration55_d3x_traces.cpython-314.pyc",
+      "sha": "96322d4edb845076b1776eb88bfbb0a320313c0d",
+      "bytes": 12239
+    },
+    {
+      "path": "research/__pycache__/iteration55_recompute.cpython-314.pyc",
+      "sha": "3fadb786fedb155252d5778cc77682e35420bcb1",
+      "bytes": 10979
+    },
+    {
+      "path": "research/__pycache__/iteration56_cht_study.cpython-314.pyc",
+      "sha": "6abba72f68753b77d726cb38533d73bc7cdedd4d",
+      "bytes": 68652
+    },
+    {
+      "path": "research/__pycache__/iteration56_orpd.cpython-314.pyc",
+      "sha": "15a328d3e260719e7ec07013cf92be151caf7c63",
+      "bytes": 12756
+    },
+    {
+      "path": "research/__pycache__/iteration57_external.cpython-314.pyc",
+      "sha": "f7b9bcc12b129ab2622d70d651bb0d0527b51cf9",
+      "bytes": 19692
+    },
+    {
+      "path": "research/__pycache__/iteration58_check_amendment.cpython-314.pyc",
+      "sha": "444c2519301b8f64dce5da92fa1708382b6a7aab",
+      "bytes": 12855
+    },
+    {
+      "path": "research/__pycache__/iteration58_validation.cpython-314.pyc",
+      "sha": "7236ae822b607f56f6bb6069cf218dbbc73c8262",
+      "bytes": 48368
+    },
+    {
+      "path": "research/__pycache__/iteration59_telecom.cpython-314.pyc",
+      "sha": "30102754586f5eb62964600e749d72545c801b3a",
+      "bytes": 70602
+    },
+    {
+      "path": "research/__pycache__/iteration60_epsilon.cpython-314.pyc",
+      "sha": "6698b01912dffefe5a80efb7f1e65a4dd13fa684",
+      "bytes": 25708
+    },
+    {
+      "path": "research/__pycache__/iteration61_replication.cpython-314.pyc",
+      "sha": "cae76f85238658bbe9fe183c9d06e8bf28906860",
+      "bytes": 86154
+    },
+    {
+      "path": "research/__pycache__/iteration63_replication.cpython-314.pyc",
+      "sha": "bf7fe63ce25b0ba0b00c59ebc9392b0aa3d84536",
+      "bytes": 68649
+    },
+    {
+      "path": "research/__pycache__/test_integrity_audit_tool.cpython-314-pytest-9.1.1.pyc",
+      "sha": "7beb96556fba1dfe615a84c47ba3ef12d7344179",
+      "bytes": 6302
+    },
+    {
+      "path": "research/__pycache__/test_iteration39_source_modular_capacity.cpython-314-pytest-9.1.1.pyc",
+      "sha": "07848eb6ef56dd602f7bf9f757670c8d1160b97a",
+      "bytes": 7378
+    },
+    {
+      "path": "research/__pycache__/test_iteration41_certified_temporal_rows.cpython-314-pytest-9.1.1.pyc",
+      "sha": "b853694066a8bf3a52c910c656ef708ee77113a9",
+      "bytes": 14820
+    },
+    {
+      "path": "research/__pycache__/test_iteration41_property_falsification.cpython-314-pytest-9.1.1.pyc",
+      "sha": "80cc56db528f2138f7398c98590aab49a71f2bfe",
+      "bytes": 8937
+    },
+    {
+      "path": "research/__pycache__/test_iteration42_phase0_vig.cpython-314-pytest-9.1.1.pyc",
+      "sha": "e3559113d1e6ae1e33a18f85ed8b6fca1c3b9497",
+      "bytes": 7748
+    },
+    {
+      "path": "research/__pycache__/test_iteration43_budget_operator_diagnostic.cpython-314-pytest-9.1.1.pyc",
+      "sha": "56cf25551df5138a3c65855d9cb1f192b40b8074",
+      "bytes": 5104
+    },
+    {
+      "path": "research/__pycache__/test_iteration44_mutation_mechanism.cpython-314-pytest-9.1.1.pyc",
+      "sha": "1a8ecf0d2811b7173afc8d7cf7d64e9feb1d8e2a",
+      "bytes": 7000
+    },
+    {
+      "path": "research/__pycache__/test_iteration45_generic_vs_specific.cpython-314-pytest-9.1.1.pyc",
+      "sha": "7d0b1230cb313f3cc2155c215e7b3bcc982a1d69",
+      "bytes": 3396
+    },
+    {
+      "path": "research/__pycache__/test_iteration46_component_ablation.cpython-314-pytest-9.1.1.pyc",
+      "sha": "1f5be5ed948d189190716050ea037f85f56d783a",
+      "bytes": 4133
+    },
+    {
+      "path": "research/__pycache__/test_iteration47_invariance.cpython-314-pytest-9.1.1.pyc",
+      "sha": "92ccd0f6110163a62c6bd10348c758d93c2e8e57",
+      "bytes": 5727
+    },
+    {
+      "path": "research/__pycache__/test_iteration48_valve_dispatch.cpython-314-pytest-9.1.1.pyc",
+      "sha": "ec7131ef56259756064e995c106bb6489d66bb2d",
+      "bytes": 5385
+    },
+    {
+      "path": "research/__pycache__/test_iteration49_integrity_audit.cpython-314-pytest-9.1.1.pyc",
+      "sha": "522251e714955449e55a9f3232a32803babaf187",
+      "bytes": 3741
+    },
+    {
+      "path": "research/__pycache__/test_iteration52_sensitivity.cpython-314-pytest-9.1.1.pyc",
+      "sha": "89102722c3f09fda713b447fef8682a1446fc15f",
+      "bytes": 6491
+    },
+    {
+      "path": "research/__pycache__/test_iteration53_oracle_step.cpython-314-pytest-9.1.1.pyc",
+      "sha": "de336a1bc9cad47b769d431e6c5567d1d03ad79d",
+      "bytes": 37260
+    },
+    {
+      "path": "research/__pycache__/test_iteration54_oracle_geometry.cpython-314-pytest-9.1.1.pyc",
+      "sha": "1085fe47a92c8a3a19b4dae47cdf9a65ada72333",
+      "bytes": 24331
+    },
+    {
+      "path": "research/__pycache__/test_iteration55_d3x_traces.cpython-314-pytest-9.1.1.pyc",
+      "sha": "95b60d185386c4c93dd0e85cb953f1ad0c277f93",
+      "bytes": 6820
+    },
+    {
+      "path": "research/__pycache__/test_iteration56_cht_study.cpython-314-pytest-9.1.1.pyc",
+      "sha": "263a2e6de3cc676f0911534f15382754590387a5",
+      "bytes": 34382
+    },
+    {
+      "path": "research/__pycache__/test_iteration57_external.cpython-314-pytest-9.1.1.pyc",
+      "sha": "9a410347178a327d4759216fafc3871776534256",
+      "bytes": 6872
+    },
+    {
+      "path": "research/__pycache__/test_iteration58_validation.cpython-314-pytest-9.1.1.pyc",
+      "sha": "1799899af3d0e034ca3dc78bf3cb6e9fb41ede27",
+      "bytes": 13846
+    },
+    {
+      "path": "research/__pycache__/test_iteration59_telecom.cpython-314-pytest-9.1.1.pyc",
+      "sha": "bb10bcbb34d0216a266c7008568f3ac998a1aa8f",
+      "bytes": 38704
+    },
+    {
+      "path": "research/__pycache__/test_iteration59_telecom.cpython-314.pyc",
+      "sha": "962022c23e2f09b434ee245d1b70a2bc6f761518",
+      "bytes": 9826
+    },
+    {
+      "path": "research/__pycache__/test_iteration60_epsilon.cpython-314-pytest-9.1.1.pyc",
+      "sha": "c2a9211d8d971925c223a2b50f3ac8d261c117ed",
+      "bytes": 18018
+    },
+    {
+      "path": "research/__pycache__/test_iteration61_replication.cpython-314-pytest-9.1.1.pyc",
+      "sha": "c926d1e7a9d68c3e3915c4669f1dcd3462109e2d",
+      "bytes": 45346
+    },
+    {
+      "path": "research/__pycache__/test_iteration63_replication.cpython-314-pytest-9.1.1.pyc",
+      "sha": "ab0c2476d3c1f9ec496d37b53d6cf609cbd1ff51",
+      "bytes": 16889
+    },
+    {
+      "path": "research/exploratory_scipy_global/__pycache__/adapters.cpython-314.pyc",
+      "sha": "56643644d67f00079eff38f7cec252790e51fb4d",
+      "bytes": 2179
+    },
+    {
+      "path": "research/i64/__pycache__/e2_study.cpython-314.pyc",
+      "sha": "3de6febbeea8e0f430b57e28250449e51e6fafd4",
+      "bytes": 23599
+    },
+    {
+      "path": "research/i64/__pycache__/e3_algo.cpython-314.pyc",
+      "sha": "bd064cce6cb00326d976677d9a2ef88b1a00723c",
+      "bytes": 10472
+    },
+    {
+      "path": "research/i64/__pycache__/e_algos.cpython-314.pyc",
+      "sha": "6f3806ab4f634a747c170a726c5bd5e2581bf107",
+      "bytes": 12157
+    },
+    {
+      "path": "research/i64/__pycache__/e_common.cpython-314.pyc",
+      "sha": "798dd659d14b7effc486372a998946de13ae4c82",
+      "bytes": 5873
+    },
+    {
+      "path": "research/i64/__pycache__/e_study.cpython-314.pyc",
+      "sha": "238c2352ce387c32e99fb478a503ced2f75b6d4a",
+      "bytes": 36515
+    },
+    {
+      "path": "research/i64/__pycache__/i_study.cpython-314.pyc",
+      "sha": "2f47f2311fd6560c6343a9d47affb3407f229ed5",
+      "bytes": 37123
+    },
+    {
+      "path": "research/i64/__pycache__/test_e_algos.cpython-314-pytest-9.1.1.pyc",
+      "sha": "3f6b01c5dd52bdaf482c48fda5a68ad507f3c254",
+      "bytes": 5177
+    },
+    {
+      "path": "research/i64/__pycache__/test_e_algos.cpython-314-pytest-9.2.0.pyc",
+      "sha": "7cd183883a0bc26f31b481ec5ce57e65226db239",
+      "bytes": 8964
+    },
+    {
+      "path": "research/i64/__pycache__/test_e_common.cpython-314-pytest-9.1.1.pyc",
+      "sha": "54816ef0c881820881724ec23db231545501b190",
+      "bytes": 16258
+    },
+    {
+      "path": "research/i64/__pycache__/test_e_common.cpython-314-pytest-9.2.0.pyc",
+      "sha": "bab48b73f7e7b674f417ab6770a2c368ec46e926",
+      "bytes": 16258
+    }
+  ]
+}

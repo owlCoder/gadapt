@@ -1,0 +1,1 @@
+../legacy/flat/GADAPT_CONSTRAINT_API_DESIGN_SR.md

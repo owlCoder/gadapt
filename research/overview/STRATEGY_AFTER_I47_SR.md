@@ -1,0 +1,1 @@
+../legacy/flat/STRATEGY_AFTER_I47_SR.md

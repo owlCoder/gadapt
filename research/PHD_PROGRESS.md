@@ -394,3 +394,12 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - `research/README.md` pretvoren u indeks; originalna verzija sačuvana bajt-identično u `research/archive/README_PRE_I65_2026-11-01.md`; stari protokoli i rezultati nisu obrisani.
 - **SLEDEĆI KORAK:** nezavisan prior-art/method review i zatvaranje AGENTS novelty gate-a pre implementacije algoritamske intervencije; COCO/pycma/GAdapt integracija i nezavisan svedok; potom zaseban FREEZE pre bilo kog held-out benchmarka. Nema skupih CI runova automatski, nema ponavljanja radi pozitivnog ishoda.
 - Dopuna istog dana: 9 I65 `.py` fajlova učitano u `research/i65/` kao research-only kod. Nema nove metode, novih COCO run-ova ili FREEZE; lokalni gate 54/3 važi samo za izolovane testove.
+
+
+## 2026-11-01 — sveobuhvatna reorganizacija direktorijuma research/ (bez eksperimenata)
+
+- Iz starog research root-a migriran je 341 istorijski fajl bajt-identično u research/legacy/flat/. Povezani pogledi po iteracijama su research/studies/iXX/, plus literature/, overview/, tools/, domains/. Git SHA svakog originala je u research/MIGRATION_MANIFEST_2026-11-01.json.
+- 64 generisana __pycache__ artefakta uklonjena iz Git praćenja; sirovi rezultati u results/ (2717 fajlova) ostali su na istim putanjama i sa istim SHA-ovima. Core gadapt/ i upstream nisu dirani.
+- Stare direktne root putanje su premeštene; da bi istorijske komande radile, u lokalnom checkout-u se prvo koristi python research/compat/restore_legacy_paths.py --apply --verify (opt-in symlink rehidratacija). Puna regresija nije urađena. Frozen protokoli ostali su bajt-identični.
+- I65 ostaje DRAFT / NO-FREEZE / NOT_RUN i novelty not established. Migracija nije dokaz stabilnosti, naučne novine ili industrijske pouzdanosti.
+- SLEDEĆI KORAK: nezavisno proveriti nove putanje + lokalni restore i kritične CLI/test entrypoint-e u zaključanim okruženjima, rešiti identifikovane blokere I65 instrumentacije, pa tek zatim razmotriti freeze i konfirmatorni COCO f21/f24 benchmark. Ne ponavljati eksperimente do pozitivnog ishoda.

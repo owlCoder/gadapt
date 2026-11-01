@@ -1,20 +1,17 @@
-# GAdapt research — indeks dokaza
+# Katalog GAdapt studija
 
-**Stanje 2026-11-01.** Ne menja protokole niti istorijske zaključke.
+[Po iteraciji](studies/) · [Sirovi izlazi](results/) · [Novost i prior-art](literature/) · [Izvorna migraciona mapa](MIGRATION_MANIFEST_2026-11-01.json)
 
-| Serija | Glavni izvori | Status i ključna granica |
+## Aktivna linija I64–I65
+
+| Studija | Izveštaj | Sažetak sa ograničenjem |
 |---|---|---|
-| I64-S0 | [Protokol](ITERATION64_PROTOCOL.md), [izveštaj](ITERATION64_S0_REPORT_SR.md) | Rani ECDF GAdapt bolji; DE završna medijana bolja u 14/21 ćeliji |
-| I64-E | [Spec](ITERATION64_E_SPEC.md), [izveštaj](ITERATION64_E_REPORT_SR.md) | 12k fizičkih poziva, pomeraji/transformacije; CMA porodica jača u agregatu |
-| I64-E3 | [Spec](ITERATION64_E3_SPEC.md), [izveštaj](ITERATION64_E3_REPORT_SR.md) | Fiksni 30/70 hibrid; mešani rezultat, ne nova metoda |
-| I64-R | [Izveštaj](ITERATION64_R_REPORT_SR.md) | Izolovana ortogonalna osetljivost GAdapt-a |
-| I64-A | [Izveštaj](ITERATION64_A_REPORT_SR.md) | Ablacija: GAdapt faza korisna za konkretan hibrid |
-| I64-I | [Izveštaj](ITERATION64_I_REPORT_SR.md) | ORPD izvodljivost; razlike prema CMA neodlučene |
-| I64-I2 | [Izveštaj](ITERATION64_I2_REPORT_SR.md) | Hibrid nije potvrđeno bolji na ORPD-u; rep lošiji od IPOP |
-| I64-C/N | [C](ITERATION64_C_REPORT_SR.md), [N](ITERATION64_N_DEV_NOTE_SR.md) | Negativno/neodlučeno; ne ponavljati radi pozitivnog rezultata |
-| I65 | [Prior art](ITERATION65_PRIOR_ART_AUDIT_DRAFT_SR.md), [protokol](ITERATION65_DRAFT_PROTOCOL_SR.md), [gate](ITERATION65_INSTRUMENTATION_GATE_REPORT_SR.md) | **DRAFT / NOT_RUN** |
+| S0 | [I64-S0](ITERATION64_S0_REPORT_SR.md) | Rana efikasnost GAdapt, DE bolja završna medijana u 14/21 ćelija |
+| E | [I64-E](ITERATION64_E_REPORT_SR.md) | CMA porodica ima veći A u proširenom testnom skupu |
+| E3 | [I64-E3](ITERATION64_E3_REPORT_SR.md) | Hibrid 30/70 mešani ishod, nije nova metoda |
+| R | [I64-R](ITERATION64_R_REPORT_SR.md) | GAdapt gubi više od IPOP pri kontrolisanom ortogonalnom Q |
+| A | [I64-A](ITERATION64_A_REPORT_SR.md) | GAdapt prva faza doprinosi konkretnom fiksnom hibridu |
+| I/I2 | [I](ITERATION64_I_REPORT_SR.md), [I2](ITERATION64_I2_REPORT_SR.md) | Hibridna prednost nije potvrđena na ORPD-u |
+| I65 | [DRAFT](ITERATION65_DRAFT_PROTOCOL_SR.md), [gate](ITERATION65_INSTRUMENTATION_GATE_REPORT_SR.md) | Nema zamrzavanja ili novih COCO benchmark rezultata |
 
-## Kako čitati rezultate
-Stagnacija nije uspeh; `optimizer.success` nije potvrđena izvodljivost. Primarno
-porediti stvarne evaluacije. Za infrastrukturu proveriti ograničenja, trošak i
-fallback. [PHD_PROGRESS](PHD_PROGRESS.md) ima najnoviji plan.
+Ne uzimati klasične testove kao dokaz industrijske spremnosti. Zamrznuti istorijski izveštaji čuvaju prvobitne tvrdnje; reorganizacija ne menja ishod.

@@ -1,0 +1,1 @@
+../legacy/flat/DOCTORAL_GADAPT_INDUSTRY_ROADMAP_SR.md

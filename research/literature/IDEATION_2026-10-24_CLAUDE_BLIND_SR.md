@@ -1,0 +1,1 @@
+../legacy/flat/IDEATION_2026-10-24_CLAUDE_BLIND_SR.md
