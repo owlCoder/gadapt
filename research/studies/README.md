@@ -1,6 +1,6 @@
-# Istraživanja po iteracijama
+# Research studies by iteration
 
-Pregled svih istorijskih iteracija. **Ne tumačiti broj iteracije kao naučni uspeh.** Svaki link vodi ka fajlovima koji su sačuvani byte-identično (Git blob SHA), ne ka regenerisanim podacima.
+English-language navigation for the entire historical GAdapt research series. A linked historical `_SR.md` report is not automatically translated; check the [language audit](../LANGUAGE_AUDIT_2026-11-01.json).
 
 - [I02](i02/)
 - [I04](i04/)
@@ -66,4 +66,4 @@ Pregled svih istorijskih iteracija. **Ne tumačiti broj iteracije kao naučni us
 - [I64](i64/)
 - [I65](i65/)
 
-[Audit integriteta](integrity/) · [AOS](aos/) · [Sirovi rezultati](../results/) · [Istraživački handoff](../PHD_PROGRESS.md)
+[Audits](integrity/) · [AOS](aos/) · [Raw data](../results/) · [Research handoff](../PHD_PROGRESS.md)

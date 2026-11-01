@@ -1,31 +1,31 @@
-# ITERATION64-R: izolovanje ortogonalne transformacije (isti pomeraj) — izveštaj (generisan iz arhive)
+# I64-R: Isolating the orthogonal transformation with a matched shift — generated report
 
-Specifikacija: [ITERATION64_R_SPEC.md](ITERATION64_R_SPEC.md). Ćelija `rotm` = Q iz E `rot` i o iz E `shift`; 21 par funkcija/dimenzija, 100 semena, 12.000 stvarnih poziva, GAdapt-M i IPOP-CMA-ES. Q je Haar-ortogonalna (moguće sa refleksijom), pa se ne govori o čistoj rotaciji.
+Specification: [ITERATION64_R_SPEC.md](ITERATION64_R_SPEC.md). The `rotm` cell combines Q from E's rotated variant with the translation vector from E's `shift` variant. The experiment covers 21 function–dimension pairs, 100 seeds, 12,000 physical objective calls, and GAdapt-M versus IPOP-CMA-ES. Q is Haar orthogonal and may include a reflection; therefore the intervention should be described as **orthogonal**, not strictly rotational.
 
-Simultani interval (4 kontrasta, α = 0.05, 20000 ponavljanja, seme 70), t* = 2.4289.
+Simultaneous intervals for four contrasts (α = 0.05, 20,000 bootstrap replicates, seed 70), t* = 2.4289.
 
-| kontrast | procena | donja | gornja |
+| Contrast | Estimate | Lower | Upper |
 |---|---|---|---|
 | c1 A_G(rotm)-A_G(rot) | 0.0031 | -0.0081 | 0.0142 |
 | c2 A_G(shift)-A_G(rotm) | 0.0809 | 0.0721 | 0.0897 |
 | c3 A_I(shift)-A_I(rotm) | 0.0101 | 0.0036 | 0.0166 |
 | c4 c2-c3 | 0.0708 | 0.0598 | 0.0818 |
 
-- **H64r1** (agregatni efekat zamene pomeraja u ±0,03, uslovno na 21 fiksni Q): **supported**
-- **H64r2** (pad A GAdapt-M zbog Q najmanje 0,05): **supported**
-- **H64r3** (Q umanjuje A GAdapt-M bar 0,05 više nego IPOP-a, uz H64r2): **supported**
+- **H64r1** (aggregate effect of replacing the translation bounded by ±0.03, conditional on 21 fixed Q matrices): **supported**.
+- **H64r2** (loss in GAdapt-M A attributable to Q at least 0.05): **supported**.
+- **H64r3** (Q reduces GAdapt-M A by at least 0.05 more than IPOP's, conditional on H64r2): **supported**.
 
-Agregati A (ponderisani):
+Weighted aggregate A:
 
-| varijanta | GAdapt-M | IPOP |
+| Variant | GAdapt-M | IPOP |
 |---|---|---|
 | shift | 0.7007 | 0.7701 |
 | rot | 0.6167 | 0.7630 |
 | rotm | 0.6198 | 0.7600 |
 
-Po parovima (A, GAdapt-M / IPOP):
+By function–dimension pair (A, GAdapt-M / IPOP):
 
-| par | shift | rot | rotm |
+| Pair | shift | rot | rotm |
 |---|---|---|---|
 | sphere|2 | 0.976 / 0.991 | 0.975 / 0.991 | 0.976 / 0.991 |
 | sphere|7 | 0.910 / 0.961 | 0.909 / 0.961 | 0.907 / 0.959 |
@@ -49,5 +49,6 @@ Po parovima (A, GAdapt-M / IPOP):
 | himmelblau|2 | 0.968 / 0.985 | 0.945 / 0.955 | 0.964 / 0.988 |
 | booth|2 | 0.971 / 0.991 | 0.976 / 0.991 | 0.976 / 0.991 |
 
-## Ograničenja
-Bootstrap obuhvata samo varijaciju semena, ne izbor funkcija, dimenzija, Q ili o; nalaz važi za 21 ćeliju i dve konfiguracije i ne generalizuje se na proizvoljne Haar transformacije. Ne tvrdi se mehanizam. Težine: d = 2 ćelije nose 5/9 ukupne težine.
+## Limitations
+
+The bootstrap captures seed variation only, not the selection of functions, dimensions, Q, or translation vectors. The result is conditional on 21 cells and two configurations and cannot be generalized to arbitrary Haar transformations. No mechanism is established. Cells with dimension d = 2 account for 5/9 of the total weight.

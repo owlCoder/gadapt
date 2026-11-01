@@ -1,6 +1,6 @@
-# Stariji alati, istraživački skriptovi i testovi
+# Historical scripts, tools and tests
 
-Stabilni originalni bajtovi u [legacy/flat](../legacy/flat/); ovde su simboličke veze za navigaciju. Nema novih izračunavanja niti prepisivanja istorijskih izveštaja.
+This folder is a **navigational symlink view**, not a duplicate collection of research files. Original content is preserved byte-for-byte in [legacy/flat](../legacy/flat/). No experimental results were recomputed or silently changed. Documents still in Serbian are explicitly inventoried in the [language audit](../LANGUAGE_AUDIT_2026-11-01.json).
 
 - [analyze_aos_geant_temporal.py](analyze_aos_geant_temporal.py)
 - [analyze_aos_ieee14.py](analyze_aos_ieee14.py)

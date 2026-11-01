@@ -1,10 +1,12 @@
-# I49 — istorijski materijali
+# I49 — historical research materials
 
-**Navigacioni pogled (Git symlinks).** Izvorni fajlovi ostali su bajt-identični na [legacy/flat](../../legacy/flat/) nakon premeštanja. Istorijski rezultati nisu ponovo generisani niti revidirani. Za izvršavanje sa starim putanjama koristi [compat](../../compat/).
+This directory is an **index of Git symlinks**, not an additional copy of the scientific records. Each link points to a byte-identical source in [legacy/flat](../../legacy/flat/). Neither results nor frozen decisions have been recomputed or revised.
 
-- [iteration49_integrity_audit.py](iteration49_integrity_audit.py) — kod ili test
-- [ITERATION49_PROTOCOL.md](ITERATION49_PROTOCOL.md) — dokument
-- [ITERATION49_REPORT_SR.md](ITERATION49_REPORT_SR.md) — dokument
-- [test_iteration49_integrity_audit.py](test_iteration49_integrity_audit.py) — kod ili test
+The `_SR.md` documents linked here remain original Serbian-language records unless their status is separately recorded as translated in the [language audit](../../LANGUAGE_AUDIT_2026-11-01.json). Do **not** execute legacy code from these curated symlink paths: follow the [compatibility restoration instructions](../../compat/) before using historic `research/<name>.py` entrypoints.
 
-[Rezultati](../../results/) · [Glavni indeks](../../INDEX.md)
+- [iteration49_integrity_audit.py](iteration49_integrity_audit.py) — Code / tests
+- [ITERATION49_PROTOCOL.md](ITERATION49_PROTOCOL.md) — Source document
+- [ITERATION49_REPORT_SR.md](ITERATION49_REPORT_SR.md) — Historical Serbian source (not yet translated)
+- [test_iteration49_integrity_audit.py](test_iteration49_integrity_audit.py) — Code / tests
+
+[Raw results](../../results/) · [Research index](../../INDEX.md)

@@ -1,15 +1,15 @@
-# ITERATION64-E3: hibrid GAdapt→CMA (globalna pretraga + lokalno doterivanje) — izveštaj (generisan iz arhive)
+# I64-E3: GAdapt → CMA-ES hybrid (global search followed by local refinement) — generated report
 
-Specifikacija: [ITERATION64_E3_SPEC.md](ITERATION64_E3_SPEC.md) (zamrznuta `f228044`). Uparivanje sa arhiviranim E zapisima po ključu (ćelija, seme); 63 ćelije × 100 semena, 12.000 stvarnih poziva.
+Specification: [ITERATION64_E3_SPEC.md](ITERATION64_E3_SPEC.md), frozen at `f228044`. Paired against archived E records by (cell, seed): 63 cells × 100 seeds, 12,000 physical objective calls per run.
 
-## 1. Ishod hipoteza (jedna simultana porodica od pet kontrasta, α = 0.05, t* = 2.558, 20000 ponavljanja)
+## 1. Hypothesis decisions — one simultaneous family of five contrasts (α = 0.05, t* = 2.558, 20,000 replicates)
 
-- **H64g1** (zatvaranje jaza pod rotacijom prema GAdapt-M): **supported**
-- **H64g2** (tolerisana šteta na orig+shift): **opposite**
-- **H64g3** (neinferiornost prema IPOP-u, margina 0,05): **undecided**
-- ukupno podržano: **False**; C_rot(GAdapt-M) = 0.0300
+- **H64g1** (closing the rotation gap relative to GAdapt-M): **supported**.
+- **H64g2** (tolerable harm on original+shift): **opposite**.
+- **H64g3** (noninferiority to IPOP, margin 0.05): **undecided**.
+- Overall supported: **False**; C_rot(GAdapt-M) = 0.0300.
 
-| kontrast | procena | donja | gornja |
+| Contrast | Estimate | Lower | Upper |
 |---|---|---|---|
 | dA_rot(H-M) | 0.1029 | 0.09264 | 0.1132 |
 | 0.8*CVaR_rot(M)-CVaR_rot(H) | 0.01212 | 0.009443 | 0.01479 |
@@ -17,11 +17,13 @@ Specifikacija: [ITERATION64_E3_SPEC.md](ITERATION64_E3_SPEC.md) (zamrznuta `f228
 | 1.5*CVaR_nonrot(M)-CVaR_nonrot(H) | -0.0006964 | -0.001109 | -0.0002838 |
 | dA_rot(H-IPOP) | -0.04335 | -0.05189 | -0.03482 |
 
-## 2. Agregati po varijanti (težine: funkcije jednake, dimenzije jednake unutar funkcije; „medijana jaza“ = ponderisani prosek ćelijskih medijana normalizovanog jaza; CVaR = ponderisani prosek ćelijskih CVaR₀,₉(L))
+## 2. Aggregates by transformation
 
-**orig**
+Functions and dimensions within functions have equal weights. "Median gap" is the weighted mean of cell medians of normalized gap; CVaR is the weighted mean of cell CVaR₀,₉(L).
 
-| konfiguracija | A | CVaR₀,₉ | medijana jaza |
+**Original (orig)**
+
+| Configuration | A | CVaR₀,₉ | Median gap |
 |---|---|---|---|
 | gadapt | 0.7022 | 0.0026 | 0.00101 |
 | gadapt_hyb | 0.7628 | 0.0048 | 0.00216 |
@@ -30,9 +32,9 @@ Specifikacija: [ITERATION64_E3_SPEC.md](ITERATION64_E3_SPEC.md) (zamrznuta `f228
 | bipop | 0.7717 | 0.0135 | 0.00594 |
 | de | 0.6522 | 0.0082 | 0.00584 |
 
-**shift**
+**Shifted (shift)**
 
-| konfiguracija | A | CVaR₀,₉ | medijana jaza |
+| Configuration | A | CVaR₀,₉ | Median gap |
 |---|---|---|---|
 | gadapt | 0.7007 | 0.0025 | 0.0011 |
 | gadapt_hyb | 0.7708 | 0.0043 | 0.00219 |
@@ -41,9 +43,9 @@ Specifikacija: [ITERATION64_E3_SPEC.md](ITERATION64_E3_SPEC.md) (zamrznuta `f228
 | bipop | 0.7712 | 0.0140 | 0.00709 |
 | de | 0.6542 | 0.0082 | 0.00578 |
 
-**rot**
+**Orthogonally transformed (rot)**
 
-| konfiguracija | A | CVaR₀,₉ | medijana jaza |
+| Configuration | A | CVaR₀,₉ | Median gap |
 |---|---|---|---|
 | gadapt | 0.6167 | 0.0300 | 0.0108 |
 | gadapt_hyb | 0.7196 | 0.0119 | 0.00443 |
@@ -52,9 +54,9 @@ Specifikacija: [ITERATION64_E3_SPEC.md](ITERATION64_E3_SPEC.md) (zamrznuta `f228
 | bipop | 0.7636 | 0.0151 | 0.00889 |
 | de | 0.6124 | 0.0391 | 0.0335 |
 
-## 2b. Prosek po tri varijante (jednaka težina varijanti; opisno)
+## 2b. Equal-weight average across all three transformations (descriptive)
 
-| konfiguracija | A | CVaR₀,₉ | medijana jaza |
+| Configuration | A | CVaR₀,₉ | Median gap |
 |---|---|---|---|
 | gadapt | 0.6732 | 0.0117 | 0.00429 |
 | gadapt_hyb | 0.7511 | 0.0070 | 0.00293 |
@@ -63,6 +65,6 @@ Specifikacija: [ITERATION64_E3_SPEC.md](ITERATION64_E3_SPEC.md) (zamrznuta `f228
 | bipop | 0.7688 | 0.0142 | 0.00731 |
 | de | 0.6396 | 0.0185 | 0.015 |
 
-## 3. Napomena o tumačenju
-Hibrid NIJE GAdapt sam: poslednjih 70% budžeta troši CMA-ES. Rezultat se zato čita kao provera industrijskog recepta „globalna pretraga, pa lokalno doterivanje“, ne kao svojstvo GAdapt-a. Nema tvrdnje o novoj metodi (hibridni algoritmi su poznati). Zamrznuta pravila odluke daju mešan ishod: pogledati hipoteze u odeljku 1. Post hoc, opisno (ista arhiva, ne dodatna hipoteza): hibrid ima viši orig/shift CVaR od GAdapt-M i preseta, a niži od prikazanih CMA varijanti; pod rotacijom A zaostaje za IPOP-om (neinferiornost nije potvrđena). Bez ablacija nije utvrđen zaseban doprinos GAdapt i CMA faze.
+## 3. Interpretation
 
+The hybrid is **not GAdapt alone**: CMA-ES consumes the last 70% of the budget. This evaluates a practical recipe of global exploration followed by refinement, not a standalone GAdapt property. No new-method claim is justified (hybrid optimizers are established prior art). Frozen decisions yielded a mixed outcome (Section 1). Descriptively, post hoc on the same archive, the hybrid has higher original/shift CVaR than GAdapt-M and preset, but lower CVaR than the shown CMA configurations. Under orthogonal transformation its A is below IPOP; noninferiority was not established. This experiment alone did not identify each phase's independent contribution without a dedicated ablation.

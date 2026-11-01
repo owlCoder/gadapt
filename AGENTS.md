@@ -21,6 +21,8 @@ Read each skill's `SKILL.md` when its workflow is needed. All research gates and
 4. Python: `.venv/bin/python` (numpy, scipy, networkx, hypothesis, pytest). Tests: `.venv/bin/python -m pytest -q research/test_iteration41_*.py`.
 5. If reasoning effort is configurable, use at most `high`. Delegate sparingly, mainly for substantial independent literature reviews.
 
+**Research documentation language policy (2026-11-01):** Write new and revised active research documentation in English. Historic files ending in `_SR.md` are not automatically translations or duplicate English content. See `research/LANGUAGE_AUDIT_2026-11-01.json` and `research/LANGUAGE_POLICY.md`. For translations, preserve every result, statistic, hypothesis decision, limitations, and the byte-identical Serbian original blob; keep old paths stable for frozen references. Do not translate or rewrite historical `PHD_PROGRESS.md` entries in place; append English updates instead.
+
 ## Objective
 Produce a defensible original scientific contribution to GAdapt for infrastructure optimization.
 Research validity is more important than experiment count, positive results, or code volume.

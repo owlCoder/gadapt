@@ -1,17 +1,22 @@
-# Katalog GAdapt studija
+# GAdapt research evidence index
 
-[Po iteraciji](studies/) · [Sirovi izlazi](results/) · [Novost i prior-art](literature/) · [Izvorna migraciona mapa](MIGRATION_MANIFEST_2026-11-01.json)
+[Studies](studies/) · [Raw outputs](results/) · [Prior art](literature/) · [Translation audit](LANGUAGE_AUDIT_2026-11-01.json)
 
-## Aktivna linija I64–I65
+## Key I64/I65 evidence
 
-| Studija | Izveštaj | Sažetak sa ograničenjem |
+| Study | Original report (English translation unless marked) | Main finding and limitation |
 |---|---|---|
-| S0 | [I64-S0](ITERATION64_S0_REPORT_SR.md) | Rana efikasnost GAdapt, DE bolja završna medijana u 14/21 ćelija |
-| E | [I64-E](ITERATION64_E_REPORT_SR.md) | CMA porodica ima veći A u proširenom testnom skupu |
-| E3 | [I64-E3](ITERATION64_E3_REPORT_SR.md) | Hibrid 30/70 mešani ishod, nije nova metoda |
-| R | [I64-R](ITERATION64_R_REPORT_SR.md) | GAdapt gubi više od IPOP pri kontrolisanom ortogonalnom Q |
-| A | [I64-A](ITERATION64_A_REPORT_SR.md) | GAdapt prva faza doprinosi konkretnom fiksnom hibridu |
-| I/I2 | [I](ITERATION64_I_REPORT_SR.md), [I2](ITERATION64_I2_REPORT_SR.md) | Hibridna prednost nije potvrđena na ORPD-u |
-| I65 | [DRAFT](ITERATION65_DRAFT_PROTOCOL_SR.md), [gate](ITERATION65_INSTRUMENTATION_GATE_REPORT_SR.md) | Nema zamrzavanja ili novih COCO benchmark rezultata |
+| I64-S0 | [Report](ITERATION64_S0_REPORT_SR.md) | GAdapt is early evaluation-efficient; SciPy DE has lower final cell median in 14/21 cells |
+| I64-E | [Report](ITERATION64_E_REPORT_SR.md) | CMA-family methods have greater overall ECDF area A in the extended test set |
+| I64-E2 | [Report](ITERATION64_E2_REPORT_SR.md) | Differential crossover fails to close the rotation gap |
+| I64-E3 | [Report](ITERATION64_E3_REPORT_SR.md) | Fixed 30/70 GAdapt→CMA hybrid yields a mixed preregistered outcome; not novel |
+| I64-E4 | [Report](ITERATION64_E4_REPORT_SR.md) | Compensatory mutation not distinguishable from critical controls under rotation |
+| I64-R | [Report](ITERATION64_R_REPORT_SR.md) | Controlled Q reduces GAdapt A more than IPOP A within the studied cells |
+| I64-A | [Report](ITERATION64_A_REPORT_SR.md) | First-phase GAdapt contributes within the specified fixed hybrid |
+| I64-C | [Report](ITERATION64_C_REPORT_SR.md) | Proposed log-relative coefficient mechanism remains undecided |
+| I64-I | [Report](ITERATION64_I_REPORT_SR.md) | Discrete ORPD comparisons; strong global claims unresolved |
+| I64-I2 | [Report](ITERATION64_I2_REPORT_SR.md) | Hybrid benefit not established for ORPD; IPOP tail better |
+| I64-N | [Development note](ITERATION64_N_DEV_NOTE_SR.md) | Nominal-label-ordering probe is exploratory, not preregistered |
+| I65 | [Draft](ITERATION65_DRAFT_PROTOCOL_SR.md) — Serbian pending | No frozen COCO experiment, no confirmatory results |
 
-Ne uzimati klasične testove kao dokaz industrijske spremnosti. Zamrznuti istorijski izveštaji čuvaju prvobitne tvrdnje; reorganizacija ne menja ishod.
+**Important:** English translations replace only the language, not the historical statistical result. Original Serbian blobs are archived under [archive/serbian_originals/](archive/serbian_originals/). See the [manifest](LANGUAGE_AUDIT_2026-11-01.json) for pending documents and precise source hashes.

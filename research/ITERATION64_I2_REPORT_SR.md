@@ -1,29 +1,31 @@
-# ITERATION64-I2: hibrid GAdapt → CMA-ES na diskretnom ORPD-u — izveštaj (generisan iz arhive)
+# I64-I2: GAdapt → CMA-ES hybrid on discrete ORPD — generated report
 
-Specifikacija: [ITERATION64_I2_SPEC.md](ITERATION64_I2_SPEC.md) (zamrznuta `e0c0ed1` pre uvida u I64-I). Uparivanje sa I64-I zapisima po (ćelija, seme); 8 ćelija × 30 semena, 12.000 stvarnih PF.
+Specification: [ITERATION64_I2_SPEC.md](ITERATION64_I2_SPEC.md), frozen at `e0c0ed1` before examining I64-I. Paired with I64-I records by cell and seed: eight cells × 30 seeds, with 12,000 actual power-flow evaluations per run.
 
-## 1. Odluke (jedna simultana porodica od četiri kontrasta, α = 0.05, t* = 3.413, 20000 ponavljanja)
+## 1. Decisions
 
-- **H64h1** (hibrid bolji od GAdapt-M u repu bez gubitka izvodljivosti): **undecided**
-- **H64h2** (hibrid bolji od IPOP u repu bez gubitka izvodljivosti): **opposite**
+One simultaneous family of four contrasts (α = 0.05, t* = 3.413, 20,000 replicates):
 
-| kontrast | procena | donja | gornja |
+- **H64h1** (hybrid improves the tail versus GAdapt-M without reducing feasibility): **undecided**.
+- **H64h2** (hybrid improves the tail versus IPOP without reducing feasibility): **opposite**.
+
+| Contrast | Estimate | Lower | Upper |
 |---|---|---|---|
 | CVaR(M)-CVaR(H) | -0.07989 | -0.2656 | 0.1058 |
 | P(H)-P(M) | -0.004167 | -0.03548 | 0.02715 |
 | CVaR(IPOP)-CVaR(H) | -0.1253 | -0.2502 | -0.0003896 |
 | P(H)-P(IPOP) | -0.02917 | -0.06428 | 0.005946 |
 
-CVaR(ref) − CVaR(H) > 0 koristi hibridu; P(H) − P(ref) ≥ −0,05 znači da izvodljivost nije lošija za više od 5 p.p.
+A positive CVaR(reference) − CVaR(H) favors the hybrid. P(H) − P(reference) ≥ −0.05 denotes a feasibility decrease of no more than five percentage points.
 
-## 2. Agregati (ćelije jednako ponderisane)
+## 2. Equal-cell-weight aggregates
 
-| konfiguracija | P(izvodljivo) | CVaR₀,₉(L) |
+| Configuration | P(feasible) | CVaR₀,₉(L) |
 |---|---|---|
 | gadapt | 0.746 | 0.2973 |
 | gadapt_hyb | 0.742 | 0.3772 |
 | ipop | 0.771 | 0.2518 |
 
-## 3. Tumačenje
-Prednost hibrida iz E3 (sintetičke funkcije) nije potvrđena na ovom ORPD skupu: hibrid nije dokazano bolji od GAdapt-M (H64h1 neodlučeno), a njegov rep je lošiji od IPOP-ovog (H64h2 suprotno). Zaseban doprinos GAdapt faze nije identifikovan. Rezultat važi za osam ćelija i 30 semena; nema tvrdnje o industrijskoj spremnosti.
+## 3. Interpretation
 
+The hybrid's performance gain observed in E3 on synthetic functions was **not confirmed** on this ORPD sample. The hybrid was not shown to outperform GAdapt-M (H64h1 undecided), and its tail was worse than IPOP's (H64h2 opposite). The independent contribution of the GAdapt phase was not identified. Findings apply only to the eight cells and 30 seeds examined. No claim of industrial readiness follows.

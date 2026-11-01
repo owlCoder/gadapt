@@ -1,17 +1,17 @@
-# ITERATION64-E4: kompenzaciona mutacija (opt-in `compensatory_mutation`) sa kontrolama — izveštaj (generisan iz arhive)
+# I64-E4: Opt-in compensatory mutation (`compensatory_mutation`) with controls — generated report
 
-Specifikacija: [ITERATION64_E4_SPEC.md](ITERATION64_E4_SPEC.md) (zamrznuta `226c757`, dopuna A1 `6368959`). Uparivanje sa arhiviranim E zapisima po ključu (ćelija, seme); 63 ćelije × 100 semena, 12.000 stvarnih poziva.
+Specification: [ITERATION64_E4_SPEC.md](ITERATION64_E4_SPEC.md), frozen at `226c757`, amendment A1 at `6368959`. Paired with archived E results by (cell, seed): 63 cells × 100 seeds, 12,000 actual objective calls.
 
-## 1. Ishod hipoteza (jedna simultana porodica od sedam kontrasta, α = 0.05, t* = 2.665, 20000 ponavljanja)
+## 1. Hypothesis decisions — one simultaneous family of seven contrasts (α = 0.05, t* = 2.665, 20,000 replicates)
 
-- **H64k1** (zatvaranje jaza prema GAdapt-M pod rotacijom): **undecided**
-- **H64k2** (tolerisana šteta na orig+shift): **supported**
-- **H64k3** (gated bolji od kontrole sa permutovanim partnerom pod rotacijom): **undecided**
-- **H64k4** (gated bolji od Bouter-stil resample kontrole): **undecided**
-- **H64k5** (neinferiornost prema IPOP-u, margina 0,05): **opposite**
-- jezgro (k1–k4) podržano: **False**; C_rot(GAdapt-M) = 0.0300
+- **H64k1** (closing the gap to GAdapt-M under rotation): **undecided**.
+- **H64k2** (tolerable harm on original+shift): **supported**.
+- **H64k3** (gated method better than randomly permuted-partner control under rotation): **undecided**.
+- **H64k4** (gated method better than Bouter-style resampling control): **undecided**.
+- **H64k5** (noninferiority to IPOP, margin 0.05): **opposite**.
+- Core (k1–k4) supported: **False**; C_rot(GAdapt-M) = 0.0300.
 
-| kontrast | procena | donja | gornja |
+| Contrast | Estimate | Lower | Upper |
 |---|---|---|---|
 | dA_rot(G-M) | 0.01403 | 0.005221 | 0.02284 |
 | 0.8*CVaR_rot(M)-CVaR_rot(G) | -0.003166 | -0.006589 | 0.0002576 |
@@ -21,11 +21,13 @@ Specifikacija: [ITERATION64_E4_SPEC.md](ITERATION64_E4_SPEC.md) (zamrznuta `226c
 | dA_rot(G-resample) | -0.00292 | -0.01137 | 0.005534 |
 | dA_rot(G-IPOP) | -0.1322 | -0.142 | -0.1224 |
 
-## 2. Agregati po varijanti (težine: funkcije jednake, dimenzije jednake unutar funkcije; „medijana jaza“ = ponderisani prosek ćelijskih medijana normalizovanog jaza; CVaR = ponderisani prosek ćelijskih CVaR₀,₉(L))
+## 2. Aggregates by transformation
 
-**orig**
+Equal weighting of functions and dimensions within functions. The median gap is the weighted mean of cell medians of normalized gap; CVaR is the weighted mean of cell CVaR₀,₉(L).
 
-| konfiguracija | A | CVaR₀,₉ | medijana jaza |
+**Original (orig)**
+
+| Configuration | A | CVaR₀,₉ | Median gap |
 |---|---|---|---|
 | gadapt | 0.7022 | 0.0026 | 0.00101 |
 | gadapt_cg | 0.7022 | 0.0029 | 0.00151 |
@@ -37,9 +39,9 @@ Specifikacija: [ITERATION64_E4_SPEC.md](ITERATION64_E4_SPEC.md) (zamrznuta `226c
 | bipop | 0.7717 | 0.0135 | 0.00594 |
 | de | 0.6522 | 0.0082 | 0.00584 |
 
-**shift**
+**Shifted (shift)**
 
-| konfiguracija | A | CVaR₀,₉ | medijana jaza |
+| Configuration | A | CVaR₀,₉ | Median gap |
 |---|---|---|---|
 | gadapt | 0.7007 | 0.0025 | 0.0011 |
 | gadapt_cg | 0.7067 | 0.0031 | 0.00134 |
@@ -51,9 +53,9 @@ Specifikacija: [ITERATION64_E4_SPEC.md](ITERATION64_E4_SPEC.md) (zamrznuta `226c
 | bipop | 0.7712 | 0.0140 | 0.00709 |
 | de | 0.6542 | 0.0082 | 0.00578 |
 
-**rot**
+**Orthogonally transformed (rot)**
 
-| konfiguracija | A | CVaR₀,₉ | medijana jaza |
+| Configuration | A | CVaR₀,₉ | Median gap |
 |---|---|---|---|
 | gadapt | 0.6167 | 0.0300 | 0.0108 |
 | gadapt_cg | 0.6308 | 0.0272 | 0.0134 |
@@ -65,6 +67,6 @@ Specifikacija: [ITERATION64_E4_SPEC.md](ITERATION64_E4_SPEC.md) (zamrznuta `226c
 | bipop | 0.7636 | 0.0151 | 0.00889 |
 | de | 0.6124 | 0.0391 | 0.0335 |
 
-## 3. Tumačenje (post hoc, oprezno)
-Mali dobitak efikasnosti prema GAdapt-M pod rotacijom (ΔA ≈ +0,014) nije razlučiv od kontrole sa slučajnim partnerom ni od Bouter-stil resample kontrole (intervali obuhvataju nulu), pa se NE može pripisati iskorišćavanju elitnih korelacija; pad CVaR-a od najmanje 20% nije potvrđen (kontrast c2 obuhvata nulu). Na orig+shift su potvrđene samo tolerisane margine (H64k2); tačkasti CVaR raste za oko 16%. Jaz prema IPOP-u ostaje velik. Opcija je dokumentovana i podrazumevano isključena, bez preporuke. Kontrola `permuted` meri razliku kompletnih režima (Codex 092); `resample` je ispravljen i ponovljen (dopuna A1); algoritamska originalnost i industrijska korist nisu ustanovljene.
+## 3. Cautious post-hoc interpretation
 
+The small A gain relative to GAdapt-M under Q (ΔA ≈ +0.014) is not distinguishable from either the randomly permuted partner or Bouter-style resampling control (intervals include zero), so it **cannot be attributed to exploiting elite correlations**. A CVaR reduction of at least 20% was not established (the relevant contrast includes zero). On original+shift only the tolerable margins were supported (H64k2); point-estimated CVaR increases by about 16%. The gap to IPOP remains large. The option is documented, disabled by default, and not recommended. The `permuted` arm compared whole regimes (Codex 092), while the `resample` arm was corrected and rerun under amendment A1. Originality and industrial advantage were not established.

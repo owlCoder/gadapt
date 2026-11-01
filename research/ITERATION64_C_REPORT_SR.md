@@ -1,18 +1,18 @@
-# ITERATION64-C: koeficijentni potpis gubitka GAdapt-a pod ortogonalnom transformacijom — izveštaj (generisan iz arhive)
+# I64-C: Coefficient signature of GAdapt's loss under an orthogonal transformation — generated report
 
-Specifikacija: [ITERATION64_C_SPEC.md](ITERATION64_C_SPEC.md). 21 par (funkcija, dimenzija), `shift` naspram `rotm` (isti pomeraj, Q iz E `rot`), GAdapt-M, prvih 1.200 poziva, 30 semena; koeficijenti kolonske raznovrsnosti (log-relative) snimani pasivno po generaciji.
+Specification: [ITERATION64_C_SPEC.md](ITERATION64_C_SPEC.md). The experiment compares `shift` with `rotm` (the same shift, using Q from E's rotated variant) on 21 function–dimension pairs, 30 seeds, the first 1,200 calls of GAdapt-M. Columnar-diversity (log-relative) coefficients were recorded passively for each generation.
 
-- Ponderisana srednja Δ (pad CV koeficijenata, shift − rotm): **0.0132** [-0.0466; 0.0709] (Bonferroni α/3 = 0.0167); Δ_k > 0 u 14 od 21 nenultih parova (binomni p = 0.0946)
-- Spearman ρ(Δ_k, ΔA_k) = **0.274** [-0.085; 0.618]; osnovna linija ρ(E_k, ΔA_k) = 0.578; razlika = -0.304 [-0.721; 0.148]
+- Weighted mean Δ (drop in CV coefficients, shift − rotm): **0.0132** [−0.0466, 0.0709] (Bonferroni α/3 = 0.0167); Δ_k was positive in 14 of 21 nonzero pairs (binomial p = 0.0946).
+- Spearman ρ(Δ_k, ΔA_k): **0.274** [−0.085, 0.618]; baseline ρ(E_k, ΔA_k) = 0.578; their difference = −0.304 [−0.721, 0.148].
 
-- **H64c1** (homogenizacija koeficijenata): **undecided**
-- **H64c2** (asocijacija sa padom A): **undecided**
-- **H64c3** (jača marginalna rang-asocijacija od osnovne linije): **undecided**
-- predviđeni koeficijentni potpis podržan: **False**; jača marginalna asocijacija od osnovne linije: **False**
+- **H64c1** (coefficient homogenization): **undecided**.
+- **H64c2** (association with loss of A): **undecided**.
+- **H64c3** (stronger marginal rank association than the baseline): **undecided**.
+- Predicted coefficient signature supported: **False**; stronger marginal association than the baseline: **False**.
 
-Spearman ρ(Δ_k, ΔA_k) uz izostavljanje jedne funkcije (opisno):
+Leave-one-function-out Spearman ρ(Δ_k, ΔA_k), descriptive:
 
-| izostavljena funkcija | ρ |
+| Omitted function | ρ |
 |---|---|
 | sphere | 0.230 |
 | rosenbrock | 0.257 |
@@ -24,9 +24,9 @@ Spearman ρ(Δ_k, ΔA_k) uz izostavljanje jedne funkcije (opisno):
 | himmelblau | 0.236 |
 | booth | 0.208 |
 
-Po parovima:
+By function–dimension pair:
 
-| par | Δ_k | ΔA_k | E_k |
+| Pair | Δ_k | ΔA_k | E_k |
 |---|---|---|---|
 | sphere|2 | -0.0165 | -0.0002 | -0.0387 |
 | sphere|7 | 0.0007 | 0.0034 | 0.1774 |
@@ -50,5 +50,6 @@ Po parovima:
 | himmelblau|2 | -0.1449 | 0.0037 | 0.4426 |
 | booth|2 | -0.0234 | -0.0047 | -1.4315 |
 
-## Ograničenja
-Korelaciona studija na 21 fiksnu ćeliju iz 9 funkcija; meri se samo log-relative koeficijent (ne dijagonala kovarijanse); nema intervencije ni medijacije, pa se ne tvrdi uzrok; ne tvrdi se inkrementalna prediktivna vrednost; važi za GAdapt-M, native domen, b = 1.200 i ove ćelije; ne važi za diskretne probleme (ORPD se ne rotira). Bootstrap obuhvata semena i izbor funkcija, ne izbor Q i pomeraja.
+## Limitations
+
+This correlation study uses 21 fixed cells from nine functions and measures only the log-relative coefficient, not a covariance diagonal. Neither an intervention nor a mediation analysis was conducted, so causality is not established. No incremental predictive value is claimed. Results apply to GAdapt-M, the native domain, 1,200 calls, and the examined cells; they do not extend to discrete ORPD problems, which are not rotated. The bootstrap samples seeds and function choices, but does not resample Q or shift vectors.

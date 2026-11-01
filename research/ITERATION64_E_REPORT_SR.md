@@ -1,13 +1,12 @@
-# ITERATION64-E: pomereno/rotirano, jednak budžet od 12.000 stvarnih poziva, jači konkurenti — izveštaj (generisan iz arhive)
+# I64-E: Equal 12,000-call budgets on shifted and orthogonally transformed functions with stronger competitors — generated report
 
-Specifikacija: [ITERATION64_E_SPEC.md](ITERATION64_E_SPEC.md) (zamrznuta `c015730`, dopuna A1 pre uvida u rezultate). Analiza: `research/i64/e_analysis.py` (izlaz `analysis_v2`). Sirovi izlazi: `research/results/iteration64_e/`.
-63 ćelije × 9 konfiguracija × 100 semena. Izabrani parametri (razvoj): {'cma': {'sigma0': 0.2}, 'ipop': {'sigma0': 0.3}, 'bipop': {'sigma0': 0.5}, 'es11': {'sigma0': 0.3, 'up': 1.5, 'stagnation': 100}}.
+Specification: [ITERATION64_E_SPEC.md](ITERATION64_E_SPEC.md), frozen at `c015730`, amended by A1 before outcomes were inspected. Analysis: `research/i64/e_analysis.py` (output `analysis_v2`). Raw outputs: `research/results/iteration64_e/`. 63 cells × nine configurations × 100 seeds. Development-selected hyperparameters: `{'cma': {'sigma0': 0.2}, 'ipop': {'sigma0': 0.3}, 'bipop': {'sigma0': 0.5}, 'es11': {'sigma0': 0.3, 'up': 1.5, 'stagnation': 100}}`.
 
-## 1. H64a (GAdapt-M naspram osam konkurenata, 16 simultanih kontrasta, α = 0.02): **opposite**
+## 1. H64a: GAdapt-M against eight competitors (16 simultaneous contrasts, α = 0.02) — **opposite**
 
-flags: {'finite': True, 'zero_variance': False, 'blocked': False}; t* = 3.587; bootstrap 20000.
+Flags: `{'finite': True, 'zero_variance': False, 'blocked': False}`. t* = 3.587; 20,000 bootstrap replicates.
 
-| konkurent | ΔA (GAdapt − konk.) | donja | gornja | ΔM (konk. − GAdapt) | donja | gornja |
+| Competitor | ΔA (GAdapt − competitor) | Lower | Upper | ΔM (competitor − GAdapt) | Lower | Upper |
 |---|---|---|---|---|---|---|
 | gadapt_preset | 0.003782 | -0.001086 | 0.00865 | 0.0001162 | -0.001477 | 0.001709 |
 | pygad_random | 0.05881 | 0.05192 | 0.06571 | 0.01048 | 0.009009 | 0.01195 |
@@ -18,11 +17,11 @@ flags: {'finite': True, 'zero_variance': False, 'blocked': False}; t* = 3.587; b
 | bipop | -0.09561 | -0.1023 | -0.08895 | 0.003017 | 0.001542 | 0.004492 |
 | es11 | 0.02572 | 0.01633 | 0.03511 | 0.02592 | 0.02396 | 0.02788 |
 
-ΔA > 0: GAdapt efikasniji (veća ECDF-površina do 12.000 poziva). ΔM > 0: GAdapt tačniji (niža ponderisana medijana normalizovanog jaza). Simultani intervali: maksimum standardizovanog odstupanja.
+ΔA > 0 means higher evaluation efficiency for GAdapt (larger ECDF area through 12,000 calls). ΔM > 0 means better GAdapt accuracy (lower weighted median normalized gap). Simultaneous intervals use the maximum standardized deviation.
 
-## 2. Agregati (ponderisano: 1/9 po funkciji, jednako po dimenzijama i varijantama)
+## 2. Aggregates (1/9 per function, equal dimension and transformation weights)
 
-| konfiguracija | ECDF površina A | CVaR₀,₉(L) | medijana jaza | P(g≤1e−2) | P(g≤1e−4) | P(g≤1e−6) | pokretanja sa L > 0,5 |
+| Configuration | ECDF area A | CVaR₀,₉(L) | Median gap | P(g≤1e−2) | P(g≤1e−4) | P(g≤1e−6) | Runs with L > 0.5 |
 |---|---|---|---|---|---|---|---|
 | gadapt | 0.6732 | 0.0117 | 0.00429 | 0.898 | 0.776 | 0.647 | 0 |
 | gadapt_preset | 0.6694 | 0.0121 | 0.0044 | 0.896 | 0.771 | 0.654 | 0 |
@@ -34,22 +33,23 @@ flags: {'finite': True, 'zero_variance': False, 'blocked': False}; t* = 3.587; b
 | bipop | 0.7688 | 0.0142 | 0.00731 | 0.881 | 0.840 | 0.839 | 0 |
 | es11 | 0.6475 | 0.0449 | 0.0302 | 0.761 | 0.714 | 0.651 | 0 |
 
-## 3. H64b (preset naspram GAdapt-M)
+## 3. H64b — preset versus GAdapt-M
 
-R₀ (CVaR GAdapt-M) = 0.0117; R_preset = 0.0121; tačkaste vrednosti [0,8·R₀ − R_preset, Δreach(1e−2), Δreach(1e−4), Δreach(1e−6)] = [-0.0027, -0.0019, -0.0052, 0.0073]; donje simultane granice = [-0.0039, -0.0083, -0.0122, -0.0031]; t* = 3.032; flags {'finite': True, 'zero_variance': False, 'blocked': False}.
-**H64b podržana: False** (zahteva R₀ > 0, donju granicu 0,8·R₀ − R_preset ≥ 0 i donje granice razlika dostizanja ≥ −0,05).
+R₀ = CVaR(GAdapt-M) = 0.0117, R_preset = 0.0121. Point estimates [0.8·R₀ − R_preset, Δreach(1e−2), Δreach(1e−4), Δreach(1e−6)] = [−0.0027, −0.0019, −0.0052, 0.0073]; simultaneous lower bounds = [−0.0039, −0.0083, −0.0122, −0.0031]. t* = 3.032; flags `{'finite': True, 'zero_variance': False, 'blocked': False}`.
 
-## 4. Po varijanti i funkciji (opisno: ECDF površina A, medijana jaza; ćelije ponderisane jednako u okviru grupe)
+**H64b supported: False.** Required conditions: R₀ > 0; lower bound of 0.8·R₀ − R_preset at least zero; each reach-difference lower bound at least −0.05.
 
-| varijanta | gadapt | gadapt_preset | pygad_random | pygad_adaptive | de | cma | ipop | bipop | es11 |
+## 4. By transformation and function (descriptive ECDF area A / median gap; equal cell weights within groups)
+
+| Variant | gadapt | gadapt_preset | pygad_random | pygad_adaptive | de | cma | ipop | bipop | es11 |
 |---|---|---|---|---|---|---|---|---|---|
 | orig (A / med. gap) | 0.629 / 0.0013 | 0.629 / 0.0013 | 0.534 / 0.014 | 0.454 / 0.031 | 0.564 / 0.0075 | 0.689 / 0.013 | 0.716 / 0.0073 | 0.710 / 0.0076 | 0.539 / 0.044 |
 | shift (A / med. gap) | 0.626 / 0.0014 | 0.624 / 0.0016 | 0.540 / 0.014 | 0.462 / 0.028 | 0.567 / 0.0074 | 0.707 / 0.0096 | 0.708 / 0.011 | 0.710 / 0.0091 | 0.575 / 0.036 |
 | rot (A / med. gap) | 0.523 / 0.014 | 0.521 / 0.014 | 0.490 / 0.028 | 0.429 / 0.045 | 0.514 / 0.043 | 0.696 / 0.013 | 0.701 / 0.012 | 0.701 / 0.011 | 0.570 / 0.036 |
 
-## 4b. Po varijanti: broj ćelija u kojima GAdapt-M ima veći A / manju medijanu jaza od konkurenta (od 21 po varijanti)
+## 4b. Cell counts where GAdapt-M has greater A / lower median gap (21 cells per transformation)
 
-| varijanta | konkurent | veći A: GAdapt / konkurent | manja medijana jaza: GAdapt / konkurent / jednako |
+| Variant | Competitor | Larger A: GAdapt / competitor | Lower median gap: GAdapt / competitor / tie |
 |---|---|---|---|
 | orig | gadapt_preset | 9 / 12 | 4 / 15 / 2 |
 | orig | pygad_random | 19 / 2 | 8 / 11 / 2 |
@@ -76,13 +76,14 @@ R₀ (CVaR GAdapt-M) = 0.0117; R_preset = 0.0121; tačkaste vrednosti [0,8·R₀
 | rot | bipop | 4 / 16 | 7 / 13 / 1 |
 | rot | es11 | 8 / 12 | 8 / 12 / 1 |
 
-## 4c. Prosek CVaR₀,₉(L) po varijanti (ćelije jednako ponderisane)
+## 4c. Mean CVaR₀,₉(L) by transformation (equal cell weights)
 
-| varijanta | gadapt | gadapt_preset | pygad_random | pygad_adaptive | de | cma | ipop | bipop | es11 |
+| Variant | gadapt | gadapt_preset | pygad_random | pygad_adaptive | de | cma | ipop | bipop | es11 |
 |---|---|---|---|---|---|---|---|---|---|
 | orig | 0.0033 | 0.0031 | 0.0205 | 0.0372 | 0.0105 | 0.0200 | 0.0157 | 0.0174 | 0.0619 |
 | shift | 0.0033 | 0.0032 | 0.0196 | 0.0342 | 0.0105 | 0.0172 | 0.0188 | 0.0180 | 0.0540 |
 | rot | 0.0386 | 0.0400 | 0.0429 | 0.0578 | 0.0502 | 0.0186 | 0.0203 | 0.0194 | 0.0566 |
 
-## 5. Ograničenja (unapred)
-Klasične funkcije (nisu CEC/BBOB); optimum u domenu; 100 semena (retki otkazi nisu pouzdano procenljivi; CVaR-bootstrap nije gladak kad ~10% pokretanja otkaže — zato je prikazan broj pokretanja sa L > 0,5); L-SHADE/jDE izostavljeni; CMA bez margine; GAdapt/PyGAD/DE u izvornom domenu a CMA/ES na jediničnoj kocki; GAdapt iz repozitorijuma (0.5.2+), ne PyPI 0.5.0; razvoj parametara na rotiranim ćelijama iz drugih semena.
+## 5. Prespecified limitations
+
+Only classical functions, not CEC/BBOB, with optima inside the defined domains. One hundred seeds are insufficient for reliable estimates of rare failures; CVaR bootstrap becomes nonsmooth when roughly 10% of runs fail, hence the additional number of runs with L > 0.5. L-SHADE/jDE were omitted; CMA-with-margins was not tested. GAdapt/PyGAD/DE operated on the native domain, CMA/ES on a unit cube. GAdapt was taken from the repository (0.5.2+), not the PyPI 0.5.0 package. Hyperparameters were developed using separate seeds on rotated cells.

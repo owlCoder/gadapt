@@ -1,36 +1,34 @@
-# GAdapt research — početna stranica
+# GAdapt research — start here
 
-**Status: 2026-11-01.** [Istraživački handoff](PHD_PROGRESS.md) i [obavezna pravila](../AGENTS.md) imaju prednost. Stara merenja nisu prepravljana niti ponovo pokretana.
+**Updated: 2026-11-01.** [Research progress and handoff](PHD_PROGRESS.md) and [repository rules](../AGENTS.md) govern all decisions. Previous experimental results have not been rerun or revised as part of documentation cleanup.
 
-## Navigacija
+## Navigation
 
-- [**Studije po iteracijama (I02–I65)**](studies/) — protokoli, izveštaji, testovi i kod, sortirani po iteracijama.
-- [**Sirovi rezultati**](results/) — postojeća struktura i hash-evi nepromenjeni; [pravila za podatke](DATA_POLICY.md).
-- [**Literatura, novost, negativne hipoteze**](literature/).
-- [**Metodologija, doktorski plan, odluke**](overview/) · [Infrastrukturni domeni](domains/).
-- [**Istraživački alati**](tools/) · [I64 implementacija](i64/) · [I65 instrumentacija](i65/).
-- [**Mentorski sažetak**](MENTOR_SUMMARY_2026-10-28_SR.md) · [beleške sa sastanka](MENTOR_MEETING_NOTES_SR.md).
-- [**Codex recenzije**](codex/) · [Rad za TELO](paper_integrity_audit/) · [Teza](thesis/).
-- [**Istorijski izvori**](legacy/) · [Kompatibilnost](compat/) · [Kompletan manifest migracije](MIGRATION_MANIFEST_2026-11-01.json).
+- [**Studies I02–I65 by iteration**](studies/) — protocols, reports and historical code.
+- [**Raw results**](results/) — existing sources unchanged; [data policy](DATA_POLICY.md).
+- [**Literature and prior-art audits**](literature/) — novelty gates and negative hypotheses.
+- [**Dissertation and research decisions**](overview/) · [Infrastructure domains](domains/).
+- [**Research tools**](tools/) · [I64 code](i64/) · [I65 instrumentation](i65/).
+- [**Mentor meeting notes**](MENTOR_MEETING_NOTES_SR.md) · [Mentor summary](MENTOR_SUMMARY_2026-10-28_SR.md) (both currently Serbian sources).
+- [**Research reviews**](codex/) · [Thesis](thesis/) (historical Serbian drafts).
+- [**Original historical materials**](legacy/) · [Compatibility tools](compat/) · [Migration map](MIGRATION_MANIFEST_2026-11-01.json).
+- [**English-language documentation policy**](LANGUAGE_POLICY.md) · [Per-document translation audit](LANGUAGE_AUDIT_2026-11-01.json).
 
-## Sadašnje naučno stanje
+## Current research status
 
-- I64-S0/E/E3/A/R/I/I2 već testirani i dokumentovani; nalaz o rotacijskoj osetljivosti i nepouzdanom prenosu sintetičkog hibrida na ORPD ostaje ograničen na testirane ćelije.
-- **I65 = DRAFT / NO-FREEZE / COCO f21/f24 NOT_RUN.** Instrumentacioni testovi nisu dokaz uspeha optimizatora.
-- Nema potvrde originalne metode, univerzalne superiornosti ili industrijske spremnosti.
+- I64-S0/E/E3/A/R/I/I2: previously evaluated with mixed and negative findings, including orthogonal-transformation sensitivity and lack of confirmed ORPD benefit for the fixed hybrid. [Read I64 reports](studies/i64/).
+- **I65: DRAFT / NO-FREEZE / COCO f21/f24 NOT_RUN.** Instrumentation tests do not establish optimizer superiority. [Read I65 documents](studies/i65/).
+- Research originality and industrial reliability are **not established** by the current I65 proposals.
 
-## Kompatibilnost nakon fizičke migracije
+## Documentation migration
 
-Iz korena je premešteno **341 istorijskih fajlova** u [legacy/flat](legacy/flat/) bez promene njihovog Git blob SHA. Za navigaciju su izložene simboličke veze u studijama, literaturi i alatima. Stare eksplicitne putanje se ne nalaze u čistom checkout-u. Za reprodukciju starih CLI komandi u lokalnom clone-u:
+The 341 historical root files were moved without changes to their Git blob SHAs; curated topic views use symlinks. English is now the documentation language. Historical `_SR` suffixes may remain on English-translated active files **only for backward link compatibility**. As of this audit, **14 of 141 canonical `_SR.md` documents have complete English translations**, with Serbian originals archived unchanged. No claim of full translation is made.
+
+To reproduce an older CLI, **do not execute it from the curated Git symlink view**. Restore original root aliases first:
 
 ```sh
 python research/compat/restore_legacy_paths.py --verify
 python research/compat/restore_legacy_paths.py --apply --verify
 ```
 
-Prva komanda je dry-run. Druga pravi samo nedostajuće symlink-ove, bez prepisivanja podataka. **Puna regresiona kompatibilnost istorijskih skripti nije još demonstrirana.** Ne pokreći skupe testove bez istraživačkih kapija.
-
-
-### Važno posle migracije — 2026-11-01
-
-Direktno izvršavanje skripti iz preglednih `studies/` Git symlink-ova ili `legacy/flat/` može dati pogrešne `HERE/REPO/OUT` putanje. Za istorijski CLI koristiti **isključivo** `research/<originalni_naziv>.py` nakon `python research/compat/restore_legacy_paths.py --apply --verify`. [Bezbednosna provera i preostali blokatori](ITERATION65_MIGRATION_COMPAT_GATE_2026-11-01_SR.md).
+Full historical regression after migration has not yet been demonstrated. [Compatibility gate report](ITERATION65_MIGRATION_COMPAT_GATE_2026-11-01_SR.md) (Serbian, not yet translated).

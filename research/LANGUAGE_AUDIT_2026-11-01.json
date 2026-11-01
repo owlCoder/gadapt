@@ -1,0 +1,1171 @@
+{
+  "schema": "gadapt-language-audit-v1",
+  "audited_at": "2026-11-01",
+  "source_commit": "675f684c27e3e25ecc0c5f11ad356e2e1e3572f3",
+  "staged_git_tree": "6ae7a3e486ce5ce2199d0c0a3b7530811e70c591",
+  "language_convention": "English for active documentation; old _SR basename retained for compatibility, not as a language guarantee",
+  "canonical_serbian_named_documents": 141,
+  "english_translation_completed": 14,
+  "untranslated_sources": 127,
+  "source_serbian_view_symlinks": 107,
+  "substantive_english_counterparts_prior_to_this_change": 0,
+  "by_location": {
+    "research_root": {
+      "total": 22,
+      "translated": 14
+    },
+    "other": {
+      "total": 1,
+      "translated": 0
+    },
+    "i64_notes": {
+      "total": 1,
+      "translated": 0
+    },
+    "historical_legacy": {
+      "total": 107,
+      "translated": 0
+    },
+    "thesis": {
+      "total": 10,
+      "translated": 0
+    }
+  },
+  "documents": [
+    {
+      "path": "research/ITERATION64_A_REPORT_SR.md",
+      "original_git_blob_sha": "3bdaed95ccda9a93327e3b1dc94ae0fa4c21f745",
+      "bytes_original": 1892,
+      "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
+      "english_git_blob_sha": "60df2b027444c028abf513a70fa40e0fc42434b1",
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_A_REPORT_SR.md"
+    },
+    {
+      "path": "research/ITERATION64_C_REPORT_SR.md",
+      "original_git_blob_sha": "682acc4ec18e01092c84bd84faf65ae80014e75c",
+      "bytes_original": 2711,
+      "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
+      "english_git_blob_sha": "828ca4497ae5c23a37c123d0fefa9493859c39f5",
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_C_REPORT_SR.md"
+    },
+    {
+      "path": "research/ITERATION64_E2_REPORT_SR.md",
+      "original_git_blob_sha": "ce9d2f2cfdd0003170fbdbb67e2853f6539092ec",
+      "bytes_original": 2736,
+      "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
+      "english_git_blob_sha": "39faf297a7bd35299a10dc7df6875c42e65dceda",
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_E2_REPORT_SR.md"
+    },
+    {
+      "path": "research/ITERATION64_E3_REPORT_SR.md",
+      "original_git_blob_sha": "5b33e90c8dd6a8d430e51adb948eb008141bce03",
+      "bytes_original": 3188,
+      "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
+      "english_git_blob_sha": "db84414824490bc9bb0c67b6b5463dd945acdb9c",
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_E3_REPORT_SR.md"
+    },
+    {
+      "path": "research/ITERATION64_E4_REPORT_SR.md",
+      "original_git_blob_sha": "4ed66044e43f0c474b89672dac6c1970ebe64e01",
+      "bytes_original": 3609,
+      "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
+      "english_git_blob_sha": "1e4dae9444ef84e0a16fe1d16b8bc1a1306d9f01",
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_E4_REPORT_SR.md"
+    },
+    {
+      "path": "research/ITERATION64_E_REPORT_SR.md",
+      "original_git_blob_sha": "d6d389a0f33441f205706700100294c997fb3a06",
+      "bytes_original": 6029,
+      "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
+      "english_git_blob_sha": "6471553e1aa9830559963bd0a2bf853a51d931ad",
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_E_REPORT_SR.md"
+    },
+    {
+      "path": "research/ITERATION64_I2_REPORT_SR.md",
+      "original_git_blob_sha": "bab0e4f6cf413f3925735f44df08b65b3997f353",
+      "bytes_original": 1510,
+      "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
+      "english_git_blob_sha": "714b6d1d1e330ce83276aec8e4a8ebef20ff9973",
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_I2_REPORT_SR.md"
+    },
+    {
+      "path": "research/ITERATION64_I_REPORT_SR.md",
+      "original_git_blob_sha": "07e9a64a81b6803cb46d8708b5a2b584c62ba487",
+      "bytes_original": 4527,
+      "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
+      "english_git_blob_sha": "d834ff48fe4ed253a8cefa4c931a564b23a268f8",
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_I_REPORT_SR.md"
+    },
+    {
+      "path": "research/ITERATION64_N_DEV_NOTE_SR.md",
+      "original_git_blob_sha": "187265dc7c24d9a161229b56f386386715cd65e8",
+      "bytes_original": 894,
+      "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
+      "english_git_blob_sha": "efde18378dc1b54e69c17e84d139ecb5943a6824",
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_N_DEV_NOTE_SR.md"
+    },
+    {
+      "path": "research/ITERATION64_R_REPORT_SR.md",
+      "original_git_blob_sha": "20802914196e991054da113f02809ed49d1c3b78",
+      "bytes_original": 2842,
+      "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
+      "english_git_blob_sha": "fa26f19346edcc63245f7953ecd659e822c922a9",
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_R_REPORT_SR.md"
+    },
+    {
+      "path": "research/ITERATION64_S0_REPORT_SR.md",
+      "original_git_blob_sha": "41b34455db5ef9f9f8f66ca56c872a0d29cecc81",
+      "bytes_original": 14423,
+      "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
+      "english_git_blob_sha": "fcb755f7f91190b40cfcd6ba1b2d6c3f6ae18b45",
+      "original_archive_path": "research/archive/serbian_originals/i64/ITERATION64_S0_REPORT_SR.md"
+    },
+    {
+      "path": "research/ITERATION65_DRAFT_PROTOCOL_SR.md",
+      "original_git_blob_sha": "3efcafb2ea23577a7b4e67b035df9ed4051dc4a5",
+      "bytes_original": 16339,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/ITERATION65_GITHUB_PROVENANCE_ADDENDUM_SR.md",
+      "original_git_blob_sha": "6e44ef6028248bdb7200e165ed751f041ddf7392",
+      "bytes_original": 1040,
+      "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
+      "english_git_blob_sha": "2c4a86ce67d8badfdaabe117fa9b89560f4ed8be",
+      "original_archive_path": "research/archive/serbian_originals/other/ITERATION65_GITHUB_PROVENANCE_ADDENDUM_SR.md"
+    },
+    {
+      "path": "research/ITERATION65_INSTRUMENTATION_GATE_REPORT_SR.md",
+      "original_git_blob_sha": "96c208579011b58e8d6a82198e7b123190ac2287",
+      "bytes_original": 5204,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/ITERATION65_INSTRUMENTATION_VALIDATION_SR.md",
+      "original_git_blob_sha": "e8238b8e3777abb6ff4913267ef051ed0b8e5bec",
+      "bytes_original": 4394,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/ITERATION65_MIGRATION_COMPAT_GATE_2026-11-01_SR.md",
+      "original_git_blob_sha": "f48719caef85af454fa0215d4871c78b55dd46a3",
+      "bytes_original": 3968,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/ITERATION65_PRIOR_ART_AUDIT_DRAFT_SR.md",
+      "original_git_blob_sha": "aabadf8f7bdab73bb4a2aaf2c69e1f75c4a91d9a",
+      "bytes_original": 7595,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/ITERATION65_RECOMMENDATION_AND_DECISION_SR.md",
+      "original_git_blob_sha": "6bf8738b952c3916aa104c3f14f31928982a9bdd",
+      "bytes_original": 3980,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/MENTOR_MEETING_NOTES_SR.md",
+      "original_git_blob_sha": "7f480f3dda7519e87e37ba6633a56ee3deb134f8",
+      "bytes_original": 5478,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/MENTOR_SUMMARY_2026-10-24_SR.md",
+      "original_git_blob_sha": "2f8750457a674f06feaebbcd2f088ae0787d67f9",
+      "bytes_original": 1835,
+      "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
+      "english_git_blob_sha": "123197e3ff74eac38e205d85164db2bca3d1bcdd",
+      "original_archive_path": "research/archive/serbian_originals/other/MENTOR_SUMMARY_2026-10-24_SR.md"
+    },
+    {
+      "path": "research/MENTOR_SUMMARY_2026-10-28_SR.md",
+      "original_git_blob_sha": "e9b1cb55f3ff96506ccecbc1adf7dd8efa03a837",
+      "bytes_original": 7006,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/REORGANIZATION_REPORT_2026-11-01_SR.md",
+      "original_git_blob_sha": "dbf5c9ccd7665c7ed6b9cb6e60bd2ab139994a77",
+      "bytes_original": 1445,
+      "status": "TRANSLATED_TO_ENGLISH_IN_PLACE_ORIGINAL_ARCHIVED",
+      "english_git_blob_sha": "3c5226a0b43d5d3a72560d49e1d43623fcc67b8a",
+      "original_archive_path": "research/archive/serbian_originals/other/REORGANIZATION_REPORT_2026-11-01_SR.md"
+    },
+    {
+      "path": "research/exploratory_scipy_global/NOTES_SR.md",
+      "original_git_blob_sha": "9bba65885fb76b2bc73a98c119c1ed1e65bc911f",
+      "bytes_original": 1323,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/i64/PILOT_NOTES_SR.md",
+      "original_git_blob_sha": "0c15cfa405a85f7a3e237dcce3eff55502c1148d",
+      "bytes_original": 2000,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/DIAGNOSTIC_STUDY_DRAFT_SR.md",
+      "original_git_blob_sha": "e8f2acf3413881b8b4d61bf9545530542a3022ad",
+      "bytes_original": 20869,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/DIRECTION_DECISION_2026-10-23_SR.md",
+      "original_git_blob_sha": "cdfb9d5346108a5ad6c4fc3c39c74c3ed7cf83cf",
+      "bytes_original": 5708,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/DOCTORAL_GADAPT_INDUSTRY_ROADMAP_SR.md",
+      "original_git_blob_sha": "11006ff2d8a7b59aaa71961b44514b8b8622f612",
+      "bytes_original": 5094,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/GADAPT_CONSTRAINT_API_DESIGN_SR.md",
+      "original_git_blob_sha": "019de3c50e8eaa19ee1e5a3c3c668a6334a8dee4",
+      "bytes_original": 3243,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/H1_PRIOR_ART_AUDIT_SR.md",
+      "original_git_blob_sha": "4531cf7e16404b7783c16dabdef723de44f88457",
+      "bytes_original": 9070,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/H3_PRIOR_ART_AUDIT_SR.md",
+      "original_git_blob_sha": "37305f2216224970ee6bca64b33b0f7d8028dd29",
+      "bytes_original": 3034,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/H4_FEASIBILITY_SR.md",
+      "original_git_blob_sha": "0dce90fa7c60646feec6b620fedca0829f0a1209",
+      "bytes_original": 1064,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/H4_PRIOR_ART_AUDIT_SR.md",
+      "original_git_blob_sha": "a70b60945c57f318191314e6341bc5e1e175ea9b",
+      "bytes_original": 4374,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/H5_PROPOSAL_SR.md",
+      "original_git_blob_sha": "7fb7be25344c3c143ab54f4ffcab912f3898e800",
+      "bytes_original": 12040,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/H6_COST_SIGNAL_PRIOR_ART_AUDIT_SR.md",
+      "original_git_blob_sha": "9bb9bf9f3346991aece447f696bcb991256f6178",
+      "bytes_original": 3323,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/H7_BOUNDED_UNIQUENESS_PRIOR_ART_AUDIT_SR.md",
+      "original_git_blob_sha": "426045d39ad605e1f73e940a2670fd139dad8c86",
+      "bytes_original": 2237,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/H8_INTERVAL_INFERENCE_PRIOR_ART_AUDIT_SR.md",
+      "original_git_blob_sha": "22185388f5eea95f7e4f9bcec6118b879d322bca",
+      "bytes_original": 1817,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/IDEATION_2026-10-24_CLAUDE_BLIND_SR.md",
+      "original_git_blob_sha": "2785ed7545ca86d3e3050c8cdbc652a4cb8a1de2",
+      "bytes_original": 6000,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/IDEATION_2026-10-28_CLAUDE_BLIND_SR.md",
+      "original_git_blob_sha": "d4f2d7dfcda11905d7c1f088941f058be1ac2df3",
+      "bytes_original": 2052,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION10_REPORT_SR.md",
+      "original_git_blob_sha": "f6245935d7613d37455e6573d494d91768ccf756",
+      "bytes_original": 7390,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION11_REPORT_SR.md",
+      "original_git_blob_sha": "fa7363329f77c32912acf3d7fd3504194e7853cf",
+      "bytes_original": 7885,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION12_REPORT_SR.md",
+      "original_git_blob_sha": "4877feb4d15412d6c1bb04eaa5f09e632e6112c1",
+      "bytes_original": 2806,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION13_REPORT_SR.md",
+      "original_git_blob_sha": "84277968caa653508ef5251693504f6a9aa5f4d4",
+      "bytes_original": 6079,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION14_REPORT_SR.md",
+      "original_git_blob_sha": "e0c128370a9684c3b96d5f79b7e0849bf8a6178e",
+      "bytes_original": 4776,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION15_REPORT_SR.md",
+      "original_git_blob_sha": "9da51a1f0821b70d2f2047bf38bc97ecaf3be993",
+      "bytes_original": 5122,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION16_REPORT_SR.md",
+      "original_git_blob_sha": "8ff81747ff5da11ee4d7ed7712e3fa66e5725993",
+      "bytes_original": 5292,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION17_REPORT_SR.md",
+      "original_git_blob_sha": "fff593df56a3f64882eaad7280c22b7efa2e91ed",
+      "bytes_original": 8752,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION18_REPORT_SR.md",
+      "original_git_blob_sha": "2abe53bf853a0d5c6340836f9c350bd6c2cdefe9",
+      "bytes_original": 6763,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION19_REPORT_SR.md",
+      "original_git_blob_sha": "bfb6d0fe196d19af484de9bc9b3ba79ee36a5743",
+      "bytes_original": 6059,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION20_REPORT_SR.md",
+      "original_git_blob_sha": "97264f5bbd2f3bf167674a46a9d3d6dc08b0de67",
+      "bytes_original": 6145,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION21_REPORT_SR.md",
+      "original_git_blob_sha": "d42821e87c0d4bdf5d0a586505646c48b37347f3",
+      "bytes_original": 4877,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION22_REPORT_SR.md",
+      "original_git_blob_sha": "abe74a1627d24dc403af3bf4865a6ac88120a229",
+      "bytes_original": 5513,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION23_REPORT_SR.md",
+      "original_git_blob_sha": "7f58a0e3bc3184e71a8e7665a32db6589bae3aec",
+      "bytes_original": 7803,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION24_REPORT_SR.md",
+      "original_git_blob_sha": "960bea6982cd6390ebc5da59fc47482a63fb98ac",
+      "bytes_original": 11995,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION25_REPORT_SR.md",
+      "original_git_blob_sha": "154730324fcb193a4067ae4441dc39ab6c33efc8",
+      "bytes_original": 9054,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION26_REPORT_SR.md",
+      "original_git_blob_sha": "ef09c52f42f4edd6a60810d29e95b9ac32ad0470",
+      "bytes_original": 5908,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION27_REPORT_SR.md",
+      "original_git_blob_sha": "9f570155abb3515cd668e6d0eec95b6768493764",
+      "bytes_original": 11726,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION28_LITERATURE_NOVELTY_AUDIT_SR.md",
+      "original_git_blob_sha": "657daadb611efc3d5b4c9a034f067f8985d4dc2a",
+      "bytes_original": 8347,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION28_REPORT_SR.md",
+      "original_git_blob_sha": "9ceb5c00e0607ec7a270c10a30a6a0879cd78d14",
+      "bytes_original": 12149,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION29_PRIOR_ART_SR.md",
+      "original_git_blob_sha": "7ce618822e3c4b684d190d858fe9201ff819e123",
+      "bytes_original": 5884,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION29_REPORT_SR.md",
+      "original_git_blob_sha": "6087439496a02a93a97470121dc30b60fb214b9a",
+      "bytes_original": 11884,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION30_REPORT_SR.md",
+      "original_git_blob_sha": "94ac14acf72c139c8502397090e897f033a4ef2a",
+      "bytes_original": 7676,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION31_REPORT_SR.md",
+      "original_git_blob_sha": "efb29b491af67cb8ececc133d2a880a5d21ac07e",
+      "bytes_original": 7400,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION32_REPORT_SR.md",
+      "original_git_blob_sha": "c014b6cb5cfea45d0532a84f0f165e5925339d73",
+      "bytes_original": 9608,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION33_GEANT_MODEL_AUDIT_SR.md",
+      "original_git_blob_sha": "a9d0e46106a74366219b6035221ea67daf2d6f34",
+      "bytes_original": 3193,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION33_PRIOR_ART_AND_NEXT_HYPOTHESIS_SR.md",
+      "original_git_blob_sha": "b7fda12af55cadb361e488adb1d665a569f4352c",
+      "bytes_original": 6358,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION33_REPORT_SR.md",
+      "original_git_blob_sha": "bab9075d50e498baf6f85861cda7540a843ebb59",
+      "bytes_original": 10555,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION34_IMPLEMENTATION_REPORT_SR.md",
+      "original_git_blob_sha": "b05b0914197b480515a082b20705dbe9cf9c26c4",
+      "bytes_original": 4687,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION34_REPORT_SR.md",
+      "original_git_blob_sha": "b6e9a2ff9f1e9533bf717a5edbd998cec802fe40",
+      "bytes_original": 10135,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION35_REPORT_SR.md",
+      "original_git_blob_sha": "89e9d721002d107a941bc747c41e4d2f55eee56b",
+      "bytes_original": 5512,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION36_REPORT_SR.md",
+      "original_git_blob_sha": "9fc11755b4e0b0989173b6e0870c4c53fa0970fa",
+      "bytes_original": 6909,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION38_REPORT_SR.md",
+      "original_git_blob_sha": "e1d5978b9484fe898e88e19e961d67c89be0c41d",
+      "bytes_original": 5558,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION39_REPORT_SR.md",
+      "original_git_blob_sha": "2e2e8e3eaab21d86b19b87794c64a090fa569862",
+      "bytes_original": 8304,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION40_METHOD_GATE_AND_DATA_BLOCKER_SR.md",
+      "original_git_blob_sha": "0377d3c77caf5463d21d0058537e7dab989d5d68",
+      "bytes_original": 5050,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION41_ALGORITHM_PROOF_AND_RESEARCH_DECISION_SR.md",
+      "original_git_blob_sha": "081703d47657aaeb7b70c684ea680ec4c95f9c0d",
+      "bytes_original": 8540,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION42_REPORT_SR.md",
+      "original_git_blob_sha": "4d8dc0a0afce6370d25c4e802f459c0916f0026a",
+      "bytes_original": 4790,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION43_REPORT_SR.md",
+      "original_git_blob_sha": "2d02aa62d8b743c28767b978779f986ad8977716",
+      "bytes_original": 4622,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION44_REPORT_SR.md",
+      "original_git_blob_sha": "77ea3ae9a881a08fb0081da509d9e31244d38570",
+      "bytes_original": 3840,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION45_REPORT_SR.md",
+      "original_git_blob_sha": "f93c56849c270d0f94741a7d6e66ef62b0a38eda",
+      "bytes_original": 3193,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION46_REPORT_SR.md",
+      "original_git_blob_sha": "522e801aa2cdf4cfff640167e321ed95a575c6bf",
+      "bytes_original": 4054,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION47_REPORT_SR.md",
+      "original_git_blob_sha": "a62a883c2173e8aa0a7f0cfbd8ddf1adec774614",
+      "bytes_original": 4823,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION48_REPORT_SR.md",
+      "original_git_blob_sha": "fb37c50212d2904792a4e57f8df96a279c9aee14",
+      "bytes_original": 3008,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION49_REPORT_SR.md",
+      "original_git_blob_sha": "84b191e866ed520956c052f0e0895aecf84d4e3e",
+      "bytes_original": 7260,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION50_REPORT_SR.md",
+      "original_git_blob_sha": "8d9a5fc726772752f476ad2d9f824b0898fe9604",
+      "bytes_original": 8297,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION51_REPORT_SR.md",
+      "original_git_blob_sha": "3cc05b5322b2e037b9a52629ae5b302f30bd95b8",
+      "bytes_original": 1233,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION52_REPORT_SR.md",
+      "original_git_blob_sha": "c5ee0a11a6a3047efa85dd13403baa04d9a46b02",
+      "bytes_original": 4775,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION53_REPORT_SR.md",
+      "original_git_blob_sha": "70022a53f06f162d6fb85620b86c3702b76aff8b",
+      "bytes_original": 8023,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION55_REPORT_SR.md",
+      "original_git_blob_sha": "dfaa36189703ba26962fca465b5da4ec4f5672a1",
+      "bytes_original": 3458,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION56_REPORT_SR.md",
+      "original_git_blob_sha": "8ef3e9817cdb5b91d972ee365b1dca8594db82f3",
+      "bytes_original": 9802,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION57_PROPOSAL_SR.md",
+      "original_git_blob_sha": "0f2103bfc34f009067dbf66581d52fda7fd1f40b",
+      "bytes_original": 2004,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION57_REPORT_SR.md",
+      "original_git_blob_sha": "5fce007a69c4f61daa5e730799b6635258b91217",
+      "bytes_original": 9143,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION58_PROPOSAL_SR.md",
+      "original_git_blob_sha": "391529de537ec64a0a1fab8582366859aba17244",
+      "bytes_original": 2716,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION58_REPORT_SR.md",
+      "original_git_blob_sha": "d0eb3ba9fdb22a8761be2ca3db7370a124a996ae",
+      "bytes_original": 9344,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION59_PROPOSAL_SR.md",
+      "original_git_blob_sha": "8eff333a7cd1a2b27e8ce4347ae0d522d40f2a4f",
+      "bytes_original": 3550,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION59_REPORT_SR.md",
+      "original_git_blob_sha": "b5dbb0f3fab4490e4f2c42481be85e67eca4c197",
+      "bytes_original": 4050,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION5_REPORT_SR.md",
+      "original_git_blob_sha": "8eb65bc1f80c27a4f6c1186f27d83e98438b3f00",
+      "bytes_original": 9960,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION60_PROPOSAL_SR.md",
+      "original_git_blob_sha": "af3296f5f6c75cbcb2aeab79118e4692417e05b1",
+      "bytes_original": 1991,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION60_REPORT_SR.md",
+      "original_git_blob_sha": "25cb2797789233d7d341063d56dcb5fe67b50268",
+      "bytes_original": 6631,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION61_PROPOSAL_SR.md",
+      "original_git_blob_sha": "2fa1d78c5078230a486e668dbe4dcd401a8e64b9",
+      "bytes_original": 11226,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION61_REPORT_SR.md",
+      "original_git_blob_sha": "f4d5304f7166cf4f3881a3d318a50c886a774793",
+      "bytes_original": 2613,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION62_PROPOSAL_SR.md",
+      "original_git_blob_sha": "4099c1631c936d57166331eb926e56bcba69c68d",
+      "bytes_original": 9995,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION63D_REPORT_SR.md",
+      "original_git_blob_sha": "01e075c468a0c04f93202bacb5a59217256b3aff",
+      "bytes_original": 4114,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION63_REPORT_SR.md",
+      "original_git_blob_sha": "1cd779942fb26e276310e35f05ef59bba8ee34b3",
+      "bytes_original": 2650,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_A_REPORT_SR.md",
+      "original_git_blob_sha": "5397bd466b80427277a8dfe96d4c942f926b90cc",
+      "bytes_original": 32,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_C_REPORT_SR.md",
+      "original_git_blob_sha": "e554c60f15679662bce6457565567103bfac3965",
+      "bytes_original": 32,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_E2_REPORT_SR.md",
+      "original_git_blob_sha": "97af023f9b93c2e09926fb224463660a76695122",
+      "bytes_original": 33,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_E3_REPORT_SR.md",
+      "original_git_blob_sha": "7cc20778d1ec0d614246931ad91d481a3c79595d",
+      "bytes_original": 33,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_E4_REPORT_SR.md",
+      "original_git_blob_sha": "f1e6053412a09895f1340a615071daa258b50a42",
+      "bytes_original": 33,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_E_REPORT_SR.md",
+      "original_git_blob_sha": "674956c7b9e40febb487283a0e6e33ecb4f2eb6e",
+      "bytes_original": 32,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_I2_REPORT_SR.md",
+      "original_git_blob_sha": "4b3587a00e0c7f24526d228b8fe84cd29b9a1be1",
+      "bytes_original": 33,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_I_REPORT_SR.md",
+      "original_git_blob_sha": "aaeb40caecf0c7f2b9e1afbae081e1d2a1cfab99",
+      "bytes_original": 32,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_N_DEV_NOTE_SR.md",
+      "original_git_blob_sha": "c2d56ade53edd5668354285b9dd6ded5e0bdebd5",
+      "bytes_original": 34,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_R_REPORT_SR.md",
+      "original_git_blob_sha": "8883037260469c3e1a7cf0e91a2ed858590fae1e",
+      "bytes_original": 32,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION64_S0_REPORT_SR.md",
+      "original_git_blob_sha": "ab89dd18a9e49e9d6bcaa4df8bd8d17a10d276aa",
+      "bytes_original": 33,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION65_DRAFT_PROTOCOL_SR.md",
+      "original_git_blob_sha": "09a4bd662b46033093cc0b337437de372994cef4",
+      "bytes_original": 38,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION65_GITHUB_PROVENANCE_ADDENDUM_SR.md",
+      "original_git_blob_sha": "da2182e08a0c453e64ebd29f15ce78689e62c86e",
+      "bytes_original": 50,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION65_INSTRUMENTATION_GATE_REPORT_SR.md",
+      "original_git_blob_sha": "986b8b4d1016b2545fe5a5b0ee8081e89c37eb45",
+      "bytes_original": 51,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION65_INSTRUMENTATION_VALIDATION_SR.md",
+      "original_git_blob_sha": "49730d539091f5916686789a512fcf5dd2ca3a07",
+      "bytes_original": 50,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION65_PRIOR_ART_AUDIT_DRAFT_SR.md",
+      "original_git_blob_sha": "a63d5abad5de47fa6b71e8a5d8d48b98a50bec8e",
+      "bytes_original": 45,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION65_RECOMMENDATION_AND_DECISION_SR.md",
+      "original_git_blob_sha": "20390c8f0b8b0c9fa06c9224ae8bec03e11022b5",
+      "bytes_original": 51,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION6_REPORT_SR.md",
+      "original_git_blob_sha": "cc271b0e6c160747b8648e8e6e989bca39760d65",
+      "bytes_original": 13192,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION7_REPORT_SR.md",
+      "original_git_blob_sha": "bf9c905a76d6d7679781bd7a57e5d7c728689a73",
+      "bytes_original": 16909,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION8_REPORT_SR.md",
+      "original_git_blob_sha": "14d2d704ab5ddf5acc173d14d4a288b854ded73a",
+      "bytes_original": 6310,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ITERATION9_REPORT_SR.md",
+      "original_git_blob_sha": "d6a6afe7a680f93180d949b2517c814e4a4644fb",
+      "bytes_original": 6026,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/MENTOR_MEETING_NOTES_SR.md",
+      "original_git_blob_sha": "fde6afc8ac79a08261c0ac3c8ec603d2d839e047",
+      "bytes_original": 32,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/MENTOR_SUMMARY_2026-10-24_SR.md",
+      "original_git_blob_sha": "f4caf92f0be64a88a9fa90defb2e5d635908dc9c",
+      "bytes_original": 37,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/MENTOR_SUMMARY_2026-10-28_SR.md",
+      "original_git_blob_sha": "095efa94e5e9050f3fb47bd518780e6374fe053d",
+      "bytes_original": 37,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/ORACLE_DIAGNOSIS_PRIOR_ART_AUDIT_SR.md",
+      "original_git_blob_sha": "b5d631289baa5678a06f9a933b08ab5400855ece",
+      "bytes_original": 2827,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/POST_I36_GO_NO_GO_NOVELTY_AUDIT_SR.md",
+      "original_git_blob_sha": "d78722296d204d2c3cf4daa75645fe13d4a233a8",
+      "bytes_original": 11629,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/POST_I41_NOVELTY_AUDIT_SR.md",
+      "original_git_blob_sha": "5ebeed9f936fab52a8af852b324ad8edeb1d29f9",
+      "bytes_original": 13014,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/SAZETAK_REZULTATA_SR.md",
+      "original_git_blob_sha": "79a4ea3faef4005508a7b1c1b8c1fccaca5cd151",
+      "bytes_original": 59697,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/legacy/flat/STRATEGY_AFTER_I47_SR.md",
+      "original_git_blob_sha": "aa735c263816f80c298ec10cf60cc0984edf39cc",
+      "bytes_original": 2678,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/thesis/CH1_INTRODUCTION_SR.md",
+      "original_git_blob_sha": "4a2bb9ee61b6665b2096d7fa7321d57b24727d5b",
+      "bytes_original": 5453,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/thesis/CH2_EVALUATION_AND_DIAGNOSTICS_SR.md",
+      "original_git_blob_sha": "bc4b6c099705a9bdb21d9b138536c326351e3a0b",
+      "bytes_original": 13164,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/thesis/CH3_DISCRETE_ORPD_DESIGN_SR.md",
+      "original_git_blob_sha": "806e35df90308806c6ebdaeca6e78a0d4059c678",
+      "bytes_original": 8162,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/thesis/CH4_CHT_ADAPTATION_RESULTS_SR.md",
+      "original_git_blob_sha": "1094f303ab24a5ce21a58dbee7e7c66b7d57ac22",
+      "bytes_original": 5064,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/thesis/CH5_EXTERNAL_CONTEXT_SR.md",
+      "original_git_blob_sha": "368b3618b60633b7741da64e223f90257e765e2b",
+      "bytes_original": 15023,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/thesis/CH6_CONSTRAINT_HANDLING_LIBRARY_SR.md",
+      "original_git_blob_sha": "2dbd4da54dd471fc5542d800df23454d82903851",
+      "bytes_original": 6167,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/thesis/CH7_CONFIRMATORY_CHECKS_SR.md",
+      "original_git_blob_sha": "85fa87e4fc77a42c18cc9fbad983bf38a3a3d812",
+      "bytes_original": 17241,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/thesis/CH8_MENTOR_BENCHMARK_SR.md",
+      "original_git_blob_sha": "0ca782fac89507352c1e8f9414e1084d7c93e382",
+      "bytes_original": 16854,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/thesis/CH9_APPLICATION_GUIDANCE_SR.md",
+      "original_git_blob_sha": "ff48622e947cb1ce06cd93231f352a38c36fd806",
+      "bytes_original": 4433,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    },
+    {
+      "path": "research/thesis/THESIS_PLAN_SR.md",
+      "original_git_blob_sha": "db41a847cc1a9eec3a45946c6c398ba4a926b3ec",
+      "bytes_original": 11501,
+      "status": "UNTRANSLATED_SERBIAN_SOURCE_PRESERVED",
+      "english_git_blob_sha": null,
+      "original_archive_path": null
+    }
+  ],
+  "limitations": [
+    "Name-suffix and Git symlink counts do not measure semantic duplication.",
+    "Current translations preserve every original data-table row exactly for I64 reports; all original Serbian blobs remain available.",
+    "Not-yet-translated thesis and frozen historical sources remain Serbian in legacy/thesis; do not label them English.",
+    "Translated text is a language rendition, not a new experiment or changed claim.",
+    "A full translation of 141 documents was NOT completed in this commit."
+  ]
+}
