@@ -73,6 +73,10 @@ class AuditedBudget:
         else:
             if evaluator is not None:
                 raise ValueError("independent evaluator only for recheck")
+            # A witness is terminal even when evaluated before search_cap.
+            # Never permit a newer incumbent after it was independently checked.
+            if self.checked:
+                raise BudgetReached()
             cap = self.search_cap
         if self.attempts >= cap:
             raise BudgetReached()
@@ -144,7 +148,10 @@ class AuditedBudget:
                         "attempts": self.attempts}
         try:
             v = self.evaluate(x, phase="recheck", evaluator=independent)
-        except Exception as ex:
+        except (Exception, BudgetReached) as ex:
+            # BudgetReached inherits BaseException so drivers cannot swallow the
+            # outer budget boundary. Inside a witness callback it is an actual
+            # failed, charged recheck, not an unclassified escaped sentinel.
             return {"status": "INVALID_RESULT", "reason": "recheck_exception",
                     "error_type": type(ex).__name__, "attempts": self.attempts}
         if not math.isfinite(v):

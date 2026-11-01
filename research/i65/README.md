@@ -9,6 +9,7 @@ The Python files in this directory are **research-only** and do not modify GAdap
 - `e_common_snapshot.py`, `stagnation_reference.py` — comparison/reference sources.
 - `make_gate_fixtures.py`, `test_*.py` — deterministic fixtures, regression and SciPy DE smoke tests.
 - `test_audited_budget_preflight.py` — reject nonfinite coordinates, invalid bounds and unsafe witness tolerances before validation.
+- `test_audited_budget_lifecycle.py` — terminal witness sealing and fail-closed recheck exceptions.
 
 From the root of a clone with installed NumPy, SciPy and pytest:
 
@@ -22,6 +23,8 @@ The earlier archived **isolated** run recorded **54 passed, 3 xfailed** ([test l
 **New isolated gate (same date):** reproduced 10 failed cases in an adversarial preflight of the original research evaluator; after a narrow fix, **22/22 passed**, including the two existing SciPy DE smoke tests, under Python 3.13.5 / NumPy 2.3.5 / SciPy 1.17.0 / pytest 9.0.2. This was **not** the full historical I65 regression in a pinned checkout. Read the [detailed preflight report](../ITERATION65_BUDGET_PREFLIGHT_GATE_2026-11-01.md).
 
 **Reproduced complete isolated I65 pytest suite (same date):** using all nine SHA-matched I65 Python modules/tests (not a full GAdapt clone), **74 passed, 3 xfailed**, with the three original reference defects preserved as expected negatives. No optimizer benchmarks. See [full isolated I65 gate](../ITERATION65_ISOLATED_REGRESSION_GATE_2026-11-01.md) and [raw log](../I65_ISOLATED_REGRESSION_TEST_LOG_2026-11-01.txt). Full Python-3.12 clone regression remains NOT_TESTED.
+
+**Terminal-witness lifecycle gate:** a reproducible early-witness and `BudgetReached` exception defect was fixed in the research-only wrapper; the complete reconstructed I65 collection now records **88 passed, 3 xfailed** (14 additional tests), with all prior expected reference failures preserved. See [terminal witness gate](../ITERATION65_WITNESS_TERMINAL_GATE_2026-11-01.md) and [actual test log](../I65_WITNESS_TERMINAL_TEST_LOG_2026-11-01.txt). The fix does **not** validate a mid-run switch from GAdapt to CMA or a real full-clone regression.
 
 - [I65 DRAFT](../ITERATION65_DRAFT_PROTOCOL_SR.md)
 - [Prior-art audit](../ITERATION65_PRIOR_ART_AUDIT_DRAFT_SR.md)
