@@ -31,6 +31,34 @@ The first command runs **synthetic, inexpensive** standard-library regression te
 
 For historic runs, use `research/<original_name>.py` entrypoints after restoring aliases; do not implicitly import old modules from `legacy/flat/`. Preserve frozen sources and original experiment seed/evaluation accounting.
 
+## End-to-end core regression gate (Python 3.12, opt-in)
+
+A new [fail-closed runner](run_full_clone_gate.py) checks the **real full-history
+Git checkout**, Python 3.12, all 341 original symlinks and inexpensive historical
+I41/I63/I64 core and I65 tests. Default mode is **read-only**:
+
+```sh
+python research/compat/run_full_clone_gate.py --python .venv/bin/python
+python research/compat/run_full_clone_gate.py --python .venv/bin/python \
+  --run --report-dir /tmp/gadapt-full-clone-gate
+```
+
+The explicit `--run` opt-in restores only the 341 root aliases after preflight
+and runs a short allowlisted suite with at most 120 seconds per command, preserving
+individual hashed logs and a final `gate.json`. Full-history and clean checkout
+checks prevent a misleading PASS; required test skips are also classified as
+incomplete. The external-mentor PyGAD cases (`MBENCH`) are **excluded**, not passed.
+
+For environments without Python 3.12 locally, a new
+[manual-only Actions workflow](../../.github/workflows/research-full-clone-gate-manual.yml)
+provides Python 3.12, complete history and archived logs. It must be explicitly
+dispatched by a maintainer; it has **not** been run as part of this work.
+
+The two new synthetic [341-path scale tests](test_full_alias_scale.py)
+and [driver tests](test_full_clone_gate.py) both passed locally
+(**10/10** cases total), but only a real full-clone run can close the runtime
+gate. See the [gate report](../FULL_CLONE_EXECUTION_GATE_2026-11-01.md).
+
 ## Still not proven
 
 The entire I41/I56/I61/I63/I64 historical regression suite has **not been run in a full clone** after migration. Synthetic compatibility tests are not a substitute for full optimization integration. The [gate report](../ITERATION65_MIGRATION_COMPAT_GATE_2026-11-01_SR.md) gives exact remaining commands and blockers.
