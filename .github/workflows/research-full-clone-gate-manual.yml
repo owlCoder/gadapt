@@ -27,7 +27,7 @@ jobs:
         run: |
           python -m venv .venv
           .venv/bin/python -m pip install --disable-pip-version-check --no-cache-dir -e .
-          .venv/bin/python -m pip install --disable-pip-version-check --no-cache-dir 'scipy>=1.15,<2' 'pytest>=8,<10' 'hypothesis>=6,<7' 'cma>=3,<5' 'networkx>=3,<4'
+          .venv/bin/python -m pip install --disable-pip-version-check --no-cache-dir 'numpy==1.26.4' 'scipy>=1.15,<2' 'pytest>=8,<10' 'hypothesis>=6,<7' 'cma>=3,<5' 'networkx>=3,<4'
 
       - name: Execute bounded full-checkout core regression and capture SHA logs
         run: |
