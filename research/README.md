@@ -9,7 +9,7 @@
 - [**Literatura, novost, negativne hipoteze**](literature/).
 - [**Metodologija, doktorski plan, odluke**](overview/) · [Infrastrukturni domeni](domains/).
 - [**Istraživački alati**](tools/) · [I64 implementacija](i64/) · [I65 instrumentacija](i65/).
-- [**Mentorski sažetak](MENTOR_SUMMARY_2026-10-28_SR.md) · [beleške sa sastanka](MENTOR_MEETING_NOTES_SR.md).
+- [**Mentorski sažetak**](MENTOR_SUMMARY_2026-10-28_SR.md) · [beleške sa sastanka](MENTOR_MEETING_NOTES_SR.md).
 - [**Codex recenzije**](codex/) · [Rad za TELO](paper_integrity_audit/) · [Teza](thesis/).
 - [**Istorijski izvori**](legacy/) · [Kompatibilnost](compat/) · [Kompletan manifest migracije](MIGRATION_MANIFEST_2026-11-01.json).
 
@@ -21,7 +21,7 @@
 
 ## Kompatibilnost nakon fizičke migracije
 
-Iz korena je premesteno **341 istorijskih fajlova** u [legacy/flat](legacy/flat/) bez promene njihovog Git blob SHA. Za navigaciju su izložene simboličke veze u studijama, literaturi i alatima. Stare eksplicitne putanje se ne nalaze u čistom checkout-u. Za reprodukciju starih CLI komandi u lokalnom clone-u:
+Iz korena je premešteno **341 istorijskih fajlova** u [legacy/flat](legacy/flat/) bez promene njihovog Git blob SHA. Za navigaciju su izložene simboličke veze u studijama, literaturi i alatima. Stare eksplicitne putanje se ne nalaze u čistom checkout-u. Za reprodukciju starih CLI komandi u lokalnom clone-u:
 
 ```sh
 python research/compat/restore_legacy_paths.py --verify

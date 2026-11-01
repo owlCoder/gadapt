@@ -8,6 +8,8 @@ These instructions apply to work in `owlCoder/gadapt`. For specialized workflows
 
 Read each skill's `SKILL.md` when its workflow is needed. All research gates and repository constraints in this document remain in effect.
 
+**2026-11-01 research layout migration:** Most historical `research/iteration*.py` entrypoints and reports now live byte-identically at `research/legacy/flat/` and are indexed under `research/studies/iNN/`. Before running legacy commands specified below, call `python research/compat/restore_legacy_paths.py --apply --verify` in a local checkout. The default dry-run `--verify` does not add links. See `research/MIGRATION_MANIFEST_2026-11-01.json`, `research/REORGANIZATION_REPORT_2026-11-01_SR.md`. The historical regression suite has NOT yet been validated after migration. This change does not modify optimizer behavior or frozen scientific sources.
+
 ## Resume protocol (every new session, after crash/power loss)
 1. Read `research/PHD_PROGRESS.md` — the single source of truth for where work stopped. Continue from its "NEXT STEP".
 2. Update `research/PHD_PROGRESS.md` after every meaningful research step. During an explicitly authorized ongoing
