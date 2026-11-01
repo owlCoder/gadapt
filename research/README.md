@@ -14,6 +14,7 @@
 - [Benchmark protokol DRAFT](ITERATION65_DRAFT_PROTOCOL_SR.md)
 - [Validacija instrumentacije](ITERATION65_INSTRUMENTATION_GATE_REPORT_SR.md)
 - [Zaključak GO/NO-GO](ITERATION65_RECOMMENDATION_AND_DECISION_SR.md)
+- [I65 instrumentacija i testovi](i65/README.md)
 - [Testni sirovi tragovi](I65_INSTRUMENTATION_FIXTURES.json)
 
 Lokalni sandbox: **54 passed, 3 xfailed**. **I65 COCO f21/f24 = NOT_RUN; FREEZE = NE**.

@@ -393,3 +393,4 @@ kontinualni infra problemi; računar = neograničeno, i preko noći; opt-in ubrz
 - Dokumenti I65, fixtures i testni log arhivirani su kao research-only, sa zasebnim provenance addendum-om.
 - `research/README.md` pretvoren u indeks; originalna verzija sačuvana bajt-identično u `research/archive/README_PRE_I65_2026-11-01.md`; stari protokoli i rezultati nisu obrisani.
 - **SLEDEĆI KORAK:** nezavisan prior-art/method review i zatvaranje AGENTS novelty gate-a pre implementacije algoritamske intervencije; COCO/pycma/GAdapt integracija i nezavisan svedok; potom zaseban FREEZE pre bilo kog held-out benchmarka. Nema skupih CI runova automatski, nema ponavljanja radi pozitivnog ishoda.
+- Dopuna istog dana: 9 I65 `.py` fajlova učitano u `research/i65/` kao research-only kod. Nema nove metode, novih COCO run-ova ili FREEZE; lokalni gate 54/3 važi samo za izolovane testove.

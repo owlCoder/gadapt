@@ -12,3 +12,4 @@ trenutak nastanka tih izveštaja, pre ovog arhiviranja.
 - Polazni HEAD pre organizacije: `30c2bb2a2d8c0f986e9075503112869540c2581e`.
 - Nema promena u `gadapt/` i `bpzoran/gadapt`.
 - Izvorni testni kod iz lokalnog paketa nije automatski integrisan u core.
+- Devet istraživačkih Python fajlova instrumentacije/testova arhivirano je zasebnim dopunskim commit-om; ovo ne menja status `NOT_TESTED` za stvarne GAdapt/CMA/COCO integracije.
