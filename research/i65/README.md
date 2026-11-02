@@ -36,3 +36,20 @@ The earlier archived **isolated** run recorded **54 passed, 3 xfailed** ([test l
 - [Research decision](../RESEARCH_DECISION_2026-11-01.md)
 - [Supervisor decision package](../SUPERVISOR_DECISION_PACKAGE_2026-11-01.md)
 - [Budget/witness preflight gate](../ITERATION65_BUDGET_PREFLIGHT_GATE_2026-11-01.md)
+
+## PYPOWER physical entrypoint audit (2026-11-02)
+
+The successful Python 3.12 full-clone regression does not count the
+historical ORPD scenario-setup OPF and I58 witness OPF/PF calls. A new,
+**research-only** [sequential API-entrypoint tracer](orpd_solver_entry_audit.py)
+counts `pypower.api.runopf/runpf` entries by setup/search/witness phase;
+[its eight adversarial tests](test_orpd_solver_entry_audit.py) **passed
+locally** with mocked PYPOWER, without running optimization.
+
+The [single-case30/j1 smoke](smoke_orpd_solver_entrypoints.py) is opt-in,
+requires restored historic symlinks, and predeclares one setup OPF, one
+search PF, and a distinct witness OPF+PF. The actual PYPOWER smoke result
+must be obtained from CI; it was **NOT_RUN** in the local environment.
+See [the scope and falsification protocol](../I65_ORPD_SOLVER_ENTRY_AUDIT_2026-11-02.md).
+This traces API entrypoints, not nested solver iterations or an
+independent-model oracle, and does not establish I65 novelty.
