@@ -71,3 +71,11 @@ Existing review questions referenced as **M1–M6** in the research handoffs als
 **Permission to run held-out COCO:** ☐ No ☐ Yes, preregistration ID (specify)
 
 **Until signed approval is actually received: `novelty not established / DRAFT / NO-FREEZE / COCO NOT_RUN`.**
+
+## Evidence crosswalk addendum — original M1–M6 definitions located (2026-11-02)
+
+**Correction to the earlier statement above:** the authoritative M1–M6 wording **does exist** in [the original 2026-11-01 supervisor decision package](SUPERVISOR_DECISION_PACKAGE_2026-11-01.md), Section 3. The earlier note that their wording still needed locating is therefore obsolete; it is retained above as historical draft text, with the correction recorded here. **None of the M1–M6 gate signatures or any C1–C6 supervisor decisions has been received.**
+
+The new [evidence-to-gate crosswalk and adversarial prior-art review](I65_M1_M6_EVIDENCE_AND_PRIOR_ART_CROSSWALK_2026-11-02.md) uses the original definitions, distinguishes **M1 technical full-clone CI PASS** from an unsigned reviewer acceptance, classifies **M2 partial and M3 numerical-only**, and leaves **M4 COCO runtime NOT_RUN, M5 statistical protocol NO-FREEZE and M6 originality PENDING**. It documents a formal additive-offset counterexample for any `s_i` scale based on the *uncentered* median of 4,096 objective values, without changing the draft or evaluating COCO. The relevant IPOP/BIPOP/COCO/EAF/reproducibility precedent was located from primary publisher or project sources; **Crossref API verification remains UNVERIFIED** because access failed.
+
+**Decision request unchanged:** accept/reject the empirical dissertation scope, define the contribution's precise originality, approve physical-cost and independent-model sufficiency, and sign a complete pre-run statistical/oracle protocol before any further optimizer or held-out experiment. This addendum does not supply a signature.
