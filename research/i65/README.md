@@ -134,3 +134,20 @@ previous violation total, with two new analytic tests; **17/17 LOCAL PASS**.
 The physical CI verification of this strengthened tamper is **not yet
 established** at this repair commit. None of the original four I56 metrics,
 numerical thresholds or historical sources were changed.
+
+## Final measured I56 constraints: exact agreement, infeasible midpoint retained
+
+[GitHub Actions run #41407293845](https://github.com/owlCoder/gadapt/actions/runs/41407293845)
+completed **SUCCESS**, with **17/17** analytic tests and one real development
+`case30/j1` comparison. All four I56-style constraints agree with frozen
+`ORPD.evaluate` **exactly** (0.0 absolute difference). The original fixed
+candidate is **NOT feasible**: reactive component `0.5991137833375748`,
+while voltage, slack and thermal components are zero. Four controlled
+limit-only falsifications now all register their violations; the original
+failed reactive-tamper [run #41406369109](https://github.com/owlCoder/gadapt/actions/runs/41406369109)
+and raw negative outcome remain archived without modification.
+
+Source/JSON/ZIP and **4/4 SHA-256** evidence are in the [complete result](../I65_ORPD_OPERATIONAL_CONSTRAINT_SUCCESS_2026-11-02.md)
+and [raw successful JSON](../I65_ORPD_OPERATIONAL_SUCCESS_2026-11-02.json).
+This closes a *single-development-case operational arithmetic replication*
+gate, not a complete independent AC solver or proof of scientific novelty.
