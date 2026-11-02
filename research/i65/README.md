@@ -192,3 +192,24 @@ the **same classical model/data**, not independent physical measurements,
 OPF or an original I65 algorithm. The original fixed midpoint remains
 **reactively infeasible**. [Physical-cost decision memo](../I65_PHYSICAL_COST_ACCOUNTING_DECISION_DRAFT_2026-11-02.md)
 is DRAFT and requires supervisor decisions before any method freeze.
+
+## Independent generator and operational-dispatch reconstruction — 2026-11-02
+
+A [research-only NumPy module](independent_ac_dispatch.py) takes the
+**original unsolved case** and an independently computed Newton voltage
+state; reconstructs PV/REF `QG`, reference `PG`, line-end complex
+flows, AC nodal residuals and all four historical I56 violation sums.
+It does **not** import PYPOWER or use its solved state. The module
+requires one online generator per controlled bus and rejects ambiguous
+multiple-generator Q allocation rather than fabricating individual
+injections. Its [14 analytic/negative unit tests](test_independent_ac_dispatch.py)
+passed locally, with an [exact logged transcript](../I65_INDEPENDENT_DISPATCH_LOCAL_TEST_LOG_2026-11-02.txt).
+
+The [one-case30 development test](smoke_independent_ac_dispatch.py) and
+[bounded one-shot Python 3.12 workflow](../../.github/workflows/research-i65-independent-dispatch-one-shot.yml)
+are preregistered with fixed PG/QG/flow/constraint tolerances, and have
+**NOT_RUN** at this preflight. The independent numerical algorithm uses
+the **same standard mathematical AC model and network data**, not
+external physical observations; PF convergence can still leave the
+midpoint **reactively infeasible**. See the
+[formal preflight](../I65_INDEPENDENT_DISPATCH_PREFLIGHT_2026-11-02.md).

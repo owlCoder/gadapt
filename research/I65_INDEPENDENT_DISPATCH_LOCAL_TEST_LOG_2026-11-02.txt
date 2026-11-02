@@ -1,0 +1,19 @@
+test_analytic_ref_pg_and_branch (test_independent_ac_dispatch.DispatchTests.test_analytic_ref_pg_and_branch) ... ok
+test_disconnected_branch_has_zero_flow (test_independent_ac_dispatch.DispatchTests.test_disconnected_branch_has_zero_flow) ... ok
+test_invalid_vectors_refused (test_independent_ac_dispatch.DispatchTests.test_invalid_vectors_refused) ... ok
+test_missing_solved_gen_or_branch_fails_closed (test_independent_ac_dispatch.DispatchTests.test_missing_solved_gen_or_branch_fails_closed) ... ok
+test_multiple_online_reference_gen_unsupported (test_independent_ac_dispatch.DispatchTests.test_multiple_online_reference_gen_unsupported) ... ok
+test_nonconverged_refused (test_independent_ac_dispatch.DispatchTests.test_nonconverged_refused) ... ok
+test_offline_duplicate_generator_has_no_contribution (test_independent_ac_dispatch.DispatchTests.test_offline_duplicate_generator_has_no_contribution) ... ok
+test_online_pq_generator_unsupported (test_independent_ac_dispatch.DispatchTests.test_online_pq_generator_unsupported) ... ok
+test_reference_q_injection_reconstructed (test_independent_ac_dispatch.DispatchTests.test_reference_q_injection_reconstructed) ... ok
+test_slack_pg_can_be_infeasible_even_after_convergence (test_independent_ac_dispatch.DispatchTests.test_slack_pg_can_be_infeasible_even_after_convergence) ... ok
+test_tight_residual_threshold_prevents_false_pass (test_independent_ac_dispatch.DispatchTests.test_tight_residual_threshold_prevents_false_pass) ... ok
+test_voltage_and_generator_input_unchanged (test_independent_ac_dispatch.DispatchTests.test_voltage_and_generator_input_unchanged) ... ok
+test_voltage_constraint_detected_from_solved_vm (test_independent_ac_dispatch.DispatchTests.test_voltage_constraint_detected_from_solved_vm) ... ok
+test_wrong_marked_converged_voltages_rejected (test_independent_ac_dispatch.DispatchTests.test_wrong_marked_converged_voltages_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.022s
+
+OK
