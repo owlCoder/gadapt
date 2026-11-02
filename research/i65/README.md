@@ -100,3 +100,18 @@ verified. See [the complete result and limitations](../I65_AC_EQUATION_RESIDUAL_
 This **does not constitute a second numerical AC solver or complete
 operational-feasibility certificate**, and leaves scientific novelty,
 I65 candidate-C validation and held-out COCO unapproved/unrun.
+
+## Four independently recomputed I56 operating-constraint aggregates (2026-11-02)
+
+A separate [research-only NumPy verifier](orpd_operational_witness.py)
+recomputes I56 voltage, reactive generator, slack-reference PG and branch
+thermal penalties **only after** the previously independently written AC
+equations validate the supplied solved state. The 15 analytical/adversarial
+[unit tests](test_orpd_operational_witness.py) all passed locally (exact
+[console](../I65_ORPD_CONSTRAINT_LOCAL_TEST_LOG_2026-11-02.txt)); originals
+are untouched. A [single-development-case smoke](smoke_orpd_operational_constraints.py)
+is preregistered at **1 setup OPF, 1 original-I56 PF, 1 witness PF**, with
+absolute `1e-8` aggregate-difference tolerance and four limit-only
+falsifications. See [scope, formulas and hard gates](../I65_ORPD_OPERATIONAL_CONSTRAINT_PREFLIGHT_2026-11-02.md).
+A real PYPOWER comparison is **NOT_RUN at this initial preflight**, so the
+local 15/15 must not be called a physical feasibility test or result.
