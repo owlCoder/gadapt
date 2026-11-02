@@ -53,3 +53,18 @@ must be obtained from CI; it was **NOT_RUN** in the local environment.
 See [the scope and falsification protocol](../I65_ORPD_SOLVER_ENTRY_AUDIT_2026-11-02.md).
 This traces API entrypoints, not nested solver iterations or an
 independent-model oracle, and does not establish I65 novelty.
+
+## Measured PYPOWER audit result (2026-11-02)
+
+[GitHub Actions #41385833963](https://github.com/owlCoder/gadapt/actions/runs/41385833963)
+**PASS** on one I58 development `case30/j1` scenario. Eight new entrypoint
+tests passed, and the real PYPOWER trace matched the prespecified four
+entrypoint attempts: **setup OPF 1, search PF 1, witness OPF 1 + PF 1**,
+while the historical candidate evaluator counted **one** search attempt.
+Independent verification matched the ZIP SHA-256, **four of four** individual
+log SHA-256 values, the event-trace SHA-256, and source Git blobs.
+See [the result and scientific limitations](../I65_ORPD_SOLVER_ENTRY_AUDIT_RESULT_2026-11-02.md).
+
+This is **solver API entrypoint accounting on one development case**, *not*
+the internal number of Newton iterations, total physical B accounting on
+new COCO/ORPD runs, a model-independent witness or a novel optimizer.
