@@ -68,3 +68,18 @@ See [the result and scientific limitations](../I65_ORPD_SOLVER_ENTRY_AUDIT_RESUL
 This is **solver API entrypoint accounting on one development case**, *not*
 the internal number of Newton iterations, total physical B accounting on
 new COCO/ORPD runs, a model-independent witness or a novel optimizer.
+
+## Independent AC equation residual preflight (2026-11-02)
+
+A separate [NumPy-only AC residual checker](ac_residual_witness.py) independently
+computes nodal active/reactive balance, transformer/phase-shift line currents,
+branch flows and active loss from a **supplied** AC PF operating point without
+importing or invoking PYPOWER. Its **15 adversarial and analytic unit tests**
+passed locally (including a hand-calculated 0.4 MW two-bus loss). Its
+[development-only case30/j1 PYPOWER smoke](smoke_ac_residual_witness.py) has
+predeclared tolerances and one OPF setup + one PF solve, **not yet run at this
+documentation gate**. See [full mathematics, preflight and limits](../I65_AC_EQUATION_RESIDUAL_PREFLIGHT_2026-11-02.md).
+
+This only checks the algebraic consistency of **the solver-supplied state**;
+it is not a separately implemented numerical AC solver, not a validated
+independent physical model, and not COCO/I65 novelty evidence.

@@ -1,0 +1,56 @@
+name: I65 independent AC residual diagnostic (one-shot)
+
+# No push, pull_request or schedule trigger. This only reacts to the
+# specifically authorized second attempt of the prior cheap API audit job.
+on:
+  workflow_run:
+    workflows:
+      - "I65 PYPOWER entrypoint audit (one-shot)"
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  ac-residual-diagnostic:
+    if: ${{ github.event.workflow_run.id == 41385833963 && github.event.workflow_run.run_attempt == 2 && github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Full-history source checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install compatible development-only diagnostic dependencies
+        run: |
+          python -m venv .venv
+          .venv/bin/python -m pip install --disable-pip-version-check --no-cache-dir -e .
+          .venv/bin/python -m pip install --disable-pip-version-check --no-cache-dir 'numpy==1.26.4' 'scipy>=1.15,<1.17' 'PYPOWER==5.1.19' 'cma>=3,<5' 'networkx>=3,<4'
+          .venv/bin/python -m pip check
+
+      - name: Fifteen analytic tests and one prespecified case30 PF residual
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/ac-residual"
+          echo "$GITHUB_SHA" > "$RUNNER_TEMP/ac-residual/commit.txt"
+          .venv/bin/python -m unittest discover -s research/i65 -p 'test_ac_residual_witness.py' -v 2>&1 | tee "$RUNNER_TEMP/ac-residual/unit.log"
+          .venv/bin/python research/compat/restore_legacy_paths.py --apply --verify 2>&1 | tee "$RUNNER_TEMP/ac-residual/restore.log"
+          timeout 120s .venv/bin/python research/i65/smoke_ac_residual_witness.py 2>&1 | tee "$RUNNER_TEMP/ac-residual/smoke.json"
+          .venv/bin/python -m json.tool "$RUNNER_TEMP/ac-residual/smoke.json" > /dev/null
+          (cd "$RUNNER_TEMP/ac-residual" && sha256sum *.log smoke.json commit.txt > hashes.sha256)
+
+      - name: Preserve evidence on failure too
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: i65-ac-residual-diagnostic-${{ github.run_id }}
+          path: ${{ runner.temp }}/ac-residual/
+          if-no-files-found: warn
+          retention-days: 30
