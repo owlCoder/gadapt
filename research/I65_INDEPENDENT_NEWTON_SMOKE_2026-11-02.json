@@ -1,0 +1,145 @@
+{
+  "api_entrypoint_trace": {
+    "events": [
+      {
+        "index": 1,
+        "kind": "runopf",
+        "outcome": "returned",
+        "phase": "setup"
+      },
+      {
+        "index": 2,
+        "kind": "runpf",
+        "outcome": "returned",
+        "phase": "witness"
+      }
+    ],
+    "phases": {
+      "search": {
+        "runopf": 0,
+        "runpf": 0
+      },
+      "setup": {
+        "runopf": 1,
+        "runpf": 0
+      },
+      "witness": {
+        "runopf": 0,
+        "runpf": 1
+      }
+    },
+    "schema": "GADAPT_I65_SOLVER_ENTRYPOINT_V1",
+    "scope": "pypower.api.runopf/runpf entrypoint attempts only",
+    "sha256": "8d372ca753d6a75584519a6a712e01b23e3df43df555d56267cddc641938935f",
+    "totals": {
+      "runopf": 1,
+      "runpf": 1
+    }
+  },
+  "case": {
+    "candidate": "grid-snapped midpoint, no search",
+    "network": "case30",
+    "resolution": 17,
+    "scenario": 1
+  },
+  "comparison": {
+    "independent_branch_loss_mw": 3.114081587468852,
+    "loss_mw_error": 1.141309269314661e-13,
+    "max_angle_error_degrees": 5.684341886080802e-14,
+    "max_vm_error_pu": 3.1086244689504383e-15,
+    "pypower_branch_loss_mw": 3.114081587468966,
+    "tolerances": {
+      "angle_degrees": 0.005,
+      "loss_mw": 0.005,
+      "vm_pu": 0.0005
+    }
+  },
+  "faults": [],
+  "independent_numerical_solver": {
+    "branch_loss_mw": 3.114081587468852,
+    "buses": 30,
+    "iterations": 3,
+    "mismatch_inf_pu": 1.3362914314397933e-10,
+    "net_injection_mw": 3.114081587469057,
+    "pq_buses": 24,
+    "pv_buses": 5,
+    "residual_evaluations": 325,
+    "status": "CONVERGED",
+    "voltage_angles_deg": [
+      0.0,
+      -1.3265533103177698,
+      -2.419747843272203,
+      -2.8752797967549646,
+      -2.819483667284899,
+      -3.3007654455078157,
+      -3.633695091330008,
+      -3.6966946453657634,
+      -4.370510064337333,
+      -4.922716683213306,
+      -4.370510064337334,
+      -4.331211516663289,
+      -3.015189237269111,
+      -4.973320740510476,
+      -4.849678380578289,
+      -4.87087548811392,
+      -5.11759050230037,
+      -5.604684769991809,
+      -5.849738214572474,
+      -5.668126640816916,
+      -5.021593537896426,
+      -4.927861525628891,
+      -4.06917632027227,
+      -4.337156787623901,
+      -2.691295328297676,
+      -3.1227888485616324,
+      -1.4069813302032779,
+      -3.2408424282812085,
+      -2.5908955507053557,
+      -3.428833553736402
+    ],
+    "voltage_magnitudes": [
+      1.0,
+      1.0250000000000001,
+      0.999000047249758,
+      0.999416582924138,
+      1.0063010389447091,
+      0.9954474171780278,
+      0.9904044531755053,
+      0.9842887316035241,
+      1.004953423122398,
+      1.0100705498482694,
+      1.004953423122398,
+      1.0085515317316753,
+      1.0249999999999997,
+      0.9998220341568429,
+      1.0049140900072027,
+      1.002554484333675,
+      1.0028517967790365,
+      0.994487652021333,
+      0.9918377238844693,
+      0.9955690712768314,
+      1.0186105627226865,
+      1.0249999999999997,
+      1.0249999999999997,
+      1.012695073587646,
+      1.014967194530258,
+      0.9972315177107758,
+      1.0250000000000001,
+      0.9978099020924254,
+      1.0060430188550114,
+      0.9949973372367071
+    ]
+  },
+  "pypower_converged": true,
+  "runtime": {
+    "numpy": "1.26.4",
+    "python": "3.12.15"
+  },
+  "scope": "independent NumPy numerical Newton PF comparison, not independent physical model or ORPD feasibility",
+  "source_git_blobs": {
+    "historical_i56": "43f2f279f7e6362250dc9277e58e0d939a98c12f",
+    "historical_i58": "9747faea9c31526a163bd8439c74708214c07a3c",
+    "independent_newton": "268d0406a90fe7d314d4e01311ea2f4376084b2b"
+  },
+  "status": "PASS"
+}

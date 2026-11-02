@@ -171,3 +171,24 @@ initial publication. See [the preflight and limitations](../I65_INDEPENDENT_NEWT
 It reimplements a standard numerical method, **not** a novel optimizer or
 independent physical grid model; it does not enforce generator reactive
 limits, and the earlier original candidate remains reactively infeasible.
+
+## Confirmed independent numerical Newton cross-solver check (2026-11-02)
+
+[Actual Python 3.12 GitHub run #41413792862](https://github.com/owlCoder/gadapt/actions/runs/41413792862)
+**PASS**, 16/16 unit tests and independent, flat-start NumPy Newton
+solution on the single non-held-out I58 `case30/j1` midpoint. Newton
+converged in **3 iterations / 325 mathematical residual evaluations**.
+Against PYPOWER: maximum voltage-magnitude deviation
+`3.1086244689504383e-15 pu`, wrapped angle deviation
+`5.684341886080802e-14°`, branch-loss difference
+`1.141309269314661e-13 MW`; each below preregistered thresholds.
+Archive ZIP/4/4 log digests, internal solver trace SHA, exact source blobs
+and [byte-preserved smoke JSON](../I65_INDEPENDENT_NEWTON_SMOKE_2026-11-02.json)
+were independently verified. See [the verified report](../I65_INDEPENDENT_NEWTON_RESULT_2026-11-02.md).
+
+Unlike earlier residual checks, this is **an independently coded numerical
+AC PF solver**, not a PYPOWER-supplied solved-state checker. It is still
+the **same classical model/data**, not independent physical measurements,
+OPF or an original I65 algorithm. The original fixed midpoint remains
+**reactively infeasible**. [Physical-cost decision memo](../I65_PHYSICAL_COST_ACCOUNTING_DECISION_DRAFT_2026-11-02.md)
+is DRAFT and requires supervisor decisions before any method freeze.
