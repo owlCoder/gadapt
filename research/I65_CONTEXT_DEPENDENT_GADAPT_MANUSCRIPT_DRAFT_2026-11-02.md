@@ -1,0 +1,63 @@
+# Manuscript v0 — Context-Dependent GAdapt Efficiency, Orthogonal Coupling and AC Feasibility
+
+**Prepared:** 2026-11-02. **Draft only**, no new research run, no statistical recomputation and no human/supervisor approval. All figures below come directly from the locked I64 studies; the original designs remain distinct, and cross-study comparisons are **descriptive unless an original study provides an approved contrast**.
+
+## Abstract
+
+Claims that a genetic algorithm is generally more efficient must distinguish computational calls from iterations, transformation sensitivity from algorithm-specific parameters, and objective-value success from feasible electrical dispatch. We synthesize frozen, pre-specified GAdapt studies using a mentor's original configuration, stronger CMA/DE baselines, controlled orthogonal transformations, a fixed GAdapt→CMA hybrid and discrete AC optimal reactive-power-dispatch simulations. In 21 original benchmark cells, GAdapt-M achieved a higher evaluation-based ECDF area than DE under the tested mentor conditions (`0.698` versus `0.651`), while DE had a better final cell median in 14/21 cells. Across an extended stronger-baseline roster and transformations, GAdapt-M had aggregate ECDF area `0.6732` versus `0.7699` for IPOP, and the prespecified overall H64a direction was opposite to the original superiority claim. A matched-shift experiment attributed a `0.0809` area drop in GAdapt, versus `0.0101` in IPOP, to an added Haar-orthogonal transformation across the fixed tested cells. A fixed GAdapt→CMA hybrid increased rotated-function performance but failed the full precommitted decision family. Its tail advantage did not transfer to eight discrete ORPD cells, where the hybrid's feasibility was `0.742` versus `0.771` for IPOP and its tail CVaR was worse (`0.3772` versus `0.2518`). These context-dependent observations motivate mechanism-specific hypotheses and independently charged simulator evaluations, **not** a universal algorithm advantage or a novel algorithmic policy.
+
+## 1. Research question and null-safe interpretation
+
+**Question:** Under actually counted objective calls, which *specific* transformations and operational-constraint contexts degrade or preserve GAdapt-M relative to strong DE/CMA-family baselines, and do synthetic-function improvements transfer to discrete power-flow-constrained tasks?
+
+The aim is an accurate synthesis of bounded empirical evidence. Repeated genetic-algorithm switching, CMA restarts, ECDF and source provenance are known prior art, and these experiments are neither new random samples nor independent evidence of numerical-model field validity. Their source is the historical I64 program, not an I65 confirmatory study.
+
+## 2. Frozen sources and non-interchangeable designs
+
+| Study | Design and what can be inferred | Critical constraint |
+|---|---|---|
+| [S0](ITERATION64_S0_REPORT_SR.md) | Original mentor setup: 21 function–dimension cells × four configurations × 20 seeds; real call count vs generation count; original H64a supported in this **four-method** comparison | Comparator roster and stopping configuration differ from E; do not attribute cross-study differences purely to Q |
+| [E](ITERATION64_E_REPORT_SR.md) | 63 transformed cells, nine configurations, 100 seeds, **equal 12,000 objective-call budgets**; 16 simultaneous contrasts | Strong CMA, IPOP and BIPOP overturn overall GAdapt advantage; do not extrapolate to every possible configuration |
+| [R](ITERATION64_R_REPORT_SR.md) | Original (21) fixed function–dimension pairs and a *matched-shift* added Haar-orthogonal Q, 100 seeds, simultaneous four-contrast intervals | Q can reflect as well as rotate; inference conditional on selected matrices, cell mix and only two compared methods |
+| [E3](ITERATION64_E3_REPORT_SR.md) | Fixed 30%-GAdapt / 70%-CMA search allocation versus E archival paired cells | Original+shift tail penalty violated a frozen criterion; no general novel hybrid |
+| [A](ITERATION64_A_REPORT_SR.md) | Replaces initial 30% GAdapt by random sampling, keeping CMA phase setup fixed | Valid **within that setup**; CMA `sigma0=0.05` tailored for GAdapt initialization, possibly confounding pure seed-quality claims |
+| [I](ITERATION64_I_REPORT_SR.md) | Eight discrete ORPD cells, 30 seeds, originally counted 12,000 numerical PF calls, feasibility + CVaR | Public AC simulator cases, not observed power-system operational trials |
+| [I2](ITERATION64_I2_REPORT_SR.md) | Paired fixed hybrid on those same eight ORPD cells | Hybrid's tail comparison against IPOP has **opposite** outcome; do not retune to reverse it |
+
+## 3. Observed results
+
+### 3.1 Original mentor comparison — efficiency is not final accuracy
+
+The [S0 report](ITERATION64_S0_REPORT_SR.md) gives GAdapt aggregate `A=0.698`, SciPy DE `A=0.651`, and lower early-call best-so-far normalized gaps for the tested original group. Yet DE wins the *final* cell-median comparison in **14 of 21** original cells, as recorded in the [cross-study synthesis](EVIDENCE_SYNTHESIS.md). The observed mean calls per completed run also differ because of callback, validation and library-specific work. **The result is a conditional evaluation-efficiency advantage, not general accuracy superiority.**
+
+### 3.2 Matched budgets and stronger baselines reverse the hierarchy
+
+The [E report](ITERATION64_E_REPORT_SR.md) gives equal-cell-weight ECDF areas `A(GAdapt)=0.6732`, `A(CMA)=0.7618`, `A(IPOP)=0.7699`, `A(BIPOP)=0.7688`, `A(DE)=0.6396`. Sixteen simultaneous comparisons in the original precommitted H64a family yielded an **opposite** verdict. This demonstrates that a GAdapt favorable comparison within the original four-method mentor setup does not establish an advantage against optimized stronger CMA families under transformed objectives. It does **not** isolate *why* the cross-study hierarchy changes, because S0/E experimental contexts differ.
+
+### 3.3 Controlled orthogonal perturbation isolates a limited Q effect
+
+The [R report](ITERATION64_R_REPORT_SR.md) constructed a matching translation variant to isolate the effect of adding **Haar-orthogonal** Q within 21 fixed cases. For GAdapt, `A(shift)-A(rotm)=0.0809`, simultaneous interval **[0.0721,0.0897]**; for IPOP, the same contrast is `0.0101`, interval **[0.0036,0.0166]**. Their difference is `0.0708`, simultaneous interval **[0.0598,0.0818]**. The prespecified R hypotheses passed. It supports a **conditional effect of the tested Q transformations** and comparative sensitivity, not a universal assertion about rotations or a known causal GAdapt mutation mechanism.
+
+### 3.4 Hybrid helps rotated synthetic cases but fails its total decision rule
+
+The [E3 report](ITERATION64_E3_REPORT_SR.md) finds rotated-function `A(GAdapt)=0.6167`, `A(hybrid)=0.7196`, `A(IPOP)=0.7630`. The hybrid's A improvement relative to GAdapt is supported, as is a rotated tail improvement. But the non-rotated tail criterion was **opposite**, IPOP noninferiority was **undecided**, and the **overall frozen H64g outcome was NOT supported**. The [A ablation](ITERATION64_A_REPORT_SR.md) shows replacing the fixed first GAdapt stage with uniform samples harms that exact subsequent CMA arrangement, but this does not isolate a general causal advantage independent of the preset CMA step-size and restart settings. The hybrid is an established composition, **not a proven original I65 method**.
+
+### 3.5 AC-dispatch transfer rejects a blanket hybrid advantage
+
+The paired [I/I2 reports](ITERATION64_I_REPORT_SR.md), [I2](ITERATION64_I2_REPORT_SR.md) show 12,000 original numerical PF evaluations per ORPD run and eight cells. IPOP achieves aggregate feasibility **0.771** and tail CVaR **0.2518**; GAdapt-M **0.746** feasibility and CVaR **0.2973**; the fixed hybrid **0.742** feasibility and CVaR **0.3772**. The I2 criterion against GAdapt-M is **undecided**, while against IPOP it is **opposite**. The tested hybrid recipe cannot be recommended as a reliable AC-dispatch improvement from these results. The cases are synthetic/public network models and their original I56-style constraints do not certify all industrial power-engineering conditions.
+
+Later independently coded NumPy Newton [dispatch verification](I65_INDEPENDENT_DISPATCH_RESULT_2026-11-02.md) on a single **previously used development midpoint** further demonstrated that two numerical PF solvers may converge while original reactive limit violation remains around **0.5991**, with `feasible=false` in both implementations. This is a **software-integrity follow-up, not a new optimization result**.
+
+## 4. Scientific conclusion that survives adversarial review
+
+**Supported within the fixed studies:** GAdapt's behavior is **strongly conditional** on baseline roster, budget accounting, objective transformation and feasibility rules. An actual matched Q design supports higher sensitivity of GAdapt than IPOP on selected problems. A phase-based hybrid can improve some synthetic ECDF outcomes but did **not** deliver approved overall or ORPD-tail superiority. Negative and stopped studies cannot be rewritten as positive confirmation.
+
+**Not supported:** universal optimizer superiority, a novel GAdapt→CMA switching mechanism, causal identification of an internal GAdapt component responsible for Q sensitivity, field-measured network feasibility, strong generalization from three new held-out COCO instances, or a frozen I65 statistical protocol.
+
+## 5. Proposed future methodological improvement, NOT executed
+
+For independent peer review, a future protocol could explicitly preregister *matched* transformations, physical resource-vector budgets, independent AC oracle requirements, baselines GAdapt-M/DE/CMA/IPOP/BIPOP, and model-class diversity. It should separate **function/instance randomness** from **algorithm-seed randomness** and report both objective-call and wall-time sensitivity without conflating them. The previously proposed I65 held-out f21/f24 study is **NO-FREEZE** and cannot be used as a substitute for missing causal-mechanism evidence.
+
+## 6. Publication position
+
+This is a potential descriptive/empirical thesis chapter, **not an experimentally validated novel method**. The mentor must decide whether this class of context-specific negative-aware study meets the institution's doctoral-originality requirement. The [recommended resolution](I65_RESEARCH_RESOLUTION_RECOMMENDATION_2026-11-02.md) prioritizes a separate evaluation-integrity manuscript with direct measurement and specificity falsification as the more clearly defensible methodological contribution. No new GAdapt package code, official held-out COCO runs or optimizer search is authorized by this draft.

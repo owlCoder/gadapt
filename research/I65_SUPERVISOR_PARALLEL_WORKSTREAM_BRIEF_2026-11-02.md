@@ -70,3 +70,9 @@ Kind regards,
 ---
 
 **Important:** This text is prepared for forwarding. It has **not** been sent and does not stand in for mentor approval. The historical GAdapt sources and all frozen outcomes remain unchanged.
+
+## Focused contribution choice and two manuscript-ready archival outlines (2026-11-02; UNSIGNED)
+
+The [research route decision and prior-art challenge](I65_RESEARCH_RESOLUTION_RECOMMENDATION_2026-11-02.md) places [evaluation-integrity paper v0](I65_EVALUATION_INTEGRITY_MANUSCRIPT_DRAFT_2026-11-02.md) **first** and [context-dependent GAdapt results paper v0](I65_CONTEXT_DEPENDENT_GADAPT_MANUSCRIPT_DRAFT_2026-11-02.md) second. Their novelty is **NOT ESTABLISHED**: Ravber et al. (2025) compared implementations in 13 frameworks, SIMPROV (2025) addressed heterogeneous simulation provenance, and Variable Cost Runtime Analysis (2025) already established a theory of variable evaluation cost. The potentially defensible specific contribution is independently falsified **evaluation-call and returned-best integrity** transferred from synthetic functions to AC simulation while preserving false-positive and failed-replay findings.
+
+**Decision demanded:** explicitly accept or reject a doctorate based on a rigorous, negative-aware empirical/integrity contribution without a new optimizer. If institutionally insufficient, state the missing mathematical theorem/method and originality bar before any candidate C implementation. The drafts were prepared but **not submitted, emailed, signed, peer reviewed or based on new experiments**.

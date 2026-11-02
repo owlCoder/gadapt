@@ -292,3 +292,19 @@ unresolved `f_opt`/normalization/instance-uncertainty gates.
 All are **documentation-only, unsigned, unapproved review drafts**.
 No external benchmark was acquired/solved, no new I65 method or held-out
 COCO objective was evaluated. See the [reviewer-ready supervisor brief](../I65_SUPERVISOR_PARALLEL_WORKSTREAM_BRIEF_2026-11-02.md).
+
+## Manuscript-backed route proposed on 2026-11-02 (no new experiments)
+
+A [research-resolution decision](../I65_RESEARCH_RESOLUTION_RECOMMENDATION_2026-11-02.md)
+selects as the most defensible *conditional* doctoral route a narrow
+[black-box evaluation-integrity manuscript v0](../I65_EVALUATION_INTEGRITY_MANUSCRIPT_DRAFT_2026-11-02.md)
+supported by frozen I49/I50/I52/I55; plus a separate
+[context-dependent GAdapt manuscript v0](../I65_CONTEXT_DEPENDENT_GADAPT_MANUSCRIPT_DRAFT_2026-11-02.md)
+using original S0/E/R/E3/A/I/I2 results with the contradictory outcomes
+preserved. External Ravber 2025 framework comparison, SIMPROV 2025
+simulation provenance and 2025 variable-cost runtime theory narrow
+any claimed scientific novelty; none is yet independently established.
+If a *new* optimizer/theorem is a mandatory doctoral requirement,
+these manuscripts alone are **insufficient**. No I65 new optimizer
+implementation, external-grid optimization or held-out COCO run was
+authorized or executed.
