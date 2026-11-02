@@ -83,3 +83,20 @@ documentation gate**. See [full mathematics, preflight and limits](../I65_AC_EQU
 This only checks the algebraic consistency of **the solver-supplied state**;
 it is not a separately implemented numerical AC solver, not a validated
 independent physical model, and not COCO/I65 novelty evidence.
+
+## Real AC equation consistency on one historical development case
+
+[GitHub Actions #41395941943](https://github.com/owlCoder/gadapt/actions/runs/41395941943)
+**PASS** on a single `case30, j=1, R=17` I58 development operating
+point: 15/15 tests, independent NumPy nodal AC mismatch
+**1.53e-8 MVA** versus predeclared **1e-3 MVA**, branch-flow difference
+**4.05e-13 MVA** versus **1e-5 MVA**, and independently calculated
+losses **3.1140815874688497 MW** versus PYPOWER's **3.114081587468966 MW**.
+A false +1-MW generator injection was rejected. The solver performed
+one setup OPF and one witness PF, with no search calls. ZIP digest,
+4/4 log digests, internal trace hash and source blobs were independently
+verified. See [the complete result and limitations](../I65_AC_EQUATION_RESIDUAL_RESULT_2026-11-02.md).
+
+This **does not constitute a second numerical AC solver or complete
+operational-feasibility certificate**, and leaves scientific novelty,
+I65 candidate-C validation and held-out COCO unapproved/unrun.
