@@ -46,3 +46,20 @@ Even after PASS, this would independently reconstruct REF/PV generation and line
 
 **GO:** one low-cost falsification and source provenance comparison only.  
 **NO-GO:** claims of independent physical truth, original optimizer method, frozen experimental protocol or held-out COCO confirmation. Supervisor M1–M6 and C1–C6 choices remain undecided; I65 `novelty not established / DRAFT / NO-FREEZE / COCO NOT_RUN`.
+
+## Confirmed independently measured result (2026-11-02)
+
+The separately triggered [full-history Python 3.12 run #41419711114](https://github.com/owlCoder/gadapt/actions/runs/41419711114)
+**PASS** against every precommitted threshold: **47/47** unit tests,
+max `QG` error `6.714628852932947e-12 MVAr`,
+REF `PG` error `8.881784197001252e-13 MW`,
+from/to complex flow error `5.932425511178245e-12 /
+6.0066922763819755e-12 MVA`, and all four I56 violation totals
+within `4.440892098500626e-15`. The fixed candidate is **still
+reactively infeasible**, `0.5991137833375704` independent versus
+`0.5991137833375748` original PYPOWER. Raw evidence and all **6/6**
+verified file SHA-256 values are archived in
+[the final report](I65_INDEPENDENT_DISPATCH_RESULT_2026-11-02.md)
+and [raw `smoke.json`](I65_INDEPENDENT_DISPATCH_SUCCESS_2026-11-02.json).
+This does not change the preregistered goals or validate model-independent
+physical data.

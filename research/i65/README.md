@@ -213,3 +213,25 @@ the **same standard mathematical AC model and network data**, not
 external physical observations; PF convergence can still leave the
 midpoint **reactively infeasible**. See the
 [formal preflight](../I65_INDEPENDENT_DISPATCH_PREFLIGHT_2026-11-02.md).
+
+## Verified independent generator dispatch reconstruction (2026-11-02)
+
+The [bounded GitHub Actions #41419711114](https://github.com/owlCoder/gadapt/actions/runs/41419711114)
+**PASS**, Python 3.12.15 with **47/47** old and new analytic tests.
+For one original non-held-out fixed I58 `case30/j1` case, the
+independent Newton and [dispatch reconstruction](independent_ac_dispatch.py)
+derived REF/PV generator `QG`, REF `PG`, both-end branch flows and all
+four I56 constraints independently of PYPOWER output.
+The max generator `QG` error was `6.71e-12 MVAr`, REF `PG` error
+`8.88e-13 MW`, and both-end branch flows below `6.01e-12 MVA`.
+The crucial original negative is preserved: reactive violation from the
+independent solver `0.5991137833375704`, vs PYPOWER
+`0.5991137833375748`; **both label the original midpoint infeasible**.
+
+Original CI ZIP and **6/6 individual log digests**, internal trace hash,
+and six source Git blobs were independently checked. See the
+[complete result](../I65_INDEPENDENT_DISPATCH_RESULT_2026-11-02.md)
+and [byte-preserved raw JSON](../I65_INDEPENDENT_DISPATCH_SUCCESS_2026-11-02.json).
+This is independent numerical software on the **same mathematical AC
+model/input**, not independent physical grid evidence or optimizer novelty.
+Multi-generator Q allocation and Q-limit-enforcing PF remain unsupported.
