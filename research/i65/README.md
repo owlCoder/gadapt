@@ -235,3 +235,21 @@ and [byte-preserved raw JSON](../I65_INDEPENDENT_DISPATCH_SUCCESS_2026-11-02.jso
 This is independent numerical software on the **same mathematical AC
 model/input**, not independent physical grid evidence or optimizer novelty.
 Multi-generator Q allocation and Q-limit-enforcing PF remain unsupported.
+
+## Public case30 model provenance and synthetic input lineage (2026-11-02)
+
+The [precommitted source audit](../I65_CASE30_SOURCE_PROVENANCE_PREFLIGHT_2026-11-02.md)
+distinguishes PYPOWER/MATPOWER's modified six-generator `case30` academic
+benchmark from `case_ieee30` IEEE Common Data Format data. Neither
+represents independent measured validation of I65. The original I56/I58
+development case transforms `PD/QD` by a seeded 10% perturbation at
+load factor 1.00, transfers `PG` from **one setup OPF**, then snaps
+and applies only `VG/TAP/BS` controls.
+
+A [NumPy-only lineage auditor](input_provenance_audit.py) stores four
+canonical numeric SHA-256 fingerprints and rejects unauthorized
+changes; [17 synthetic tests](test_input_provenance_audit.py) and a
+[one-OPF, zero-PF case30 diagnostic](smoke_input_provenance_audit.py)
+are preregistered. **Real Python 3.12 outcome NOT_RUN** at this initial
+preflight. PYPOWER case data are excluded from its BSD software
+license, so no full case arrays are copied into this repository.
