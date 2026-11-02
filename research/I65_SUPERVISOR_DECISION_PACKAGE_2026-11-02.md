@@ -79,3 +79,14 @@ Existing review questions referenced as **M1–M6** in the research handoffs als
 The new [evidence-to-gate crosswalk and adversarial prior-art review](I65_M1_M6_EVIDENCE_AND_PRIOR_ART_CROSSWALK_2026-11-02.md) uses the original definitions, distinguishes **M1 technical full-clone CI PASS** from an unsigned reviewer acceptance, classifies **M2 partial and M3 numerical-only**, and leaves **M4 COCO runtime NOT_RUN, M5 statistical protocol NO-FREEZE and M6 originality PENDING**. It documents a formal additive-offset counterexample for any `s_i` scale based on the *uncentered* median of 4,096 objective values, without changing the draft or evaluating COCO. The relevant IPOP/BIPOP/COCO/EAF/reproducibility precedent was located from primary publisher or project sources; **Crossref API verification remains UNVERIFIED** because access failed.
 
 **Decision request unchanged:** accept/reject the empirical dissertation scope, define the contribution's precise originality, approve physical-cost and independent-model sufficiency, and sign a complete pre-run statistical/oracle protocol before any further optimizer or held-out experiment. This addendum does not supply a signature.
+
+## Four parallel independent review packets — added 2026-11-02
+
+The existing C1–C6 decisions above **remain entirely UNDECIDED**. A newly prepared [one-page supervisor-ready action brief](I65_SUPERVISOR_PARALLEL_WORKSTREAM_BRIEF_2026-11-02.md) organizes completed, documentary-only reviews of:
+
+- [A — established restart/ECDF/EAF and evaluation-integrity prior art](I65_PARALLEL_PRIOR_ART_REVIEW_2026-11-02.md): M6/C1; exact algorithm novelty **not established**, Crossref API verification **unavailable**.
+- [B — independent model/data provenance candidates](I65_INDEPENDENT_MODEL_DATA_SCREEN_2026-11-02.md): M3/C4/C5; PGLib-OPF and UWEE **screened only**; field measurement data **not available**, external case numerical/optimizer runs **NOT_RUN**.
+- [C — full objective/OPF/PF/internal-Newton cost ledger](I65_RESOURCE_ACCOUNTING_REVIEW_DRAFT_2026-11-02.md): M2/M3/C2/C3; explicit unmatched cost units and exceptional outcomes, **not a budget freeze**.
+- [D — official COCO and all six statistical contrasts](I65_COCO_ORACLE_SIX_CONTRAST_REVIEW_DRAFT_2026-11-02.md): M4/M5/C6; official documentation reviewed, runtime and true `f_opt` validation **NOT_RUN**, statistics **UNFROZEN**.
+
+The briefing includes a **ready-to-forward, NOT SENT** message and blank supervisor decision fields. Only an independently obtained, dated human response may change C1–C6 or M6 to accepted. Never treat source screening, mathematical counterexamples, previous software-regression PASS or drafting this package as consent for new experimental work.

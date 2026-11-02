@@ -276,3 +276,19 @@ See [complete archive, real evidence hashes and limitations](../I65_CASE30_SOURC
 and [unsigned supervisor decisions](../I65_SUPERVISOR_DECISION_PACKAGE_2026-11-02.md).
 No physical-model independence, algorithm novelty or confirmatory-run
 authorization is implied.
+
+## Four parallel readiness reviews (2026-11-02; no new optimizer experiments)
+
+Following the M1–M6 source reconciliation, a [targeted prior-art review](../I65_PARALLEL_PRIOR_ART_REVIEW_2026-11-02.md)
+challenged novelty for IPOP/BIPOP, COCO ECDF, EAF, reproducibility and
+ordinary GAdapt→CMA switching. The [model/data admission screen](../I65_INDEPENDENT_MODEL_DATA_SCREEN_2026-11-02.md)
+differentiated source archives, numerical code independence, and missing
+independent field measurements. The [resource-ledger draft](../I65_RESOURCE_ACCOUNTING_REVIEW_DRAFT_2026-11-02.md)
+separated objective/OPF/PF/internal Newton/witness cost types. The
+[COCO oracle and six-contrast review](../I65_COCO_ORACLE_SIX_CONTRAST_REVIEW_DRAFT_2026-11-02.md)
+formulated all six proposed one-sided simultaneous contrasts and the
+unresolved `f_opt`/normalization/instance-uncertainty gates.
+
+All are **documentation-only, unsigned, unapproved review drafts**.
+No external benchmark was acquired/solved, no new I65 method or held-out
+COCO objective was evaluated. See the [reviewer-ready supervisor brief](../I65_SUPERVISOR_PARALLEL_WORKSTREAM_BRIEF_2026-11-02.md).
