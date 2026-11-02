@@ -115,3 +115,22 @@ absolute `1e-8` aggregate-difference tolerance and four limit-only
 falsifications. See [scope, formulas and hard gates](../I65_ORPD_OPERATIONAL_CONSTRAINT_PREFLIGHT_2026-11-02.md).
 A real PYPOWER comparison is **NOT_RUN at this initial preflight**, so the
 local 15/15 must not be called a physical feasibility test or result.
+
+## First real I56 four-constraint comparison and negative finding
+
+[Run #41406369109](https://github.com/owlCoder/gadapt/actions/runs/41406369109)
+**FAILED the additional reactive-tamper assertion**, but the 15 initial
+unit tests passed and the four independently recomputed constraint values
+matched frozen I56 **exactly**, with **zero** differences. The original
+fixed development candidate was **infeasible** due to reactive component
+`0.5991137833375748` (other components 0); this is NOT an optimizer
+benchmark result. The false input lowered `QMIN`, masking an existing
+violation; exact original [negative JSON](../I65_ORPD_OPERATIONAL_FIRST_NEGATIVE_2026-11-02.json)
+and [analysis](../I65_ORPD_OPERATIONAL_FIRST_NEGATIVE_REPORT_2026-11-02.md)
+are archived.
+
+The tamper has been mathematically strengthened to exceed the entire
+previous violation total, with two new analytic tests; **17/17 LOCAL PASS**.
+The physical CI verification of this strengthened tamper is **not yet
+established** at this repair commit. None of the original four I56 metrics,
+numerical thresholds or historical sources were changed.

@@ -48,8 +48,9 @@ def tamper_limits_only(solved, baseline):
     c = clone_case(solved)
     row = 0
     vm = float(c['bus'][row, 7])
-    upper_excess = max(vm - float(c['bus'][row, 11]), 0.)
-    c['bus'][row, 11] = vm - upper_excess - .05
+    # Use the *whole baseline penalty*, not only the chosen bus's current
+    # excess: this guarantees an increase even if other buses already fail.
+    c['bus'][row, 11] = vm - float(baseline['voltage']) - .05
     c['bus'][row, 12] = min(float(c['bus'][row, 12]), float(c['bus'][row, 11]) - .1)
     variants['voltage'] = c
 
@@ -58,8 +59,11 @@ def tamper_limits_only(solved, baseline):
     gen = c['gen']
     g = int(np.flatnonzero(gen[:, 7] > 0)[0])
     q = float(gen[g, 2])
-    excess = max(q - float(gen[g, 3]), 0.)
-    gen[g, 3] = q - excess - 1.
+    # A candidate can ALREADY violate several QMIN bounds. Lowering QMIN
+    # while adding a small QMAX violation can reduce the total sum (observed
+    # in the first real case30 smoke). Force this single generator's new
+    # upper violation to EXCEED the entire old reactive sum by 1 MVAr.
+    gen[g, 3] = q - float(baseline['reactive']) * float(solved['baseMVA']) - 1.
     gen[g, 4] = min(float(gen[g, 4]), float(gen[g, 3]) - 1.)
     variants['reactive'] = c
 
@@ -72,8 +76,7 @@ def tamper_limits_only(solved, baseline):
         raise RuntimeError('no reference generator available for controlled tamper')
     g = ref[0]
     pg = float(gen[g, 1])
-    excess = max(pg - float(gen[g, 8]), 0.)
-    gen[g, 8] = pg - excess - 1.
+    gen[g, 8] = pg - float(baseline['slack']) * float(solved['baseMVA']) - 1.
     gen[g, 9] = min(float(gen[g, 9]), float(gen[g, 8]) - 1.)
     variants['slack'] = c
 

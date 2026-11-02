@@ -155,6 +155,28 @@ class ConstraintWitnessTests(unittest.TestCase):
         with self.assertRaises(InvalidACCase):
             validate_constraint_components(c)
 
+    def test_naive_reactive_tamper_can_lower_aggregate(self):
+        # Counterexample from the first real I56 case: a lower-limit failure
+        # can disappear when QMIN is lowered to make room for new QMAX.
+        c = base_case()
+        c['gen'][0, 2] = -100
+        before = calculate_constraint_components(c)['reactive']
+        self.assertAlmostEqual(before, .9)
+        g = c['gen'][0]
+        g[3] = g[2] - 1
+        g[4] = min(g[4], g[3] - 1)
+        self.assertLess(calculate_constraint_components(c)['reactive'], before)
+
+    def test_strong_reactive_tamper_exceeds_existing_total(self):
+        c = base_case()
+        c['gen'][0, 2] = -100
+        before = calculate_constraint_components(c)['reactive']
+        g = c['gen'][0]
+        g[3] = g[2] - before * c['baseMVA'] - 1
+        g[4] = min(g[4], g[3] - 1)
+        after = calculate_constraint_components(c)['reactive']
+        self.assertGreater(after, before + .00999999999)
+
 
 if __name__ == '__main__':
     unittest.main()
