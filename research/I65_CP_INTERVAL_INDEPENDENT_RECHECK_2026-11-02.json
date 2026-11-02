@@ -1,0 +1,89 @@
+{
+  "schema": "GADAPT_I65_CLOPPER_PEARSON_RECOMPUTE_V1",
+  "date": "2026-11-02",
+  "method": "Independent pure JavaScript numeric inversion of exact binomial tail sums; 80 bisection steps per endpoint; 95% two-sided Clopper-Pearson (alpha=0.05); 0.025 each tail; no software library stats calls",
+  "inputs": "Only k/n and original published confidence interval endpoints from existing I49/I50/I52 source JSON, no random trials re-run",
+  "rows": [
+    {
+      "k": 4,
+      "n": 9,
+      "label": "I49 preregistered flagged",
+      "stored": [
+        0.1369956622651665,
+        0.787991493221132
+      ],
+      "recomputed": [
+        0.13699566226516646,
+        0.787991493221132
+      ],
+      "max_abs_difference": 2.7755575615628914e-17,
+      "passed": true
+    },
+    {
+      "k": 11,
+      "n": 12,
+      "label": "I50 original primary flag",
+      "stored": [
+        0.6152038348490559,
+        0.9978924067681397
+      ],
+      "recomputed": [
+        0.6152038348490558,
+        0.9978924067681398
+      ],
+      "max_abs_difference": 1.1102230246251565e-16,
+      "passed": true
+    },
+    {
+      "k": 4,
+      "n": 12,
+      "label": "I50 posthoc non-C1 flag",
+      "stored": [
+        0.09924609114958328,
+        0.6511244935811844
+      ],
+      "recomputed": [
+        0.09924609114958327,
+        0.651124493581186
+      ],
+      "max_abs_difference": 1.5543122344752192e-15,
+      "passed": true
+    },
+    {
+      "k": 2,
+      "n": 12,
+      "label": "I50 secondary documentation contradictions",
+      "stored": [
+        0.020862525460092384,
+        0.48413774868596704
+      ],
+      "recomputed": [
+        0.020862525460092374,
+        0.48413774868596715
+      ],
+      "max_abs_difference": 1.1102230246251565e-16,
+      "passed": true
+    },
+    {
+      "k": 19,
+      "n": 21,
+      "label": "I52 preregistered library-level status agreement",
+      "stored": [
+        0.6962255930860758,
+        0.9882506821155542
+      ],
+      "recomputed": [
+        0.6962255930860759,
+        0.9882506821155541
+      ],
+      "max_abs_difference": 1.1102230246251565e-16,
+      "passed": true
+    }
+  ],
+  "all_5_match": true,
+  "limits": [
+    "Binomial CP interval arithmetic verification does not establish random sampling of libraries or causal model validity",
+    "I50 non-C1 result is post hoc, even though its interval can be recomputed",
+    "This recheck does not reproduce original optimizer trials, data-driven labels or I64 bootstrap"
+  ]
+}

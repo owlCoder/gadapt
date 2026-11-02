@@ -308,3 +308,18 @@ If a *new* optimizer/theorem is a mandatory doctoral requirement,
 these manuscripts alone are **insufficient**. No I65 new optimizer
 implementation, external-grid optimization or held-out COCO run was
 authorized or executed.
+
+## Archived-results manuscript QA (2026-11-02)
+
+The [six-source archive audit](../I65_ARCHIVED_CLAIM_RECHECK_2026-11-02.json)
+confirmed original I49/I50/I52/I55 counts with explicit Git blob hashes
+and the [independent Clopper–Pearson recomputation](../I65_CP_INTERVAL_INDEPENDENT_RECHECK_2026-11-02.json)
+verified **5/5** 95% binomial intervals. The original
+[I52 post hoc sensitivity](../results/iteration52/sensitivity.json)
+shows complete-only **17/18**, missing-data match range **17–20/21**;
+the original preregistered **>=17/21** acceptance remains supported.
+The [I49 original JSON](../results/iteration49/integrity_audit.json)
+contains **33 bare Infinity tokens** and is not strict JSON.
+See the [full falsification review](../I65_ARCHIVAL_MANUSCRIPT_FALSIFICATION_REVIEW_2026-11-02.md)
+and corrected addenda in both manuscript drafts. All historical archives
+and model/optimizer code remain untouched. Originality is not established.
