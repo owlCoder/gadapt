@@ -151,3 +151,23 @@ Source/JSON/ZIP and **4/4 SHA-256** evidence are in the [complete result](../I65
 and [raw successful JSON](../I65_ORPD_OPERATIONAL_SUCCESS_2026-11-02.json).
 This closes a *single-development-case operational arithmetic replication*
 gate, not a complete independent AC solver or proof of scientific novelty.
+
+## Independent numerical AC PF diagnostic — 2026-11-02
+
+A new [independently written, NumPy-only Newton numerical PF solver](independent_ac_newton.py)
+solves *input* REF/PV/PQ AC equations from a **flat start** with central
+finite differences, a 20-step cap, explicit numerical residual accounting
+and conservative rejection of unsupported inputs. Unlike previous AC
+residual and I56 constraint checks, this **actually computes new bus
+voltages and angles**, without using PYPOWER's solved point. It has
+**16/16 standalone analytic/negative tests PASS locally** (exact
+[console](../I65_INDEPENDENT_NEWTON_LOCAL_TEST_LOG_2026-11-02.txt)),
+including known 0.4 MW two-bus loss and PV/PQ/REF three-bus cases.
+
+A strictly bounded [development-only comparison smoke](smoke_independent_ac_newton.py)
+is preregistered against the original I58 `case30/j1` fixed midpoint
+with fixed voltage/angle/branch-loss tolerances; it is NOT_RUN at
+initial publication. See [the preflight and limitations](../I65_INDEPENDENT_NEWTON_PREFLIGHT_2026-11-02.md).
+It reimplements a standard numerical method, **not** a novel optimizer or
+independent physical grid model; it does not enforce generator reactive
+limits, and the earlier original candidate remains reactively infeasible.
