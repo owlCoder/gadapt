@@ -253,3 +253,26 @@ changes; [17 synthetic tests](test_input_provenance_audit.py) and a
 are preregistered. **Real Python 3.12 outcome NOT_RUN** at this initial
 preflight. PYPOWER case data are excluded from its BSD software
 license, so no full case arrays are copied into this repository.
+
+## Real source case and scenario transformation audit (2026-11-02)
+
+[GitHub Actions #41422248142](https://github.com/owlCoder/gadapt/actions/runs/41422248142)
+**PASS** on one original I58 development `case30,j1,R17`:
+**17/17** synthetic adversarial tests; only **one OPF setup call**;
+raw/scaled/post-OPF/controlled numeric input hashes pass exact change
+allowlists. The archived installed **PYPOWER 5.1.19 `case30.py` SHA** is
+`f7f8c565be22f30d4ba9facab8707072ef5dc3bacb6ea9ef57245c11e0bde9f6`.
+The source's **raw input numeric fingerprint** is
+`3b4e587cd94f2cfefc8cec384b3fec692eb74a75f38c9f757800d261d4b28c9c`.
+Original I56 control selection measured **6 VG, 0 TAP, 2 BS**
+variables: the case cannot, by itself, validate any controllable
+transformer tap optimization. The seed-302 ±10% load change is synthetic.
+PYPOWER's installed API did **not** expose `case_ieee30`, so its numeric
+side-by-side identity with `case30` was NOT_VERIFIED; both are
+academically sourced, not independently observed field data.
+
+See [complete archive, real evidence hashes and limitations](../I65_CASE30_SOURCE_PROVENANCE_RESULT_2026-11-02.md),
+[byte-preserved smoke JSON](../I65_CASE30_INPUT_LINEAGE_SUCCESS_2026-11-02.json)
+and [unsigned supervisor decisions](../I65_SUPERVISOR_DECISION_PACKAGE_2026-11-02.md).
+No physical-model independence, algorithm novelty or confirmatory-run
+authorization is implied.

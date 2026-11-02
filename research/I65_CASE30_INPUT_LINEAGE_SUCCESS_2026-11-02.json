@@ -1,0 +1,92 @@
+{
+  "api_entrypoints": {
+    "events": [
+      {
+        "index": 1,
+        "kind": "runopf",
+        "outcome": "returned",
+        "phase": "setup"
+      }
+    ],
+    "phases": {
+      "search": {
+        "runopf": 0,
+        "runpf": 0
+      },
+      "setup": {
+        "runopf": 1,
+        "runpf": 0
+      },
+      "witness": {
+        "runopf": 0,
+        "runpf": 0
+      }
+    },
+    "schema": "GADAPT_I65_SOLVER_ENTRYPOINT_V1",
+    "scope": "pypower.api.runopf/runpf entrypoint attempts only",
+    "sha256": "07745245c2bb354e099271053217090fd3f8261918fec2fd800f135d0ce8cebd",
+    "totals": {
+      "runopf": 1,
+      "runpf": 0
+    }
+  },
+  "case": {
+    "j": 1,
+    "load_factor": 1.0,
+    "network": "case30",
+    "resolution": 17,
+    "seed": 302,
+    "spread": 0.1
+  },
+  "errors": [],
+  "model_provenance": {
+    "case30_is_not_identical_to_case_ieee30": null,
+    "case30_raw_fingerprint": "3b4e587cd94f2cfefc8cec384b3fec692eb74a75f38c9f757800d261d4b28c9c",
+    "case_ieee30_installed_fingerprint_if_available": null,
+    "installed_case_source_basename": "case30.py",
+    "installed_case_source_sha256": "f7f8c565be22f30d4ba9facab8707072ef5dc3bacb6ea9ef57245c11e0bde9f6",
+    "installed_pypower_version": "5.1.19",
+    "licensing_note": "PYPOWER case data are excluded from PYPOWER BSD software license; do not relicense case contents",
+    "physical_status": "transformed academic benchmark, not independent field measurement",
+    "source_name": "pypower.api.case30"
+  },
+  "runtime": {
+    "numpy": "1.26.4",
+    "python": "3.12.15"
+  },
+  "scope": "single historical development case with one OPF setup; no candidate evaluation or independent physical source",
+  "source_git_blobs": {
+    "audit": "eaac7c8d84ab072b402b444e3ae16b3dc42dca05",
+    "original_i56": "43f2f279f7e6362250dc9277e58e0d939a98c12f",
+    "original_i56_study": "462e08368b70d869015d1056366964b4d10b92e1",
+    "original_i58": "9747faea9c31526a163bd8439c74708214c07a3c"
+  },
+  "status": "PASS",
+  "transformation": {
+    "allowed_mutations": [
+      "PD/QD random scenario scale",
+      "OPF PG handoff",
+      "snapped VG/TAP/BS candidate"
+    ],
+    "classification": "PUBLIC_MODIFIED_BENCHMARK_NOT_INDEPENDENT_GRID_MEASUREMENT",
+    "control_counts": {
+      "shunt": 2,
+      "tap": 0,
+      "vg": 6
+    },
+    "factors": {
+      "max": 1.0892233719610789,
+      "min": 0.9078525335363066,
+      "sum": 29.65406846378434
+    },
+    "not_a_physical_provenance_certificate": true,
+    "number_of_load_buses": 30,
+    "schema": "GADAPT_I65_ORPD_INPUT_LINEAGE_V1",
+    "stages": {
+      "controlled": "a9ae44beb1309c2696a47175b25246aef83f639165635c74948ef3e86661b9a1",
+      "post_opf": "bc5a7d98773089e271fe34023fac7fee475ebb6bd6df5f835e7ffa21c7f1ae58",
+      "raw": "3b4e587cd94f2cfefc8cec384b3fec692eb74a75f38c9f757800d261d4b28c9c",
+      "scaled": "440acbf4ba6f06162c62fec3fc967a4618966e2bd580c355d07d5c2d56c0985c"
+    }
+  }
+}

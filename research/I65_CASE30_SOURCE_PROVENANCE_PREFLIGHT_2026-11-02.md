@@ -60,3 +60,18 @@ This audit can validate deterministic **software-model input lineage** and revea
 **NO-GO:** call `case30` measured grid truth, change the frozen input model or I56 control formula, infer novelty from fingerprinting, run additional candidate-C algorithms or held-out COCO, or freeze a statistical protocol without C1–C6/M1–M6 approval.
 
 **NEXT STEP:** verify real one-shot CI outcome and independent byte-level ZIP/hash evidence; then prepare a **dated English supervisor decision package** identifying exact approvals and independent-data gaps, instead of trying more optimizer experiments. Status stays **DRAFT / NO-FREEZE / novelty not established / COCO NOT_RUN**.
+
+## Actual result (2026-11-02)
+
+The strictly precommitted [run #41422248142](https://github.com/owlCoder/gadapt/actions/runs/41422248142)
+completed **SUCCESS** at Python 3.12.15/PYPOWER 5.1.19: **17/17**
+adversarial tests PASS and exactly one setup OPF, zero PF/search.
+The case30 source-file SHA and four distinct numeric stage fingerprints
+were archived. Raw `case30` has **6 VG + 0 eligible TAP + 2 BS**
+I56 control variables; it cannot demonstrate transformer tap-control
+optimization. The alternative `case_ieee30` was **unavailable through
+installed PYPOWER API**, so no numeric variant comparison was performed.
+See [full measured result](I65_CASE30_SOURCE_PROVENANCE_RESULT_2026-11-02.md)
+and [byte-identical raw output](I65_CASE30_INPUT_LINEAGE_SUCCESS_2026-11-02.json).
+A separate [mentor decision package](I65_SUPERVISOR_DECISION_PACKAGE_2026-11-02.md)
+remains unsigned/unapproved.
