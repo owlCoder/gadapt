@@ -1,11 +1,11 @@
 name: I65 independent AC residual diagnostic (one-shot)
 
 # No push, pull_request or schedule trigger. This only reacts to the
-# specifically authorized second attempt of the prior cheap API audit job.
+# third attempt of the original manual regression job (separate chain root).
 on:
   workflow_run:
     workflows:
-      - "I65 PYPOWER entrypoint audit (one-shot)"
+      - "Research full-clone migration regression (manual only)"
     types: [completed]
 
 permissions:
@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   ac-residual-diagnostic:
-    if: ${{ github.event.workflow_run.id == 41385833963 && github.event.workflow_run.run_attempt == 2 && github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.id == 41357664531 && github.event.workflow_run.run_attempt == 3 }}
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:

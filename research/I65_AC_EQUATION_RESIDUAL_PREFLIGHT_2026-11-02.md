@@ -34,3 +34,9 @@ Predeclared API-entrypoint expectations: `setup: runopf=1`, `witness: runpf=1`, 
 ## Separate unsolved research budget/oracle decision
 
 Do not identify the historical `Evaluator.calls` count, the wrapper `AuditedBudget.attempts`, the number of numerical solver **API entrypoints**, or internal PF/OPF Newton iterations as equal quantities. A future protocol must explicitly name its budget resource and include setup, exception attempts and witness charges consistently. This separate accounting decision has **not** been approved by a supervisor (M1–M6), and this residual check cannot certify true model-independence. COCO confirmation, actual optimizer coupling and performance tests remain **NOT_RUN / NO-FREEZE**.
+
+## CI activation correction (2026-11-02)
+
+The initial one-shot workflow pointed to the already third-level `workflow_run` job `#41385833963` attempt 2. That chained attempt completed successfully, **but this fourth-level downstream job did not start**: GitHub Actions explicitly forbids chaining more than three `workflow_run` levels (GitHub Docs: https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows). This is a **CI trigger limitation**, not evidence that the AC residual check passed or failed.
+
+The new workflow is instead scoped to the *original root manual* job `#41357664531`, **attempt 3**, as the new first-level downstream child. That historical root job at its old SHA is known to fail due to a pre-fixed virtualenv bug: its result is **NOT** used as evidence of the new residual checker and **does not need to pass**. The child checks out the **latest main commit**, validates that the independent residual source is present, and only its own unit/smoke logs can determine PASS/FAIL. No push-trigger or optimization experiment was introduced.
