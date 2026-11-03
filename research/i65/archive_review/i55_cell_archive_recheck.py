@@ -73,6 +73,10 @@ def audit_library(name: str, cells: list[dict]) -> dict:
     seen = set()
     counts = {"valid": 0, "invalid": 0, "manipulation_ok": 0,
               "D3": 0, "D3x_same": 0, "D3x_diff": 0}
+    # Reclassify *original digest equality*, not asserted causality.
+    # same=1 means A == A_prime, diff=1 means A == B.
+    controls = {"same_1_diff_1": 0, "same_1_diff_0": 0,
+                "same_0_diff_0": 0, "same_0_diff_1": 0}
     invalid_keys = []
     for c in cells:
         label = (c.get("function"), c.get("d"), c.get("seed"))
@@ -98,6 +102,10 @@ def audit_library(name: str, cells: list[dict]) -> dict:
             reconstructed = int(c["hash"] != c[compared_to])
             check(c.get(key) == reconstructed, f"{name}: {key} flag disagrees with source hashes {label}")
             counts[key] += reconstructed
+        same = int(c["hash"] == c["hash_same"])
+        different = int(c["hash"] == c["hash_diff"])
+        controls[f"same_{same}_diff_{different}"] += 1
+    counts["control_patterns"] = controls
     counts["cells"] = len(cells)
     counts["invalid_keys"] = invalid_keys
     return counts
@@ -136,6 +144,14 @@ def audit_tree(repo_root: Path) -> dict:
     check((by_library["nevergrad"]["D3x_diff"], by_library["nevergrad"]["D3x_same"],
            by_library["smac"]["D3x_diff"], by_library["smac"]["D3x_same"]) == (5, 5, 30, 0),
           "I55 hash-seed contrast counts changed")
+    controls = {key: sum(r["control_patterns"][key] for r in by_library.values())
+                for key in ("same_1_diff_1", "same_1_diff_0", "same_0_diff_0", "same_0_diff_1")}
+    check(controls == {"same_1_diff_1": 585, "same_1_diff_0": 30,
+                       "same_0_diff_0": 5, "same_0_diff_1": 0},
+          "I55 same/different hash-seed contingency changed")
+    check(by_library["smac"]["control_patterns"]["same_1_diff_0"] == 30 and
+          by_library["nevergrad"]["control_patterns"]["same_0_diff_0"] == 5,
+          "Hash-seed control attribution library changed")
     return {
         "schema": "GADAPT_I55_CELL_JSON_RECHECK_V1",
         "kind": "read_only_archived_cell_metadata_check_not_npz_trace_replay",
@@ -144,6 +160,12 @@ def audit_tree(repo_root: Path) -> dict:
         "totals": {"libraries": len(by_library), **summed},
         "d3x_diff_libraries": differing,
         "d3x_same_libraries": same,
+        "control_conditioned_digest_patterns": controls,
+        "control_interpretation": {
+            "same_1_diff_0": "different-seed divergence after one stable same-seed control, SMAC only",
+            "same_0_diff_0": "same-seed control itself divergent; B difference not isolated to seed, Nevergrad only",
+            "caveat": "post hoc source-metadata classification; not an NPZ replay or causal proof",
+        },
         "by_library": by_library,
         "checks": {"source_blobs": True, "cell_uniqueness": True, "seed_sentinels": True,
                    "rederived_hash_flags": True, "recompute_aggregate_agreement": True,

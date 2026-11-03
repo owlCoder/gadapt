@@ -62,5 +62,29 @@ class CheckArchivedCellRecords(unittest.TestCase):
         with self.assertRaisesRegex(ArchiveMismatch, "invalid hash_diff digest"):
             audit_library("smac", values)
 
+    def test_control_conditioned_smac_pattern(self):
+        result = audit_library("smac", cohort())
+        self.assertEqual(result["control_patterns"],
+                         {"same_1_diff_1": 0, "same_1_diff_0": 30,
+                          "same_0_diff_0": 0, "same_0_diff_1": 0})
+
+    def test_control_divergence_is_not_hash_seed_specific(self):
+        values = cohort()
+        for v in values:
+            v["hash_same"] = hashlib.sha256(b"third").hexdigest()
+            v["D3x_same"] = 1
+        result = audit_library("smac", values)
+        self.assertEqual(result["control_patterns"]["same_0_diff_0"], 30)
+        self.assertEqual(result["control_patterns"]["same_1_diff_0"], 0)
+
+    def test_stable_within_both_conditions(self):
+        values = cohort()
+        for v in values:
+            v["hash_diff"] = v["hash"]
+            v["D3x_diff"] = 0
+        result = audit_library("smac", values)
+        self.assertEqual(result["control_patterns"]["same_1_diff_1"], 30)
+
+
 if __name__ == "__main__":
     unittest.main()

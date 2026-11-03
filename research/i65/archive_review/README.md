@@ -63,3 +63,9 @@ Primary original reports remain authoritative and have not been modified in this
 - [Scientific report](I65_I52_CHANCE_CORRECTED_AND_CLASS_TRANSFER_REVIEW_2026-11-03.md), [read-only pinned-blob verifier](i52_transfer_compact.py), and [eight isolated tests](test_i52_transfer_compact.py). Original registered H52 19/21 is unchanged; *post hoc* Cohen kappa = 83/104 = 0.79808, class-pair Jaccard = 7/11, full 21-library confusion = 7 both-positive, 12 both-negative, 1 discordant each way. Complete-only kappa = 70/79 on 17/18.
 - Run: python research/i65/archive_review/i52_transfer_compact.py . ; then python -m pytest -q research/i65/archive_review/test_i52_transfer_compact.py . **Source Git blob verification is fail-closed.** Local isolated tests 8/8 passed; the original raw-source local checkout mode was not run.
 
+
+
+## 2026-11-03 — I55 A/A′/B control-conditioned hash-seed evidence
+
+- [Original 620-valid-cell negative-control breakdown](I65_I55_CONTROL_CONDITIONED_HASH_SEED_REVIEW_2026-11-03.md): A=A′=B in **585** cells; A=A′≠B in **30 SMAC** cells; A≠A′ and A≠B in **5 Nevergrad** cells; A≠A′ and A=B in **0**; 10 original Nevergrad errors excluded.
+- The existing [pinned I55 cell JSON verifier](i55_cell_archive_recheck.py) now counts all four patterns and fails closed if the original aggregate or library attribution changes; three [additional tests](test_i55_cell_archive_recheck.py) validate this. Separately a 17-test standalone extended checker was tested locally; the 620 raw NPZ byte replay remains NOT RUN. This is source-metadata classification, not a novel causal result or change to frozen H55a–d.
