@@ -17,3 +17,8 @@
 ## I64-I2 exact statistical replay — 2026-11-03
 
 The original 20,000-resample matched bootstrap is now actually repeated from 720 archived transformed source outcomes: **13/13 numeric values reproduce exactly**. A **post hoc** seven-cell analysis after removing the observed influential case39/j=3 gives IPOP-minus-hybrid CVaR interval [-0.001306191,+0.000605023], containing zero, while the registered eight-cell interval remains [-0.250223907,-0.000389615] (H64h2 OPPOSITE). These results strengthen statistical auditability and delimit scope, **not** doctoral originality. Full report: [I65 I64-I2 bootstrap](i65/archive_review/I65_I64_I2_EXACT_BOOTSTRAP_AND_POSTHOC_AUDIT_2026-11-03.md). Full raw 620 NPZ I55 replay remains outstanding.
+
+
+## 2026-11-03 further audit: rare failure versus CVaR evidence
+
+The [I64-I2 rare-failure and Monte Carlo stability report](i65/archive_review/I65_I64_I2_RARE_FAILURE_AND_MONTE_CARLO_STABILITY_REVIEW_2026-11-03.md) provides a stronger limitation for the contextual GAdapt manuscript: **15/15** alternate 20k/100k bootstrap runs retain the original negative eight-cell CVaR upper bound (range `[-0.000405267,-0.000324161]`), but the *distinct* post hoc exact paired binary-feasibility check on the influential `case39/j=3` cell yields `p=0.25` and marginal failure-rate 95% CP intervals `[0.0211,0.2653]` (hybrid) versus `[0,0.1157]` (IPOP). The top-three CVaR's rare-failure sensitivity is descriptive; the fixed eight-cell H64h2 remains OPPOSITE and is **not** a proved general difference in feasible-hit probability. No optimizer, PF, COCO or freeze approval occurred.

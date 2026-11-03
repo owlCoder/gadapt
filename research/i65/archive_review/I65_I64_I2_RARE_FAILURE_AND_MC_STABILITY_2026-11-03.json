@@ -1,0 +1,267 @@
+{
+  "study": "archived I64-I2, 8 fixed cells, 30 paired seeds each",
+  "status": "post-hoc diagnostic, no new PF/optimizer execution, not preregistered",
+  "source_analysis_blob": "2b38375126a43128dba37aaf7966b92eb6df8691",
+  "original_c3": -0.12530676111239553,
+  "dominant_cell_contribution": -0.125,
+  "dominant_cell_share": 0.9975519189094644,
+  "dominant_cell": {
+    "label": "case39/j=3",
+    "hybrid_infeasible": 3,
+    "ipop_infeasible": 0,
+    "hybrid_miss_95pct_CP": [
+      0.02111713702972256,
+      0.265288450474208
+    ],
+    "ipop_miss_95pct_CP": [
+      0.0,
+      0.11570330822202785
+    ],
+    "paired_feasibility": {
+      "hybrid_only_feasible": 0,
+      "ipop_only_feasible": 3,
+      "discordant_pairs": 3,
+      "mcnemar_two_sided_exact_p": 0.25,
+      "one_sided_more_ipop_feasible_p": 0.125,
+      "scope": "post-hoc selected cell, feasibility only; NOT CVaR hypothesis test"
+    },
+    "empirical_seed_bootstrap_Pr_less_than_3_hybrid_misses": 0.4113512395595057,
+    "note": "When bootstrapping 30 seeds with 3 observed hybrid misses, a resample has fewer than three misses in 41.1% of draws. This is not a p-value for the CVaR contrast."
+  },
+  "monte_carlo_sensitivity": {
+    "reproductions": [
+      {
+        "seed": 68,
+        "repetitions": 20000,
+        "tstar": 3.4133099733799375,
+        "c3_point": -0.12530676111239553,
+        "c3_upper_simultaneous": -0.00038961539195656036,
+        "c3_percentile_97_5": -0.00043822327961267357,
+        "bootstrap_fraction_c3_nonnega": 0.00535,
+        "registered_negative_verdict_preserved": true
+      },
+      {
+        "seed": 69,
+        "repetitions": 20000,
+        "tstar": 3.4318953880579275,
+        "c3_point": -0.12530676111239553,
+        "c3_upper_simultaneous": -0.00038119546240115987,
+        "c3_percentile_97_5": -0.0004529523230507087,
+        "bootstrap_fraction_c3_nonnega": 0.0046,
+        "registered_negative_verdict_preserved": true
+      },
+      {
+        "seed": 70,
+        "repetitions": 20000,
+        "tstar": 3.443264513739132,
+        "c3_point": -0.12530676111239553,
+        "c3_upper_simultaneous": -0.0003990640202531509,
+        "c3_percentile_97_5": -0.0004559482510691437,
+        "bootstrap_fraction_c3_nonnega": 0.00495,
+        "registered_negative_verdict_preserved": true
+      },
+      {
+        "seed": 71,
+        "repetitions": 20000,
+        "tstar": 3.422133351424177,
+        "c3_point": -0.12530676111239553,
+        "c3_upper_simultaneous": -0.00038042582808829606,
+        "c3_percentile_97_5": -0.00044120846419422294,
+        "bootstrap_fraction_c3_nonnega": 0.0049,
+        "registered_negative_verdict_preserved": true
+      },
+      {
+        "seed": 72,
+        "repetitions": 20000,
+        "tstar": 3.4269098376187634,
+        "c3_point": -0.12530676111239553,
+        "c3_upper_simultaneous": -0.0003816698964929227,
+        "c3_percentile_97_5": -0.00045195440159305223,
+        "bootstrap_fraction_c3_nonnega": 0.0045,
+        "registered_negative_verdict_preserved": true
+      },
+      {
+        "seed": 73,
+        "repetitions": 20000,
+        "tstar": 3.432076207506602,
+        "c3_point": -0.12530676111239553,
+        "c3_upper_simultaneous": -0.00036874357452292006,
+        "c3_percentile_97_5": -0.0004450370292530401,
+        "bootstrap_fraction_c3_nonnega": 0.00415,
+        "registered_negative_verdict_preserved": true
+      },
+      {
+        "seed": 74,
+        "repetitions": 20000,
+        "tstar": 3.4262565867858488,
+        "c3_point": -0.12530676111239553,
+        "c3_upper_simultaneous": -0.0003929655015958017,
+        "c3_percentile_97_5": -0.00048196554114106495,
+        "bootstrap_fraction_c3_nonnega": 0.00435,
+        "registered_negative_verdict_preserved": true
+      },
+      {
+        "seed": 75,
+        "repetitions": 20000,
+        "tstar": 3.3769916774637547,
+        "c3_point": -0.12530676111239553,
+        "c3_upper_simultaneous": -0.00032416062044716976,
+        "c3_percentile_97_5": -0.0003916361887336344,
+        "bootstrap_fraction_c3_nonnega": 0.00505,
+        "registered_negative_verdict_preserved": true
+      },
+      {
+        "seed": 76,
+        "repetitions": 20000,
+        "tstar": 3.424079180922698,
+        "c3_point": -0.12530676111239553,
+        "c3_upper_simultaneous": -0.000405267031977255,
+        "c3_percentile_97_5": -0.00045573344448402955,
+        "bootstrap_fraction_c3_nonnega": 0.0046,
+        "registered_negative_verdict_preserved": true
+      },
+      {
+        "seed": 77,
+        "repetitions": 20000,
+        "tstar": 3.4195881250950726,
+        "c3_point": -0.12530676111239553,
+        "c3_upper_simultaneous": -0.00035994605329826845,
+        "c3_percentile_97_5": -0.00042726369468952633,
+        "bootstrap_fraction_c3_nonnega": 0.00475,
+        "registered_negative_verdict_preserved": true
+      },
+      {
+        "seed": 78,
+        "repetitions": 20000,
+        "tstar": 3.4007125695859086,
+        "c3_point": -0.12530676111239553,
+        "c3_upper_simultaneous": -0.00039407537568711404,
+        "c3_percentile_97_5": -0.00046488206173761135,
+        "bootstrap_fraction_c3_nonnega": 0.00455,
+        "registered_negative_verdict_preserved": true
+      },
+      {
+        "seed": 79,
+        "repetitions": 20000,
+        "tstar": 3.374029841789867,
+        "c3_point": -0.12530676111239553,
+        "c3_upper_simultaneous": -0.0003602584047297519,
+        "c3_percentile_97_5": -0.00044087905004151247,
+        "bootstrap_fraction_c3_nonnega": 0.0048,
+        "registered_negative_verdict_preserved": true
+      },
+      {
+        "seed": 68,
+        "repetitions": 100000,
+        "tstar": 3.4341641513211663,
+        "c3_point": -0.12530676111239553,
+        "c3_upper_simultaneous": -0.00038315228759269737,
+        "c3_percentile_97_5": -0.00045020818827781224,
+        "bootstrap_fraction_c3_nonnega": 0.00456,
+        "registered_negative_verdict_preserved": true
+      },
+      {
+        "seed": 69,
+        "repetitions": 100000,
+        "tstar": 3.427685451085441,
+        "c3_point": -0.12530676111239553,
+        "c3_upper_simultaneous": -0.000380802989338333,
+        "c3_percentile_97_5": -0.0004475223172252865,
+        "bootstrap_fraction_c3_nonnega": 0.0044,
+        "registered_negative_verdict_preserved": true
+      },
+      {
+        "seed": 70,
+        "repetitions": 100000,
+        "tstar": 3.4305589057330597,
+        "c3_point": -0.12530676111239553,
+        "c3_upper_simultaneous": -0.0003702570643218106,
+        "c3_percentile_97_5": -0.0004450372578612623,
+        "bootstrap_fraction_c3_nonnega": 0.00498,
+        "registered_negative_verdict_preserved": true
+      }
+    ],
+    "all_simultaneous_upper_negative": true,
+    "range_simultaneous_upper": [
+      -0.000405267031977255,
+      -0.00032416062044716976
+    ]
+  },
+  "posthoc_tail_count_sensitivity": [
+    {
+      "worst_k_of_30": 1,
+      "c3_ipop_minus_hybrid": -0.12562811848599587,
+      "dominant_cell_share_of_signed_contrast": 0.9950001759672467
+    },
+    {
+      "worst_k_of_30": 2,
+      "c3_ipop_minus_hybrid": -0.125353779503871,
+      "dominant_cell_share_of_signed_contrast": 0.9971777515981473
+    },
+    {
+      "worst_k_of_30": 3,
+      "c3_ipop_minus_hybrid": -0.12530676111239553,
+      "dominant_cell_share_of_signed_contrast": 0.9975519189094644
+    },
+    {
+      "worst_k_of_30": 4,
+      "c3_ipop_minus_hybrid": -0.09412199763246204,
+      "dominant_cell_share_of_signed_contrast": 0.9960477078491825
+    },
+    {
+      "worst_k_of_30": 5,
+      "c3_ipop_minus_hybrid": -0.0753891666435047,
+      "dominant_cell_share_of_signed_contrast": 0.9948378969972573
+    },
+    {
+      "worst_k_of_30": 6,
+      "c3_ipop_minus_hybrid": -0.06286239606320232,
+      "dominant_cell_share_of_signed_contrast": 0.9942350898804754
+    },
+    {
+      "worst_k_of_30": 9,
+      "c3_ipop_minus_hybrid": -0.04195722532111107,
+      "dominant_cell_share_of_signed_contrast": 0.9930748839509602
+    },
+    {
+      "worst_k_of_30": 15,
+      "c3_ipop_minus_hybrid": -0.025284558505767885,
+      "dominant_cell_share_of_signed_contrast": 0.988745759365228
+    },
+    {
+      "worst_k_of_30": 30,
+      "c3_ipop_minus_hybrid": -0.029364238788022995,
+      "dominant_cell_share_of_signed_contrast": 0.42568786101475464
+    }
+  ],
+  "leave_one_paired_seed_out": {
+    "range_c3": [
+      -0.12549694446653625,
+      -0.08364001214385053
+    ],
+    "dominant_failure_seed_deletions": [
+      {
+        "seed_index": 15,
+        "c3": -0.08364001214385053,
+        "deleted_hybrid_infeasible_in_dominant": true
+      },
+      {
+        "seed_index": 18,
+        "c3": -0.08364009444572884,
+        "deleted_hybrid_infeasible_in_dominant": true
+      },
+      {
+        "seed_index": 28,
+        "c3": -0.08364009444572884,
+        "deleted_hybrid_infeasible_in_dominant": true
+      }
+    ]
+  },
+  "limits": [
+    "Exact McNemar test addresses feasibility occurrence in a post-hoc selected single cell, not original 4-contrast CVaR test.",
+    "Clopper-Pearson intervals are marginal binomial intervals conditional on independent seeds; they are not simultaneous or cell-selection adjusted.",
+    "Reusing bootstrap on fixed eight cells does not account for selection of problem families, physical network uncertainty, or historical model bias.",
+    "Any changes in original threshold or sample composition are post-hoc and not revised H64h2 decisions."
+  ],
+  "source_mode": "derived_loss_feasibility_npz_not_original_archives"
+}
