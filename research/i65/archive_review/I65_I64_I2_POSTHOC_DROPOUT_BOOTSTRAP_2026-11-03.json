@@ -1,0 +1,71 @@
+{
+  "input_source": "720 source-derived original archived outcomes; original blobs pinned in i64_i2_cell_influence.py",
+  "repetitions": 20000,
+  "seed": 68,
+  "method": "matched-seed within fixed ORPD cells, 97.5% simultaneous max-t",
+  "registered_full_eight_cells": {
+    "tstar": 3.413309973379936,
+    "contrasts": {
+      "CVaR(M)-CVaR(H)": {
+        "estimate": -0.07989170831004905,
+        "lower": -0.26562406186519444,
+        "upper": 0.10584064524509634
+      },
+      "P(H)-P(M)": {
+        "estimate": -0.004166666666666652,
+        "lower": -0.035480324042636506,
+        "upper": 0.027146990709303202
+      },
+      "CVaR(IPOP)-CVaR(H)": {
+        "estimate": -0.12530676111239542,
+        "lower": -0.25022390683283424,
+        "upper": -0.00038961539195656036
+      },
+      "P(H)-P(IPOP)": {
+        "estimate": -0.029166666666666563,
+        "lower": -0.06427941895198026,
+        "upper": 0.005946085618647137
+      }
+    }
+  },
+  "post_hoc_excluding_case39_j3": {
+    "cells": [
+      0,
+      1,
+      2,
+      4,
+      5,
+      6,
+      7
+    ],
+    "tstar": 2.8301833981661795,
+    "contrasts": {
+      "CVaR(M)-CVaR(H)": {
+        "estimate": 0.003933285740896288,
+        "lower": 0.0020461494647997965,
+        "upper": 0.005820422016992779
+      },
+      "P(H)-P(M)": {
+        "estimate": 0.0047619047619047615,
+        "lower": -0.008407627401837849,
+        "upper": 0.01793143692564737
+      },
+      "CVaR(IPOP)-CVaR(H)": {
+        "estimate": -0.0003505841284519563,
+        "lower": -0.0013061913662497464,
+        "upper": 0.0006050231093458339
+      },
+      "P(H)-P(IPOP)": {
+        "estimate": -0.019047619047619046,
+        "lower": -0.0439381332083951,
+        "upper": 0.005842895113157002
+      }
+    }
+  },
+  "limitations": [
+    "Selection of influential cell based on observed outcome; NOT preregistered",
+    "No multiplicity control for cell selection and different estimand",
+    "Original H64h2 OPPOSITE verdict remains original",
+    "No optimizer, PF or OPF execution"
+  ]
+}

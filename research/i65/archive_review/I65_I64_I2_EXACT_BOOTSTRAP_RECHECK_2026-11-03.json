@@ -1,0 +1,110 @@
+{
+  "source": "720 derived outcomes from original I/I2 frozen per-cell records",
+  "source_analysis_git_blob_sha1": "2b38375126a43128dba37aaf7966b92eb6df8691",
+  "repetitions": 20000,
+  "seed": 68,
+  "tstar": 3.4133099733799344,
+  "point_and_simultaneous_intervals": {
+    "CVaR(M)-CVaR(H)": {
+      "estimate": -0.07989170831004905,
+      "lower": -0.26562406186519444,
+      "upper": 0.10584064524509634
+    },
+    "P(H)-P(M)": {
+      "estimate": -0.004166666666666652,
+      "lower": -0.035480324042636506,
+      "upper": 0.027146990709303202
+    },
+    "CVaR(IPOP)-CVaR(H)": {
+      "estimate": -0.12530676111239542,
+      "lower": -0.25022390683283424,
+      "upper": -0.00038961539195656036
+    },
+    "P(H)-P(IPOP)": {
+      "estimate": -0.029166666666666563,
+      "lower": -0.06427941895198026,
+      "upper": 0.005946085618647137
+    }
+  },
+  "source_checks": [
+    {
+      "contrast": "CVaR(M)-CVaR(H)",
+      "metric": "estimate",
+      "difference": 0,
+      "match_tol_1e-10": true
+    },
+    {
+      "contrast": "CVaR(M)-CVaR(H)",
+      "metric": "lower",
+      "difference": 0,
+      "match_tol_1e-10": true
+    },
+    {
+      "contrast": "CVaR(M)-CVaR(H)",
+      "metric": "upper",
+      "difference": 0,
+      "match_tol_1e-10": true
+    },
+    {
+      "contrast": "P(H)-P(M)",
+      "metric": "estimate",
+      "difference": 0,
+      "match_tol_1e-10": true
+    },
+    {
+      "contrast": "P(H)-P(M)",
+      "metric": "lower",
+      "difference": 0,
+      "match_tol_1e-10": true
+    },
+    {
+      "contrast": "P(H)-P(M)",
+      "metric": "upper",
+      "difference": 0,
+      "match_tol_1e-10": true
+    },
+    {
+      "contrast": "CVaR(IPOP)-CVaR(H)",
+      "metric": "estimate",
+      "difference": 0,
+      "match_tol_1e-10": true
+    },
+    {
+      "contrast": "CVaR(IPOP)-CVaR(H)",
+      "metric": "lower",
+      "difference": 0,
+      "match_tol_1e-10": true
+    },
+    {
+      "contrast": "CVaR(IPOP)-CVaR(H)",
+      "metric": "upper",
+      "difference": 0,
+      "match_tol_1e-10": true
+    },
+    {
+      "contrast": "P(H)-P(IPOP)",
+      "metric": "estimate",
+      "difference": 0,
+      "match_tol_1e-10": true
+    },
+    {
+      "contrast": "P(H)-P(IPOP)",
+      "metric": "lower",
+      "difference": 0,
+      "match_tol_1e-10": true
+    },
+    {
+      "contrast": "P(H)-P(IPOP)",
+      "metric": "upper",
+      "difference": 0,
+      "match_tol_1e-10": true
+    },
+    {
+      "metric": "tstar",
+      "difference": 0,
+      "match_tol_1e-10": true
+    }
+  ],
+  "all_original_values_match": true,
+  "scope": "Archive-only seeded statistical replay, not an optimizer or PF run"
+}

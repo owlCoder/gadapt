@@ -40,3 +40,8 @@ python research/i65/archive_review/i64_i2_bootstrap_replay.py --repo-root . --ou
 - [`I65_SUPERVISOR_REVIEW_DELTA_2026-11-03.md`](I65_SUPERVISOR_REVIEW_DELTA_2026-11-03.md) — precise novelty/scope blockers for human response.
 
 Primary original reports remain authoritative and have not been modified in this integration.
+
+
+## 2026-11-03 I64-I2 full archived-bootstrap replication COMPLETE
+
+[Full scientific report](I65_I64_I2_EXACT_BOOTSTRAP_AND_POSTHOC_AUDIT_2026-11-03.md) · [13/13 original frozen values](I65_I64_I2_EXACT_BOOTSTRAP_RECHECK_2026-11-03.json) · [exploratory selected-cell bootstrap](I65_I64_I2_POSTHOC_DROPOUT_BOOTSTRAP_2026-11-03.json) · [read-only program](i64_i2_posthoc_dropout_bootstrap.py) · [synthetic unit tests](test_i64_i2_posthoc_dropout_bootstrap.py). The original matched 20,000-resample bootstrap now reproduced **exactly**; seven-cell deletion was selected POST HOC, not confirmatory. Combined local audit regression tests **87/87 PASS**. Raw full I55 620 NPZ replay NOT RUN; human originality approval pending.
