@@ -156,10 +156,21 @@ def check_frozen_objective_values(x: np.ndarray, f: np.ndarray, function: str) -
     relative; this is a post-hoc *data-integrity* check, not a proof of library
     bugs, independent physical validation, or a new experimental outcome.
     """
+    # Finite-valued objective probes are an explicit assumption of the frozen
+    # I49/I50 synthetic suite. Without this gate, equal_nan=True would accept
+    # x=[NaN, 0], f=NaN as a successful objective "reproduction", and a finite
+    # but overflowing x could similarly pass as inf==inf. Neither is an
+    # independently verified numerical evaluation.
+    if not bool(np.all(np.isfinite(x))):
+        raise ValueError("Non-finite archived objective coordinates")
+    if not bool(np.all(np.isfinite(f))):
+        raise ValueError("Non-finite archived objective values")
     expected = evaluate_frozen_objective(x, function)
     if f.dtype != np.float64 or f.shape != expected.shape:
         raise ValueError("Objective oracle input value dtype or shape mismatch")
-    matches = np.isclose(f, expected, rtol=1e-10, atol=1e-10, equal_nan=True)
+    if not bool(np.all(np.isfinite(expected))):
+        raise ValueError("Non-finite independent objective result")
+    matches = np.isclose(f, expected, rtol=1e-10, atol=1e-10, equal_nan=False)
     if not bool(np.all(matches)):
         index = int(np.flatnonzero(~matches)[0])
         raise ValueError(f"Frozen objective value mismatch at call {index} "
@@ -167,6 +178,7 @@ def check_frozen_objective_values(x: np.ndarray, f: np.ndarray, function: str) -
     # This report records only sample count, not estimates of scientific efficacy.
     return {"function": function, "verified_calls": int(len(f)),
             "all_frozen_objective_values_match": True,
+            "all_coordinates_and_values_finite": True,
             "rtol": 1e-10, "atol": 1e-10}
 
 

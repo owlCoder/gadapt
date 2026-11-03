@@ -91,3 +91,8 @@ Primary original reports remain authoritative and have not been modified in this
 
 - [Independent frozen objective-value oracle and fail-closed integration](I65_I55_FROZEN_OBJECTIVE_VALUE_ORACLE_AND_FAIL_CLOSED_CHAIN_2026-11-03.md), implemented in [source NPZ verifier](i55_npz_cross_archive_verifier.py), tested by [new oracle tests](test_i55_frozen_objective_oracle.py), with [end-to-end attestation](i55_full_npz_attestation.py) now explicitly requiring that all verified A-process calls pass original f(x) checking. The existing [manual-only workflow](../../../.github/workflows/research-i65-i55-full-npz-attestation-manual.yml) includes the new tests.
 - **44/44 synthetic tests PASS locally** (8 new oracle, 10 adapted trace, 14 attestation, 12 manifest tests). The original full raw NPZ 620/620 numerical verification remains **NOT RUN** in this execution environment; no new optimizer/AC PF/COCO calls and no manual workflow dispatch. This adds stronger future falsification criteria, not a new preregistered result or novelty proof.
+
+
+## 2026-11-03 source-byte I55 sample replay and finite objective-oracle repair
+
+[One-original-NPZ numerical replay report](I65_I55_ONE_ORIGINAL_NPZ_RAW_REPLAY_AND_FINITE_ORACLE_2026-11-03.md) and [structured witness](I65_I55_ONE_ORIGINAL_NPZ_RAW_REPLAY_AND_FINITE_ORACLE_2026-11-03.json): original `baybe/plateau_2_6003.npz` Git SHA-1 verified, 200/200 original `f(x)` calls and frozen SHA-256 trace recomputed with zero flag mismatch, C1=188 and C2=186. Fixed an adversarial NaN/Inf false acceptance in the post hoc frozen-objective oracle, six new synthetic tests, **50/50** local regression pass. Full 620 original NPZ replay **NOT_RUN** (only 1/620); no optimization experiments run, no H55d or novelty status changed.

@@ -57,6 +57,64 @@ class FrozenObjectiveOracleTests(unittest.TestCase):
         f[0]+=1e-11
         self.assertTrue(check_frozen_objective_values(x,f,"sphere")["all_frozen_objective_values_match"])
 
+    def test_nan_coordinates_and_nan_values_must_not_match_each_other(self):
+        # The previous equal_nan=True oracle returned PASS here.
+        x = np.array([[np.nan, 0.]], dtype=np.float64)
+        f = np.array([np.nan], dtype=np.float64)
+        with self.assertRaisesRegex(ValueError, "Non-finite archived objective coordinates"):
+            check_frozen_objective_values(x, f, "sphere")
+
+    def test_infinite_archived_value_not_equivalent_to_infinite_oracle(self):
+        # A finite but overflowing coordinate creates +inf for sphere.
+        x = np.array([[1e308, 0.]], dtype=np.float64)
+        f = np.array([np.inf], dtype=np.float64)
+        with self.assertRaisesRegex(ValueError, "Non-finite archived objective values"):
+            check_frozen_objective_values(x, f, "sphere")
+
+    def test_finite_archive_but_overflowing_independent_evaluation_rejected(self):
+        x = np.array([[1e308, 0.]], dtype=np.float64)
+        f = np.array([1e308], dtype=np.float64)
+        with self.assertRaisesRegex(ValueError, "Non-finite independent objective result"):
+            check_frozen_objective_values(x, f, "sphere")
+
+    def test_valid_finite_oracle_reports_explicit_gate(self):
+        x = np.array([[0., 0.]], dtype=np.float64)
+        f = evaluate_frozen_objective(x, "rastrigin")
+        report = check_frozen_objective_values(x, f, "rastrigin")
+        self.assertTrue(report["all_coordinates_and_values_finite"])
+
+    def test_full_npz_replay_rejects_self_consistent_nan_trace(self):
+        # Both saved SHA256 and detector flags are consistent, but the
+        # experimental x,f pair is not a valid finite objective evaluation.
+        x = np.array([[np.nan, 0.]], dtype=np.float64)
+        f = np.array([np.nan], dtype=np.float64)
+        phase = np.array([0], dtype=np.int8)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "sphere_2_6000.npz"
+            np.savez_compressed(path, x=x, f=f, phase=phase,
+                x_star=np.zeros(0), f_star=np.array([np.nan]),
+                reported_evals=np.array([-1]), documented_max=np.array([-1]))
+            flags = classify_arrays(x, f, phase, np.zeros(0), None, None, None)
+            cell = {"function": "sphere", "d": 2, "calls": 1,
+                    "hash": sequence_hash(x, f, phase), "flags": flags}
+            with self.assertRaisesRegex(ValueError, "Non-finite archived objective coordinates"):
+                replay_npz(path, cell)
+
+    def test_full_npz_replay_rejects_self_consistent_infinite_trace(self):
+        x = np.array([[1e308, 0.]], dtype=np.float64)
+        f = np.array([np.inf], dtype=np.float64)
+        phase = np.array([0], dtype=np.int8)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "sphere_2_6000.npz"
+            np.savez_compressed(path, x=x, f=f, phase=phase,
+                x_star=np.zeros(0), f_star=np.array([np.nan]),
+                reported_evals=np.array([-1]), documented_max=np.array([-1]))
+            flags = classify_arrays(x, f, phase, np.zeros(0), None, None, None)
+            cell = {"function": "sphere", "d": 2, "calls": 1,
+                    "hash": sequence_hash(x, f, phase), "flags": flags}
+            with self.assertRaisesRegex(ValueError, "Non-finite archived objective values"):
+                replay_npz(path, cell)
+
     def test_replay_npz_enforces_oracle_not_just_sha(self):
         x=np.array([[0.,0.],[2.,1.]],dtype=np.float64)
         f=evaluate_frozen_objective(x,"sphere")
