@@ -37,3 +37,8 @@ A read-only new [I52 class-transfer audit](i65/archive_review/I65_I52_CHANCE_COR
 ## 2026-11-03 — I55 source-level negative-control clarification
 
 A fresh read of all 21 original I55 cell metadata files verified 585/620 stable A/A′/B comparisons, 30/620 SMAC comparisons differing **only** in the changed-hash-seed arm, and five Nevergrad plateau-10D comparisons already unstable in the same-hash-seed arm. Ten invalid Nevergrad tasks remain censored. The original I55 report had already identified both mechanisms; the [new complete pattern audit](i65/archive_review/I65_I55_CONTROL_CONDITIONED_HASH_SEED_REVIEW_2026-11-03.md) strengthens reporting discipline, not algorithmic novelty. Distinguish D3x raw 35/620 from 30/620 with a stable same-seed control. H55a–c SUPPORTED and H55d NOT SUPPORTED unchanged. Full 620 binary NPZ replay, detector specificity, scientific novelty, M6/C1 approval remain OPEN; NO-FREEZE and held-out COCO NOT_RUN.
+
+
+## 2026-11-03 — I55 original 620-NPZ Git-index audit complete (raw replay still open)
+
+The original Git tree contains **620 NPZ files** (12,319,037 compressed bytes) across 21 libraries; the ten nevergrad sphere/rastrigin 10D failures have no NPZ as recorded. All 620 original file blobs match the previously inspected main SHA-1 identity and path exactly, with no added/deleted NPZ. [Source manifest, byte-authentication program, tests and reviewer report](i65/archive_review/I65_I55_NPZ_GIT_ARCHIVE_COMPLETENESS_AND_PROVENANCE_2026-11-03.md) are linked from the main thesis evidence. **This is full source-index verification, NOT the full 620 NPZ binary/numerical replay**. No confirmation of I55 detector specificity or any new algorithm, and all M6/C1, NO-FREEZE, COCO and DRAFT gates remain unchanged.

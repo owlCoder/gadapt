@@ -97,3 +97,8 @@ A read-only new [I52 class-transfer audit](i65/archive_review/I65_I52_CHANCE_COR
 ### 2026-11-03 — I55 negative-control interpretation tightened
 
 The [independently audited original 620 valid I55 cell digests](i65/archive_review/I65_I55_CONTROL_CONDITIONED_HASH_SEED_REVIEW_2026-11-03.md) separate 30 SMAC cells with stable same-seed controls but different-seed trace divergence from five Nevergrad cells divergent with **both** same and different hash seeds. Another 585 cells are stable in both comparisons; 10 errors remain outside the valid denominator. Do not interpret all 35 cross-seed differences as 35 identified seed effects. This decomposition is post hoc source validation of mechanisms **already discussed in the original I55 report**; all original registered decisions remain intact. Complete raw 620-NPZ trace replay and independent detector specificity are still missing.
+
+
+### I55 provenance addendum — 2026-11-03
+
+An independent untruncated Git-tree inventory confirms exactly **620 original I55 NPZ blobs** (12,319,037 compressed bytes, 21 libraries) are still present in the repository, with **zero changed path/blob identities** between frozen original commit `6b56fbc` and previously inspected `main`. Ten absent Nevergrad files correspond to historical failed runs. The [620-entry Git blob manifest and read-only byte gate](i65/archive_review/I65_I55_NPZ_GIT_ARCHIVE_COMPLETENESS_AND_PROVENANCE_2026-11-03.md) support a future fully authenticated trace replay without rerunning optimization; full 620 source bytes, `x/f/phase` arrays and detector flags **have not yet been rechecked in this container**. This is an archive reproducibility audit, not independent software defect ground truth or a preregistered positive test.

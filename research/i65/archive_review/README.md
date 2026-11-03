@@ -69,3 +69,10 @@ Primary original reports remain authoritative and have not been modified in this
 
 - [Original 620-valid-cell negative-control breakdown](I65_I55_CONTROL_CONDITIONED_HASH_SEED_REVIEW_2026-11-03.md): A=A′=B in **585** cells; A=A′≠B in **30 SMAC** cells; A≠A′ and A≠B in **5 Nevergrad** cells; A≠A′ and A=B in **0**; 10 original Nevergrad errors excluded.
 - The existing [pinned I55 cell JSON verifier](i55_cell_archive_recheck.py) now counts all four patterns and fails closed if the original aggregate or library attribution changes; three [additional tests](test_i55_cell_archive_recheck.py) validate this. Separately a 17-test standalone extended checker was tested locally; the 620 raw NPZ byte replay remains NOT RUN. This is source-metadata classification, not a novel causal result or change to frozen H55a–d.
+
+
+## 2026-11-03 — Complete I55 original NPZ Git-tree inventory (NOT full NPZ replay)
+
+- [Source-level completeness and authenticity report](I65_I55_NPZ_GIT_ARCHIVE_COMPLETENESS_AND_PROVENANCE_2026-11-03.md) · [all 620 original Git blob IDs](I65_I55_ORIGINAL_620_NPZ_GIT_BLOB_MANIFEST_2026-11-03.json) · [read-only byte-authenticity gate](i55_npz_git_blob_manifest_gate.py) · [12 synthetic tests](test_i55_npz_git_blob_manifest_gate.py).
+- Nontruncated original Git tree at `6b56fbc` and checked main head `a03606d` contain exactly 620 valid NPZ blobs across 21 libraries, totaling 12,319,037 compressed bytes, with **0 changed/added/deleted** original NPZ blobs. Ten absent Nevergrad files belong to historically failed sphere/rastrigin 10D cells; no valid source NPZ path is missing.
+- Verified source **index**, not full original NPZ bytes or 620 `x/f/phase` arrays. The new gate runs on a full clone to authenticate 620 original bytes before the existing full trace/flag replay. Neither full-clone command was run in the network-blocked preparation container. No optimizer/PF/COCO rerun.
