@@ -1,0 +1,42 @@
+# I65 archive verification and post-hoc influence review — integrated, 2026-11-03
+
+**Status: REVIEW EVIDENCE, NOT A NEW FROZEN EXPERIMENT.** This directory integrates separate audits prepared on 2026-11-02 and 2026-11-03. All original source evidence refers to `owlCoder/gadapt` commit `6b56fbc53ffc4d275ecef5e911ea4663474c9a08` and uses pinned original Git **blob IDs**, not new optimizer/PF simulations. The integration commit only adds audit tools, reviews, derived ledgers and vector figures; frozen `research/results` / I49–I55 / I64 protocols are unchanged.
+
+## Primary review outputs
+
+- **I55:** [`I65_I55_CELL_LEVEL_RECHECK_2026-11-02.md`](I65_I55_CELL_LEVEL_RECHECK_2026-11-02.md) and [`I65_I55_NPZ_PAIRING_AND_SAMPLE_REPLAY_2026-11-02.md`](I65_I55_NPZ_PAIRING_AND_SAMPLE_REPLAY_2026-11-02.md). Historical I55 620/620 evaluable manipulation checks were reconstructed from 21 JSON cell archives; archived I50/I55 sequence-digest equality is **318/358**, with 2 original I50 bofire timeouts. Binary detector presence agreed in **357/358** comparable cells. One emukit `plateau,d=2,seed=6001` detector presence changed (C2: 0→1), and its raw C1 count changed 2→3. Do not confuse digest equality, count equality and Boolean presence equality. Original complete 620-trace NPZ replay **NOT RUN**. Four traces were independently byte-rehashed from NPZ, and ten emukit plateau traces had C1–C5 checked directly in the GitHub connector session.
+- **I64 cross-study:** [`I65_CONTINUED_SCIENTIFIC_METHODS_REVIEW_2026-11-02.md`](I65_CONTINUED_SCIENTIFIC_METHODS_REVIEW_2026-11-02.md) and seven-analysis ledger. Original negative/undecided results remain original; archived CI values were arithmetically checked, not bootstrapped anew. S0 aggregate GAdapt A=0.698 vs DE A=0.651 does not imply uniformly best final accuracy; DE wins 14 of 21 original-stopping-point final-median cells, GAdapt 6, one tie.
+- **I64 R/I2 post hoc influence:** [`I65_I64_R_I2_ADVERSARIAL_INFLUENCE_REVIEW_2026-11-03.md`](I65_I64_R_I2_ADVERSARIAL_INFLUENCE_REVIEW_2026-11-03.md), [source-anchored ledger](I65_I64_R_I2_INFLUENCE_LEDGER_2026-11-03.json), [R sensitivity SVG](I65_R_FAMILY_SENSITIVITY_2026-11-03.svg), and [I2 cell influence SVG](I65_I2_ORPD_CELL_INFLUENCE_2026-11-03.svg).
+  - I64-R original c4 estimate 0.07079178, simultaneous CI [0.05981187,0.08177169], H64r3 **supported on 21 frozen cells**; post hoc removing the entire Rastrigin family yields c4 point 0.04086609, **without** a new interval or replacement verdict.
+  - I64-I2 original tail difference CVaR(IPOP)−CVaR(hybrid) −0.12530676 with archived simultaneous interval [−0.25022391,−0.00038962], H64h2 **opposite**. From all 16 original run parts (8 cells × 30 paired seeds × 3 algorithms = **720 run outcomes**), `case39/j=3` contributes −0.125 of the full eight-cell mean (about **99.755%** of net negative point contrast). Seven-cell post hoc mean is −0.00035058, with **no new CI**. The hybrid lacked a feasible witness in that cell at seeds 68003015, 68003018, 68003028; IPOP had none missing. The `case39/j=4` CVaR=1 saturation across three methods hides distinct feasibility rates.
+
+**Scientific integrity:** post hoc point sensitivity ≠ preregistered statistical decision; historical `witness_checked` ≠ new independent physics validation; archive arithmetic ≠ running original estimators; original algorithmic novelty **NOT_ESTABLISHED**; M6/C1 supervision **pending**, `NO-FREEZE`, held-out COCO `NOT_RUN`, manuscripts **draft only**.
+
+## Local read-only reproduction
+
+Use a complete clone of the *original* repo and verify the immutable source file Git blobs first (scripts fail closed on mismatches). New Python tools here do **not** execute optimizers or power-flow solvers; they only read existing archived data.
+
+```bash
+# From the repository root (uses numpy for NPZ and bootstrap tasks):
+python -m pytest -q research/i65/archive_review
+python research/i65/archive_review/i55_cell_archive_recheck.py --repo-root .
+python research/i65/archive_review/i55_npz_cross_archive_verifier.py --repo-root . > i55_npz_full.json
+python research/i65/archive_review/i55_i50_numeric_vs_boolean_audit.py --repo-root .
+python research/i65/archive_review/i64_archival_recheck.py --repo-root .
+python research/i65/archive_review/i64_s0_cell_ranking.py --repo-root .
+python research/i65/archive_review/i64_r_family_sensitivity.py --repo-root . --output i64_r_sensitivity.json
+python research/i65/archive_review/i64_i2_cell_influence.py --repo-root . --output i64_i2_influence.json
+python research/i65/archive_review/i64_i2_bootstrap_replay.py --repo-root . --output i64_i2_bootstrap.json
+# Last line replays 20,000 original-method bootstrap resamples, using numpy.
+# It has synthetic tests, but was NOT executed on a full clone during preparation.
+```
+
+`i55_npz_full.json` and `i64_i2_bootstrap.json` are **prospective outputs**: absent until the corresponding full-clone commands succeed. Synthetic tests, staged reports and ledgers cannot be substituted for them. No expensive CI, optimizer, COCO or PF task should be triggered merely to review this documentation. `main` pushes may still trigger workflows despite `[skip ci]` in the commit message.
+
+## Manuscript and decision chain
+
+- [`I65_MANUSCRIPT_ADDENDA_READY_FOR_REVIEW_2026-11-02.md`](I65_MANUSCRIPT_ADDENDA_READY_FOR_REVIEW_2026-11-02.md) — archived-integrity methodological addendum.
+- [`I65_MANUSCRIPT_INFLUENCE_ADDENDA_2026-11-03.md`](I65_MANUSCRIPT_INFLUENCE_ADDENDA_2026-11-03.md) — R/I2 post hoc paragraphs, subject to author/editor approval.
+- [`I65_SUPERVISOR_REVIEW_DELTA_2026-11-03.md`](I65_SUPERVISOR_REVIEW_DELTA_2026-11-03.md) — precise novelty/scope blockers for human response.
+
+Primary original reports remain authoritative and have not been modified in this integration.

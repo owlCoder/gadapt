@@ -1,0 +1,24 @@
+{
+  "schema": "GADAPT_I65_I64_S0_GITHUB_DIRECT_PER_CELL_RECHECK_V1",
+  "source_git_blob_sha": "db5f5f97f70b4bf611e5f592d141549d29fe7fcb",
+  "source_path": "research/results/iteration64_s0/analysis.json.gz",
+  "method": "Independent decompression of archived compressed analysis via connected GitHub source; direct comparison of 21 descriptive gap_median and A_mean records",
+  "metric_scope": "S0 original method stopping points, not final accuracy at equal 12,000-call budget",
+  "cells": 21,
+  "final_median_gap": {
+    "DE_better": 14,
+    "GAdapt_better": 6,
+    "tie": 1
+  },
+  "per_cell_ECDF_area": {
+    "GAdapt_better": 17,
+    "DE_better": 4,
+    "tie": 0
+  },
+  "source_level_s0_aggregate_A": {
+    "GAdapt": 0.6983036008230452,
+    "DE": 0.6509895576131688
+  },
+  "novelty_conclusion": "NO_GENERAL_SUPERIORITY_ESTABLISHED",
+  "no_independent_seed_replay": true
+}

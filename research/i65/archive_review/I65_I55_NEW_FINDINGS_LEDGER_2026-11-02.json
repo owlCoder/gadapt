@@ -1,0 +1,76 @@
+{
+  "schema": "GADAPT_I65_I55_FOLLOWON_ARCHIVAL_RECHECK_V1",
+  "date": "2026-11-02",
+  "repo": "owlCoder/gadapt",
+  "snapshot_commit": "6b56fbc53ffc4d275ecef5e911ea4663474c9a08",
+  "execution_mode": "read-only GitHub connector; selected raw NPZ binary decompression in isolated JavaScript; no optimizer or PF/OPF execution",
+  "i50_i55_digest_pairing": {
+    "comparable_cells": 358,
+    "same_digests": 318,
+    "different_digests": 40,
+    "skipped": 2,
+    "skipped_bofire_cells": ["rastrigin|10|6001", "rastrigin|10|6004"],
+    "differences_by_library": {"smac": 30, "emukit": 10},
+    "all_other_ten_libraries_different_digest_count": 0,
+    "verification_level": "Original saved SHA-256 digest comparison, NOT fresh NPZ rehash for all 358"
+  },
+  "i50_i55_counter_pairing": {
+    "comparable_cells": 358,
+    "cells_with_exact_counter_difference": 1,
+    "cells_with_binary_flag_presence_difference": 1,
+    "details": [{
+      "library": "emukit", "function": "plateau", "dimension": 2, "seed": 6001,
+      "exact_count_changes": {"C1": [2, 3], "C2": [0, 1]},
+      "binary_presence_change": {"C2": [false, true]},
+      "note": "Original I55 recompute.py compares booleans, so 2 -> 3 in C1 is NOT a second binary mismatch"
+    }],
+    "i50_blob": "90fc870b617f18c549936146320237e8a53e9e7a",
+    "i55_blob": "c712f0f10c33137f522967ffbc7136a6a16db40b",
+    "recompute_blob": "759de302c9678b2319cdd2603f35fa38a5196eb0",
+    "verification_level": "Original JSON per-cell saved flags, not a full raw I55/I50 trace comparison"
+  },
+  "raw_npz_selected": {
+    "unique_npz_files_checked": 13,
+    "four_npz_sha256_regenerated_from_raw_x_f_phase": [
+      {"library": "cmaes", "function": "plateau", "d": 2, "seed": 6001,
+       "git_blob_sha": "a0530d20e23a39bd8b6ee315656c8ea107840f57",
+       "computed_sha256": "0f100f9e0fdf8d404198a99dab493a080396904da05398e1d9b45655e4572e1d", "matched_saved": true},
+      {"library": "smac", "function": "plateau", "d": 2, "seed": 6001,
+       "git_blob_sha": "4b2d59bfaf0013167433455af0d191b930031a43",
+       "computed_sha256": "32452b42f5154ccf3a1b238d691ee5c3bd093a8ec707beb29a022c457894cc0f", "matched_saved": true},
+      {"library": "emukit", "function": "plateau", "d": 2, "seed": 6001,
+       "git_blob_sha": "4199ba47cb359746d25aa1d3ca20b3b6ed9d1f75",
+       "computed_sha256": "d6b49883de718d74ad7f2829d7a61747f1eeb20de0d0b89377918b6c02c36cb1", "matched_saved": true},
+      {"library": "baybe", "function": "plateau", "d": 2, "seed": 6001,
+       "git_blob_sha": "06d4eca956f44f50a2e3a41133bd57831949e7ab",
+       "computed_sha256": "dd00bb71bbd29ba6590718195d86cd739c9de34208ead247a6d53186d4fd42a0", "matched_saved": true}
+    ],
+    "emukit_plateau_npz_reclassified_C1_through_C5": [
+      {"d": 2, "seed": 6000, "git_blob": "7b1b56375ae11da278d728f4d18454c4c914eb49", "calls": 200, "C1": 2, "C2": 0},
+      {"d": 2, "seed": 6001, "git_blob": "4199ba47cb359746d25aa1d3ca20b3b6ed9d1f75", "calls": 200, "C1": 3, "C2": 1},
+      {"d": 2, "seed": 6002, "git_blob": "770e8086d3efbd8a8eacd1fdbf827b60fc249a18", "calls": 200, "C1": 1, "C2": 0},
+      {"d": 2, "seed": 6003, "git_blob": "41090ce909f340014aaf55b3c19358bc4f2525ed", "calls": 200, "C1": 1, "C2": 0},
+      {"d": 2, "seed": 6004, "git_blob": "168de7fbb355d4ffc32c3d5849939de783b74f0f", "calls": 200, "C1": 9, "C2": 8},
+      {"d": 10, "seed": 6000, "git_blob": "5d0affad236fab0aeaae9e2be9b8c6d7974581eb", "calls": 200, "C1": 0, "C2": 0},
+      {"d": 10, "seed": 6001, "git_blob": "f4088b716e1f6e76259df95cf86e3100b26e958b", "calls": 200, "C1": 1, "C2": 0},
+      {"d": 10, "seed": 6002, "git_blob": "3e4d35038ec7c8b0c943fea261ed1282a27102da", "calls": 200, "C1": 1, "C2": 0},
+      {"d": 10, "seed": 6003, "git_blob": "b339dcaf28ef9b2cbc4e5ae377238f4ad39b4f6b", "calls": 200, "C1": 1, "C2": 0},
+      {"d": 10, "seed": 6004, "git_blob": "ff5fc43635af102ffd7807da6089556052ddc166", "calls": 200, "C1": 0, "C2": 0}
+    ],
+    "emukit_10_of_10_C1_to_C5_match_saved_I55": true,
+    "all_emukit_plateau_C3_C4_C5_zero": true,
+    "verification_level": "Raw NPZ ZIP/NumPy bytes decoded; four trace SHA-256 rederived; ten emukit plateau C1-C5 values independently recomputed"
+  },
+  "posthoc_emukit_veclib_saved_digest": {
+    "matched_original_i50_digests": 10,
+    "total": 10,
+    "verification_level": "Saved post hoc diagnostic hashes were compared with I50 archived hashes; not an independent rerun of thread manipulations"
+  },
+  "critical_limits": [
+    "The full 620 original I55 primary NPZ traces have NOT been replayed in this turn",
+    "Original I55 NPZ archives contain process A traces only; processes A-prime and B have archived digest metadata, not independent raw trace archives, preventing a full cross-process raw-byte reconstruction",
+    "Only four SHA-256 raw sequence checks, and ten emukit plateau C1-C5 raw checks, were performed",
+    "Neither held-out COCO nor PF/OPF nor optimizer runs were executed",
+    "No GitHub main writes or expensive CI triggered"
+  ]
+}
