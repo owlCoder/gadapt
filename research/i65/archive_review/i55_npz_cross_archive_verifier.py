@@ -125,6 +125,51 @@ def classify_arrays(x: np.ndarray, f: np.ndarray, phase: np.ndarray,
     return flags
 
 
+def evaluate_frozen_objective(x: np.ndarray, function: str) -> np.ndarray:
+    """Independently re-evaluate frozen I49/50 original *objective only*.
+
+    The frozen source ``Problem.base`` operates on untransformed z=x with
+    LOWER=-5, UPPER=+5. This function never invokes an optimizer, power-flow,
+    adapter or stochastic generator. It is deliberately independent of the
+    historical ``research.iteration49_integrity_audit`` module.
+    """
+    if not isinstance(x, np.ndarray) or x.ndim != 2 or x.dtype != np.float64:
+        raise ValueError("Objective oracle requires 2D float64 coordinates")
+    if x.shape[1] not in (2, 10):
+        raise ValueError("Unexpected I55 objective dimension")
+    with np.errstate(invalid="ignore", over="ignore"):
+        if function == "sphere":
+            # c = -5 + 0.37*(5-(-5)) = -1.3 (frozen I49 formula)
+            center = -5.0 + 0.37 * 10.0
+            return np.sum((x - center) ** 2, axis=1)
+        if function == "rastrigin":
+            return 10.0 * x.shape[1] + np.sum(x*x - 10.0*np.cos(2.0*np.pi*x), axis=1)
+        if function == "plateau":
+            return np.sum(np.floor(x), axis=1)
+    raise ValueError(f"Unknown frozen I55 objective: {function!r}")
+
+
+def check_frozen_objective_values(x: np.ndarray, f: np.ndarray, function: str) -> dict:
+    """Verify captured per-call objective values against an independent oracle.
+
+    Cross-platform trig/reduction rounding is tolerated at 1e-10 absolute and
+    relative; this is a post-hoc *data-integrity* check, not a proof of library
+    bugs, independent physical validation, or a new experimental outcome.
+    """
+    expected = evaluate_frozen_objective(x, function)
+    if f.dtype != np.float64 or f.shape != expected.shape:
+        raise ValueError("Objective oracle input value dtype or shape mismatch")
+    matches = np.isclose(f, expected, rtol=1e-10, atol=1e-10, equal_nan=True)
+    if not bool(np.all(matches)):
+        index = int(np.flatnonzero(~matches)[0])
+        raise ValueError(f"Frozen objective value mismatch at call {index} "
+                         f"for {function}: archived={f[index]!r} expected={expected[index]!r}")
+    # This report records only sample count, not estimates of scientific efficacy.
+    return {"function": function, "verified_calls": int(len(f)),
+            "all_frozen_objective_values_match": True,
+            "rtol": 1e-10, "atol": 1e-10}
+
+
 def replay_npz(path: Path, cell: dict) -> dict[str, Any]:
     import zipfile
     if not path.is_file():
@@ -154,6 +199,10 @@ def replay_npz(path: Path, cell: dict) -> dict[str, Any]:
         raise ValueError("NPZ raw sequence hash disagrees with saved I55 hash")
     if cell["calls"] != n:
         raise ValueError("NPZ count disagrees with archived call count")
+    # A correct archived trace digest authenticates the bytes but says nothing
+    # about whether its recorded objective values follow the frozen objective.
+    # The extra oracle is independent of the I49/50 classifier implementation.
+    oracle = check_frozen_objective_values(x, f, cell["function"])
     fstar = None if np.isnan(float(fv[0])) else float(fv[0])
     rev = None if int(reports[0]) < 0 else int(reports[0])
     mx = None if int(documented[0]) < 0 else int(documented[0])
@@ -162,7 +211,7 @@ def replay_npz(path: Path, cell: dict) -> dict[str, Any]:
             if cell["flags"].get(k) != v}
     return {"calls": n, "npz_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
             "trace_hash": observed, "flag_mismatches": diff,
-            "repeated_count": derived["C2"]}
+            "repeated_count": derived["C2"], "objective_oracle": oracle}
 
 
 def paired_i50_i55(original: dict[str, dict], new: dict[str, dict]) -> dict:
@@ -217,7 +266,7 @@ def audit(repo_root: Path, full_npz: bool = True) -> dict:
     post = read_pinned_json(root / "iteration55_posthoc" / "emukit_veclib.json", POSTHOC_BLOB)
     paired = paired_i50_i55(original, recent)
     diagnostic = posthoc_diagnostic(original["emukit"], recent["emukit"], post)
-    errors, checked, npz_flags = [], 0, 0
+    errors, checked, npz_flags, objective_calls = [], 0, 0, 0
     if full_npz:
         for lib in sorted(recent):
             for c in recent[lib]["cells"]:
@@ -227,6 +276,7 @@ def audit(repo_root: Path, full_npz: bool = True) -> dict:
                 try:
                     result = replay_npz(path, c)
                     checked += 1
+                    objective_calls += result["objective_oracle"]["verified_calls"]
                     if result["flag_mismatches"]:
                         npz_flags += 1
                         errors.append({"library": lib, "cell": key(c), "problem": "flag mismatch",
@@ -240,6 +290,8 @@ def audit(repo_root: Path, full_npz: bool = True) -> dict:
             "posthoc_emukit_saved_digest_check": diagnostic,
             "npz": {"attempted": full_npz, "checked": checked,
                     "expected_evaluable": 620, "cells_with_flag_difference": npz_flags,
+                    "frozen_objective_value_calls_checked": objective_calls,
+                    "frozen_objective_values_pass": full_npz and checked == 620 and not errors and objective_calls > 0,
                     "errors": errors, "full_raw_trace_pass": full_npz and checked == 620 and not errors},
             "limits": ["Only archives at pinned Git source IDs", "NPZ replay is NOT an optimizer re-run",
                        "Archive digest agreement does not establish root-cause attribution",

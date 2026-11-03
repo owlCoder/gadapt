@@ -23,6 +23,8 @@ from pathlib import Path
 import i55_npz_git_blob_manifest_gate as gate
 import i55_npz_cross_archive_verifier as trace
 
+# GitHub main committed this immutable provenance manifest on 2026-11-03.
+# The independent *original* source anchor below predates all I65 review work.
 PINNED_MANIFEST_GIT_BLOB = "50ca2e96762447070a74309850cb1aa6586d3eb3"
 REPORT_SCHEMA = "I65_I55_ORIGINAL_GIT_TREE_TO_620_NPZ_V1"
 LS_TREE_RE = re.compile(r"^(100644) blob ([a-f0-9]{40}) +([0-9]+)\t(.+)$")
@@ -43,7 +45,7 @@ def _git(repo_root: Path, *args: str) -> str:
 
 
 def load_pinned_manifest(path: Path) -> dict:
-    """Authenticate the manifest itself, not only the SHA values it declares."""
+    """Authenticate the manifest *itself*, not only the SHA values it declares."""
     raw = path.read_bytes()
     observed = gate.blob_id(raw)
     if observed != PINNED_MANIFEST_GIT_BLOB:
@@ -57,7 +59,7 @@ def load_pinned_manifest(path: Path) -> dict:
 
 
 def check_original_commit_tree(repo_root: Path, manifest: dict) -> dict:
-    """Compare all 620 manifest records with immutable Git tree metadata.
+    """Compare *all* 620 manifest records with immutable Git tree metadata.
 
     This catches a tampered manifest + matching tampered working-tree archives,
     even if someone retains the same source-commit SHA as a textual claim.
@@ -121,14 +123,17 @@ def attest(repo_root: Path, manifest_file: Path) -> dict:
             raise AttestationFailure("Archived emukit VECLIB post hoc digest control mismatch")
         if not rerun["npz"]["full_raw_trace_pass"] or rerun["npz"]["checked"] != 620:
             raise AttestationFailure("Original 620 NPZ trace/flag replay FAILED or incomplete")
-        result["completed_levels"].append("620_trace_sha256_and_detector_flags_replayed")
+        if not rerun["npz"].get("frozen_objective_values_pass") or \
+                rerun["npz"].get("frozen_objective_value_calls_checked", 0) <= 0:
+            raise AttestationFailure("Frozen per-call objective-value oracle FAILED or incomplete")
+        result["completed_levels"].append("620_trace_sha256_flags_and_objective_values_replayed")
         result["full_attestation_pass"] = True
         result["status"] = "PASS"
         result["limits"] = [
-            "Recomputed only archived A-process numerical traces and detector flags; no fresh runs",
+            "Recomputed only the archived A-process numerical traces and detector flags; no fresh runs",
             "Does not independently reproduce A-prime/B traces absent from the NPZ archive",
-            "Does not prove detector specificity, causal attribution, novelty or supervisor approval",
-            "Frozen H55a-c supported, H55d not supported remain unchanged",
+            "Does not prove general detector specificity, root-cause attribution, novelty or M6/C1 approval",
+            "Frozen conclusions H55a-c supported, H55d not supported remain untouched",
         ]
     except Exception as exc:  # fail closed and persist a report for any ordinary audit error
         result["failure"] = {"type": type(exc).__name__, "description": str(exc)}

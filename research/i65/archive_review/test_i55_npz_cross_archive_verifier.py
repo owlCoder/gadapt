@@ -55,14 +55,17 @@ class I55ArchiveVerifierTests(unittest.TestCase):
         self.assertEqual([result[t] for t in ('R1', 'R2', 'R3', 'D2')], [0, 0, 0, 0])
 
     def test_npz_replay_from_real_numpy_fixture(self):
-        x, f, phase = self.arrays()
+        x, _dummy, phase = self.arrays()
+        from i55_npz_cross_archive_verifier import evaluate_frozen_objective
+        f = evaluate_frozen_objective(x, "sphere")
         with tempfile.TemporaryDirectory() as tmp:
             p = Path(tmp) / 'sphere_2_6000.npz'
             np.savez_compressed(p, x=x, f=f, phase=phase,
-                                x_star=np.array([0., 0.]), f_star=np.array([1.0]),
+                                x_star=np.array([0., 0.]), f_star=np.array([f[0]]),
                                 reported_evals=np.array([2]), documented_max=np.array([2]))
-            flags = classify_arrays(x, f, phase, np.array([0., 0.]), 1., 2, 2)
-            cell = {'d': 2, 'calls': 4, 'hash': sequence_hash(x, f, phase), 'flags': flags}
+            flags = classify_arrays(x, f, phase, np.array([0., 0.]), float(f[0]), 2, 2)
+            cell = {'function': 'sphere', 'd': 2, 'calls': 4,
+                    'hash': sequence_hash(x, f, phase), 'flags': flags}
             report = replay_npz(p, cell)
             self.assertEqual(report['flag_mismatches'], {})
             self.assertEqual(report['repeated_count'], 1)

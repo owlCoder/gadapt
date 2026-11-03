@@ -8,9 +8,8 @@ from pathlib import Path
 from unittest.mock import patch
 
 import i55_full_npz_attestation as chain
-from i55_npz_git_blob_manifest_gate import (
-    SOURCE_COMMIT, SOURCE_TREE, blob_id, wanted_paths,
-)
+from i55_npz_git_blob_manifest_gate import (ArchiveIndexError, SOURCE_COMMIT,
+    SOURCE_TREE, blob_id, wanted_paths)
 
 
 def fake_manifest():
@@ -138,47 +137,59 @@ class ChainTests(unittest.TestCase):
              patch.object(chain, "check_original_commit_tree", return_value={"exact_tree_manifest_match": True}), \
              patch.object(chain.gate, "check_local_bytes", return_value={"full_git_blob_pass": False}), \
              patch.object(chain.trace, "audit") as check:
-            out = chain.attest(Path("/tmp"), Path("/tmp/m.json"))
+            out=chain.attest(Path("/tmp"),Path("/tmp/m.json"))
         check.assert_not_called()
         self.assertEqual(out["status"], "BLOCKED")
-        self.assertNotIn("620_trace_sha256_and_detector_flags_replayed", out["completed_levels"])
+        self.assertNotIn("620_trace_sha256_and_detector_flags_replayed",out["completed_levels"])
 
     def test_trace_mismatch_must_not_pass(self):
         with patch.object(chain, "load_pinned_manifest", return_value=self.manifest), \
              patch.object(chain, "check_original_commit_tree", return_value={"exact_tree_manifest_match": True}), \
              patch.object(chain.gate, "check_local_bytes", return_value={"full_git_blob_pass": True}), \
-             patch.object(chain.trace, "audit", return_value={
-                 "cross_i50_i55": {"matches_frozen_318_358": True},
-                 "posthoc_emukit_saved_digest_check": {"all_10_match_i50_and_differ_i55": True},
-                 "npz": {"checked": 619, "full_raw_trace_pass": True}}):
-            out = chain.attest(Path("/tmp"), Path("/tmp/m.json"))
+             patch.object(chain.trace, "audit", return_value={"cross_i50_i55": {"matches_frozen_318_358": True},
+                      "posthoc_emukit_saved_digest_check": {"all_10_match_i50_and_differ_i55": True},
+                      "npz": {"checked":619, "full_raw_trace_pass":True, "frozen_objective_values_pass": True, "frozen_objective_value_calls_checked": 100}}):
+            out=chain.attest(Path("/tmp"),Path("/tmp/m.json"))
         self.assertFalse(out["full_attestation_pass"])
-        self.assertIn("Original 620", out["failure"]["description"])
+        self.assertIn("Original 620",out["failure"]["description"])
 
     def test_all_levels_require_real_success(self):
         with patch.object(chain, "load_pinned_manifest", return_value=self.manifest), \
              patch.object(chain, "check_original_commit_tree", return_value={"exact_tree_manifest_match": True}), \
              patch.object(chain.gate, "check_local_bytes", return_value={"full_git_blob_pass": True}), \
-             patch.object(chain.trace, "audit", return_value={
-                 "cross_i50_i55": {"matches_frozen_318_358": True},
-                 "posthoc_emukit_saved_digest_check": {"all_10_match_i50_and_differ_i55": True},
-                 "npz": {"checked": 620, "full_raw_trace_pass": True}}):
-            out = chain.attest(Path("/tmp"), Path("/tmp/m.json"))
+             patch.object(chain.trace, "audit", return_value={"cross_i50_i55": {"matches_frozen_318_358": True},
+                      "posthoc_emukit_saved_digest_check": {"all_10_match_i50_and_differ_i55": True},
+                      "npz": {"checked":620, "full_raw_trace_pass":True, "frozen_objective_values_pass": True, "frozen_objective_value_calls_checked": 120000}}):
+            out=chain.attest(Path("/tmp"),Path("/tmp/m.json"))
         self.assertTrue(out["full_attestation_pass"])
-        self.assertEqual(out["status"], "PASS")
+        self.assertEqual(out["status"],"PASS")
         self.assertEqual(len(out["completed_levels"]), 4)
+        self.assertIn("620_trace_sha256_flags_and_objective_values_replayed", out["completed_levels"])
+
+    def test_missing_objective_oracle_proof_blocks_pass(self):
+        with patch.object(chain, "load_pinned_manifest", return_value=self.manifest), \
+             patch.object(chain, "check_original_commit_tree", return_value={"exact_tree_manifest_match": True}), \
+             patch.object(chain.gate, "check_local_bytes", return_value={"full_git_blob_pass": True}), \
+             patch.object(chain.trace, "audit", return_value={
+                "cross_i50_i55": {"matches_frozen_318_358": True},
+                "posthoc_emukit_saved_digest_check": {"all_10_match_i50_and_differ_i55": True},
+                "npz": {"checked": 620, "full_raw_trace_pass": True,
+                        "frozen_objective_values_pass": False,
+                        "frozen_objective_value_calls_checked": 0}}):
+            out = chain.attest(Path("/tmp"), Path("/tmp/m.json"))
+        self.assertEqual(out["status"], "BLOCKED")
+        self.assertIn("objective-value oracle", out["failure"]["description"])
 
     def test_posthoc_digest_mismatch_blocks(self):
         with patch.object(chain, "load_pinned_manifest", return_value=self.manifest), \
              patch.object(chain, "check_original_commit_tree", return_value={"exact_tree_manifest_match": True}), \
              patch.object(chain.gate, "check_local_bytes", return_value={"full_git_blob_pass": True}), \
-             patch.object(chain.trace, "audit", return_value={
-                 "cross_i50_i55": {"matches_frozen_318_358": True},
-                 "posthoc_emukit_saved_digest_check": {"all_10_match_i50_and_differ_i55": False},
-                 "npz": {"checked": 620, "full_raw_trace_pass": True}}):
-            out = chain.attest(Path("/tmp"), Path("/tmp/m.json"))
+             patch.object(chain.trace, "audit", return_value={"cross_i50_i55": {"matches_frozen_318_358": True},
+                      "posthoc_emukit_saved_digest_check": {"all_10_match_i50_and_differ_i55": False},
+                      "npz": {"checked":620, "full_raw_trace_pass":True, "frozen_objective_values_pass": True, "frozen_objective_value_calls_checked": 120000}}):
+            out=chain.attest(Path("/tmp"),Path("/tmp/m.json"))
         self.assertFalse(out["full_attestation_pass"])
-        self.assertIn("VECLIB", out["failure"]["description"])
+        self.assertIn("VECLIB",out["failure"]["description"])
 
 
 if __name__ == "__main__":
