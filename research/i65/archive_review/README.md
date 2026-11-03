@@ -81,3 +81,8 @@ Primary original reports remain authoritative and have not been modified in this
 ## 2026-11-03: original I55 620-NPZ provenance-to-detector attestation (prospective)
 
 [Scientific limitations and gate report](I65_I55_ORIGINAL_620_NPZ_END_TO_END_ATTESTATION_GATE_2026-11-03.md) · [fail-closed Python orchestrator](i55_full_npz_attestation.py) · [13 synthetic gate tests](test_i55_full_npz_attestation.py) · [execution instructions](README_I55_FULL_NPZ_ATTESTATION_2026-11-03.md). Verifies original-manifest SHA, original full Git tree, all original NPZ bytes, then original A-process hash/flags and archived I50/I55 controls. GitHub Actions workflow is manual-only, NOT dispatched. All 620 original numerical traces have **NOT** been replayed. 25/25 combined local synthetic tests are **not** source-data replication; frozen I55/novelty statuses are unchanged.
+
+## 2026-11-03 — Human M6/C1 scope and originality decision (pending)
+
+- [English supervisor decision package with three explicit alternatives](I65_M6_C1_SUPERVISOR_DECISION_PACKAGE_2026-11-03.md) summarizes the original I49–I55/I52 and I64 frozen outcomes, positive/negative findings, post-hoc caveats, two draft-paper positions and the exact evidence required for an independent sign-off. No alternative has been selected; the document is NOT an approval or a new experimental protocol.
+- Original 620 I55 NPZ arrays remain NOT fully replayed. Existing source-to-NPZ code had 35/35 local synthetic tests in this continuation, not full original data validation. The 620 valid recorded A hashes were distinct within each library but digest uniqueness is no claim about statistical independence.
