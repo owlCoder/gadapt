@@ -1,0 +1,106 @@
+{
+  "schema": "I65_2026_11_03_RESEARCH_CLOSURE_REGISTER_V1",
+  "source_repo": "owlCoder/gadapt",
+  "date": "2026-11-03",
+  "completed_claim": "Partial technical closure only; original scientific and human gates open",
+  "archived_protocols_or_hypotheses_changed": false,
+  "new_optimizer_pf_opf_coco_experiments": 0,
+  "local_tests": {
+    "passed": 97,
+    "failed": 0,
+    "skipped": 2,
+    "skipped_reason": "Pinned original I64-I2 archive / optional derived fixture absent for two archive-dependent checks"
+  },
+  "archived_npz": {
+    "source_count_in_original_git": 620,
+    "actual_numeric_raw_replay": 1,
+    "remaining_raw_replay": 619
+  },
+  "original_r_raw_off_git": {
+    "expected_original_runs": 4200,
+    "raw_source_recovered": false,
+    "seed_level_original_bootstrap_replayed": false
+  },
+  "human_decision": {
+    "M6_C1_signed": false,
+    "originality": "NOT_ESTABLISHED",
+    "freeze": "NO_FREEZE",
+    "manuscripts": "DRAFT"
+  },
+  "held_out_coco": "NOT_RUN_NOT_AUTHORIZED",
+  "attestation_trigger_attempt": {
+    "GitHub_issue_creation": "HTTP_410_ISSUES_DISABLED",
+    "issue_created": false,
+    "actions_run_started": false,
+    "temporary_issue_event_workflow_retained": false,
+    "manual_workflow_retained": true
+  },
+  "gates": [
+    {
+      "gate_id": "I55_GIT_SOURCE_INDEX",
+      "status": "VERIFIED_SCOPE",
+      "evidence_summary": "620 original valid NPZ blobs, 12,319,037 bytes; unchanged original Git blob identities. "
+    },
+    {
+      "gate_id": "I55_ORIGINAL_RAW_NUMERICAL_REPLAY",
+      "status": "PARTIAL_1_OF_620",
+      "evidence_summary": "1 of 620 source NPZ traces, baybe plateau d=2 seed=6003; all 200 f(x), trace SHA256, flags checked. Run existing manual-only read-only full-clone GitHub workflow or full local checkout; inspect full_attestation_pass and archive JSON"
+    },
+    {
+      "gate_id": "I55_METHOD_AND_HASH_SEED_CONTROLS",
+      "status": "VERIFIED_ARCHIVED_CONTRAST",
+      "evidence_summary": "585 stable; 30 SMAC A/A-prime stable but A/B different; 5 Nevergrad same-seed unstable; 10 failed excluded. "
+    },
+    {
+      "gate_id": "I52_DOMAIN_TRANSFER",
+      "status": "VERIFIED_ARCHIVED_DESCRIPTIVE",
+      "evidence_summary": "19/21 library-status agreement, kappa=83/104; exact class-pair Jaccard 7/11. "
+    },
+    {
+      "gate_id": "I64_I2_ORIGINAL_BOOTSTRAP",
+      "status": "VERIFIED_ARCHIVAL_REPLAY",
+      "evidence_summary": "20,000 matched resamples, 13/13 archived numeric quantities exact; H64h2 OPPOSITE. "
+    },
+    {
+      "gate_id": "I64_R_RAW_SEED_LEVEL_BOOTSTRAP",
+      "status": "BLOCKED_OFF_GIT_SOURCE",
+      "evidence_summary": "Only original analysis.json.gz/check_repro.json.gz tracked; R original 4,200-run raw file off Git (~8MB). Recover exact run.json.gz from original research computer, obtain independently trusted full SHA256, then run read-only recovery gate and original-method bootstrap"
+    },
+    {
+      "gate_id": "I55_NUMERIC_PIPELINE_REGRESSION",
+      "status": "VERIFIED_LOCAL_SYNTHETIC",
+      "evidence_summary": "97 passed, 2 skipped, 0 failed across 5 locally staged audit suites. "
+    },
+    {
+      "gate_id": "I55_REMOTE_ONE_SHOT_TRIGGER",
+      "status": "UNAVAILABLE_REPO_SETTING",
+      "evidence_summary": "Attempted exact-issue-title read-only trigger, failed HTTP 410; GitHub Issues disabled; zero issue events executed. Use GitHub Actions manual workflow dispatch by a repo operator; no automation workaround is left enabled"
+    },
+    {
+      "gate_id": "INDEPENDENT_DETECTOR_SPECIFICITY",
+      "status": "NOT_ESTABLISHED",
+      "evidence_summary": "I50 non-specific C1 and I55 rehash evidence are available. Scope, preregister and independently review a ground-truth detector evaluation before any accuracy claim"
+    },
+    {
+      "gate_id": "INDEPENDENT_ORPD_PHYSICAL_VALIDATION",
+      "status": "NOT_ESTABLISHED",
+      "evidence_summary": "Archived historical witness_checked and AC simulator outcomes remain available. Independent M3 technical review and independent model/witness check if externally generalizable engineering claim is required"
+    },
+    {
+      "gate_id": "ALGORITHMIC_NOVELTY_AND_M6_C1",
+      "status": "BLOCKED_HUMAN_DECISION",
+      "evidence_summary": "Explicit three-option mentor/reviewer decision package written; no answer signed. Human reviewer must date, sign and select A/B/C or record an alternative"
+    },
+    {
+      "gate_id": "COCO_HELD_OUT_CONFIRMATION",
+      "status": "NOT_AUTHORIZED_NOT_RUN",
+      "evidence_summary": "Zero held-out f21/f24 confirmation runs; candidate and protocol remain draft. Only after a genuinely prospective frozen protocol, budget/physical model audit, human authorization"
+    },
+    {
+      "gate_id": "MANUSCRIPTS_AND_FINAL_FREEZE",
+      "status": "DRAFT_NO_FREEZE",
+      "evidence_summary": "Two evidence-bounded manuscript drafts, not submitted. Review two drafts, novelty and evidence with M5/M6/C1, record dated decision, then decide freeze"
+    }
+  ],
+  "status": "PARTIAL_TECHNICAL_CLOSURE_EXTERNAL_GATES_OPEN"
+}

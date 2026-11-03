@@ -96,3 +96,10 @@ Primary original reports remain authoritative and have not been modified in this
 ## 2026-11-03 source-byte I55 sample replay and finite objective-oracle repair
 
 [One-original-NPZ numerical replay report](I65_I55_ONE_ORIGINAL_NPZ_RAW_REPLAY_AND_FINITE_ORACLE_2026-11-03.md) and [structured witness](I65_I55_ONE_ORIGINAL_NPZ_RAW_REPLAY_AND_FINITE_ORACLE_2026-11-03.json): original `baybe/plateau_2_6003.npz` Git SHA-1 verified, 200/200 original `f(x)` calls and frozen SHA-256 trace recomputed with zero flag mismatch, C1=188 and C2=186. Fixed an adversarial NaN/Inf false acceptance in the post hoc frozen-objective oracle, six new synthetic tests, **50/50** local regression pass. Full 620 original NPZ replay **NOT_RUN** (only 1/620); no optimization experiments run, no H55d or novelty status changed.
+
+## 2026-11-03 research closeout / pending external gates
+
+- [Evidence-bounded end-of-session closeout](I65_FINAL_EVIDENCE_CLOSURE_AND_OPEN_GATES_2026-11-03.md) and its [machine-readable 13-gate registry](I65_FINAL_EVIDENCE_CLOSURE_REGISTER_2026-11-03.json).
+- Local audit regression 97 PASS, 0 FAIL, 2 SKIP (missing original archive/optional fixture for both skips). Original I55 raw replay: **1/620**; archived NPZ Git inventory **620/620**. Original I64-R off-Git 4200-run raw data not recovered; original I64-I2 statistical bootstrap reproduced. No new optimizers/PF/COCO.
+- GitHub Issues disabled (HTTP 410) blocked the attempted one-time read-only issue-triggered attestation. No issue or run was created; the temporary workflow was removed. Original manual-only I55 attestation remains available for a repo operator.
+- **Not closed:** independent error ground truth, independent ORPD model/witness validity, mentor originality/scope M6/C1 sign-off, source-level R replay, original full I55 NPZ replay, research freeze and prospective COCO authorization. Status **PARTIAL_TECHNICAL_CLOSURE_EXTERNAL_GATES_OPEN**.
