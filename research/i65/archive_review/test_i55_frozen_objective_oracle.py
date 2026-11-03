@@ -135,5 +135,78 @@ class FrozenObjectiveOracleTests(unittest.TestCase):
                 replay_npz(file,cell)
 
 
+    def test_torch_original_sphere_uses_float32_score_not_float64_oracle(self):
+        # Frozen I50 Recorder32: f = float(np.float32(problem(x))). Coordinates
+        # are still float64, so changing coordinate precision would be wrong.
+        x = np.array([[0., 0.], [2.25, -1.5]], dtype=np.float64)
+        exact = evaluate_frozen_objective(x, "sphere")
+        recorded = exact.astype(np.float32).astype(np.float64)
+        self.assertTrue(np.any(np.abs(recorded - exact) > 1e-10))
+        for lib in ("evox", "evotorch"):
+            with self.subTest(lib=lib):
+                witness = check_frozen_objective_values(x, recorded, "sphere", lib)
+                self.assertEqual(witness["historical_recorded_precision"], "float32")
+                self.assertEqual(witness["verified_calls"], 2)
+        with self.assertRaisesRegex(ValueError, "Frozen objective value mismatch"):
+            check_frozen_objective_values(x, recorded, "sphere", "baybe")
+
+    def test_torch_rastrigin_float32_and_non_torch_distinguished(self):
+        x = np.array([[0.37, -1.217], [0.731, 0.123]], dtype=np.float64)
+        exact = evaluate_frozen_objective(x, "rastrigin")
+        recorded = exact.astype(np.float32).astype(np.float64)
+        self.assertTrue(np.any(np.abs(recorded - exact) > 1e-10))
+        for lib in ("evox", "evotorch"):
+            self.assertTrue(check_frozen_objective_values(x, recorded, "rastrigin", lib)
+                            ["all_frozen_objective_values_match"])
+            with self.assertRaisesRegex(ValueError, "Frozen objective value mismatch"):
+                check_frozen_objective_values(x, exact, "rastrigin", lib)
+        self.assertEqual(check_frozen_objective_values(x, exact, "rastrigin", "smac")
+                         ["historical_recorded_precision"], "float64")
+
+    def test_torch_plateau_is_integer_exact_under_both_recorders(self):
+        x = np.array([[0.125, -1.1], [-3.2, 4.9]], dtype=np.float64)
+        f = evaluate_frozen_objective(x, "plateau")
+        for lib in ("evox", "evotorch", "baybe"):
+            self.assertEqual(check_frozen_objective_values(x, f, "plateau", lib)
+                             ["verified_calls"], 2)
+
+    def test_nonfinite_float32_cast_is_rejected(self):
+        x = np.array([[1e35, 0.]], dtype=np.float64)
+        # The true float64 sphere objective is finite (~1e70), but float32
+        # quantization would overflow: must not silently accept inf/inf.
+        true_float64 = evaluate_frozen_objective(x, "sphere")
+        self.assertTrue(np.all(np.isfinite(true_float64)))
+        with self.assertRaisesRegex(ValueError, "Non-finite independent objective result"):
+            check_frozen_objective_values(x, true_float64, "sphere", "evox")
+
+    def test_unknown_archived_library_fails_closed(self):
+        x = np.array([[0., 0.]], dtype=np.float64)
+        f = evaluate_frozen_objective(x, "sphere")
+        with self.assertRaisesRegex(ValueError, "Unknown archived I55 library"):
+            check_frozen_objective_values(x, f, "sphere", "unregistered_package")
+
+    def test_original_torch_scoring_path_full_npz_replay(self):
+        x = np.array([[0., 0.], [1.25, -0.75], [2., 3.]], dtype=np.float64)
+        f64 = evaluate_frozen_objective(x, "sphere")
+        f32 = f64.astype(np.float32).astype(np.float64)
+        phase = np.zeros(len(x), dtype=np.int8)
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "sphere_2_6000.npz"
+            np.savez_compressed(path, x=x, f=f32, phase=phase, x_star=x[0],
+                                f_star=np.array([f32[0]]),
+                                reported_evals=np.array([len(x)]),
+                                documented_max=np.array([len(x)]))
+            flags = classify_arrays(x, f32, phase, x[0], float(f32[0]), len(x), len(x))
+            cell = {"library": "evox", "function": "sphere", "d": 2,
+                    "calls": len(x), "hash": sequence_hash(x, f32, phase), "flags": flags}
+            report = replay_npz(path, cell)
+            self.assertEqual(report["objective_oracle"]["historical_recorded_precision"], "float32")
+            self.assertEqual(report["flag_mismatches"], {})
+            self.assertEqual(report["objective_oracle"]["verified_calls"], 3)
+            cell["library"] = "baybe"
+            with self.assertRaisesRegex(ValueError, "Frozen objective value mismatch"):
+                replay_npz(path, cell)
+
+
 if __name__ == "__main__":
     unittest.main()

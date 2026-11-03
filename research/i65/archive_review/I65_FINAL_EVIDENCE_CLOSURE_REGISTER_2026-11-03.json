@@ -13,8 +13,10 @@
   },
   "archived_npz": {
     "source_count_in_original_git": 620,
-    "actual_numeric_raw_replay": 1,
-    "remaining_raw_replay": 619
+    "actual_numeric_raw_replay": 5,
+    "remaining_raw_replay": 615,
+    "actual_objective_calls_recomputed": 996,
+    "original_torch_float32_calls_recomputed": 796
   },
   "original_r_raw_off_git": {
     "expected_original_runs": 4200,
@@ -43,8 +45,8 @@
     },
     {
       "gate_id": "I55_ORIGINAL_RAW_NUMERICAL_REPLAY",
-      "status": "PARTIAL_1_OF_620",
-      "evidence_summary": "1 of 620 source NPZ traces, baybe plateau d=2 seed=6003; all 200 f(x), trace SHA256, flags checked. Run existing manual-only read-only full-clone GitHub workflow or full local checkout; inspect full_attestation_pass and archive JSON"
+      "status": "PARTIAL_5_OF_620",
+      "evidence_summary": "5 original NPZ A-process byte streams decoded independently, 996 f(x) calls and 5 ordered SHA256/flag sets reproduced. 615 source NPZ traces remain NOT replayed."
     },
     {
       "gate_id": "I55_METHOD_AND_HASH_SEED_CONTROLS",
@@ -100,7 +102,19 @@
       "gate_id": "MANUSCRIPTS_AND_FINAL_FREEZE",
       "status": "DRAFT_NO_FREEZE",
       "evidence_summary": "Two evidence-bounded manuscript drafts, not submitted. Review two drafts, novelty and evidence with M5/M6/C1, record dated decision, then decide freeze"
+    },
+    {
+      "gate_id": "I55_RETROSPECTIVE_ORACLE_FLOAT32_SCORE_CAST",
+      "status": "SOURCE_CORRECTED_AND_TESTED",
+      "evidence_summary": "Frozen I50 Recorder32 returns float(np.float32(problem(x))) for EvoX and EvoTorch. The 64-bit-only oracle would falsely reject 744/796 authentic original source calls. Fixed source-specific cast, 56/56 local regressions passed. The original scientific outcomes are unchanged.",
+      "link": "research/i65/archive_review/I65_I55_FIVE_ORIGINAL_NPZ_REPLAY_AND_FLOAT32_RECORDER_FIX_2026-11-03.md"
     }
   ],
-  "status": "PARTIAL_TECHNICAL_CLOSURE_EXTERNAL_GATES_OPEN"
+  "status": "PARTIAL_TECHNICAL_CLOSURE_EXTERNAL_GATES_OPEN",
+  "latest_targeted_regression_tests": {
+    "passed": 56,
+    "failed": 0,
+    "skipped": 0,
+    "scope": "I55 local source/attestation NPZ verifier tests"
+  }
 }

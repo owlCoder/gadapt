@@ -58,6 +58,10 @@ I55_BLOBS = {
 }
 POSTHOC_BLOB = "2cac9ca8fefd9bb1029ac507ce5fd11624f80771"
 NPZ_KEYS = {"x", "f", "phase", "x_star", "f_star", "reported_evals", "documented_max"}
+# Frozen I50 Recorder32 deliberately returned a single-precision objective value
+# to these two PyTorch libraries; all other I55 adapters used Recorder (float64).
+# Source: research/legacy/flat/iteration50_integrity_audit.py, class Recorder32, TORCH.
+FROZEN_FLOAT32_LIBRARIES = frozenset({"evox", "evotorch"})
 BASE_DIR = Path("research/results")
 
 
@@ -149,12 +153,18 @@ def evaluate_frozen_objective(x: np.ndarray, function: str) -> np.ndarray:
     raise ValueError(f"Unknown frozen I55 objective: {function!r}")
 
 
-def check_frozen_objective_values(x: np.ndarray, f: np.ndarray, function: str) -> dict:
+def check_frozen_objective_values(
+    x: np.ndarray, f: np.ndarray, function: str, library: str | None = None,
+) -> dict:
     """Verify captured per-call objective values against an independent oracle.
 
+    Frozen I50 Recorder32 first evaluated the original float64 objective,
+    then returned float(np.float32(value)) for EvoX and EvoTorch. Compare
+    against that *actual historical measurement path*, not an unrounded
+    float64 expectation. Other libraries use Recorder and preserve float64.
     Cross-platform trig/reduction rounding is tolerated at 1e-10 absolute and
-    relative; this is a post-hoc *data-integrity* check, not a proof of library
-    bugs, independent physical validation, or a new experimental outcome.
+    relative AFTER the appropriate historical cast. This is a post-hoc
+    data-integrity check, not a proof of algorithm defects or novelty.
     """
     # Finite-valued objective probes are an explicit assumption of the frozen
     # I49/I50 synthetic suite. Without this gate, equal_nan=True would accept
@@ -165,7 +175,17 @@ def check_frozen_objective_values(x: np.ndarray, f: np.ndarray, function: str) -
         raise ValueError("Non-finite archived objective coordinates")
     if not bool(np.all(np.isfinite(f))):
         raise ValueError("Non-finite archived objective values")
-    expected = evaluate_frozen_objective(x, function)
+    if library is not None and library not in I55_BLOBS:
+        raise ValueError(f"Unknown archived I55 library {library!r}")
+    expected64 = evaluate_frozen_objective(x, function)
+    if not bool(np.all(np.isfinite(expected64))):
+        raise ValueError("Non-finite independent objective result")
+    # The original I50 code intentionally quantizes the numerical score (NOT
+    # the recorded x coordinates) for two float32-backed PyTorch adapters.
+    # A one-size-fits-all float64 oracle falsely rejects their actual archives.
+    float32_result = library in FROZEN_FLOAT32_LIBRARIES
+    with np.errstate(over="ignore", invalid="ignore"):
+        expected = expected64.astype(np.float32).astype(np.float64) if float32_result else expected64
     if f.dtype != np.float64 or f.shape != expected.shape:
         raise ValueError("Objective oracle input value dtype or shape mismatch")
     if not bool(np.all(np.isfinite(expected))):
@@ -176,7 +196,9 @@ def check_frozen_objective_values(x: np.ndarray, f: np.ndarray, function: str) -
         raise ValueError(f"Frozen objective value mismatch at call {index} "
                          f"for {function}: archived={f[index]!r} expected={expected[index]!r}")
     # This report records only sample count, not estimates of scientific efficacy.
-    return {"function": function, "verified_calls": int(len(f)),
+    return {"function": function, "library": library,
+            "historical_recorded_precision": "float32" if float32_result else "float64",
+            "verified_calls": int(len(f)),
             "all_frozen_objective_values_match": True,
             "all_coordinates_and_values_finite": True,
             "rtol": 1e-10, "atol": 1e-10}
@@ -214,7 +236,7 @@ def replay_npz(path: Path, cell: dict) -> dict[str, Any]:
     # A correct archived trace digest authenticates the bytes but says nothing
     # about whether its recorded objective values follow the frozen objective.
     # The extra oracle is independent of the I49/50 classifier implementation.
-    oracle = check_frozen_objective_values(x, f, cell["function"])
+    oracle = check_frozen_objective_values(x, f, cell["function"], cell.get("library"))
     fstar = None if np.isnan(float(fv[0])) else float(fv[0])
     rev = None if int(reports[0]) < 0 else int(reports[0])
     mx = None if int(documented[0]) < 0 else int(documented[0])

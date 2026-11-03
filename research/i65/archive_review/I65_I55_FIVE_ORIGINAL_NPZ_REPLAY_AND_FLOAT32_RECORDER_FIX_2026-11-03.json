@@ -1,0 +1,121 @@
+{
+  "schema": "I65_I55_FIVE_ORIGINAL_NPZ_SOURCE_REPLAY_V1",
+  "date": "2026-11-03",
+  "source_repo": "owlCoder/gadapt",
+  "original_source_commit": "6b56fbc53ffc4d275ecef5e911ea4663474c9a08",
+  "frozen_problem_blob": "dc14a1c95a1f3bb1ba083f705a75503321bbeafd",
+  "frozen_I50_Recorder32_blob": "17ed62641f2066cdbc8b19b817b9114f144e784c",
+  "method": "Original GitHub NPZ byte streams, independent pure-JS ZIP/NPY decoding, SHA256 rehash, original C/R/D2 classification and source-defined numeric f(x) recomputation; SHA256 abc self-test",
+  "original_npz_replayed": 5,
+  "original_npz_remaining": 615,
+  "original_objective_calls_recomputed": 996,
+  "torch_float32_calls_verified": 796,
+  "prior_oracle_false_rejections": 744,
+  "call_sha256_matches": 5,
+  "flag_matches": 5,
+  "objective_values_match": 996,
+  "full_original_620_trace_pass": false,
+  "no_new_experiments": true,
+  "cells": [
+    {
+      "library": "baybe",
+      "function": "plateau",
+      "dimension": 2,
+      "seed": 6003,
+      "calls": 200,
+      "source_npz_path": "research/results/iteration55/traces/baybe/plateau_2_6003.npz",
+      "original_git_blob_sha1": "c663f533a29983f5e9397c8cbc341c3166d3f5d7",
+      "original_and_recomputed_call_sha256": "fa89b7dc7299a0e4f744c286f4cdfa2d26826cb3834192640cd747d9f015a4e1",
+      "recorded_precision": "float64",
+      "old_float64_only_false_rejections": 0,
+      "original_flags": {
+        "C1": 188,
+        "C2": 186,
+        "C3": 0
+      },
+      "original_SHA256_match": true,
+      "all_original_C_R_D2_flags_match": true,
+      "source_objective_errors_after_correct_precision": 0
+    },
+    {
+      "library": "evox",
+      "function": "sphere",
+      "dimension": 2,
+      "seed": 6000,
+      "calls": 200,
+      "source_npz_path": "research/results/iteration55/traces/evox/sphere_2_6000.npz",
+      "original_git_blob_sha1": "d4cd5f967c7ebf0dec0187def3ce0b43808084b2",
+      "original_and_recomputed_call_sha256": "a96f96879416db9dfa9b74ba2f94b6f5ac2bc02f4b6372385856d82e2df34dc5",
+      "recorded_precision": "float32",
+      "old_float64_only_false_rejections": 200,
+      "original_flags": {
+        "C1": 5,
+        "C2": 5,
+        "C3": 0
+      },
+      "original_SHA256_match": true,
+      "all_original_C_R_D2_flags_match": true,
+      "source_objective_errors_after_correct_precision": 0
+    },
+    {
+      "library": "evox",
+      "function": "rastrigin",
+      "dimension": 2,
+      "seed": 6000,
+      "calls": 200,
+      "source_npz_path": "research/results/iteration55/traces/evox/rastrigin_2_6000.npz",
+      "original_git_blob_sha1": "f360eb3aac2e568d241e43a1b31936092ca462b1",
+      "original_and_recomputed_call_sha256": "6ff7fa42eb603be89cbe2d5c55571e3640e4c5cb8d9441b9ad3cbc1188f30285",
+      "recorded_precision": "float32",
+      "old_float64_only_false_rejections": 192,
+      "original_flags": {
+        "C1": 6,
+        "C2": 4,
+        "C3": 0
+      },
+      "original_SHA256_match": true,
+      "all_original_C_R_D2_flags_match": true,
+      "source_objective_errors_after_correct_precision": 0
+    },
+    {
+      "library": "evotorch",
+      "function": "sphere",
+      "dimension": 2,
+      "seed": 6001,
+      "calls": 198,
+      "source_npz_path": "research/results/iteration55/traces/evotorch/sphere_2_6001.npz",
+      "original_git_blob_sha1": "7e3b34cfa9d56c929cd6bf5864164f629faece02",
+      "original_and_recomputed_call_sha256": "ed60ab3d07293193765b6e34fa1c451832d13e53916a6fd4bcdbd31da3693866",
+      "recorded_precision": "float32",
+      "old_float64_only_false_rejections": 154,
+      "original_flags": {
+        "C1": 0,
+        "C2": 0,
+        "C3": 4
+      },
+      "original_SHA256_match": true,
+      "all_original_C_R_D2_flags_match": true,
+      "source_objective_errors_after_correct_precision": 0
+    },
+    {
+      "library": "evotorch",
+      "function": "rastrigin",
+      "dimension": 2,
+      "seed": 6002,
+      "calls": 198,
+      "source_npz_path": "research/results/iteration55/traces/evotorch/rastrigin_2_6002.npz",
+      "original_git_blob_sha1": "12f56348b153ba573cd6c19afa0dab90685d8f7e",
+      "original_and_recomputed_call_sha256": "3707053bde53681904219db6404fceab645e73905650ad0d961bfdd34635b827",
+      "recorded_precision": "float32",
+      "old_float64_only_false_rejections": 198,
+      "original_flags": {
+        "C1": 0,
+        "C2": 0,
+        "C3": 7
+      },
+      "original_SHA256_match": true,
+      "all_original_C_R_D2_flags_match": true,
+      "source_objective_errors_after_correct_precision": 0
+    }
+  ]
+}
