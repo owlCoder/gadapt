@@ -42,3 +42,8 @@ A fresh read of all 21 original I55 cell metadata files verified 585/620 stable 
 ## 2026-11-03 — I55 original 620-NPZ Git-index audit complete (raw replay still open)
 
 The original Git tree contains **620 NPZ files** (12,319,037 compressed bytes) across 21 libraries; the ten nevergrad sphere/rastrigin 10D failures have no NPZ as recorded. All 620 original file blobs match the previously inspected main SHA-1 identity and path exactly, with no added/deleted NPZ. [Source manifest, byte-authentication program, tests and reviewer report](i65/archive_review/I65_I55_NPZ_GIT_ARCHIVE_COMPLETENESS_AND_PROVENANCE_2026-11-03.md) are linked from the main thesis evidence. **This is full source-index verification, NOT the full 620 NPZ binary/numerical replay**. No confirmation of I55 detector specificity or any new algorithm, and all M6/C1, NO-FREEZE, COCO and DRAFT gates remain unchanged.
+
+
+## Latest I55 source verification addendum — 2026-11-03
+
+The original 620-source NPZ Git index is intact (12,319,037 compressed bytes). Added a fail-closed original-Git-tree/manifest/local-byte/raw SHA-256 and flags verifier and a manual-only GitHub Actions workflow. 25/25 synthetic tests pass locally. **620/620 raw numerical NPZ replay has NOT run.** Do not confuse manifest integrity with independent reconstruction of full original A/A-prime/B numerical runs. Draft, NO-FREEZE, COCO NOT_RUN, originality NOT_ESTABLISHED and pending M6/C1 are unchanged.
