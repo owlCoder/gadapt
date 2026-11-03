@@ -1,0 +1,149 @@
+{
+  "schema": "I65_I55_FIFTY_ORIGINAL_RAW_NPZ_REPLAY_INDEX_V1",
+  "date": "2026-11-03",
+  "source_repository": "owlCoder/gadapt",
+  "original_source_commit": "6b56fbc53ffc4d275ecef5e911ea4663474c9a08",
+  "pinned_620_manifest_sha1": "50ca2e96762447070a74309850cb1aa6586d3eb3",
+  "replay_engine_path": "research/i65/archive_review/i55_original_npz_connector_replay.js",
+  "synthetic_test_path": "research/i65/archive_review/test_i55_original_npz_connector_replay.py",
+  "staged_batch_tree_sha1": "e9aefbc7ce32033fd72d21809203075333005e86",
+  "original_batch_provenance": [
+    {
+      "path": "research/i65/archive_review/I65_I55_50_NPZ_REPLAY_BATCH_01_2026-11-03.json",
+      "git_blob_sha1": "936c7d06d4c746e94916d3d629e5799b91b1d316"
+    },
+    {
+      "path": "research/i65/archive_review/I65_I55_50_NPZ_REPLAY_BATCH_02_2026-11-03.json",
+      "git_blob_sha1": "2fe20a689ea7e16d576cb788bc7a4f9e2f9ee6a2"
+    },
+    {
+      "path": "research/i65/archive_review/I65_I55_50_NPZ_REPLAY_BATCH_03_2026-11-03.json",
+      "git_blob_sha1": "2ae8331198fae9cd1cfaf32ac484de26feb3e87d"
+    },
+    {
+      "path": "research/i65/archive_review/I65_I55_50_NPZ_REPLAY_BATCH_04_2026-11-03.json",
+      "git_blob_sha1": "c8aab7455d29df48134929a4f6f365a279c02e9a"
+    },
+    {
+      "path": "research/i65/archive_review/I65_I55_50_NPZ_REPLAY_BATCH_05_2026-11-03.json",
+      "git_blob_sha1": "e090a41e184f66424a5295d4115e66e8176e5514"
+    },
+    {
+      "path": "research/i65/archive_review/I65_I55_50_NPZ_REPLAY_BATCH_06_2026-11-03.json",
+      "git_blob_sha1": "26127ac927d188c5c94aadb60a1ad3cb820ebd7c"
+    },
+    {
+      "path": "research/i65/archive_review/I65_I55_50_NPZ_REPLAY_BATCH_07_2026-11-03.json",
+      "git_blob_sha1": "9ddf7ad62452a637078692f3a9d2765460b66078"
+    },
+    {
+      "path": "research/i65/archive_review/I65_I55_50_NPZ_REPLAY_BATCH_08_2026-11-03.json",
+      "git_blob_sha1": "b036df58cc591f86b3c32fd01ef99648ef37d136"
+    },
+    {
+      "path": "research/i65/archive_review/I65_I55_50_NPZ_REPLAY_BATCH_09_2026-11-03.json",
+      "git_blob_sha1": "5db91c640e75eba72fd644c6bd4f02d5b980fb63"
+    }
+  ],
+  "new_iterations": 50,
+  "new_valid_npz": 50,
+  "new_failed_replays": 0,
+  "new_distinct_sources": 50,
+  "new_trace_sha256_matches": 50,
+  "new_detector_flag_matches": 50,
+  "new_frozen_objective_value_mismatches": 0,
+  "new_original_objective_calls_checked": 23302,
+  "new_float32_recorder_calls_checked": 1196,
+  "new_calls_that_a_wrong_float64_policy_would_reject": 756,
+  "new_compressed_binary_bytes": 857443,
+  "new_libraries_covered": 21,
+  "new_sphere_npz": 21,
+  "new_plateau_npz": 21,
+  "new_rastrigin_npz": 8,
+  "new_dimension2_npz": 29,
+  "new_dimension10_npz": 21,
+  "flag_occurrence_totals_in_selected_cells": {
+    "C1": 233,
+    "C2": 1365,
+    "C3": 762,
+    "C4": 0,
+    "C5": 80,
+    "R1": 0,
+    "R2": 2,
+    "R3": 1,
+    "D2": 0
+  },
+  "prior_original_npz_replayed": 5,
+  "prior_original_evaluations_recomputed": 996,
+  "cumulative_original_npz_replayed": 55,
+  "cumulative_original_evaluations_recomputed": 24298,
+  "original_evaluable_npz_total": 620,
+  "original_npz_remaining_unreplayed": 565,
+  "prior_five_source_paths": [
+    "research/results/iteration55/traces/baybe/plateau_2_6003.npz",
+    "research/results/iteration55/traces/evox/sphere_2_6000.npz",
+    "research/results/iteration55/traces/evox/rastrigin_2_6000.npz",
+    "research/results/iteration55/traces/evotorch/sphere_2_6001.npz",
+    "research/results/iteration55/traces/evotorch/rastrigin_2_6002.npz"
+  ],
+  "new_fifty_source_paths": [
+    "research/results/iteration55/traces/baybe/plateau_10_6001.npz",
+    "research/results/iteration55/traces/baybe/rastrigin_2_6000.npz",
+    "research/results/iteration55/traces/baybe/sphere_2_6000.npz",
+    "research/results/iteration55/traces/bayes_opt/plateau_10_6001.npz",
+    "research/results/iteration55/traces/bayes_opt/rastrigin_2_6000.npz",
+    "research/results/iteration55/traces/bayes_opt/sphere_2_6000.npz",
+    "research/results/iteration55/traces/bofire/plateau_10_6001.npz",
+    "research/results/iteration55/traces/bofire/sphere_2_6000.npz",
+    "research/results/iteration55/traces/cma/plateau_10_6001.npz",
+    "research/results/iteration55/traces/cma/sphere_2_6000.npz",
+    "research/results/iteration55/traces/cmaes/plateau_10_6001.npz",
+    "research/results/iteration55/traces/cmaes/sphere_2_6000.npz",
+    "research/results/iteration55/traces/deap/plateau_10_6001.npz",
+    "research/results/iteration55/traces/deap/sphere_2_6000.npz",
+    "research/results/iteration55/traces/emukit/plateau_10_6001.npz",
+    "research/results/iteration55/traces/emukit/rastrigin_2_6000.npz",
+    "research/results/iteration55/traces/emukit/sphere_2_6000.npz",
+    "research/results/iteration55/traces/evolopy/plateau_10_6001.npz",
+    "research/results/iteration55/traces/evolopy/sphere_2_6000.npz",
+    "research/results/iteration55/traces/evotorch/plateau_10_6001.npz",
+    "research/results/iteration55/traces/evotorch/rastrigin_2_6000.npz",
+    "research/results/iteration55/traces/evotorch/sphere_2_6000.npz",
+    "research/results/iteration55/traces/evox/plateau_10_6001.npz",
+    "research/results/iteration55/traces/evox/rastrigin_2_6001.npz",
+    "research/results/iteration55/traces/evox/sphere_2_6001.npz",
+    "research/results/iteration55/traces/geneticalgorithm/plateau_10_6001.npz",
+    "research/results/iteration55/traces/geneticalgorithm/sphere_2_6000.npz",
+    "research/results/iteration55/traces/gfo/plateau_10_6001.npz",
+    "research/results/iteration55/traces/gfo/sphere_2_6000.npz",
+    "research/results/iteration55/traces/nevergrad/plateau_10_6001.npz",
+    "research/results/iteration55/traces/nevergrad/rastrigin_2_6000.npz",
+    "research/results/iteration55/traces/nevergrad/sphere_2_6000.npz",
+    "research/results/iteration55/traces/niapy/plateau_10_6001.npz",
+    "research/results/iteration55/traces/niapy/sphere_2_6000.npz",
+    "research/results/iteration55/traces/optuna/plateau_10_6001.npz",
+    "research/results/iteration55/traces/optuna/sphere_2_6000.npz",
+    "research/results/iteration55/traces/pygad/plateau_10_6001.npz",
+    "research/results/iteration55/traces/pygad/sphere_2_6000.npz",
+    "research/results/iteration55/traces/pymoo/plateau_10_6001.npz",
+    "research/results/iteration55/traces/pymoo/sphere_2_6000.npz",
+    "research/results/iteration55/traces/pyswarms/plateau_10_6001.npz",
+    "research/results/iteration55/traces/pyswarms/sphere_2_6000.npz",
+    "research/results/iteration55/traces/scikit_opt/plateau_10_6001.npz",
+    "research/results/iteration55/traces/scikit_opt/sphere_2_6000.npz",
+    "research/results/iteration55/traces/scipy_de/plateau_10_6001.npz",
+    "research/results/iteration55/traces/scipy_de/rastrigin_2_6000.npz",
+    "research/results/iteration55/traces/scipy_de/sphere_2_6000.npz",
+    "research/results/iteration55/traces/smac/plateau_10_6001.npz",
+    "research/results/iteration55/traces/smac/rastrigin_2_6000.npz",
+    "research/results/iteration55/traces/smac/sphere_2_6000.npz"
+  ],
+  "deduplicated_against_prior_five": true,
+  "full_620_raw_trace_attestation_completed": false,
+  "cross_process_A_prime_B_raw_traces_replayed": false,
+  "new_optimizer_or_power_flow_or_coco_runs": 0,
+  "manuscript_status": "DRAFT",
+  "originality_status": "NOT_ESTABLISHED",
+  "historical_hypothesis_decisions": "UNCHANGED",
+  "full_clone_manifest_gate_still_outstanding": true
+}
