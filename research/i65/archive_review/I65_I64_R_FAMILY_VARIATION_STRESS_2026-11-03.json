@@ -1,0 +1,152 @@
+{
+  "status": "POST_HOC_ONLY",
+  "provenance": {
+    "type": "derived 9-decimal snapshot; raw event archive NOT accessed",
+    "git_blob_sha1": "59025d6cc052baef76b14e5496962704bdb7604a",
+    "approximate": true
+  },
+  "frozen_point": {
+    "c1": 0.00309419762962963,
+    "c2": 0.08088636844444444,
+    "c3": 0.010094588370370368,
+    "c4": 0.07079178007407408
+  },
+  "family_means": {
+    "sphere": {
+      "c1": 0.0028101849999999998,
+      "c2": 0.0008109259999999999,
+      "c3": 0.0008842596666666667,
+      "c4": -7.333366666666668e-05
+    },
+    "rosenbrock": {
+      "c1": 0.01741898166666667,
+      "c2": -0.014306666333333336,
+      "c3": 0.006223796333333333,
+      "c4": -0.02053046266666667
+    },
+    "rastrigin": {
+      "c1": 0.011708240666666666,
+      "c2": 0.30829194466666665,
+      "c3": -0.0019053703333333331,
+      "c4": 0.310197315
+    },
+    "ackley": {
+      "c1": 0.016137592666666666,
+      "c2": 0.052563795999999996,
+      "c3": -0.0022600926666666668,
+      "c4": 0.05482388866666666
+    },
+    "griewank": {
+      "c1": 0.019183703666666666,
+      "c2": 0.04861379633333333,
+      "c3": 0.02419796266666667,
+      "c4": 0.024415833666666664
+    },
+    "styblinski_tang": {
+      "c1": -0.030636759,
+      "c2": 0.26373851833333334,
+      "c3": 0.07263574066666666,
+      "c4": 0.1911027776666667
+    },
+    "beale": {
+      "c1": -0.027968333,
+      "c2": 0.069277778,
+      "c3": -0.005641667,
+      "c4": 0.074919445
+    },
+    "himmelblau": {
+      "c1": 0.019528889,
+      "c2": 0.003725556,
+      "c3": -0.003275278,
+      "c4": 0.007000834
+    },
+    "booth": {
+      "c1": -0.000334722,
+      "c2": -0.004738333,
+      "c3": -8.056e-06,
+      "c4": -0.004730277
+    }
+  },
+  "leave_one_family_out_c4": {
+    "sphere": 0.07964991929166666,
+    "rosenbrock": 0.08220706041666667,
+    "rastrigin": 0.04086608820833333,
+    "ackley": 0.0727877665,
+    "griewank": 0.076588773375,
+    "styblinski_tang": 0.055752905374999995,
+    "beale": 0.07027582195833333,
+    "himmelblau": 0.07876564833333333,
+    "booth": 0.08023203720833333
+  },
+  "leave_two_family_out_below_0_05": 8,
+  "leave_two_family_out_total": 36,
+  "extreme_two_family_removals": [
+    {
+      "removed": [
+        "rastrigin",
+        "styblinski_tang"
+      ],
+      "c4": 0.019403703999999997
+    },
+    {
+      "removed": [
+        "rastrigin",
+        "beale"
+      ],
+      "c4": 0.036001322952380954
+    },
+    {
+      "removed": [
+        "rastrigin",
+        "ackley"
+      ],
+      "c4": 0.03887211671428571
+    },
+    {
+      "removed": [
+        "rastrigin",
+        "griewank"
+      ],
+      "c4": 0.04321612457142857
+    }
+  ],
+  "resampling": {
+    "iterations": 100000,
+    "seed": 7001,
+    "kind": "illustrative resampling of purposively selected function families, NOT a registered CI",
+    "percentile_envelopes": {
+      "c1": {
+        "p2.5": -0.009845627407407407,
+        "p5": -0.007523220000000001,
+        "median": 0.003485936296296296,
+        "p95": 0.012718024807407354,
+        "p97.5": 0.014180339518518516
+      },
+      "c2": {
+        "p2.5": 0.014887469296296295,
+        "p5": 0.02157822029629629,
+        "median": 0.07867588496296296,
+        "p95": 0.1463777471111111,
+        "p97.5": 0.162417531
+      },
+      "c3": {
+        "p2.5": -0.001709249111111111,
+        "p5": -0.0009764611111111111,
+        "median": 0.009165617296296294,
+        "p95": 0.024557191185185186,
+        "p97.5": 0.027291975148148146
+      },
+      "c4": {
+        "p2.5": 0.011499002296296294,
+        "p5": 0.017950967444444445,
+        "median": 0.06801970214814815,
+        "p95": 0.13222355992592594,
+        "p97.5": 0.14554629644444445
+      }
+    },
+    "proportion_resampled_c4_above_0_05": 0.70003,
+    "proportion_resampled_c4_above_zero": 0.99728,
+    "proportion_resampled_c2_above_0_05": 0.77399
+  },
+  "interpretation": "Original R seed-only registered H64r1/r2/r3 unchanged. Deliberately selected family set and R per-seed raw data absent from Git. Resampling nine purposively chosen means gives only exploratory heterogeneity diagnostic."
+}
