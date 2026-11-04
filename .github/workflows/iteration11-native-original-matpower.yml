@@ -1,19 +1,19 @@
 name: Iteration 11 native original MATPOWER RTE1888 AC (2 PYPOWER solves)
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "research/ITERATION11_PROTOCOL.md"
-      - "research/iteration11_original_matpower_native_pf.py"
-      - "research/test_iteration11_native_pf.py"
-      - "research/results/rte1888_iteration11_original_matpower_gen_full21_2019.csv"
-      - "research/results/rte1888_iteration11_original_matpower_branch_full13_2019.csv"
-      - ".github/workflows/iteration11-native-original-matpower.yml"
+  # Original AC/PF/OPF or optimization is NEVER automatic on push or PR.
+  # Legacy experiments require intentional manual authorization.
   workflow_dispatch:
+    inputs:
+      authorize_legacy_original_physical_runs:
+        description: 'Explicit authorization to rerun the original native physical or optimizer study'
+        type: boolean
+        required: true
+        default: false
 
 jobs:
   original-matpower-ac:
+    if: github.event_name == 'workflow_dispatch' && inputs.authorize_legacy_original_physical_runs == true
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:

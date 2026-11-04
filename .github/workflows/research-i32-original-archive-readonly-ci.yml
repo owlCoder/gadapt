@@ -3,6 +3,14 @@ name: I32 Original Archived 72-Run Read-Only Accounting
 # No optimizer, PYPOWER, PF/OPF or physical simulation is permitted here.
 # This is separate from the existing I32 source and manual physical workflow.
 on:
+  # After merge, re-verify historic artifact accounting only.
+  # Never run an AC solver, optimizer, PF, OPF, COCO or new experiment.
+  push:
+    branches: [main]
+    paths:
+      - 'research/i32_original_archive_readonly_verify.py'
+      - 'research/test_i32_original_archive_readonly_verify.py'
+      - '.github/workflows/research-i32-original-archive-readonly-ci.yml'
   pull_request:
     branches: [main]
     paths:

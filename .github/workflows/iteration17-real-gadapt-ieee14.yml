@@ -1,17 +1,19 @@
 name: Iteration 17 real GAdapt original IEEE14 economic AC PF pilot (864 AC max)
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "research/ITERATION17_PROTOCOL.md"
-      - "research/iteration17_ieee14_gadapt_economic_pf.py"
-      - "research/test_iteration17_ieee14_gadapt_economic_pf.py"
-      - ".github/workflows/iteration17-real-gadapt-ieee14.yml"
+  # Original AC/PF/OPF or optimization is NEVER automatic on push or PR.
+  # Legacy experiments require intentional manual authorization.
   workflow_dispatch:
+    inputs:
+      authorize_legacy_original_physical_runs:
+        description: 'Explicit authorization to rerun the original native physical or optimizer study'
+        type: boolean
+        required: true
+        default: false
 
 jobs:
   real-gadapt-ieee14-ac:
+    if: github.event_name == 'workflow_dispatch' && inputs.authorize_legacy_original_physical_runs == true
     runs-on: ubuntu-latest
     timeout-minutes: 28
     env:
