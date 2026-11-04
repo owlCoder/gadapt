@@ -164,5 +164,24 @@
     "future_manual_authorization_required": true,
     "no_future_pr_or_push_benchmark": true,
     "caveat": "Historical unintended CI run cannot be undone; do not count it as preregistered research evidence."
+  },
+  "published_executable_archived_replay": {
+    "status": "PUBLISHED_REPO_SOURCE_LOCAL_11_TESTS_PASS_CI_PENDING",
+    "program": "research/i32_original_archive_readonly_verify.py",
+    "program_git_sha1": "a0a67041276c5edab504b40ac10944200681ba0e",
+    "program_sha256": "b5a7adfa1bc08b1df3236a0884ab2bcebafbea284ecac84c9791ab1c9775a14d",
+    "tests": "research/test_i32_original_archive_readonly_verify.py",
+    "adversarial_synthetic_test_cases": 11,
+    "local_original_72_run_replay": "PASS",
+    "original_historic_actions_source": 39686171613,
+    "original_artifact_id": 12386702402,
+    "original_zip_digest_sha256": "c2a84c57571841737c7a9f006091a4a97097fe6843d42265ef3ccbd84937f782",
+    "source_json_sha256": "a8e707cc6044390213f8c9112ab59ab47f8a30321b28a669e2624d5c0df4d534",
+    "source_csv_sha256": "60a58eba49759f116e0f69e8c98887853cb99b112a022663cd051bd5eb1e7533",
+    "reference_zip_mode_new_report_sha256": "1ba44d212bcfc40c9051b5ddfbcff086ed9b0f60c1a7d37d956d8dd2d6d9f537",
+    "independent_artifact_only_CI_workflow": ".github/workflows/research-i32-original-archive-readonly-ci.yml",
+    "independent_CI_run": "NOT_YET_CONFIRMED",
+    "source_dir_transport_note": "actions/download-artifact unpacks original GitHub Actions artifact; script authenticates exact raw JSON+CSV SHA-256, but directory mode explicitly does not claim to have rehashed ZIP transport bytes",
+    "strict_no_new_PF_OPF_or_optimizer": true
   }
 }
