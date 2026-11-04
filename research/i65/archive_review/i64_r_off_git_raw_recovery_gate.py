@@ -96,7 +96,7 @@ def validate_r_records(records:list)->dict:
             raise ValueError(f'Invalid original best_y dimension/coordinates {key}')
     if len(seen)!=4200:
         raise ValueError('Incomplete R seed/config/paired-cell roster')
-    return dict(records_checked=4200,pairs=21,algorithms=2,seeds_per_pair=100,physical_calls_per_run=12000,
+    return dict(records_checked=4200,pairs=21,algorithms=2,seeds_per_pair=100,objective_calls_per_run=12000,
                 event_integrity='PASS',seed_roster='PASS',all_runs_ok='PASS')
 
 
