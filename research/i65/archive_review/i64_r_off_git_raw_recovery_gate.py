@@ -76,11 +76,24 @@ def validate_r_records(records:list)->dict:
                 raise ValueError(f'Invalid event call count/order {key}')
             if isinstance(f,bool) or not isinstance(f,(float,int)) or not math.isfinite(f):
                 raise ValueError(f'Non-finite best value {key}')
-            # original Budget.events records strict best improvements
-            if float(f)>previous_f+1e-10*max(1,abs(previous_f)):
-                raise ValueError(f'Best value increases {key}')
+            # Original frozen e_common.Budget.__call__ records a new event
+            # ONLY on strict finite v < best. A tie or even a tiny increase
+            # cannot be an authentic archived best-improvement event.
+            if not float(f)<previous_f:
+                raise ValueError(f'Best value is not strictly improved {key}')
             previous_call=call
             previous_f=float(f)
+        # The frozen R driver stores budget.best and budget.best_y from the
+        # same final strict-improvement event in this original task.
+        best_f=r.get('best_f')
+        if type(best_f) not in (float,int) or not math.isfinite(best_f) or float(best_f)!=previous_f:
+            raise ValueError(f'Last event does not equal original best_f {key}')
+        best_y=r.get('best_y')
+        dimension=PAIRS[k][1]
+        if not isinstance(best_y,list) or len(best_y)!=dimension or any(
+            type(v) not in (float,int) or not math.isfinite(v) for v in best_y
+        ):
+            raise ValueError(f'Invalid original best_y dimension/coordinates {key}')
     if len(seen)!=4200:
         raise ValueError('Incomplete R seed/config/paired-cell roster')
     return dict(records_checked=4200,pairs=21,algorithms=2,seeds_per_pair=100,physical_calls_per_run=12000,
