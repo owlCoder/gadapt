@@ -77,3 +77,4 @@ class CommonPopulationImmigrator(BasePopulationImmigrator):
             c.population_generation = self.population.population_generation
         if getattr(self, "_stagnation_refresh_due", False) and candidate_solution_list:
             monitor.stagnation_refreshes += 1
+            monitor.refreshes_since_improvement += 1
