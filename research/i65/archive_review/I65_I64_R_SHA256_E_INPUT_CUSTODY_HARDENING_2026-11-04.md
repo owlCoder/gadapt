@@ -1,0 +1,79 @@
+# I65 / I64-R — Source custody tightening for E inputs
+
+**2026-11-04 | READ-ONLY CODE CORRECTION | DRAFT / NO-FREEZE / NOT_ESTABLISHED.**
+
+This document corrects a potential **false positive** in the previously
+published original I64-R off-Git recovery gate. The old implementation
+evaluated `ready_for_independent_raw_seed_bootstrap` based on whether
+42 original E shift/rot cell archives and `normalizers.json.gz`
+**existed** on disk; an altered file of the same name could be
+mistaken for the original.
+
+## Technical correction — no original R study rerun
+
+- [Strict original E manifest verifier](i64_r_e_source_manifest_validation.py)
+  checks **all 67 SHA-256 manifest entries** have an original full
+  64-hex-digit digest (63 E part files + `run`, `freeze`,
+  `normalizers`, and `manifest_run`).
+- **44 strictly required source files for independent R seed-bootstrap
+  input provenance**: 21×2=42 archived original E `shift`/`rot`
+  part sources, the original E `normalizers`, and the archived
+  E `freeze` parameters. Every existing source file is SHA-256
+  checked against the original e_inputs digest map that the
+  **original Git-blob-pinned R analysis and check_repro files**
+  both agree on.
+- The recovered R record tasks must match the **frozen original
+  `gadapt`/`ipop` algorithm-parameter dictionaries** from the
+  SHA-256-attested E `freeze.json.gz`; a substituted `params`
+  dictionary aborts. The original full 4,200 record roster, event
+  order and seed budget checks run **before** these new checks.
+- A required file that is missing → **NOT READY**. A present
+  original E file with a wrong SHA-256 → **FAIL CLOSED**. An optional
+  E source absent → listed as missing optional, and **FULL original
+  E manifest authenticated = false**. No file is regenerated.
+- The already published
+  [original R recovery gate](i64_r_off_git_raw_recovery_gate.py)
+  now calls this verifier: its `ready_for_independent_raw_seed_bootstrap`
+  cannot become true on file existence alone.
+
+### Why 67 is not 44
+
+The frozen R experiment's `e_inputs()` computes SHA-256 for **all
+63 original E cell parts plus four global E sources**, even though
+the independent original R seed-ECDF comparison requires 42 shift/rot
+parts and normalizers (and the source parameter manifest to attest the
+frozen R task definitions).
+
+The original full 4,575-entry Git tree contains **all 63 E
+`run_part_*.json.gz` files** and the E `freeze`,
+`normalizers` and `manifest_run` gzips, but **does not track
+`research/results/iteration64_e/run.json.gz`**. Instead it tracks
+`run.json.gz.sha256`, a **digest marker, not the underlying E
+aggregate**. Its absence prevents claiming FULL original E aggregate
+source custody but does **not** prevent authenticating the narrower 44
+inputs required for the fixed R seed analysis. A source in an
+operator's untracked working copy may exist; do not infer loss.
+
+## Validation and limits
+
+**10/10 synthetic/adversarial read-only tests PASS locally.**
+Tests include: missing required normalizer or freeze, tampered
+required or optional source bytes, malformed/full-length SHA-256,
+changed frozen task parameters, malformed task structure,
+and preservation of the difference between **44 required verified**
+and **67 fully available**. The committed verifier and ten-test
+source blobs are identical to the locally tested files.
+
+The source-only I55 CI includes this ten-test suite, but **a new
+Actions CI run covering this change has not yet been confirmed**.
+Do not add ten to the previous 86 and claim 96/96 CI PASS.
+
+**Crucially the ORIGINAL 4,200-run I64-R raw gzip is still missing.**
+The independent 20,000-replicate R seed bootstrap has **NOT** been
+replayed. Merely tightening its preflight gate is NOT additional
+experimental evidence and must not change any frozen H64r1–r3 decision.
+
+[Recovery instructions for original I64-R/A′/B](I65_EXTERNAL_ORIGINAL_SOURCE_RECOVERY_HANDOFF_2026-11-04.md) ·
+[Cross-study technical/nontechnical closure](I65_2026_11_04_TECHNICAL_CLOSEOUT_AND_HUMAN_DECISION_GATES.md).
+
+**Scientific status: DRAFT / NO-FREEZE / NOT_ESTABLISHED; COCO NOT_RUN.**
