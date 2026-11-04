@@ -19,6 +19,7 @@ class GAOptions:
         self._keep_elitism_percentage = ga.keep_elitism_percentage
         self._number_of_crossover_parents = ga.number_of_crossover_parents
         self._cost_function = ga.cost_function
+        self.reliability_monitor = getattr(ga, "_reliability_monitor", None)
         self.cost_diversity_metric = ga.cost_diversity_metric
         self.strict_mutation_decision_variable_limit = ga.strict_mutation_decision_variable_limit
         self.compensatory_mutation = ga.compensatory_mutation
