@@ -154,6 +154,32 @@ def analyze(original_repo: Path, attestation_path: Path) -> dict:
             sum(total(v) for v in functions.values()) == total(overall) and
             sum(total(v) for v in dimensions.values()) == total(overall),
             "Original source stratified C1 counts do not reconcile")
+    # Independent direct immutable-Git NPZ x.npy read of all 109 C1-positive
+    # original source cells authenticated the signed events. A future full-
+    # clone Python CI must reproduce the *same* signed original observations.
+    require((total(overall, side="negative"),
+             total(overall, side="positive")) == (2050, 55),
+            "Original direct-Git source signed corner totals disagree")
+    require((total(overall, side="negative", frequency="first"),
+             total(overall, side="positive", frequency="first")) == (97, 52),
+            "Original signed first-corner population disagrees")
+    require((total(overall, side="negative", frequency="repeat"),
+             total(overall, side="positive", frequency="repeat")) == (1953, 3),
+            "Original signed exact-repeat population disagrees")
+    require((cells_negative, cells_positive, cells_both) == (97, 52, 40),
+            "Original signed C1 cell occupancy disagrees")
+    expected_signed_function = {
+        "plateau": (1803, 17), "sphere": (225, 16), "rastrigin": (22, 22),
+    }
+    for fn, (negative, positive) in expected_signed_function.items():
+        require((total(functions[fn], side="negative"),
+                 total(functions[fn], side="positive")) == (negative, positive),
+                "Original signed source function context differs: " + fn)
+    expected_signed_dimension = {"2": (864, 55), "10": (1186, 0)}
+    for dim, (negative, positive) in expected_signed_dimension.items():
+        require((total(dimensions[dim], side="negative"),
+                 total(dimensions[dim], side="positive")) == (negative, positive),
+                "Original signed source dimension context differs: " + dim)
     return {
         "schema": "I65_I55_620_ORIGINAL_A_FULL_CORNER_SIGN_V1",
         "original_commit": census.SOURCE_SHA,
