@@ -14,6 +14,31 @@ naučni zaključak i ne odobrava nove eksperimente.
 | I64-I2 | Originalnih 13/13 inferencijalnih vrednosti reprodukovano iz 720 arhivskih ishoda | Retka naknadno izabrana ćelija case39/j=3; originalna odluka H64h2 ostaje OPPOSITE. |
 | I32 | Sedam originalnih Git blobova obnovljeno na draft PR #15, 19/19 izvornih testova prošlo, 72 arhivska ishoda aritmetički potvrđena | Uparena originalna neadjustirana p-vrednost za GAdapt fixed-stop i DE fixed-stop je **0,0625**, ne ispunjava prag 0,05. Bez nove nezavisne fizičke validacije. |
 
+## Novo pitanje M5: pseudo-replikacija i težina pojedinačnih C1 poziva
+
+Naknadna, read-only provera originalnih 109 C1-pozitivnih NPZ
+tragova pokazuje dva bitno različita imenitelja:
+**2.050/2.105 (97,39%) C1 poziva na punom negativnom uglu**,
+ali samo **97/149 (65,10%) prvih pojavljivanja negativnog
+ugla unutar pojedinačne ćelije**. Od 1.956 identičnih ponavljanja
+**1.953 su negativna**, tri pozitivna. Pet originalnih ćelija
+daje 851/2.105 događaja. Četiri naknadno izabrane biblioteke sa
+najviše C1 ponavljanja daju 1.918/1.956 ponavljanja.
+
+**Izričit zadatak recenzenta:** razdvojiti estimand na nivou
+poziva od estimanda na nivou jedinstvenog (ćelija, ugao)
+para; ne tretirati 2.105 poziva ili 149 parova kao nezavisne
+realizacije slučajno izabrane populacije. Post-hoc isključivanje
+četiri biblioteke **nije** novi registrovani eksperiment, a
+observirana C1 dominacija **nije** nezavisno dokazan softverski
+defekt ni uzročna pristrasnost algoritma.
+
+[Originalni izvor, izračunavanje i interpretacija](
+I65_I55_ORIGINAL_C1_EVENT_WEIGHTING_REPETITION_COMPOSITION_2026-11-04.md) ·
+[Mašinski dokaz](
+I65_I55_ORIGINAL_SIGNED_C1_DEDUP_WEIGHTING_AND_LIBRARY_CONCENTRATION_2026-11-04.json).
+Ovaj dodatak **ne menja status M5_REVIEW_PENDING**.
+
 ## Obavezne recenzentske provere
 
 1. Jesu li biblioteke, funkcijske porodice, semena i sintetički IEEE14 scenariji jasno predstavljeni kao **fiksni ograničeni uzorci**, a ne kao slučajan uzorak industrijske populacije?
