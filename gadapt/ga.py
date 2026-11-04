@@ -143,6 +143,7 @@ class GA:
         reliability_refresh_patience: Optional[int] = None,
         reliability_refresh_percentage: float = 20.0,
         reliability_restart_after_refreshes: Optional[int] = None,
+        reliability_discrete_certify: bool = False,
         **deprecated_kwargs,
     ) -> None:
         """
@@ -412,6 +413,11 @@ class GA:
         self.reliability_mode = reliability_mode
         self.max_evaluations = max_evaluations
         self.acceptable_cost = acceptable_cost
+        if type(reliability_discrete_certify) is not bool:
+            raise ValueError("reliability_discrete_certify must be boolean")
+        if reliability_discrete_certify and reliability_mode is not True:
+            raise ValueError("reliability_discrete_certify requires reliability_mode=True")
+        self.reliability_discrete_certify = reliability_discrete_certify
         if (reliability_refresh_patience is not None
                 and (type(reliability_refresh_patience) is not int
                      or reliability_refresh_patience < 1)):
@@ -528,11 +534,22 @@ class GA:
                 not isinstance(self.acceptable_cost, Real) or
                 not math.isfinite(float(self.acceptable_cost))):
             raise ValueError("reliability_mode requires a finite acceptable_cost")
+        from gadapt.execution.discrete_certification import (
+            discrete_grid_axes, evaluate_discrete_grid,
+        )
+        # A complete grid scan costs exactly one call per declared grid point.
+        # Bypass the genetic initial-population budget floor only when that
+        # entire finite grid is affordable, and disable redundant validation
+        # probes only along this explicitly selected exhaustive path.
+        axes = (discrete_grid_axes(self._decision_variables, min(self.max_evaluations, 100_000))
+                if self.reliability_discrete_certify else None)
         initial_calls = self.population_size + (2 if self.probe_cost_function else 0)
-        if self.max_evaluations < initial_calls:
+        if axes is None and self.max_evaluations < initial_calls:
             raise ValueError("max_evaluations must cover the initial population and validation probes")
 
         configured = self.clone()
+        if axes is not None:
+            configured.probe_cost_function = False
         monitor = ReliabilityMonitor(self.cost_function, self.max_evaluations,
                                      self.acceptable_cost, self.constraint_handling is not None)
         configured._cost_function = monitor
@@ -559,6 +576,8 @@ class GA:
                 results.messages.append(("ERROR", str(validation_error)))
             monitor.annotate(results)
             return results
+        if axes is not None:
+            return evaluate_discrete_grid(monitor, axes, configured.timeout)
         if monitor.acceptable:
             # Validation probes are real evaluated candidates inside declared bounds.
             # Do not allocate and evaluate a population once the target is met.
