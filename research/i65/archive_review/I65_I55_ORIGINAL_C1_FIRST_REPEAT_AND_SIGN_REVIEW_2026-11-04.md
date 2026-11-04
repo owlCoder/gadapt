@@ -23,13 +23,20 @@ I65_I55_620_C1_TWO_SIGN_CELL_OCCUPANCY_EXACT_PROOF_2026-11-04.md)
 and [full signed-corner occupancy source ledger](
 I65_I55_620_ORIGINAL_TWO_SIGN_C1_CELL_OCCUPANCY_2026-11-04.json).
 
-**The directional EVENT-level totals** (how often -5 versus +5 was
-visited) **remain NOT_OBSERVED**. The proposed original full-NPZ
-signed-corner classifier is still useful for those totals and as a
-cross-check, but the 40 both-sign *cell occupancy* result is already
-proven by two completed original source CI reports. No new
-optimization, physical experiment, or latest-head CI result is
-claimed.
+**Further direct original-Git binary follow-up completed later on 2026-11-04:**
+all 109 C1-positive original NPZ `x.npy` arrays were fetched from
+immutable original Git commit, matched to original blob SHA-1, byte
+size, source shape/call count and frozen C1 cell total. The signed
+EVENT-level split is now **2,050 all−5 / 55 all+5**, with **1,953
+negative repeats / 3 positive repeats** and **97 negative first /
+52 positive first**. All 55 positive events occurred in 2D.
+The independent [complete direct binary source report](
+I65_I55_ORIGINAL_620_C1_SIGNED_CORNER_DIRECT_BINARY_FORENSICS_2026-11-04.md)
+and [109-source per-cell ledger](
+I65_I55_ORIGINAL_109_C1_POSITIVE_NPZ_SIGNED_CORNER_DIRECT_BINARY_REPLAY_2026-11-04.json)
+supersede the previous directional *unknown* status.
+The separate full-620 Python signed-corner CI has no observed new
+run. No new optimizer or physical experiment is claimed.
 
 ## Independently derived from the ORIGINAL published phase-level CI output
 
