@@ -198,6 +198,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Run 8 isolated synthetic Node current-run SHA provenance regression tests
+        run: node --test research/i65/archive_review/test_i55_fresh_original_report_lineage_node.cjs
       - name: Fail-closed 13 tests against SHA-pinned original 109 signed NPZ ledger and 620-source CI evidence
         run: |
           node --test research/i65/archive_review/test_i55_109_signed_corner_source_weighting_gate.cjs

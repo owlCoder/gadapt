@@ -160,7 +160,7 @@
       },
       causal_bug_or_general_optimizer_bias_established:false,
       new_optimizer_PF_OPF_COCO_runs:0,
-      newest_head_Github_CI:"NOT_OBSERVED",
+      newest_head_Github_CI:"SEE_ACTIONS_RUN_METADATA_NOT_INFERRED_FROM_RESEARCH_REPORT",
       scientific_status:"DRAFT / NO-FREEZE / NOT_ESTABLISHED"
     };
   }
