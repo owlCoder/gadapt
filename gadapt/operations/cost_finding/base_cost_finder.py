@@ -44,6 +44,37 @@ class BaseCostFinder(ABC):
             c.succ = False
             c.cost_value = sys.float_info.max
 
+    def _restore_monitored_incumbent(self):
+        """Rescue one *already evaluated* candidate when the entire cohort fails.
+
+        Validation probes (or an earlier generation) may have produced a valid
+        value. Restoring its exact cached objective never calls the user function.
+        This is opt-in and cannot hide a run with no valid evaluation at all.
+        """
+        monitor = getattr(self.population.options, "reliability_monitor", None)
+        if monitor is None or monitor.best is None or not self.population.candidate_solutions:
+            return False
+        objective, violation, values = monitor.best
+        variables = sorted(self.population.options.decision_variables, key=lambda v: v.variable_id)
+        if len(variables) != len(values):
+            return False
+
+        candidate = CandidateSolution(self.population.population_generation)
+        candidate.candidate_solution_generation = 1
+        for variable, value in zip(variables, values):
+            candidate.add_variable_value(variable, value)
+        candidate.succ = True
+        candidate.objective_value = objective
+        candidate.violation_value = violation
+        # Constrained cost finders re-compute the scalar after updating the
+        # handler; objective is only a temporary, finite placeholder.
+        candidate.cost_value = objective
+        candidate.candidate_solution_id = self.population.last_candidate_solution_id
+        self.population.last_candidate_solution_id += 1
+        self.population.candidate_solutions[-1] = candidate
+        self.population.register_candidate_solution(candidate)
+        return True
+
     @abstractmethod
     def _find_costs_for_population(self):
         pass
