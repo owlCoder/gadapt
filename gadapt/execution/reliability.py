@@ -21,6 +21,8 @@ class ReliabilityMonitor:
         self.acceptable_cost = float(acceptable_cost)
         self.constrained = constrained
         self.evaluations = 0
+        self.valid_evaluations = 0
+        self.invalid_evaluations = 0
         self.best = None  # (objective, violation, immutable snapshot of decision values)
 
     def __call__(self, values):
@@ -28,20 +30,28 @@ class ReliabilityMonitor:
             raise EvaluationBudgetExhausted("Objective evaluation budget exhausted")
         self.evaluations += 1  # Charge failed calls, too.
         evaluated_values = tuple(values)  # Snapshot before user callback can mutate the list.
-        result = self.objective(values)
+        try:
+            result = self.objective(values)
+        except Exception:
+            self.invalid_evaluations += 1
+            raise
         try:
             if self.constrained:
                 objective, violation = parse_pair(result)
             else:
                 if isinstance(result, bool) or not isinstance(result, Real):
+                    self.invalid_evaluations += 1
                     return result
                 objective = float(result)
                 if not math.isfinite(objective):
+                    self.invalid_evaluations += 1
                     return result
                 violation = 0.0
         except (TypeError, ValueError, OverflowError):
+            self.invalid_evaluations += 1
             return result  # Let the original cost finder report invalid output.
 
+        self.valid_evaluations += 1
         if self.best is None:
             replace = True
         else:
@@ -61,6 +71,8 @@ class ReliabilityMonitor:
     def annotate(self, results):
         """Expose separately the technical execution status and solution quality."""
         results.objective_evaluations = self.evaluations
+        results.valid_objective_evaluations = self.valid_evaluations
+        results.invalid_objective_evaluations = self.invalid_evaluations
         results.acceptable = self.acceptable
         results.feasible = self.best is not None and self.best[1] == 0
         if self.best is not None:
