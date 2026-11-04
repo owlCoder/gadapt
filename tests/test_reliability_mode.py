@@ -11,6 +11,12 @@ import numpy as np
 
 from gadapt.ga import GA
 from gadapt.execution.reliability import ReliabilityMonitor, EvaluationBudgetExhausted
+from gadapt.ga_model.ga_options import GAOptions
+from gadapt.ga_model.population import Population
+from gadapt.operations.cost_finding.constraint_handling_cost_finder import ConstraintHandlingCostFinder
+from gadapt.operations.immigration.population_immigration.common_population_immigrator import CommonPopulationImmigrator
+from gadapt.operations.immigration.candidate_solution_immigration.random_candidate_solution_immigrator import RandomCandidateSolutionImmigrator
+from gadapt.utils.constraint_handling import ConstraintHandler
 
 
 def seed():
@@ -216,6 +222,75 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertTrue(result.success, result.messages)
         self.assertEqual(result.objective_evaluations, 8)
         self.assertEqual(simulator.calls, 8)
+
+    def test_feasible_parent_survives_weak_penalty_and_immigration(self):
+        # Fixed candidate evaluations, not an optimization-performance test.
+        # Weak penalty favors every infeasible candidate over the feasible one.
+        def objective(v):
+            x = v[0]
+            return (100.0, 0.0) if x >= 0 else (0.0, -x)
+
+        def make_population(reliable):
+            ga = GA(cost_function=objective, population_size=4,
+                    keep_elitism_percentage=50, immigration_number=1,
+                    constraint_handling="penalty", constraint_penalty_weight=0.001,
+                    probe_cost_function=False)
+            ga.add(-1.0, 1.0)
+            options = GAOptions(ga)
+            monitor = None
+            if reliable:
+                monitor = ReliabilityMonitor(objective, 20, -1.0, constrained=True)
+                options.cost_function = monitor
+                options.reliability_monitor = monitor
+            population = Population(options)
+            for c, x in zip(population, (-0.1, -0.2, -0.3, 0.5)):
+                c[0].value = x
+            finder = ConstraintHandlingCostFinder(ConstraintHandler("penalty", 0.001))
+            finder.find_costs(population)
+            return population, finder, monitor
+
+        legacy, _, _ = make_population(False)
+        self.assertTrue(all(c.violation_value > 0 for c in legacy))
+        population, finder, monitor = make_population(True)
+        feasible = [c for c in population if c.violation_value == 0.0]
+        self.assertEqual(len(feasible), 1)
+        self.assertEqual(feasible[0][0].value, 0.5)
+        self.assertEqual(monitor.evaluations, 4)
+
+        population.population_generation += 1
+        immigrant = CommonPopulationImmigrator(RandomCandidateSolutionImmigrator())
+        immigrant.immigrate(population)
+        self.assertEqual(feasible[0][0].value, 0.5)
+        self.assertFalse(feasible[0].is_immigrant)
+        self.assertEqual(monitor.evaluations, 4)  # immigration itself evaluates nothing
+        finder.find_costs(population)
+        self.assertEqual(monitor.evaluations, 5)
+        self.assertTrue(any(c is feasible[0] for c in population))
+
+    def test_old_probe_feasible_incumbent_reenters_search_without_evaluation(self):
+        def objective(v):
+            return (100.0, 0.0) if v[0] >= 0 else (0.0, -v[0])
+
+        ga = GA(cost_function=objective, population_size=4,
+                keep_elitism_percentage=50,
+                constraint_handling="penalty", constraint_penalty_weight=0.001,
+                probe_cost_function=False)
+        ga.add(-1.0, 1.0)
+        options = GAOptions(ga)
+        monitor = ReliabilityMonitor(objective, 20, -1.0, constrained=True)
+        monitor([0.75])  # Already actually evaluated; not in the generated population.
+        options.cost_function = monitor
+        options.reliability_monitor = monitor
+        population = Population(options)
+        for c, x in zip(population, (-0.1, -0.2, -0.3, -0.4)):
+            c[0].value = x
+        finder = ConstraintHandlingCostFinder(ConstraintHandler("penalty", 0.001))
+        finder.find_costs(population)
+        self.assertEqual(monitor.evaluations, 5)  # 1 prior + 4 fresh; no re-evaluation
+        feasible = [c for c in population if c.violation_value == 0]
+        self.assertEqual(len(feasible), 1)
+        self.assertEqual(feasible[0][0].value, 0.75)
+        self.assertTrue(feasible[0].succ)
 
     def test_budget_must_cover_initial_population_and_probes(self):
         calls = []
