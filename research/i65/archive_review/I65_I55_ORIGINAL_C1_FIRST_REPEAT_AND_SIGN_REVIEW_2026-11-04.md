@@ -7,6 +7,30 @@ source calls*, plus a new original-full-clone tool that will distinguish
 the two signed corners when its GitHub Actions run is available.
 No new optimizer, PF, OPF or held-out COCO trial has been executed.
 
+## UPDATE: 40 both-sign cells proven without rerunning original NPZ source
+
+The original 620-source flag census and phase-repeat reports from
+the already successful GitHub Actions run 41804478669 determine
+**exactly 40 original C1-positive cells that contain BOTH full signed
+corners** and **69 that contain only one**. All 40 both-sign cells
+are in original 2D strata; none are in 10D. This result is
+independently reproduced from the **exact original ZIP and full
+SHA-256-pinned census/phase JSON** using a standard-library-only
+verifier with **11/11 local adversarial tests PASS**.
+
+See [the newly closed exact-combinatorial proof](
+I65_I55_620_C1_TWO_SIGN_CELL_OCCUPANCY_EXACT_PROOF_2026-11-04.md)
+and [full signed-corner occupancy source ledger](
+I65_I55_620_ORIGINAL_TWO_SIGN_C1_CELL_OCCUPANCY_2026-11-04.json).
+
+**The directional EVENT-level totals** (how often -5 versus +5 was
+visited) **remain NOT_OBSERVED**. The proposed original full-NPZ
+signed-corner classifier is still useful for those totals and as a
+cross-check, but the 40 both-sign *cell occupancy* result is already
+proven by two completed original source CI reports. No new
+optimization, physical experiment, or latest-head CI result is
+claimed.
+
 ## Independently derived from the ORIGINAL published phase-level CI output
 
 Original pinned full-clone Actions
