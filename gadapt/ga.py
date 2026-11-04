@@ -5,6 +5,8 @@ The main genetic algorithm module
 import inspect
 import sys
 import warnings
+import math
+from numbers import Real
 from typing import List, Optional, Callable
 
 import gadapt.ga_model.definitions as definitions
@@ -135,6 +137,9 @@ class GA:
         constraint_handling: Optional[str] = None,
         constraint_penalty_weight: float = 1000.0,
         compensatory_mutation: Optional[str] = None,
+        reliability_mode: bool = False,
+        max_evaluations: Optional[int] = None,
+        acceptable_cost: Optional[float] = None,
         **deprecated_kwargs,
     ) -> None:
         """
@@ -401,6 +406,9 @@ class GA:
         self.ensure_unique_individuals = ensure_unique_individuals
         self.cost_diversity_metric = cost_diversity_metric
         self.probe_cost_function = probe_cost_function
+        self.reliability_mode = reliability_mode
+        self.max_evaluations = max_evaluations
+        self.acceptable_cost = acceptable_cost
         self.strict_mutation_decision_variable_limit = strict_mutation_decision_variable_limit
         self.compensatory_mutation = compensatory_mutation
         self.columnar_diversity_metric = columnar_diversity_metric
@@ -473,6 +481,8 @@ class GA:
         Executes genetic algorithm optimization base on the
         provided parameters and arguments.
         """
+        if self.reliability_mode:
+            return self._execute_reliably()
         validator = CommonOptionsValidator(self)
         validator.validate()
         if not validator.success:
@@ -483,6 +493,48 @@ class GA:
         ga_options = GAOptions(self.clone())
         factory: BaseGAFactory = self.get_factory()
         factory.initialize_factory(self, ga_options)
+        return GAExecutor(ga_options, factory).execute()
+
+    def _execute_reliably(self) -> GAResults:
+        """Opt-in bounded run; legacy configuration, objective and defaults are untouched."""
+        from gadapt.execution.reliability import ReliabilityMonitor
+
+        if type(self.reliability_mode) is not bool:
+            raise ValueError("reliability_mode must be boolean")
+        if type(self.max_evaluations) is not int or self.max_evaluations <= 0:
+            raise ValueError("reliability_mode requires max_evaluations > 0")
+        if (isinstance(self.acceptable_cost, bool) or
+                not isinstance(self.acceptable_cost, Real) or
+                not math.isfinite(float(self.acceptable_cost))):
+            raise ValueError("reliability_mode requires a finite acceptable_cost")
+        initial_calls = self.population_size + (2 if self.probe_cost_function else 0)
+        if self.max_evaluations < initial_calls:
+            raise ValueError("max_evaluations must cover the initial population and validation probes")
+
+        configured = self.clone()
+        monitor = ReliabilityMonitor(self.cost_function, self.max_evaluations,
+                                     self.acceptable_cost, self.constraint_handling is not None)
+        configured._cost_function = monitor
+        configured._reliability_monitor = monitor
+        # Ignore only legacy avg/min stagnation exits, not user exit_function,
+        # timeout, explicitly bounded generations or a cost-target criterion.
+        if configured.exit_check in (definitions.AVG_COST, definitions.MIN_COST):
+            configured.exit_check = definitions.GENERATIONS
+            if configured.number_of_generations <= 0:
+                configured.number_of_generations = 1_000_000
+
+        validator = CommonOptionsValidator(configured)
+        validator.validate()
+        if not validator.success:
+            results = GAResults()
+            results.success = False
+            results.termination_reason = "validation_failed"
+            results.messages = validator.validation_messages
+            monitor.annotate(results)
+            return results
+        ga_options = GAOptions(configured)
+        factory = self.get_factory()
+        factory.initialize_factory(configured, ga_options)
         return GAExecutor(ga_options, factory).execute()
 
     def get_factory(self) -> BaseGAFactory:
