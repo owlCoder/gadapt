@@ -142,6 +142,7 @@ class GA:
         acceptable_cost: Optional[float] = None,
         reliability_refresh_patience: Optional[int] = None,
         reliability_refresh_percentage: float = 20.0,
+        reliability_restart_after_refreshes: Optional[int] = None,
         **deprecated_kwargs,
     ) -> None:
         """
@@ -422,6 +423,13 @@ class GA:
             raise ValueError("reliability_refresh_percentage must be between 0 and 100")
         self.reliability_refresh_patience = reliability_refresh_patience
         self.reliability_refresh_percentage = float(reliability_refresh_percentage)
+        if reliability_restart_after_refreshes is not None:
+            if (type(reliability_restart_after_refreshes) is not int or
+                    reliability_restart_after_refreshes < 1):
+                raise ValueError("reliability_restart_after_refreshes must be a positive integer or None")
+            if reliability_refresh_patience is None or reliability_refresh_percentage == 0:
+                raise ValueError("reliability restart requires an enabled stagnation refresh")
+        self.reliability_restart_after_refreshes = reliability_restart_after_refreshes
         self.strict_mutation_decision_variable_limit = strict_mutation_decision_variable_limit
         self.compensatory_mutation = compensatory_mutation
         self.columnar_diversity_metric = columnar_diversity_metric
