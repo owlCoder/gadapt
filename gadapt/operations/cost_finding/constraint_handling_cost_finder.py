@@ -88,6 +88,7 @@ class ConstraintHandlingCostFinder(ElitismCostFinder):
         better: List[CandidateSolution] = sorted(
             self.population, key=lambda c: self.handler.key(c.objective_value, c.violation_value))
         better = better[: self.population.options.keep_number]
+        better = self._retain_feasible_incumbent(better)
         self.population.best_individual = better[0]
         self.population.min_cost = better[0].cost_value
         without_immigrants = better[: self.population.options.keep_number - self.population.options.immigration_number]
@@ -96,3 +97,48 @@ class ConstraintHandlingCostFinder(ElitismCostFinder):
         self.population.clear_and_add_candidate_solutions(better)
         best = self.population.best_individual
         self._previous_best = (best.objective_value, best.violation_value)
+
+    def _retain_feasible_incumbent(self, kept):
+        """Reserve one survivor for the best verified feasible point, opt-in only.
+
+        A weak penalty or epsilon ranking can otherwise discard every feasible
+        solution. The monitor's snapshot was already evaluated (possibly in a
+        validation probe or an earlier generation), so restoration must never
+        spend another objective call or label an unevaluated point as feasible.
+        """
+        monitor = getattr(self.population.options, "reliability_monitor", None)
+        if monitor is None or monitor.best is None or monitor.best[1] != 0 or not kept:
+            return kept
+
+        objective, violation, values = monitor.best
+
+        def is_verified_match(candidate):
+            return (candidate.get_values_tuple() == values
+                    and getattr(candidate, "_succ", False)
+                    and candidate.objective_value == objective
+                    and candidate.violation_value == violation
+                    and not candidate.is_immigrant)
+
+        elite = next((c for c in kept if is_verified_match(c)), None)
+        if elite is None:
+            # Reuse a real evaluated candidate if possible, otherwise rebuild
+            # the explicitly validated value/result pair from the monitor.
+            elite = next((c for c in self.population if is_verified_match(c)), None)
+            if elite is None:
+                elite = CandidateSolution(self.population.population_generation)
+                elite.candidate_solution_generation = 1
+                variables = sorted(self.population.options.decision_variables,
+                                   key=lambda v: v.variable_id)
+                for decision_variable, value in zip(variables, values):
+                    elite.add_variable_value(decision_variable, value)
+                elite.objective_value = objective
+                elite.violation_value = violation
+                elite.succ = True
+            elite.cost_value = self.handler.cost(objective, violation)
+            kept[-1] = elite
+            kept.sort(key=lambda c: self.handler.key(c.objective_value, c.violation_value))
+
+        # Immigration is allowed to replace other weak candidates, not this
+        # incumbent. Mutation and crossover only change new offspring.
+        elite._reliability_feasible_elite = True
+        return kept
