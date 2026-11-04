@@ -521,8 +521,8 @@ class ReliabilityModeTest(unittest.TestCase):
         result = ga.execute()
         self.assertFalse(result.success)
         self.assertEqual(result.termination_reason, "validation_failed")
-        self.assertEqual(result.objective_evaluations, 1)
-        self.assertEqual(len(calls), 1)
+        self.assertEqual(result.objective_evaluations, 0)
+        self.assertEqual(len(calls), 0)  # Structural validation rejects this before probing.
         self.assertTrue(any("Population size" in str(message) for message in result.messages))
 
     def test_noncallable_objective_still_fails_validation_without_charges(self):
@@ -544,10 +544,8 @@ class ReliabilityModeTest(unittest.TestCase):
         ga = GA(cost_function=objective, population_size=4,
                 exit_check="generations", number_of_generations=2)
         ga.add(-1.0, 1.0)
-        result = ga.execute()
-        self.assertFalse(result.success)
-        self.assertIsNone(result.termination_reason)
-        self.assertIsNone(result.objective_evaluations)
+        with self.assertRaisesRegex(Exception, "domain excludes left endpoint"):
+            ga.execute()  # Preserve legacy validator's raised exception.
 
     def test_stateful_objective_is_not_deepcopied_into_initial_snapshot(self):
         seed()
