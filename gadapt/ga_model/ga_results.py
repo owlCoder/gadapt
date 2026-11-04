@@ -31,6 +31,7 @@ class GAResults:
         self.invalid_objective_evaluations = None
         self.acceptable = None
         self.termination_reason = None
+        self.solution_status = None
 
     def __str__(self) -> str:
         return ga_strings.results_to_string(self)
