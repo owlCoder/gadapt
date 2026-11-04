@@ -32,6 +32,7 @@ class GAResults:
         self.cached_objective_requests = None
         self.stagnation_refreshes = None
         self.reliability_restarts = None
+        self.invalid_population_resamples = None
         self.discrete_search_applied = None
         self.discrete_space_size = None
         self.discrete_points_checked = None

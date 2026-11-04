@@ -508,6 +508,113 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertEqual(result.solution_status, "no_valid_evaluation")
         self.assertEqual(result.objective_evaluations, 4)
 
+    def test_recovery_discovers_first_valid_after_two_invalid_cohorts(self):
+        seed()
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return float("nan") if len(calls) <= 8 else 1.0
+
+        ga = GA(cost_function=objective, probe_cost_function=False,
+                population_size=4, reliability_mode=True,
+                max_evaluations=12, acceptable_cost=0.0)
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertEqual(result.termination_reason, "budget_exhausted")
+        self.assertEqual(result.invalid_population_resamples, 2)
+        self.assertEqual(result.objective_evaluations, 12)
+        self.assertEqual(result.invalid_objective_evaluations, 8)
+        self.assertEqual(result.valid_objective_evaluations, 4)
+        self.assertEqual(result.best_objective, 1.0)
+        self.assertTrue(result.feasible)
+        self.assertFalse(result.acceptable)
+        self.assertEqual(len(calls), 12)
+
+    def test_recovery_constrained_accepts_first_valid_feasible_candidate(self):
+        seed()
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return (float("nan"), 0.0) if len(calls) <= 4 else (0.0, 0.0)
+
+        ga = GA(cost_function=objective, probe_cost_function=False,
+                population_size=4, constraint_handling="feasibility_rules",
+                reliability_mode=True, max_evaluations=14, acceptable_cost=0.0)
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertTrue(result.acceptable)
+        self.assertEqual(result.termination_reason, "acceptable_target")
+        self.assertEqual(result.invalid_population_resamples, 1)
+        self.assertEqual(result.objective_evaluations, 5)
+        self.assertEqual(result.valid_objective_evaluations, 1)
+        self.assertEqual(result.invalid_objective_evaluations, 4)
+        self.assertEqual(result.best_violation, 0.0)
+        self.assertEqual(result.result_values, {0: calls[4][0]})
+        self.assertEqual(len(calls), 5)
+
+    def test_recovery_exhausts_partial_last_cohort_without_extra_calls(self):
+        seed()
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return float("nan")
+
+        ga = GA(cost_function=objective, probe_cost_function=False,
+                population_size=4, reliability_mode=True,
+                max_evaluations=10, acceptable_cost=0.0)
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertFalse(result.success)
+        self.assertEqual(result.termination_reason, "budget_exhausted")
+        self.assertEqual(result.solution_status, "no_valid_evaluation")
+        self.assertEqual(result.invalid_population_resamples, 2)
+        self.assertEqual(result.objective_evaluations, 10)
+        self.assertEqual(result.invalid_objective_evaluations, 10)
+        self.assertEqual(len(calls), 10)
+
+    def test_recovery_honors_timeout_before_resampling(self):
+        seed()
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return float("nan")
+
+        ga = GA(cost_function=objective, probe_cost_function=False,
+                population_size=4, reliability_mode=True,
+                max_evaluations=20, acceptable_cost=0.0, timeout=1)
+        ga.add(-1.0, 1.0)
+        with patch("gadapt.execution.ga_executor.datetime") as clock:
+            clock.now.return_value = datetime.now() + timedelta(seconds=1000)
+            result = ga.execute()
+        self.assertFalse(result.success)
+        self.assertEqual(result.termination_reason, "timeout")
+        self.assertEqual(result.invalid_population_resamples, 0)
+        self.assertEqual(result.objective_evaluations, 4)
+        self.assertEqual(len(calls), 4)
+
+    def test_legacy_all_invalid_still_stops_without_retries(self):
+        seed()
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return float("nan")
+
+        ga = GA(cost_function=objective, probe_cost_function=False,
+                population_size=4, exit_check="generations",
+                number_of_generations=1)
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertFalse(result.success)
+        self.assertEqual(len(calls), 4)
+        self.assertIsNone(result.invalid_population_resamples)
+
     def test_constraint_best_feasible_survives_selection_and_budget(self):
         seed()
         seen = []
