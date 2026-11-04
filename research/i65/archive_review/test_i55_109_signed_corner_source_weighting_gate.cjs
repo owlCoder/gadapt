@@ -23,18 +23,12 @@ function loadPinnedGit(file,expectedBlob) {
   assert.equal(gitBlob(raw),expectedBlob,"Original Git blob SHA-1 mismatch: "+file);
   return JSON.parse(raw.toString("utf-8"));
 }
-function loadPinnedCI(file,sha) {
-  const raw=fs.readFileSync(path.join(ROOT,file));
-  assert.equal(crypto.createHash("sha256").update(raw).digest("hex"),sha,
-    "Original CI source SHA-256 mismatch: "+file);
-  return JSON.parse(raw.toString("utf-8"));
-}
 const ledger=loadPinnedGit(LEDGER,"7f1716b061d703d5ab8c367d73386371dcb9d7a9");
 const roster=loadPinnedGit(ROSTER,"f1dd7d1b283eba1ee12562acaf22a144d9c525d5");
-const census=loadPinnedCI("i55_620_original_flag_census.json",
-  "a0bfb1bfeaa2979ae8f195ffbcde8c9ff2c45b0562f96ecdf7915e229963c4ea");
-const phase=loadPinnedCI("i55_620_npz_phase_duplicate_context.json",
-  "14ee6ea5839b59f3b15403921b7ed76a45c72a0ec39321f5aefde16dbe21d82f");
+// Unlike immutable original NPZ/blob hashes, newly generated JSON carries a
+// fresh attestation date. Verify CURRENT full -> CURRENT census/phase SHA
+// lineage and original frozen Git identities, not yesterday's output SHA.
+const {census,phase}=require("./i55_fresh_original_report_lineage_node.cjs").loadCurrent(ROOT);
 const copy=value=>structuredClone(value);
 function failsClosed(label,mutation) {
   test(label,()=>{
