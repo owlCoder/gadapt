@@ -73,6 +73,98 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertEqual(result.number_of_iterations, 0)
         self.assertEqual(len(calls), 2)
 
+    def test_first_acceptable_candidate_stops_initial_generation_immediately(self):
+        seed()
+        seen = []
+
+        def objective(values):
+            seen.append(tuple(values))
+            return 0.0
+
+        ga = GA(cost_function=objective, population_size=6,
+                reliability_mode=True, max_evaluations=6,
+                acceptable_cost=0.0, probe_cost_function=False)
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertTrue(result.acceptable)
+        self.assertEqual(result.solution_status, "acceptable")
+        self.assertEqual(result.termination_reason, "acceptable_target")
+        self.assertEqual(result.objective_evaluations, 1)
+        self.assertEqual(result.valid_objective_evaluations, 1)
+        self.assertEqual(result.number_of_iterations, 0)
+        self.assertEqual(result.result_values, {0: seen[0][0]})
+        self.assertEqual(len(seen), 1)
+
+    def test_third_candidate_target_does_not_evaluate_rest_of_population(self):
+        seed()
+        seen = []
+
+        def objective(values):
+            seen.append(tuple(values))
+            return 0.0 if len(seen) == 3 else 1.0
+
+        ga = GA(cost_function=objective, population_size=8,
+                reliability_mode=True, max_evaluations=8,
+                acceptable_cost=0.0, probe_cost_function=False)
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertTrue(result.acceptable)
+        self.assertEqual(result.termination_reason, "acceptable_target")
+        self.assertEqual(result.objective_evaluations, 3)
+        self.assertEqual(result.best_objective, 0.0)
+        self.assertEqual(result.result_values, {0: seen[2][0]})
+        self.assertEqual(len(seen), 3)
+
+    def test_last_budgeted_call_that_reaches_target_reports_acceptance(self):
+        seed()
+        seen = []
+
+        def objective(values):
+            seen.append(tuple(values))
+            return 0.0 if len(seen) == 4 else 1.0
+
+        ga = GA(cost_function=objective, population_size=4,
+                reliability_mode=True, max_evaluations=4,
+                acceptable_cost=0.0, probe_cost_function=False)
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertTrue(result.acceptable)
+        self.assertEqual(result.termination_reason, "acceptable_target")
+        self.assertEqual(result.objective_evaluations, 4)
+        self.assertEqual(result.best_objective, 0.0)
+        self.assertEqual(len(seen), 4)
+
+    def test_early_target_requires_both_feasibility_and_quality(self):
+        seed()
+        seen = []
+
+        def objective(values):
+            seen.append(tuple(values))
+            if len(seen) <= 2:
+                return (-100.0, 0.5)  # Never accept infeasible low cost.
+            if len(seen) == 3:
+                return (1.0, 0.0)  # Feasible but fails the threshold.
+            return (0.2, 0.0)
+
+        ga = GA(cost_function=objective, population_size=8,
+                reliability_mode=True, max_evaluations=8,
+                acceptable_cost=0.2, probe_cost_function=False,
+                constraint_handling="penalty", constraint_penalty_weight=0.001)
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertTrue(result.acceptable)
+        self.assertTrue(result.feasible)
+        self.assertEqual(result.termination_reason, "acceptable_target")
+        self.assertEqual(result.objective_evaluations, 4)
+        self.assertEqual(result.best_objective, 0.2)
+        self.assertEqual(result.best_violation, 0.0)
+        self.assertEqual(result.result_values, {0: seen[3][0]})
+        self.assertEqual(len(seen), 4)
+
     def test_all_invalid_initial_generation_recovers_validated_probe(self):
         seed()
         calls = []
