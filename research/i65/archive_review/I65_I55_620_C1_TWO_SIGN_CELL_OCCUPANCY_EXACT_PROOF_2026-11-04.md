@@ -103,11 +103,19 @@ is yet observed**. This proof is supported by the **earlier already
 successful original source CI reports**, not by a claim of a new CI
 execution.
 
-**Still unknown:** the separate *event-level* counts of negative
-versus positive corner calls. Both-sign cell occupancy does not
-identify how many times each side was revisited. The additional
-direct original 620 NPZ signed-corner reader remains available
-but unexecuted on the complete original clone in this session.
+**Subsequent separate direct binary audit closed the event-level
+question on the same date:** 109 original C1-positive NPZ arrays
+were fetched from immutable original Git and byte/shape/C1
+authenticated; **2,050 negative vs 55 positive events** were
+directly counted. Both-sign cell occupancy alone still cannot
+derive these event totals: they are new *read-only original source
+measurements*, not an inference from the two aggregate reports.
+See [the 109-original-source signed-event ledger](
+I65_I55_ORIGINAL_109_C1_POSITIVE_NPZ_SIGNED_CORNER_DIRECT_BINARY_REPLAY_2026-11-04.json)
+and [new signed C1 methods report](
+I65_I55_ORIGINAL_620_C1_SIGNED_CORNER_DIRECT_BINARY_FORENSICS_2026-11-04.md).
+The separate full-clone Python signed-corner GitHub CI is still
+NOT_OBSERVED.
 
 C1/C2 are **observed instrument flags, not adjudicated software
 defects or causal evidence**. All interpretations are descriptive
