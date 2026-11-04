@@ -474,6 +474,14 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   non-finite responses. `valid_objective_evaluations` and
   `invalid_objective_evaluations` split that count. If validation probes
   already find an acceptable candidate, no population is evaluated.
+  For **stationary, deterministic, side-effect-free** objectives only, set
+  `reliability_cache_evaluations=True` to reuse the verified value of an
+  identical numerical input without calling the expensive objective again.
+  `cached_objective_requests` reports those reuse events separately: they
+  are **not** physical evaluations, and errors/nonfinite responses are never
+  cached. This option is off by default. Do not enable it for stochastic,
+  stateful, time-varying, or otherwise non-repeatable simulations: caching
+  would change their behavior and invalidate statistical interpretations.
   During a normal search, the first feasible evaluation at or below
   `acceptable_cost` immediately stops the standard cost finders, even
   halfway through a generation or on the final allowed call. The remaining
