@@ -1,0 +1,145 @@
+{
+  "schema": "I65_POST_620_ORIGINAL_A_PROCESS_EVIDENCE_GATE_REGISTER_V1",
+  "as_of": "2026-11-04",
+  "repository": "owlCoder/gadapt",
+  "branch": "audit/i55-181-evidence-chain-20261104",
+  "baseline_main": "8d376a720afe2704af5efdb39777dac7a2c5e742",
+  "original_I55_source_commit": "6b56fbc53ffc4d275ecef5e911ea4663474c9a08",
+  "scientific_disposition": "DRAFT / NO-FREEZE / NOT_ESTABLISHED",
+  "reproduction": {
+    "gate": "I55_ORIGINAL_A_PROCESS_SOURCE_TO_NUMERIC_AND_FLAG",
+    "status": "PASS_620_OF_620",
+    "source_manifest_blob": "50ca2e96762447070a74309850cb1aa6586d3eb3",
+    "original_root_tree": "f88d221152fcb4157a8e1151a11b53cdfe8180b7",
+    "original_npz_valid": 620,
+    "original_npz_archived_historical_failures_excluded": 10,
+    "original_objective_calls_replayed": 295445,
+    "original_trace_sha256_and_detector_flag_mismatches": 0,
+    "original_value_oracle_pass": true,
+    "full_clone_CI_run": 41797397598,
+    "CI_artifact_ID": 13305773463,
+    "CI_artifact_zip_sha256": "8fde49274a3ba909cef5cfc8985476c17262473ef9ae224276f8b2bfb05a3681",
+    "full_npz_attestation_json_sha256": "9a6a5a3d32120394798ccf47675aaff403b82062fac240267a47e327283fa111",
+    "prior_181_evidence_reconciliation_json_sha256": "dfbe7cc7f1dc55ca5eeb96aa85e9c44b2636a525ac083d4300745e9d740c4dea",
+    "aggregate_census_json_sha256": "a0bfb1bfeaa2979ae8f195ffbcde8c9ff2c45b0562f96ecdf7915e229963c4ea",
+    "separate_pre620_subset_replays": 181,
+    "subset_replays_are_included_in_full_620": true,
+    "additional_four_JS_source_replays_included_in_full_620": true,
+    "full_attestation_vs_181_count_additive": false
+  },
+  "detector_population": {
+    "source": "SHA-pinned original 21 cells JSON archives; full 620 raw NPZ attestation prerequisite",
+    "valid_traces": 620,
+    "original_calls": 295445,
+    "traces_with_any_flag": 350,
+    "flag_occurrences": {
+      "C1": 2105,
+      "C2": 18779,
+      "C3": 8474,
+      "C4": 110,
+      "C5": 1200,
+      "R1": 0,
+      "R2": 25,
+      "R3": 11,
+      "D2": 0
+    },
+    "traces_with_flag": {
+      "C1": 109,
+      "C2": 245,
+      "C3": 60,
+      "C4": 10,
+      "C5": 30,
+      "R1": 0,
+      "R2": 25,
+      "R3": 11,
+      "D2": 0
+    },
+    "C1_by_function_occurrences": {
+      "plateau": 1820,
+      "sphere": 241,
+      "rastrigin": 44
+    },
+    "C1_plateau_occurrence_share": 0.8646080760095012,
+    "functions": {
+      "plateau": {
+        "valid_traces": 210,
+        "objective_calls": 95275
+      },
+      "sphere": {
+        "valid_traces": 205,
+        "objective_calls": 99434
+      },
+      "rastrigin": {
+        "valid_traces": 205,
+        "objective_calls": 100736
+      }
+    },
+    "diagnostic_specificity_established": false,
+    "detector_events_are_independent_samples": false,
+    "overlapping_flags_must_not_be_summed_to_count_bugs": true
+  },
+  "synthetic_regression": {
+    "full_clone_CI_run": 41797397598,
+    "separate_suite_successful_tests": [
+      19,
+      9,
+      20,
+      14,
+      8
+    ],
+    "total_successful_tests": 70,
+    "unrelated_exploratory_benchmark_in_new_CI": "SKIPPED",
+    "caveat": "Earlier PR-wide CI ran an unrelated optimization benchmark before its PR guard was added."
+  },
+  "remaining_gates": [
+    {
+      "id": "I55_A_PRIME_B_RAW_COORDINATES",
+      "status": "NOT_ARCHIVED_IN_ORIGINAL_620_A_NPZ",
+      "next": "Recover and authenticate original A-prime/B sequences only if source exists; no new optimization"
+    },
+    {
+      "id": "I64_R_RAW_SEED_LEVEL_4200",
+      "status": "BLOCKED_EXTERNAL_SOURCE",
+      "tracked_Git_objects": [
+        "analysis.json.gz",
+        "check_repro.json.gz"
+      ],
+      "historical_SHA256_marker": "f23046f6...3618",
+      "next": "Locate original off-Git run.json.gz and independently trusted 64-digit SHA256; apply read-only structural recovery gate"
+    },
+    {
+      "id": "INDEPENDENT_DETECTOR_SPECIFICITY",
+      "status": "NOT_ESTABLISHED",
+      "next": "Independent adjudicated ground truth; do not treat flag frequency as defect prevalence"
+    },
+    {
+      "id": "INDEPENDENT_M3_PHYSICAL_ORPD",
+      "status": "NOT_ESTABLISHED",
+      "next": "Expert model/witness review only if engineering generalization claimed"
+    },
+    {
+      "id": "HUMAN_M6_C1_ORIGINALITY",
+      "status": "UNSIGNED_NOT_ESTABLISHED",
+      "next": "Human supervisor/reviewer selects A/B/C/other, signs and dates decision"
+    },
+    {
+      "id": "HELD_OUT_COCO",
+      "status": "NOT_RUN_NOT_AUTHORIZED",
+      "next": "No new runs without prospective protocol and human authorization"
+    }
+  ],
+  "discovery_scope": {
+    "github_original_iteration64_r_directory": "Only analysis.json.gz and check_repro.json.gz; not the original run.json.gz",
+    "github_releases_matching_original_R": "None observed",
+    "accessible_connected_Drive_queries": [
+      "iteration64_r",
+      "run.json.gz",
+      "I64-R",
+      "f23046f6"
+    ],
+    "accessible_Drive_result_count": 0,
+    "caveat": "No match in these accessible sources does not prove the raw file is absent from the original machine or other storage."
+  },
+  "no_new_source_simulation_or_opt_or_coco_in_this_specific_audit": true,
+  "not_a_freeze_or_scientific_approval": true
+}
