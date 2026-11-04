@@ -70,7 +70,7 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertEqual(result.number_of_iterations, 0)
         self.assertEqual(len(calls), 2)
 
-    def test_failed_generation_retains_validated_probe_incumbent(self):
+    def test_all_invalid_initial_generation_recovers_validated_probe(self):
         seed()
         calls = []
 
@@ -79,11 +79,11 @@ class ReliabilityModeTest(unittest.TestCase):
             return 1.0 if len(calls) <= 2 else float("nan")
 
         ga = GA(cost_function=objective, population_size=4, reliability_mode=True,
-                max_evaluations=10, acceptable_cost=0.0)
+                max_evaluations=6, acceptable_cost=0.0)
         ga.add(0.0, 1.0)
         result = ga.execute()
-        self.assertFalse(result.success)
-        self.assertEqual(result.termination_reason, "evaluation_failure")
+        self.assertTrue(result.success, result.messages)
+        self.assertEqual(result.termination_reason, "budget_exhausted")
         self.assertEqual(result.objective_evaluations, 6)
         self.assertEqual(result.valid_objective_evaluations, 2)
         self.assertEqual(result.invalid_objective_evaluations, 4)
@@ -91,6 +91,41 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertFalse(result.acceptable)
         self.assertEqual(result.best_objective, 1.0)
         self.assertIn((result.result_values[0],), calls[:2])
+
+    def test_constrained_all_invalid_generation_recovers_feasible_probe(self):
+        seed()
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return (1.0, 0.0) if len(calls) <= 2 else (float("nan"), 0.0)
+
+        ga = GA(cost_function=objective, population_size=4, reliability_mode=True,
+                max_evaluations=6, acceptable_cost=0.0,
+                constraint_handling="feasibility_rules")
+        ga.add(0.0, 1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertEqual(result.termination_reason, "budget_exhausted")
+        self.assertEqual(result.objective_evaluations, 6)
+        self.assertEqual(result.valid_objective_evaluations, 2)
+        self.assertEqual(result.invalid_objective_evaluations, 4)
+        self.assertTrue(result.feasible)
+        self.assertEqual(result.solution_status, "feasible_but_unacceptable")
+        self.assertEqual(result.best_violation, 0.0)
+        self.assertIn((result.result_values[0],), calls[:2])
+
+    def test_all_invalid_with_no_valid_history_still_fails(self):
+        seed()
+        ga = GA(cost_function=lambda values: float("nan"),
+                probe_cost_function=False, population_size=4, reliability_mode=True,
+                max_evaluations=4, acceptable_cost=0.0)
+        ga.add(0.0, 1.0)
+        result = ga.execute()
+        self.assertFalse(result.success)
+        self.assertEqual(result.termination_reason, "evaluation_failure")
+        self.assertEqual(result.solution_status, "no_valid_evaluation")
+        self.assertEqual(result.objective_evaluations, 4)
 
     def test_constraint_best_feasible_survives_selection_and_budget(self):
         seed()
