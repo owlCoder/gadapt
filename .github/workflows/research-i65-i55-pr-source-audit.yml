@@ -45,6 +45,13 @@ jobs:
         run: |
           python research/i65/archive_review/i55_full_npz_attestation.py \
             --repo-root . --output i55_620_original_readonly_audit.json
+      - name: Reconcile full 620 frozen detector flag census (read-only)
+        run: |
+          python -m unittest discover -s research/i65/archive_review -p 'test_i55_620_flag_census.py' -v
+          python research/i65/archive_review/i55_620_flag_census.py \
+            --repo-root . \
+            --full-attestation i55_620_original_readonly_audit.json \
+            --output i55_620_original_flag_census.json
       - name: Preserve reports even if an attestation gate fails
         if: always()
         uses: actions/upload-artifact@v4
@@ -53,4 +60,5 @@ jobs:
           path: |
             i55_181_new_sha_pinned_evidence_audit.json
             i55_620_original_readonly_audit.json
+            i55_620_original_flag_census.json
           if-no-files-found: warn
