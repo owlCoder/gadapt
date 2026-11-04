@@ -4,6 +4,8 @@ These are functional safety checks, NOT evidence of superior optimizer quality.
 """
 import random
 import unittest
+from datetime import datetime, timedelta
+from unittest.mock import patch
 
 import numpy as np
 
@@ -110,9 +112,13 @@ class ReliabilityModeTest(unittest.TestCase):
         seed()
         ga = GA(cost_function=lambda v: float(v[0] ** 2), population_size=4,
                 reliability_mode=True, max_evaluations=20, acceptable_cost=-1.0,
-                timeout=0)
+                timeout=1)
         ga.add(-1.0, 1.0)
-        result = ga.execute()
+        # Move only the exit-check clock; keep population initialization and
+        # the objective real and deterministic (no sleeps).
+        with patch("gadapt.operations.exit_check.base_exit_checker.datetime") as clock:
+            clock.now.return_value = datetime.now() + timedelta(seconds=10)
+            result = ga.execute()
         self.assertTrue(result.success, result.messages)
         self.assertEqual(result.termination_reason, "timeout")
         self.assertEqual(result.objective_evaluations, 6)
