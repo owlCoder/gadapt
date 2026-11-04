@@ -225,5 +225,66 @@
       "A′/B raw, I64-R external source and M6/C1 human decision unavailable",
       "No new optimization, physics, COCO execution"
     ]
+  },
+  "cross_study_technical_closeout": {
+    "as_of": "2026-11-04",
+    "review": "I65_2026_11_04_TECHNICAL_CLOSEOUT_AND_HUMAN_DECISION_GATES.md",
+    "I55_original_A_NPZ": {
+      "status": "CLOSED_620_OF_620_ORIGINAL_SOURCE",
+      "call_values_recomputed": 295445,
+      "CI_run": 41804478669
+    },
+    "I55_C1_C2_population_and_phase": {
+      "status": "CLOSED_DESCRIPTIVE_NO_ROOT_CAUSE_CLAIM",
+      "C1_events": 2105,
+      "C2_events": 18779,
+      "C1_C2_overlap_events": 1956,
+      "PyGAD_post_duplicates": 1200
+    },
+    "I32_original_source_recovery": {
+      "status": "CLOSED_ON_SEPARATE_DRAFT_PR_NOT_MAIN",
+      "draft_PR": 15,
+      "original_git_blobs_identical": 7,
+      "original_workflow_head": "3b642101bb9c671b7835102be474480f3aa0cc65",
+      "new_zero_AC_CI_run": 41812770932,
+      "new_source_only_test_count": 19,
+      "physical_AC_job": "skipped",
+      "new_independent_physical_validation": false
+    },
+    "I32_archived_72_seed_method_accounting": {
+      "status": "PASS_READONLY_ORIGINAL_JSON_CSV",
+      "original_workflow_run": 39686171613,
+      "original_artifact_id": 12386702402,
+      "original_native_AC_calls": 12913,
+      "new_AC_calls": 0,
+      "checked_rows": 72,
+      "checked_method_aggregate_summaries": 6,
+      "checked_paired_seed_contrasts": 5,
+      "archived_raw_json_sha256": "a8e707cc6044390213f8c9112ab59ab47f8a30321b28a669e2624d5c0df4d534",
+      "machine_ledger_in_draft_PR15": "research/I32_ORIGINAL_SOURCE_AND_72RUN_ARCHIVE_RECONCILIATION_2026-11-04.json"
+    },
+    "separate_PRs": {
+      "I55": 14,
+      "I32_source_recovery": 15,
+      "merged_into_main": false
+    },
+    "global_unintended_CI_optimizer_benchmark": {
+      "run": 41812770943,
+      "automatic_runs": 12,
+      "generations_per_run": 120,
+      "not_scientific_evidence": true,
+      "mitigated_on_both_PR_branches": true,
+      "guarded_workflow_git_blob": "32774ed66c7e16a7851195463f67b023234ee5b9"
+    },
+    "remain_open": [
+      "I55 original A-prime/B raw trajectories",
+      "I64-R off-Git 4200-run original source",
+      "Independent detector ground truth/specificity",
+      "Independent M3 physical witness/model assessment",
+      "Independent M5 statistician",
+      "M6/C1 human originality decision and signature",
+      "Prospective COCO not authorized"
+    ],
+    "research_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED"
   }
 }
