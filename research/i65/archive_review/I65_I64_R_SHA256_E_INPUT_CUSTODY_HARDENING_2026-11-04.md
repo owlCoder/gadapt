@@ -109,11 +109,49 @@ invalid call order and duplicate task identity.
 
 The original I64-R budget is **12,000 benchmark objective-function evaluations per run**, not physical AC load-flow or OPF evaluations. The recovery gate now labels this `objective_calls_per_run` instead of the misleading former `physical_calls_per_run`.
 
-The read-only I55 CI now **includes** these ten tests and the prior
-ten E source SHA-256 tests, for **115 total expected** test cases
-(86 previously passing + 11 E-input SHA tests + 10 strict Budget tests + 8 E-only manifest tests). **This latest CI version has
-not yet produced a confirmed GitHub Actions run**: do not report
-106/106 CI PASS until a run is independently observed. All **10/10 frozen-Budget synthetic contract tests** were also executed locally against a source-identical copy of the corrected `validate_r_records` function; the published test file's Git blob SHA matches exactly. Additionally **8/8 E-only manifest tests** passed locally using the exact original published auditor source, and the **11/11 E-input SHA-256 tests** passed locally using the exact published source. Thus **29/29 new synthetic cases PASS locally**, with *no original R seed records* and *no actual 66-source binary full-clone attestation yet*. The current full-clone GitHub CI result is still **NOT OBSERVED**.
+## Third correction: two partial R rows must never imply full bootstrap readiness
+
+The separate E-input helper originally treated *any nonempty* R
+record list as sufficient to set
+`ready_for_independent_raw_seed_bootstrap=True` once E files and
+the supplied task parameter dictionaries matched. A two-record
+fixture could therefore be marked READY even though the frozen
+R study requires **4,200 original seed/config/pair runs**.
+
+The E helper now requires **both** `len(records)==4200` and the
+explicit `original_r_roster_attested=True` argument, plus all
+44 mandatory E SHA256 matches and all R task parameter matches.
+Only the original off-Git R recovery code supplies this argument,
+*after* `validate_r_records` has independently checked all
+4,200 task identifiers, recorded events, objective budgets and
+stored final best witnesses. The E-only audit never passes that
+argument, so E file authenticity cannot imply original R source
+availability.
+
+Two new synthetic SHA-input regression cases prove (1) two rows
+remain NOT_READY even with an attestation flag and (2) a synthetic
+complete 4,200-row set is NOT_READY without the separately
+attested-roster flag, but can become ready with it. This does not
+mean the original missing 4,200 rows have been recovered.
+
+## Actual executed tests versus planned GitHub CI
+
+**38/38 LOCAL synthetic/adversarial tests PASS** across four suites:
+13 E-input SHA/parameter/readiness tests, 10 original frozen
+strict-Budget event/witness tests, 8 E-only manifest tests,
+and 7 new [end-to-end synthetic 66-source E-only tests](
+test_i64_r_e_only_end_to_end_contract.py). The latter exercise
+the **actual published end-to-end E-only audit program** on 66
+temporary synthetic files, including tampered/missing files, forged
+manifests, and the missing-R NOT_READY outcome. The published test
+file Git blob is byte-identical to the locally executed file.
+
+The source-only I55 workflow now schedules **124 expected cases**
+(86 earlier CI PASS + 38 new locally passing cases), including
+the real original E-only full-clone SHA256 attestation. **No
+GitHub Actions execution for this newer code has been confirmed**:
+do NOT claim 124/124 CI PASS or 66/66 actual original E files
+attested until a new full-clone Actions run succeeds.
 
 This is a **preflight-source authenticity correction only**; it
 does not recover the original off-Git R archive, replay its
@@ -149,17 +187,11 @@ readiness remains **FALSE** whenever no original R records exist.
 
 ## Validation and limits
 
-**11/11 E-input SHA custody synthetic/adversarial read-only tests PASS locally**, including a new E-only zero-R-record safeguard.
-Tests include: missing required normalizer or freeze, tampered
-required or optional source bytes, malformed/full-length SHA-256,
-changed frozen task parameters, malformed task structure,
-and preservation of the difference between **44 required verified**
-and **67 fully available**. The committed verifier and ten-test
-source blobs are identical to the locally tested files.
-
-The source-only I55 CI includes this eleven-test suite, ten strict-R-Budget source-contract cases, and eight E-only manifest tests. A new
-Actions CI run covering this change has not yet been confirmed**.
-Do not add test counts to the previous 86 and claim 115/115 CI PASS.
+**Local synthetic test result: 38/38 PASS.** These are source-contract
+and tamper tests, not real R raw-source or full 66-E-source archival
+verification. The latest modified I55 CI would run 124 tests plus
+original 620 source and E input audits, but no result for the current
+head has been independently observed.
 
 **Crucially the ORIGINAL 4,200-run I64-R raw gzip is still missing.**
 The independent 20,000-replicate R seed bootstrap has **NOT** been
