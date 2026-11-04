@@ -1,6 +1,6 @@
 {
   "schema": "I65_I55_ORIGINAL_109_C1_POSITIVE_NPZ_SIGN_DIRECT_GIT_BINARY_V1",
-  "status": "IN_PROGRESS_NOT_SCIENTIFIC_FREEZE",
+  "status": "PASS_109_OF_109_ORIGINAL_C1_POSITIVE_NPZ_SOURCE_GIT_BLOBS_AND_BINARY_X_C1_SIGN_REPLAY",
   "as_of": "2026-11-04",
   "original_source_commit": "6b56fbc53ffc4d275ecef5e911ea4663474c9a08",
   "original_620_source_manifest_sha1": "50ca2e96762447070a74309850cb1aa6586d3eb3",
@@ -1321,5 +1321,173 @@
   ],
   "caution": "Direct original binary x.npy from Git at immutable source commit; source Git blob, byte size and original per-cell C1 must match. Do not infer a scientific defect from C1.",
   "new_optimizer_PF_OPF_COCO_runs": 0,
-  "scientific_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED"
+  "scientific_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED",
+  "original_511_C1_negative_npz": "EXCLUDED_PER_FROZEN_SOURCE_CELL_JSON_AND_ALREADY_SUCCESSFUL_FULL_620_CI",
+  "overall": {
+    "cells": 109,
+    "C1": 2105,
+    "negative": 2050,
+    "positive": 55,
+    "first_negative": 97,
+    "first_positive": 52,
+    "repeat_negative": 1953,
+    "repeat_positive": 3,
+    "both_sign_cells": 40
+  },
+  "by_function": {
+    "plateau": {
+      "cells": 57,
+      "C1": 1820,
+      "negative": 1803,
+      "positive": 17,
+      "first_negative": 57,
+      "first_positive": 17,
+      "repeat_negative": 1746,
+      "repeat_positive": 0,
+      "both_sign_cells": 17
+    },
+    "sphere": {
+      "cells": 29,
+      "C1": 241,
+      "negative": 225,
+      "positive": 16,
+      "first_negative": 25,
+      "first_positive": 15,
+      "repeat_negative": 200,
+      "repeat_positive": 1,
+      "both_sign_cells": 11
+    },
+    "rastrigin": {
+      "cells": 23,
+      "C1": 44,
+      "negative": 22,
+      "positive": 22,
+      "first_negative": 15,
+      "first_positive": 20,
+      "repeat_negative": 7,
+      "repeat_positive": 2,
+      "both_sign_cells": 12
+    }
+  },
+  "by_dimension": {
+    "2": {
+      "cells": 84,
+      "C1": 919,
+      "negative": 864,
+      "positive": 55,
+      "first_negative": 72,
+      "first_positive": 52,
+      "repeat_negative": 792,
+      "repeat_positive": 3,
+      "both_sign_cells": 40
+    },
+    "10": {
+      "cells": 25,
+      "C1": 1186,
+      "negative": 1186,
+      "positive": 0,
+      "first_negative": 25,
+      "first_positive": 0,
+      "repeat_negative": 1161,
+      "repeat_positive": 0,
+      "both_sign_cells": 0
+    }
+  },
+  "by_library": {
+    "baybe": {
+      "cells": 18,
+      "C1": 559,
+      "negative": 546,
+      "positive": 13,
+      "first_negative": 12,
+      "first_positive": 13,
+      "repeat_negative": 534,
+      "repeat_positive": 0,
+      "both_sign_cells": 7
+    },
+    "bayes_opt": {
+      "cells": 18,
+      "C1": 27,
+      "negative": 15,
+      "positive": 12,
+      "first_negative": 15,
+      "first_positive": 12,
+      "repeat_negative": 0,
+      "repeat_positive": 0,
+      "both_sign_cells": 9
+    },
+    "bofire": {
+      "cells": 11,
+      "C1": 888,
+      "negative": 888,
+      "positive": 0,
+      "first_negative": 11,
+      "first_positive": 0,
+      "repeat_negative": 877,
+      "repeat_positive": 0,
+      "both_sign_cells": 0
+    },
+    "emukit": {
+      "cells": 20,
+      "C1": 227,
+      "negative": 222,
+      "positive": 5,
+      "first_negative": 19,
+      "first_positive": 5,
+      "repeat_negative": 203,
+      "repeat_positive": 0,
+      "both_sign_cells": 4
+    },
+    "evolopy": {
+      "cells": 9,
+      "C1": 313,
+      "negative": 313,
+      "positive": 0,
+      "first_negative": 9,
+      "first_positive": 0,
+      "repeat_negative": 304,
+      "repeat_positive": 0,
+      "both_sign_cells": 0
+    },
+    "evox": {
+      "cells": 15,
+      "C1": 58,
+      "negative": 48,
+      "positive": 10,
+      "first_negative": 13,
+      "first_positive": 7,
+      "repeat_negative": 35,
+      "repeat_positive": 3,
+      "both_sign_cells": 5
+    },
+    "gfo": {
+      "cells": 15,
+      "C1": 30,
+      "negative": 15,
+      "positive": 15,
+      "first_negative": 15,
+      "first_positive": 15,
+      "repeat_negative": 0,
+      "repeat_positive": 0,
+      "both_sign_cells": 15
+    },
+    "niapy": {
+      "cells": 3,
+      "C1": 3,
+      "negative": 3,
+      "positive": 0,
+      "first_negative": 3,
+      "first_positive": 0,
+      "repeat_negative": 0,
+      "repeat_positive": 0,
+      "both_sign_cells": 0
+    }
+  },
+  "original_C1_events_original_source_total": 2105,
+  "original_620_NPZ_prior_full_clone_CI": 41804478669,
+  "original_C1_zero_npz_excluded": 511,
+  "signed_event_level_counts_now_grounded_from_original_binary": true,
+  "independent_original_full_620_CI_newest_head": "NOT_OBSERVED",
+  "separate_original_python_620_signed_corner_validator_latest_CI": "NOT_OBSERVED",
+  "scientific_caution": "Exact signed full-corner event counts in original frozen A-process traces only; no adjudicated software defects, causality, algorithmic originality, new experiment or I64-R/A-prime/B data."
 }
