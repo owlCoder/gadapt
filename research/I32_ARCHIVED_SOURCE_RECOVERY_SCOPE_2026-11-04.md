@@ -87,3 +87,15 @@ byte-identically, original archived accounting checked, new source CI
 validation, original GAdapt novelty, I64-R seed-level source, M6/C1
 human signoff, A-prime/B raw or held-out COCO. The PR is a **draft
 proposal** and not merged into `main`.
+
+## Final PR-level CI isolation check (requested on latest code line)
+
+The last source-test success was on code head
+`d47b29bcfaab6998fb879e0b84e9aaacc5b789d6`; intervening
+changes concerned this note, the original-archive accounting ledger
+and the manual-only exploratory-benchmark guard. The original seven
+restored Git source blobs and the I32 zero-AC CI procedure are
+unchanged. A fresh GitHub Actions check of the final draft proposal
+must show (1) all seven authenticated original blobs, (2) 19/19
+zero-native-AC tests PASS, (3) physical 72-run job SKIPPED,
+(4) exploratory robustness benchmark SKIPPED.
