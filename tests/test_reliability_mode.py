@@ -327,6 +327,92 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertEqual(feasible[0][0].value, 0.75)
         self.assertTrue(feasible[0].succ)
 
+    def test_real_incumbent_progress_resets_stagnation(self):
+        pairs = {
+            0: (0.0, 3.0),
+            1: (200.0, 2.0),  # worse objective but smaller violation
+            2: (1000.0, 0.0),  # feasibility is always a strict improvement
+            3: (900.0, 0.0),
+        }
+        monitor = ReliabilityMonitor(lambda v: pairs[int(v[0])], 12, -1.0, True)
+        monitor([0])
+        monitor.completed_generation()
+        self.assertEqual(monitor.stagnant_generations, 0)
+        monitor([1])
+        monitor.completed_generation()
+        self.assertEqual(monitor.stagnant_generations, 0)
+        monitor([1])
+        monitor.completed_generation()
+        self.assertEqual(monitor.stagnant_generations, 1)
+        monitor([2])
+        monitor.completed_generation()
+        self.assertEqual(monitor.stagnant_generations, 0)
+        monitor([3])
+        monitor.completed_generation()
+        self.assertEqual(monitor.stagnant_generations, 0)
+        monitor([2])
+        monitor.completed_generation()
+        self.assertEqual(monitor.stagnant_generations, 1)
+        self.assertEqual(monitor.evaluations, 6)
+
+    def test_refresh_cadence_preserves_incumbent_and_spends_no_calls(self):
+        seed()
+        ga = GA(cost_function=lambda v: float(v[0]),
+                population_size=8, keep_elitism_percentage=50,
+                reliability_mode=True, max_evaluations=30,
+                acceptable_cost=-1.0, probe_cost_function=False,
+                reliability_refresh_patience=2, reliability_refresh_percentage=50.0)
+        ga.add(0.0, 10.0)
+        options = GAOptions(ga)
+        monitor = ReliabilityMonitor(ga.cost_function, 30, -1.0, False)
+        options.reliability_monitor = monitor
+        options.reliability_refresh_patience = ga.reliability_refresh_patience
+        population = Population(options)
+        for index, c in enumerate(population):
+            c[0].value = float(index)
+            c.cost_value = float(index)
+        monitor([3.0])  # The candidate to preserve has actually been evaluated.
+        elite = population[3]  # Largest cost among the four selectable survivors.
+        elite._reliability_feasible_elite = True
+        immigrant = CommonPopulationImmigrator(RandomCandidateSolutionImmigrator())
+        population.population_generation = 1
+
+        monitor.stagnant_generations = 1
+        immigrant.immigrate(population)
+        self.assertEqual(sum(c.is_immigrant for c in population), 0)
+
+        monitor.stagnant_generations = 2
+        immigrant.immigrate(population)
+        self.assertEqual(sum(c.is_immigrant for c in population), 2)
+        self.assertFalse(elite.is_immigrant)
+        self.assertEqual(elite[0].value, 3.0)
+        self.assertEqual(monitor.stagnation_refreshes, 1)
+        self.assertEqual(monitor.evaluations, 1)
+
+        monitor.stagnant_generations = 3
+        immigrant.immigrate(population)
+        self.assertEqual(monitor.stagnation_refreshes, 1)
+        self.assertEqual(monitor.evaluations, 1)
+
+    def test_refresh_runs_under_hard_budget_and_is_explicit_opt_in(self):
+        def run(refresh):
+            seed()
+            ga = GA(cost_function=lambda v: 1.0, population_size=6,
+                    reliability_mode=True, max_evaluations=30, acceptable_cost=0.0,
+                    probe_cost_function=False, number_of_generations=8,
+                    exit_check="generations", ensure_unique_individuals=False,
+                    reliability_refresh_patience=(2 if refresh else None))
+            ga.add(-1.0, 1.0)
+            return ga.execute()
+
+        off, on = run(False), run(True)
+        for result in (off, on):
+            self.assertTrue(result.success, result.messages)
+            self.assertFalse(result.acceptable)
+            self.assertLessEqual(result.objective_evaluations, 30)
+        self.assertEqual(off.stagnation_refreshes, 0)
+        self.assertGreater(on.stagnation_refreshes, 0)
+
     def test_budget_must_cover_initial_population_and_probes(self):
         calls = []
         ga = GA(cost_function=lambda v: calls.append(tuple(v)) or 1.0,
