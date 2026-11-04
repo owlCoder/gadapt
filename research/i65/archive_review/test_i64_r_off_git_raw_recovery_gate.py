@@ -12,7 +12,7 @@ def minimal_records():
     for k in range(21):
         for cfg in ('gadapt','ipop'):
             for s in range(1,101):
-                records.append({'task':{'k':k,'config':cfg,'seed':67_000_000+1000*(63+k)+s},'calls':12000,'ok':True,'events':[[1,30.],[25,20.],[12000,1.]]})
+                records.append({'task':{'k':k,'config':cfg,'seed':67_000_000+1000*(63+k)+s},'calls':12000,'ok':True,'events':[[1,30.],[25,20.],[12000,1.]],'best_f':1.,'best_y':[0.]*PAIRS[k][1]})
     return records
 
 def test_frozen_pair_roster():
@@ -56,7 +56,7 @@ def test_rejected_failed_status(minimal_records):
 def test_best_so_far_monotone(minimal_records):
     a=copy.deepcopy(minimal_records)
     a[0]['events']=[[1,1.],[2,100.]]
-    with pytest.raises(ValueError,match='Best value increases'):validate_r_records(a)
+    with pytest.raises(ValueError,match='not strictly improved'):validate_r_records(a)
 
 def test_manifest_exact():
     manifest={x:x+'_value' for x in BUILDS}
