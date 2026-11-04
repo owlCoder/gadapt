@@ -108,8 +108,8 @@ incorrect/missing/nonfinite final best, wrong/nonfinite best-vector,
 invalid call order and duplicate task identity.
 
 The read-only I55 CI now **includes** these ten tests and the prior
-ten E source SHA-256 tests, for **106 total expected** test cases
-(86 previously passing + 10 + 10). **This latest CI version has
+ten E source SHA-256 tests, for **115 total expected** test cases
+(86 previously passing + 11 E-input SHA tests + 10 strict Budget tests + 8 E-only manifest tests). **This latest CI version has
 not yet produced a confirmed GitHub Actions run**: do not report
 106/106 CI PASS until a run is independently observed. A minimal
 local contract smoke test passed, but no original R seed data exists
@@ -120,9 +120,36 @@ does not recover the original off-Git R archive, replay its
 original 20,000-draw bootstrap, change any frozen H64 decision
 or authorize a new experiment.
 
+## Independent check of Git-tracked original E sources without R raw
+
+A new [standalone E-only source attestation program](
+i64_r_archived_e_only_attestation.py) authenticates the **original
+Git-blob-pinned R analysis and check_repro**, cross-checks their
+original 67-value E SHA256 input manifests with one another,
+validates five original E reproducibility witness statuses and the
+frozen R bootstrap metadata, and compares the E `run` digest to
+the original full SHA256 checksum file. It then checks the actual
+SHA256 of every *available* E source file in the full clone.
+This does **not** require or synthesize the missing R raw records.
+[Eight independent manifest tests](
+test_i64_r_archived_e_only_attestation.py) reject forged
+digest maps, altered bootstrap settings, missing E witness entries
+and mismatched original source references.
+
+The Git original source tree includes **66 of 67 original E input
+files** in the historical R input manifest, excluding only the
+large off-Git E aggregate. The read-only workflow now attempts
+to independently authenticate those actual **66** binary files and
+explicitly checks the 44 required source digests. **As of this
+report, no successful GitHub Actions run of this *new* E-only
+full-clone audit is available.** Thus **66/66 actual-E-source
+SHA256 PASS is not yet an observed result**, only the established
+archival roster and a repeatable new audit gate. R raw bootstrap
+readiness remains **FALSE** whenever no original R records exist.
+
 ## Validation and limits
 
-**10/10 synthetic/adversarial read-only tests PASS locally.**
+**11/11 E-input SHA custody synthetic/adversarial read-only tests PASS locally**, including a new E-only zero-R-record safeguard.
 Tests include: missing required normalizer or freeze, tampered
 required or optional source bytes, malformed/full-length SHA-256,
 changed frozen task parameters, malformed task structure,
@@ -130,9 +157,9 @@ and preservation of the difference between **44 required verified**
 and **67 fully available**. The committed verifier and ten-test
 source blobs are identical to the locally tested files.
 
-The source-only I55 CI includes this ten-test suite, but **a new
+The source-only I55 CI includes this eleven-test suite, ten strict-R-Budget source-contract cases, and eight E-only manifest tests. A new
 Actions CI run covering this change has not yet been confirmed**.
-Do not add ten to the previous 86 and claim 96/96 CI PASS.
+Do not add test counts to the previous 86 and claim 115/115 CI PASS.
 
 **Crucially the ORIGINAL 4,200-run I64-R raw gzip is still missing.**
 The independent 20,000-replicate R seed bootstrap has **NOT** been
