@@ -37,6 +37,8 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertEqual(result.termination_reason, "budget_exhausted")
         self.assertFalse(result.acceptable)
         self.assertEqual(result.objective_evaluations, 14)
+        self.assertEqual(result.valid_objective_evaluations, 14)
+        self.assertEqual(result.invalid_objective_evaluations, 0)
         self.assertEqual(len(seen), 14)
         best_values, best_cost = min(seen, key=lambda item: item[1])
         self.assertAlmostEqual(result.best_objective, best_cost)
@@ -76,6 +78,8 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertFalse(result.success)
         self.assertEqual(result.termination_reason, "execution_error")
         self.assertEqual(result.objective_evaluations, 6)
+        self.assertEqual(result.valid_objective_evaluations, 2)
+        self.assertEqual(result.invalid_objective_evaluations, 4)
         self.assertEqual(len(calls), 6)
         self.assertFalse(result.acceptable)
         self.assertEqual(result.best_objective, 1.0)
@@ -138,7 +142,35 @@ class ReliabilityModeTest(unittest.TestCase):
             monitor([2.0])
         self.assertEqual(calls, [(1.0,)])
         self.assertEqual(monitor.evaluations, 1)
+        self.assertEqual(monitor.invalid_evaluations, 1)
+        self.assertEqual(monitor.valid_evaluations, 0)
         self.assertFalse(monitor.acceptable)
+
+    def test_monitor_snapshots_values_before_mutating_objective(self):
+        def objective(values):
+            values[0] = 999.0
+            return 0.0
+
+        monitor = ReliabilityMonitor(objective, 1, 0.0, constrained=False)
+        monitor([0.25])
+        self.assertEqual(monitor.best[2], (0.25,))
+
+    def test_no_feasible_solution_is_not_misreported(self):
+        seed()
+        def objective(values):
+            return float(values[0] ** 2), 1.0
+
+        ga = GA(cost_function=objective, population_size=4,
+                reliability_mode=True, max_evaluations=8, acceptable_cost=100.0,
+                constraint_handling="feasibility_rules")
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertEqual(result.termination_reason, "budget_exhausted")
+        self.assertEqual(result.objective_evaluations, 8)
+        self.assertFalse(result.feasible)
+        self.assertFalse(result.acceptable)
+        self.assertEqual(result.best_violation, 1.0)
 
     def test_budget_must_cover_initial_population_and_probes(self):
         calls = []
