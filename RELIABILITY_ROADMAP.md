@@ -62,3 +62,70 @@ Historical research, reproducibility receipts, frozen protocols and negative
 results are **not destroyed**, just removed from the active `main` checkout.
 No new experiment, physical solver, bootstrap, novelty claim, scientific
 freeze or mentor signature was produced by this cleanup.
+
+## Prospective benchmark proposal — NOT APPROVED, NOT RUN
+
+The following is a **pre-run protocol proposal**, not observed performance.
+Freeze it (including thresholds and source revisions) only after explicit
+user approval. No benchmark objective, physical solver or held-out COCO
+evaluation is authorized by this document.
+
+All listed problems are deterministic minimizations. Accept iff a *real*
+objective evaluation returned a finite value <= threshold, decision variables
+are within bounds, and every specified violation is <= 1e-9. For the current
+pair API, report nonnegative violation as 0 only when within that tolerance.
+Budget B is an **upper bound on actual objective invocations**, including
+validation probes, exceptions and all attempted candidates.
+
+| ID | Exact problem, bounds | Acceptable threshold | B |
+|---|---|---:|---:|
+| R10 | 10D Rastrigin, each x in [-5.12, 5.12] | f <= 30 | 4,096 |
+| A10 | 10D Ackley, each x in [-32.768, 32.768] | f <= 5 | 4,096 |
+| RB10 | 10D Rosenbrock, each x in [-3, 3] | f <= 50 | 8,192 |
+| L2 | 2D f=(x-2)^2+(y-1)^2, x,y in [-3,3], x+y<=2 | f <= 0.65 | 2,048 |
+| C2 | 2D f=(x-0.8)^2+(y-0.8)^2, x,y in [-2,2], (x+0.5)^2+(y+0.5)^2 <= 0.09 | f <= 2.75 | 4,096 |
+| F4 | 4D f=sum((x_i-0.25)^2), x_i in [-1,1]; objective deliberately raises on x_0<0, probe_cost_function=False | f <= 1.0 | 4,096 |
+
+For L2 and C2, return `(f, max(0, constraint_residual - 1e-9))`
+to `constraint_handling="feasibility_rules"`; independently log raw
+constraint residual to prevent tolerance-adjustment mistakes.
+
+**Preselected paired seeds:** integers 2026110400 through 2026110449
+inclusive, all 50, with no replacements. For every configuration seed
+Python's `random` and NumPy RNG; ensure independent program RNG state
+per run, consistent problem instance and matching implementation settings.
+
+**Fixed comparisons:**
+1. Untouched GAdapt at cleanup commit `2a702a877e3fdece3af7bea1c0a3888fc5ff81ae`,
+   with an externally enforced B-call wrapper and its original exit behavior.
+2. GAdapt with `reliability_mode=True`, `max_evaluations=B`,
+   `acceptable_cost=threshold`, other search settings unchanged.
+3. Same reliability mode + the existing explicit
+   `adaptive_immigration_patience=5`,
+   `adaptive_immigration_percentage=20`,
+   `adaptive_immigration_diversity_threshold=0.25` (ablation).
+4. SciPy differential evolution, externally budget-limited, on all six.
+5. CMA-ES with a fixed population-size rule and explicit bound repair on
+   R10/A10/RB10/F4 only. No arbitrary penalty comparison for constrained
+   problems.
+
+Run each at exactly the same **maximum** call budget B, report **actual
+spent calls** (early exit may spend less), and mark errors, timeout,
+missing-feasible outcomes and prematurely exhausted bounds. Stop early at
+the target where the algorithm supports it. All implementations must use
+the same raw objective and independent instrumented reporting wrapper.
+For F4 do not count an exception as a successful evaluation.
+
+**Primary metric:** fraction of seeds meeting both strict feasibility and
+the predeclared acceptable threshold, with paired differences and uncertainty
+intervals. **Tail metrics:** no-feasible rate; catastrophic rate (not
+acceptable); worst 10% of feasible objective gaps; 90th-percentile loss;
+CVaR90 (mean of worst 10% losses); evaluation-count distribution and anytime
+acceptable-rate curves. Predeclare a censored quality-loss convention for
+no-feasible runs before running, and always report those events separately
+so a finite imputation cannot conceal failures. Preserve all 50 individual
+seed records, including negatives, and do not select seeds or tune thresholds
+after seeing results.
+
+In this first phase **no such runs have taken place**. This suite is a
+candidate protocol; benchmark methodology and thresholds require user approval.
