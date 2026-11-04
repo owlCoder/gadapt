@@ -42,3 +42,48 @@ CI must authenticate all seven historical Git blobs and pass the original
 zero-native-AC unit tests under patched PYPOWER runpf/runopf. Its two jobs
 must show **source-only success** and **physical experiment SKIPPED**.
 A CI success does **not** constitute independent AC witness validation.
+
+## 2026-11-04 verified completion of technical source-only recovery
+
+The [separate I32 source-only CI run](https://github.com/owlCoder/gadapt/actions/runs/41812770932)
+**PASSED** on code/workflow head `d47b29bcfaab6998fb879e0b84e9aaacc5b789d6`:
+all seven historical source Git blobs authenticated, **19/19 original
+zero-native-AC tests passed** under the PYPOWER runpf/runopf prohibiting
+patch, and the original **72-physical-run job SKIPPED**. Its success is
+a source/CI repair, not independent electrical-physics verification.
+
+I also downloaded and SHA-256 authenticated the original Oct 21
+[GitHub Actions run 39686171613](https://github.com/owlCoder/gadapt/actions/runs/39686171613)
+artifact (ID `12386702402`, ZIP SHA-256
+`c2a84c57571841737c7a9f006091a4a97097fe6843d42265ef3ccbd84937f782`).
+A standard-library **read-only** validator checked **72 archival
+method/seed rows, 72 JSON-vs-CSV rows, 216 per-scenario accounting
+partitions, 6 original method summaries, 5 original paired exact
+binomial contrasts, and 51 archived source witness schemas and
+recorded average costs**. It reconciled the **12,913 historic AC
+invocations** within 12,960 frozen budget; no solver was rerun.
+The original outcome JSON SHA-256 is
+`a8e707cc6044390213f8c9112ab59ab47f8a30321b28a669e2624d5c0df4d534`.
+The fresh accounting JSON SHA-256 is
+`0aab72ad0789532178b0046ff83e600a5980425550c9ffa5af3fba08fc71499a`.
+See [machine-readable evidence ledger](I32_ORIGINAL_SOURCE_AND_72RUN_ARCHIVE_RECONCILIATION_2026-11-04.json).
+
+**Transparent CI safety disclosure:** While opening this separate I32
+PR, an unrelated pre-existing automatic `exploratory-benchmark` job
+ran **12 × 120 generations** in robustness workflow
+[41812770943](https://github.com/owlCoder/gadapt/actions/runs/41812770943).
+It was **not** the I32 physical experiment and its outputs are **not
+scientific evidence**. The job cannot be undone; immediately afterward
+I copied the **SHA-identical, manual-opt-in-only**
+`robustness-tests.yml` fix already verified in I55 PR #14
+(Git blob `32774ed66c7e16a7851195463f67b023234ee5b9`)
+into this I32 PR. Subsequent PR/push events cannot automatically
+run that optimizer benchmark. No optimizer/PF/OPF/COCO experiment was
+**intentionally** requested by the source-recovery audit.
+
+**Technical closure:** historical source identified and preserved
+byte-identically, original archived accounting checked, new source CI
+19/19 PASS. **Scientific nonclosure:** no new independent AC witness
+validation, original GAdapt novelty, I64-R seed-level source, M6/C1
+human signoff, A-prime/B raw or held-out COCO. The PR is a **draft
+proposal** and not merged into `main`.
