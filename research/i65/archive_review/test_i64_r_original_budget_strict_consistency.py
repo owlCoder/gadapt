@@ -45,6 +45,26 @@ class I64ROriginalBudgetSourceContract(unittest.TestCase):
         self.assertEqual(x["objective_calls_per_run"], 12000)
         self.assertNotIn("physical_calls_per_run", x)
 
+    def test_rejects_missing_original_task_params_key(self):
+        with self.assertRaisesRegex(ValueError, "Invalid R task schema"):
+            validate_r_records(self.tampered(
+                lambda r: r["task"].pop("params")))
+
+    def test_rejects_nonoriginal_extra_task_field(self):
+        with self.assertRaisesRegex(ValueError, "Invalid R task schema"):
+            validate_r_records(self.tampered(
+                lambda r: r["task"].update(unregistered=True)))
+
+    def test_rejects_float_objective_call_count(self):
+        with self.assertRaisesRegex(ValueError, "Unsuccessful/incomplete"):
+            validate_r_records(self.tampered(
+                lambda r: r.update(calls=12000.0)))
+
+    def test_rejects_boolean_objective_call_count(self):
+        with self.assertRaisesRegex(ValueError, "Unsuccessful/incomplete"):
+            validate_r_records(self.tampered(
+                lambda r: r.update(calls=True)))
+
     def test_rejects_equal_best_value_event(self):
         with self.assertRaisesRegex(ValueError, "not strictly improved"):
             validate_r_records(self.tampered(
