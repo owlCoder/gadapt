@@ -31,6 +31,11 @@ class GAResults:
         self.invalid_objective_evaluations = None
         self.stagnation_refreshes = None
         self.reliability_restarts = None
+        self.discrete_search_applied = None
+        self.discrete_space_size = None
+        self.discrete_points_checked = None
+        self.discrete_space_exhausted = None
+        self.discrete_absence_certified = None
         self.acceptable = None
         self.termination_reason = None
         self.solution_status = None

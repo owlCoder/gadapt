@@ -28,6 +28,156 @@ def seed():
 
 
 class ReliabilityModeTest(unittest.TestCase):
+    def test_small_discrete_grid_is_exhaustive_without_ga_population_floor(self):
+        # The only acceptable point is last in grid order; cover all 3x2
+        # points even though GA's default population_size is 32.
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return 0.0 if tuple(values) == (2.0, 1.0) else 1.0
+
+        ga = GA(cost_function=objective, reliability_mode=True,
+                reliability_discrete_certify=True, max_evaluations=6,
+                acceptable_cost=0.0)
+        ga.add(0.0, 2.0, step=1.0)
+        ga.add(0.0, 1.0, step=1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertTrue(result.acceptable)
+        self.assertTrue(result.discrete_search_applied)
+        self.assertTrue(result.discrete_space_exhausted)
+        self.assertFalse(result.discrete_absence_certified)
+        self.assertEqual(result.discrete_space_size, 6)
+        self.assertEqual(result.discrete_points_checked, 6)
+        self.assertEqual(result.objective_evaluations, 6)
+        self.assertEqual(len(set(calls)), 6)
+        self.assertEqual(result.best_objective, 0.0)
+        self.assertEqual(result.result_values, {0: 2.0, 1: 1.0})
+        self.assertEqual(result.termination_reason, "acceptable_target")
+        self.assertEqual(result.number_of_iterations, 0)
+
+    def test_full_grid_with_no_target_can_certify_absence_under_valid_outputs(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return float(values[0] + values[1] + 1)
+
+        ga = GA(cost_function=objective, population_size=4,
+                reliability_mode=True, reliability_discrete_certify=True,
+                max_evaluations=4, acceptable_cost=0.0)
+        ga.add(0.0, 1.0, step=1.0)
+        ga.add(0.0, 1.0, step=1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertFalse(result.acceptable)
+        self.assertEqual(result.termination_reason, "discrete_space_exhausted")
+        self.assertEqual(result.discrete_points_checked, 4)
+        self.assertTrue(result.discrete_space_exhausted)
+        self.assertTrue(result.discrete_absence_certified)
+        self.assertEqual(len(set(calls)), 4)
+
+    def test_invalid_grid_point_invalidates_absence_certificate(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return float("nan") if tuple(values) == (0.0, 1.0) else 2.0
+
+        ga = GA(cost_function=objective, population_size=4,
+                reliability_mode=True, reliability_discrete_certify=True,
+                max_evaluations=4, acceptable_cost=0.0)
+        ga.add(0.0, 1.0, step=1.0)
+        ga.add(0.0, 1.0, step=1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertEqual(result.objective_evaluations, 4)
+        self.assertEqual(result.invalid_objective_evaluations, 1)
+        self.assertTrue(result.discrete_space_exhausted)
+        self.assertFalse(result.discrete_absence_certified)
+        self.assertEqual(len(calls), 4)
+
+    def test_constrained_grid_ignores_infeasible_too_good_points(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return (0.2, 0.0) if tuple(values) == (1.0, 1.0) else (-100.0, 0.5)
+
+        ga = GA(cost_function=objective, population_size=4,
+                reliability_mode=True, reliability_discrete_certify=True,
+                max_evaluations=4, acceptable_cost=0.2, constraint_handling="penalty",
+                constraint_penalty_weight=0.001)
+        ga.add(0.0, 1.0, step=1.0)
+        ga.add(0.0, 1.0, step=1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertTrue(result.acceptable)
+        self.assertTrue(result.feasible)
+        self.assertEqual(result.best_objective, 0.2)
+        self.assertEqual(result.best_violation, 0.0)
+        self.assertEqual(result.objective_evaluations, 4)
+        self.assertEqual(result.result_values, {0: 1.0, 1: 1.0})
+        self.assertEqual(len(calls), 4)
+
+    def test_full_grid_with_no_valid_evaluations_fails_closed(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            raise ValueError("Simulation failed")
+
+        ga = GA(cost_function=objective, population_size=4,
+                reliability_mode=True, reliability_discrete_certify=True,
+                max_evaluations=4, acceptable_cost=0.0)
+        ga.add(0.0, 1.0, step=1.0)
+        ga.add(0.0, 1.0, step=1.0)
+        result = ga.execute()
+        self.assertFalse(result.success)
+        self.assertEqual(result.solution_status, "no_valid_evaluation")
+        self.assertEqual(result.invalid_objective_evaluations, 4)
+        self.assertFalse(result.discrete_absence_certified)
+        self.assertEqual(len(calls), 4)
+
+    def test_larger_grid_falls_back_to_ga_without_false_certificate(self):
+        seed()
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return float(values[0] ** 2)
+
+        ga = GA(cost_function=objective, population_size=4,
+                reliability_mode=True, reliability_discrete_certify=True,
+                max_evaluations=10, acceptable_cost=-1.0)
+        ga.add(0.0, 100.0, step=1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertFalse(result.discrete_search_applied)
+        self.assertFalse(result.discrete_absence_certified)
+        self.assertLessEqual(result.objective_evaluations, 10)
+        self.assertEqual(len(calls), result.objective_evaluations)
+
+    def test_floating_step_grid_matches_discrete_generator_including_endpoint(self):
+        from gadapt.execution.discrete_certification import discrete_grid_axes
+        from gadapt.ga_model.decision_variable import DecisionVariable
+
+        variable = DecisionVariable(0)
+        variable.min_value = 0.0
+        variable.max_value = 10.2
+        variable.step = 0.1
+        axes = discrete_grid_axes([variable], max_points=103)
+        self.assertIsNotNone(axes)
+        self.assertEqual(len(axes[0]), 103)
+        self.assertEqual(axes[0][-1], 10.2)
+        self.assertEqual(len(set(axes[0])), 103)
+        self.assertIsNone(discrete_grid_axes([variable], max_points=102))
+
+    def test_discrete_certification_requires_opt_in_reliability_mode(self):
+        with self.assertRaisesRegex(ValueError, "requires reliability_mode"):
+            GA(cost_function=lambda values: 0.0, reliability_discrete_certify=True)
+
     def test_hard_budget_including_validation_probes_and_best_ever(self):
         seed()
         seen = []
