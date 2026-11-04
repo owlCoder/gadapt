@@ -26,6 +26,7 @@ Latest evidence:
 - [Original raw NPZ phase/duplicate analysis](I65_I55_620_RAW_PHASE_AND_C1_C2_DUPLICATE_FORENSICS_2026-11-04.md)
 - [Full 620-source flag census](I65_I55_620_FLAG_CENSUS_AND_POST_ATTESTATION_OPEN_GATES_2026-11-04.md)
 - [205 matched-stratum context review](I65_I55_205_PAIRED_C1_C2_CONTEXT_REVIEW_2026-11-04.md)
+- [Cross-study technical closeout and **still-open human/scientific gates**](I65_2026_11_04_TECHNICAL_CLOSEOUT_AND_HUMAN_DECISION_GATES.md)
 - [Source-authenticated machine-readable post-620 gate register](I65_POST_620_ORIGINAL_A_PROCESS_EVIDENCE_GATE_REGISTER_2026-11-04.json)
 
 **Historical note:** All 2026-11-02/03 *NOT_RUN* and *1/5/55/181
