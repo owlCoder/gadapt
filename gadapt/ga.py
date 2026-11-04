@@ -144,6 +144,7 @@ class GA:
         reliability_refresh_percentage: float = 20.0,
         reliability_restart_after_refreshes: Optional[int] = None,
         reliability_discrete_certify: bool = False,
+        reliability_cache_evaluations: bool = False,
         **deprecated_kwargs,
     ) -> None:
         """
@@ -418,6 +419,11 @@ class GA:
         if reliability_discrete_certify and reliability_mode is not True:
             raise ValueError("reliability_discrete_certify requires reliability_mode=True")
         self.reliability_discrete_certify = reliability_discrete_certify
+        if type(reliability_cache_evaluations) is not bool:
+            raise ValueError("reliability_cache_evaluations must be boolean")
+        if reliability_cache_evaluations and reliability_mode is not True:
+            raise ValueError("reliability_cache_evaluations requires reliability_mode=True")
+        self.reliability_cache_evaluations = reliability_cache_evaluations
         if (reliability_refresh_patience is not None
                 and (type(reliability_refresh_patience) is not int
                      or reliability_refresh_patience < 1)):
@@ -551,7 +557,8 @@ class GA:
         if axes is not None:
             configured.probe_cost_function = False
         monitor = ReliabilityMonitor(self.cost_function, self.max_evaluations,
-                                     self.acceptable_cost, self.constraint_handling is not None)
+                                     self.acceptable_cost, self.constraint_handling is not None,
+                                     cache_evaluations=self.reliability_cache_evaluations)
         configured._cost_function = monitor
         configured._reliability_monitor = monitor
         if not callable(self.cost_function):
