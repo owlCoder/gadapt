@@ -45,6 +45,14 @@ class CommonPopulationImmigrator(BasePopulationImmigrator):
         candidate_solution_list: List[CandidateSolution] = list(
             self.population.get_sorted(key=lambda c: c.cost_value)
         )[:keep_number]
+        monitor = getattr(self.population.options, "reliability_monitor", None)
+        if monitor is not None and monitor.best is not None and monitor.best[1] == 0:
+            protected_values = monitor.best[2]
+            candidate_solution_list = [
+                c for c in candidate_solution_list
+                if not (getattr(c, "_reliability_feasible_elite", False)
+                        and c.get_values_tuple() == protected_values)
+            ]
         candidate_solution_list = sorted(
             candidate_solution_list, key=lambda c: (-c.cost_value, -c.candidate_solution_id)
         )[: immigration_count]
