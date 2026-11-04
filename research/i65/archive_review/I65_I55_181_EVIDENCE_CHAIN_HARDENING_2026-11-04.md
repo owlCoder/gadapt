@@ -78,3 +78,28 @@ only on a full original Git checkout. Neither this review nor the new
 synthetic tests prove a new A-process raw NPZ replay, an A-prime/B raw
 replay, access to the off-Git 4,200-run I64-R archive, or M6/C1 sign-off.
 No optimization, PF or COCO experiment was launched.
+
+## Deterministic remaining-source queue (planning only)
+
+The exact set difference `frozen 620 manifest - prior 55 - new 126` was
+independently materialized as
+[`I65_I55_REMAINING_439_ORIGINAL_NPZ_WORKLIST_2026-11-04.json`](I65_I55_REMAINING_439_ORIGINAL_NPZ_WORKLIST_2026-11-04.json),
+Git blob `ceb52f80c42b223f80fd522a57515ba1114dd9f1`.
+The file lists **439 original source paths**, manifest blob identities, and
+compressed byte sizes (**8,894,423 total bytes**), grouped into **62
+non-overlapping, single-library planned batches**, each with at most eight
+NPZ files. This matches the existing connector replay engine's maximum batch
+size and avoids combining metadata from different original libraries.
+
+A separate six-file *availability-only* spot check fetched the original NPZ
+base64 payloads at commit `6b56fbc53ffc4d275ecef5e911ea4663474c9a08`
+for `baybe`, `cma`, `evotorch`, `evox`, `nevergrad`, and
+`optuna`. All six GitHub-reported original blob identities and decoded
+binary byte lengths matched their manifest entries. No objective formula,
+detector flag or SHA-256 trace was re-executed for those six files in this
+review. Availability of all 439 was **not** established.
+
+**Queue membership is not replay evidence.** Every group remains
+`NOT_REPLAYED`, and none may be added to the 181/620 numerically reproduced
+coverage or to the 85,450 archived evaluated-call ledger until individually
+validated against original raw data.
