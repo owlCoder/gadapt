@@ -1,1 +1,0 @@
-../../legacy/flat/ITERATION24_PROTOCOL.md

@@ -1,1 +1,0 @@
-../legacy/flat/SAZETAK_REZULTATA_SR.md

@@ -1,1 +1,0 @@
-../../legacy/flat/ITERATION22_PROTOCOL.md

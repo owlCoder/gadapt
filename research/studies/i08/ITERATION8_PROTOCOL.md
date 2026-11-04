@@ -1,1 +1,0 @@
-../../legacy/flat/ITERATION8_PROTOCOL.md

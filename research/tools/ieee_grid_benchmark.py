@@ -1,1 +1,0 @@
-../legacy/flat/ieee_grid_benchmark.py

@@ -1,1 +1,0 @@
-../legacy/flat/paired_credit_geant.py

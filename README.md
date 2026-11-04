@@ -24,6 +24,9 @@ A comprehensive and customizable genetic algorithm library.
 
 ### Maintenance and Ongoing Research
 
+**Active repository focus (2026-11-04):** Main now contains the GAdapt library and its regression tests. Frozen historical research data, source attestations and old workflows are preserved at the [complete research archive branch](https://github.com/owlCoder/gadapt/tree/archive/pre-reliability-cleanup-2026-11-04). See the [archive handoff](ARCHIVE.md) and the [reliability-first roadmap](RELIABILITY_ROADMAP.md). No research data or original attribution were rewritten; this cleanup alone proves no new optimizer quality result.
+
+
 This repository is a research and development fork of the [original GAdapt project](https://github.com/bpzoran/gadapt). GAdapt's original author, [bpzoran](https://github.com/bpzoran), is also the academic mentor of [owlCoder](https://github.com/owlCoder) and has entrusted them with continuing the project's development in this fork. **owlCoder maintains this fork; the original project's authorship and upstream maintenance remain attributed to the original project.**
 
 Current development and research priorities include:

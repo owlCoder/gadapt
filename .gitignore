@@ -186,13 +186,10 @@ test_gadapt.py
 .idea/*
 create_documentation.bat
 
-test*.py
 
 documentation/
 /experiments/*
 pypi.bat
-/pyproject.toml
-/poetry.lock
 /gadapt/create_diagrams.bat
 comparing_tests/
 requirements_local.txt
@@ -203,7 +200,6 @@ requirements_local.txt
 /experiment.py
 /experiments/experiment.py
 /experiments/experiment_pygad.py
-/benchmarks/*
 
 # Ignore generated research Python caches (cleanup 2026-11-01)
 research/**/__pycache__/

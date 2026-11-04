@@ -1,1 +1,0 @@
-../legacy/flat/IEEE_INFRASTRUCTURE.md

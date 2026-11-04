@@ -1,1 +1,0 @@
-../../legacy/flat/iteration6_rte_stress.py

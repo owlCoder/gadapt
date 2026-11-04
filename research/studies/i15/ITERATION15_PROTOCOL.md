@@ -1,1 +1,0 @@
-../../legacy/flat/ITERATION15_PROTOCOL.md

@@ -1,1 +1,0 @@
-../../legacy/flat/ITERATION60_PROPOSAL_SR.md
