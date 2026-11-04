@@ -1,4 +1,5 @@
 from typing import List, Tuple, Optional
+from datetime import datetime
 
 import gadapt.ga_model.message_levels as message_levels
 from gadapt.ga_model.candidate_solution import CandidateSolution
@@ -8,6 +9,10 @@ from gadapt.ga_model.ga_options import GAOptions
 from gadapt.ga_model.ga_results import GAResults
 from gadapt.ga_model.population import Population
 from gadapt.execution.reliability import EvaluationBudgetExhausted, AcceptableTargetReached
+
+
+class InvalidPopulationRecoveryTimeout(Exception):
+    """No valid objective yet, and the time limit expired during reseeding."""
 
 
 class GAExecutor:
@@ -95,6 +100,10 @@ class GAExecutor:
             self.termination_reason = "acceptable_target"
         except EvaluationBudgetExhausted:
             self.termination_reason = "budget_exhausted"
+        except InvalidPopulationRecoveryTimeout:
+            self.population.timeout_expired = True
+            self.termination_reason = "timeout"
+            results.messages.append((message_levels.WARNING, "Timeout expired during invalid-population recovery"))
         except Exception as ex:
             results.success = False
             results.messages.append((message_levels.ERROR, str(ex)))
@@ -105,6 +114,10 @@ class GAExecutor:
                 else "execution_error"
             )
         if self.reliability_monitor is not None:
+            # An exhausted budget with zero valid calls is a technical failure,
+            # even though no objective call exceeded the hard limit.
+            if self.reliability_monitor.best is None:
+                results.success = False
             results.termination_reason = self.termination_reason or "exit_condition"
             if not hasattr(results, "_number_of_iterations"):
                 results.number_of_iterations = self.population.population_generation
@@ -143,7 +156,25 @@ class GAExecutor:
         self.population.previous_avg_cost = self.population.avg_cost
         self.population.previous_min_cost = self.population.min_cost
         before = self.reliability_monitor.evaluations if self.reliability_monitor is not None else None
-        self.cost_finder.find_costs(self.population)
+        while True:
+            try:
+                self.cost_finder.find_costs(self.population)
+                break
+            except ValueError as ex:
+                monitor = self.reliability_monitor
+                if (monitor is None or monitor.best is not None or
+                        "All evaluated candidate costs were invalid or nonfinite" not in str(ex) or
+                        monitor.evaluations >= monitor.max_evaluations):
+                    raise
+                # Before the very first valid candidate, discarding the entire
+                # run after one invalid cohort wastes an otherwise available
+                # objective budget. Try a fresh cohort, with no calls outside
+                # the same monitor budget and no change to legacy execution.
+                if (datetime.now() - self.population.start_time).total_seconds() >= self.ga_options.timeout:
+                    raise InvalidPopulationRecoveryTimeout() from ex
+                self.population.clear()
+                self.population.generate_initial_population()
+                monitor.invalid_population_resamples += 1
         if before is not None:
             self.reliability_monitor.completed_generation()
             self._idle_generations = (self._idle_generations + 1
