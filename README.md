@@ -470,6 +470,11 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   non-finite responses. `valid_objective_evaluations` and
   `invalid_objective_evaluations` split that count. If validation probes
   already find an acceptable candidate, no population is evaluated.
+  During a normal search, the first feasible evaluation at or below
+  `acceptable_cost` immediately stops the standard cost finders, even
+  halfway through a generation or on the final allowed call. The remaining
+  candidates are not evaluated; the monitored incumbent remains available
+  in the result. Validation probes retain their normal return contract.
   A callback internally
   running multiple physical simulations must enforce and report its own
   underlying physical budget; this mode does not count those simulations.
