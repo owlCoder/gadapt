@@ -7,6 +7,7 @@ from gadapt.factory.ga_factory import BaseGAFactory
 from gadapt.ga_model.ga_options import GAOptions
 from gadapt.ga_model.ga_results import GAResults
 from gadapt.ga_model.population import Population
+from gadapt.execution.reliability import EvaluationBudgetExhausted
 
 
 class GAExecutor:
@@ -39,6 +40,9 @@ class GAExecutor:
             self.decision_variable_mutator if hasattr(self.decision_variable_mutator, "begin_generation") else None
         )
         self.initial_population: Optional[Population] = None
+        self.reliability_monitor = getattr(ga_options, "reliability_monitor", None)
+        self._idle_generations = 0
+        self.termination_reason = None
 
     def execute(self) -> GAResults:
         """
@@ -84,9 +88,17 @@ class GAExecutor:
                     results.best_objective, results.best_violation, values = best
                     results.feasible = results.best_violation == 0
                     results.result_values = dict(values)
+        except EvaluationBudgetExhausted:
+            self.termination_reason = "budget_exhausted"
         except Exception as ex:
             results.success = False
             results.messages.append((message_levels.ERROR, str(ex)))
+            self.termination_reason = "execution_error"
+        if self.reliability_monitor is not None:
+            results.termination_reason = self.termination_reason or "exit_condition"
+            if not hasattr(results, "_number_of_iterations"):
+                results.number_of_iterations = self.population.population_generation
+            self.reliability_monitor.annotate(results)
         if self.ga_options.operator_credit_controller is not None:
             results.operator_credit_summary = self.ga_options.operator_credit_controller.summary()
         return results
@@ -98,7 +110,21 @@ class GAExecutor:
         if self.population is None:
             raise Exception("population object must not be None!")
         self.population.population_generation += 1
-        return self.exit_checker.check(self.population)
+        monitor = self.reliability_monitor
+        if monitor is not None:
+            if monitor.acceptable:
+                self.termination_reason = "acceptable_target"
+                return True
+            if monitor.evaluations >= monitor.max_evaluations:
+                self.termination_reason = "budget_exhausted"
+                return True
+            if self._idle_generations >= 20:
+                self.termination_reason = "no_new_evaluations"
+                return True
+        stopped = self.exit_checker.check(self.population)
+        if stopped and monitor is not None:
+            self.termination_reason = "timeout" if self.population.timeout_expired else "exit_condition"
+        return stopped
 
     def find_costs(self):
         """
@@ -106,7 +132,11 @@ class GAExecutor:
         """
         self.population.previous_avg_cost = self.population.avg_cost
         self.population.previous_min_cost = self.population.min_cost
+        before = self.reliability_monitor.evaluations if self.reliability_monitor is not None else None
         self.cost_finder.find_costs(self.population)
+        if before is not None:
+            self._idle_generations = (self._idle_generations + 1
+                                      if before == self.reliability_monitor.evaluations else 0)
         self.population.update_generations_without_improvement()
         self.decision_variable_updater.update_decision_variables(self.population)
         self.population_updater.update_population(self.population)
