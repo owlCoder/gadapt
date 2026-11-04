@@ -129,7 +129,7 @@
         "required_original_R_and_E_full_sha256_verified": false,
         "amended_readonly_gate": "i64_r_off_git_raw_recovery_gate.py",
         "new_sha_verifier": "i64_r_e_source_manifest_validation.py",
-        "local_synthetic_tests_passed": 10,
+        "local_synthetic_tests_passed": 11,
         "new_GitHub_CI_check_for_patch": "NOT_YET_OBSERVED",
         "interpretation": "Existing E input presence is insufficient: full SHA256 of each mandatory input and original frozen task parameters are required for readiness. This is a code gate change only, not raw R recovery.",
         "frozen_R_budget_event_contract": {
@@ -147,6 +147,28 @@
           "new_GitHub_CI_run_for_latest_changes": "NOT_CONFIRMED",
           "total_anticipated_read_only_test_cases": 106,
           "original_off_Git_R_raw_records_recovered": 0
+        },
+        "tracked_E_only_archival_attestation": {
+          "status": "PROGRAM_COMMITTED_FULL_CLONE_CI_NOT_YET_OBSERVED",
+          "source_program": "research/i65/archive_review/i64_r_archived_e_only_attestation.py",
+          "source_git_blob": "e47692c8abf72157cd31ec679313f8daecb55140",
+          "original_R_analysis_git_blob": "59025d6cc052baef76b14e5496962704bdb7604a",
+          "original_R_check_repro_git_blob": "11ca5fdfabfe6ce20cb54752a2a41fe8e2deee3d",
+          "expected_original_E_manifest_digests": 67,
+          "original_E_files_in_original_Git_root_tree": 66,
+          "original_E_composite_aggregate_off_Git": 1,
+          "required_E_files_for_original_R_seed_analysis": 44,
+          "actual_E_SHA256_files_verified_by_latest_Github_CI": "NOT_YET_OBSERVED",
+          "original_R_4200_source_available": false,
+          "E_only_audit_has_original_R_raw_records": false,
+          "E_only_raw_R_bootstrap_ready": false,
+          "original_R_seed_bootstrap_20000_reproduced": false,
+          "new_pure_manifest_adversarial_test_count": 8,
+          "additional_original_strict_Budget_tests": 10,
+          "E_SHA256_original_frozen_params_regression_tests_local": "11_OF_11_PASS",
+          "latest_original_I55_CI_expected_test_total": 115,
+          "latest_original_I55_CI_result": "NOT_YET_OBSERVED",
+          "caveat": "The original complete source tree shows 66 tracked E inputs, but no 66/66 binary digest audit output has yet been obtained from the new full-clone CI."
         }
       }
     },
