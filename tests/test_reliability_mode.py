@@ -194,6 +194,29 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertEqual(result.invalid_objective_evaluations, 1)
         self.assertEqual(len(calls), 1)
 
+    def test_stateful_objective_is_not_deepcopied_into_initial_snapshot(self):
+        seed()
+
+        class ExternalSimulator:
+            def __init__(self):
+                self.calls = 0
+
+            def __deepcopy__(self, memo):
+                raise AssertionError("A stateful objective must never be cloned")
+
+            def objective(self, values):
+                self.calls += 1
+                return float((values[0] - 0.1) ** 2)
+
+        simulator = ExternalSimulator()
+        ga = GA(cost_function=simulator.objective, population_size=4,
+                reliability_mode=True, max_evaluations=8, acceptable_cost=-1.0)
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertEqual(result.objective_evaluations, 8)
+        self.assertEqual(simulator.calls, 8)
+
     def test_budget_must_cover_initial_population_and_probes(self):
         calls = []
         ga = GA(cost_function=lambda v: calls.append(tuple(v)) or 1.0,
