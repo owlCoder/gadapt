@@ -136,13 +136,13 @@ def audit(repo: Path, attestation: Path):
         docs[library] = json.loads(raw)
     matched = paired_comparison(docs)
     require(len(docs) == 21 and matched["nominal_strata"] == 210 and
-            matched["complete_three_function_strata"] == 200 and
-            len(matched["incomplete_strata"]) == 10,
+            matched["complete_three_function_strata"] == 205 and
+            len(matched["incomplete_strata"]) == 5,
             "Original 21-library × 2-dimension × 5-seed matched roster differs")
     for flag in FLAGS:
         for a,b in CONTRASTS:
             t = matched["overall_matched"][flag][f"{a}_vs_{b}"]
-            require(t["pairs"] == 200, f"Unmatched or missing {flag}/{a}/{b} count")
+            require(t["pairs"] == 205, f"Unmatched or missing {flag}/{a}/{b} count")
     return {
         "schema": "I65_I55_A_PROCESS_PAIRED_FUNCTION_CONTEXT_V1",
         "original_source_commit": base.SOURCE_SHA,
@@ -156,7 +156,7 @@ def audit(repo: Path, attestation: Path):
         **matched,
         "interpretation": [
             "Post-hoc descriptive paired comparison of flag presence, not causal effect of objective family.",
-            "Match library, dimension, original seed; missing historical source cells excluded in complete cases.",
+            "Match library, dimension, original seed; 10 historical failed cells occupy only 5 shared 10D Nevergrad strata (sphere and Rastrigin both failed).",
             "Flag events are neither independent samples nor adjudicated software failures.",
             "Library-level signs describe heterogeneous library evidence; NO p-values, CIs or accuracy estimates.",
             "Function and library characteristics and unequal original evaluation budgets can confound interpretation.",
