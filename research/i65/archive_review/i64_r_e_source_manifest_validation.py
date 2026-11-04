@@ -18,6 +18,9 @@ EXPECTED_KEYS = frozenset({f'run_part_{i}' for i in range(63)} |
                           {'run', 'freeze', 'normalizers', 'manifest_run'})
 REQUIRED_KEYS = frozenset({f'run_part_{3*k+j}' for k in range(21) for j in (1, 2)} |
                           {'freeze', 'normalizers'})
+# Original E development tunes exactly these four algorithms. GAdapt-M
+# is NOT tuned by E: r_study.py uses freeze['params'].get('gadapt') -> None.
+E_FROZEN_TUNED_CONFIGS = frozenset({'cma', 'ipop', 'bipop', 'es11'})
 
 
 def validate_required_e_inputs(repo_root: Path, source_digests: dict,
@@ -50,15 +53,16 @@ def validate_required_e_inputs(repo_root: Path, source_digests: dict,
     tasks_checked = 0
     if 'freeze' in present_verified:
         frozen = json.loads(gzip.decompress((e_root / 'freeze.json.gz').read_bytes()))
-        # E-only custody (zero R records) authenticates the frozen E bytes,
-        # not the schema of unavailable original R task parameter records.
-        # A later *actual* R roster must still pass the strict parameter gate.
+        # Even E-only custody authenticates this original frozen E schema.
+        # A subsequent R row is still checked against params.get(cfg), where
+        # original GAdapt-M has NO tuned key and therefore params=None.
         if not isinstance(frozen, dict):
             raise ValueError('Verified E freeze source is not a JSON object')
         params = frozen.get('params')
-        if records and (not isinstance(params, dict) or
-                        not {'gadapt', 'ipop'} <= set(params)):
-            raise ValueError('Verified E freeze source missing original algorithm parameters')
+        if not isinstance(params, dict) or set(params) != E_FROZEN_TUNED_CONFIGS:
+            raise ValueError('Verified E freeze source missing original four tuned algorithm parameters')
+        if not all(isinstance(params[k], dict) for k in E_FROZEN_TUNED_CONFIGS):
+            raise ValueError('Verified E freeze selected optimizer parameters are not dictionaries')
         for i, r in enumerate(records):
             if not isinstance(r, dict) or not isinstance(r.get('task'), dict):
                 raise ValueError(f'Invalid original R task at index {i}')
@@ -78,9 +82,12 @@ def validate_required_e_inputs(repo_root: Path, source_digests: dict,
         'E_source_sha256_verified_count': len(present_verified),
         'E_required_source_SHA256_verified': sum(k in REQUIRED_KEYS for k in present_verified),
         'E_original_R_tasks_params_matched_to_frozen_E': tasks_checked,
+        'E_original_frozen_E_parameter_schema_SHA256_authenticated':
+            'freeze' in present_verified,
         'E_original_R_task_parameter_comparison':
             ('NOT_PERFORMED_NO_ORIGINAL_R_RECORDS' if not records else
-             'MATCHED_PRESENT_R_RECORDS'),
+             'MATCHED_PRESENT_R_RECORDS' if tasks_checked == len(records) else
+             'NOT_PERFORMED_REQUIRED_FREEZE_MISSING'),
         'E_missing_required_paths': missing_required,
         'E_missing_optional_paths': missing_optional,
         'E_full_original_input_manifest_present_and_sha256_verified':
