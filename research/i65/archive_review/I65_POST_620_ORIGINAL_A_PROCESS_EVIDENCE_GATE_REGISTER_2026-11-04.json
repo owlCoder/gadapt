@@ -450,6 +450,39 @@
     "combined_current_I55_CI_observed_success": "NO",
     "source_identity": "original Git manifest/root tree/NPZ blobs checked by authored future script; result cannot be claimed before it executes in full clone",
     "scientific_limits": "Descriptive conditional archive counts only; software defect/causality/original A-prime/B not established",
-    "science_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED"
+    "science_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED",
+    "exact_existing_original_CI_occupancy_closure": {
+      "status": "CLOSED_BY_INDEPENDENT_SHA256_VERIFIED_ORIGINAL_CENSUS_AND_PHASE_REPORTS",
+      "original_CI_run": 41804478669,
+      "original_full_CI_artifact_id": 13309441677,
+      "original_CI_ZIP_sha256": "b80fb1d666fdc05c219ad5c354a8fc495100aacb9b6822533b002731f378fd41",
+      "flag_census_sha256": "a0bfb1bfeaa2979ae8f195ffbcde8c9ff2c45b0562f96ecdf7915e229963c4ea",
+      "phase_context_sha256": "14ee6ea5839b59f3b15403921b7ed76a45c72a0ec39321f5aefde16dbe21d82f",
+      "original_C1_cells": 109,
+      "original_distinct_C1_corner_first_visits": 149,
+      "original_cells_with_both_full_signed_corners": 40,
+      "original_cells_with_only_one_full_signed_corner": 69,
+      "original_2D_cells_with_both_signed_corners": 40,
+      "original_10D_cells_with_both_signed_corners": 0,
+      "original_function_both_signed_cells": {
+        "plateau": 17,
+        "sphere": 11,
+        "rastrigin": 12
+      },
+      "original_library_both_signed_cells": {
+        "gfo": 15,
+        "bayes_opt": 9,
+        "baybe": 7,
+        "evox": 5,
+        "emukit": 4
+      },
+      "machine_evidence": "I65_I55_620_ORIGINAL_TWO_SIGN_C1_CELL_OCCUPANCY_2026-11-04.json",
+      "report": "I65_I55_620_C1_TWO_SIGN_CELL_OCCUPANCY_EXACT_PROOF_2026-11-04.md",
+      "standalone_local_verifier_sha256": "57273d65ddfe9986ff266dcd700aa5ae44f35dc6311085b5f62367d0970ce6b8",
+      "standalone_verifier_local_11_test_status": "PASS",
+      "standalone_local_original_CI_ZIP_receipt_sha256": "0142ed011c95276a78b71efd872d88b642c4ec194637651ec9d732250e785ed7",
+      "new_latest_head_GitHub_CI": "NOT_OBSERVED",
+      "important_caveat": "Distinct-corner cells can be fully inferred from old original SHA-pinned reports; event-level totals of all-negative vs all-positive still cannot."
+    }
   }
 }
