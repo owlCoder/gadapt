@@ -486,7 +486,7 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
 
 This is an engineering safety mechanism, **not** a demonstrated improvement in
 the probability of reaching a quality target. Stagnation recovery, controlled
-immigration and restart policies still require paired-seed benchmark approval.
+immigration and restart policies remain unproven until an approved paired-seed benchmark.
 
 ### GA Execution and Optimisation Results
 Genetic algorithm optimization executes by calling *execute* method, without parameters. This method returns the object of type *GAResults*, which contain following properties:
