@@ -50,8 +50,14 @@ def validate_required_e_inputs(repo_root: Path, source_digests: dict,
     tasks_checked = 0
     if 'freeze' in present_verified:
         frozen = json.loads(gzip.decompress((e_root / 'freeze.json.gz').read_bytes()))
+        # E-only custody (zero R records) authenticates the frozen E bytes,
+        # not the schema of unavailable original R task parameter records.
+        # A later *actual* R roster must still pass the strict parameter gate.
+        if not isinstance(frozen, dict):
+            raise ValueError('Verified E freeze source is not a JSON object')
         params = frozen.get('params')
-        if not isinstance(params, dict) or not {'gadapt', 'ipop'} <= set(params):
+        if records and (not isinstance(params, dict) or
+                        not {'gadapt', 'ipop'} <= set(params)):
             raise ValueError('Verified E freeze source missing original algorithm parameters')
         for i, r in enumerate(records):
             if not isinstance(r, dict) or not isinstance(r.get('task'), dict):
@@ -72,6 +78,9 @@ def validate_required_e_inputs(repo_root: Path, source_digests: dict,
         'E_source_sha256_verified_count': len(present_verified),
         'E_required_source_SHA256_verified': sum(k in REQUIRED_KEYS for k in present_verified),
         'E_original_R_tasks_params_matched_to_frozen_E': tasks_checked,
+        'E_original_R_task_parameter_comparison':
+            ('NOT_PERFORMED_NO_ORIGINAL_R_RECORDS' if not records else
+             'MATCHED_PRESENT_R_RECORDS'),
         'E_missing_required_paths': missing_required,
         'E_missing_optional_paths': missing_optional,
         'E_full_original_input_manifest_present_and_sha256_verified':

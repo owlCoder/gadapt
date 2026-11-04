@@ -10,6 +10,14 @@ on:
       - "research/results/rte1888_iteration9_original_matpower_generator_rows_2019.csv"
       - "research/results/rte1888_iteration9_original_matpower_bus_rows_2019.csv"
       - ".github/workflows/iteration9-rte-generator-audit.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "research/iteration9_source_generators.py"
+      - "research/test_iteration9_source_generators.py"
+      - "research/iteration7_source_rating_map.py"
+      - "research/test_iteration7_rate_source.py"
+      - ".github/workflows/iteration9-rte-generator-audit.yml"
   workflow_dispatch:
 
 jobs:
@@ -29,6 +37,24 @@ jobs:
           python-version: "3.12"
       - name: Install pinned static audit environment
         run: python -m pip install -e . 'pandapower==2.14.11' 'scipy==1.13.1' 'pandas==2.2.3'
+      - name: Authenticate byte-identical original I7/I9 archived source and tests
+        run: |
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          original = {
+            'research/iteration9_source_generators.py': '0b9d84ca20cca07f2220ae075809d12ec4640b39',
+            'research/test_iteration9_source_generators.py': '0d07f0b991cf95597c9a8d57fc53d412342b809d',
+            'research/iteration7_source_rating_map.py': '68d43cf27dc000f122ed8ea425d6ffe390b805a3',
+            'research/test_iteration7_rate_source.py': '87c497f5d99a96d4f6ca5bc64bf72b93e7cf5e2b',
+          }
+          for name, expected in original.items():
+              data = Path(name).read_bytes()
+              actual = hashlib.sha1(b'blob '+str(len(data)).encode()+b'\\0'+data).hexdigest()
+              if actual != expected:
+                  raise SystemExit(f'Original archived source changed: {name}: {actual}')
+              print('ARCHIVED ORIGINAL GIT BLOB PASS',name,actual)
+          PY
       - name: Validate source data and converter field rules
         run: python -m unittest -v research.test_iteration9_source_generators research.test_iteration7_rate_source
       - name: Run static bus and original generator conversion audit (ZERO AC)

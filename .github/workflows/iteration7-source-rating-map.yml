@@ -7,6 +7,12 @@ on:
       - "research/iteration7_source_rating_map.py"
       - "research/test_iteration7_rate_source.py"
       - ".github/workflows/iteration7-source-rating-map.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "research/iteration7_source_rating_map.py"
+      - "research/test_iteration7_rate_source.py"
+      - ".github/workflows/iteration7-source-rating-map.yml"
   workflow_dispatch:
 
 jobs:

@@ -124,6 +124,33 @@ class OriginalRInputSecurityTests(unittest.TestCase):
         self.assertTrue(yes['ready_for_independent_raw_seed_bootstrap'])
         self.assertEqual(yes['E_original_R_tasks_params_matched_to_frozen_E'], 4200)
 
+    def test_sha_authenticated_freeze_without_r_params_is_valid_e_only_source(self):
+        # The real E archive's freeze schema has no 'params' task wrapper.
+        # No R records means no claimed R-param comparison or bootstrap.
+        raw = gzip.compress(json.dumps({'original_e_freeze': True}).encode())
+        (self.e / 'freeze.json.gz').write_bytes(raw)
+        digests = dict(self.digests, freeze=hashlib.sha256(raw).hexdigest())
+        result = validate_required_e_inputs(self.repo, digests, [])
+        self.assertEqual(result['E_required_source_SHA256_verified'], 44)
+        self.assertEqual(result['E_original_R_tasks_params_matched_to_frozen_E'], 0)
+        self.assertEqual(result['E_original_R_task_parameter_comparison'],
+                         'NOT_PERFORMED_NO_ORIGINAL_R_RECORDS')
+        self.assertFalse(result['ready_for_independent_raw_seed_bootstrap'])
+
+    def test_unavailable_r_task_params_do_not_falsely_validate_present_r(self):
+        raw = gzip.compress(json.dumps({'original_e_freeze': True}).encode())
+        (self.e / 'freeze.json.gz').write_bytes(raw)
+        digests = dict(self.digests, freeze=hashlib.sha256(raw).hexdigest())
+        with self.assertRaisesRegex(ValueError, 'missing original algorithm parameters'):
+            validate_required_e_inputs(self.repo, digests, self.records)
+
+    def test_invalid_freeze_schema_fails_even_without_r_records(self):
+        raw = gzip.compress(json.dumps(['not a freeze mapping']).encode())
+        (self.e / 'freeze.json.gz').write_bytes(raw)
+        digests = dict(self.digests, freeze=hashlib.sha256(raw).hexdigest())
+        with self.assertRaisesRegex(ValueError, 'not a JSON object'):
+            validate_required_e_inputs(self.repo, digests, [])
+
     def test_absent_R_records_can_never_be_ready(self):
         report = validate_required_e_inputs(self.repo, self.digests, [])
         self.assertEqual(report['E_required_source_SHA256_verified'], 44)
