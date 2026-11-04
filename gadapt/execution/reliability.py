@@ -37,6 +37,7 @@ class ReliabilityMonitor:
         self.stagnation_refreshes = 0
         self.refreshes_since_improvement = 0
         self.restarts = 0
+        self.invalid_population_resamples = 0
         self._completed_generation_best = None
         # Validation probes must keep their normal return contract. Enable
         # immediate stopping only after the caller finishes validation.
@@ -157,6 +158,7 @@ class ReliabilityMonitor:
             results.messages.append(("WARNING", self.probe_validation_warning))
         results.stagnation_refreshes = self.stagnation_refreshes
         results.reliability_restarts = self.restarts
+        results.invalid_population_resamples = self.invalid_population_resamples
         results.acceptable = self.acceptable
         results.feasible = self.best is not None and self.best[1] == 0
         if self.best is None:
