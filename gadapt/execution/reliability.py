@@ -26,6 +26,8 @@ class ReliabilityMonitor:
         self.best = None  # (objective, violation, immutable snapshot of decision values)
         self.stagnant_generations = 0
         self.stagnation_refreshes = 0
+        self.refreshes_since_improvement = 0
+        self.restarts = 0
         self._completed_generation_best = None
 
     def __deepcopy__(self, memo):
@@ -86,6 +88,7 @@ class ReliabilityMonitor:
         quality = (0, objective) if violation == 0 else (1, violation, objective)
         if self._completed_generation_best is None or quality < self._completed_generation_best:
             self.stagnant_generations = 0
+            self.refreshes_since_improvement = 0
         else:
             self.stagnant_generations += 1
         self._completed_generation_best = quality
@@ -101,6 +104,7 @@ class ReliabilityMonitor:
         results.valid_objective_evaluations = self.valid_evaluations
         results.invalid_objective_evaluations = self.invalid_evaluations
         results.stagnation_refreshes = self.stagnation_refreshes
+        results.reliability_restarts = self.restarts
         results.acceptable = self.acceptable
         results.feasible = self.best is not None and self.best[1] == 0
         if self.best is None:
