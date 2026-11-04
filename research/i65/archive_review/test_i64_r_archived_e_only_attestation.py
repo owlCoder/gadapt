@@ -6,6 +6,7 @@ import unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from i64_r_off_git_raw_recovery_gate import BUILDS
+from test_i64_r_repro_witness_identities import synthetic_witness_rows
 from i64_r_e_source_manifest_validation import EXPECTED_KEYS
 from i64_r_archived_e_only_attestation import (
     E_RUN_ORIGINAL_SHA256, verify_archived_R_E_lineage,
@@ -21,7 +22,7 @@ class OriginalREManifestEvidenceTests(unittest.TestCase):
                       'boot':20000,'boot_seed':70,'alpha':0.05}
         cls.check={'e_inputs':cls.digests,
                    'manifest':dict.fromkeys(BUILDS,'original-frozen'),
-                   'results':[{'identical':True} for _ in range(5)]}
+                   'results':synthetic_witness_rows()}
 
     def test_original_fixed_manifest_shape_is_valid(self):
         x=verify_archived_R_E_lineage(self.analysis,self.check,E_RUN_ORIGINAL_SHA256)

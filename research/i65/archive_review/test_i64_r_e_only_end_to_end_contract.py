@@ -11,6 +11,7 @@ from unittest.mock import patch
 
 import i64_r_archived_e_only_attestation as e
 from i64_r_off_git_raw_recovery_gate import BUILDS
+from test_i64_r_repro_witness_identities import synthetic_witness_rows
 from i64_r_e_source_manifest_validation import EXPECTED_KEYS, REQUIRED_KEYS
 
 
@@ -35,7 +36,7 @@ class EOnlyOriginalSourceAuditIntegrationTests(unittest.TestCase):
         self.analysis = {'e_inputs': digests, 'freeze_commit': 'synthetic-freeze',
                          'boot': 20000, 'boot_seed': 70, 'alpha': 0.05}
         self.check = {'e_inputs': digests, 'manifest': dict.fromkeys(BUILDS, 'synthetic-freeze'),
-                      'results': [{'identical': True} for _ in range(5)]}
+                      'results': synthetic_witness_rows()}
         (self.e / 'run.json.gz.sha256').write_text(
             e.E_RUN_ORIGINAL_SHA256 + '  research/results/iteration64_e/run.json.gz\n', encoding='ascii')
 

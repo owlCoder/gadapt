@@ -13,6 +13,7 @@ from pathlib import Path
 from i64_r_e_source_manifest_validation import REQUIRED_KEYS, EXPECTED_KEYS, validate_required_e_inputs
 from i64_r_off_git_raw_recovery_gate import (
     read_pinned, blob_sha1, R_ANALYSIS_BLOB, R_CHECK_REPRO_BLOB, BUILDS,
+    verify_frozen_five_e_repro_witnesses,
 )
 
 E_RUN_CHECKSUM_GIT_BLOB = '5ab84804d195b4a75e80c700285acd3262fcb230'
@@ -30,17 +31,15 @@ def verify_archived_R_E_lineage(analysis: dict, check: dict, e_run_sha: str) -> 
     manifest=check.get('manifest')
     if not isinstance(manifest,dict) or any(k not in manifest for k in BUILDS):
         raise ValueError('Original E/R check_repro build manifest incomplete')
-    if not isinstance(check.get('results'),list) or len(check['results'])!=5 or not all(
-        isinstance(r,dict) and r.get('identical') is True for r in check['results']
-    ):
-        raise ValueError('Original five frozen E reproducibility witnesses incomplete')
+    witnesses = verify_frozen_five_e_repro_witnesses(check)
     if analysis.get('freeze_commit') != manifest['freeze_commit']:
         raise ValueError('Original R analysis freeze commit differs from check_repro manifest')
     if (analysis.get('boot'),analysis.get('boot_seed'),analysis.get('alpha'))!=(20000,70,0.05):
         raise ValueError('Original R seed-only bootstrap settings differ from frozen specification')
     return {'analysis_check_repro_E_sha256_manifest': 'MATCH',
             'historically_git_pinned_E_aggregate_sha256':e_run_sha,
-            'five_original_E_reproducibility_witnesses':'ARCHIVED_MATCH',
+            'five_original_E_reproducibility_witnesses':
+                f'ARCHIVED_MATCH_{witnesses}_ORIGINAL_IDENTITIES_ORDER_AND_OLD_NEW_VALUES',
             'original_R_bootstrap_settings':'ARCHIVED_20000_SEED70_ALPHA0_05_NOT_REPLAYED'}
 
 

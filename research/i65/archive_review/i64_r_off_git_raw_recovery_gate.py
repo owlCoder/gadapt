@@ -110,6 +110,48 @@ def validate_r_records(records:list)->dict:
                 event_integrity='PASS',seed_roster='PASS',all_runs_ok='PASS')
 
 
+# Exactly the five predeclared E witnesses from historical r_study.py
+# stage_check_repro(); these are ORIGINAL E checks, not five R seeds.
+# cell 28 = 3*9+1 (Ackley d=2 shift); cell 29 = 3*9+2 (rot).
+FROZEN_E_REPRO_WITNESSES = (
+    (1, ['sphere', 2, 'shift'], 'gadapt'),
+    (2, ['sphere', 2, 'rot'], 'gadapt'),
+    (2, ['sphere', 2, 'rot'], 'ipop'),
+    (28, ['ackley', 2, 'shift'], 'gadapt'),
+    (29, ['ackley', 2, 'rot'], 'ipop'),
+)
+
+
+def verify_frozen_five_e_repro_witnesses(check: dict) -> int:
+    """Authenticate E check_repro witness *identities*, order and values.
+
+    The immutable original R stage_check_repro() appends these five
+    records with (cell, cell_def, config, old, new, identical). A mere
+    five true flags could otherwise be copied to unrelated cells.
+    Checks recorded metadata only; never reruns any objective call.
+    """
+    rows = check.get('results') if isinstance(check, dict) else None
+    if not isinstance(rows, list) or len(rows) != len(FROZEN_E_REPRO_WITNESSES):
+        raise ValueError('Original five frozen E reproducibility witnesses incomplete')
+    for i, ((cell, cell_def, config), row) in enumerate(
+            zip(FROZEN_E_REPRO_WITNESSES, rows)):
+        if not isinstance(row, dict) or set(row) != {
+                'cell', 'cell_def', 'config', 'old', 'new', 'identical'}:
+            raise ValueError(f'Original five frozen E witness schema mismatch at {i}')
+        if (type(row['cell']) is not int or row['cell'] != cell or
+                row['cell_def'] != cell_def or
+                row['config'] != config or row['identical'] is not True):
+            raise ValueError(f'Original five frozen E witness cell/config/order mismatch at {i}')
+        old, new = row['old'], row['new']
+        # The frozen recorder stores best_f as finite numerical values.
+        # stage_check_repro compared the exact serialized old/new values.
+        if (type(old) not in (float, int) or type(new) not in (float, int) or
+                not math.isfinite(old) or not math.isfinite(new) or
+                json.dumps(old) != json.dumps(new)):
+            raise ValueError(f'Original five frozen E witness old/new value mismatch at {i}')
+    return len(rows)
+
+
 def verify_lineage(raw_run:dict,analysis:dict,check:dict)->dict:
     if raw_run.get('e_inputs') != analysis.get('e_inputs') or raw_run.get('e_inputs')!=check.get('e_inputs'):
         raise ValueError('R/E input manifest digest set mismatch')
@@ -120,10 +162,9 @@ def verify_lineage(raw_run:dict,analysis:dict,check:dict)->dict:
         raise ValueError('Incomplete build manifest')
     if any(manifests[0][k]!=manifests[1][k] for k in BUILDS):
         raise ValueError('R run and check_repro build mismatch')
-    checks=check.get('results')
-    if not isinstance(checks,list) or len(checks)!=5 or not all(r.get('identical') is True for r in checks):
-        raise ValueError('Original five E-R reproducibility witnesses not all identical')
-    return dict(e_input_sha256_items=len(raw_run['e_inputs']),build_manifest='MATCH',check_repro_witnesses=5)
+    witnesses = verify_frozen_five_e_repro_witnesses(check)
+    return dict(e_input_sha256_items=len(raw_run['e_inputs']),build_manifest='MATCH',
+                check_repro_witnesses=witnesses)
 
 
 def audit(*,repo_root:Path,raw_run_path:Path,expected_full_sha256:str|None=None)->dict:
