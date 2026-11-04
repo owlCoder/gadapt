@@ -121,6 +121,61 @@ jobs:
           assert r['new_optimizer_PF_OPF_COCO_runs']==0
           print('ORIGINAL I55 620 NPZ C1 +/- CORNER DIRECTION AND REPEATS: authenticated')
           PY
+      - name: Derive exact both-signed C1 corner cell occupancy from the two original SHA-pinned reports
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          c_raw=Path('i55_620_original_flag_census.json').read_bytes()
+          p_raw=Path('i55_620_npz_phase_duplicate_context.json').read_bytes()
+          assert hashlib.sha256(c_raw).hexdigest()=='a0bfb1bfeaa2979ae8f195ffbcde8c9ff2c45b0562f96ecdf7915e229963c4ea'
+          assert hashlib.sha256(p_raw).hexdigest()=='14ee6ea5839b59f3b15403921b7ed76a45c72a0ec39321f5aefde16dbe21d82f'
+          c=json.loads(c_raw)
+          p=json.loads(p_raw)
+          assert c['original_620_full_attestation_gate_pass'] is True
+          assert p['all_original_git_blobs_authenticated_again'] is True
+          assert p['all_620_original_npz_replayed_again'] is True
+          assert c['original_source_commit']==p['original_commit']=='6b56fbc53ffc4d275ecef5e911ea4663474c9a08'
+          assert c['original_git_tree']==p['source_root_git_tree']=='f88d221152fcb4157a8e1151a11b53cdfe8180b7'
+          def derive(census, phase):
+              C1=phase['C1_search']+phase['C1_post']
+              duplicate=phase['C1_C2_search']+phase['C1_C2_post']
+              cells=census['flagged_cells']['C1']
+              first=C1-duplicate
+              both=first-cells
+              one=2*cells-first
+              assert census['flag_occurrences']['C1']==C1
+              assert phase['C1_post']==phase['C1_C2_post']==0
+              assert 0<=both<=cells and 0<=one<=cells and both+one==cells
+              return dict(C1=C1, exact_repeats=duplicate, first=first,
+                          C1_cells=cells, exactly_one_signed_corner=one,
+                          both_signed_corners=both)
+          overall=derive(c['overall'],p['overall'])
+          assert overall==dict(C1=2105,exact_repeats=1956,first=149,
+                               C1_cells=109,exactly_one_signed_corner=69,
+                               both_signed_corners=40)
+          strata={}
+          for key in ('by_function','by_dimension','by_library'):
+              assert set(c[key])==set(p[key])
+              section={name:derive(c[key][name],p[key][name]) for name in sorted(c[key])}
+              for k,value in overall.items():
+                  assert sum(x[k] for x in section.values())==value
+              strata[key]=section
+          assert strata['by_dimension']['2']['both_signed_corners']==40
+          assert strata['by_dimension']['10']['both_signed_corners']==0
+          report=dict(schema='I65_I55_ORIGINAL_TWO_SIGN_CELL_EXACT_ARCHIVE_DERIVATION_V1',
+                      source_npz=620,original_CI_run=41804478669,
+                      original_census_sha256=hashlib.sha256(c_raw).hexdigest(),
+                      original_phase_sha256=hashlib.sha256(p_raw).hexdigest(),
+                      overall=overall,**strata,
+                      minus_vs_plus_event_counts='NOT_AVAILABLE_IN_THESE_SOURCE_AGGREGATES',
+                      new_optimizer_pf_opf_coco_runs=0,
+                      research_status='DRAFT / NO-FREEZE / NOT_ESTABLISHED')
+          Path('i55_620_original_C1_both_sign_corner_occupancy.json').write_text(
+              json.dumps(report,sort_keys=True,indent=2)+'\n')
+          print('ORIGINAL 620 NPZ: 40 cells with BOTH signed C1 corners, all 2D; 69 one-sign')
+          PY
       - name: Preserve reports even if an attestation gate fails
         if: always()
         uses: actions/upload-artifact@v4
@@ -134,4 +189,5 @@ jobs:
             i55_620_paired_function_context.json
             i55_620_npz_phase_duplicate_context.json
             i55_620_original_corner_sign_and_repeats.json
+            i55_620_original_C1_both_sign_corner_occupancy.json
           if-no-files-found: warn
