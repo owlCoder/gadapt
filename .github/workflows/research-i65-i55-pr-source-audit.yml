@@ -43,6 +43,23 @@ jobs:
           python -m py_compile research/i65/archive_review/i64_r_off_git_raw_recovery_gate.py research/i65/archive_review/i64_r_e_source_manifest_validation.py
           python -m unittest discover -s research/i65/archive_review -p 'test_i64_r_e_source_manifest_validation.py' -v
           python -m unittest discover -s research/i65/archive_review -p 'test_i64_r_original_budget_strict_consistency.py' -v
+          python -m unittest discover -s research/i65/archive_review -p 'test_i64_r_archived_e_only_attestation.py' -v
+          python research/i65/archive_review/i64_r_archived_e_only_attestation.py \
+            --repo-root . \
+            --output i64_r_e_only_sha256_archived_sources.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('i64_r_e_only_sha256_archived_sources.json').read_text())
+          assert r['E_inputs']['E_original_manifest_entries']==67
+          assert r['E_inputs']['required_for_independent_R_seed_bootstrap']==44
+          assert r['E_inputs']['E_required_source_SHA256_verified']==44
+          assert r['E_inputs']['E_source_sha256_verified_count']==66
+          assert not r['E_inputs']['E_full_original_input_manifest_present_and_sha256_verified']
+          assert not r['E_inputs']['ready_for_independent_raw_seed_bootstrap']
+          assert r['R_original_raw_4200_seed_source']=='MISSING_NOT_RECREATED'
+          print('ORIGINAL SHA256: 66 tracked E inputs PASS; missing E aggregate and R raw NOT RECREATED')
+          PY
           python - <<'PY'
           import sys, inspect
           sys.path.insert(0, 'research/i65/archive_review')
@@ -88,6 +105,7 @@ jobs:
         with:
           name: i55-pinned-original-source-only-audit
           path: |
+            i64_r_e_only_sha256_archived_sources.json
             i55_181_new_sha_pinned_evidence_audit.json
             i55_620_original_readonly_audit.json
             i55_620_original_flag_census.json
