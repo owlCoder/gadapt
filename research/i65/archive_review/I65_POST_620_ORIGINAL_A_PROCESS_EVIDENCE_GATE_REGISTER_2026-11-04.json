@@ -105,13 +105,34 @@
     },
     {
       "id": "I64_R_RAW_SEED_LEVEL_4200",
-      "status": "BLOCKED_EXTERNAL_SOURCE",
+      "status": "BLOCKED_EXTERNAL_ORIGINAL_4200_R_SEED_FILE",
       "tracked_Git_objects": [
         "analysis.json.gz",
         "check_repro.json.gz"
       ],
       "historical_SHA256_marker": "f23046f6...3618",
-      "next": "Locate original off-Git run.json.gz and independently trusted 64-digit SHA256; apply read-only structural recovery gate"
+      "next": "Locate original off-Git run.json.gz and independently trusted 64-digit SHA256; apply read-only structural recovery gate",
+      "original_E_sources_input_provenance": {
+        "status": "GATE_HARDENED_SYNTHETIC_TESTS_PASS_ORIGINAL_R_NOT_RECOVERED",
+        "E_original_source_manifest_entries": 67,
+        "E_original_part_files_in_Git_tree": 63,
+        "E_required_for_independent_R_seed_analysis": 44,
+        "original_E_aggregate_raw_path": "research/results/iteration64_e/run.json.gz",
+        "original_E_aggregate_in_Git": false,
+        "original_E_aggregate_historical_bytes": "about 129 MB (original README_raw.txt)",
+        "original_E_aggregate_FULL_SHA256": "1f0f4525d55b0ae4d1976824b9ca211d972914f82daae57c9c95243b55de271f",
+        "original_E_checksum_git_blob": "5ab84804d195b4a75e80c700285acd3262fcb230",
+        "original_E_README_git_blob": "75b72997275b2368cdfe7f62a4fb6b03e37ea11f",
+        "original_R_4200_seed_raw_still_missing": true,
+        "original_R_short_sha256_only": "f23046f6...3618",
+        "original_full_E_aggregate_attested": false,
+        "required_original_R_and_E_full_sha256_verified": false,
+        "amended_readonly_gate": "i64_r_off_git_raw_recovery_gate.py",
+        "new_sha_verifier": "i64_r_e_source_manifest_validation.py",
+        "local_synthetic_tests_passed": 10,
+        "new_GitHub_CI_check_for_patch": "NOT_YET_OBSERVED",
+        "interpretation": "Existing E input presence is insufficient: full SHA256 of each mandatory input and original frozen task parameters are required for readiness. This is a code gate change only, not raw R recovery."
+      }
     },
     {
       "id": "INDEPENDENT_DETECTOR_SPECIFICITY",
