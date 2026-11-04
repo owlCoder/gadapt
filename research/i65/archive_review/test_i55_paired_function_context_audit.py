@@ -67,6 +67,24 @@ class MatchedContextTests(unittest.TestCase):
         self.assertEqual(result["overall_matched"]["C1"]["plateau_vs_rastrigin"]["pairs"], 10)
         self.assertEqual(result["overall_matched"]["C1"]["sphere_vs_rastrigin"]["pairs"], 9)
 
+    def test_two_failed_functions_share_one_incomplete_stratum(self):
+        data = fixture()
+        for row in data["samplelib"]["cells"]:
+            if (row["d"], row["seed"]) == (10, 6004) and row["function"] in (
+                "sphere", "rastrigin"
+            ):
+                row["error"] = "historical failed source"
+        out = method.paired_comparison(data)
+        self.assertEqual(out["nominal_strata"], 10)
+        self.assertEqual(out["complete_three_function_strata"], 9)
+        self.assertEqual(len(out["incomplete_strata"]), 1)
+        self.assertEqual(set(out["incomplete_strata"][0]["failed_functions"]),
+                         {"sphere", "rastrigin"})
+        for flag in method.FLAGS:
+            for contrast in ("plateau_vs_sphere", "plateau_vs_rastrigin",
+                             "sphere_vs_rastrigin"):
+                self.assertEqual(out["overall_matched"][flag][contrast]["pairs"], 9)
+
     def test_duplicate_cell_is_rejected(self):
         data = fixture()
         data["samplelib"]["cells"].append(copy.deepcopy(data["samplelib"]["cells"][0]))
