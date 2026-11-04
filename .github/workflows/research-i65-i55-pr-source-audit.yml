@@ -102,6 +102,25 @@ jobs:
             --repo-root . \
             --full-attestation i55_620_original_readonly_audit.json \
             --output i55_620_npz_phase_duplicate_context.json
+      - name: Original 620 NPZ signed full-corner direction / exact duplicate evidence (read-only)
+        run: |
+          python -m unittest discover -s research/i65/archive_review -p 'test_i55_620_corner_direction_source_audit.py' -v
+          python research/i65/archive_review/i55_620_corner_direction_source_audit.py \
+            --repo-root . \
+            --full-attestation i55_620_original_readonly_audit.json \
+            --output i55_620_original_corner_sign_and_repeats.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('i55_620_original_corner_sign_and_repeats.json').read_text())
+          assert r['original_npz_checked']==620
+          assert r['historical_C1_corner_occurrences']==2105
+          assert r['historical_C1_exact_repeats']==1956
+          assert r['historical_C1_first']==149
+          assert r['original_C1_post_calls']==0
+          assert r['new_optimizer_PF_OPF_COCO_runs']==0
+          print('ORIGINAL I55 620 NPZ C1 +/- CORNER DIRECTION AND REPEATS: authenticated')
+          PY
       - name: Preserve reports even if an attestation gate fails
         if: always()
         uses: actions/upload-artifact@v4
@@ -114,4 +133,5 @@ jobs:
             i55_620_original_flag_census.json
             i55_620_paired_function_context.json
             i55_620_npz_phase_duplicate_context.json
+            i55_620_original_corner_sign_and_repeats.json
           if-no-files-found: warn
