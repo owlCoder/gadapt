@@ -554,6 +554,15 @@ class GA:
                                      self.acceptable_cost, self.constraint_handling is not None)
         configured._cost_function = monitor
         configured._reliability_monitor = monitor
+        if not callable(self.cost_function):
+            # The wrapper itself is callable, but an invalid underlying
+            # objective must never slip through structural validation.
+            results = GAResults()
+            results.success = False
+            results.termination_reason = "validation_failed"
+            results.messages.append(("ERROR", "Cost Function must be callable!"))
+            monitor.annotate(results)
+            return results
         # Ignore only legacy avg/min stagnation exits, not user exit_function,
         # timeout, explicitly bounded generations or a cost-target criterion.
         if configured.exit_check in (definitions.AVG_COST, definitions.MIN_COST):
@@ -567,6 +576,24 @@ class GA:
             validator.validate()
         except Exception as ex:
             validation_error = ex
+        if (validation_error is not None or not validator.success) and configured.probe_cost_function:
+            # A boundary point is just one candidate, not a proof that the
+            # whole search box is invalid. Preserve the charged probe call,
+            # then retry *structural-only* validation before deciding to fail.
+            # This recovery is exclusive to opt-in reliability mode.
+            configured.probe_cost_function = False
+            structural_validator = CommonOptionsValidator(configured)
+            try:
+                structural_validator.validate()
+                if structural_validator.success:
+                    validator = structural_validator
+                    validation_error = None
+                    monitor.probe_validation_warning = (
+                        "Boundary objective probe failed validation; "
+                        "continuing with structurally valid configuration."
+                    )
+            except Exception:
+                pass  # Keep the original validation error.
         if validation_error is not None or not validator.success:
             results = GAResults()
             results.success = False
