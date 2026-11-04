@@ -475,6 +475,13 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   halfway through a generation or on the final allowed call. The remaining
   candidates are not evaluated; the monitored incumbent remains available
   in the result. Validation probes retain their normal return contract.
+  An invalid or throwing validation probe at a box boundary no longer
+  automatically rejects the whole problem in reliability mode: structural
+  validation is retried without extra objective calls, the failed probe
+  remains charged, and a warning is reported. If the structure is invalid
+  (or the objective is not callable), validation still fails. If subsequent
+  population evaluations are all invalid, execution still fails closed.
+  Legacy mode retains its existing strict probe-validation behavior.
   A callback internally
   running multiple physical simulations must enforce and report its own
   underlying physical budget; this mode does not count those simulations.
