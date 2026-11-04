@@ -484,6 +484,14 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   stagnation exit is replaced by a generation cap: the explicit
   `number_of_generations` is retained, or a generous internal cap is used.
   A run also stops after 20 generations without any new objective call.
+  Optional `reliability_refresh_patience=5` with
+  `reliability_refresh_percentage=20.0` refreshes up to 20% of the retained
+  population every five generations without an improvement of the *best
+  evaluated* objective (or constraint violation until feasibility is found).
+  It does not refresh by default: set a patience explicitly to enable it.
+  The existing feasible incumbent is protected, and the same total objective
+  budget applies; `result.stagnation_refreshes` reports how many refreshes
+  happened. No optimization-performance benefit is claimed yet.
   Explicit exit functions, requested-cost exits and timeout remain active.
   The minimum `max_evaluations` is `population_size` plus two if
   `probe_cost_function=True`; both the budget and a finite
