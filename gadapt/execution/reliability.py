@@ -25,6 +25,12 @@ class ReliabilityMonitor:
         self.invalid_evaluations = 0
         self.best = None  # (objective, violation, immutable snapshot of decision values)
 
+    def __deepcopy__(self, memo):
+        # Population.clone() deep-copies GAOptions for its initial snapshot.
+        # Never clone the user's stateful objective or split the call counter.
+        memo[id(self)] = self
+        return self
+
     def __call__(self, values):
         if self.evaluations >= self.max_evaluations:
             raise EvaluationBudgetExhausted("Objective evaluation budget exhausted")
