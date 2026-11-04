@@ -23,6 +23,9 @@ jobs:
       - run: python -m unittest discover -s tests -v
 
   exploratory-benchmark:
+    # Never launch optimization benchmarks from a source-audit pull request.
+    # Retain legacy runs for intentionally selected push branches only.
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
