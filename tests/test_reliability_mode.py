@@ -2,6 +2,7 @@
 
 These are functional safety checks, NOT evidence of superior optimizer quality.
 """
+import math
 import random
 import unittest
 from datetime import datetime, timedelta
@@ -10,10 +11,12 @@ from unittest.mock import patch
 import numpy as np
 
 from gadapt.ga import GA
+from gadapt.execution.ga_executor import GAExecutor
 from gadapt.execution.reliability import ReliabilityMonitor, EvaluationBudgetExhausted
 from gadapt.ga_model.ga_options import GAOptions
 from gadapt.ga_model.population import Population
 from gadapt.operations.cost_finding.constraint_handling_cost_finder import ConstraintHandlingCostFinder
+from gadapt.operations.cost_finding.elitism_cost_finder import ElitismCostFinder
 from gadapt.operations.immigration.population_immigration.common_population_immigrator import CommonPopulationImmigrator
 from gadapt.operations.immigration.candidate_solution_immigration.random_candidate_solution_immigrator import RandomCandidateSolutionImmigrator
 from gadapt.utils.constraint_handling import ConstraintHandler
@@ -412,6 +415,117 @@ class ReliabilityModeTest(unittest.TestCase):
             self.assertLessEqual(result.objective_evaluations, 30)
         self.assertEqual(off.stagnation_refreshes, 0)
         self.assertGreater(on.stagnation_refreshes, 0)
+
+    def test_restart_restores_exact_cached_constrained_incumbent_without_evaluation(self):
+        seed()
+        actual_calls = []
+
+        def objective(values):
+            actual_calls.append(tuple(values))
+            return (100.0, 0.0) if values[0] >= 0 else (0.0, -values[0])
+
+        ga = GA(cost_function=objective, population_size=6, reliability_mode=True,
+                max_evaluations=20, acceptable_cost=-1.0, probe_cost_function=False,
+                constraint_handling="penalty", constraint_penalty_weight=0.001,
+                reliability_refresh_patience=2, reliability_restart_after_refreshes=2)
+        ga.add(-1.0, 1.0)
+        monitor = ReliabilityMonitor(objective, 20, -1.0, constrained=True)
+        monitor([0.75])  # A real prior evaluation absent from the population.
+        ga._reliability_monitor = monitor
+        options = GAOptions(ga)
+        options.cost_function = monitor
+        population = Population(options)
+        for c in population:
+            c[0].value = -0.5
+        executor = GAExecutor.__new__(GAExecutor)
+        executor.population = population
+        executor.ga_options = options
+        executor.reliability_monitor = monitor
+        executor.cost_finder = ConstraintHandlingCostFinder(ConstraintHandler("penalty", 0.001))
+
+        monitor.stagnant_generations = 6
+        monitor.refreshes_since_improvement = 1
+        self.assertFalse(executor.restart_if_stagnant())
+        monitor.refreshes_since_improvement = 2
+        self.assertTrue(executor.restart_if_stagnant())
+        self.assertEqual(len(population), 6)
+        self.assertEqual(population[0].get_values_tuple(), (0.75,))
+        self.assertEqual(population[0].objective_value, 100.0)
+        self.assertEqual(population[0].violation_value, 0.0)
+        self.assertEqual(population[0].cost_value, 100.0)
+        self.assertTrue(population[0].succ)
+        self.assertTrue(all(math.isnan(c.cost_value) for c in population.candidate_solutions[1:]))
+        self.assertEqual(monitor.evaluations, 1)
+        self.assertEqual(actual_calls, [(0.75,)])
+        self.assertEqual(monitor.restarts, 1)
+        self.assertEqual(monitor.refreshes_since_improvement, 0)
+        self.assertFalse(executor.restart_if_stagnant())
+
+    def test_restart_requires_budget_for_entire_reseed(self):
+        seed()
+        ga = GA(cost_function=lambda values: float(values[0]), population_size=6,
+                reliability_mode=True, max_evaluations=5, acceptable_cost=-1.0,
+                probe_cost_function=False, reliability_refresh_patience=2,
+                reliability_restart_after_refreshes=1)
+        ga.add(0.0, 1.0)
+        monitor = ReliabilityMonitor(ga.cost_function, 5, -1.0, False)
+        monitor([0.5])  # Only four calls remain, but five new points are required.
+        ga._reliability_monitor = monitor
+        options = GAOptions(ga)
+        population = Population(options)
+        executor = GAExecutor.__new__(GAExecutor)
+        executor.population = population
+        executor.ga_options = options
+        executor.reliability_monitor = monitor
+        executor.cost_finder = ElitismCostFinder()
+        monitor.stagnant_generations = 2
+        monitor.refreshes_since_improvement = 1
+        before = [c.get_values_tuple() for c in population]
+        self.assertFalse(executor.restart_if_stagnant())
+        self.assertEqual([c.get_values_tuple() for c in population], before)
+        self.assertEqual(monitor.evaluations, 1)
+        self.assertEqual(monitor.restarts, 0)
+
+    def test_restart_after_two_failed_refreshes_stays_under_total_budget(self):
+        def run(restart):
+            seed()
+            calls = []
+
+            def objective(values):
+                calls.append(tuple(values))
+                return 1.0
+
+            ga = GA(cost_function=objective, population_size=8,
+                    reliability_mode=True, max_evaluations=70, acceptable_cost=0.0,
+                    probe_cost_function=False, exit_check="generations",
+                    number_of_generations=9, ensure_unique_individuals=False,
+                    reliability_refresh_patience=2,
+                    reliability_refresh_percentage=25.0,
+                    reliability_restart_after_refreshes=(2 if restart else None))
+            ga.add(-1.0, 1.0)
+            result = ga.execute()
+            self.assertTrue(result.success, result.messages)
+            self.assertEqual(result.objective_evaluations, len(calls))
+            self.assertLessEqual(result.objective_evaluations, 70)
+            self.assertEqual(result.best_objective, 1.0)
+            self.assertEqual(result.solution_status, "feasible_but_unacceptable")
+            return result
+
+        baseline = run(False)
+        restarted = run(True)
+        self.assertEqual(baseline.reliability_restarts, 0)
+        self.assertEqual(restarted.reliability_restarts, 1)
+        self.assertEqual(restarted.stagnation_refreshes, 2)
+
+    def test_incumbent_improvement_clears_restart_debt(self):
+        monitor = ReliabilityMonitor(lambda values: float(values[0]), 5, -1.0, False)
+        monitor([2.0])
+        monitor.completed_generation()
+        monitor.refreshes_since_improvement = 2
+        monitor([1.0])
+        monitor.completed_generation()
+        self.assertEqual(monitor.refreshes_since_improvement, 0)
+        self.assertEqual(monitor.stagnant_generations, 0)
 
     def test_budget_must_cover_initial_population_and_probes(self):
         calls = []
