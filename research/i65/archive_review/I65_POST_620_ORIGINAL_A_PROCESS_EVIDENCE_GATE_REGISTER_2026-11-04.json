@@ -402,7 +402,7 @@
   },
   "original_full_corner_first_repeat_and_direction": {
     "status": "EXISTING_ORIGINAL_SOURCE_PHASE_ARTIFACT_RECONCILED_SIGN_DIRECTION_NEW_CI_NOT_YET_OBSERVED",
-    "source_original_phase_json_sha256": "14ee6ea5839b59f3b15403921f5aefde16dbe21d82f",
+    "source_original_phase_json_sha256": "14ee6ea5839b59f3b15403921b7ed76a45c72a0ec39321f5aefde16dbe21d82f",
     "full_clone_reference_run": 41804478669,
     "verified_original_npz": 620,
     "original_C1_events": 2105,
