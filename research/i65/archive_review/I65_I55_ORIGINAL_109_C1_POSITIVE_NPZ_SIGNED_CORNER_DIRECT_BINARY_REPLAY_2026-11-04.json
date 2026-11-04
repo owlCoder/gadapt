@@ -1,0 +1,16 @@
+{
+  "schema": "I65_I55_ORIGINAL_109_C1_POSITIVE_NPZ_SIGN_DIRECT_GIT_BINARY_V1",
+  "status": "IN_PROGRESS_NOT_SCIENTIFIC_FREEZE",
+  "as_of": "2026-11-04",
+  "original_source_commit": "6b56fbc53ffc4d275ecef5e911ea4663474c9a08",
+  "original_620_source_manifest_sha1": "50ca2e96762447070a74309850cb1aa6586d3eb3",
+  "original_109_C1_source_roster_blob_sha1": "f1dd7d1b283eba1ee12562acaf22a144d9c525d5",
+  "independent_js_decoder_git_sha1": "7c0d2bbf23cf7e1dea209651d3778cb0c3030711",
+  "expected_source_C1_positive_cells": 109,
+  "expected_C1_signed_corner_events": 2105,
+  "original_entries_rechecked": 0,
+  "entries": [],
+  "caution": "Direct original binary x.npy from Git at immutable source commit; source Git blob, byte size and original per-cell C1 must match. Do not infer a scientific defect from C1.",
+  "new_optimizer_PF_OPF_COCO_runs": 0,
+  "scientific_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED"
+}
