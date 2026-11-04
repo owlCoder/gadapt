@@ -28,6 +28,7 @@ Latest evidence:
 - [205 matched-stratum context review](I65_I55_205_PAIRED_C1_C2_CONTEXT_REVIEW_2026-11-04.md)
 - [Cross-study technical closeout and **still-open human/scientific gates**](I65_2026_11_04_TECHNICAL_CLOSEOUT_AND_HUMAN_DECISION_GATES.md)
 - [Owner-side original R/A-prime/B evidence recovery](I65_EXTERNAL_ORIGINAL_SOURCE_RECOVERY_HANDOFF_2026-11-04.md)
+- [SHA-256-hardened original R/E custody gate and ten synthetic regression tests](I65_I64_R_SHA256_E_INPUT_CUSTODY_HARDENING_2026-11-04.md) — 67 E manifest entries, 44 required SHA-attested sources; original 4,200-run R source still missing
 - [Source-authenticated machine-readable post-620 gate register](I65_POST_620_ORIGINAL_A_PROCESS_EVIDENCE_GATE_REGISTER_2026-11-04.json)
 
 **Historical note:** All 2026-11-02/03 *NOT_RUN* and *1/5/55/181
