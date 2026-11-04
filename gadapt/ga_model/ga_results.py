@@ -24,6 +24,11 @@ class GAResults:
         self.best_objective = float("NaN")
         self.best_violation = float("NaN")
         self.feasible = None
+        # Populated only in the opt-in reliability mode. success keeps its
+        # legacy meaning: technical execution, not problem-specific quality.
+        self.objective_evaluations = None
+        self.acceptable = None
+        self.termination_reason = None
 
     def __str__(self) -> str:
         return ga_strings.results_to_string(self)
