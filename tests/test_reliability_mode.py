@@ -178,6 +178,105 @@ class ReliabilityModeTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "requires reliability_mode"):
             GA(cost_function=lambda values: 0.0, reliability_discrete_certify=True)
 
+    def test_cache_reuses_valid_identical_vector_without_spending_budget(self):
+        seen = []
+
+        def objective(values):
+            seen.append(tuple(values))
+            return 2.0
+
+        monitor = ReliabilityMonitor(objective, 1, -1.0, False,
+                                     cache_evaluations=True)
+        self.assertEqual(monitor([0.0]), 2.0)
+        self.assertEqual(monitor([0.0]), 2.0)
+        self.assertEqual(monitor.evaluations, 1)
+        self.assertEqual(monitor.valid_evaluations, 1)
+        self.assertEqual(monitor.cached_objective_requests, 1)
+        self.assertEqual(seen, [(0.0,)])
+        with self.assertRaises(EvaluationBudgetExhausted):
+            monitor([-0.0])  # Signed zeros are distinct numeric inputs.
+        self.assertEqual(seen, [(0.0,)])
+        self.assertEqual(monitor.best, (2.0, 0.0, (0.0,)))
+
+    def test_invalid_callback_outcomes_are_not_cached(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            if len(calls) == 1:
+                raise ValueError("intermittent failure")
+            return 3.0
+
+        monitor = ReliabilityMonitor(objective, 3, -1.0, False,
+                                     cache_evaluations=True)
+        with self.assertRaisesRegex(ValueError, "intermittent failure"):
+            monitor([1.0])
+        self.assertEqual(monitor([1.0]), 3.0)
+        self.assertEqual(monitor([1.0]), 3.0)
+        self.assertEqual(monitor.evaluations, 2)
+        self.assertEqual(monitor.invalid_evaluations, 1)
+        self.assertEqual(monitor.valid_evaluations, 1)
+        self.assertEqual(monitor.cached_objective_requests, 1)
+        self.assertEqual(len(calls), 2)
+
+    def test_cached_constrained_pair_uses_immutable_validated_snapshot(self):
+        calls = []
+        output = [8.0, 0.25]
+
+        def objective(values):
+            calls.append(tuple(values))
+            return output
+
+        monitor = ReliabilityMonitor(objective, 2, -1.0, True,
+                                     cache_evaluations=True)
+        self.assertEqual(monitor([0.5]), output)
+        output[0] = -999.0
+        self.assertEqual(monitor([0.5]), (8.0, 0.25))
+        self.assertEqual(monitor.best, (8.0, 0.25, (0.5,)))
+        self.assertEqual(monitor.evaluations, 1)
+        self.assertEqual(monitor.cached_objective_requests, 1)
+        self.assertEqual(len(calls), 1)
+
+    def test_deterministic_discrete_duplicates_do_not_use_physical_budget(self):
+        def run(cache):
+            seed()
+            calls = []
+
+            def objective(values):
+                calls.append(tuple(values))
+                return 1.0
+
+            ga = GA(cost_function=objective, population_size=6,
+                    reliability_mode=True, max_evaluations=12,
+                    acceptable_cost=0.0, probe_cost_function=False,
+                    exit_check="generations", number_of_generations=1,
+                    ensure_unique_individuals=False,
+                    reliability_cache_evaluations=cache)
+            ga.add(0.0, 1.0, step=1.0)
+            result = ga.execute()
+            self.assertTrue(result.success, result.messages)
+            self.assertEqual(result.objective_evaluations, len(calls))
+            self.assertEqual(result.best_objective, 1.0)
+            return result, calls
+
+        original, original_calls = run(False)
+        cached, cached_calls = run(True)
+        self.assertGreaterEqual(len(original_calls), 6)
+        self.assertLessEqual(len(cached_calls), 2)
+        self.assertEqual(cached.cached_objective_requests,
+                         len(original_calls) - len(cached_calls))
+        self.assertEqual(original.cached_objective_requests, 0)
+        self.assertLess(cached.objective_evaluations, original.objective_evaluations)
+        self.assertFalse(cached.acceptable)
+
+    def test_cache_is_rejected_outside_reliability_mode(self):
+        with self.assertRaisesRegex(ValueError, "requires reliability_mode"):
+            GA(cost_function=lambda values: 1.0,
+               reliability_cache_evaluations=True)
+        with self.assertRaisesRegex(ValueError, "must be boolean"):
+            GA(cost_function=lambda values: 1.0,
+               reliability_mode=True, reliability_cache_evaluations=1)
+
     def test_hard_budget_including_validation_probes_and_best_ever(self):
         seed()
         seen = []

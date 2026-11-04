@@ -29,6 +29,7 @@ class GAResults:
         self.objective_evaluations = None
         self.valid_objective_evaluations = None
         self.invalid_objective_evaluations = None
+        self.cached_objective_requests = None
         self.stagnation_refreshes = None
         self.reliability_restarts = None
         self.discrete_search_applied = None

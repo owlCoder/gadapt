@@ -19,8 +19,13 @@ class AcceptableTargetReached(RuntimeError):
 
 
 class ReliabilityMonitor:
-    def __init__(self, objective, max_evaluations, acceptable_cost, constrained):
+    def __init__(self, objective, max_evaluations, acceptable_cost, constrained,
+                 cache_evaluations=False):
         self.objective = objective
+        # Opt-in only: correct for stationary, deterministic objectives.
+        self.cache_evaluations = cache_evaluations
+        self.cached_objective_requests = 0
+        self._evaluation_cache = {}
         self.max_evaluations = max_evaluations
         self.acceptable_cost = float(acceptable_cost)
         self.constrained = constrained
@@ -44,10 +49,16 @@ class ReliabilityMonitor:
         return self
 
     def __call__(self, values):
+        evaluated_values = tuple(values)  # Snapshot before user callback can mutate the list.
+        cache_key = self._cache_key(evaluated_values)
+        if cache_key is not None and cache_key in self._evaluation_cache:
+            self.cached_objective_requests += 1
+            if self.stop_on_acceptance and self.acceptable:
+                raise AcceptableTargetReached("Acceptable evaluated candidate found")
+            return self._evaluation_cache[cache_key]
         if self.evaluations >= self.max_evaluations:
             raise EvaluationBudgetExhausted("Objective evaluation budget exhausted")
         self.evaluations += 1  # Charge failed calls, too.
-        evaluated_values = tuple(values)  # Snapshot before user callback can mutate the list.
         try:
             result = self.objective(values)
         except Exception:
@@ -79,12 +90,38 @@ class ReliabilityMonitor:
                        and (violation, objective) < (best_violation, best_objective))
         if replace:
             self.best = (objective, violation, evaluated_values)
+        if cache_key is not None:
+            # Store the validated scalar or immutable pair, never a mutable
+            # reference returned by the user's callback.
+            self._evaluation_cache[cache_key] = (
+                (objective, violation) if self.constrained else objective
+            )
         if self.stop_on_acceptance and self.acceptable:
             # Abort the remainder of this costly generation, including when
             # the successful call is the final allowed evaluation.
             # The complete, actually evaluated result is cached in self.best.
             raise AcceptableTargetReached("Acceptable evaluated candidate found")
         return result
+
+    def _cache_key(self, values):
+        """Identify identical numerical inputs, preserving types and signed zero.
+
+        Unsupported/nonhashable values simply bypass caching; no objective
+        errors or calls are hidden by the optimization.
+        """
+        if not self.cache_evaluations:
+            return None
+        try:
+            key = tuple(
+                (type(value), float(value).hex())
+                if isinstance(value, Real) and not isinstance(value, bool)
+                else (type(value), value)
+                for value in values
+            )
+            hash(key)
+            return key
+        except (TypeError, ValueError, OverflowError):
+            return None
 
     def completed_generation(self):
         """Count generations without a better *evaluated* incumbent.
@@ -115,6 +152,7 @@ class ReliabilityMonitor:
         results.objective_evaluations = self.evaluations
         results.valid_objective_evaluations = self.valid_evaluations
         results.invalid_objective_evaluations = self.invalid_evaluations
+        results.cached_objective_requests = self.cached_objective_requests
         if getattr(self, "probe_validation_warning", None):
             results.messages.append(("WARNING", self.probe_validation_warning))
         results.stagnation_refreshes = self.stagnation_refreshes
