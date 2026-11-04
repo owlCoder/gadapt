@@ -68,6 +68,8 @@ jobs:
           import i64_r_e_source_manifest_validation as e
           assert gate.validate_required_e_inputs is e.validate_required_e_inputs
           assert 'validate_required_e_inputs(' in inspect.getsource(gate.audit)
+          assert 'original_r_roster_attested=' in inspect.getsource(gate.audit)
+          assert 'struct[\'records_checked\']==4200' in inspect.getsource(gate.audit)
           print('ORIGINAL R RECOVERY GATE INTEGRATION SHA256-E-INPUT FAIL-CLOSED: PRESENT')
           PY
       - name: Recheck frozen oracle, original source schema and Git tree gates
