@@ -538,6 +538,14 @@ class GA:
                 results.messages.append(("ERROR", str(validation_error)))
             monitor.annotate(results)
             return results
+        if monitor.acceptable:
+            # Validation probes are real evaluated candidates inside declared bounds.
+            # Do not allocate and evaluate a population once the target is met.
+            results = GAResults()
+            results.number_of_iterations = 0
+            results.termination_reason = "acceptable_target"
+            monitor.annotate(results)
+            return results
         try:
             ga_options = GAOptions(configured)
             factory = self.get_factory()
