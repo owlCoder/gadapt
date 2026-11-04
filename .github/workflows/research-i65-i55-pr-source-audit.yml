@@ -52,6 +52,7 @@ jobs:
             --repo-root . \
             --full-attestation i55_620_original_readonly_audit.json \
             --output i55_620_original_flag_census.json
+      # Historical 10 failed source cells form five shared Nevergrad 10D strata.
       - name: Matched C1/C2 function context (original A traces only)
         run: |
           python -m unittest discover -s research/i65/archive_review -p 'test_i55_paired_function_context_audit.py' -v
