@@ -131,7 +131,23 @@
         "new_sha_verifier": "i64_r_e_source_manifest_validation.py",
         "local_synthetic_tests_passed": 10,
         "new_GitHub_CI_check_for_patch": "NOT_YET_OBSERVED",
-        "interpretation": "Existing E input presence is insufficient: full SHA256 of each mandatory input and original frozen task parameters are required for readiness. This is a code gate change only, not raw R recovery."
+        "interpretation": "Existing E input presence is insufficient: full SHA256 of each mandatory input and original frozen task parameters are required for readiness. This is a code gate change only, not raw R recovery.",
+        "frozen_R_budget_event_contract": {
+          "source_code": "research/i64/e_common.py",
+          "original_code_git_blob": "3aab99773a7e4a95b7972a3c8061c50bd471618d",
+          "original_emission_semantics": "only strictly smaller finite new best is recorded",
+          "previous_gate_gap": "Accepted equal or tiny increasing event values under epsilon threshold, without checking final best_f and best_y",
+          "fixed_gate_git_blob": "4ea6a71a47f6378d5fe7f47960a653f93d9a6265",
+          "strict_best_improvement_enforced": true,
+          "last_event_equals_saved_finite_best_f_enforced": true,
+          "saved_finite_best_y_matches_original_paired_dimension_enforced": true,
+          "synthetic_complete_roster_cases_added": 10,
+          "tests": "research/i65/archive_review/test_i64_r_original_budget_strict_consistency.py",
+          "old_pytest_fixture_updated": true,
+          "new_GitHub_CI_run_for_latest_changes": "NOT_CONFIRMED",
+          "total_anticipated_read_only_test_cases": 106,
+          "original_off_Git_R_raw_records_recovered": 0
+        }
       }
     },
     {
