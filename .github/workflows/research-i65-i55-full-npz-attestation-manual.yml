@@ -30,6 +30,11 @@ jobs:
           python -m unittest discover -s research/i65/archive_review -p test_i55_frozen_objective_oracle.py -v
           python -m unittest discover -s research/i65/archive_review -p test_i55_npz_cross_archive_verifier.py -v
           python -m unittest discover -s research/i65/archive_review -p test_i55_npz_git_blob_manifest_gate.py -v
+      - name: Reconcile archived 181 frozen NPZ source-replay witnesses
+        run: |
+          python -m unittest discover -s research/i65/archive_review -p test_i55_181_npz_evidence_reconcile.py -v
+          python research/i65/archive_review/i55_181_npz_evidence_reconcile.py \
+            --repo-root . --output i55_181_archived_witness_reconciliation.json
       - name: Verify source tree, source bytes, all original trace digests, detector flags and objective values
         run: |
           python research/i65/archive_review/i55_full_npz_attestation.py \
@@ -40,5 +45,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: i55-original-npz-readonly-attestation
-          path: i55_original_620_npz_attestation.json
+          path: |
+            i55_181_archived_witness_reconciliation.json
+            i55_original_620_npz_attestation.json
           if-no-files-found: warn

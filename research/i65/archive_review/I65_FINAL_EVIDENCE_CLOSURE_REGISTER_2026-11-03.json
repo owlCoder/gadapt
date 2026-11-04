@@ -13,16 +13,20 @@
   },
   "archived_npz": {
     "source_count_in_original_git": 620,
-    "actual_numeric_raw_replay": 55,
-    "remaining_raw_replay": 565,
-    "actual_objective_calls_recomputed": 24298,
-    "original_torch_float32_calls_recomputed": 1992,
+    "actual_numeric_raw_replay": 181,
+    "remaining_raw_replay": 439,
+    "actual_objective_calls_recomputed": 85450,
+    "original_torch_float32_calls_recomputed": 4386,
     "original_npz_replayed_in_new_50": 50,
     "new_50_original_objective_calls_recomputed": 23302,
     "new_50_distinct_libraries": 21,
     "new_50_original_trace_hash_matches": 50,
     "new_50_original_flag_map_matches": 50,
-    "full_original_620_replay_completed": false
+    "full_original_620_replay_completed": false,
+    "new_2026_11_04_npz": 126,
+    "new_2026_11_04_calls": 61152,
+    "new_2026_11_04_compressed_bytes": 2549393,
+    "new_2026_11_04_torch_float32_calls_recomputed": 2394
   },
   "original_r_raw_off_git": {
     "expected_original_runs": 4200,
@@ -51,8 +55,10 @@
     },
     {
       "gate_id": "I55_ORIGINAL_RAW_NUMERICAL_REPLAY",
-      "status": "PARTIAL_55_OF_620",
-      "evidence_summary": "50 additional original source-bin Git blob + SHA256 A-transcript + objective + original detector map replays pass (21 libraries; 23,302 calls); cumulative 55/620 original NPZ and 24,298 original calls rechecked, 565 NPZ unverified; full original 620-source-chain gate NOT_RUN"
+      "status": "PARTIAL_181_OF_620",
+      "evidence_summary": "181/620 valid original A-process NPZ raw byte/trace/objective/flag replays, 85,450 original objective calls, 439 unreplayed; 21 new six-cell source batches (126 additional NPZ) match immutable original Git blobs, saved SHA-256 traces and all detector flags.",
+      "evidence": "research/i65/archive_review/I65_I55_NEXT_126_SOURCE_REPLAY_INDEX_2026-11-04.json",
+      "next_action": "Replay remaining 439 source NPZ (or execute read-only full 620 NPZ manual workflow). No A-prime/B raw array claims."
     },
     {
       "gate_id": "I55_METHOD_AND_HASH_SEED_CONTROLS",
@@ -147,5 +153,24 @@
     ],
     "report": "research/i65/archive_review/I65_I55_FIFTY_ORIGINAL_NPZ_ARCHIVAL_REPLAY_REPORT_2026-11-03.md",
     "no_new_optimizer_experiments": true
+  },
+  "i55_additional_126_source_replay_2026_11_04": {
+    "status": "126_NEW_ORIGINAL_RAW_NPZ_REPLAYS_PASS",
+    "new_npz": 126,
+    "new_objective_calls": 61152,
+    "new_binary_compressed_bytes": 2549393,
+    "cumulative_npz": 181,
+    "cumulative_objective_calls": 85450,
+    "remaining_original_npz": 439,
+    "library_batches": 21,
+    "original_source_commit": "6b56fbc53ffc4d275ecef5e911ea4663474c9a08",
+    "source_engine_git_blob": "076ac19beef2514eef9985c86eac071ca9975b8d",
+    "replayed_after_prior_55": true,
+    "evidence_index": "research/i65/archive_review/I65_I55_NEXT_126_SOURCE_REPLAY_INDEX_2026-11-04.json",
+    "read_only_reconciliation": "research/i65/archive_review/i55_181_npz_evidence_reconcile.py",
+    "locally_tested_synthetic_reconciliation": 14,
+    "locally_tested_raw_source_decoder": 9,
+    "full_620_original_npz_replay": false,
+    "new_optimizer_or_pf_or_coco_experiments": 0
   }
 }
