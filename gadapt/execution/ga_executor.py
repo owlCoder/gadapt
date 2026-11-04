@@ -174,6 +174,11 @@ class GAExecutor:
             return False
 
         objective, violation, values = monitor.best
+        handler = getattr(self.cost_finder, "handler", None)
+        if options.constraint_handling is not None and not callable(getattr(handler, "cost", None)):
+            # A custom constrained cost finder may have a different scalar
+            # model. Do not synthesize an incorrectly ranked incumbent.
+            return False
         variables = sorted(options.decision_variables, key=lambda v: v.variable_id)
         if len(variables) != len(values):
             return False
@@ -186,7 +191,7 @@ class GAExecutor:
         elite.violation_value = violation
         elite.succ = True
         elite.cost_value = (
-            self.cost_finder.handler.cost(objective, violation)
+            handler.cost(objective, violation)
             if options.constraint_handling is not None else objective
         )
         if violation == 0:
