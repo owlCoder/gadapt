@@ -137,7 +137,7 @@
           "original_code_git_blob": "3aab99773a7e4a95b7972a3c8061c50bd471618d",
           "original_emission_semantics": "only strictly smaller finite new best is recorded",
           "previous_gate_gap": "Accepted equal or tiny increasing event values under epsilon threshold, without checking final best_f and best_y",
-          "fixed_gate_git_blob": "4ea6a71a47f6378d5fe7f47960a653f93d9a6265",
+          "fixed_gate_git_blob": "ecfd80c903846e98d21ac12d33f824eac6e4f737",
           "strict_best_improvement_enforced": true,
           "last_event_equals_saved_finite_best_f_enforced": true,
           "saved_finite_best_y_matches_original_paired_dimension_enforced": true,
@@ -146,7 +146,10 @@
           "old_pytest_fixture_updated": true,
           "new_GitHub_CI_run_for_latest_changes": "NOT_CONFIRMED",
           "total_anticipated_read_only_test_cases": 106,
-          "original_off_Git_R_raw_records_recovered": 0
+          "original_off_Git_R_raw_records_recovered": 0,
+          "strict_budget_test_git_blob": "e8dec4dbf42a7a1b70219b66428fa09a0dee23e6",
+          "original_objective_calls_per_seed_run": 12000,
+          "new_power_flow_calls": 0
         },
         "tracked_E_only_archival_attestation": {
           "status": "PROGRAM_COMMITTED_FULL_CLONE_CI_NOT_YET_OBSERVED",
@@ -168,8 +171,13 @@
           "E_SHA256_original_frozen_params_regression_tests_local": "11_OF_11_PASS",
           "latest_original_I55_CI_expected_test_total": 115,
           "latest_original_I55_CI_result": "NOT_YET_OBSERVED",
-          "caveat": "The original complete source tree shows 66 tracked E inputs, but no 66/66 binary digest audit output has yet been obtained from the new full-clone CI."
-        }
+          "caveat": "The original complete source tree shows 66 tracked E inputs, but no 66/66 binary digest audit output has yet been obtained from the new full-clone CI.",
+          "local_manifest_tests_passed": 8,
+          "strict_original_R_budget_tests_passed_local": 10,
+          "E_SHA256_and_missing_R_gate_local_tests_passed": 11,
+          "local_synthetic_gate_tests_total": 29
+        },
+        "new_sha_verifier_git_blob": "00c9475d38843ac2fc781b4129afd914840ab479"
       }
     },
     {
