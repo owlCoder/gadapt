@@ -94,8 +94,14 @@
   "remaining_gates": [
     {
       "id": "I55_A_PRIME_B_RAW_COORDINATES",
-      "status": "NOT_ARCHIVED_IN_ORIGINAL_620_A_NPZ",
-      "next": "Recover and authenticate original A-prime/B sequences only if source exists; no new optimization"
+      "status": "OPEN_RECOVER_ONLY_IF_ORIGINAL_OFF_GIT_SOURCE_EXISTS",
+      "next": "Recover and authenticate original A-prime/B sequences only if source exists; no new optimization",
+      "git_tracked_original_npz_search": "CLOSED_COMPLETE_ORIGINAL_GIT_TREE_NO_OTHER_NPZ",
+      "original_full_tree_entries": 4575,
+      "original_git_tree_truncated": false,
+      "original_A_npz": 620,
+      "other_original_git_tracked_npz": 0,
+      "supporting_report": "I65_I55_ORIGINAL_TREE_EXHAUSTIVE_RAW_SOURCE_SCOPE_2026-11-04.json"
     },
     {
       "id": "I64_R_RAW_SEED_LEVEL_4200",
