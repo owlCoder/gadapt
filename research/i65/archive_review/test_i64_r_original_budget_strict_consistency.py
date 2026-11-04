@@ -42,6 +42,8 @@ class I64ROriginalBudgetSourceContract(unittest.TestCase):
         x = validate_r_records(self.records)
         self.assertEqual(x["records_checked"], 4200)
         self.assertEqual(x["event_integrity"], "PASS")
+        self.assertEqual(x["objective_calls_per_run"], 12000)
+        self.assertNotIn("physical_calls_per_run", x)
 
     def test_rejects_equal_best_value_event(self):
         with self.assertRaisesRegex(ValueError, "not strictly improved"):
