@@ -2,6 +2,7 @@ name: I65 I55 archived NPZ read-only PR audit
 
 # Only archived original source bytes, frozen metadata and synthetic tests.
 # This workflow MUST NOT execute an optimizer, PF/AC, or held-out COCO runs.
+# Final isolated gate: I32 source restoration is handled in separate draft PR #15.
 on:
   pull_request:
     branches: [main]
