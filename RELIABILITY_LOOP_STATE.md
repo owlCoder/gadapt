@@ -23,5 +23,5 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Fix: exact keys for built-in integers, floats (hex preserves signed zero), and booleans; bypass caching for other scalar types instead of using a lossy conversion. Legacy defaults and the opt-in nature of caching are unchanged.
 - Regression: test distinct >53-bit integers and extended-precision scalar bypass, plus the full deterministic suite. No optimizer benchmarks or unauthorized evaluations.
 - Pull request: https://github.com/owlCoder/gadapt/pull/24
-- CI: https://github.com/owlCoder/gadapt/actions (record exact successful run when verified).
-- Result: progress **conditional on green CI and merge**; consecutive no-progress cycles: **0** if verified, otherwise **1**. This is a correctness fix, not evidence of improved optimizer success rate.
+- CI: https://github.com/owlCoder/gadapt/actions/runs/41931528105 (all three Python versions green).
+- Result: **progress**, verified green CI on Python 3.10–3.12 and merged as `c9ae851e4919d78963913dd1c627200e9d133509`; consecutive no-progress cycles: **0**. This is a correctness fix, not evidence of improved optimizer success rate.
