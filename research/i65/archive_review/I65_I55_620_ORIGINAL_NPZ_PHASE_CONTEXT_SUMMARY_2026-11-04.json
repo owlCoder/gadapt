@@ -1,0 +1,100 @@
+{
+  "schema": "I65_I55_620_ORIGINAL_A_NPZ_C1_C2_PHASE_CONTEXT_SUMMARY_V1",
+  "date": "2026-11-04",
+  "repository": "owlCoder/gadapt",
+  "original_source_commit": "6b56fbc53ffc4d275ecef5e911ea4663474c9a08",
+  "original_620_npz_manifest_git_blob": "50ca2e96762447070a74309850cb1aa6586d3eb3",
+  "frozen_original_i49_source_git_blob": "dc14a1c95a1f3bb1ba083f705a75503321bbeafd",
+  "source_code": "i55_620_npz_phase_duplicate_context.py",
+  "raw_evidence": {
+    "github_actions_url": "https://github.com/owlCoder/gadapt/actions/runs/41804478669",
+    "github_actions_artifact_id": 13309441677,
+    "artifact_zip_sha256": "b80fb1d666fdc05c219ad5c354a8fc495100aacb9b6822533b002731f378fd41",
+    "original_620_full_attestation_json_sha256": "9a6a5a3d32120394798ccf47675aaff403b82062fac240267a47e327283fa111",
+    "original_620_flag_census_json_sha256": "a0bfb1bfeaa2979ae8f195ffbcde8c9ff2c45b0562f96ecdf7915e229963c4ea",
+    "original_620_paired_function_context_sha256": "15ee37a184e6e5f0f308aaa89b5488796e1ffb9fbf2410bee1332b8c009cac99",
+    "original_620_npz_phase_context_sha256": "14ee6ea5839b59f3b15403921b7ed76a45c72a0ec39321f5aefde16dbe21d82f",
+    "suites_passed": [
+      19,
+      9,
+      20,
+      14,
+      8,
+      7,
+      9
+    ],
+    "total_synthetic_tests_passed": 86
+  },
+  "original_valid_npz_sources": 620,
+  "archived_original_evaluations": 295445,
+  "phase_totals": {
+    "search_calls": 294245,
+    "post_calls": 1200
+  },
+  "C1": {
+    "search_occurrences": 2105,
+    "post_occurrences": 0,
+    "any_phase_occurrences": 2105,
+    "overlaps_exact_coordinate_duplication_C2": 1956,
+    "not_previously_seen_exact_coordinate_bytes_in_same_trace": 149,
+    "overlap_fraction_of_C1": 0.9292161520190024
+  },
+  "C2": {
+    "search_occurrences": 17579,
+    "post_occurrences": 1200,
+    "total_occurrences": 18779,
+    "first_search_current_search": 17579,
+    "first_search_current_post": 1200,
+    "first_post_current_search": 0,
+    "first_post_current_post": 0,
+    "post_fraction_of_C2": 0.06390116619628308
+  },
+  "by_function": {
+    "plateau": {
+      "calls": 95275,
+      "C1_search": 1820,
+      "C2_search": 6914,
+      "C2_post": 400,
+      "C1_and_C2_search": 1746
+    },
+    "rastrigin": {
+      "calls": 100736,
+      "C1_search": 44,
+      "C2_search": 5315,
+      "C2_post": 400,
+      "C1_and_C2_search": 9
+    },
+    "sphere": {
+      "calls": 99434,
+      "C1_search": 241,
+      "C2_search": 5350,
+      "C2_post": 400,
+      "C1_and_C2_search": 201
+    }
+  },
+  "special_case_pygad": {
+    "post_calls": 1200,
+    "post_calls_in_other_libraries": 0,
+    "all_post_rows_exactly_duplicate_prior_search_coordinate": true,
+    "C2_post": 1200,
+    "C2_search": 0,
+    "C1_post": 0,
+    "original_source_reference": "research/legacy/flat/iteration49_integrity_audit.py run_pygad: rec.phase = 'post'; solution, fitness, _ = ga.best_solution()",
+    "causality": "Chronology and exact-row duplication are demonstrated. The source is consistent with extra scoring through best_solution(), but this audit does not independently instrument PyGAD internals or establish the callback mechanism."
+  },
+  "frozen_flag_semantics": {
+    "C1": "NPZ x row equals entire vector [-5,...,-5] or entire vector [+5,...,+5], not single-coordinate boundary contact",
+    "C2": "exact repeated float64 coordinate bytes (row.tobytes), including within/between search and post",
+    "post": "archived recorder phase=post for an objective call, as stored in NPZ and SHA-256 trace"
+  },
+  "source_only_replay_pass": true,
+  "no_new_optimization_physics_or_COCO": true,
+  "limits": [
+    "Original 620 A-process trajectories only; A-prime and B raw arrays remain unavailable.",
+    "I64-R original external 4200-run seed-level raw file remains unavailable.",
+    "A C1/C2 indicator is not an independently adjudicated software defect and does not identify root cause.",
+    "Even exact matching across raw bytes, objective values, detector flags and frozen source does not establish sensitivity, specificity or novelty.",
+    "Existing source traces and archived evaluations were read/replayed; no new optimizer/PF/OPF/COCO experiment."
+  ],
+  "scientific_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED"
+}

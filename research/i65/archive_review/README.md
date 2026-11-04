@@ -1,4 +1,64 @@
-# I65 archive verification and post-hoc influence review — integrated, 2026-11-03
+# I65 archive verification and post-hoc influence review — current 2026-11-04 evidence index
+
+## Current verified position (supersedes earlier dated NOT_RUN statements)
+
+**2026-11-04:** On the draft I55 review branch, a full-clone read-only GitHub Actions run
+[41804478669](https://github.com/owlCoder/gadapt/actions/runs/41804478669)
+verified **all 620/620 original valid A-process NPZ Git blobs, full SHA-256
+trace/flag sequences, and 295,445 archived objective values** with zero
+mismatches. The archive excludes 10 historical failed Nevergrad cells.
+**86 synthetic/unit tests** passed in seven suites. Original source commit:
+`6b56fbc53ffc4d275ecef5e911ea4663474c9a08`; manifest Git blob:
+`50ca2e96762447070a74309850cb1aa6586d3eb3`. CI artifact
+`13309441677` ZIP SHA-256
+`b80fb1d666fdc05c219ad5c354a8fc495100aacb9b6822533b002731f378fd41`.
+
+All original C1/C2 indicators were also partitioned by archived phase:
+**C1 2,105 search / 0 post**, **C2 17,579 search / 1,200 post**,
+with **1,956 C1 and C2 overlap events**. All 1,200 post events are
+exact-coordinate repeats in the historical PyGAD 30-cell source set.
+**205/210** original (library × dimension × seed) strata have all
+three functions and allow matched C1/C2 comparisons. These observed
+flags are NOT independently adjudicated software bugs; neither
+root-cause attribution nor diagnostic specificity is established.
+
+Latest evidence:
+- [Original raw NPZ phase/duplicate analysis](I65_I55_620_RAW_PHASE_AND_C1_C2_DUPLICATE_FORENSICS_2026-11-04.md)
+- [Exact proof: 40 original cells with both full signed C1 corners, all in 2D](I65_I55_620_C1_TWO_SIGN_CELL_OCCUPANCY_EXACT_PROOF_2026-11-04.md) — inferred solely from two authenticated 620-source CI reports; 11/11 local tamper/algebra tests PASS; per-event sign totals still require a new read-only NPZ scan
+- [Source-authenticated derived two-sign cell occupancy JSON](I65_I55_620_ORIGINAL_TWO_SIGN_C1_CELL_OCCUPANCY_2026-11-04.json)
+- [SHA-derived exact original C1 first-vs-repeat reconciliation](I65_I55_620_ORIGINAL_C1_FIRST_VS_REPEAT_EVIDENCE_2026-11-04.json) — **149 first** vs **1,956 exact repeated** C1 events; per-function/dimension/library original counts, no bug adjudication
+- [CI reliability fix: date-safe live full→census/phase SHA linkage](I65_I55_FRESH_CI_ATTESTATION_DATE_ROLLOVER_FIX_2026-11-04.md) — 12/12 tests PASS using original successful 620-source report ZIP; original Git source pins preserved, stale outputs rejected; new current-head CI pending
+- [Pure Python source-lineage gate](i55_fresh_original_report_lineage.py), [12 read-only regression tests](test_i55_fresh_original_report_lineage.py) and [corresponding Node current-lineage helper](i55_fresh_original_report_lineage_node.cjs) — historical generated-output SHA must NOT be used as an immutable source-file SHA
+- [Original C1 call-weighting versus first distinct corner and post-hoc library concentration](I65_I55_ORIGINAL_C1_EVENT_WEIGHTING_REPETITION_COMPOSITION_2026-11-04.md) — negative corner **97.39% of calls vs 65.10% of distinct (cell, signed corner) first visits**, 1,918/1,956 exact repeats in four source libraries; no causal claim
+- [Strict source-pinned C1 109-cell versus original 620-CI evidence gate](i55_109_signed_corner_source_weighting_gate.js), [13 scheduled fail-closed Node checks](test_i55_109_signed_corner_source_weighting_gate.cjs) and [machine source-weighting receipt](I65_I55_ORIGINAL_SIGNED_C1_DEDUP_WEIGHTING_AND_LIBRARY_CONCENTRATION_2026-11-04.json) — **10/10 mutations rejected in direct connector evaluation; newest-head CI still unobserved**
+- [Original 109/109 C1-positive Git NPZ binary x.npy signed-corner audit](I65_I55_ORIGINAL_620_C1_SIGNED_CORNER_DIRECT_BINARY_FORENSICS_2026-11-04.md) — **2,050 events at full −5, 55 at full +5**, original Git SHA-verified, complete original C1 source population
+- [Full original per-cell signed C1 binary-source ledger (109 NPZ original Git blobs)](I65_I55_ORIGINAL_109_C1_POSITIVE_NPZ_SIGNED_CORNER_DIRECT_BINARY_REPLAY_2026-11-04.json) and [pinned source roster](I65_I55_109_C1_POSITIVE_NPZ_ORIGINAL_SOURCE_ROSTER_2026-11-04.json)
+- [Independent original NPZ binary decoder](i55_original_npz_x_binary_readonly_decoder.js) and [full-clone Python 620-source signed-corner verifier](i55_620_corner_direction_source_audit.py) — the signed source event counts are **CLOSED from the 109 original Git binaries**; corroborating latest-head Python/GitHub CI remains **NOT_YET_OBSERVED**
+- [Full 620-source flag census](I65_I55_620_FLAG_CENSUS_AND_POST_ATTESTATION_OPEN_GATES_2026-11-04.md)
+- [205 matched-stratum context review](I65_I55_205_PAIRED_C1_C2_CONTEXT_REVIEW_2026-11-04.md)
+- [Cross-study technical closeout and **still-open human/scientific gates**](I65_2026_11_04_TECHNICAL_CLOSEOUT_AND_HUMAN_DECISION_GATES.md)
+- [Owner-side original R/A-prime/B evidence recovery](I65_EXTERNAL_ORIGINAL_SOURCE_RECOVERY_HANDOFF_2026-11-04.md)
+- [Hardened R/E source custody, 4,200-row readiness proof, and 38 new local synthetic tests](I65_I64_R_SHA256_E_INPUT_CUSTODY_HARDENING_2026-11-04.md) — all 67 E manifest entries covered; no original R source recovered or 66/66 original E CI attestation yet
+- [Machine-readable 38/38 local synthetic gate receipt](I65_I64R_38_SYNTHETIC_SOURCE_GATE_RECEIPT_2026-11-04.json)
+- [Source-authenticated machine-readable post-620 gate register](I65_POST_620_ORIGINAL_A_PROCESS_EVIDENCE_GATE_REGISTER_2026-11-04.json)
+
+**Historical note:** All 2026-11-02/03 *NOT_RUN* and *1/5/55/181
+source* statements below are dated snapshots from before the
+2026-11-04 full-clone CI attestations; their numerical subset counts
+must NOT be added to the completed 620 or treated as an outstanding
+439-source worklist. Original A-prime/B raw coordinates and the
+off-Git I64-R 4,200-run source were **not** recovered; the separate
+[I32 original source recovery draft PR #15](https://github.com/owlCoder/gadapt/pull/15)
+restores byte-identical historical code but is not an independent
+physical experiment and its new CI requires separate confirmation.
+
+**Scientific status remains DRAFT / NO-FREEZE / NOT_ESTABLISHED.
+Human M6/C1 sign-off pending, independent detector specificity/ORPD
+review absent, held-out COCO NOT_RUN and NOT_AUTHORIZED.**
+
+---
+
+## Earlier review log — historical as-of 2026-11-03 only
 
 **Status: REVIEW EVIDENCE, NOT A NEW FROZEN EXPERIMENT.** This directory integrates separate audits prepared on 2026-11-02 and 2026-11-03. All original source evidence refers to `owlCoder/gadapt` commit `6b56fbc53ffc4d275ecef5e911ea4663474c9a08` and uses pinned original Git **blob IDs**, not new optimizer/PF simulations. The integration commit only adds audit tools, reviews, derived ledgers and vector figures; frozen `research/results` / I49–I55 / I64 protocols are unchanged.
 

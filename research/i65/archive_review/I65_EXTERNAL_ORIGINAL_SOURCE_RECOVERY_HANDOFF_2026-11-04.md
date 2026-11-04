@@ -1,0 +1,147 @@
+# I65 — Owner-machine recovery handoff for original I64-R and I55 A′/B source
+
+**2026-11-04 — evidence recovery only; no recreation of an experiment.**
+Technical status: `DRAFT / NO-FREEZE / NOT_ESTABLISHED`.
+
+## Original I64-R source to retrieve
+
+Original R seed data were recorded outside Git in an approximately 8 MB
+gzip file named `research/results/iteration64_r/run.json.gz`, with
+**4,200** original records. The *abbreviated* historical SHA-256
+marker is `f23046f6…3618`. The Git-tracked source directory contains
+only `analysis.json.gz` (Git blob
+`59025d6cc052baef76b14e5496962704bdb7604a`) and
+`check_repro.json.gz` (Git blob
+`11ca5fdfabfe6ce20cb54752a2a41fe8e2deee3d`).
+
+Independent searches of **15 visible active branch tips**, the
+archived repository paths, accessible connected Drive and filename-only
+Library, plus GitHub Actions runs on **2026-10-29** (zero such runs)
+have not located the original R raw file. These checks **do not** rule
+out original data on the experimental machine, a backup, an inaccessible
+cloud drive, detached Git refs, or another repository.
+
+### Read-only operator procedure on the original experiment computer
+
+From a terminal on a computer containing the original working copy:
+
+```bash
+# First find only the originally produced file. Do not invoke r_study.py run.
+find "$HOME" -type f -path '*/iteration64_r/run.json.gz' -print 2>/dev/null
+
+# For a real candidate, calculate the complete digest and size.
+sha256sum '/original/path/research/results/iteration64_r/run.json.gz'
+wc -c '/original/path/research/results/iteration64_r/run.json.gz'
+```
+
+Capture the unmodified original file and the calculated full
+64-hex-digit digest, plus (if possible) contemporaneous independently
+created checksum/manifest/console evidence. **The present 12-hex-digit
+marker (8-prefix/4-suffix) does not authenticate the full digest**.
+Do not pretend that a newly computed full SHA is a previously trusted
+historical checksum.
+
+In the repository with the Git-pinned original E and R analysis files
+available, run the existing **non-mutating** gate:
+
+```bash
+python research/i65/archive_review/i64_r_off_git_raw_recovery_gate.py \
+  --repo-root . \
+  --raw-run '/original/path/research/results/iteration64_r/run.json.gz' \
+  --output /tmp/i64_original_raw_source_structure.json
+```
+
+This checks exact **4,200-record seed/config/pair roster**, ordered
+events, original-budget structure, R/E build lineage and the
+historical truncated SHA marker, and reports whether the frozen E
+run_part files and normalizers are accessible. The output
+`STRUCTURE_MATCHES_ARCHIVED_R_SPEC` is a **structural** success only.
+Without an independently trusted full historical digest its result
+explicitly remains
+`ONLY_48_BIT_HISTORICAL_ABBREVIATION; FULL_DIGEST_NOT_ATTESTED`.
+
+If and only if a **separately trusted original 64-hex-digit SHA-256**
+can be documented, additionally run the same command with:
+
+```text
+--expected-full-sha256 <independently trusted 64-digit sha256>
+```
+
+Do not run a fresh optimizer to fill missing data. A verified source
+can then be handed to an independent analyst for a **read-only**
+20,000-draw seed-level R bootstrap using the already frozen
+algorithm and RNG seed 70; that analysis is **NOT performed by
+this handoff**. Do not alter any preregistered R hypothesis decision.
+
+## Additional optional full E aggregate recovery (not an R raw substitute)
+
+The original experiment also left the much larger **129 MB**
+`research/results/iteration64_e/run.json.gz` off Git. The original
+`research/results/iteration64_e/README_raw.txt` (original Git blob
+`75b72997275b2368cdfe7f62a4fb6b03e37ea11f`) documents the
+GitHub 100 MB size limit. Unlike the missing R raw file, this
+original E aggregate has a **historically committed complete SHA-256**,
+in original Git blob `5ab84804d195b4a75e80c700285acd3262fcb230`:
+
+```text
+1f0f4525d55b0ae4d1976824b9ca211d972914f82daae57c9c95243b55de271f
+```
+
+A local operator can find the authentic E aggregate, without rerunning
+any of its hundreds of original optimization cases:
+
+```bash
+find "$HOME" -type f -path '*/iteration64_e/run.json.gz' -print 2>/dev/null
+sha256sum '/original/path/research/results/iteration64_e/run.json.gz'
+```
+
+Only a **full exact digest match** can authenticate the retrieved E
+aggregate against this pre-existing Git file. Do not substitute its
+129 MB content for the separate missing **~8 MB R aggregate**.
+The original 63 E per-cell `run_part_*.json.gz` files and E
+`freeze`, `normalizers`, `manifest_run` are already tracked in
+the original non-truncated Git tree. The newly SHA-hardened
+[original R recovery gate](i64_r_off_git_raw_recovery_gate.py)
+requires 44 essential E files to be verified against original R/E
+SHA256 digests (42 shift/rot parts, frozen params and normalizers);
+a missing E aggregate is explicitly reported as optional and blocks
+only a *FULL* E-manifest claim, not the narrowly scoped seed-ECDF
+preflight.
+
+## Original I55 A′/B coordinate sequences
+
+The original I55 source-results commit `ce90fb9f1de985f2dfd3572da2c60ab514305a88` is dated **2026-10-23**. A date-scoped GitHub Actions run listing returned **zero** workflows on that day (as also seen on 2026-10-29 for I64-R). This is a narrow Actions date check, **not** proof of absent source on local experimental machines.
+
+The **620 valid A-process NPZ** sources contain A only. They do
+not contain A′/B original full coordinates, objective measurements,
+or phases. Historical cell JSON establishes **digest-level** A/A′/B
+relationships but cannot reconstruct those byte sequences.
+
+Look for contemporaneous originals on the same machine/backups,
+with source path/creation context and full digest before moving
+anything. In particular, locate any explicit A-prime, B, hashseed,
+or negative-control trace collections. **Do not** call optimizers,
+rerun I55 A′/B seeds, or generate synthetic stand-ins. Any candidate
+requires an independent byte/roster/schema authentication against
+the frozen 21-library × 3-function × 2-dimension × 5-seed design and
+the archived per-cell sequence hashes. Digest agreement alone does
+not provide a second independent original A′/B numerical oracle.
+
+## Minimum provenance handoff (not filled by the AI)
+
+| Required item | Owner/reviewer evidence |
+|---|---|
+| Original file path and storage location | PENDING |
+| Full SHA-256 of the original R gzip | PENDING |
+| Independently dated source digest/manifest or trusted custody record | PENDING |
+| Complete 4,200 original records and frozen E lineage structural gate | PENDING |
+| R raw-seed bootstrap performed independently without new optimizer runs | PENDING |
+| Original I55 A′/B raw trace candidates and independently authenticating hashes | PENDING |
+| Reviewer identity, date and authorization for any scientific claim | PENDING |
+
+The correct current treatment is **source not yet recovered**.
+An accessible historical source is a prerequisite, not a human
+signoff or a substitute for prior-art/physical-model validation.
+
+**Do not close these two scientific gates without real original files.
+DRAFT / NO-FREEZE / NOT_ESTABLISHED; COCO NOT_RUN.**

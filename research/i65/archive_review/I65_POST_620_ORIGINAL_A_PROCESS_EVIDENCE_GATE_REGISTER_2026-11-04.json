@@ -1,0 +1,603 @@
+{
+  "schema": "I65_POST_620_ORIGINAL_A_PROCESS_EVIDENCE_GATE_REGISTER_V1",
+  "as_of": "2026-11-04",
+  "repository": "owlCoder/gadapt",
+  "branch": "audit/i55-181-evidence-chain-20261104",
+  "baseline_main": "8d376a720afe2704af5efdb39777dac7a2c5e742",
+  "original_I55_source_commit": "6b56fbc53ffc4d275ecef5e911ea4663474c9a08",
+  "scientific_disposition": "DRAFT / NO-FREEZE / NOT_ESTABLISHED",
+  "reproduction": {
+    "gate": "I55_ORIGINAL_A_PROCESS_SOURCE_TO_NUMERIC_AND_FLAG",
+    "status": "PASS_620_OF_620",
+    "source_manifest_blob": "50ca2e96762447070a74309850cb1aa6586d3eb3",
+    "original_root_tree": "f88d221152fcb4157a8e1151a11b53cdfe8180b7",
+    "original_npz_valid": 620,
+    "original_npz_archived_historical_failures_excluded": 10,
+    "original_objective_calls_replayed": 295445,
+    "original_trace_sha256_and_detector_flag_mismatches": 0,
+    "original_value_oracle_pass": true,
+    "full_clone_CI_run": 41797397598,
+    "CI_artifact_ID": 13305773463,
+    "CI_artifact_zip_sha256": "8fde49274a3ba909cef5cfc8985476c17262473ef9ae224276f8b2bfb05a3681",
+    "full_npz_attestation_json_sha256": "9a6a5a3d32120394798ccf47675aaff403b82062fac240267a47e327283fa111",
+    "prior_181_evidence_reconciliation_json_sha256": "dfbe7cc7f1dc55ca5eeb96aa85e9c44b2636a525ac083d4300745e9d740c4dea",
+    "aggregate_census_json_sha256": "a0bfb1bfeaa2979ae8f195ffbcde8c9ff2c45b0562f96ecdf7915e229963c4ea",
+    "separate_pre620_subset_replays": 181,
+    "subset_replays_are_included_in_full_620": true,
+    "additional_four_JS_source_replays_included_in_full_620": true,
+    "full_attestation_vs_181_count_additive": false
+  },
+  "detector_population": {
+    "source": "SHA-pinned original 21 cells JSON archives; full 620 raw NPZ attestation prerequisite",
+    "valid_traces": 620,
+    "original_calls": 295445,
+    "traces_with_any_flag": 350,
+    "flag_occurrences": {
+      "C1": 2105,
+      "C2": 18779,
+      "C3": 8474,
+      "C4": 110,
+      "C5": 1200,
+      "R1": 0,
+      "R2": 25,
+      "R3": 11,
+      "D2": 0
+    },
+    "traces_with_flag": {
+      "C1": 109,
+      "C2": 245,
+      "C3": 60,
+      "C4": 10,
+      "C5": 30,
+      "R1": 0,
+      "R2": 25,
+      "R3": 11,
+      "D2": 0
+    },
+    "C1_by_function_occurrences": {
+      "plateau": 1820,
+      "sphere": 241,
+      "rastrigin": 44
+    },
+    "C1_plateau_occurrence_share": 0.8646080760095012,
+    "functions": {
+      "plateau": {
+        "valid_traces": 210,
+        "objective_calls": 95275
+      },
+      "sphere": {
+        "valid_traces": 205,
+        "objective_calls": 99434
+      },
+      "rastrigin": {
+        "valid_traces": 205,
+        "objective_calls": 100736
+      }
+    },
+    "diagnostic_specificity_established": false,
+    "detector_events_are_independent_samples": false,
+    "overlapping_flags_must_not_be_summed_to_count_bugs": true
+  },
+  "synthetic_regression": {
+    "full_clone_CI_run": 41797397598,
+    "separate_suite_successful_tests": [
+      19,
+      9,
+      20,
+      14,
+      8
+    ],
+    "total_successful_tests": 70,
+    "unrelated_exploratory_benchmark_in_new_CI": "SKIPPED",
+    "caveat": "Earlier PR-wide CI ran an unrelated optimization benchmark before its PR guard was added."
+  },
+  "remaining_gates": [
+    {
+      "id": "I55_A_PRIME_B_RAW_COORDINATES",
+      "status": "OPEN_RECOVER_ONLY_IF_ORIGINAL_OFF_GIT_SOURCE_EXISTS",
+      "next": "Recover and authenticate original A-prime/B sequences only if source exists; no new optimization",
+      "git_tracked_original_npz_search": "CLOSED_COMPLETE_ORIGINAL_GIT_TREE_NO_OTHER_NPZ",
+      "original_full_tree_entries": 4575,
+      "original_git_tree_truncated": false,
+      "original_A_npz": 620,
+      "other_original_git_tracked_npz": 0,
+      "supporting_report": "I65_I55_ORIGINAL_TREE_EXHAUSTIVE_RAW_SOURCE_SCOPE_2026-11-04.json"
+    },
+    {
+      "id": "I64_R_RAW_SEED_LEVEL_4200",
+      "status": "BLOCKED_EXTERNAL_ORIGINAL_4200_R_SEED_FILE",
+      "tracked_Git_objects": [
+        "analysis.json.gz",
+        "check_repro.json.gz"
+      ],
+      "historical_SHA256_marker": "f23046f6...3618",
+      "next": "Locate original off-Git run.json.gz and independently trusted 64-digit SHA256; apply read-only structural recovery gate",
+      "original_E_sources_input_provenance": {
+        "status": "GATE_HARDENED_SYNTHETIC_TESTS_PASS_ORIGINAL_R_NOT_RECOVERED",
+        "E_original_source_manifest_entries": 67,
+        "E_original_part_files_in_Git_tree": 63,
+        "E_required_for_independent_R_seed_analysis": 44,
+        "original_E_aggregate_raw_path": "research/results/iteration64_e/run.json.gz",
+        "original_E_aggregate_in_Git": false,
+        "original_E_aggregate_historical_bytes": "about 129 MB (original README_raw.txt)",
+        "original_E_aggregate_FULL_SHA256": "1f0f4525d55b0ae4d1976824b9ca211d972914f82daae57c9c95243b55de271f",
+        "original_E_checksum_git_blob": "5ab84804d195b4a75e80c700285acd3262fcb230",
+        "original_E_README_git_blob": "75b72997275b2368cdfe7f62a4fb6b03e37ea11f",
+        "original_R_4200_seed_raw_still_missing": true,
+        "original_R_short_sha256_only": "f23046f6...3618",
+        "original_full_E_aggregate_attested": false,
+        "required_original_R_and_E_full_sha256_verified": false,
+        "amended_readonly_gate": "i64_r_off_git_raw_recovery_gate.py",
+        "new_sha_verifier": "i64_r_e_source_manifest_validation.py",
+        "local_synthetic_tests_passed": 38,
+        "new_GitHub_CI_check_for_patch": "NOT_YET_OBSERVED",
+        "interpretation": "Existing E input presence is insufficient: full SHA256 of each mandatory input and original frozen task parameters are required for readiness. This is a code gate change only, not raw R recovery.",
+        "frozen_R_budget_event_contract": {
+          "source_code": "research/i64/e_common.py",
+          "original_code_git_blob": "3aab99773a7e4a95b7972a3c8061c50bd471618d",
+          "original_emission_semantics": "only strictly smaller finite new best is recorded",
+          "previous_gate_gap": "Accepted equal or tiny increasing event values under epsilon threshold, without checking final best_f and best_y",
+          "fixed_gate_git_blob": "ecfd80c903846e98d21ac12d33f824eac6e4f737",
+          "strict_best_improvement_enforced": true,
+          "last_event_equals_saved_finite_best_f_enforced": true,
+          "saved_finite_best_y_matches_original_paired_dimension_enforced": true,
+          "synthetic_complete_roster_cases_added": 10,
+          "tests": "research/i65/archive_review/test_i64_r_original_budget_strict_consistency.py",
+          "old_pytest_fixture_updated": true,
+          "new_GitHub_CI_run_for_latest_changes": "NOT_CONFIRMED",
+          "total_anticipated_read_only_test_cases": 106,
+          "original_off_Git_R_raw_records_recovered": 0,
+          "strict_budget_test_git_blob": "e8dec4dbf42a7a1b70219b66428fa09a0dee23e6",
+          "original_objective_calls_per_seed_run": 12000,
+          "new_power_flow_calls": 0
+        },
+        "tracked_E_only_archival_attestation": {
+          "status": "PROGRAM_COMMITTED_FULL_CLONE_CI_NOT_YET_OBSERVED",
+          "source_program": "research/i65/archive_review/i64_r_archived_e_only_attestation.py",
+          "source_git_blob": "e47692c8abf72157cd31ec679313f8daecb55140",
+          "original_R_analysis_git_blob": "59025d6cc052baef76b14e5496962704bdb7604a",
+          "original_R_check_repro_git_blob": "11ca5fdfabfe6ce20cb54752a2a41fe8e2deee3d",
+          "expected_original_E_manifest_digests": 67,
+          "original_E_files_in_original_Git_root_tree": 66,
+          "original_E_composite_aggregate_off_Git": 1,
+          "required_E_files_for_original_R_seed_analysis": 44,
+          "actual_E_SHA256_files_verified_by_latest_Github_CI": "NOT_YET_OBSERVED",
+          "original_R_4200_source_available": false,
+          "E_only_audit_has_original_R_raw_records": false,
+          "E_only_raw_R_bootstrap_ready": false,
+          "original_R_seed_bootstrap_20000_reproduced": false,
+          "new_pure_manifest_adversarial_test_count": 8,
+          "additional_original_strict_Budget_tests": 10,
+          "E_SHA256_original_frozen_params_regression_tests_local": "11_OF_11_PASS",
+          "latest_original_I55_CI_expected_test_total": 124,
+          "latest_original_I55_CI_result": "NOT_YET_OBSERVED",
+          "caveat": "The original complete source tree shows 66 tracked E inputs, but no 66/66 binary digest audit output has yet been obtained from the new full-clone CI.",
+          "local_manifest_tests_passed": 8,
+          "strict_original_R_budget_tests_passed_local": 10,
+          "E_SHA256_and_missing_R_gate_local_tests_passed": 11,
+          "local_synthetic_gate_tests_total": 38
+        },
+        "new_sha_verifier_git_blob": "00c9475d38843ac2fc781b4129afd914840ab479",
+        "readiness_attestation_hardening": {
+          "as_of": "2026-11-04",
+          "status": "CLOSED_AS_GUARD_CONTRACT_ONLY",
+          "source_gate": "research/i65/archive_review/i64_r_off_git_raw_recovery_gate.py",
+          "source_helper": "research/i65/archive_review/i64_r_e_source_manifest_validation.py",
+          "reported_false_ready_before": "Partial nonempty R records could mark READY with authenticated E files and matching params",
+          "new_rule": "Ready only if 44 original E sources authenticated, exactly 4200 original R records present, parameters checked, and original recovery caller explicitly attests 4200-row frozen R contract",
+          "original_roster_validated_independently_by": "validate_r_records before original_r_roster_attested=True",
+          "E_only_original_R_present": false,
+          "synthetic_E_66_file_integration": {
+            "status": "PASS_SYNTHETIC_7_OF_7",
+            "tests": "research/i65/archive_review/test_i64_r_e_only_end_to_end_contract.py",
+            "test_git_blob": "0f94dbe9c16907f9051a43417a0734020c45852f",
+            "original_E_binary_source_bytes_used": false,
+            "checks": [
+              "66 present, 44 mandatory, missing R => NOT_READY",
+              "missing mandatory => not complete",
+              "tampered optional => exception",
+              "missing historical E checksum => exception",
+              "tampered historical E checksum => exception",
+              "mismatched R analysis/check E manifest => exception",
+              "fake 129MB E archive stand-in => exception"
+            ]
+          },
+          "other_local_suites": {
+            "E_sha256_and_roster": 13,
+            "original_R_strict_budget": 10,
+            "R_E_legacy_manifest": 8,
+            "total": 38,
+            "status": "PASS_38_0_SKIP_0_FAIL_LOCAL"
+          },
+          "previous_original_I55_readonly_CI_tests": 86,
+          "combined_latest_I55_CI_unit_tests_expected": 124,
+          "latest_I55_Github_Actions_run": "NOT_OBSERVED",
+          "actual_original_66_E_binary_SHA256_verified": "NOT_YET_OBSERVED",
+          "actual_original_4200_R_raw": "NOT_RECOVERED",
+          "original_R_20000_seed_bootstrap": "NOT_RUN",
+          "new_optimizer_phys_PF_OPF_COCO": 0,
+          "overall_scientific_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED"
+        }
+      }
+    },
+    {
+      "id": "INDEPENDENT_DETECTOR_SPECIFICITY",
+      "status": "NOT_ESTABLISHED",
+      "next": "Independent adjudicated ground truth; do not treat flag frequency as defect prevalence"
+    },
+    {
+      "id": "INDEPENDENT_M3_PHYSICAL_ORPD",
+      "status": "NOT_ESTABLISHED",
+      "next": "Expert model/witness review only if engineering generalization claimed"
+    },
+    {
+      "id": "HUMAN_M6_C1_ORIGINALITY",
+      "status": "UNSIGNED_NOT_ESTABLISHED",
+      "next": "Human supervisor/reviewer selects A/B/C/other, signs and dates decision"
+    },
+    {
+      "id": "HELD_OUT_COCO",
+      "status": "NOT_RUN_NOT_AUTHORIZED",
+      "next": "No new runs without prospective protocol and human authorization"
+    }
+  ],
+  "discovery_scope": {
+    "github_original_iteration64_r_directory": "Only analysis.json.gz and check_repro.json.gz; not the original run.json.gz",
+    "github_releases_matching_original_R": "None observed",
+    "accessible_connected_Drive_queries": [
+      "iteration64_r",
+      "run.json.gz",
+      "I64-R",
+      "f23046f6"
+    ],
+    "accessible_Drive_result_count": 0,
+    "caveat": "No match in these accessible sources does not prove the raw file is absent from the original machine or other storage."
+  },
+  "no_new_source_simulation_or_opt_or_coco_in_this_specific_audit": true,
+  "not_a_freeze_or_scientific_approval": true,
+  "posthoc_matched_function_context": {
+    "status": "COMPLETE_DESCRIPTIVE_205_PAIRED_STRATA",
+    "source": "I65_I55_205_STRATA_C1_C2_MATCHED_FUNCTION_SUMMARY_2026-11-04.json",
+    "original_source_only": true,
+    "full_620_source_precondition": "PASS",
+    "nominal_strata": 210,
+    "complete_three_function_strata": 205,
+    "incomplete_strata": 5,
+    "original_historical_failed_cells_in_those_strata": 10,
+    "C1_plateau_vs_sphere": {
+      "left_only": 31,
+      "right_only": 3,
+      "both": 26,
+      "neither": 145,
+      "libraries_more_left": 5,
+      "libraries_more_right": 0,
+      "libraries_tied": 16
+    },
+    "C2_plateau_vs_sphere": {
+      "left_only": 27,
+      "right_only": 5,
+      "both": 70,
+      "neither": 103,
+      "libraries_more_left": 4,
+      "libraries_more_right": 1,
+      "libraries_tied": 16
+    },
+    "github_actions_run": 41799179972,
+    "github_actions_artifact": 13306399315,
+    "full_machine_readable_json_sha256": "15ee37a184e6e5f0f308aaa89b5488796e1ffb9fbf2410bee1332b8c009cac99",
+    "CI_synthetic_test_count": 77,
+    "posthoc_not_inferential": true,
+    "not_detector_specificity_or_ground_truth": true
+  },
+  "original_R_raw_branch_tip_search": {
+    "status": "NO_ORIGINAL_R_RAW_FILE_IN_VISIBLE_ACTIVE_BRANCH_TIPS",
+    "branch_tips_checked": 15,
+    "source_dir_present_in_branch_tips": 4,
+    "source_dir_missing_in_branch_tips": 11,
+    "run_json_gz_present": 0,
+    "run_part_json_gz_present": 0,
+    "limitation": "Does not rule out untracked experimental-machine file, orphaned Git objects, inaccessible external storage, or inaccessible private refs"
+  },
+  "caveat_new_optimizer_or_pf_or_coco_from_paired_audit": 0,
+  "original_raw_npz_phase_and_duplicate_context": {
+    "status": "PASS_REPLAY_620_ORIGINAL_A_NPZ",
+    "original_sources": 620,
+    "original_archived_calls": 295445,
+    "read_only_full_clone_CI_run": 41804478669,
+    "CI_artifact_id": 13309441677,
+    "zip_sha256": "b80fb1d666fdc05c219ad5c354a8fc495100aacb9b6822533b002731f378fd41",
+    "original_npz_phase_json_sha256": "14ee6ea5839b59f3b15403921b7ed76a45c72a0ec39321f5aefde16dbe21d82f",
+    "original_source_i49_blob": "dc14a1c95a1f3bb1ba083f705a75503321bbeafd",
+    "gate_git_blobs_trace_sha256_objectives_flags": "ALL_620_PASS",
+    "original_search_calls": 294245,
+    "original_post_calls": 1200,
+    "C1": {
+      "search": 2105,
+      "post": 0,
+      "overlap_exact_C2": 1956,
+      "first_occurrences_within_cell": 149
+    },
+    "C2": {
+      "search": 17579,
+      "post": 1200,
+      "first_search_then_search": 17579,
+      "first_search_then_post": 1200,
+      "first_post_then_search": 0,
+      "first_post_then_post": 0
+    },
+    "pygad_post_events": 1200,
+    "post_events_other_libraries": 0,
+    "all_pygad_post_events_repeat_previous_search_coordinates": true,
+    "new_synthetic_tests_passed": 9,
+    "all_synthetic_suite_tests_passed": 86,
+    "report": "I65_I55_620_RAW_PHASE_AND_C1_C2_DUPLICATE_FORENSICS_2026-11-04.md",
+    "machine_summary": "I65_I55_620_ORIGINAL_NPZ_PHASE_CONTEXT_SUMMARY_2026-11-04.json",
+    "limits": [
+      "Not adjudicated defects",
+      "Source phase chronology consistent with post best_solution call but PyGAD internals not instrumented",
+      "A′/B raw, I64-R external source and M6/C1 human decision unavailable",
+      "No new optimization, physics, COCO execution"
+    ]
+  },
+  "cross_study_technical_closeout": {
+    "as_of": "2026-11-04",
+    "review": "I65_2026_11_04_TECHNICAL_CLOSEOUT_AND_HUMAN_DECISION_GATES.md",
+    "I55_original_A_NPZ": {
+      "status": "CLOSED_620_OF_620_ORIGINAL_SOURCE",
+      "call_values_recomputed": 295445,
+      "CI_run": 41804478669
+    },
+    "I55_C1_C2_population_and_phase": {
+      "status": "CLOSED_DESCRIPTIVE_NO_ROOT_CAUSE_CLAIM",
+      "C1_events": 2105,
+      "C2_events": 18779,
+      "C1_C2_overlap_events": 1956,
+      "PyGAD_post_duplicates": 1200,
+      "original_signed_corner_C1": {
+        "negative": 2050,
+        "positive": 55,
+        "source": "direct immutable Git binary NPZ 109 original C1-positive cells",
+        "status": "CLOSED_DESCRIPTIVE_ONLY"
+      }
+    },
+    "I32_original_source_recovery": {
+      "status": "CLOSED_ON_SEPARATE_DRAFT_PR_NOT_MAIN",
+      "draft_PR": 15,
+      "original_git_blobs_identical": 7,
+      "original_workflow_head": "3b642101bb9c671b7835102be474480f3aa0cc65",
+      "new_zero_AC_CI_run": 41812770932,
+      "new_source_only_test_count": 19,
+      "physical_AC_job": "skipped",
+      "new_independent_physical_validation": false
+    },
+    "I32_archived_72_seed_method_accounting": {
+      "status": "PASS_READONLY_ORIGINAL_JSON_CSV",
+      "original_workflow_run": 39686171613,
+      "original_artifact_id": 12386702402,
+      "original_native_AC_calls": 12913,
+      "new_AC_calls": 0,
+      "checked_rows": 72,
+      "checked_method_aggregate_summaries": 6,
+      "checked_paired_seed_contrasts": 5,
+      "archived_raw_json_sha256": "a8e707cc6044390213f8c9112ab59ab47f8a30321b28a669e2624d5c0df4d534",
+      "machine_ledger_in_draft_PR15": "research/I32_ORIGINAL_SOURCE_AND_72RUN_ARCHIVE_RECONCILIATION_2026-11-04.json"
+    },
+    "separate_PRs": {
+      "I55": 14,
+      "I32_source_recovery": 15,
+      "merged_into_main": false
+    },
+    "global_unintended_CI_optimizer_benchmark": {
+      "run": 41812770943,
+      "automatic_runs": 12,
+      "generations_per_run": 120,
+      "not_scientific_evidence": true,
+      "mitigated_on_both_PR_branches": true,
+      "guarded_workflow_git_blob": "32774ed66c7e16a7851195463f67b023234ee5b9"
+    },
+    "remain_open": [
+      "I55 original A-prime/B raw trajectories",
+      "I64-R off-Git 4200-run original source",
+      "Independent detector ground truth/specificity",
+      "Independent M3 physical witness/model assessment",
+      "Independent M5 statistician",
+      "M6/C1 human originality decision and signature",
+      "Prospective COCO not authorized"
+    ],
+    "research_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED"
+  },
+  "original_full_corner_first_repeat_and_direction": {
+    "status": "EXISTING_ORIGINAL_SOURCE_PHASE_ARTIFACT_RECONCILED_SIGN_DIRECTION_NEW_CI_NOT_YET_OBSERVED",
+    "source_original_phase_json_sha256": "14ee6ea5839b59f3b15403921b7ed76a45c72a0ec39321f5aefde16dbe21d82f",
+    "full_clone_reference_run": 41804478669,
+    "verified_original_npz": 620,
+    "original_C1_events": 2105,
+    "original_C1_also_exact_C2": 1956,
+    "original_C1_first_in_trace": 149,
+    "original_C1_post_events": 0,
+    "by_function_original": {
+      "plateau": {
+        "C1": 1820,
+        "repeats": 1746,
+        "first": 74
+      },
+      "sphere": {
+        "C1": 241,
+        "repeats": 201,
+        "first": 40
+      },
+      "rastrigin": {
+        "C1": 44,
+        "repeats": 9,
+        "first": 35
+      }
+    },
+    "by_dimension_original": {
+      "2": {
+        "C1": 919,
+        "repeats": 795,
+        "first": 124
+      },
+      "10": {
+        "C1": 1186,
+        "repeats": 1161,
+        "first": 25
+      }
+    },
+    "original_reconciliation_report": "I65_I55_620_ORIGINAL_C1_FIRST_VS_REPEAT_EVIDENCE_2026-11-04.json",
+    "new_signed_corner_original_npz_source_audit": "i55_620_corner_direction_source_audit.py",
+    "new_signed_corner_synthetic_tests": "test_i55_620_corner_direction_source_audit.py",
+    "new_signed_corner_expected_tests": 9,
+    "new_signed_corner_actual_original_negative_positive_count": "CLOSED_FROM_DIRECT_109_OF_109_IMMUTABLE_GIT_NPZ_BINARIES",
+    "new_signed_corner_original_full_clone_Github_CI": "NOT_YET_OBSERVED",
+    "prior_original_full_clone_CI_tests_passed": 86,
+    "other_new_I64_R_synthetic_tests_local_passed": 38,
+    "combined_current_I55_CI_expected_unit_tests": 133,
+    "combined_current_I55_CI_observed_success": "NO",
+    "source_identity": "original Git manifest/root tree/NPZ blobs checked by authored future script; result cannot be claimed before it executes in full clone",
+    "scientific_limits": "Descriptive conditional archive counts only; software defect/causality/original A-prime/B not established",
+    "science_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED",
+    "exact_existing_original_CI_occupancy_closure": {
+      "status": "CLOSED_BY_INDEPENDENT_SHA256_VERIFIED_ORIGINAL_CENSUS_AND_PHASE_REPORTS",
+      "original_CI_run": 41804478669,
+      "original_full_CI_artifact_id": 13309441677,
+      "original_CI_ZIP_sha256": "b80fb1d666fdc05c219ad5c354a8fc495100aacb9b6822533b002731f378fd41",
+      "flag_census_sha256": "a0bfb1bfeaa2979ae8f195ffbcde8c9ff2c45b0562f96ecdf7915e229963c4ea",
+      "phase_context_sha256": "14ee6ea5839b59f3b15403921b7ed76a45c72a0ec39321f5aefde16dbe21d82f",
+      "original_C1_cells": 109,
+      "original_distinct_C1_corner_first_visits": 149,
+      "original_cells_with_both_full_signed_corners": 40,
+      "original_cells_with_only_one_full_signed_corner": 69,
+      "original_2D_cells_with_both_signed_corners": 40,
+      "original_10D_cells_with_both_signed_corners": 0,
+      "original_function_both_signed_cells": {
+        "plateau": 17,
+        "sphere": 11,
+        "rastrigin": 12
+      },
+      "original_library_both_signed_cells": {
+        "gfo": 15,
+        "bayes_opt": 9,
+        "baybe": 7,
+        "evox": 5,
+        "emukit": 4
+      },
+      "machine_evidence": "I65_I55_620_ORIGINAL_TWO_SIGN_C1_CELL_OCCUPANCY_2026-11-04.json",
+      "report": "I65_I55_620_C1_TWO_SIGN_CELL_OCCUPANCY_EXACT_PROOF_2026-11-04.md",
+      "standalone_local_verifier_sha256": "57273d65ddfe9986ff266dcd700aa5ae44f35dc6311085b5f62367d0970ce6b8",
+      "standalone_verifier_local_11_test_status": "PASS",
+      "standalone_local_original_CI_ZIP_receipt_sha256": "0142ed011c95276a78b71efd872d88b642c4ec194637651ec9d732250e785ed7",
+      "new_latest_head_GitHub_CI": "NOT_OBSERVED",
+      "important_caveat": "Distinct-corner cells can be fully inferred from old original SHA-pinned reports; event-level totals of all-negative vs all-positive still cannot."
+    },
+    "original_signed_C1_binary_replay": {
+      "status": "PASS_109_OF_109_ORIGINAL_C1_POSITIVE_GIT_BLOBS_AND_RAW_X_NPY_COUNTS",
+      "original_620_valid_A_npz_fullclone_attested_previously": 620,
+      "original_C1_positive_npz_binary_directly_fetched_and_verified": 109,
+      "original_C1_zero_npz_original_metadata_verified": 511,
+      "original_frozen_C1_events": 2105,
+      "negative_all_minus5_events": 2050,
+      "positive_all_plus5_events": 55,
+      "first_negative_C1_visits": 97,
+      "first_positive_C1_visits": 52,
+      "repeated_negative_C1_visits": 1953,
+      "repeated_positive_C1_visits": 3,
+      "original_C1_cells_with_both_signed_corners": 40,
+      "all_positive_events_2D": true,
+      "positive_events_10D": 0,
+      "source_original_commit": "6b56fbc53ffc4d275ecef5e911ea4663474c9a08",
+      "original_git_source_manifest": "50ca2e96762447070a74309850cb1aa6586d3eb3",
+      "exact_109_source_roster_git_sha1": "f1dd7d1b283eba1ee12562acaf22a144d9c525d5",
+      "independent_binary_reader_git_sha1": "7c0d2bbf23cf7e1dea209651d3778cb0c3030711",
+      "cell_level_machine_file": "I65_I55_ORIGINAL_109_C1_POSITIVE_NPZ_SIGNED_CORNER_DIRECT_BINARY_REPLAY_2026-11-04.json",
+      "original_binary_source_machine_file_git_sha1": "7f1716b061d703d5ab8c367d73386371dcb9d7a9",
+      "scientific_report": "I65_I55_ORIGINAL_620_C1_SIGNED_CORNER_DIRECT_BINARY_FORENSICS_2026-11-04.md",
+      "cross_checks": [
+        "109 frozen C1-positive cells each matched original Git NPZ blob sha1 and byte size",
+        "Decoded original float64 x.npy shape and per-cell C1 exactly matched original frozen C1 counts",
+        "All original C1 2105 equals signed negative+positive 2050+55",
+        "Original exact duplicate intersection 1956 = signed 1953+3",
+        "Original first 149 = 97+52",
+        "Original both-signed cells 40, all 2D, exactly match earlier separate 620-source SHA-pinned phase/census proof",
+        "All library/function/dimension source stratum original C1 and first/repeat totals agree with older full source CI"
+      ],
+      "evidence_limit": "Only original recorded A trace geometry in original fixed 21-library benchmark; no root-cause or independent defect adjudication",
+      "future_fullclone_python_CI": "NOT_YET_OBSERVED",
+      "new_optimizer_PF_OPF_COCO": 0
+    },
+    "posthoc_call_vs_first_corner_weighting": {
+      "status": "CLOSED_SOURCE_ACCOUNTING_ONLY",
+      "original_complete_109_signed_NPZ_blob": "7f1716b061d703d5ab8c367d73386371dcb9d7a9",
+      "full_original_620_census_phase_CI": 41804478669,
+      "event_weight_negative_fraction": 0.9738717339667459,
+      "first_corner_negative_fraction": 0.6510067114093959,
+      "difference_percentage_points": 32.286502255734995,
+      "original_exact_repeats_negative": 1953,
+      "original_exact_repeats_positive": 3,
+      "original_only_negative_cells": 57,
+      "original_only_positive_cells": 12,
+      "original_both_sign_cells": 40,
+      "most_active_five_C1_cells": 851,
+      "top_four_repeat_library_events": 1918,
+      "all_repeat_C1_events": 1956,
+      "post_hoc_excluded_libraries": [
+        "bofire",
+        "baybe",
+        "evolopy",
+        "emukit"
+      ],
+      "post_hoc_remaining_negative_events": 81,
+      "post_hoc_remaining_positive_events": 37,
+      "post_hoc_remaining_first_negative": 46,
+      "post_hoc_remaining_first_positive": 34,
+      "source_gate": "i55_109_signed_corner_source_weighting_gate.js",
+      "source_gate_git_blob": "b03f61a5c713f686850eaed1038dc5fff35bd216",
+      "adversarial_mutations_rejected_in_connector_source_evaluation": 10,
+      "new_node_regression_tests_scheduled": 13,
+      "independent_latest_head_Github_CI": "NOT_YET_OBSERVED",
+      "machine_report": "I65_I55_ORIGINAL_SIGNED_C1_DEDUP_WEIGHTING_AND_LIBRARY_CONCENTRATION_2026-11-04.json",
+      "methods_report": "I65_I55_ORIGINAL_C1_EVENT_WEIGHTING_REPETITION_COMPOSITION_2026-11-04.md",
+      "interpretation": "Original fixed-design event/within-cell-corner weighting difference, post-hoc composition only; no statistical independence, defect root cause, population or algorithm bias inference",
+      "source_generated_optimizers_PF_OPF_COCO": 0
+    }
+  },
+  "original_fresh_source_report_dynamic_sha256_gate": {
+    "technical_status": "FIX_COMMITTED_AND_12_OF_12_REAL_ARCHIVED_JSON_TESTS_PASS_LOCALLY",
+    "original_source_commit": "6b56fbc53ffc4d275ecef5e911ea4663474c9a08",
+    "original_source_root_tree": "f88d221152fcb4157a8e1151a11b53cdfe8180b7",
+    "original_source_620_NPZ_manifest_git_sha1": "50ca2e96762447070a74309850cb1aa6586d3eb3",
+    "historical_successful_full_clone_Github_Actions_run": 41804478669,
+    "historical_source_artifact_zip_sha256": "b80fb1d666fdc05c219ad5c354a8fc495100aacb9b6822533b002731f378fd41",
+    "historic_full_attestation_output_sha256": "9a6a5a3d32120394798ccf47675aaff403b82062fac240267a47e327283fa111",
+    "original_attestation_date_field_is_dynamic": true,
+    "historical_flag_census_output_sha256": "a0bfb1bfeaa2979ae8f195ffbcde8c9ff2c45b0562f96ecdf7915e229963c4ea",
+    "historical_phase_context_output_sha256": "14ee6ea5839b59f3b15403921b7ed76a45c72a0ec39321f5aefde16dbe21d82f",
+    "prior_fault": "New output JSON SHA256 was pinned to archived 2026-11-04 output SHA256; new run on 2026-11-05 changes dated full report and linked children without changing original NPZ source",
+    "correction": "Immutable source Git commit/tree/manifest and all 620 NPZ source replay counts are pinned; current census and phase SHA256 references must match the CURRENT successful full report SHA256, with all 21+3+2 C1/C2 strata and 40 both-sign cells reconciled",
+    "source_program": "research/i65/archive_review/i55_fresh_original_report_lineage.py",
+    "source_program_git_blob": "59bc9fc42f10e0300c95076ab2b0c64b49f188ac",
+    "source_program_sha256": "6f464f323ab07033981937f7233451885318b9ea5bc8c59d8340b92d639a50f2",
+    "synthetic_and_original_artifact_tests": "research/i65/archive_review/test_i55_fresh_original_report_lineage.py",
+    "synthetic_tests_git_blob": "dc4a8cfeb4de69479c56d93721492c1b0a2f5291",
+    "local_execution_tests_passed": 12,
+    "local_execution_tests_failed": 0,
+    "simulated_next_day_date_rehashed_linked_reports": "PASS",
+    "simulated_next_day_stale_child_links": "REJECTED",
+    "independent_node_current_chain_program": "research/i65/archive_review/i55_fresh_original_report_lineage_node.cjs",
+    "independent_node_current_chain_git_blob": "d70ebb1e8a8a2b61877a2739a88214c23d1cdd03",
+    "node_original_archived_chain": "PASS_LOCAL",
+    "node_next_day_chain": "PASS_LOCAL",
+    "node_tampered_child_sha": "REJECTED_LOCAL",
+    "previously_successful_source_CI_unit_tests": 86,
+    "later_I64_R_E_synthetic_local_tests": 38,
+    "newer_signed_corner_synthetic_tests": 9,
+    "newer_signed_source_Node_tests_scheduled": 13,
+    "new_date_lineage_python_tests_local": 12,
+    "current_PR_workflow_expected_unit_test_total": 158,
+    "current_head_Github_Actions_execution": "NOT_YET_OBSERVED",
+    "local_reproducible_bundle_sha256": "a61406e84dcf9abc3846d10d35541c73e8b9ce03ea02a81b7067194639069944",
+    "human_review_M5_M6": "UNSIGNED",
+    "new_optimizer_PF_OPF_COCO_runs": 0,
+    "scientific_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED"
+  }
+}

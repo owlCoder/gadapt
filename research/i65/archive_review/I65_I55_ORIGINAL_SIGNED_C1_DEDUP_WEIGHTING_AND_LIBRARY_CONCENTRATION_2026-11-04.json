@@ -1,0 +1,106 @@
+{
+  "schema": "I65_I55_ORIGINAL_SIGNED_C1_CALL_WEIGHT_VS_FIRST_CORNER_POST_HOC_DIAGNOSTIC_V1",
+  "date": "2026-11-04",
+  "source_provenance": {
+    "original_commit": "6b56fbc53ffc4d275ecef5e911ea4663474c9a08",
+    "original_root_tree_sha1": "f88d221152fcb4157a8e1151a11b53cdfe8180b7",
+    "original_620_NPZ_manifest_git_sha1": "50ca2e96762447070a74309850cb1aa6586d3eb3",
+    "original_109_signed_raw_npz_replay_git_sha1": "7f1716b061d703d5ab8c367d73386371dcb9d7a9",
+    "original_109_positive_source_roster_git_sha1": "f1dd7d1b283eba1ee12562acaf22a144d9c525d5",
+    "original_successful_full_clone_CI_run": 41804478669,
+    "original_census_sha256": "a0bfb1bfeaa2979ae8f195ffbcde8c9ff2c45b0562f96ecdf7915e229963c4ea",
+    "original_phase_duplicate_sha256": "14ee6ea5839b59f3b15403921b7ed76a45c72a0ec39321f5aefde16dbe21d82f",
+    "independent_readonly_source_weighting_gate_git_sha1": "b03f61a5c713f686850eaed1038dc5fff35bd216"
+  },
+  "status": "PASS_ORIGINAL_109_SIGNED_NPZ_LEDGER_CROSS_CHECKED_AGAINST_FROZEN_SOURCE_COUNTS",
+  "observed_signed_original_C1": {
+    "C1_positive_cells": 109,
+    "original_C1_events": 2105,
+    "negative_event_calls": 2050,
+    "positive_event_calls": 55,
+    "negative_fraction_all_events": 0.9738717339667459,
+    "negative_first_distinct_signed_corner_per_cell": 97,
+    "positive_first_distinct_signed_corner_per_cell": 52,
+    "negative_fraction_first_distinct_corner_visits": 0.6510067114093959,
+    "negative_exact_corner_repeats": 1953,
+    "positive_exact_corner_repeats": 3,
+    "duplicate_fraction_all_C1_events": 0.9292161520190024,
+    "negative_fraction_of_exact_repeats": 0.9984662576687117,
+    "cells_only_negative": 57,
+    "cells_only_positive": 12,
+    "cells_with_both_signed_corners": 40,
+    "difference_in_negative_fraction_events_vs_first_corner_percentage_points": 32.286502255734995,
+    "negative_exact_repetition_fraction_of_negative_events": 0.9526829268292683,
+    "positive_exact_repetition_fraction_of_positive_events": 0.05454545454545454
+  },
+  "concentration": {
+    "five_largest_original_C1_cells_events": 851,
+    "five_largest_fraction_all_C1": 0.40427553444180525,
+    "library_repeats_ranked": [
+      {
+        "library": "bofire",
+        "repeats": 877
+      },
+      {
+        "library": "baybe",
+        "repeats": 534
+      },
+      {
+        "library": "evolopy",
+        "repeats": 304
+      },
+      {
+        "library": "emukit",
+        "repeats": 203
+      },
+      {
+        "library": "evox",
+        "repeats": 38
+      },
+      {
+        "library": "bayes_opt",
+        "repeats": 0
+      },
+      {
+        "library": "gfo",
+        "repeats": 0
+      },
+      {
+        "library": "niapy",
+        "repeats": 0
+      }
+    ],
+    "top_four_library_repeats": 1918,
+    "top_four_fraction_of_all_C1_repeats": 0.9805725971370143
+  },
+  "post_hoc_descriptive_leave_top_four_repeating_libraries_out": {
+    "rule": "Exclude original four C1-positive libraries with highest original exact corner-repeat counts; selected using observed data, not registered prospectively.",
+    "excluded": [
+      "bofire",
+      "baybe",
+      "evolopy",
+      "emukit"
+    ],
+    "remaining_C1_positive_cells": 51,
+    "remaining_C1_events": 118,
+    "remaining_negative_event_calls": 81,
+    "remaining_positive_event_calls": 37,
+    "remaining_negative_event_share": 0.6864406779661016,
+    "remaining_first_negative": 46,
+    "remaining_first_positive": 34,
+    "remaining_negative_share_first_distinct_corners": 0.575,
+    "remaining_both_signed_cells": 29,
+    "interpretation": "ONLY retrospective sensitivity and composition diagnostic, no p-value, no population generalization, no causal mechanism or bug claim."
+  },
+  "source_gate_checks": {
+    "original_full_109_signed_ledger_verified_against_109_frozen_roster_and_620_original_census_phase_strata": true,
+    "original_source_library_function_dimension_strata_all_reconciled": true,
+    "adversarial_mutations_rejected_in_connector_source_evaluation": 10,
+    "source_mutation_tests_unrejected": 0,
+    "new_Node_CI_test_suite": "research/i65/archive_review/test_i55_109_signed_corner_source_weighting_gate.cjs",
+    "new_Node_CI_test_cases_scheduled": 13,
+    "newest_GitHub_Actions_result": "NOT_YET_OBSERVED",
+    "new_optimizer_PF_OPF_COCO": 0
+  },
+  "scientific_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED"
+}

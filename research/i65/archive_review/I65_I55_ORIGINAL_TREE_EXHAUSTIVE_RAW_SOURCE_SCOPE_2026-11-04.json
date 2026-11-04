@@ -1,0 +1,42 @@
+{
+  "schema": "I65_I55_ORIGINAL_GIT_TREE_EXHAUSTIVE_A_PRIME_B_STORAGE_SCOPE_V1",
+  "date": "2026-11-04",
+  "repository": "owlCoder/gadapt",
+  "source_commit": "6b56fbc53ffc4d275ecef5e911ea4663474c9a08",
+  "original_root_tree_sha1": "f88d221152fcb4157a8e1151a11b53cdfe8180b7",
+  "git_tree_api": "https://api.github.com/repos/owlCoder/gadapt/git/trees/6b56fbc53ffc4d275ecef5e911ea4663474c9a08?recursive=1",
+  "git_tree_recursive": true,
+  "git_tree_truncated": false,
+  "original_tree_total_entries_including_directories": 4575,
+  "original_i55_result_subtree": "research/results/iteration55/",
+  "original_i55_result_subtree_total_entries_including_directories": 664,
+  "original_i55_result_subtree_directories": 22,
+  "original_i55_npz_binary_files": 620,
+  "all_original_git_tree_npz_files": 620,
+  "npz_binary_files_outside_original_i55_subtree": 0,
+  "original_i55_result_json_files": 22,
+  "original_i55_result_json_breakdown": {
+    "cells_per_library": 21,
+    "recompute_json": 1
+  },
+  "original_i55_npz_semantics": "All 620 are archived original A-process traces; no original A-prime/B coordinate sequences were present in them, as separately checked by the source replay.",
+  "originally_failed_nevergrad_cells_not_in_npz": 10,
+  "original_other_i55_related_posthoc_file": {
+    "path": "research/results/iteration55_posthoc/emukit_veclib.json",
+    "git_blob_sha1": "2cac9ca8fefd9bb1029ac507ce5fd11624f80771",
+    "records": 10,
+    "content": "Post-hoc environment thread/digest comparison; not a saved original A-prime/B trace archive"
+  },
+  "strict_conclusions": [
+    "All Git-tracked NPZ files in the complete original source commit are the 620 original valid I55 A-process NPZ files.",
+    "No other Git-tracked NPZ exists in that original full tree to serve as independent archived A-prime/B raw coordinates.",
+    "The original per-library JSON and posthoc JSON only attest recorded metadata/digests; they cannot reconstruct original ordered A-prime/B byte sequences."
+  ],
+  "not_proven": [
+    "A-prime/B original coordinates do not exist on the experimenter's untracked computer",
+    "A-prime/B original coordinates were never captured in another storage format outside this tracked repository",
+    "Independent A-prime/B coordinate/value replay succeeded"
+  ],
+  "no_new_optimizer_ac_opf_coco_execution": true,
+  "science_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED"
+}
