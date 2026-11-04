@@ -27,6 +27,7 @@ class ReliabilityMonitor:
         if self.evaluations >= self.max_evaluations:
             raise EvaluationBudgetExhausted("Objective evaluation budget exhausted")
         self.evaluations += 1  # Charge failed calls, too.
+        evaluated_values = tuple(values)  # Snapshot before user callback can mutate the list.
         result = self.objective(values)
         try:
             if self.constrained:
@@ -49,7 +50,7 @@ class ReliabilityMonitor:
                        or violation > 0 and best_violation > 0
                        and (violation, objective) < (best_violation, best_objective))
         if replace:
-            self.best = (objective, violation, tuple(values))
+            self.best = (objective, violation, evaluated_values)
         return result
 
     @property
