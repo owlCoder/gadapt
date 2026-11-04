@@ -459,7 +459,8 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertFalse(result.acceptable)
         self.assertEqual(result.best_violation, 1.0)
 
-    def test_validation_probe_failure_returns_structured_status(self):
+    def test_invalid_boundary_probe_no_longer_aborts_valid_interior(self):
+        seed()
         calls = []
 
         def objective(values):
@@ -472,13 +473,81 @@ class ReliabilityModeTest(unittest.TestCase):
                 reliability_mode=True, max_evaluations=10, acceptable_cost=0.0)
         ga.add(-1.0, 1.0)
         result = ga.execute()
-        self.assertFalse(result.success)
+        self.assertTrue(result.success, result.messages)
         self.assertFalse(result.acceptable)
-        self.assertEqual(result.termination_reason, "validation_failed")
-        self.assertEqual(result.solution_status, "no_valid_evaluation")
-        self.assertEqual(result.objective_evaluations, 1)
+        self.assertEqual(result.termination_reason, "budget_exhausted")
+        self.assertEqual(result.solution_status, "feasible_but_unacceptable")
+        self.assertEqual(result.objective_evaluations, 10)
         self.assertEqual(result.invalid_objective_evaluations, 1)
+        self.assertEqual(result.valid_objective_evaluations, 9)
+        self.assertEqual(len(calls), 10)
+        self.assertTrue(any("Boundary objective probe failed" in msg
+                            for level, msg in result.messages))
+        self.assertGreaterEqual(result.result_values[0], -1.0)
+
+    def test_invalid_constrained_probe_pair_no_longer_aborts(self):
+        seed()
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            if values[0] == -1.0:
+                return float("nan"), 0.0
+            return 1.0, 0.0
+
+        ga = GA(cost_function=objective, population_size=4, reliability_mode=True,
+                max_evaluations=6, acceptable_cost=0.0,
+                constraint_handling="feasibility_rules")
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertFalse(result.acceptable)
+        self.assertTrue(result.feasible)
+        self.assertEqual(result.best_objective, 1.0)
+        self.assertEqual(result.objective_evaluations, 6)
+        self.assertEqual(result.invalid_objective_evaluations, 1)
+        self.assertEqual(len(calls), 6)
+
+    def test_boundary_probe_recovery_never_masks_structural_errors(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            raise ValueError("boundary undefined")
+
+        ga = GA(cost_function=objective, population_size=3, reliability_mode=True,
+                max_evaluations=5, acceptable_cost=0.0)
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertFalse(result.success)
+        self.assertEqual(result.termination_reason, "validation_failed")
+        self.assertEqual(result.objective_evaluations, 1)
         self.assertEqual(len(calls), 1)
+        self.assertTrue(any("Population size" in str(message) for message in result.messages))
+
+    def test_noncallable_objective_still_fails_validation_without_charges(self):
+        ga = GA(cost_function=42, population_size=4, reliability_mode=True,
+                max_evaluations=6, acceptable_cost=0.0)
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertFalse(result.success)
+        self.assertEqual(result.termination_reason, "validation_failed")
+        self.assertEqual(result.objective_evaluations, 0)
+        self.assertEqual(result.solution_status, "no_valid_evaluation")
+
+    def test_legacy_boundary_failure_stays_strict(self):
+        def objective(values):
+            if values[0] == -1.0:
+                raise ValueError("domain excludes left endpoint")
+            return 1.0
+
+        ga = GA(cost_function=objective, population_size=4,
+                exit_check="generations", number_of_generations=2)
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertFalse(result.success)
+        self.assertIsNone(result.termination_reason)
+        self.assertIsNone(result.objective_evaluations)
 
     def test_stateful_objective_is_not_deepcopied_into_initial_snapshot(self):
         seed()
