@@ -121,6 +121,14 @@ jobs:
           assert r['new_optimizer_PF_OPF_COCO_runs']==0
           print('ORIGINAL I55 620 NPZ C1 +/- CORNER DIRECTION AND REPEATS: authenticated')
           PY
+      - name: Verify original source identities and FRESH linked report SHA256 without date-dependent pins
+        run: |
+          python -m unittest discover -s research/i65/archive_review -p 'test_i55_fresh_original_report_lineage.py' -v
+          python research/i65/archive_review/i55_fresh_original_report_lineage.py \
+            --full i55_620_original_readonly_audit.json \
+            --census i55_620_original_flag_census.json \
+            --phase i55_620_npz_phase_duplicate_context.json \
+            --output i55_620_fresh_source_lineage.json
       - name: Derive exact both-signed C1 corner cell occupancy from the two original SHA-pinned reports
         run: |
           python - <<'PY'
@@ -129,8 +137,15 @@ jobs:
           from pathlib import Path
           c_raw=Path('i55_620_original_flag_census.json').read_bytes()
           p_raw=Path('i55_620_npz_phase_duplicate_context.json').read_bytes()
-          assert hashlib.sha256(c_raw).hexdigest()=='a0bfb1bfeaa2979ae8f195ffbcde8c9ff2c45b0562f96ecdf7915e229963c4ea'
-          assert hashlib.sha256(p_raw).hexdigest()=='14ee6ea5839b59f3b15403921b7ed76a45c72a0ec39321f5aefde16dbe21d82f'
+          # These two fresh JSON outputs contain a runtime full-attestation
+          # SHA256, itself derived from a report with a changing date.
+          # Check the linked CURRENT source report and immutable Git blobs,
+          # never yesterday's byte-identical descendant output SHA256.
+          import sys
+          sys.path.insert(0, 'research/i65/archive_review')
+          from i55_fresh_original_report_lineage import verify
+          f_raw=Path('i55_620_original_readonly_audit.json').read_bytes()
+          source_chain=verify(f_raw,c_raw,p_raw)
           c=json.loads(c_raw)
           p=json.loads(p_raw)
           assert c['original_620_full_attestation_gate_pass'] is True
@@ -166,8 +181,11 @@ jobs:
           assert strata['by_dimension']['10']['both_signed_corners']==0
           report=dict(schema='I65_I55_ORIGINAL_TWO_SIGN_CELL_EXACT_ARCHIVE_DERIVATION_V1',
                       source_npz=620,original_CI_run=41804478669,
-                      original_census_sha256=hashlib.sha256(c_raw).hexdigest(),
-                      original_phase_sha256=hashlib.sha256(p_raw).hexdigest(),
+                      fresh_full_attestation_sha256=source_chain['current_full_attestation_sha256'],
+                      current_census_sha256=source_chain['current_census_sha256'],
+                      current_phase_sha256=source_chain['current_phase_sha256'],
+                      original_source_identity=source_chain['original_source_commit'],
+                      date_safe_fresh_lineage_validated=True,
                       overall=overall,**strata,
                       minus_vs_plus_event_counts='NOT_AVAILABLE_IN_THESE_SOURCE_AGGREGATES',
                       new_optimizer_pf_opf_coco_runs=0,
@@ -195,20 +213,11 @@ jobs:
             if(git!==sha)throw Error('Original Git blob source pin mismatch: '+file);
             return JSON.parse(raw.toString('utf8'));
           }
-          function pinnedCI(file,sha) {
-            const raw=fs.readFileSync(file);
-            if(crypto.createHash('sha256').update(raw).digest('hex')!==sha)
-              throw Error('Original read-only CI result SHA256 mismatch: '+file);
-            return JSON.parse(raw.toString('utf8'));
-          }
           const signed=pinnedBlob('I65_I55_ORIGINAL_109_C1_POSITIVE_NPZ_SIGNED_CORNER_DIRECT_BINARY_REPLAY_2026-11-04.json',
             '7f1716b061d703d5ab8c367d73386371dcb9d7a9');
           const roster=pinnedBlob('I65_I55_109_C1_POSITIVE_NPZ_ORIGINAL_SOURCE_ROSTER_2026-11-04.json',
             'f1dd7d1b283eba1ee12562acaf22a144d9c525d5');
-          const census=pinnedCI('i55_620_original_flag_census.json',
-            'a0bfb1bfeaa2979ae8f195ffbcde8c9ff2c45b0562f96ecdf7915e229963c4ea');
-          const phase=pinnedCI('i55_620_npz_phase_duplicate_context.json',
-            '14ee6ea5839b59f3b15403921b7ed76a45c72a0ec39321f5aefde16dbe21d82f');
+          const {census,phase}=require('./research/i65/archive_review/i55_fresh_original_report_lineage_node.cjs').loadCurrent();
           const report=gate.verify(signed,roster,census,phase);
           if(report.original_signed_observations.negative!==2050 ||
              report.original_signed_observations.positive!==55 ||
@@ -232,6 +241,7 @@ jobs:
             i55_620_paired_function_context.json
             i55_620_npz_phase_duplicate_context.json
             i55_620_original_corner_sign_and_repeats.json
+            i55_620_fresh_source_lineage.json
             i55_620_original_C1_both_sign_corner_occupancy.json
             i55_109_original_signed_C1_call_vs_first_corner.json
           if-no-files-found: warn
