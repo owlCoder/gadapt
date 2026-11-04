@@ -185,5 +185,45 @@
     "run_part_json_gz_present": 0,
     "limitation": "Does not rule out untracked experimental-machine file, orphaned Git objects, inaccessible external storage, or inaccessible private refs"
   },
-  "caveat_new_optimizer_or_pf_or_coco_from_paired_audit": 0
+  "caveat_new_optimizer_or_pf_or_coco_from_paired_audit": 0,
+  "original_raw_npz_phase_and_duplicate_context": {
+    "status": "PASS_REPLAY_620_ORIGINAL_A_NPZ",
+    "original_sources": 620,
+    "original_archived_calls": 295445,
+    "read_only_full_clone_CI_run": 41804478669,
+    "CI_artifact_id": 13309441677,
+    "zip_sha256": "b80fb1d666fdc05c219ad5c354a8fc495100aacb9b6822533b002731f378fd41",
+    "original_npz_phase_json_sha256": "14ee6ea5839b59f3b15403921b7ed76a45c72a0ec39321f5aefde16dbe21d82f",
+    "original_source_i49_blob": "dc14a1c95a1f3bb1ba083f705a75503321bbeafd",
+    "gate_git_blobs_trace_sha256_objectives_flags": "ALL_620_PASS",
+    "original_search_calls": 294245,
+    "original_post_calls": 1200,
+    "C1": {
+      "search": 2105,
+      "post": 0,
+      "overlap_exact_C2": 1956,
+      "first_occurrences_within_cell": 149
+    },
+    "C2": {
+      "search": 17579,
+      "post": 1200,
+      "first_search_then_search": 17579,
+      "first_search_then_post": 1200,
+      "first_post_then_search": 0,
+      "first_post_then_post": 0
+    },
+    "pygad_post_events": 1200,
+    "post_events_other_libraries": 0,
+    "all_pygad_post_events_repeat_previous_search_coordinates": true,
+    "new_synthetic_tests_passed": 9,
+    "all_synthetic_suite_tests_passed": 86,
+    "report": "I65_I55_620_RAW_PHASE_AND_C1_C2_DUPLICATE_FORENSICS_2026-11-04.md",
+    "machine_summary": "I65_I55_620_ORIGINAL_NPZ_PHASE_CONTEXT_SUMMARY_2026-11-04.json",
+    "limits": [
+      "Not adjudicated defects",
+      "Source phase chronology consistent with post best_solution call but PyGAD internals not instrumented",
+      "A′/B raw, I64-R external source and M6/C1 human decision unavailable",
+      "No new optimization, physics, COCO execution"
+    ]
+  }
 }
