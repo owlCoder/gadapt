@@ -461,12 +461,16 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
 - `objective_evaluations` counts every attempted call through the monitored
   objective, including the two default validation probes, exceptions and
   non-finite responses. `valid_objective_evaluations` and
-  `invalid_objective_evaluations` split that count. A callback internally
+  `invalid_objective_evaluations` split that count. If validation probes
+  already find an acceptable candidate, no population is evaluated.
+  A callback internally
   running multiple physical simulations must enforce and report its own
   underlying physical budget; this mode does not count those simulations.
 - `termination_reason` distinguishes `acceptable_target`, `budget_exhausted`,
-  `timeout`, `no_new_evaluations`, `exit_condition`,
-  `validation_failed` and `execution_error`. When a generation cannot
+  `timeout`, `no_new_evaluations`, `exit_condition`, `evaluation_failure`,
+  `validation_failed` and `execution_error`. `solution_status` independently
+  reports `acceptable`, `feasible_but_unacceptable`, `no_feasible_solution`,
+  or `no_valid_evaluation`. When a generation cannot
   complete because the next objective call would exceed the limit, no extra
   call is made and the last evaluated incumbent is reported.
 - For `reliability_mode=True`, the default `avg_cost` (or `min_cost`)
@@ -476,7 +480,8 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   Explicit exit functions, requested-cost exits and timeout remain active.
   The minimum `max_evaluations` is `population_size` plus two if
   `probe_cost_function=True`; both the budget and a finite
-  `acceptable_cost` are required. Existing defaults are unchanged unless
+  `acceptable_cost` are required. Timeout is checked between generations,
+  not inside a blocking objective callback. Existing defaults are unchanged unless
   `reliability_mode` is enabled.
 
 This is an engineering safety mechanism, **not** a demonstrated improvement in
