@@ -41,7 +41,7 @@ class OriginalRInputSecurityTests(unittest.TestCase):
         self.assertEqual(report['E_required_source_SHA256_verified'], 44)
         self.assertEqual(report['E_source_sha256_verified_count'], 44)
         self.assertEqual(report['E_original_R_tasks_params_matched_to_frozen_E'], 2)
-        self.assertTrue(report['ready_for_independent_raw_seed_bootstrap'])
+        self.assertFalse(report['ready_for_independent_raw_seed_bootstrap'])
         self.assertFalse(report['E_full_original_input_manifest_present_and_sha256_verified'])
         self.assertEqual(len(report['E_missing_optional_paths']), 23)
 
@@ -92,7 +92,7 @@ class OriginalRInputSecurityTests(unittest.TestCase):
         d = dict(self.digests)
         d['run'] = hashlib.sha256(raw).hexdigest()
         report = validate_required_e_inputs(self.repo, d, self.records)
-        self.assertTrue(report['ready_for_independent_raw_seed_bootstrap'])
+        self.assertFalse(report['ready_for_independent_raw_seed_bootstrap'])
         self.assertEqual(report['E_source_sha256_verified_count'], 45)
         self.assertFalse(report['E_full_original_input_manifest_present_and_sha256_verified'])
 
@@ -102,6 +102,27 @@ class OriginalRInputSecurityTests(unittest.TestCase):
         self.assertFalse(report['ready_for_independent_raw_seed_bootstrap'])
         self.assertEqual(report['E_original_R_tasks_params_matched_to_frozen_E'], 0)
 
+
+    def test_partial_two_records_cannot_be_ready_even_with_attestation_flag(self):
+        report = validate_required_e_inputs(self.repo, self.digests, self.records,
+                                            original_r_roster_attested=True)
+        self.assertFalse(report['ready_for_independent_raw_seed_bootstrap'])
+
+    def test_complete_synthetic_original_roster_requires_explicit_attestation(self):
+        all_rows = [
+            {'task': {'k': k, 'config': cfg,
+                      'seed': 67_000_000 + 1000*(63+k) + seed_index,
+                      'params': self.params[cfg]}}
+            for k in range(21) for seed_index in range(1,101)
+            for cfg in ('gadapt', 'ipop')
+        ]
+        self.assertEqual(len(all_rows), 4200)
+        no = validate_required_e_inputs(self.repo, self.digests, all_rows)
+        self.assertFalse(no['ready_for_independent_raw_seed_bootstrap'])
+        yes = validate_required_e_inputs(self.repo, self.digests, all_rows,
+                                          original_r_roster_attested=True)
+        self.assertTrue(yes['ready_for_independent_raw_seed_bootstrap'])
+        self.assertEqual(yes['E_original_R_tasks_params_matched_to_frozen_E'], 4200)
 
     def test_absent_R_records_can_never_be_ready(self):
         report = validate_required_e_inputs(self.repo, self.digests, [])
