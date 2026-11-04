@@ -462,10 +462,19 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   protection switches to the best evaluated feasible objective. The cached
   incumbent also covers earlier validation probes, without re-evaluation.
   These are candidate-survival guarantees, **not evidence that a feasible
-  point can always be found**. If an entire population yields invalid objective results,
-  the regime can recover using an earlier valid monitored candidate (including
-  a validation probe); with no valid history it still fails closed. Restoration
-  uses the cached evaluation, not another objective call. With a single-valued
+  point can always be found**. If an entire population yields invalid objective
+  results, the regime can recover using an earlier valid monitored candidate
+  (including a validation probe). If *no* valid evaluation exists yet, the
+  opt-in reliability execution now resamples a fresh initial cohort while
+  time and the original hard evaluation budget remain. The counter
+  `invalid_population_resamples` reports completed reseeding attempts; each
+  objective attempt is still charged. If the remaining budget cannot evaluate
+  a full new cohort, it may be exhausted halfway through the final one. With
+  no valid evaluation by exhaustion or timeout, technical `success` is false
+  and `solution_status` is `no_valid_evaluation`. The standard legacy GA still
+  stops on its first entirely invalid cohort. Restoration of any previously
+  verified incumbent uses its cached evaluation, not another objective call.
+  With a single-valued
   objective, feasibility means
   *no explicit constraints beyond the declared variable bounds*; the library
   cannot check undeclared constraints.
