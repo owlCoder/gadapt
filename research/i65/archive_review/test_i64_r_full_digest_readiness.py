@@ -75,7 +75,10 @@ class FullDigestReadinessTests(unittest.TestCase):
 
     def test_absent_raw_is_not_a_verified_original(self):
         self.raw.unlink()
-        result = gate.audit(repo_root=self.root, raw_run_path=self.raw)
+        # The original metadata is loaded before the missing-raw branch;
+        # provide only synthetic stand-ins for those immutable inputs.
+        with patch.object(gate, 'read_pinned', side_effect=[{}, {}]):
+            result = gate.audit(repo_root=self.root, raw_run_path=self.raw)
         self.assertEqual(result['status'], 'NOT_AVAILABLE_ON_THIS_FILESYSTEM')
         self.assertEqual(result['bootstrap_replay'], 'BLOCKED_ON_ORIGINAL_RAW_R')
 
