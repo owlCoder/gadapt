@@ -60,6 +60,13 @@ jobs:
             --repo-root . \
             --full-attestation i55_620_original_readonly_audit.json \
             --output i55_620_paired_function_context.json
+      - name: Read-only original binary NPZ C1/C2 phase and repeat transition audit
+        run: |
+          python -m unittest discover -s research/i65/archive_review -p 'test_i55_620_npz_phase_duplicate_context.py' -v
+          python research/i65/archive_review/i55_620_npz_phase_duplicate_context.py \
+            --repo-root . \
+            --full-attestation i55_620_original_readonly_audit.json \
+            --output i55_620_npz_phase_duplicate_context.json
       - name: Preserve reports even if an attestation gate fails
         if: always()
         uses: actions/upload-artifact@v4
@@ -70,4 +77,5 @@ jobs:
             i55_620_original_readonly_audit.json
             i55_620_original_flag_census.json
             i55_620_paired_function_context.json
+            i55_620_npz_phase_duplicate_context.json
           if-no-files-found: warn
