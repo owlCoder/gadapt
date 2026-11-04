@@ -60,8 +60,9 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertTrue(result.success, result.messages)
         self.assertTrue(result.acceptable)
         self.assertEqual(result.termination_reason, "acceptable_target")
-        self.assertEqual(result.objective_evaluations, 6)  # 2 probes and 4 search evaluations
-        self.assertEqual(len(calls), 6)
+        self.assertEqual(result.objective_evaluations, 2)  # Both probes; no wasted search calls
+        self.assertEqual(result.number_of_iterations, 0)
+        self.assertEqual(len(calls), 2)
 
     def test_failed_generation_retains_validated_probe_incumbent(self):
         seed()
@@ -76,7 +77,7 @@ class ReliabilityModeTest(unittest.TestCase):
         ga.add(0.0, 1.0)
         result = ga.execute()
         self.assertFalse(result.success)
-        self.assertEqual(result.termination_reason, "execution_error")
+        self.assertEqual(result.termination_reason, "evaluation_failure")
         self.assertEqual(result.objective_evaluations, 6)
         self.assertEqual(result.valid_objective_evaluations, 2)
         self.assertEqual(result.invalid_objective_evaluations, 4)
@@ -171,6 +172,27 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertFalse(result.feasible)
         self.assertFalse(result.acceptable)
         self.assertEqual(result.best_violation, 1.0)
+
+    def test_validation_probe_failure_returns_structured_status(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            if values[0] == -1.0:
+                raise ValueError("domain excludes left endpoint")
+            return 1.0
+
+        ga = GA(cost_function=objective, population_size=4,
+                reliability_mode=True, max_evaluations=10, acceptable_cost=0.0)
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertFalse(result.success)
+        self.assertFalse(result.acceptable)
+        self.assertEqual(result.termination_reason, "validation_failed")
+        self.assertEqual(result.solution_status, "no_valid_evaluation")
+        self.assertEqual(result.objective_evaluations, 1)
+        self.assertEqual(result.invalid_objective_evaluations, 1)
+        self.assertEqual(len(calls), 1)
 
     def test_budget_must_cover_initial_population_and_probes(self):
         calls = []
