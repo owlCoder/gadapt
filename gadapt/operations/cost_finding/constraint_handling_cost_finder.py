@@ -89,7 +89,7 @@ class ConstraintHandlingCostFinder(ElitismCostFinder):
         better: List[CandidateSolution] = sorted(
             self.population, key=lambda c: self.handler.key(c.objective_value, c.violation_value))
         better = better[: self.population.options.keep_number]
-        better = self._retain_feasible_incumbent(better)
+        better = self._retain_monitored_incumbent(better)
         self.population.best_individual = better[0]
         self.population.min_cost = better[0].cost_value
         without_immigrants = better[: self.population.options.keep_number - self.population.options.immigration_number]
@@ -99,16 +99,17 @@ class ConstraintHandlingCostFinder(ElitismCostFinder):
         best = self.population.best_individual
         self._previous_best = (best.objective_value, best.violation_value)
 
-    def _retain_feasible_incumbent(self, kept):
-        """Reserve one survivor for the best verified feasible point, opt-in only.
+    def _retain_monitored_incumbent(self, kept):
+        """Preserve the best verified violation until feasibility, then the feasible best.
 
-        A weak penalty or epsilon ranking can otherwise discard every feasible
-        solution. The monitor's snapshot was already evaluated (possibly in a
-        validation probe or an earlier generation), so restoration must never
-        spend another objective call or label an unevaluated point as feasible.
+        Weak penalty or epsilon ranking can discard the best-ever candidate
+        *before* it becomes feasible. The monitor is the source of truth:
+        retain its smallest violation when no feasible point is known, and
+        switch to its best feasible objective as soon as one is evaluated.
+        Only previously evaluated value/result pairs may be restored.
         """
         monitor = getattr(self.population.options, "reliability_monitor", None)
-        if monitor is None or monitor.best is None or monitor.best[1] != 0 or not kept:
+        if monitor is None or monitor.best is None or not kept:
             return kept
 
         objective, violation, values = monitor.best
@@ -139,7 +140,9 @@ class ConstraintHandlingCostFinder(ElitismCostFinder):
             kept[-1] = elite
             kept.sort(key=lambda c: self.handler.key(c.objective_value, c.violation_value))
 
-        # Immigration is allowed to replace other weak candidates, not this
-        # incumbent. Mutation and crossover only change new offspring.
-        elite._reliability_feasible_elite = True
+        # Preserve whichever incumbent the monitor currently selects:
+        # smallest violation before feasibility, best objective afterward.
+        elite._reliability_incumbent_elite = True
+        if violation == 0:
+            elite._reliability_feasible_elite = True
         return kept
