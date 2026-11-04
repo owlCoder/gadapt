@@ -140,6 +140,7 @@ class GAExecutor:
         before = self.reliability_monitor.evaluations if self.reliability_monitor is not None else None
         self.cost_finder.find_costs(self.population)
         if before is not None:
+            self.reliability_monitor.completed_generation()
             self._idle_generations = (self._idle_generations + 1
                                       if before == self.reliability_monitor.evaluations else 0)
         self.population.update_generations_without_improvement()
