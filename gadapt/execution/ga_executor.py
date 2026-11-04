@@ -70,9 +70,10 @@ class GAExecutor:
             self.candidate_solution_updater.cost_diversity_in_initial_population = (
                 self.population.absolute_cost_diversity_in_first_population)
             while not self.exit():
-                self.immigrate()
-                self.mate()
-                self.mutate()
+                if not self.restart_if_stagnant():
+                    self.immigrate()
+                    self.mate()
+                    self.mutate()
                 self.find_costs()
             if self.population.timeout_expired:
                 results.messages.append((message_levels.WARNING, "Timeout expired!"))
@@ -146,6 +147,64 @@ class GAExecutor:
         self.population.update_generations_without_improvement()
         self.decision_variable_updater.update_decision_variables(self.population)
         self.population_updater.update_population(self.population)
+
+    def restart_if_stagnant(self) -> bool:
+        """Opt-in full reseed after ineffective refreshes, retaining the evaluated incumbent.
+
+        Restart is attempted only at the next refresh boundary after the
+        configured number of failed refreshes. A complete new population must
+        fit inside the remaining call budget; otherwise continue normal search.
+        Candidate restoration is from the monitor's validated cache, never an
+        additional call to the objective.
+        """
+        monitor = self.reliability_monitor
+        options = self.ga_options
+        after = getattr(options, "reliability_restart_after_refreshes", None)
+        patience = getattr(options, "reliability_refresh_patience", None)
+        if (monitor is None or after is None or patience is None or
+                monitor.best is None or monitor.acceptable or
+                monitor.refreshes_since_improvement < after or
+                monitor.stagnant_generations == 0 or
+                monitor.stagnant_generations % patience != 0):
+            return False
+        # The incumbent is free to restore. Budget for every freshly sampled
+        # member before choosing to restart, so no partial reset occurs.
+        count = options.population_size - 1
+        if monitor.max_evaluations - monitor.evaluations < count:
+            return False
+
+        objective, violation, values = monitor.best
+        variables = sorted(options.decision_variables, key=lambda v: v.variable_id)
+        if len(variables) != len(values):
+            return False
+
+        elite = CandidateSolution(self.population.population_generation)
+        elite.candidate_solution_generation = 1
+        for variable, value in zip(variables, values):
+            elite.add_variable_value(variable, value)
+        elite.objective_value = objective
+        elite.violation_value = violation
+        elite.succ = True
+        elite.cost_value = (
+            self.cost_finder.handler.cost(objective, violation)
+            if options.constraint_handling is not None else objective
+        )
+        if violation == 0:
+            elite._reliability_feasible_elite = True
+
+        self.population.clear()
+        self.population.add_candidate_solution(elite)
+        for _ in range(count):
+            self.population.add_new_candidate_solution()
+        monitor.restarts += 1
+        monitor.refreshes_since_improvement = 0
+
+        controller = options.operator_credit_controller
+        if controller is not None:
+            # No crossover or mutation occurred this generation.
+            # Discard stale operator traces before evaluating fresh samples.
+            controller.begin_generation(self.population)
+        return True
 
     def immigrate(self):
         """
