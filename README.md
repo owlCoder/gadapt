@@ -455,7 +455,11 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   `(objective, violation)` and choose a `constraint_handling` technique.
 - `feasible`, `best_objective`, `best_violation` and `result_values` describe
   the best valid evaluated candidate, including probes, even if a later
-  generation fails. With a single-valued objective, feasibility means
+  generation fails. In opt-in constrained runs, the best *evaluated feasible*
+  candidate also retains one place among the survivors (even under a weak
+  penalty or an epsilon-based selection rule) and is protected from random
+  immigration. Restoration uses the cached evaluation, not another objective
+  call. With a single-valued objective, feasibility means
   *no explicit constraints beyond the declared variable bounds*; the library
   cannot check undeclared constraints.
 - `objective_evaluations` counts every attempted call through the monitored
