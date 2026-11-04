@@ -29,6 +29,7 @@ class GAResults:
         self.objective_evaluations = None
         self.valid_objective_evaluations = None
         self.invalid_objective_evaluations = None
+        self.stagnation_refreshes = None
         self.acceptable = None
         self.termination_reason = None
         self.solution_status = None
