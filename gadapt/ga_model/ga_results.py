@@ -27,6 +27,8 @@ class GAResults:
         # Populated only in the opt-in reliability mode. success keeps its
         # legacy meaning: technical execution, not problem-specific quality.
         self.objective_evaluations = None
+        self.valid_objective_evaluations = None
+        self.invalid_objective_evaluations = None
         self.acceptable = None
         self.termination_reason = None
 
