@@ -21,7 +21,7 @@ REQUIRED_KEYS = frozenset({f'run_part_{3*k+j}' for k in range(21) for j in (1, 2
 
 
 def validate_required_e_inputs(repo_root: Path, source_digests: dict,
-                               records: list) -> dict:
+                               records: list, *, original_r_roster_attested: bool = False) -> dict:
     """Check all present E inputs; verify required original replay inputs.
 
     When an original file is absent, report it instead of replacing data.
@@ -64,7 +64,8 @@ def validate_required_e_inputs(repo_root: Path, source_digests: dict,
                 raise ValueError(f'Original R task optimizer parameters differ from E freeze at index {i}')
             tasks_checked += 1
     # E-only audits have no recovered R records and MUST NOT report R-bootstrap readiness.
-    ready = not missing_required and bool(records) and tasks_checked == len(records)
+    ready = (not missing_required and original_r_roster_attested is True and
+             len(records) == 4200 and tasks_checked == 4200)
     return {
         'E_original_manifest_entries': len(EXPECTED_KEYS),
         'required_for_independent_R_seed_bootstrap': len(REQUIRED_KEYS),
