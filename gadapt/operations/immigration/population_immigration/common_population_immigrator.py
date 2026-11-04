@@ -22,6 +22,22 @@ class CommonPopulationImmigrator(BasePopulationImmigrator):
         """
         options = self.population.options
         fixed = options.immigration_number
+        monitor = getattr(options, "reliability_monitor", None)
+        refresh_patience = getattr(options, "reliability_refresh_patience", None)
+        self._stagnation_refresh_due = False
+        if monitor is not None and refresh_patience is not None:
+            stalled = monitor.stagnant_generations
+            self._stagnation_refresh_due = (
+                options.reliability_refresh_percentage > 0
+                and stalled >= refresh_patience
+                and stalled % refresh_patience == 0
+                and options.keep_number > 1
+            )
+        available = max(0, options.keep_number - 1)
+        refresh = (min(available, max(1, math.ceil(
+            options.keep_number * options.reliability_refresh_percentage / 100)))
+                   if self._stagnation_refresh_due else 0)
+        fixed = max(fixed, refresh)
         patience = options.adaptive_immigration_patience
         if patience is None or options.adaptive_immigration_percentage <= 0:
             return fixed
@@ -59,3 +75,5 @@ class CommonPopulationImmigrator(BasePopulationImmigrator):
         for c in candidate_solution_list:
             self._candidate_solution_immigrator.immigrate(c)
             c.population_generation = self.population.population_generation
+        if getattr(self, "_stagnation_refresh_due", False) and candidate_solution_list:
+            monitor.stagnation_refreshes += 1
