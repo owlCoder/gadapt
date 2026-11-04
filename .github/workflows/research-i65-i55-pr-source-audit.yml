@@ -176,6 +176,49 @@ jobs:
               json.dumps(report,sort_keys=True,indent=2)+'\n')
           print('ORIGINAL 620 NPZ: 40 cells with BOTH signed C1 corners, all 2D; 69 one-sign')
           PY
+      - name: Set up pinned Node.js for archived signed-C1 source-ledger reweighting
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fail-closed 13 tests against SHA-pinned original 109 signed NPZ ledger and 620-source CI evidence
+        run: |
+          node --test research/i65/archive_review/test_i55_109_signed_corner_source_weighting_gate.cjs
+      - name: Write exact original signed C1 event-vs-first-corner descriptive sensitivity report
+        run: |
+          node - <<'JS'
+          const fs=require('node:fs'), crypto=require('node:crypto');
+          const gate=require('./research/i65/archive_review/i55_109_signed_corner_source_weighting_gate.js');
+          const dir='research/i65/archive_review/';
+          function pinnedBlob(file,sha) {
+            const raw=fs.readFileSync(dir+file);
+            const git=crypto.createHash('sha1').update(Buffer.from('blob '+raw.length+'\0')).update(raw).digest('hex');
+            if(git!==sha)throw Error('Original Git blob source pin mismatch: '+file);
+            return JSON.parse(raw.toString('utf8'));
+          }
+          function pinnedCI(file,sha) {
+            const raw=fs.readFileSync(file);
+            if(crypto.createHash('sha256').update(raw).digest('hex')!==sha)
+              throw Error('Original read-only CI result SHA256 mismatch: '+file);
+            return JSON.parse(raw.toString('utf8'));
+          }
+          const signed=pinnedBlob('I65_I55_ORIGINAL_109_C1_POSITIVE_NPZ_SIGNED_CORNER_DIRECT_BINARY_REPLAY_2026-11-04.json',
+            '7f1716b061d703d5ab8c367d73386371dcb9d7a9');
+          const roster=pinnedBlob('I65_I55_109_C1_POSITIVE_NPZ_ORIGINAL_SOURCE_ROSTER_2026-11-04.json',
+            'f1dd7d1b283eba1ee12562acaf22a144d9c525d5');
+          const census=pinnedCI('i55_620_original_flag_census.json',
+            'a0bfb1bfeaa2979ae8f195ffbcde8c9ff2c45b0562f96ecdf7915e229963c4ea');
+          const phase=pinnedCI('i55_620_npz_phase_duplicate_context.json',
+            '14ee6ea5839b59f3b15403921b7ed76a45c72a0ec39321f5aefde16dbe21d82f');
+          const report=gate.verify(signed,roster,census,phase);
+          if(report.original_signed_observations.negative!==2050 ||
+             report.original_signed_observations.positive!==55 ||
+             report.cells_both_signed!==40 ||
+             report.new_optimizer_PF_OPF_COCO_runs!==0)
+             throw Error('Original event-level signed source counts changed');
+          fs.writeFileSync('i55_109_original_signed_C1_call_vs_first_corner.json',
+            JSON.stringify(report,null,2)+'\n');
+          console.log('Original 109 NPZ C1 signed event weighting PASS; negative 2050/2105 events vs 97/149 distinct corner visits');
+          JS
       - name: Preserve reports even if an attestation gate fails
         if: always()
         uses: actions/upload-artifact@v4
@@ -190,4 +233,5 @@ jobs:
             i55_620_npz_phase_duplicate_context.json
             i55_620_original_corner_sign_and_repeats.json
             i55_620_original_C1_both_sign_corner_occupancy.json
+            i55_109_original_signed_C1_call_vs_first_corner.json
           if-no-files-found: warn
