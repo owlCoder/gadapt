@@ -1,6 +1,7 @@
 import math
 from typing import List
 
+from gadapt.execution.reliability import EvaluationBudgetExhausted
 from gadapt.ga_model.candidate_solution import CandidateSolution
 from gadapt.operations.cost_finding.elitism_cost_finder import ElitismCostFinder
 from gadapt.utils.constraint_handling import ConstraintHandler, parse_pair
@@ -29,6 +30,8 @@ class ConstraintHandlingCostFinder(ElitismCostFinder):
         try:
             c.objective_value, c.violation_value = parse_pair(cost_function(values))
             c.succ = True
+        except EvaluationBudgetExhausted:
+            raise
         except Exception as ex:
             print(ex)
             c.objective_value, c.violation_value = None, math.inf
