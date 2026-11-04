@@ -35,3 +35,10 @@ physical I32 findings, verify a fresh engineering witness, or establish
 algorithm novelty. The separate I55 #14 draft, I64-R external source,
 A-prime/B raw traces, detector specificity, held-out COCO and M6/C1
 human originality decision remain unchanged: **NOT ESTABLISHED**.
+
+## Reproducibility gate
+
+CI must authenticate all seven historical Git blobs and pass the original
+zero-native-AC unit tests under patched PYPOWER runpf/runopf. Its two jobs
+must show **source-only success** and **physical experiment SKIPPED**.
+A CI success does **not** constitute independent AC witness validation.
