@@ -571,7 +571,17 @@ class GA:
             ga_options = GAOptions(configured)
             factory = self.get_factory()
             factory.initialize_factory(configured, ga_options)
-            return GAExecutor(ga_options, factory).execute()
+            executor = GAExecutor(ga_options, factory)
+            if monitor.acceptable:
+                # A custom factory may evaluate candidates while initializing.
+                # Such results are real objective calls, not speculative ones.
+                results = GAResults()
+                results.number_of_iterations = 0
+                results.termination_reason = "acceptable_target"
+                monitor.annotate(results)
+                return results
+            monitor.stop_on_acceptance = True
+            return executor.execute()
         except Exception as ex:
             results = GAResults()
             results.success = False
