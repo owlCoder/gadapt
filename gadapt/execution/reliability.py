@@ -111,17 +111,21 @@ class ReliabilityMonitor:
         """
         if not self.cache_evaluations:
             return None
-        try:
-            key = tuple(
-                (type(value), float(value).hex())
-                if isinstance(value, Real) and not isinstance(value, bool)
-                else (type(value), value)
-                for value in values
-            )
-            hash(key)
-            return key
-        except (TypeError, ValueError, OverflowError):
-            return None
+        # float(value) loses integer precision beyond 2**53 and may
+        # collapse distinct extended-precision scalars. Never use a lossy
+        # conversion to decide whether a real objective call can be skipped.
+        # Other numeric/user-defined types deliberately bypass caching.
+        key = []
+        for value in values:
+            if type(value) is int:
+                key.append((int, value))
+            elif type(value) is float:
+                key.append((float, value.hex()))
+            elif type(value) is bool:
+                key.append((bool, value))
+            else:
+                return None
+        return tuple(key)
 
     def completed_generation(self):
         """Count generations without a better *evaluated* incumbent.
