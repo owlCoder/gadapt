@@ -107,13 +107,13 @@ cover valid 4,200-row *synthetic* roster, tie, tiny increase,
 incorrect/missing/nonfinite final best, wrong/nonfinite best-vector,
 invalid call order and duplicate task identity.
 
+The original I64-R budget is **12,000 benchmark objective-function evaluations per run**, not physical AC load-flow or OPF evaluations. The recovery gate now labels this `objective_calls_per_run` instead of the misleading former `physical_calls_per_run`.
+
 The read-only I55 CI now **includes** these ten tests and the prior
 ten E source SHA-256 tests, for **115 total expected** test cases
 (86 previously passing + 11 E-input SHA tests + 10 strict Budget tests + 8 E-only manifest tests). **This latest CI version has
 not yet produced a confirmed GitHub Actions run**: do not report
-106/106 CI PASS until a run is independently observed. A minimal
-local contract smoke test passed, but no original R seed data exists
-here to test the full 4,200 recovered records.
+106/106 CI PASS until a run is independently observed. All **10/10 frozen-Budget synthetic contract tests** were also executed locally against a source-identical copy of the corrected `validate_r_records` function; the published test file's Git blob SHA matches exactly. Additionally **8/8 E-only manifest tests** passed locally using the exact original published auditor source, and the **11/11 E-input SHA-256 tests** passed locally using the exact published source. Thus **29/29 new synthetic cases PASS locally**, with *no original R seed records* and *no actual 66-source binary full-clone attestation yet*. The current full-clone GitHub CI result is still **NOT OBSERVED**.
 
 This is a **preflight-source authenticity correction only**; it
 does not recover the original off-Git R archive, replay its
