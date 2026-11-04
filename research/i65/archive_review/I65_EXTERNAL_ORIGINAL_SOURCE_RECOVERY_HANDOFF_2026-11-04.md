@@ -73,6 +73,41 @@ can then be handed to an independent analyst for a **read-only**
 algorithm and RNG seed 70; that analysis is **NOT performed by
 this handoff**. Do not alter any preregistered R hypothesis decision.
 
+## Additional optional full E aggregate recovery (not an R raw substitute)
+
+The original experiment also left the much larger **129 MB**
+`research/results/iteration64_e/run.json.gz` off Git. The original
+`research/results/iteration64_e/README_raw.txt` (original Git blob
+`75b72997275b2368cdfe7f62a4fb6b03e37ea11f`) documents the
+GitHub 100 MB size limit. Unlike the missing R raw file, this
+original E aggregate has a **historically committed complete SHA-256**,
+in original Git blob `5ab84804d195b4a75e80c700285acd3262fcb230`:
+
+```text
+1f0f4525d55b0ae4d1976824b9ca211d972914f82daae57c9c95243b55de271f
+```
+
+A local operator can find the authentic E aggregate, without rerunning
+any of its hundreds of original optimization cases:
+
+```bash
+find "$HOME" -type f -path '*/iteration64_e/run.json.gz' -print 2>/dev/null
+sha256sum '/original/path/research/results/iteration64_e/run.json.gz'
+```
+
+Only a **full exact digest match** can authenticate the retrieved E
+aggregate against this pre-existing Git file. Do not substitute its
+129 MB content for the separate missing **~8 MB R aggregate**.
+The original 63 E per-cell `run_part_*.json.gz` files and E
+`freeze`, `normalizers`, `manifest_run` are already tracked in
+the original non-truncated Git tree. The newly SHA-hardened
+[original R recovery gate](i64_r_off_git_raw_recovery_gate.py)
+requires 44 essential E files to be verified against original R/E
+SHA256 digests (42 shift/rot parts, frozen params and normalizers);
+a missing E aggregate is explicitly reported as optional and blocks
+only a *FULL* E-manifest claim, not the narrowly scoped seed-ECDF
+preflight.
+
 ## Original I55 A′/B coordinate sequences
 
 The original I55 source-results commit `ce90fb9f1de985f2dfd3572da2c60ab514305a88` is dated **2026-10-23**. A date-scoped GitHub Actions run listing returned **zero** workflows on that day (as also seen on 2026-10-29 for I64-R). This is a narrow Actions date check, **not** proof of absent source on local experimental machines.
