@@ -24,6 +24,9 @@ class GAOptions:
             ga.reliability_refresh_patience if self.reliability_monitor is not None else None
         )
         self.reliability_refresh_percentage = ga.reliability_refresh_percentage
+        self.reliability_restart_after_refreshes = (
+            ga.reliability_restart_after_refreshes if self.reliability_monitor is not None else None
+        )
         self.cost_diversity_metric = ga.cost_diversity_metric
         self.strict_mutation_decision_variable_limit = ga.strict_mutation_decision_variable_limit
         self.compensatory_mutation = ga.compensatory_mutation

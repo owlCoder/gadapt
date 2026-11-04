@@ -489,9 +489,16 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   population every five generations without an improvement of the *best
   evaluated* objective (or constraint violation until feasibility is found).
   It does not refresh by default: set a patience explicitly to enable it.
-  The existing feasible incumbent is protected, and the same total objective
-  budget applies; `result.stagnation_refreshes` reports how many refreshes
-  happened. No optimization-performance benefit is claimed yet.
+  With `reliability_restart_after_refreshes=2`, a stronger full-population
+  reseed occurs at the next refresh boundary after two refreshes without
+  incumbent improvement. The best *already evaluated* incumbent is restored
+  without another objective call, the remaining population is newly sampled,
+  and the restart is skipped if the remaining budget cannot evaluate a full
+  reseed. This fallback is also opt-in, and requires refresh to be enabled.
+  `result.stagnation_refreshes` and `result.reliability_restarts` report
+  the two interventions separately. The same hard objective budget applies.
+  Neither intervention has demonstrated an optimization-performance advantage
+  without prospective paired-seed experiments.
   Explicit exit functions, requested-cost exits and timeout remain active.
   The minimum `max_evaluations` is `population_size` plus two if
   `probe_cost_function=True`; both the budget and a finite
