@@ -40,7 +40,17 @@ jobs:
             --repo-root . --output i55_181_new_sha_pinned_evidence_audit.json
       - name: Fail-closed original I64-R / frozen E input SHA256 custody synthetic tests
         run: |
+          python -m py_compile research/i65/archive_review/i64_r_off_git_raw_recovery_gate.py research/i65/archive_review/i64_r_e_source_manifest_validation.py
           python -m unittest discover -s research/i65/archive_review -p 'test_i64_r_e_source_manifest_validation.py' -v
+          python - <<'PY'
+          import sys, inspect
+          sys.path.insert(0, 'research/i65/archive_review')
+          import i64_r_off_git_raw_recovery_gate as gate
+          import i64_r_e_source_manifest_validation as e
+          assert gate.validate_required_e_inputs is e.validate_required_e_inputs
+          assert 'validate_required_e_inputs(' in inspect.getsource(gate.audit)
+          print('ORIGINAL R RECOVERY GATE INTEGRATION SHA256-E-INPUT FAIL-CLOSED: PRESENT')
+          PY
       - name: Recheck frozen oracle, original source schema and Git tree gates
         run: |
           python -m unittest discover -s research/i65/archive_review -p 'test_i55_frozen_objective_oracle.py' -v
