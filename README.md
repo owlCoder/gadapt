@@ -429,6 +429,60 @@ ga.add(-25, 25, 1) # Refers to args[0]
 ga.add(-5, 5, 0.1) # Refers to args[1]
 
 ```
+### Opt-in reliability mode (bounded, quality-aware execution)
+
+For problems where a reproducible **acceptable** solution matters more than a
+record best case, use the opt-in reliability mode:
+
+```python
+from gadapt.ga import GA
+
+def objective(values):
+    return float((values[0] - 1.0) ** 2)
+
+ga = GA(cost_function=objective, reliability_mode=True,
+        max_evaluations=1000, acceptable_cost=0.01)
+ga.add(-5.0, 5.0)
+result = ga.execute()
+print(result.success, result.acceptable, result.termination_reason)
+print(result.objective_evaluations, result.result_values, result.best_objective)
+```
+
+- `success` still means *technical execution success*, **not** acceptable
+  optimization quality. `acceptable` is true only when an actually evaluated,
+  finite result meets the threshold, and (with `constraint_handling`) has
+  **zero reported constraint violation**. For a constrained problem, return
+  `(objective, violation)` and choose a `constraint_handling` technique.
+- `feasible`, `best_objective`, `best_violation` and `result_values` describe
+  the best valid evaluated candidate, including probes, even if a later
+  generation fails. With a single-valued objective, feasibility means
+  *no explicit constraints beyond the declared variable bounds*; the library
+  cannot check undeclared constraints.
+- `objective_evaluations` counts every attempted call through the monitored
+  objective, including the two default validation probes, exceptions and
+  non-finite responses. `valid_objective_evaluations` and
+  `invalid_objective_evaluations` split that count. A callback internally
+  running multiple physical simulations must enforce and report its own
+  underlying physical budget; this mode does not count those simulations.
+- `termination_reason` distinguishes `acceptable_target`, `budget_exhausted`,
+  `timeout`, `no_new_evaluations`, `exit_condition`,
+  `validation_failed` and `execution_error`. When a generation cannot
+  complete because the next objective call would exceed the limit, no extra
+  call is made and the last evaluated incumbent is reported.
+- For `reliability_mode=True`, the default `avg_cost` (or `min_cost`)
+  stagnation exit is replaced by a generation cap: the explicit
+  `number_of_generations` is retained, or a generous internal cap is used.
+  A run also stops after 20 generations without any new objective call.
+  Explicit exit functions, requested-cost exits and timeout remain active.
+  The minimum `max_evaluations` is `population_size` plus two if
+  `probe_cost_function=True`; both the budget and a finite
+  `acceptable_cost` are required. Existing defaults are unchanged unless
+  `reliability_mode` is enabled.
+
+This is an engineering safety mechanism, **not** a demonstrated improvement in
+the probability of reaching a quality target. Stagnation recovery, controlled
+immigration and restart policies still require paired-seed benchmark approval.
+
 ### GA Execution and Optimisation Results
 Genetic algorithm optimization executes by calling *execute* method, without parameters. This method returns the object of type *GAResults*, which contain following properties:
 - **success**  - Indicates if genetic algorithm optimisation executed successfully.
