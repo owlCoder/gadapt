@@ -6,6 +6,13 @@ on:
       - main
       - "research/**"
   pull_request:
+  workflow_dispatch:
+    inputs:
+      run_exploratory_benchmark:
+        description: 'Explicitly authorize 12 x 120 exploratory optimization benchmark'
+        type: boolean
+        required: true
+        default: false
 
 jobs:
   unittest:
@@ -23,6 +30,9 @@ jobs:
       - run: python -m unittest discover -s tests -v
 
   exploratory-benchmark:
+    # Never run optimization on pushes, merges, or pull requests.
+    # An operator must manually dispatch with explicit affirmative opt-in.
+    if: github.event_name == 'workflow_dispatch' && inputs.run_exploratory_benchmark == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
