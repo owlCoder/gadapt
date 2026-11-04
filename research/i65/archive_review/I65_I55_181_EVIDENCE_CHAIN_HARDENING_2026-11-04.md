@@ -103,3 +103,45 @@ review. Availability of all 439 was **not** established.
 `NOT_REPLAYED`, and none may be added to the 181/620 numerically reproduced
 coverage or to the 85,450 archived evaluated-call ledger until individually
 validated against original raw data.
+
+## Four additional original raw-source numeric replays (post-181 continuation)
+
+A direct GitHub-connected source-byte replay independently decoded four
+previously unreplayed archived NPZ files from original commit
+`6b56fbc53ffc4d275ecef5e911ea4663474c9a08`. Each was checked against
+the original Git blob bytes, original frozen per-library cell metadata,
+coordinate/phase/objective SHA-256 digest, all nine detector flags, the frozen
+objective formula, recorder precision and the original objective call count.
+The machine-readable proof is
+[`I65_I55_FOUR_MORE_RAW_NPZ_SOURCE_REPLAY_2026-11-04.json`](I65_I55_FOUR_MORE_RAW_NPZ_SOURCE_REPLAY_2026-11-04.json),
+Git blob `34aa6aad9eadcce8b2a433baac83dbef72058684`.
+
+| Library | Previously unreplayed source | Original calls | Outcome |
+|---|---|---:|---|
+| BayBE | `plateau_10_6000.npz` | 200 | PASS |
+| EvoX | `plateau_10_6000.npz` | 200 | PASS |
+| EvoTorch | `plateau_10_6000.npz` | 200 | PASS |
+| Nevergrad | `plateau_10_6002.npz` | 1000 | PASS |
+
+All four source paths were checked disjoint from the original 181 and present
+in the pinned 439-source worklist before replay. Follow-up independent
+metadata reconciliation found no mismatches, including frozen BayBE C1=30,
+C2=29 and EvoTorch C3=196. **This raises the on-branch raw A-process audit
+coverage to 185/620, 87,050 original archived calls, with 435 remaining**.
+Only the 181 stage is on `main`; do not conflate it with the new PR evidence.
+
+All four are plateau integer-valued objectives: while EvoX/EvoTorch recorded
+`float32`, these examples do not stress nontrivial float32 rounding.
+No new optimizer, physical or COCO run was intentionally requested for this
+source audit. Existing PR-wide CI had previously triggered an unrelated
+exploratory benchmark by default; that automatic CI contamination was detected
+and the `exploratory-benchmark` job was guarded against PR events on this
+review branch. Subsequent archival-evidence commits used `[skip ci]` until
+the guard was installed.
+
+The isolated workflow
+[`research-i65-i55-pr-source-audit.yml`](../../.github/workflows/research-i65-i55-pr-source-audit.yml)
+runs only provenance tests, archived read-only NPZ decoders and a fail-closed
+620-source attestation; it contains no optimization command. Its actual
+runtime result must be checked separately: writing this workflow is not proof
+that the 620 files have passed full replay.
