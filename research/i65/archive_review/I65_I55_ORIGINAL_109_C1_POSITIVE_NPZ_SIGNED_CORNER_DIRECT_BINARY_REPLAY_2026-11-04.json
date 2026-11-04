@@ -8,7 +8,7 @@
   "independent_js_decoder_git_sha1": "7c0d2bbf23cf7e1dea209651d3778cb0c3030711",
   "expected_source_C1_positive_cells": 109,
   "expected_C1_signed_corner_events": 2105,
-  "original_entries_rechecked": 106,
+  "original_entries_rechecked": 109,
   "entries": [
     {
       "path": "research/results/iteration55/traces/baybe/sphere_2_6000.npz",
@@ -1281,6 +1281,42 @@
       "C1": 2,
       "negative_corner_events": 1,
       "positive_corner_events": 1
+    },
+    {
+      "path": "research/results/iteration55/traces/niapy/sphere_2_6000.npz",
+      "source_git_blob_sha1": "14ee6fb2fecad915257a9808d93c0c817168829b",
+      "library": "niapy",
+      "function": "sphere",
+      "d": 2,
+      "seed": 6000,
+      "original_calls": 200,
+      "C1": 1,
+      "negative_corner_events": 1,
+      "positive_corner_events": 0
+    },
+    {
+      "path": "research/results/iteration55/traces/niapy/plateau_2_6001.npz",
+      "source_git_blob_sha1": "b48a58636f1f6b9dadd1a43300333f6c10923540",
+      "library": "niapy",
+      "function": "plateau",
+      "d": 2,
+      "seed": 6001,
+      "original_calls": 200,
+      "C1": 1,
+      "negative_corner_events": 1,
+      "positive_corner_events": 0
+    },
+    {
+      "path": "research/results/iteration55/traces/niapy/plateau_2_6003.npz",
+      "source_git_blob_sha1": "202dfc49147b96111e2d2a66f206d323e83a407a",
+      "library": "niapy",
+      "function": "plateau",
+      "d": 2,
+      "seed": 6003,
+      "original_calls": 200,
+      "C1": 1,
+      "negative_corner_events": 1,
+      "positive_corner_events": 0
     }
   ],
   "caution": "Direct original binary x.npy from Git at immutable source commit; source Git blob, byte size and original per-cell C1 must match. Do not infer a scientific defect from C1.",
