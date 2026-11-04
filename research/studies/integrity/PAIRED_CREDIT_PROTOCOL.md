@@ -1,1 +1,0 @@
-../../legacy/flat/PAIRED_CREDIT_PROTOCOL.md

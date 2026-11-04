@@ -1,1 +1,0 @@
-../../legacy/flat/ITERATION40_PROTOCOL.md

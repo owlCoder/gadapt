@@ -1,1 +1,0 @@
-../legacy/flat/geant_temporal_benchmark.py

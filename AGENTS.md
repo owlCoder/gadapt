@@ -1,136 +1,66 @@
-# GAdapt: Repository Instructions for Coding and Research Agents
+# GAdapt — active repository agent instructions
 
-These instructions apply to work in `owlCoder/gadapt`. For specialized workflows, use the repository skills in `.agents/skills/`:
+This is the **lean Python genetic-algorithm library** branch.
+Read [RELIABILITY_ROADMAP.md](RELIABILITY_ROADMAP.md) and
+[ARCHIVE.md](ARCHIVE.md) before starting optimization or research work.
 
-- `literature-auditor`: independent, read-only review of prior art and novelty.
-- `math-reviewer`: read-only proof and mathematical assumption checks.
-- `implementation-engineer`: implementation and validation only after a research protocol is approved.
+## Primary goal
+Improve the probability that GAdapt returns a **feasible, sufficiently
+good solution within a fixed verified evaluation budget**, especially
+reducing catastrophic worst-seed outcomes, while keeping the original
+library API and defaults backward compatible until explicitly approved.
 
-Read each skill's `SKILL.md` when its workflow is needed. All research gates and repository constraints in this document remain in effect.
+## Repository layout
+- `gadapt/` — package implementation, Python 3.10+, NumPy 1.26.4.
+- `tests/` — stdlib `unittest` regression and synthetic-contract tests.
+- `.github/workflows/robustness-tests.yml` — automatically checks the
+  package across Python 3.10, 3.11 and 3.12; **no optimizer benchmarks**.
+- `archive/pre-reliability-cleanup-2026-11-04` — the entire original
+  research source and original Git-tracked data; baseline commit
+  `02ed2261397edb0b279f82f6e7af1271564ff579`.
+  The original research sources and workflows were *moved off main*,
+  **not deleted from the repository's Git history**.
 
-**2026-11-01 research layout migration:** Most historical `research/iteration*.py` entrypoints and reports now live byte-identically at `research/legacy/flat/` and are indexed under `research/studies/iNN/`. Before running legacy commands specified below, call `python research/compat/restore_legacy_paths.py --apply --verify` in a local checkout. The default dry-run `--verify` does not add links. See `research/MIGRATION_MANIFEST_2026-11-01.json`, `research/REORGANIZATION_REPORT_2026-11-01_SR.md`. The historical regression suite has NOT yet been validated after migration. **Do not run legacy modules via research/studies/iNN/ or research/legacy/flat directly**: __file__-based provenance in I56/I58/I61/I63 depends on the original research root path. Automatic import fallback is intentionally disabled; restore original root symlinks with --apply --verify before importing legacy modules. See research/ITERATION65_MIGRATION_COMPAT_GATE_2026-11-01_SR.md. This change does not modify optimizer behavior or frozen scientific sources.
-
-**Current canonical research entry points (2026-11-01):** `research/EVIDENCE_SYNTHESIS.md` (cross-study evidence, negative/STOP outcomes), `research/RESEARCH_DECISION_2026-11-01.md` (prior-art, method and GO/NO-GO), and `research/LANGUAGE_AUDIT_2026-11-01.json` (corrected Git mode-aware source/alias counts). Previous audit v1 counted 20 symlinks as untranslated documents; current actual counts are 121 regular `_SR.md` sources, 24 translated, 97 untranslated. Do not treat English abstracts as full translations or delete frozen historical sources. The AGENTS novelty gate remains binding.
-
-## Resume protocol (every new session, after crash/power loss)
-1. Read `research/PHD_PROGRESS.md` — the single source of truth for where work stopped. Continue from its "NEXT STEP".
-2. Update `research/PHD_PROGRESS.md` after every meaningful research step. During an explicitly authorized ongoing
-   research session, commit progress LOCALLY for crash recovery. For one-off changes, only commit when requested.
-   Push only with authorization, in batches (end of a phase/session or when asked): pushes to `main` can trigger
-   `robustness-tests.yml` and consume CI minutes.
-3. The established research workflow uses `main` of `owlCoder/gadapt` (local clone: `~/Desktop/gadapt`);
-   do not create feature branches or pull requests unless the maintainer changes this workflow. Record changes accurately.
-4. Python: `.venv/bin/python` (numpy, scipy, networkx, hypothesis, pytest). Tests: `.venv/bin/python -m pytest -q research/test_iteration41_*.py`.
-5. If reasoning effort is configurable, use at most `high`. Delegate sparingly, mainly for substantial independent literature reviews.
-
-**Research documentation language policy (2026-11-01):** Write new and revised active research documentation in English. Historic files ending in `_SR.md` are not automatically translations or duplicate English content. See `research/LANGUAGE_AUDIT_2026-11-01.json` and `research/LANGUAGE_POLICY.md`. For translations, preserve every result, statistic, hypothesis decision, limitations, and the byte-identical Serbian original blob; keep old paths stable for frozen references. Do not translate or rewrite historical `PHD_PROGRESS.md` entries in place; append English updates instead.
-
-## Objective
-Produce a defensible original scientific contribution to GAdapt for infrastructure optimization.
-Research validity is more important than experiment count, positive results, or code volume.
-
-## Mandatory research gates
-1. Read the latest handoff and research history (`research/PHD_PROGRESS.md`, latest ITERATION* docs).
-2. Search relevant prior art before proposing novelty.
-3. Identify the exact mathematical difference from prior work.
-4. State a falsifiable hypothesis and strong baselines.
-5. Freeze protocol, datasets, metrics, seeds and budgets (commit BEFORE code/runs).
-6. Only then run real experiments.
-7. Archive inputs, source hashes, raw outputs and negative results.
-
-## Hard constraints
-- Never modify upstream `bpzoran/gadapt` (its push URL is disabled in this clone).
-- GitHub write actions (issues, PRs, comments, reactions) ONLY on the user's own repo `owlCoder/gadapt`. Never on
-  third-party repos (user, 2026-10-24). Reading their issues is fine; upstream report drafts go to `research/` for the user.
-- Never claim originality from implementation alone. Never invent citations: verify every DOI.
-- Never invent or reconstruct missing research data (e.g. the lost SNDlib temporal TGZ, SHA `2c3ca706…`).
-- Never tune methods using held-out results. Never repeat an experiment until it becomes positive.
-- Separate synthetic validation from real infrastructure evidence.
-- Preserve existing GAdapt behavior unless explicitly authorized (new behavior = opt-in, default bit-identical).
-- Do not run physical/expensive CI workflows automatically.
-
-## Required output for every research proposal
-Research question · closest known prior art with DOI · precise novelty claim or "not established" ·
-formal assumptions and proposed theorem · strongest baselines · falsification experiment ·
-computational budget · GO / NO-GO. If novelty is not established, STOP before implementation.
-
----
-
-# GAdapt
-
-Self-adaptive genetic algorithm library (Python 3.10+, NumPy only), published on PyPI as `gadapt`.
-Pure Python, no compiled code. `README.md` is also the PyPI long description.
-
-## Running and verifying
-- The library does not have a comprehensive package-level test suite, but research tests exist. Verify relevant changes
-  using the README examples (`from gadapt.ga import GA`), applicable research tests, and,
-  for changes affecting search behaviour or speed, paired-seed benchmarks. `benchmarks/std_dev_floor.py` is a template
-  (multiprocessing, the experiments' GA configuration, gap to the known optimum, Wilcoxon per cell); run it from a scratch directory.
-- Use the repo's pyenv Python (`.python-version` = 3.12). Other interpreters on this machine lack NumPy.
-- `logging=True` writes a `log/` folder into the current working directory (git-ignored). Run experiments
-  from a scratch directory so it doesn't land in the repo.
-- Results are stochastic. Seed **both** `random.seed(s)` and `numpy.random.seed(s)`, and compare over several
-  seeds (6+) before concluding anything about speed or quality; per-run differences under ~10% are noise.
-  Compare cost-function evaluations, not only wall-clock time: iteration counts vary between runs.
+## Safety and quality requirements
+1. Never overwrite, fabricate, or regenerate historical research data.
+2. Do not claim an algorithmic advantage from clean CI, synthetic
+   tests, old archives, anecdotal runs, or a post-hoc selected result.
+3. No new optimization benchmarks, objective evaluations, PF/AC/OPF,
+   expensive CI, or held-out COCO without specific user authorization
+   and an approved protocol, seeds, budget, baselines and metric.
+4. Separate an execution that returns successfully from a run that
+   reaches a problem-specific quality threshold; track feasibility,
+   total true objective calls and failed/timeout cases.
+5. Prefer backward-compatible, **opt-in** reliability features.
+   Never silently change the original optimizer defaults, consume
+   extra objective calls, or discard a validated best-ever incumbent.
+6. Guard every implementation change with deterministic tests, then
+   validate the standard regression suite. Keep expensive experiments
+   out of automatic GitHub Actions.
+7. Source control changes target only the user's `owlCoder/gadapt`
+   repository; never modify upstream `bpzoran/gadapt`.
+8. Historical research is **DRAFT / NO-FREEZE / NOT_ESTABLISHED**;
+   M3/M5/M6/C1 scientific signoffs and original off-Git I64-R data
+   are still missing. Historical original E/R/I55/I32 evidence is
+   available in the archived branch.
 
 ## Architecture
-- `GA` (`gadapt/ga.py`) holds the user-facing parameters and validates them. `execute()` clones the GA, builds
-  `GAOptions` from it, and runs `GAExecutor` with a factory. Defaults that depend on the added variables
-  (e.g. `ensure_unique_individuals=None`) must be resolved in `GAOptions`, not in `GA.__init__`, because
-  variables are added after construction.
-- Each generation (`gadapt/execution/ga_executor.py`): exit check -> immigrate -> mate -> mutate -> find costs
-  (the elitism cost finder keeps the best `keep_elitism_percentage`, then decision-variable and population stats are updated).
-- `gadapt/operations/*` holds one package per step (selection, sampling, crossover, mutation, exit check, ...),
-  each with a `base_*` abstract class. `GAFactory` (`gadapt/factory/ga_factory.py`) builds all of them from
-  the options; users customise by subclassing it and overriding a `_get_*` method. The factory is only
-  initialised inside `GA.execute()`, so don't create option-dependent objects before that.
-- Mutation/crossover choices are comma-separated strings (`"cost_diversity,parent_diversity"`); the valid
-  tokens live in `gadapt/ga_model/definitions.py`. `crossover` also carries the probability method
-  (`"blending,cost_diversity"`).
-- Model: `Population` -> `CandidateSolution` -> `VariableValue` (a value) -> `DecisionVariable` (bounds, step, shared by variable values).
+- Public API: `gadapt/ga.py` (`GA.execute()`, `ga.add()`).
+- Runtime: `gadapt/execution/ga_executor.py`.
+- Model: `gadapt/ga_model/`; factories: `gadapt/factory/`.
+- Selection/crossover/mutation/exit/immigration/cost:
+  `gadapt/operations/`.
+- Cost failure and constraint feasibility:
+  `gadapt/operations/cost_finding/` and
+  `gadapt/utils/constraint_handling.py`.
+- Preserve existing user custom factories and defaults.
 
-## Behaviour to keep in mind
-- `ga.add(min, max, step)`: the step is the value grid; no step means a continuous variable.
-- Uniqueness (`ensure_unique_individuals`): `Population` remembers value tuples in `_seen_candidate_solutions`.
-  Anything that changes variable values after a candidate solution is added must call `population.register_candidate_solution(c)`.
-  `add_candidate_solution` returns `False` (and silently drops the candidate solution) when the population is full.
-  It is a real cost late in a run (many retries once the search converges), but it avoids repeated evaluations.
-- Two coefficients are NaN unless the updater that computes them is created, and the factory creates each only when its token
-  appears in a relevant option: `columnar_diversity_coefficient` (`ColumnarDiversityDecisionVariableUpdater`, token
-  `variable_columnar_diversity` in a mutation **or crossover** option, see `_get_decision_variable_updater`) and
-  `relative_cost_diversity_coefficient` (`CostDiversityPopulationUpdater`, token `cost_diversity` in `population_mutation` **or
-  `crossover`**, see `_get_population_updater`). Anything new that reads one of them must be covered there. A NaN crossover
-  probability used to hang `BaseCrossover._mate_pair` forever; it is now an error.
-- `normal_distribution_mutation_min_std_dev_decay_generations` (default `None` = off) is an opt-in: the lower bound of the Gaussian mutation's
-  standard deviation is divided by 10 per N consecutive generations without improvement of the minimal cost (`Population.generations_without_improvement`,
-  the same count that drives the exit rule), floored at one step for discrete variables. With it off, results must stay bit-identical:
-  check a seeded run before and after any change to the Gaussian mutators. Measured on the continuous benchmarks (see the benchmark script):
-  min std dev 1e-4 + decay 2.5 gives ~1.8 orders of magnitude lower median gap for ~20% more evaluations; a fixed floor below one step
-  hurts discrete variables, and a fixed floor <= 1e-5 hurts 20 variables (the 600-generation cap is reached before convergence).
-- `GA.execute()` validation calls the cost function on all-min and all-max values (2 real evaluations, not part of the search).
-  Budget wrappers count them; with binary route choice all-min is exactly the trivial "first path" solution (see research I43).
-  `probe_cost_function=False` (opt-in) skips them.
-- `VariableColumnarDiversityDecisionVariableMutationRateDeterminator` raises the UPPER LIMIT of mutated decision variables to
-  at least round(N/5), ignoring `number_of_mutation_decision_variables`; the actual count is then drawn uniformly from 1 to that limit; `strict_mutation_decision_variable_limit=True`
-  (opt-in) caps it. Crossover duplicate repair (`BaseCrossover`) mutates separately with an attempt-based limit.
-- `ga_utils.average_difference` averages adjacent gaps of the sorted values, which telescopes to (max - min)/(n - 1): the default
-  cost diversity (log-shifted costs, ratio to generation 0) is a normalized log-RANGE of survivor costs, insensitive to interior
-  costs (one outlier keeps it high and the cost-diversity mutation low).
-- Columnar diversity is measured on log((v - min) + 1) by default: NOT invariant to units / position in the range
-  (optimum near the upper bound of a large-range variable is reached ~10^3-10^4 worse, research I46 notes).
-  `columnar_diversity_metric="linear"` (opt-in) is invariant.
-- Bit-identity check for library changes: seeded call-sequence hashes (every argument vector and cost) before/after.
-- `ParentDiversityCandidateSolutionUpdater` is a singleton (`__new__`), so its state is shared across `GA` instances.
-- Pure-Python per-decision-variable overhead dominates for cheap cost functions (~1 ms/generation at pop 32 x 10 decision variables,
-  scaling linearly with population size and decision-variable count). For real cost functions, the number of evaluations
-  per generation is what matters.
+## Verification
+```sh
+python -m pip install -e .
+python -m unittest discover -s tests -v
+```
 
-## Conventions
-- Version lives only in `setup.py`; this project bumps the patch number per release (0.4.x).
-- A new `GA` parameter needs: constructor argument, property + setter in `ga.py`, the field in `GAOptions`,
-  a docstring entry, and an entry in the README "Parameters Description". Keep README code blocks runnable.
-- Renaming a `GA` parameter: add the old name to `DEPRECATED_PARAMETER_NAMES` in `ga.py` (it gives the constructor kwarg and a
-  warning property alias automatically) and to the README "Previous Parameter Names" table.
-  Renaming an option value (a token like `"cost_diversity"`): add it to `DEPRECATED_OPTION_VALUES`.
-- Known typo kept in sync with the README: "Calculation not succesful" (`ga_strings.py`).
-- For ad-hoc work, do not commit or push unless asked. For explicitly authorized ongoing research, follow the local crash-safety commit protocol above; push only with permission. Never bump the package version without explicit approval.
+For numerical performance comparisons use **approved paired-seed,
+fixed actual objective-budget** runs, not only generation count or wall
+time. The current suite does **not** prove general optimizer reliability.

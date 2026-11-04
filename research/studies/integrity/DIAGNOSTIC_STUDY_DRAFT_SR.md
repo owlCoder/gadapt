@@ -1,1 +1,0 @@
-../../legacy/flat/DIAGNOSTIC_STUDY_DRAFT_SR.md

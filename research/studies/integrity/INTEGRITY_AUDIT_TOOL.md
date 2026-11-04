@@ -1,1 +1,0 @@
-../../legacy/flat/INTEGRITY_AUDIT_TOOL.md

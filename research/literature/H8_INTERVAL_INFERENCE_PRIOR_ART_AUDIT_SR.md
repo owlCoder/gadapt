@@ -1,1 +1,0 @@
-../legacy/flat/H8_INTERVAL_INFERENCE_PRIOR_ART_AUDIT_SR.md

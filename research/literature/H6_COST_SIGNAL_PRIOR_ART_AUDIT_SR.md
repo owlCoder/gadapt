@@ -1,1 +1,0 @@
-../legacy/flat/H6_COST_SIGNAL_PRIOR_ART_AUDIT_SR.md
