@@ -38,6 +38,9 @@ jobs:
         run: |
           python research/i65/archive_review/i55_181_npz_evidence_reconcile.py \
             --repo-root . --output i55_181_new_sha_pinned_evidence_audit.json
+      - name: Fail-closed original I64-R / frozen E input SHA256 custody synthetic tests
+        run: |
+          python -m unittest discover -s research/i65/archive_review -p 'test_i64_r_e_source_manifest_validation.py' -v
       - name: Recheck frozen oracle, original source schema and Git tree gates
         run: |
           python -m unittest discover -s research/i65/archive_review -p 'test_i55_frozen_objective_oracle.py' -v
