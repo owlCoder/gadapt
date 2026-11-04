@@ -7,7 +7,7 @@ from gadapt.factory.ga_factory import BaseGAFactory
 from gadapt.ga_model.ga_options import GAOptions
 from gadapt.ga_model.ga_results import GAResults
 from gadapt.ga_model.population import Population
-from gadapt.execution.reliability import EvaluationBudgetExhausted
+from gadapt.execution.reliability import EvaluationBudgetExhausted, AcceptableTargetReached
 
 
 class GAExecutor:
@@ -89,6 +89,10 @@ class GAExecutor:
                     results.best_objective, results.best_violation, values = best
                     results.feasible = results.best_violation == 0
                     results.result_values = dict(values)
+        except AcceptableTargetReached:
+            # Target reached inside cost finding (or an objective-backed operator).
+            # The monitor has the exact evaluated incumbent; no further calls.
+            self.termination_reason = "acceptable_target"
         except EvaluationBudgetExhausted:
             self.termination_reason = "budget_exhausted"
         except Exception as ex:
