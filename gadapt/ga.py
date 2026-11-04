@@ -600,7 +600,14 @@ class GA:
                 monitor.annotate(results)
                 return results
             monitor.stop_on_acceptance = True
-            return executor.execute()
+            results = executor.execute()
+            if self.reliability_discrete_certify:
+                # Finite grid too large, unavailable, or not truly discrete:
+                # stochastic GA ran, so no coverage claim is permitted.
+                results.discrete_search_applied = False
+                results.discrete_space_exhausted = False
+                results.discrete_absence_certified = False
+            return results
         except Exception as ex:
             results = GAResults()
             results.success = False
