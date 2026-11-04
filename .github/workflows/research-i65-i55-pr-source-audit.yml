@@ -50,6 +50,7 @@ jobs:
           python -m py_compile research/i65/archive_review/i64_r_off_git_raw_recovery_gate.py research/i65/archive_review/i64_r_e_source_manifest_validation.py
           python -m unittest discover -s research/i65/archive_review -p 'test_i64_r_e_source_manifest_validation.py' -v
           python -m unittest discover -s research/i65/archive_review -p 'test_i64_r_original_budget_strict_consistency.py' -v
+          python -m unittest discover -s research/i65/archive_review -p 'test_i64_r_full_digest_readiness.py' -v
           python -m unittest discover -s research/i65/archive_review -p 'test_i64_r_archived_e_only_attestation.py' -v
           python -m unittest discover -s research/i65/archive_review -p 'test_i64_r_e_only_end_to_end_contract.py' -v
           python research/i65/archive_review/i64_r_archived_e_only_attestation.py \
