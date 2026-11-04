@@ -111,5 +111,26 @@
   "new_signed_corner_unit_tests": "research/i65/archive_review/test_i55_620_corner_direction_source_audit.py",
   "new_signed_corner_Github_CI": "NOT_YET_OBSERVED",
   "new_optimizer_PF_OPF_COCO_runs": 0,
-  "science_state": "DRAFT / NO-FREEZE / NOT_ESTABLISHED"
+  "science_state": "DRAFT / NO-FREEZE / NOT_ESTABLISHED",
+  "direct_original_git_binary_signed_event_followup": {
+    "status": "CLOSED_DIRECT_BINARY_109_OF_109_SOURCE_C1_POSITIVE_NPZ",
+    "original_620_valid_A_NPZ_prior_CI_pass": 620,
+    "original_109_C1_positive_NPZ_SHA1_and_shape_checked": 109,
+    "original_C1_zero_NPZ_excluded_by_frozen_source_metadata": 511,
+    "all_negative_corner_events": 2050,
+    "all_positive_corner_events": 55,
+    "first_negative": 97,
+    "first_positive": 52,
+    "exact_repeat_negative": 1953,
+    "exact_repeat_positive": 3,
+    "original_both_signed_cells": 40,
+    "all_positive_events_dimension": "2D_ONLY",
+    "original_source_commit": "6b56fbc53ffc4d275ecef5e911ea4663474c9a08",
+    "original_C1_source_roster_git_blob_sha1": "f1dd7d1b283eba1ee12562acaf22a144d9c525d5",
+    "original_109_source_binary_machine_result": "I65_I55_ORIGINAL_109_C1_POSITIVE_NPZ_SIGNED_CORNER_DIRECT_BINARY_REPLAY_2026-11-04.json",
+    "original_109_machine_result_git_blob_sha1": "7f1716b061d703d5ab8c367d73386371dcb9d7a9",
+    "methods": "I65_I55_ORIGINAL_620_C1_SIGNED_CORNER_DIRECT_BINARY_FORENSICS_2026-11-04.md",
+    "separate_latest_full_clone_python_CI": "NOT_YET_OBSERVED",
+    "caveat": "These event-side totals are not mathematically recoverable from aggregate phase/census JSON alone: the separate direct original NPZ binary read supplies them."
+  }
 }
