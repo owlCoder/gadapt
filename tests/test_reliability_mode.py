@@ -178,6 +178,43 @@ class ReliabilityModeTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "requires reliability_mode"):
             GA(cost_function=lambda values: 0.0, reliability_discrete_certify=True)
 
+    def test_cache_does_not_collapse_large_distinct_integers(self):
+        # float(2**53) == float(2**53 + 1): previous key collided.
+        calls = []
+
+        def objective(values):
+            calls.append(values[0])
+            return float(len(calls))
+
+        monitor = ReliabilityMonitor(objective, 3, -1.0, False,
+                                     cache_evaluations=True)
+        self.assertEqual(monitor([2**53]), 1.0)
+        self.assertEqual(monitor([2**53 + 1]), 2.0)
+        self.assertEqual(monitor([2**53]), 1.0)
+        self.assertEqual(monitor.evaluations, 2)
+        self.assertEqual(monitor.cached_objective_requests, 1)
+        self.assertEqual(calls, [2**53, 2**53 + 1])
+
+    def test_cache_bypasses_extended_precision_numpy_scalars(self):
+        # np.longdouble may have more precision than float; cache must not
+        # silently merge different inputs on such platforms.
+        calls = []
+
+        def objective(values):
+            calls.append(values[0])
+            return float(len(calls))
+
+        monitor = ReliabilityMonitor(objective, 3, -1.0, False,
+                                     cache_evaluations=True)
+        x = np.longdouble(1)
+        y = np.nextafter(x, np.longdouble(2))
+        self.assertEqual(monitor([x]), 1.0)
+        self.assertEqual(monitor([y]), 2.0)
+        self.assertEqual(monitor([x]), 3.0)
+        self.assertEqual(monitor.evaluations, 3)
+        self.assertEqual(monitor.cached_objective_requests, 0)
+        self.assertEqual(len(calls), 3)
+
     def test_cache_reuses_valid_identical_vector_without_spending_budget(self):
         seen = []
 
