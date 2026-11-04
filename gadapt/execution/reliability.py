@@ -24,6 +24,9 @@ class ReliabilityMonitor:
         self.valid_evaluations = 0
         self.invalid_evaluations = 0
         self.best = None  # (objective, violation, immutable snapshot of decision values)
+        self.stagnant_generations = 0
+        self.stagnation_refreshes = 0
+        self._completed_generation_best = None
 
     def __deepcopy__(self, memo):
         # Population.clone() deep-copies GAOptions for its initial snapshot.
@@ -69,6 +72,24 @@ class ReliabilityMonitor:
             self.best = (objective, violation, evaluated_values)
         return result
 
+    def completed_generation(self):
+        """Count generations without a better *evaluated* incumbent.
+
+        Compare objective only among feasible candidates; until feasible,
+        prioritize lower violation. This deliberately ignores changing
+        penalty weights, scalar cost diversity, and population averages.
+        Call once after a complete generation's objective evaluations.
+        """
+        if self.best is None:
+            return
+        objective, violation, _ = self.best
+        quality = (0, objective) if violation == 0 else (1, violation, objective)
+        if self._completed_generation_best is None or quality < self._completed_generation_best:
+            self.stagnant_generations = 0
+        else:
+            self.stagnant_generations += 1
+        self._completed_generation_best = quality
+
     @property
     def acceptable(self):
         return (self.best is not None and self.best[1] == 0
@@ -79,6 +100,7 @@ class ReliabilityMonitor:
         results.objective_evaluations = self.evaluations
         results.valid_objective_evaluations = self.valid_evaluations
         results.invalid_objective_evaluations = self.invalid_evaluations
+        results.stagnation_refreshes = self.stagnation_refreshes
         results.acceptable = self.acceptable
         results.feasible = self.best is not None and self.best[1] == 0
         if self.best is None:
