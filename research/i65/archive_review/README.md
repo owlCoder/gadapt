@@ -1,4 +1,50 @@
-# I65 archive verification and post-hoc influence review — integrated, 2026-11-03
+# I65 archive verification and post-hoc influence review — current 2026-11-04 evidence index
+
+## Current verified position (supersedes earlier dated NOT_RUN statements)
+
+**2026-11-04:** On the draft I55 review branch, a full-clone read-only GitHub Actions run
+[41804478669](https://github.com/owlCoder/gadapt/actions/runs/41804478669)
+verified **all 620/620 original valid A-process NPZ Git blobs, full SHA-256
+trace/flag sequences, and 295,445 archived objective values** with zero
+mismatches. The archive excludes 10 historical failed Nevergrad cells.
+**86 synthetic/unit tests** passed in seven suites. Original source commit:
+`6b56fbc53ffc4d275ecef5e911ea4663474c9a08`; manifest Git blob:
+`50ca2e96762447070a74309850cb1aa6586d3eb3`. CI artifact
+`13309441677` ZIP SHA-256
+`b80fb1d666fdc05c219ad5c354a8fc495100aacb9b6822533b002731f378fd41`.
+
+All original C1/C2 indicators were also partitioned by archived phase:
+**C1 2,105 search / 0 post**, **C2 17,579 search / 1,200 post**,
+with **1,956 C1 and C2 overlap events**. All 1,200 post events are
+exact-coordinate repeats in the historical PyGAD 30-cell source set.
+**205/210** original (library × dimension × seed) strata have all
+three functions and allow matched C1/C2 comparisons. These observed
+flags are NOT independently adjudicated software bugs; neither
+root-cause attribution nor diagnostic specificity is established.
+
+Latest evidence:
+- [Original raw NPZ phase/duplicate analysis](I65_I55_620_RAW_PHASE_AND_C1_C2_DUPLICATE_FORENSICS_2026-11-04.md)
+- [Full 620-source flag census](I65_I55_620_FLAG_CENSUS_AND_POST_ATTESTATION_OPEN_GATES_2026-11-04.md)
+- [205 matched-stratum context review](I65_I55_205_PAIRED_C1_C2_CONTEXT_REVIEW_2026-11-04.md)
+- [Source-authenticated machine-readable post-620 gate register](I65_POST_620_ORIGINAL_A_PROCESS_EVIDENCE_GATE_REGISTER_2026-11-04.json)
+
+**Historical note:** All 2026-11-02/03 *NOT_RUN* and *1/5/55/181
+source* statements below are dated snapshots from before the
+2026-11-04 full-clone CI attestations; their numerical subset counts
+must NOT be added to the completed 620 or treated as an outstanding
+439-source worklist. Original A-prime/B raw coordinates and the
+off-Git I64-R 4,200-run source were **not** recovered; the separate
+[I32 original source recovery draft PR #15](https://github.com/owlCoder/gadapt/pull/15)
+restores byte-identical historical code but is not an independent
+physical experiment and its new CI requires separate confirmation.
+
+**Scientific status remains DRAFT / NO-FREEZE / NOT_ESTABLISHED.
+Human M6/C1 sign-off pending, independent detector specificity/ORPD
+review absent, held-out COCO NOT_RUN and NOT_AUTHORIZED.**
+
+---
+
+## Earlier review log — historical as-of 2026-11-03 only
 
 **Status: REVIEW EVIDENCE, NOT A NEW FROZEN EXPERIMENT.** This directory integrates separate audits prepared on 2026-11-02 and 2026-11-03. All original source evidence refers to `owlCoder/gadapt` commit `6b56fbc53ffc4d275ecef5e911ea4663474c9a08` and uses pinned original Git **blob IDs**, not new optimizer/PF simulations. The integration commit only adds audit tools, reviews, derived ledgers and vector figures; frozen `research/results` / I49–I55 / I64 protocols are unchanged.
 
