@@ -97,6 +97,7 @@ jobs:
   preregistered-real-ieee14:
     # I32 original 72-run experiment completed in Actions #39686171613.
     # Future physical reruns require intentional manual workflow dispatch.
+    # This draft PR only requests original zero-native-AC source checks.
     if: github.event_name == 'workflow_dispatch' && inputs.authorize_original_72_native_ac_runs == true
     needs: zero-native-ac
     runs-on: ubuntu-latest
