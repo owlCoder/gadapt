@@ -524,6 +524,41 @@
       "evidence_limit": "Only original recorded A trace geometry in original fixed 21-library benchmark; no root-cause or independent defect adjudication",
       "future_fullclone_python_CI": "NOT_YET_OBSERVED",
       "new_optimizer_PF_OPF_COCO": 0
+    },
+    "posthoc_call_vs_first_corner_weighting": {
+      "status": "CLOSED_SOURCE_ACCOUNTING_ONLY",
+      "original_complete_109_signed_NPZ_blob": "7f1716b061d703d5ab8c367d73386371dcb9d7a9",
+      "full_original_620_census_phase_CI": 41804478669,
+      "event_weight_negative_fraction": 0.9738717339667459,
+      "first_corner_negative_fraction": 0.6510067114093959,
+      "difference_percentage_points": 32.286502255734995,
+      "original_exact_repeats_negative": 1953,
+      "original_exact_repeats_positive": 3,
+      "original_only_negative_cells": 57,
+      "original_only_positive_cells": 12,
+      "original_both_sign_cells": 40,
+      "most_active_five_C1_cells": 851,
+      "top_four_repeat_library_events": 1918,
+      "all_repeat_C1_events": 1956,
+      "post_hoc_excluded_libraries": [
+        "bofire",
+        "baybe",
+        "evolopy",
+        "emukit"
+      ],
+      "post_hoc_remaining_negative_events": 81,
+      "post_hoc_remaining_positive_events": 37,
+      "post_hoc_remaining_first_negative": 46,
+      "post_hoc_remaining_first_positive": 34,
+      "source_gate": "i55_109_signed_corner_source_weighting_gate.js",
+      "source_gate_git_blob": "b03f61a5c713f686850eaed1038dc5fff35bd216",
+      "adversarial_mutations_rejected_in_connector_source_evaluation": 10,
+      "new_node_regression_tests_scheduled": 13,
+      "independent_latest_head_Github_CI": "NOT_YET_OBSERVED",
+      "machine_report": "I65_I55_ORIGINAL_SIGNED_C1_DEDUP_WEIGHTING_AND_LIBRARY_CONCENTRATION_2026-11-04.json",
+      "methods_report": "I65_I55_ORIGINAL_C1_EVENT_WEIGHTING_REPETITION_COMPOSITION_2026-11-04.md",
+      "interpretation": "Original fixed-design event/within-cell-corner weighting difference, post-hoc composition only; no statistical independence, defect root cause, population or algorithm bias inference",
+      "source_generated_optimizers_PF_OPF_COCO": 0
     }
   }
 }
