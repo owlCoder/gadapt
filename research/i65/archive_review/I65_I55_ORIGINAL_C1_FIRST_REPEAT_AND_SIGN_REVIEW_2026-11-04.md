@@ -14,7 +14,7 @@ Original pinned full-clone Actions
 passed 620/620 raw NPZ source Git/blob/trace/flag/objective replay.
 Its `i55_620_npz_phase_duplicate_context.json` has independently
 reconfirmed SHA-256
-`14ee6ea5839b59f3b15403921f5aefde16dbe21d82f`,
+`14ee6ea5839b59f3b15403921b7ed76a45c72a0ec39321f5aefde16dbe21d82f`,
 from original artifact ID `13309441677`.
 
 A C1 event requires **every coordinate to equal either −5 or +5**
