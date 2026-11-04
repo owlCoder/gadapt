@@ -67,11 +67,13 @@ class CommonPopulationImmigrator(BasePopulationImmigrator):
             candidate_solution_list = [
                 c for c in candidate_solution_list
                 if not ((getattr(c, "_reliability_incumbent_elite", False)
-                         or (violation == 0 and getattr(c, "_reliability_feasible_elite", False)))
-                        and c.get_values_tuple() == protected_values
-                        and getattr(c, "_succ", False)
-                        and c.objective_value == objective
-                        and c.violation_value == violation)
+                         and c.get_values_tuple() == protected_values
+                         and getattr(c, "_succ", False)
+                         and c.objective_value == objective
+                         and c.violation_value == violation)
+                        or (violation == 0
+                            and getattr(c, "_reliability_feasible_elite", False)
+                            and c.get_values_tuple() == protected_values))
             ]
         candidate_solution_list = sorted(
             candidate_solution_list, key=lambda c: (-c.cost_value, -c.candidate_solution_id)
