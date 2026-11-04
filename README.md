@@ -455,10 +455,14 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   `(objective, violation)` and choose a `constraint_handling` technique.
 - `feasible`, `best_objective`, `best_violation` and `result_values` describe
   the best valid evaluated candidate, including probes, even if a later
-  generation fails. In opt-in constrained runs, the best *evaluated feasible*
-  candidate also retains one place among the survivors (even under a weak
-  penalty or an epsilon-based selection rule) and is protected from random
-  immigration. If an entire population yields invalid objective results,
+  generation fails. In opt-in constrained runs, **before any feasible
+  point exists**, the best verified lowest-violation candidate retains one
+  survivor slot and is protected from random immigration, even if weak
+  penalties would otherwise discard it. Once feasibility is found, that
+  protection switches to the best evaluated feasible objective. The cached
+  incumbent also covers earlier validation probes, without re-evaluation.
+  These are candidate-survival guarantees, **not evidence that a feasible
+  point can always be found**. If an entire population yields invalid objective results,
   the regime can recover using an earlier valid monitored candidate (including
   a validation probe); with no valid history it still fails closed. Restoration
   uses the cached evaluation, not another objective call. With a single-valued

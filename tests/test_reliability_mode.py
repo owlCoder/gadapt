@@ -639,6 +639,114 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertEqual(feasible[0][0].value, 0.75)
         self.assertTrue(feasible[0].succ)
 
+    def test_least_violation_survives_weak_penalty_and_immigration(self):
+        # All four candidates are infeasible. Weak penalty ranks the
+        # most promising (smallest violation) as the worst by scalar cost.
+        def objective(values):
+            x = values[0]
+            return (100.0 if x > -0.2 else 0.0, -x)
+
+        def prepare(reliable):
+            ga = GA(cost_function=objective, population_size=4,
+                    keep_elitism_percentage=50, immigration_number=1,
+                    constraint_handling="penalty", constraint_penalty_weight=0.001,
+                    probe_cost_function=False)
+            ga.add(-1.0, 0.0)
+            options = GAOptions(ga)
+            monitor = None
+            if reliable:
+                monitor = ReliabilityMonitor(objective, 20, -1.0, constrained=True)
+                options.cost_function = monitor
+                options.reliability_monitor = monitor
+            population = Population(options)
+            for c, x in zip(population, (-0.1, -0.6, -0.7, -0.8)):
+                c[0].value = x
+            finder = ConstraintHandlingCostFinder(ConstraintHandler("penalty", 0.001))
+            finder.find_costs(population)
+            return population, monitor
+
+        legacy, _ = prepare(False)
+        self.assertTrue(all(c.violation_value >= 0.6 for c in legacy))
+        population, monitor = prepare(True)
+        self.assertEqual(monitor.best[1], 0.1)
+        elite = next(c for c in population if c.get_values_tuple() == (-0.1,))
+        self.assertEqual(elite.objective_value, 100.0)
+        self.assertTrue(elite.succ)
+        self.assertTrue(elite._reliability_incumbent_elite)
+        self.assertEqual(monitor.evaluations, 4)
+
+        population.population_generation += 1
+        CommonPopulationImmigrator(RandomCandidateSolutionImmigrator()).immigrate(population)
+        self.assertFalse(elite.is_immigrant)
+        self.assertEqual(elite.get_values_tuple(), (-0.1,))
+        self.assertEqual(monitor.evaluations, 4)  # No re-evaluation during immigration.
+
+    def test_prior_infeasible_probe_reenters_search_without_extra_call(self):
+        def objective(values):
+            x = values[0]
+            return (100.0 if x > -0.2 else 0.0, -x)
+
+        ga = GA(cost_function=objective, population_size=4,
+                keep_elitism_percentage=50, constraint_handling="penalty",
+                constraint_penalty_weight=0.001, probe_cost_function=False)
+        ga.add(-1.0, 0.0)
+        options = GAOptions(ga)
+        monitor = ReliabilityMonitor(objective, 20, -1.0, constrained=True)
+        monitor([-0.05])
+        options.cost_function = monitor
+        options.reliability_monitor = monitor
+        population = Population(options)
+        for c, x in zip(population, (-0.5, -0.6, -0.7, -0.8)):
+            c[0].value = x
+        finder = ConstraintHandlingCostFinder(ConstraintHandler("penalty", 0.001))
+        finder.find_costs(population)
+        self.assertEqual(monitor.evaluations, 5)  # One probe + exactly four candidates.
+        elite = next(c for c in population if c.get_values_tuple() == (-0.05,))
+        self.assertTrue(elite.succ)
+        self.assertEqual(elite.violation_value, 0.05)
+        self.assertEqual(elite.objective_value, 100.0)
+        self.assertTrue(elite._reliability_incumbent_elite)
+
+    def test_first_feasible_point_supersedes_least_violation_protection(self):
+        def objective(values):
+            x = values[0]
+            if x >= 0.0:
+                return 110.0, 0.0
+            return (100.0 if x > -0.2 else 0.0, -x)
+
+        ga = GA(cost_function=objective, population_size=4,
+                keep_elitism_percentage=50, immigration_number=1,
+                constraint_handling="penalty", constraint_penalty_weight=0.001,
+                probe_cost_function=False)
+        ga.add(-1.0, 1.0)
+        options = GAOptions(ga)
+        monitor = ReliabilityMonitor(objective, 20, -1.0, constrained=True)
+        options.cost_function = monitor
+        options.reliability_monitor = monitor
+        population = Population(options)
+        for c, x in zip(population, (-0.1, -0.6, -0.7, -0.8)):
+            c[0].value = x
+        finder = ConstraintHandlingCostFinder(ConstraintHandler("penalty", 0.001))
+        finder.find_costs(population)
+        old = next(c for c in population if c.get_values_tuple() == (-0.1,))
+        population.population_generation += 1
+        candidate = next(c for c in population if c is not old)
+        candidate[0].value = 0.5
+        candidate.is_immigrant = True
+        candidate.population_generation = population.population_generation
+        finder.find_costs(population)
+        self.assertEqual(monitor.best, (110.0, 0.0, (0.5,)))
+        feasible = next(c for c in population if c.get_values_tuple() == (0.5,))
+        self.assertTrue(feasible._reliability_incumbent_elite)
+        self.assertTrue(feasible._reliability_feasible_elite)
+
+        population.population_generation += 1
+        before = monitor.evaluations
+        CommonPopulationImmigrator(RandomCandidateSolutionImmigrator()).immigrate(population)
+        self.assertFalse(feasible.is_immigrant)
+        self.assertEqual(feasible.get_values_tuple(), (0.5,))
+        self.assertEqual(monitor.evaluations, before)
+
     def test_real_incumbent_progress_resets_stagnation(self):
         pairs = {
             0: (0.0, 3.0),
