@@ -19,10 +19,14 @@ class OriginalRInputSecurityTests(unittest.TestCase):
         self.repo = Path(self.tmp.name)
         self.e = self.repo / 'research/results/iteration64_e'
         self.e.mkdir(parents=True)
-        self.params = {'gadapt': {'test_only_param': 3}, 'ipop': None}
+        # Source-compatible synthetic E freeze: only four tuned configs.
+        # Original R GAdapt-M reads params.get('gadapt') -> None.
+        self.params = {'cma': {'sigma0': 0.2}, 'ipop': {'sigma0': 0.3},
+                       'bipop': {'sigma0': 0.5},
+                       'es11': {'sigma0': 0.3, 'up': 1.5, 'stagnation': 100}}
         self.records = [
             {'task': {'k': 0, 'config': 'gadapt', 'seed': 67063001,
-                      'params': self.params['gadapt']}},
+                      'params': self.params.get('gadapt')}},
             {'task': {'k': 0, 'config': 'ipop', 'seed': 67063001,
                       'params': self.params['ipop']}},
         ]
@@ -112,7 +116,7 @@ class OriginalRInputSecurityTests(unittest.TestCase):
         all_rows = [
             {'task': {'k': k, 'config': cfg,
                       'seed': 67_000_000 + 1000*(63+k) + seed_index,
-                      'params': self.params[cfg]}}
+                      'params': self.params.get(cfg)}}
             for k in range(21) for seed_index in range(1,101)
             for cfg in ('gadapt', 'ipop')
         ]
@@ -124,25 +128,44 @@ class OriginalRInputSecurityTests(unittest.TestCase):
         self.assertTrue(yes['ready_for_independent_raw_seed_bootstrap'])
         self.assertEqual(yes['E_original_R_tasks_params_matched_to_frozen_E'], 4200)
 
-    def test_sha_authenticated_freeze_without_r_params_is_valid_e_only_source(self):
-        # The real E archive's freeze schema has no 'params' task wrapper.
-        # No R records means no claimed R-param comparison or bootstrap.
-        raw = gzip.compress(json.dumps({'original_e_freeze': True}).encode())
-        (self.e / 'freeze.json.gz').write_bytes(raw)
-        digests = dict(self.digests, freeze=hashlib.sha256(raw).hexdigest())
-        result = validate_required_e_inputs(self.repo, digests, [])
+    def test_authentic_four_tuned_configs_and_no_gadapt_valid_e_only(self):
+        result = validate_required_e_inputs(self.repo, self.digests, [])
         self.assertEqual(result['E_required_source_SHA256_verified'], 44)
+        self.assertTrue(result['E_original_frozen_E_parameter_schema_SHA256_authenticated'])
         self.assertEqual(result['E_original_R_tasks_params_matched_to_frozen_E'], 0)
         self.assertEqual(result['E_original_R_task_parameter_comparison'],
                          'NOT_PERFORMED_NO_ORIGINAL_R_RECORDS')
         self.assertFalse(result['ready_for_independent_raw_seed_bootstrap'])
 
-    def test_unavailable_r_task_params_do_not_falsely_validate_present_r(self):
-        raw = gzip.compress(json.dumps({'original_e_freeze': True}).encode())
+    def test_missing_frozen_ipop_choice_fails_even_without_original_R(self):
+        raw = gzip.compress(json.dumps({'params': {
+            k: v for k, v in self.params.items() if k != 'ipop'}}).encode())
         (self.e / 'freeze.json.gz').write_bytes(raw)
-        digests = dict(self.digests, freeze=hashlib.sha256(raw).hexdigest())
-        with self.assertRaisesRegex(ValueError, 'missing original algorithm parameters'):
-            validate_required_e_inputs(self.repo, digests, self.records)
+        d = dict(self.digests, freeze=hashlib.sha256(raw).hexdigest())
+        with self.assertRaisesRegex(ValueError, 'four tuned algorithm parameters'):
+            validate_required_e_inputs(self.repo, d, [])
+
+    def test_nonoriginal_gadapt_tuning_key_fails_closed(self):
+        forged = dict(self.params, gadapt={'fake': 123})
+        raw = gzip.compress(json.dumps({'params': forged}).encode())
+        (self.e / 'freeze.json.gz').write_bytes(raw)
+        d = dict(self.digests, freeze=hashlib.sha256(raw).hexdigest())
+        with self.assertRaisesRegex(ValueError, 'four tuned algorithm parameters'):
+            validate_required_e_inputs(self.repo, d, [])
+
+    def test_forged_original_gadapt_task_parameter_fails_closed(self):
+        forged = copy.deepcopy(self.records)
+        forged[0]['task']['params'] = {'fake': 1}
+        with self.assertRaisesRegex(ValueError, 'optimizer parameters differ'):
+            validate_required_e_inputs(self.repo, self.digests, forged)
+
+    def test_missing_freeze_cannot_claim_R_task_parameters_verified(self):
+        (self.e / 'freeze.json.gz').unlink()
+        report = validate_required_e_inputs(self.repo, self.digests, self.records)
+        self.assertEqual(report['E_original_R_task_parameter_comparison'],
+                         'NOT_PERFORMED_REQUIRED_FREEZE_MISSING')
+        self.assertEqual(report['E_original_R_tasks_params_matched_to_frozen_E'], 0)
+        self.assertFalse(report['ready_for_independent_raw_seed_bootstrap'])
 
     def test_invalid_freeze_schema_fails_even_without_r_records(self):
         raw = gzip.compress(json.dumps(['not a freeze mapping']).encode())

@@ -132,6 +132,11 @@ def audit(*,repo_root:Path,raw_run_path:Path,expected_full_sha256:str|None=None)
             raise ValueError('Expected full SHA256 must be 64 lowercase hexadecimal characters')
         if sha!=expected_full_sha256:
             raise ValueError('Recovered R file does not match supplied FULL trusted SHA256')
+    # The historical 8+4-hex-character marker proves only 48 digest bits.
+    # A structurally matching R file cannot be promoted to independent
+    # original-seed bootstrap readiness without an independently trusted
+    # full 64-hex-character digest, supplied by the recovery custodian.
+    full_digest_authenticated = expected_full_sha256 is not None
     raw=json.loads(gzip.decompress(raw_run_path.read_bytes()))
     struct=validate_r_records(raw.get('records'))
     lineage=verify_lineage(raw,analysis,check)
@@ -142,17 +147,20 @@ def audit(*,repo_root:Path,raw_run_path:Path,expected_full_sha256:str|None=None)
     # source parts, original normalizers and original frozen method params.
     # Original R source records were independently authenticated above by
     # validate_r_records; E-only auditors deliberately do not have this proof.
-    e_integrity=validate_required_e_inputs(repo_root,raw['e_inputs'],raw['records'],
-                                           original_r_roster_attested=(struct['records_checked']==4200))
+    e_integrity=validate_required_e_inputs(
+        repo_root,raw['e_inputs'],raw['records'],
+        original_r_roster_attested=(
+            struct['records_checked']==4200 and full_digest_authenticated))
     return dict(status='STRUCTURE_MATCHES_ARCHIVED_R_SPEC',raw_run=str(raw_run_path),actual_sha256=sha,
                 historical_abbreviated_marker_match=True,
-                trusted_full_digest_confirmed=expected_full_sha256 is not None,
-                digest_authentication='FULL_TRUSTED_MATCH' if expected_full_sha256 else 'ONLY_48_BIT_HISTORICAL_ABBREVIATION; FULL_DIGEST_NOT_ATTESTED',
+                trusted_full_digest_confirmed=full_digest_authenticated,
+                digest_authentication='FULL_TRUSTED_MATCH' if full_digest_authenticated else 'ONLY_48_BIT_HISTORICAL_ABBREVIATION; FULL_DIGEST_NOT_ATTESTED',
+                original_R_raw_full_digest_required_for_readiness=True,
                 provenance=lineage,run_structure=struct,
                 missing_E_inputs=e_integrity['E_missing_required_paths'],
                 E_input_full_SHA256_and_task_param_verification=e_integrity,
                 ready_for_independent_raw_seed_bootstrap=e_integrity['ready_for_independent_raw_seed_bootstrap'],
-                caution='Ready requires original R source AND SHA256-verified E inputs; no independent R bootstrap has yet been executed, and missing optional E aggregates prevent FULL E manifest attestation.')
+                caution='Ready requires original R raw bytes, an independently trusted matching FULL original R SHA256, and all required SHA256-pinned E inputs; historical truncated 48-bit marker and structural replay alone are not sufficient. No bootstrap is executed. Missing optional E aggregates prevent FULL E manifest attestation.')
 
 
 def main()->None:

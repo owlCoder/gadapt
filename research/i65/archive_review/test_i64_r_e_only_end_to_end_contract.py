@@ -21,7 +21,9 @@ class EOnlyOriginalSourceAuditIntegrationTests(unittest.TestCase):
         self.root = Path(self.tmp.name)
         self.e = self.root / 'research/results/iteration64_e'
         self.e.mkdir(parents=True)
-        self.params = {'gadapt': {'fake_synthetic': 1}, 'ipop': None}
+        self.params = {'cma': {'sigma0': 0.2}, 'ipop': {'sigma0': 0.3},
+                       'bipop': {'sigma0': 0.5},
+                       'es11': {'sigma0': 0.3, 'up': 1.5, 'stagnation': 100}}
         digests = {}
         for key in sorted(EXPECTED_KEYS - {'run'}):
             p = self.e / (key + '.json.gz')
