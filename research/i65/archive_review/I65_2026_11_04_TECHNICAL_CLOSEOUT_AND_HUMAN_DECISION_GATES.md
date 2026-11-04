@@ -40,8 +40,10 @@ is not an independently repeated physical-model verification.
 - Both proposed PRs are **DRAFT and OPEN**. Main remains at
   `8d376a720afe2704af5efdb39777dac7a2c5e742`.
   The historical I32 files remain absent from main **until the
-  recovery PR is independently reviewed and merged**. Original
-  older I32 failures on I55 PR #14 do not invalidate I55 source audit.
+  recovery PR is independently reviewed and merged**. The temporary
+  I32 workflow edit has been reverted to the exact `main` Git blob
+  on I55 PR #14, so the I55 PR now does **not** change the I32 workflow.
+  Original older I32 failures on I55 PR #14 do not invalidate I55 source audit.
 
 ## What is still scientifically OPEN and why
 
@@ -54,6 +56,19 @@ is not an independently repeated physical-model verification.
 | M5 independent statistical methods/selection-bias review | **HUMAN_REVIEW_PENDING** | Reassess fixed 21-cell vs function-family inference and rare I2 ORPD tail-cell dependence; no new post hoc selection-based confirmatory claim |
 | M6/C1 doctoral originality/scope | **HUMAN_SIGNATURE_MISSING** | Reviewer explicitly selects, dates, signs A/B/C/Other in [supervisor package](I65_M6_C1_SUPERVISOR_DECISION_PACKAGE_2026-11-03.md); no AI inference is a signature |
 | Held-out COCO and any new prospective optimizer/PF experiments | **NOT_RUN / NOT_AUTHORIZED** | A prospective protocol, predeclared new method/baselines/seeds, credible independent budget/physics review and human approval **before any run** |
+
+## Retrieval handoff for actual missing originals
+
+The missing original off-Git I64-R 4,200-run file and I55 A-prime/B
+byte sequences **cannot** be manufactured from existing aggregate
+reports. [Owner-machine provenance and exact read-only commands](
+I65_EXTERNAL_ORIGINAL_SOURCE_RECOVERY_HANDOFF_2026-11-04.md) define
+where to look, how to capture an independently witnessed full SHA-256,
+and what the existing strict R structural verifier can establish.
+GitHub Actions listings on the historical I55 source-results date
+**2026-10-23** and I64-R source-results date **2026-10-29** returned
+no workflow runs. Those two negative date scopes do not prove loss
+from the original experimental machine.
 
 ## Final handoff principle
 
