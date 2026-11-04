@@ -5,7 +5,7 @@ import traceback
 from abc import ABC, abstractmethod
 from typing import Optional
 
-from gadapt.execution.reliability import EvaluationBudgetExhausted
+from gadapt.execution.reliability import EvaluationBudgetExhausted, AcceptableTargetReached
 from gadapt.ga_model.population import Population
 from gadapt.ga_model.candidate_solution import CandidateSolution
 
@@ -36,7 +36,7 @@ class BaseCostFinder(ABC):
                 raise ValueError("Cost function must return a finite real number")
             c.cost_value = float(value)
             c.succ = True
-        except EvaluationBudgetExhausted:
+        except (EvaluationBudgetExhausted, AcceptableTargetReached):
             raise
         except Exception as ex:
             print(ex)
