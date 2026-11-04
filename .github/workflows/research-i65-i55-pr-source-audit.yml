@@ -4,6 +4,13 @@ name: I65 I55 archived NPZ read-only PR audit
 # This workflow MUST NOT execute an optimizer, PF/AC, or held-out COCO runs.
 # Final isolated gate: I32 source restoration is handled in separate draft PR #15.
 on:
+  # Re-verify immutable archived sources after integration to main.
+  # This workflow only replays original NPZ bytes; it never runs optimization.
+  push:
+    branches: [main]
+    paths:
+      - 'research/i65/archive_review/**'
+      - '.github/workflows/research-i65-i55-pr-source-audit.yml'
   pull_request:
     branches: [main]
     paths:
