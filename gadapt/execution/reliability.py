@@ -14,6 +14,10 @@ class EvaluationBudgetExhausted(RuntimeError):
     """An objective call was refused because the hard budget is exhausted."""
 
 
+class AcceptableTargetReached(RuntimeError):
+    """A valid feasible candidate has reached the requested quality threshold."""
+
+
 class ReliabilityMonitor:
     def __init__(self, objective, max_evaluations, acceptable_cost, constrained):
         self.objective = objective
@@ -29,6 +33,9 @@ class ReliabilityMonitor:
         self.refreshes_since_improvement = 0
         self.restarts = 0
         self._completed_generation_best = None
+        # Validation probes must keep their normal return contract. Enable
+        # immediate stopping only after the caller finishes validation.
+        self.stop_on_acceptance = False
 
     def __deepcopy__(self, memo):
         # Population.clone() deep-copies GAOptions for its initial snapshot.
@@ -72,6 +79,11 @@ class ReliabilityMonitor:
                        and (violation, objective) < (best_violation, best_objective))
         if replace:
             self.best = (objective, violation, evaluated_values)
+        if self.stop_on_acceptance and self.acceptable:
+            # Abort the remainder of this costly generation, including when
+            # the successful call is the final allowed evaluation.
+            # The complete, actually evaluated result is cached in self.best.
+            raise AcceptableTargetReached("Acceptable evaluated candidate found")
         return result
 
     def completed_generation(self):
