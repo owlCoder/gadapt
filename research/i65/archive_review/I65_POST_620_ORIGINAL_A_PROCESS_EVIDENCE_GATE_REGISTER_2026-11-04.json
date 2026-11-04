@@ -129,7 +129,7 @@
         "required_original_R_and_E_full_sha256_verified": false,
         "amended_readonly_gate": "i64_r_off_git_raw_recovery_gate.py",
         "new_sha_verifier": "i64_r_e_source_manifest_validation.py",
-        "local_synthetic_tests_passed": 11,
+        "local_synthetic_tests_passed": 38,
         "new_GitHub_CI_check_for_patch": "NOT_YET_OBSERVED",
         "interpretation": "Existing E input presence is insufficient: full SHA256 of each mandatory input and original frozen task parameters are required for readiness. This is a code gate change only, not raw R recovery.",
         "frozen_R_budget_event_contract": {
@@ -169,15 +169,55 @@
           "new_pure_manifest_adversarial_test_count": 8,
           "additional_original_strict_Budget_tests": 10,
           "E_SHA256_original_frozen_params_regression_tests_local": "11_OF_11_PASS",
-          "latest_original_I55_CI_expected_test_total": 115,
+          "latest_original_I55_CI_expected_test_total": 124,
           "latest_original_I55_CI_result": "NOT_YET_OBSERVED",
           "caveat": "The original complete source tree shows 66 tracked E inputs, but no 66/66 binary digest audit output has yet been obtained from the new full-clone CI.",
           "local_manifest_tests_passed": 8,
           "strict_original_R_budget_tests_passed_local": 10,
           "E_SHA256_and_missing_R_gate_local_tests_passed": 11,
-          "local_synthetic_gate_tests_total": 29
+          "local_synthetic_gate_tests_total": 38
         },
-        "new_sha_verifier_git_blob": "00c9475d38843ac2fc781b4129afd914840ab479"
+        "new_sha_verifier_git_blob": "00c9475d38843ac2fc781b4129afd914840ab479",
+        "readiness_attestation_hardening": {
+          "as_of": "2026-11-04",
+          "status": "CLOSED_AS_GUARD_CONTRACT_ONLY",
+          "source_gate": "research/i65/archive_review/i64_r_off_git_raw_recovery_gate.py",
+          "source_helper": "research/i65/archive_review/i64_r_e_source_manifest_validation.py",
+          "reported_false_ready_before": "Partial nonempty R records could mark READY with authenticated E files and matching params",
+          "new_rule": "Ready only if 44 original E sources authenticated, exactly 4200 original R records present, parameters checked, and original recovery caller explicitly attests 4200-row frozen R contract",
+          "original_roster_validated_independently_by": "validate_r_records before original_r_roster_attested=True",
+          "E_only_original_R_present": false,
+          "synthetic_E_66_file_integration": {
+            "status": "PASS_SYNTHETIC_7_OF_7",
+            "tests": "research/i65/archive_review/test_i64_r_e_only_end_to_end_contract.py",
+            "test_git_blob": "0f94dbe9c16907f9051a43417a0734020c45852f",
+            "original_E_binary_source_bytes_used": false,
+            "checks": [
+              "66 present, 44 mandatory, missing R => NOT_READY",
+              "missing mandatory => not complete",
+              "tampered optional => exception",
+              "missing historical E checksum => exception",
+              "tampered historical E checksum => exception",
+              "mismatched R analysis/check E manifest => exception",
+              "fake 129MB E archive stand-in => exception"
+            ]
+          },
+          "other_local_suites": {
+            "E_sha256_and_roster": 13,
+            "original_R_strict_budget": 10,
+            "R_E_legacy_manifest": 8,
+            "total": 38,
+            "status": "PASS_38_0_SKIP_0_FAIL_LOCAL"
+          },
+          "previous_original_I55_readonly_CI_tests": 86,
+          "combined_latest_I55_CI_unit_tests_expected": 124,
+          "latest_I55_Github_Actions_run": "NOT_OBSERVED",
+          "actual_original_66_E_binary_SHA256_verified": "NOT_YET_OBSERVED",
+          "actual_original_4200_R_raw": "NOT_RECOVERED",
+          "original_R_20000_seed_bootstrap": "NOT_RUN",
+          "new_optimizer_phys_PF_OPF_COCO": 0,
+          "overall_scientific_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED"
+        }
       }
     },
     {
