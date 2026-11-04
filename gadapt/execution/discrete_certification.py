@@ -61,14 +61,15 @@ def evaluate_discrete_grid(monitor, axes, timeout_seconds):
         if time.monotonic() - start >= timeout_seconds:
             results.termination_reason = "timeout"
             break
-        before = monitor.valid_evaluations
+        before = monitor.evaluations
         try:
             monitor(list(point))
         except Exception:
-            # The monitored cost wrapper charges and classifies every invalid
-            # call. An invalid point does not invalidate the other grid points.
-            # A BaseException such as KeyboardInterrupt is never swallowed.
-            pass
+            # Invalid objective calls are charged and classified by monitor.
+            # Never claim a point was checked if the hard budget refused it.
+            if monitor.evaluations == before:
+                results.termination_reason = "budget_exhausted"
+                break
         results.discrete_points_checked += 1
         if monitor.acceptable:
             results.termination_reason = "acceptable_target"
