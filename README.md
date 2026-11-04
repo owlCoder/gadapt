@@ -478,6 +478,43 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   A callback internally
   running multiple physical simulations must enforce and report its own
   underlying physical budget; this mode does not count those simulations.
+### Complete coverage of small discrete spaces
+
+For finite grid problems where **100% coverage** is possible within the
+objective budget, use `reliability_discrete_certify=True` together with
+`reliability_mode=True`. For example, a 3 x 2 grid has six distinct points:
+
+```python
+ga = GA(cost_function=objective, reliability_mode=True,
+        reliability_discrete_certify=True, max_evaluations=6,
+        acceptable_cost=0.0)
+ga.add(0.0, 2.0, step=1.0)
+ga.add(0.0, 1.0, step=1.0)
+result = ga.execute()
+print(result.discrete_search_applied, result.discrete_points_checked,
+      result.discrete_space_exhausted, result.discrete_absence_certified)
+```
+
+If the declared grid has at most `min(max_evaluations, 100000)` distinct
+points, it is checked exactly once per point, in deterministic order,
+**without random GA generations or redundant boundary validation probes**.
+The first acceptable, feasible point stops the scan. With valid evaluations,
+enough time, and a deterministic/stationary objective, the scan either finds
+a qualifying point if one exists on the grid, or proves none meets the target
+on that grid (`discrete_absence_certified=True`). If *any* call fails, absence
+cannot be certified, although all points are still attempted. A timeout
+also prevents a full-coverage claim. Only the explicitly declared finite
+grid is covered, not intermediate continuous values or undocumented
+constraints.
+
+If grid coverage is not affordable, variables are continuous, or rounding
+would duplicate grid points, GAdapt falls back to the original monitored GA
+search with no exhaustive-coverage claim (`discrete_search_applied=False`).
+The 100000-point safety cap avoids accidentally selecting huge exhaustive
+scans. This option is disabled by default, and it is **not** a guarantee of
+100% success for arbitrary continuous black-box functions or stochastic
+simulations.
+
 - `termination_reason` distinguishes `acceptable_target`, `budget_exhausted`,
   `timeout`, `no_new_evaluations`, `exit_condition`, `evaluation_failure`,
   `validation_failed` and `execution_error`. `solution_status` independently
