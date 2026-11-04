@@ -1,0 +1,71 @@
+"""Opt-in accounting and incumbent capture for reliability-oriented executions.
+
+Every call made through this wrapper is charged before invoking the objective,
+including validation probes, exceptions and non-finite returns. The wrapper never
+re-evaluates the incumbent: it copies the arguments and validated result.
+"""
+import math
+from numbers import Real
+
+from gadapt.utils.constraint_handling import parse_pair
+
+
+class EvaluationBudgetExhausted(RuntimeError):
+    """An objective call was refused because the hard budget is exhausted."""
+
+
+class ReliabilityMonitor:
+    def __init__(self, objective, max_evaluations, acceptable_cost, constrained):
+        self.objective = objective
+        self.max_evaluations = max_evaluations
+        self.acceptable_cost = float(acceptable_cost)
+        self.constrained = constrained
+        self.evaluations = 0
+        self.best = None  # (objective, violation, immutable snapshot of decision values)
+
+    def __call__(self, values):
+        if self.evaluations >= self.max_evaluations:
+            raise EvaluationBudgetExhausted("Objective evaluation budget exhausted")
+        self.evaluations += 1  # Charge failed calls, too.
+        result = self.objective(values)
+        try:
+            if self.constrained:
+                objective, violation = parse_pair(result)
+            else:
+                if isinstance(result, bool) or not isinstance(result, Real):
+                    return result
+                objective = float(result)
+                if not math.isfinite(objective):
+                    return result
+                violation = 0.0
+        except (TypeError, ValueError, OverflowError):
+            return result  # Let the original cost finder report invalid output.
+
+        if self.best is None:
+            replace = True
+        else:
+            best_objective, best_violation, _ = self.best
+            replace = (violation == 0 and (best_violation != 0 or objective < best_objective)
+                       or violation > 0 and best_violation > 0
+                       and (violation, objective) < (best_violation, best_objective))
+        if replace:
+            self.best = (objective, violation, tuple(values))
+        return result
+
+    @property
+    def acceptable(self):
+        return (self.best is not None and self.best[1] == 0
+                and self.best[0] <= self.acceptable_cost)
+
+    def annotate(self, results):
+        """Expose separately the technical execution status and solution quality."""
+        results.objective_evaluations = self.evaluations
+        results.acceptable = self.acceptable
+        results.feasible = self.best is not None and self.best[1] == 0
+        if self.best is not None:
+            objective, violation, values = self.best
+            results.best_objective = objective
+            results.best_violation = violation
+            results.result_values = dict(enumerate(values))
+            if not self.constrained:
+                results.min_cost = objective
