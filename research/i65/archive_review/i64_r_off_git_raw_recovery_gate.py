@@ -23,6 +23,8 @@ import math
 import re
 from pathlib import Path
 
+from i64_r_e_source_manifest_validation import validate_required_e_inputs
+
 R_ANALYSIS_BLOB='59025d6cc052baef76b14e5496962704bdb7604a'
 R_CHECK_REPRO_BLOB='11ca5fdfabfe6ce20cb54752a2a41fe8e2deee3d'
 HISTORICAL_SHA256_PREFIX='f23046f6'
@@ -120,20 +122,21 @@ def audit(*,repo_root:Path,raw_run_path:Path,expected_full_sha256:str|None=None)
     raw=json.loads(gzip.decompress(raw_run_path.read_bytes()))
     struct=validate_r_records(raw.get('records'))
     lineage=verify_lineage(raw,analysis,check)
-    missing_e=[]
-    for k in range(21):
-        for cell in (3*k+1,3*k+2):
-            p=repo_root/f'research/results/iteration64_e/run_part_{cell}.json.gz'
-            if not p.is_file():missing_e.append(str(p))
-    normal=repo_root/'research/results/iteration64_e/normalizers.json.gz'
-    if not normal.is_file():missing_e.append(str(normal))
+    # SHA-256 authenticate every E input that is present against the ORIGINAL
+    # three-way-agreed R/E input manifest; refuse corrupted files, and
+    # separately record optional E-aggregate absences (the original E run
+    # combined archive was not committed). Required are the 42 shift/rot
+    # source parts, original normalizers and original frozen method params.
+    e_integrity=validate_required_e_inputs(repo_root,raw['e_inputs'],raw['records'])
     return dict(status='STRUCTURE_MATCHES_ARCHIVED_R_SPEC',raw_run=str(raw_run_path),actual_sha256=sha,
                 historical_abbreviated_marker_match=True,
                 trusted_full_digest_confirmed=expected_full_sha256 is not None,
                 digest_authentication='FULL_TRUSTED_MATCH' if expected_full_sha256 else 'ONLY_48_BIT_HISTORICAL_ABBREVIATION; FULL_DIGEST_NOT_ATTESTED',
-                provenance=lineage,run_structure=struct,missing_E_inputs=missing_e,
-                ready_for_independent_raw_seed_bootstrap=not missing_e,
-                caution='Ready means the source is present and structurally checkable; it does not assert the independent 20,000 bootstrap has been executed.')
+                provenance=lineage,run_structure=struct,
+                missing_E_inputs=e_integrity['E_missing_required_paths'],
+                E_input_full_SHA256_and_task_param_verification=e_integrity,
+                ready_for_independent_raw_seed_bootstrap=e_integrity['ready_for_independent_raw_seed_bootstrap'],
+                caution='Ready requires original R source AND SHA256-verified E inputs; no independent R bootstrap has yet been executed, and missing optional E aggregates prevent FULL E manifest attestation.')
 
 
 def main()->None:
