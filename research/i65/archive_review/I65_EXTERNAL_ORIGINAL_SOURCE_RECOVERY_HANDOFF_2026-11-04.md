@@ -75,6 +75,8 @@ this handoff**. Do not alter any preregistered R hypothesis decision.
 
 ## Original I55 A′/B coordinate sequences
 
+The original I55 source-results commit `ce90fb9f1de985f2dfd3572da2c60ab514305a88` is dated **2026-10-23**. A date-scoped GitHub Actions run listing returned **zero** workflows on that day (as also seen on 2026-10-29 for I64-R). This is a narrow Actions date check, **not** proof of absent source on local experimental machines.
+
 The **620 valid A-process NPZ** sources contain A only. They do
 not contain A′/B original full coordinates, objective measurements,
 or phases. Historical cell JSON establishes **digest-level** A/A′/B
