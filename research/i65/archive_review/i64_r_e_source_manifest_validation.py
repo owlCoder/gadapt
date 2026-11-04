@@ -63,7 +63,8 @@ def validate_required_e_inputs(repo_root: Path, source_digests: dict,
             if task['params'] != params.get(cfg):
                 raise ValueError(f'Original R task optimizer parameters differ from E freeze at index {i}')
             tasks_checked += 1
-    ready = not missing_required and tasks_checked == len(records)
+    # E-only audits have no recovered R records and MUST NOT report R-bootstrap readiness.
+    ready = not missing_required and bool(records) and tasks_checked == len(records)
     return {
         'E_original_manifest_entries': len(EXPECTED_KEYS),
         'required_for_independent_R_seed_bootstrap': len(REQUIRED_KEYS),
