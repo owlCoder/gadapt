@@ -524,18 +524,32 @@ class GA:
                 configured.number_of_generations = 1_000_000
 
         validator = CommonOptionsValidator(configured)
-        validator.validate()
-        if not validator.success:
+        validation_error = None
+        try:
+            validator.validate()
+        except Exception as ex:
+            validation_error = ex
+        if validation_error is not None or not validator.success:
             results = GAResults()
             results.success = False
             results.termination_reason = "validation_failed"
-            results.messages = validator.validation_messages
+            results.messages = list(validator.validation_messages)
+            if validation_error is not None:
+                results.messages.append(("ERROR", str(validation_error)))
             monitor.annotate(results)
             return results
-        ga_options = GAOptions(configured)
-        factory = self.get_factory()
-        factory.initialize_factory(configured, ga_options)
-        return GAExecutor(ga_options, factory).execute()
+        try:
+            ga_options = GAOptions(configured)
+            factory = self.get_factory()
+            factory.initialize_factory(configured, ga_options)
+            return GAExecutor(ga_options, factory).execute()
+        except Exception as ex:
+            results = GAResults()
+            results.success = False
+            results.termination_reason = "execution_error"
+            results.messages.append(("ERROR", str(ex)))
+            monitor.annotate(results)
+            return results
 
     def get_factory(self) -> BaseGAFactory:
         if self._factory:
