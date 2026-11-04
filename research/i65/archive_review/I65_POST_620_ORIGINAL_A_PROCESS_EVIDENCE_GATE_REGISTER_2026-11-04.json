@@ -141,5 +141,49 @@
     "caveat": "No match in these accessible sources does not prove the raw file is absent from the original machine or other storage."
   },
   "no_new_source_simulation_or_opt_or_coco_in_this_specific_audit": true,
-  "not_a_freeze_or_scientific_approval": true
+  "not_a_freeze_or_scientific_approval": true,
+  "posthoc_matched_function_context": {
+    "status": "COMPLETE_DESCRIPTIVE_205_PAIRED_STRATA",
+    "source": "I65_I55_205_STRATA_C1_C2_MATCHED_FUNCTION_SUMMARY_2026-11-04.json",
+    "original_source_only": true,
+    "full_620_source_precondition": "PASS",
+    "nominal_strata": 210,
+    "complete_three_function_strata": 205,
+    "incomplete_strata": 5,
+    "original_historical_failed_cells_in_those_strata": 10,
+    "C1_plateau_vs_sphere": {
+      "left_only": 31,
+      "right_only": 3,
+      "both": 26,
+      "neither": 145,
+      "libraries_more_left": 5,
+      "libraries_more_right": 0,
+      "libraries_tied": 16
+    },
+    "C2_plateau_vs_sphere": {
+      "left_only": 27,
+      "right_only": 5,
+      "both": 70,
+      "neither": 103,
+      "libraries_more_left": 4,
+      "libraries_more_right": 1,
+      "libraries_tied": 16
+    },
+    "github_actions_run": 41799179972,
+    "github_actions_artifact": 13306399315,
+    "full_machine_readable_json_sha256": "15ee37a184e6e5f0f308aaa89b5488796e1ffb9fbf2410bee1332b8c009cac99",
+    "CI_synthetic_test_count": 77,
+    "posthoc_not_inferential": true,
+    "not_detector_specificity_or_ground_truth": true
+  },
+  "original_R_raw_branch_tip_search": {
+    "status": "NO_ORIGINAL_R_RAW_FILE_IN_VISIBLE_ACTIVE_BRANCH_TIPS",
+    "branch_tips_checked": 15,
+    "source_dir_present_in_branch_tips": 4,
+    "source_dir_missing_in_branch_tips": 11,
+    "run_json_gz_present": 0,
+    "run_part_json_gz_present": 0,
+    "limitation": "Does not rule out untracked experimental-machine file, orphaned Git objects, inaccessible external storage, or inaccessible private refs"
+  },
+  "caveat_new_optimizer_or_pf_or_coco_from_paired_audit": 0
 }
