@@ -100,10 +100,15 @@
     "caveat": "Not a new hypothesis test, and not below 0.05 unadjusted."
   },
   "current_branch_CI": {
-    "status": "NOT_STARTED_NO_ACTIONS_CHECK_RUN_FOUND",
-    "head_sha": "d47b29bcfaab6998fb879e0b84e9aaacc5b789d6",
-    "source_authentication_expected": true,
-    "physical_RERUN": "NOT_AUTHORIZED"
+    "status": "PASS_ZERO_NATIVE_SOURCE_ONLY",
+    "head_sha_tested": "d47b29bcfaab6998fb879e0b84e9aaacc5b789d6",
+    "workflow_run": 41812770932,
+    "url": "https://github.com/owlCoder/gadapt/actions/runs/41812770932",
+    "original_source_git_sha1_tests": "7_OF_7_PASS",
+    "zero_native_ac_test_count": 19,
+    "zero_native_ac_job": "success",
+    "physical_ieee14_72_run_job": "skipped",
+    "confidence_limit": "CI validates source availability and synthetic tests only; not a new physical AC or OPF verification"
   },
   "technical_gates": [
     {
@@ -120,7 +125,7 @@
     },
     {
       "id": "I32_CURRENT_BRANCH_ZERO_NATIVE_AC_CI",
-      "status": "OPEN_NO_RUN_YET"
+      "status": "CLOSED_ON_TESTED_PR_HEAD_41812770932"
     },
     {
       "id": "I32_INDEPENDENT_PHYSICAL_VALIDATION",
@@ -144,5 +149,20 @@
     "New confirmation p-values"
   ],
   "new_optimizer_pf_opf_coco_runs": 0,
-  "scientific_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED"
+  "scientific_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED",
+  "pr_wide_ci_safety": {
+    "unrelated_legacy_benchmark_automatically_executed_during_initial_pr_check": true,
+    "workflow_run": 41812770943,
+    "workflow": "Robustness regression tests",
+    "unintended_job": "exploratory-benchmark",
+    "unintended_job_status": "success",
+    "unintended_runs": 12,
+    "unintended_generations_per_run": 120,
+    "unintended_job_is_not_I32_original_72_AC_experiment": true,
+    "not_scientifically_used": true,
+    "mitigation": "Reused exact manual-only robustness workflow from PR #14 in PR #15; Git blob 32774ed66c7e16a7851195463f67b023234ee5b9",
+    "future_manual_authorization_required": true,
+    "no_future_pr_or_push_benchmark": true,
+    "caveat": "Historical unintended CI run cannot be undone; do not count it as preregistered research evidence."
+  }
 }
