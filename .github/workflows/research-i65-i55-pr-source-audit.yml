@@ -44,6 +44,7 @@ jobs:
           python -m unittest discover -s research/i65/archive_review -p 'test_i64_r_e_source_manifest_validation.py' -v
           python -m unittest discover -s research/i65/archive_review -p 'test_i64_r_original_budget_strict_consistency.py' -v
           python -m unittest discover -s research/i65/archive_review -p 'test_i64_r_archived_e_only_attestation.py' -v
+          python -m unittest discover -s research/i65/archive_review -p 'test_i64_r_e_only_end_to_end_contract.py' -v
           python research/i65/archive_review/i64_r_archived_e_only_attestation.py \
             --repo-root . \
             --output i64_r_e_only_sha256_archived_sources.json
