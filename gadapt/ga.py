@@ -140,6 +140,8 @@ class GA:
         reliability_mode: bool = False,
         max_evaluations: Optional[int] = None,
         acceptable_cost: Optional[float] = None,
+        reliability_refresh_patience: Optional[int] = None,
+        reliability_refresh_percentage: float = 20.0,
         **deprecated_kwargs,
     ) -> None:
         """
@@ -409,6 +411,17 @@ class GA:
         self.reliability_mode = reliability_mode
         self.max_evaluations = max_evaluations
         self.acceptable_cost = acceptable_cost
+        if (reliability_refresh_patience is not None
+                and (type(reliability_refresh_patience) is not int
+                     or reliability_refresh_patience < 1)):
+            raise ValueError("reliability_refresh_patience must be a positive integer or None")
+        if (isinstance(reliability_refresh_percentage, bool)
+                or not isinstance(reliability_refresh_percentage, Real)
+                or not math.isfinite(float(reliability_refresh_percentage))
+                or not 0.0 <= reliability_refresh_percentage <= 100.0):
+            raise ValueError("reliability_refresh_percentage must be between 0 and 100")
+        self.reliability_refresh_patience = reliability_refresh_patience
+        self.reliability_refresh_percentage = float(reliability_refresh_percentage)
         self.strict_mutation_decision_variable_limit = strict_mutation_decision_variable_limit
         self.compensatory_mutation = compensatory_mutation
         self.columnar_diversity_metric = columnar_diversity_metric
