@@ -24,6 +24,8 @@ root-cause attribution nor diagnostic specificity is established.
 
 Latest evidence:
 - [Original raw NPZ phase/duplicate analysis](I65_I55_620_RAW_PHASE_AND_C1_C2_DUPLICATE_FORENSICS_2026-11-04.md)
+- [SHA-derived exact original C1 first-vs-repeat reconciliation](I65_I55_620_ORIGINAL_C1_FIRST_VS_REPEAT_EVIDENCE_2026-11-04.json) — **149 first** vs **1,956 exact repeated** C1 events; per-function/dimension/library original counts, no bug adjudication
+- [Proposed 620 Git-SHA-authenticated signed-corner source classifier](i55_620_corner_direction_source_audit.py) and [nine synthetic tests](test_i55_620_corner_direction_source_audit.py) — directional −5/+5 numerical source results **NOT YET OBSERVED IN CI**
 - [Full 620-source flag census](I65_I55_620_FLAG_CENSUS_AND_POST_ATTESTATION_OPEN_GATES_2026-11-04.md)
 - [205 matched-stratum context review](I65_I55_205_PAIRED_C1_C2_CONTEXT_REVIEW_2026-11-04.md)
 - [Cross-study technical closeout and **still-open human/scientific gates**](I65_2026_11_04_TECHNICAL_CLOSEOUT_AND_HUMAN_DECISION_GATES.md)
