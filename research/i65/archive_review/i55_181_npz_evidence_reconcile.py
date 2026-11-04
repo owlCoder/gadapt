@@ -29,6 +29,8 @@ MANIFEST_SHA = "50ca2e96762447070a74309850cb1aa6586d3eb3"
 SOURCE_SHA = "6b56fbc53ffc4d275ecef5e911ea4663474c9a08"
 ENGINE_SHA = "076ac19beef2514eef9985c86eac071ca9975b8d"
 BATCH_PATTERN = "I65_I55_NEXT_126_NPZ_BATCH_{:02d}_2026-11-04.json"
+NEXT_INDEX = "I65_I55_NEXT_126_SOURCE_REPLAY_INDEX_2026-11-04.json"
+NEXT_INDEX_SHA = "63d02f2e03483babe67f95adc9414dc886c5b12f"
 CELL_PATTERN = re.compile(r"^research/results/iteration55/traces/([a-z0-9_]+)/(sphere|rastrigin|plateau)_(2|10)_(600[0-4])\.npz$")
 EXPECTED_LIBRARIES = frozenset((
     "baybe", "bayes_opt", "bofire", "cma", "cmaes", "deap", "emukit",
@@ -209,6 +211,95 @@ def reconcile(
     }
 
 
+
+def load_pinned_batches(
+    archive: Path,
+    earlier: dict,
+    *,
+    index_sha: str = NEXT_INDEX_SHA,
+    expected_libraries: frozenset[str] = EXPECTED_LIBRARIES,
+    per_library: int = 6,
+) -> tuple[dict, list[dict]]:
+    """Authenticate all 21 published evidence JSON blobs BEFORE reconciliation.
+
+    The previous reconciler authenticated its manifest, prior index and original
+    cell metadata but parsed new batch JSON without comparing its raw Git identity
+    with the immutable 126-source index. That left unchecked fields in a modified
+    batch outside the integrity gate. Index pinning closes that gap.
+    """
+    index = read_pinned_json(archive / NEXT_INDEX, index_sha)
+    require(index.get("schema") == "I65_I55_NEXT_126_SOURCE_REPLAY_INDEX_V1",
+            "Wrong 126-source index schema")
+    require(index.get("original_source_commit") == SOURCE_SHA and
+            index.get("frozen_620_manifest_blob") == MANIFEST_SHA and
+            index.get("prior_55_index_blob") == INDEX_SHA and
+            index.get("replay_engine_blob") == ENGINE_SHA,
+            "126-source index provenance mismatch")
+    witnesses = index.get("per_library_witnesses")
+    require(isinstance(witnesses, list) and len(witnesses) == len(expected_libraries),
+            "Missing or extra indexed batch identities")
+    require(index.get("new_replay_witnesses") == len(expected_libraries) * per_library and
+            index.get("new_original_eligible_libraries") == len(expected_libraries),
+            "126-source index count mismatch")
+
+    prior = earlier.get("prior_five_source_paths", []) + earlier.get("new_fifty_source_paths", [])
+    require(len(prior) == len(set(prior)) and
+            len(index.get("old_55_source_paths", [])) == len(prior) and
+            set(index["old_55_source_paths"]) == set(prior),
+            "Indexed prior-55 source roster mismatch")
+    require(index.get("prior_original_raw_replay_witnesses") == len(prior) and
+            index.get("prior_objective_evaluations") ==
+            earlier.get("cumulative_original_evaluations_recomputed"),
+            "126-source index prior numerical ledger mismatch")
+
+    batches = []
+    observed_paths = []
+    total_calls = total_bytes = 0
+    observed_libraries = set()
+    for ordinal, evidence in enumerate(witnesses, 1):
+        library = evidence.get("library")
+        path = str(ROOT / BATCH_PATTERN.format(ordinal))
+        require(evidence.get("batch_id") == ordinal and evidence.get("path") == path and
+                library in expected_libraries and library not in observed_libraries,
+                f"Indexed batch order, path or ownership mismatch: {ordinal}")
+        observed_libraries.add(library)
+        sha = evidence.get("git_blob_sha1")
+        require(isinstance(sha, str) and re.fullmatch(r"[a-f0-9]{40}", sha) is not None,
+                f"Missing indexed Git blob identity: {ordinal}")
+        batch = read_pinned_json(archive / BATCH_PATTERN.format(ordinal), sha)
+        require(batch.get("iteration_batch") == ordinal and
+                batch.get("batch_library") == library,
+                f"Batch ownership differs from indexed identity: {ordinal}")
+        rows = batch.get("results")
+        require(isinstance(rows, list) and len(rows) == per_library and
+                evidence.get("source_npz") == len(rows), f"Indexed row count mismatch: {ordinal}")
+        calls = sum(r["objective_calls_rechecked"] for r in rows)
+        size = sum(r["source_binary_size"] for r in rows)
+        require(calls == evidence.get("objective_calls") == batch.get("objective_calls") and
+                size == evidence.get("compressed_source_bytes"),
+                f"Indexed batch numerical totals differ: {ordinal}")
+        observed_paths.extend(r["path"] for r in rows)
+        total_calls += calls
+        total_bytes += size
+        batches.append(batch)
+    require(observed_libraries == expected_libraries, "Indexed library roster mismatch")
+    require(len(observed_paths) == len(set(observed_paths)) and
+            len(index.get("new_npz_source_paths", [])) == len(observed_paths) and
+            set(index["new_npz_source_paths"]) == set(observed_paths) and
+            not set(observed_paths).intersection(prior),
+            "Indexed NPZ path roster mismatch")
+    require(index.get("new_original_evaluations") == total_calls and
+            index.get("new_compressed_binary_bytes") == total_bytes and
+            index.get("total_original_evaluations_recomputed") ==
+            index["prior_objective_evaluations"] + total_calls and
+            index.get("total_raw_replay_witnesses") == len(prior) + len(observed_paths) and
+            index.get("remaining_raw_npz_unreplayed") ==
+            index.get("original_total_valid_npz", 0) - len(prior) - len(observed_paths) and
+            index.get("number_new_failed_raw_replays") == 0,
+            "126-source index aggregate or coverage mismatch")
+    return index, batches
+
+
 def audit_full_checkout(repo_root: Path) -> dict:
     archive = repo_root / ROOT
     manifest = read_pinned_json(archive / MANIFEST, MANIFEST_SHA)
@@ -220,9 +311,10 @@ def audit_full_checkout(repo_root: Path) -> dict:
         lib: read_pinned_json(repo_root / "research" / "results" / "iteration55" / f"cells_{lib}.json", sha)
         for lib, sha in frozen.I55_BLOBS.items()
     }
-    batches = [json.loads((archive / BATCH_PATTERN.format(i)).read_text(encoding="utf-8"))
-               for i in range(1, len(EXPECTED_LIBRARIES) + 1)]
+    new_index, batches = load_pinned_batches(archive, earlier)
     out = reconcile(manifest, earlier, batches, original_cells)
+    out["new_126_index_git_blob"] = NEXT_INDEX_SHA
+    out["all_21_new_batch_git_blobs_authenticated"] = True
     require(out["original_replayed_cumulative"] == 181 and out["original_unreplayed"] == 439,
             "Unexpected total replay coverage")
     require(out["new_original_calls"] == 61152 and out["original_calls_cumulative"] == 85450,
