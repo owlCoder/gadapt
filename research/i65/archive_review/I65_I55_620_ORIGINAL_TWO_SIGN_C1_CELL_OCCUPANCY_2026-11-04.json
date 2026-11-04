@@ -1,0 +1,155 @@
+{
+  "schema": "I65_I55_ORIGINAL_C1_TWO_SIGN_CELL_OCCUPANCY_FROZEN_CI_INPUTS_V1",
+  "as_of": "2026-11-04",
+  "provenance": {
+    "original_Git_commit": "6b56fbc53ffc4d275ecef5e911ea4663474c9a08",
+    "original_root_tree": "f88d221152fcb4157a8e1151a11b53cdfe8180b7",
+    "original_NPZ_manifest_git_blob": "50ca2e96762447070a74309850cb1aa6586d3eb3",
+    "original_Github_Actions_full_clone_run": 41804478669,
+    "original_archive_artifact_id": 13309441677,
+    "original_archive_zip_sha256": "b80fb1d666fdc05c219ad5c354a8fc495100aacb9b6822533b002731f378fd41",
+    "original_flag_census_sha256": "a0bfb1bfeaa2979ae8f195ffbcde8c9ff2c45b0562f96ecdf7915e229963c4ea",
+    "original_phase_and_duplicates_sha256": "14ee6ea5839b59f3b15403921b7ed76a45c72a0ec39321f5aefde16dbe21d82f",
+    "original_full_620_attestation_sha256": "9a6a5a3d32120394798ccf47675aaff403b82062fac240267a47e327283fa111"
+  },
+  "closure": {
+    "status": "PASS_DERIVED_EXACTLY_FROM_SHA256_PINNED_ORIGINAL_CI_OUTPUTS",
+    "original_valid_npz": 620,
+    "original_C1_events": 2105,
+    "C1_exact_repeat_events": 1956,
+    "original_distinct_first_C1_corner_visits": 149,
+    "original_cells_with_C1": 109,
+    "original_cells_with_exactly_one_signed_corner": 69,
+    "original_cells_with_both_signed_corners": 40,
+    "original_2D_C1_cells_with_both_signed_corners": 40,
+    "original_10D_C1_cells_with_both_signed_corners": 0,
+    "original_minus_five_vs_plus_five_event_counts": "NOT_DERIVABLE_FROM_AGGREGATE_ORIGINAL_REPORTS"
+  },
+  "derivation": "For each trace exactly two distinct eligible C1 coordinate vectors exist: all -5 or all +5. A first-C1 vector that is not an exact prior-row C2 repeat contributes one distinct signed corner, so first visits = C1 - (C1 intersect C2). Every C1-positive cell has 1 or 2 such first corner visits. Thus both-sign cells = first visits - C1-positive cells, one-sign cells = 2 * C1-positive cells - first visits.",
+  "archived_machine_result_sha256": "0142ed011c95276a78b71efd872d88b642c4ec194637651ec9d732250e785ed7",
+  "standalone_local_readonly_verifier_sha256": "57273d65ddfe9986ff266dcd700aa5ae44f35dc6311085b5f62367d0970ce6b8",
+  "standalone_local_synthetic_unit_test_count": 11,
+  "standalone_local_synthetic_test_status": "PASS_11_OF_11",
+  "latest_new_133_test_Github_CI": "NOT_OBSERVED",
+  "strata": {
+    "by_function": {
+      "plateau": {
+        "C1_original_events": 1820,
+        "exact_repeats_C1_intersect_C2": 1746,
+        "distinct_first_signed_corners": 74,
+        "cells_with_any_C1": 57,
+        "cells_with_exactly_one_signed_corner": 40,
+        "cells_with_both_signed_corners": 17
+      },
+      "sphere": {
+        "C1_original_events": 241,
+        "exact_repeats_C1_intersect_C2": 201,
+        "distinct_first_signed_corners": 40,
+        "cells_with_any_C1": 29,
+        "cells_with_exactly_one_signed_corner": 18,
+        "cells_with_both_signed_corners": 11
+      },
+      "rastrigin": {
+        "C1_original_events": 44,
+        "exact_repeats_C1_intersect_C2": 9,
+        "distinct_first_signed_corners": 35,
+        "cells_with_any_C1": 23,
+        "cells_with_exactly_one_signed_corner": 11,
+        "cells_with_both_signed_corners": 12
+      }
+    },
+    "by_dimension": {
+      "2": {
+        "C1_original_events": 919,
+        "exact_repeats_C1_intersect_C2": 795,
+        "distinct_first_signed_corners": 124,
+        "cells_with_any_C1": 84,
+        "cells_with_exactly_one_signed_corner": 44,
+        "cells_with_both_signed_corners": 40
+      },
+      "10": {
+        "C1_original_events": 1186,
+        "exact_repeats_C1_intersect_C2": 1161,
+        "distinct_first_signed_corners": 25,
+        "cells_with_any_C1": 25,
+        "cells_with_exactly_one_signed_corner": 25,
+        "cells_with_both_signed_corners": 0
+      }
+    },
+    "by_library_with_C1": {
+      "baybe": {
+        "C1_original_events": 559,
+        "exact_repeats_C1_intersect_C2": 534,
+        "distinct_first_signed_corners": 25,
+        "cells_with_any_C1": 18,
+        "cells_with_exactly_one_signed_corner": 11,
+        "cells_with_both_signed_corners": 7
+      },
+      "bayes_opt": {
+        "C1_original_events": 27,
+        "exact_repeats_C1_intersect_C2": 0,
+        "distinct_first_signed_corners": 27,
+        "cells_with_any_C1": 18,
+        "cells_with_exactly_one_signed_corner": 9,
+        "cells_with_both_signed_corners": 9
+      },
+      "bofire": {
+        "C1_original_events": 888,
+        "exact_repeats_C1_intersect_C2": 877,
+        "distinct_first_signed_corners": 11,
+        "cells_with_any_C1": 11,
+        "cells_with_exactly_one_signed_corner": 11,
+        "cells_with_both_signed_corners": 0
+      },
+      "emukit": {
+        "C1_original_events": 227,
+        "exact_repeats_C1_intersect_C2": 203,
+        "distinct_first_signed_corners": 24,
+        "cells_with_any_C1": 20,
+        "cells_with_exactly_one_signed_corner": 16,
+        "cells_with_both_signed_corners": 4
+      },
+      "evolopy": {
+        "C1_original_events": 313,
+        "exact_repeats_C1_intersect_C2": 304,
+        "distinct_first_signed_corners": 9,
+        "cells_with_any_C1": 9,
+        "cells_with_exactly_one_signed_corner": 9,
+        "cells_with_both_signed_corners": 0
+      },
+      "evox": {
+        "C1_original_events": 58,
+        "exact_repeats_C1_intersect_C2": 38,
+        "distinct_first_signed_corners": 20,
+        "cells_with_any_C1": 15,
+        "cells_with_exactly_one_signed_corner": 10,
+        "cells_with_both_signed_corners": 5
+      },
+      "gfo": {
+        "C1_original_events": 30,
+        "exact_repeats_C1_intersect_C2": 0,
+        "distinct_first_signed_corners": 30,
+        "cells_with_any_C1": 15,
+        "cells_with_exactly_one_signed_corner": 0,
+        "cells_with_both_signed_corners": 15
+      },
+      "niapy": {
+        "C1_original_events": 3,
+        "exact_repeats_C1_intersect_C2": 0,
+        "distinct_first_signed_corners": 3,
+        "cells_with_any_C1": 3,
+        "cells_with_exactly_one_signed_corner": 3,
+        "cells_with_both_signed_corners": 0
+      }
+    }
+  },
+  "limits": [
+    "Descriptive original recorded A-process geometry only",
+    "Not independently adjudicated software defects",
+    "No claim about root cause of repeated corners",
+    "Not equivalent to a fresh signed-coordinate source scan",
+    "Raw A-prime/B sequences and original I64-R raw 4200-run source not available",
+    "No new optimizer, PF, OPF or COCO experiments"
+  ],
+  "scientific_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED"
+}
