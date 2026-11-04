@@ -1,0 +1,148 @@
+{
+  "schema": "I65_I32_HISTORICAL_72_RUN_ARCHIVED_ACCOUNTING_AND_SOURCE_RECOVERY_V1",
+  "as_of": "2026-11-04",
+  "repository": "owlCoder/gadapt",
+  "branch": "audit/i32-original-source-recovery-readonly-20261104",
+  "original_workflow": {
+    "run_id": 39686171613,
+    "url": "https://github.com/owlCoder/gadapt/actions/runs/39686171613",
+    "head_sha": "3b642101bb9c671b7835102be474480f3aa0cc65",
+    "event": "pull_request",
+    "original_zero_native_ac_job": "success",
+    "original_72_native_ac_job": "success",
+    "artifact_id": 12386702402
+  },
+  "raw_artifact": {
+    "ZIP_SHA256": "c2a84c57571841737c7a9f006091a4a97097fe6843d42265ef3ccbd84937f782",
+    "JSON_SHA256": "a8e707cc6044390213f8c9112ab59ab47f8a30321b28a669e2624d5c0df4d534",
+    "CSV_SHA256": "60a58eba49759f116e0f69e8c98887853cb99b112a022663cd051bd5eb1e7533",
+    "source": "Original GH Actions artifact ZIP; independently downloaded and SHA256-checked"
+  },
+  "original_source_git_blobs": {
+    "research/iteration9_source_generators.py": "0b9d84ca20cca07f2220ae075809d12ec4640b39",
+    "research/iteration11_original_matpower_native_pf.py": "957fd79c19a7d5f5c0250f6961164e904631928e",
+    "research/iteration14_original_acopf.py": "db6739aca49a5bcc0fbf999938b72f348c95aecd",
+    "research/iteration17_ieee14_gadapt_economic_pf.py": "6cf71cf01117d82aa09768c5a2b3aef7fbf908af",
+    "research/iteration32_ieee14_topology_transfer.py": "6bf2f68b04e38545cd60ca73feb129d6337ee0fa",
+    "research/test_iteration32_ieee14_topology_transfer.py": "407bad17a429de3ac861f10558c9f7b0e99f16de",
+    "research/ITERATION32_PROTOCOL.md": "69d3c367669df34f07713c4ffc06345ccd48e960"
+  },
+  "original_source_sha1_verified_against_original_workflow_head": true,
+  "all_seven_exact_source_blob_identities_preserved_in_this_DRAFT_branch": true,
+  "independent_readonly_accounting": {
+    "status": "PASS_ORIGINAL_ARCHIVED_OUTPUT_ARITHMETIC_REPLAY",
+    "script_sha256": "486bdd3c4687b4a8097556e66db5d806038b718762a397d8163e5f8f78846b12",
+    "script_in_chat_artifact": "i32_original_archival_only_verify.py",
+    "report_sha256": "0aab72ad0789532178b0046ff83e600a5980425550c9ffa5af3fba08fc71499a",
+    "rows": 72,
+    "methods": 6,
+    "paired_seeds": 12,
+    "archived_real_native_AC_calls": 12913,
+    "registered_original_max_native_AC_calls": 12960,
+    "new_native_AC_calls": 0,
+    "source_scenarios": [
+      "nominal",
+      "odd_bus_plus1pct",
+      "even_bus_plus1pct"
+    ],
+    "full_JSON_vs_CSV_rows_verified": 72,
+    "per_scenario_accounting_rows_checked": 216,
+    "original_witness_schema_and_mean_cost_rows_checked": 51,
+    "original_method_aggregate_summaries_recomputed": 6,
+    "original_paired_seed_exact_binomial_contrasts_recomputed": 5,
+    "specific_accounting_nuance": "10 fixed and 6 adaptive stop-mode candidates physically failed on the third AC scenario, having incurred all three AC calls but excluded from completely_evaluated_candidates; reconciled using the separately archived early_screened_physically_infeasible_candidates count."
+  },
+  "archived_methods": [
+    {
+      "method": "gadapt_full_true",
+      "archived_native_AC_calls": 2160,
+      "successful_paired_seeds": 8,
+      "fully_verified_source_feasible_candidates": 47
+    },
+    {
+      "method": "gadapt_full_censored",
+      "archived_native_AC_calls": 2160,
+      "successful_paired_seeds": 9,
+      "fully_verified_source_feasible_candidates": 82
+    },
+    {
+      "method": "gadapt_stop_fixed",
+      "archived_native_AC_calls": 2149,
+      "successful_paired_seeds": 12,
+      "fully_verified_source_feasible_candidates": 404
+    },
+    {
+      "method": "gadapt_stop_adaptive",
+      "archived_native_AC_calls": 2146,
+      "successful_paired_seeds": 12,
+      "fully_verified_source_feasible_candidates": 403
+    },
+    {
+      "method": "de_full_true",
+      "archived_native_AC_calls": 2160,
+      "successful_paired_seeds": 3,
+      "fully_verified_source_feasible_candidates": 3
+    },
+    {
+      "method": "de_stop_fixed",
+      "archived_native_AC_calls": 2138,
+      "successful_paired_seeds": 7,
+      "fully_verified_source_feasible_candidates": 13
+    }
+  ],
+  "registered_comparison_example": {
+    "contrast": "gadapt_stop_fixed_vs_de_stop_fixed",
+    "first_only": 5,
+    "second_only": 0,
+    "both": 7,
+    "neither": 0,
+    "original_unadjusted_exact_p": 0.0625,
+    "caveat": "Not a new hypothesis test, and not below 0.05 unadjusted."
+  },
+  "current_branch_CI": {
+    "status": "NOT_STARTED_NO_ACTIONS_CHECK_RUN_FOUND",
+    "head_sha": "d47b29bcfaab6998fb879e0b84e9aaacc5b789d6",
+    "source_authentication_expected": true,
+    "physical_RERUN": "NOT_AUTHORIZED"
+  },
+  "technical_gates": [
+    {
+      "id": "ORIGINAL_I32_SOURCE_IDENTIFIED",
+      "status": "CLOSED_ARCHIVAL_PROVENANCE"
+    },
+    {
+      "id": "I32_SOURCE_RESTORED_ON_DRAFT_BRANCH",
+      "status": "CLOSED_ON_BRANCH_NOT_MERGED"
+    },
+    {
+      "id": "I32_ARCHIVED_72_RUN_ACCOUNTING",
+      "status": "PASS_READ_ONLY"
+    },
+    {
+      "id": "I32_CURRENT_BRANCH_ZERO_NATIVE_AC_CI",
+      "status": "OPEN_NO_RUN_YET"
+    },
+    {
+      "id": "I32_INDEPENDENT_PHYSICAL_VALIDATION",
+      "status": "OPEN_NOT_ESTABLISHED"
+    },
+    {
+      "id": "I64_R_4200_OFFGIT",
+      "status": "OPEN_SOURCE_MISSING"
+    },
+    {
+      "id": "M6_C1_HUMAN_ORIGINALITY",
+      "status": "OPEN_UNSIGNED"
+    }
+  ],
+  "not_inferred": [
+    "Independently rerun 12913 AC power flows",
+    "Source KCL witness revalidated with a physical solver",
+    "I32 engineering applicability to actual network",
+    "Optimizer originality",
+    "Corrected detector specificity",
+    "New confirmation p-values"
+  ],
+  "new_optimizer_pf_opf_coco_runs": 0,
+  "scientific_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED"
+}
