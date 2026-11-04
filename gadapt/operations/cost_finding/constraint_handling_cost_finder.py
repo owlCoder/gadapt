@@ -72,7 +72,8 @@ class ConstraintHandlingCostFinder(ElitismCostFinder):
             ):
                 self._execute_function(self.population.options.cost_function, c)
         if not any(getattr(c, "_succ", False) for c in self.population):
-            raise ValueError("All evaluated candidate costs were invalid or nonfinite")
+            if not self._restore_monitored_incumbent():
+                raise ValueError("All evaluated candidate costs were invalid or nonfinite")
         pairs = [(c.objective_value, c.violation_value) for c in self.population]
         self.handler.start_generation(self._previous_best, pairs, self._progress())
         for c, cost in zip(self.population, self._scalar_costs(list(self.population))):
