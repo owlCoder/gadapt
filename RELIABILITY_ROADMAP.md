@@ -86,6 +86,10 @@ validation probes, exceptions and all attempted candidates.
 | C2 | 2D f=(x-0.8)^2+(y-0.8)^2, x,y in [-2,2], (x+0.5)^2+(y+0.5)^2 <= 0.09 | f <= 2.75 | 4,096 |
 | F4 | 4D f=sum((x_i-0.25)^2), x_i in [-1,1]; objective deliberately raises on x_0<0, probe_cost_function=False | f <= 1.0 | 4,096 |
 
+For R10 use `f(x)=10d+sum(x_i^2-10 cos(2*pi*x_i))`, with `d=10`.
+For A10 use `f(x)=-20 exp(-0.2 sqrt(sum(x_i^2)/d))
+-exp(sum(cos(2*pi*x_i))/d)+20+e`. For RB10 use
+`f(x)=sum(100(x_(i+1)-x_i^2)^2+(x_i-1)^2)` over `i=1..d-1`.
 For L2 and C2, return `(f, max(0, constraint_residual - 1e-9))`
 to `constraint_handling="feasibility_rules"`; independently log raw
 constraint residual to prevent tolerance-adjustment mistakes.
@@ -105,9 +109,19 @@ per run, consistent problem instance and matching implementation settings.
    `adaptive_immigration_percentage=20`,
    `adaptive_immigration_diversity_threshold=0.25` (ablation).
 4. SciPy differential evolution, externally budget-limited, on all six.
-5. CMA-ES with a fixed population-size rule and explicit bound repair on
-   R10/A10/RB10/F4 only. No arbitrary penalty comparison for constrained
-   problems.
+5. CMA-ES on R10/A10/RB10/F4 only; `popsize=4+floor(3*ln(d))`,
+   initial mean seeded uniformly in the bounds and
+   `sigma0=0.2*(upper-lower)`, fixed bounding strategy, no restarts.
+   No arbitrary penalty comparison for constrained problems.
+
+Use GA population size 32 and otherwise legacy search defaults for variants
+1-3. For SciPy DE, preselect `strategy="best1bin"`, `popsize=15`,
+`mutation=(0.5,1.0)`, `recombination=0.7`,
+`init="latinhypercube"`, `polish=False`, `tol=0`, `atol=0`.
+Its evaluation wrapper must stop exactly at B objective attempts;
+for L2/C2 use `NonlinearConstraint` with an independently counted
+constraint-check budget log. Package versions and random generator
+initialization must be frozen before experiments.
 
 Run each at exactly the same **maximum** call budget B, report **actual
 spent calls** (early exit may spend less), and mark errors, timeout,
@@ -121,9 +135,12 @@ the predeclared acceptable threshold, with paired differences and uncertainty
 intervals. **Tail metrics:** no-feasible rate; catastrophic rate (not
 acceptable); worst 10% of feasible objective gaps; 90th-percentile loss;
 CVaR90 (mean of worst 10% losses); evaluation-count distribution and anytime
-acceptable-rate curves. Predeclare a censored quality-loss convention for
-no-feasible runs before running, and always report those events separately
-so a finite imputation cannot conceal failures. Preserve all 50 individual
+acceptable-rate curves. Use a predeclared normalized acceptance loss
+`L = min(100, max(0, (f - threshold)/(1 + abs(threshold))))`
+when any feasible objective exists, and `L = 1000` otherwise. Compute
+P90 over all 50 losses and CVaR90 as the mean of the largest 5 losses.
+Always report no-feasible rates separately, because the imputation is
+a ranking convention, not a measured objective. Preserve all 50 individual
 seed records, including negatives, and do not select seeds or tune thresholds
 after seeing results.
 
