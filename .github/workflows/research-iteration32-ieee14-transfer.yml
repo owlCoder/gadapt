@@ -5,12 +5,31 @@ on:
     branches: [main]
     paths:
       - 'research/ITERATION32_PROTOCOL.md'
+      - 'research/iteration9_source_generators.py'
+      - 'research/iteration11_original_matpower_native_pf.py'
+      - 'research/iteration14_original_acopf.py'
+      - 'research/iteration17_ieee14_gadapt_economic_pf.py'
       - 'research/iteration32_ieee14_topology_transfer.py'
       - 'research/test_iteration32_ieee14_topology_transfer.py'
       - '.github/workflows/research-iteration32-ieee14-transfer.yml'
   pull_request:
     branches: [main]
+    paths:
+      - 'research/ITERATION32_PROTOCOL.md'
+      - 'research/iteration9_source_generators.py'
+      - 'research/iteration11_original_matpower_native_pf.py'
+      - 'research/iteration14_original_acopf.py'
+      - 'research/iteration17_ieee14_gadapt_economic_pf.py'
+      - 'research/iteration32_ieee14_topology_transfer.py'
+      - 'research/test_iteration32_ieee14_topology_transfer.py'
+      - '.github/workflows/research-iteration32-ieee14-transfer.yml'
   workflow_dispatch:
+    inputs:
+      authorize_original_72_native_ac_runs:
+        type: boolean
+        description: 'Explicit authorization to re-run 72 physical IEEE14 AC method/seed trials'
+        required: true
+        default: false
 
 permissions:
   contents: read
@@ -44,7 +63,7 @@ jobs:
   preregistered-real-ieee14:
     # I32 original 72-run experiment completed in Actions #39686171613.
     # Future physical reruns require intentional manual workflow dispatch.
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' && inputs.authorize_original_72_native_ac_runs == true
     needs: zero-native-ac
     runs-on: ubuntu-latest
     timeout-minutes: 120
