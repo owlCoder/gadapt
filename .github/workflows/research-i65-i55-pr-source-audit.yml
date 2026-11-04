@@ -1,0 +1,56 @@
+name: I65 I55 archived NPZ read-only PR audit
+
+# Only archived original source bytes, frozen metadata and synthetic tests.
+# This workflow MUST NOT execute an optimizer, PF/AC, or held-out COCO runs.
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/i65/archive_review/**'
+      - '.github/workflows/research-i65-i55-pr-source-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original-source-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout exact original Git history, retained NPZ source files
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Set up Python 3.11 for frozen archive readers
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install only numpy for read-only NPZ decoding
+        run: python -m pip install --disable-pip-version-check numpy==1.26.4
+      - name: Exercise 181-source evidence and SHA-pinned adversarial tests
+        run: |
+          python -m unittest discover -s research/i65/archive_review -p 'test_i55_181_npz*.py' -v
+          python -m unittest discover -s research/i65/archive_review -p 'test_i55_original_npz_connector_replay.py' -v
+      - name: Fail-closed authentication of published 181-witness evidence
+        run: |
+          python research/i65/archive_review/i55_181_npz_evidence_reconcile.py \
+            --repo-root . --output i55_181_new_sha_pinned_evidence_audit.json
+      - name: Recheck frozen oracle, original source schema and Git tree gates
+        run: |
+          python -m unittest discover -s research/i65/archive_review -p 'test_i55_frozen_objective_oracle.py' -v
+          python -m unittest discover -s research/i65/archive_review -p 'test_i55_full_npz_attestation.py' -v
+      - name: Recompute all original 620 A-process NPZ traces without optimizers
+        run: |
+          python research/i65/archive_review/i55_full_npz_attestation.py \
+            --repo-root . --output i55_620_original_readonly_audit.json
+      - name: Preserve reports even if an attestation gate fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: i55-pinned-original-source-only-audit
+          path: |
+            i55_181_new_sha_pinned_evidence_audit.json
+            i55_620_original_readonly_audit.json
+          if-no-files-found: warn
