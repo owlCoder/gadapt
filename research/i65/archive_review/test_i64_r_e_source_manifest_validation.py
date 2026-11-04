@@ -103,5 +103,12 @@ class OriginalRInputSecurityTests(unittest.TestCase):
         self.assertEqual(report['E_original_R_tasks_params_matched_to_frozen_E'], 0)
 
 
+    def test_absent_R_records_can_never_be_ready(self):
+        report = validate_required_e_inputs(self.repo, self.digests, [])
+        self.assertEqual(report['E_required_source_SHA256_verified'], 44)
+        self.assertEqual(report['E_original_R_tasks_params_matched_to_frozen_E'], 0)
+        self.assertFalse(report['ready_for_independent_raw_seed_bootstrap'])
+
+
 if __name__ == '__main__':
     unittest.main()
