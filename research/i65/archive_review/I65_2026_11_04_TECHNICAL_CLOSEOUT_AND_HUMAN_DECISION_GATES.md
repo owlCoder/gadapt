@@ -1,5 +1,17 @@
 # I65 / GAdapt research audit — technical closeout and unclosed scientific gates
 
+> **2026-11-04 later integration addendum, superseding only old
+> branch/CI-state statements below:** PRs #14/#15/#16/#17 have
+> **all been merged**; `main` reached `c429f88f29c44b449d19db5e5c80c720af86aa6c`.
+> Exact-main I55 audit [41885799766](https://github.com/owlCoder/gadapt/actions/runs/41885799766)
+> **177/177 PASS**; regression [41885799812](https://github.com/owlCoder/gadapt/actions/runs/41885799812)
+> **Python 3.10/3.11/3.12 PASS**, exploratory optimizer skipped.
+> The technical historical notes below are retained for provenance.
+> [Current authoritative source-only status](I65_CURRENT_MAIN_ARCHIVAL_EVIDENCE_STATUS_2026-11-04.md).
+> This updates **no** missing raw data, scientific interpretation,
+> human review, or `DRAFT / NO-FREEZE / NOT_ESTABLISHED` decision.
+
+
 **Date 2026-11-04. Status DRAFT / NO-FREEZE / NOT_ESTABLISHED.**
 This is an explicitly limited archival engineering closure note, NOT a
 dissertation signoff, new optimizer experiment, new grid simulation, new

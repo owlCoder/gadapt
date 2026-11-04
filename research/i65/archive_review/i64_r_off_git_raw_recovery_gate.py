@@ -51,7 +51,13 @@ def validate_r_records(records:list)->dict:
     for index,r in enumerate(records):
         if not isinstance(r,dict) or not isinstance(r.get('task'),dict):
             raise ValueError(f'Invalid task at index {index}')
-        t=r['task'];k=t.get('k');config=t.get('config');seed=t.get('seed')
+        t=r['task']
+        # Original frozen r_study.py expected_tasks() emits exactly four
+        # task fields. No absent params or fabricated extra metadata may
+        # be labeled an authentic original seed/config/cell record.
+        if set(t) != {'k', 'config', 'seed', 'params'}:
+            raise ValueError(f'Invalid R task schema at index {index}')
+        k=t.get('k');config=t.get('config');seed=t.get('seed')
         if type(k)!=int or not (0<=k<len(PAIRS)) or config not in ('gadapt','ipop') or type(seed)!=int:
             raise ValueError(f'Invalid R cell/config/seed {index}')
         s=seed-(67_000_000+1000*(63+k))
@@ -61,7 +67,11 @@ def validate_r_records(records:list)->dict:
         if key in seen:
             raise ValueError(f'Duplicate R task {key}')
         seen.add(key)
-        if r.get('ok') is not True or r.get('calls')!=12000:
+        # Original Budget.n is an integer, and r_study.py archives it
+        # directly. 12000.0 == 12000 in Python, but a float or bool
+        # budget is not the historical serialized call-counter shape.
+        if (r.get('ok') is not True or type(r.get('calls')) is not int or
+                r['calls'] != 12000):
             raise ValueError(f'Unsuccessful/incomplete historical run {key}')
         events=r.get('events')
         if not isinstance(events,list) or not events:
