@@ -75,6 +75,14 @@ class ReliabilityMonitor:
         results.invalid_objective_evaluations = self.invalid_evaluations
         results.acceptable = self.acceptable
         results.feasible = self.best is not None and self.best[1] == 0
+        if self.best is None:
+            results.solution_status = "no_valid_evaluation"
+        elif self.best[1] != 0:
+            results.solution_status = "no_feasible_solution"
+        elif self.acceptable:
+            results.solution_status = "acceptable"
+        else:
+            results.solution_status = "feasible_but_unacceptable"
         if self.best is not None:
             objective, violation, values = self.best
             results.best_objective = objective
