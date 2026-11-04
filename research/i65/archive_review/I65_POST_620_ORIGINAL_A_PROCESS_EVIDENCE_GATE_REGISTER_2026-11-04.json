@@ -399,5 +399,57 @@
       "Prospective COCO not authorized"
     ],
     "research_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED"
+  },
+  "original_full_corner_first_repeat_and_direction": {
+    "status": "EXISTING_ORIGINAL_SOURCE_PHASE_ARTIFACT_RECONCILED_SIGN_DIRECTION_NEW_CI_NOT_YET_OBSERVED",
+    "source_original_phase_json_sha256": "14ee6ea5839b59f3b15403921f5aefde16dbe21d82f",
+    "full_clone_reference_run": 41804478669,
+    "verified_original_npz": 620,
+    "original_C1_events": 2105,
+    "original_C1_also_exact_C2": 1956,
+    "original_C1_first_in_trace": 149,
+    "original_C1_post_events": 0,
+    "by_function_original": {
+      "plateau": {
+        "C1": 1820,
+        "repeats": 1746,
+        "first": 74
+      },
+      "sphere": {
+        "C1": 241,
+        "repeats": 201,
+        "first": 40
+      },
+      "rastrigin": {
+        "C1": 44,
+        "repeats": 9,
+        "first": 35
+      }
+    },
+    "by_dimension_original": {
+      "2": {
+        "C1": 919,
+        "repeats": 795,
+        "first": 124
+      },
+      "10": {
+        "C1": 1186,
+        "repeats": 1161,
+        "first": 25
+      }
+    },
+    "original_reconciliation_report": "I65_I55_620_ORIGINAL_C1_FIRST_VS_REPEAT_EVIDENCE_2026-11-04.json",
+    "new_signed_corner_original_npz_source_audit": "i55_620_corner_direction_source_audit.py",
+    "new_signed_corner_synthetic_tests": "test_i55_620_corner_direction_source_audit.py",
+    "new_signed_corner_expected_tests": 9,
+    "new_signed_corner_actual_original_negative_positive_count": "NOT_YET_OBSERVED",
+    "new_signed_corner_original_full_clone_Github_CI": "NOT_YET_OBSERVED",
+    "prior_original_full_clone_CI_tests_passed": 86,
+    "other_new_I64_R_synthetic_tests_local_passed": 38,
+    "combined_current_I55_CI_expected_unit_tests": 133,
+    "combined_current_I55_CI_observed_success": "NO",
+    "source_identity": "original Git manifest/root tree/NPZ blobs checked by authored future script; result cannot be claimed before it executes in full clone",
+    "scientific_limits": "Descriptive conditional archive counts only; software defect/causality/original A-prime/B not established",
+    "science_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED"
   }
 }
