@@ -79,6 +79,47 @@ Git tree, along with original `freeze`, `normalizers` and
 E aggregate are distinct from the **also missing R raw source with
 4,200 records**. Do not silently treat the E digest as raw R data.
 
+## Further correction — frozen Budget strict-improvement event contract
+
+A second fail-open detail was identified by inspecting the **original
+frozen** `research/i64/e_common.py` (Git blob
+`3aab99773a7e4a95b7972a3c8061c50bd471618d`). Its
+`Budget.__call__` appends an event only if a finite objective value
+is **strictly less than** the prior best: `if math.isfinite(v) and v < self.best:`.
+
+The prior R recovery gate allowed ties and small increasing best
+values under `if f > previous_f + 1e-10*max(1,abs(previous_f))`,
+even though those events cannot come from that original recorder.
+The gate now rejects **all non-strict improvements**, without a
+numerical tolerance. Each record must also contain a finite
+`best_f` **exactly equal** to its final recorded improvement value,
+and a finite `best_y` coordinate list with the frozen paired
+function's dimension. These invariants are justified by the
+original R `research/i64/r_study.py` source which archives both
+`budget.best` and `budget.best_y` from the same recorder.
+
+The previous source module's pytest fixture was updated so it
+actually represents an original-format record (including
+`best_f` and `best_y`). Ten new
+[standard-library adversarial source-contract tests](
+test_i64_r_original_budget_strict_consistency.py)
+cover valid 4,200-row *synthetic* roster, tie, tiny increase,
+incorrect/missing/nonfinite final best, wrong/nonfinite best-vector,
+invalid call order and duplicate task identity.
+
+The read-only I55 CI now **includes** these ten tests and the prior
+ten E source SHA-256 tests, for **106 total expected** test cases
+(86 previously passing + 10 + 10). **This latest CI version has
+not yet produced a confirmed GitHub Actions run**: do not report
+106/106 CI PASS until a run is independently observed. A minimal
+local contract smoke test passed, but no original R seed data exists
+here to test the full 4,200 recovered records.
+
+This is a **preflight-source authenticity correction only**; it
+does not recover the original off-Git R archive, replay its
+original 20,000-draw bootstrap, change any frozen H64 decision
+or authorize a new experiment.
+
 ## Validation and limits
 
 **10/10 synthetic/adversarial read-only tests PASS locally.**
