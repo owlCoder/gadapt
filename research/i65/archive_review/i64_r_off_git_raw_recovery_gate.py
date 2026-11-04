@@ -140,7 +140,10 @@ def audit(*,repo_root:Path,raw_run_path:Path,expected_full_sha256:str|None=None)
     # separately record optional E-aggregate absences (the original E run
     # combined archive was not committed). Required are the 42 shift/rot
     # source parts, original normalizers and original frozen method params.
-    e_integrity=validate_required_e_inputs(repo_root,raw['e_inputs'],raw['records'])
+    # Original R source records were independently authenticated above by
+    # validate_r_records; E-only auditors deliberately do not have this proof.
+    e_integrity=validate_required_e_inputs(repo_root,raw['e_inputs'],raw['records'],
+                                           original_r_roster_attested=(struct['records_checked']==4200))
     return dict(status='STRUCTURE_MATCHES_ARCHIVED_R_SPEC',raw_run=str(raw_run_path),actual_sha256=sha,
                 historical_abbreviated_marker_match=True,
                 trusted_full_digest_confirmed=expected_full_sha256 is not None,
