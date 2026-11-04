@@ -57,7 +57,8 @@ class ElitismCostFinder(BaseCostFinder):
             elif controller is not None:
                 controller.observe(c)
         if not any(getattr(c, "_succ", False) for c in self.population):
-            raise ValueError("All evaluated candidate costs were invalid or nonfinite")
+            if not self._restore_monitored_incumbent():
+                raise ValueError("All evaluated candidate costs were invalid or nonfinite")
         better_candidate_solutions: List[CandidateSolution] = self.population.get_sorted(
             key=lambda x: x.cost_value
         )
