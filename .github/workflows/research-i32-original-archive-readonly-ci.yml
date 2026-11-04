@@ -1,0 +1,71 @@
+name: I32 Original Archived 72-Run Read-Only Accounting
+
+# No optimizer, PYPOWER, PF/OPF or physical simulation is permitted here.
+# This is separate from the existing I32 source and manual physical workflow.
+on:
+  # After merge, re-verify historic artifact accounting only.
+  # Never run an AC solver, optimizer, PF, OPF, COCO or new experiment.
+  push:
+    branches: [main]
+    paths:
+      - 'research/i32_original_archive_readonly_verify.py'
+      - 'research/test_i32_original_archive_readonly_verify.py'
+      - '.github/workflows/research-i32-original-archive-readonly-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/i32_original_archive_readonly_verify.py'
+      - 'research/test_i32_original_archive_readonly_verify.py'
+      - '.github/workflows/research-i32-original-archive-readonly-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  original-archive-accounting:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout archival-only verifier and tests
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Python for Python-standard-library-only archive reading
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Download original published I32 artifact from historic Actions run 39686171613
+        uses: actions/download-artifact@v4
+        with:
+          name: i32-ieee14-source-physical-12seed-6arm
+          run-id: 39686171613
+          repository: owlCoder/gadapt
+          github-token: ${{ github.token }}
+          path: i32_original_archived_source
+      - name: Read-only original payload verification and 11 adversarial tests
+        env:
+          I32_ORIGINAL_ARTIFACT_DIR: i32_original_archived_source
+        run: |
+          python -m unittest discover -s research -p 'test_i32_original_archive_readonly_verify.py' -v
+          python research/i32_original_archive_readonly_verify.py --source-dir i32_original_archived_source --output i32_original_72_readonly_verification.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r = json.loads(Path('i32_original_72_readonly_verification.json').read_text())
+          assert r['status'] == 'PASS_ORIGINAL_ARCHIVED_ACCOUNTING'
+          assert r['original_method_seed_records'] == 72
+          assert r['original_native_ac_calls_not_new'] == 12913
+          assert r['original_paired_contrasts_rechecked'] == 5
+          assert r['new_native_ac_calls'] == 0 and r['new_optimizer_runs'] == 0
+          assert r['original_zip_bytes_sha256_checked_in_this_invocation'] is False
+          print('I32 original source-only archive counts PASS; no physical solver called')
+          PY
+      - name: Preserve attested original archive accounting only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: i32-original-72-readonly-archive-attestation
+          path: i32_original_72_readonly_verification.json
+          if-no-files-found: warn

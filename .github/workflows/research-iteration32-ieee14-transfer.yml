@@ -5,12 +5,31 @@ on:
     branches: [main]
     paths:
       - 'research/ITERATION32_PROTOCOL.md'
+      - 'research/iteration9_source_generators.py'
+      - 'research/iteration11_original_matpower_native_pf.py'
+      - 'research/iteration14_original_acopf.py'
+      - 'research/iteration17_ieee14_gadapt_economic_pf.py'
       - 'research/iteration32_ieee14_topology_transfer.py'
       - 'research/test_iteration32_ieee14_topology_transfer.py'
       - '.github/workflows/research-iteration32-ieee14-transfer.yml'
   pull_request:
     branches: [main]
+    paths:
+      - 'research/ITERATION32_PROTOCOL.md'
+      - 'research/iteration9_source_generators.py'
+      - 'research/iteration11_original_matpower_native_pf.py'
+      - 'research/iteration14_original_acopf.py'
+      - 'research/iteration17_ieee14_gadapt_economic_pf.py'
+      - 'research/iteration32_ieee14_topology_transfer.py'
+      - 'research/test_iteration32_ieee14_topology_transfer.py'
+      - '.github/workflows/research-iteration32-ieee14-transfer.yml'
   workflow_dispatch:
+    inputs:
+      authorize_original_72_native_ac_runs:
+        type: boolean
+        description: 'Explicit authorization to re-run 72 physical IEEE14 AC method/seed trials'
+        required: true
+        default: false
 
 permissions:
   contents: read
@@ -36,15 +55,50 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install 'numpy==1.26.4' 'scipy==1.13.1' 'pandas==2.2.3' 'pypower==5.1.19' 'pandapower==2.14.11'
           python -m pip install -e .
-      - name: Syntax and source-only no-solver tests BEFORE I32 physical run
+      - name: Authenticate exact historical I9/I11/I14/I17/I32 source Git blobs
+        run: |
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          expected = {
+              "research/iteration9_source_generators.py": "0b9d84ca20cca07f2220ae075809d12ec4640b39",
+              "research/iteration11_original_matpower_native_pf.py": "957fd79c19a7d5f5c0250f6961164e904631928e",
+              "research/iteration14_original_acopf.py": "db6739aca49a5bcc0fbf999938b72f348c95aecd",
+              "research/iteration17_ieee14_gadapt_economic_pf.py": "6cf71cf01117d82aa09768c5a2b3aef7fbf908af",
+              "research/iteration32_ieee14_topology_transfer.py": "6bf2f68b04e38545cd60ca73feb129d6337ee0fa",
+              "research/test_iteration32_ieee14_topology_transfer.py": "407bad17a429de3ac861f10558c9f7b0e99f16de",
+              "research/ITERATION32_PROTOCOL.md": "69d3c367669df34f07713c4ffc06345ccd48e960",
+          }
+          for path, want in expected.items():
+              raw = Path(path).read_bytes()
+              got = hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\x00'+raw).hexdigest()
+              if got != want: raise SystemExit(f"Historical source changed: {path}: {got} != {want}")
+              print(f"AUTHENTICATED {path} {got}")
+          PY
+      - name: Syntax and original source-only no-solver tests (forbid actual AC)
         run: |
           python -m py_compile research/iteration32_ieee14_topology_transfer.py research/test_iteration32_ieee14_topology_transfer.py
-          python -m unittest -v research.test_iteration32_ieee14_topology_transfer
-          python -m unittest -v tests.test_sequential_scenario_budget_cost
+          python - <<'PY'
+          import unittest
+          from unittest.mock import patch
+          def prohibit(*a, **kw):
+              raise AssertionError('Real AC PF/OPF invocation FORBIDDEN in this source-only test')
+          # Patch upstream solver ENTRYPOINTS before loading the historical
+          # modules: tests may inspect source cases but MUST NOT solve AC.
+          with patch('pypower.runpf.runpf', side_effect=prohibit), \
+               patch('pypower.runopf.runopf', side_effect=prohibit):
+              tests = unittest.defaultTestLoader.loadTestsFromNames([
+                  'research.test_iteration32_ieee14_topology_transfer',
+                  'tests.test_sequential_scenario_budget_cost',
+              ])
+              result = unittest.TextTestRunner(verbosity=2).run(tests)
+              if not result.wasSuccessful(): raise SystemExit(1)
+          PY
   preregistered-real-ieee14:
     # I32 original 72-run experiment completed in Actions #39686171613.
     # Future physical reruns require intentional manual workflow dispatch.
-    if: github.event_name == 'workflow_dispatch'
+    # This draft PR only requests original zero-native-AC source checks.
+    if: github.event_name == 'workflow_dispatch' && inputs.authorize_original_72_native_ac_runs == true
     needs: zero-native-ac
     runs-on: ubuntu-latest
     timeout-minutes: 120

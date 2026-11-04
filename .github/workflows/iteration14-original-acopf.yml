@@ -1,18 +1,19 @@
 name: Iteration 14 original MATPOWER economic AC-OPF reference (max 2 real solves)
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "research/ITERATION14_PROTOCOL.md"
-      - "research/iteration14_original_acopf.py"
-      - "research/test_iteration14_original_acopf.py"
-      - "research/results/rte1888_iteration14_original_matpower_gencost_full7_2019.csv"
-      - ".github/workflows/iteration14-original-acopf.yml"
+  # Original AC/PF/OPF or optimization is NEVER automatic on push or PR.
+  # Legacy experiments require intentional manual authorization.
   workflow_dispatch:
+    inputs:
+      authorize_legacy_original_physical_runs:
+        description: 'Explicit authorization to rerun the original native physical or optimizer study'
+        type: boolean
+        required: true
+        default: false
 
 jobs:
   native-source-matpower-ac-opf:
+    if: github.event_name == 'workflow_dispatch' && inputs.authorize_legacy_original_physical_runs == true
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
