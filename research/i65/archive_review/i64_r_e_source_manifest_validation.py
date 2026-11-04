@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Independent read-only SHA-256 + frozen task-param integrity gate for I64-R E inputs.
 
-The original R \`e_inputs\` manifest lists all 63 E run parts and four
+The original R `e_inputs` manifest lists all 63 E run parts and four
 aggregate sources. Replaying R's 21 fixed pairs requires shift+rot E parts,
 normalizers, and the frozen optimizer-parameter manifest. A missing optional
-E aggregate \`run.json.gz\` is recorded, never silently labeled FULL lineage.
+E aggregate `run.json.gz` is recorded, never silently labeled FULL lineage.
 No optimizer, PF/OPF, physics, or COCO implementation is imported.
 """
 from __future__ import annotations
