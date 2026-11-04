@@ -24,6 +24,8 @@ root-cause attribution nor diagnostic specificity is established.
 
 Latest evidence:
 - [Original raw NPZ phase/duplicate analysis](I65_I55_620_RAW_PHASE_AND_C1_C2_DUPLICATE_FORENSICS_2026-11-04.md)
+- [Exact proof: 40 original cells with both full signed C1 corners, all in 2D](I65_I55_620_C1_TWO_SIGN_CELL_OCCUPANCY_EXACT_PROOF_2026-11-04.md) — inferred solely from two authenticated 620-source CI reports; 11/11 local tamper/algebra tests PASS; per-event sign totals still require a new read-only NPZ scan
+- [Source-authenticated derived two-sign cell occupancy JSON](I65_I55_620_ORIGINAL_TWO_SIGN_C1_CELL_OCCUPANCY_2026-11-04.json)
 - [SHA-derived exact original C1 first-vs-repeat reconciliation](I65_I55_620_ORIGINAL_C1_FIRST_VS_REPEAT_EVIDENCE_2026-11-04.json) — **149 first** vs **1,956 exact repeated** C1 events; per-function/dimension/library original counts, no bug adjudication
 - [Proposed 620 Git-SHA-authenticated signed-corner source classifier](i55_620_corner_direction_source_audit.py) and [nine synthetic tests](test_i55_620_corner_direction_source_audit.py) — directional −5/+5 numerical source results **NOT YET OBSERVED IN CI**
 - [Full 620-source flag census](I65_I55_620_FLAG_CENSUS_AND_POST_ATTESTATION_OPEN_GATES_2026-11-04.md)
