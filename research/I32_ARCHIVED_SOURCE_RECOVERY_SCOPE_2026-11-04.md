@@ -1,5 +1,19 @@
 # I32 archival source recovery — read-only scope (2026-11-04)
 
+> **Later merge-state update, 2026-11-04:** Historical source
+> recovery PR [#15](https://github.com/owlCoder/gadapt/pull/15)
+> is **MERGED**, contrary to dated draft-only statements below.
+> The archived 72-row accounting
+> [main run 41879864240](https://github.com/owlCoder/gadapt/actions/runs/41879864240)
+> and zero-native-AC source CI
+> [41879864065](https://github.com/owlCoder/gadapt/actions/runs/41879864065)
+> passed on merged main `cb4a09b3...`. The original I32 source
+> and workflows remained byte-identical through later verified
+> main `c429f88f...`. This is **technical closure only**; no
+> independent physical witness, novelty signoff or scientific freeze.
+> [Consolidated main evidence index](i65/archive_review/I65_CURRENT_MAIN_ARCHIVAL_EVIDENCE_STATUS_2026-11-04.md).
+
+
 **DRAFT; NO-FREEZE; no new PF/OPF, optimizer or COCO experiments.**
 
 The main branch at commit `8d376a720afe2704af5efdb39777dac7a2c5e742`

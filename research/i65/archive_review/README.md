@@ -1,5 +1,25 @@
 # I65 archive verification and post-hoc influence review — current 2026-11-04 evidence index
 
+## Verified merged-main status (2026-11-04; supersedes older proposal-state notes)
+
+**PRs #14, #15, #16 and #17 are MERGED**, not open/draft.
+The latest exact-main I55 read-only check is
+[41885799766](https://github.com/owlCoder/gadapt/actions/runs/41885799766)
+(**177/177 PASS**, including all 620 original A-process NPZ files);
+base regressions
+[41885799812](https://github.com/owlCoder/gadapt/actions/runs/41885799812)
+passed Python 3.10/3.11/3.12 with optimizer benchmark **SKIPPED**.
+Last fully verified `main`: `c429f88f29c44b449d19db5e5c80c720af86aa6c`.
+
+**[Authoritative current merged-main archival evidence index](I65_CURRENT_MAIN_ARCHIVAL_EVIDENCE_STATUS_2026-11-04.md)**
+contains exact Actions runs, historical source boundaries, source-only
+results and OPEN external human/data gates. Older descriptions below
+remain dated historical snapshots and must not be read as a new
+"current CI pending" or "draft PR not merged" assertion.
+Scientific status stays **DRAFT / NO-FREEZE / NOT_ESTABLISHED**.
+
+
+
 ## Current verified position (supersedes earlier dated NOT_RUN statements)
 
 **2026-11-04:** On the draft I55 review branch, a full-clone read-only GitHub Actions run
