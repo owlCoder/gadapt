@@ -17,6 +17,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from i64_r_off_git_raw_recovery_gate import (
     BUILDS, PAIRS, blob_sha1, validate_r_records, verify_lineage,
 )
+from test_i64_r_repro_witness_identities import synthetic_witness_rows
 
 SOURCE_GIT_BLOBS = {
     "research/i64/r_study.py": "4e8e33e07894ae1006c03cb0ada3566254fb9907",
@@ -104,7 +105,7 @@ class OriginalRRecoveryLegacyContractTests(unittest.TestCase):
         raw = {"e_inputs": {"part": "test-digest"}, "manifest": manifest}
         analysis = {"e_inputs": raw["e_inputs"]}
         check = {"e_inputs": raw["e_inputs"], "manifest": manifest,
-                 "results": [{"identical": True} for _ in range(5)]}
+                 "results": synthetic_witness_rows()}
         self.assertEqual(verify_lineage(raw, analysis, check)
                          ["check_repro_witnesses"], 5)
         changed = copy.deepcopy(check)
@@ -116,9 +117,9 @@ class OriginalRRecoveryLegacyContractTests(unittest.TestCase):
         manifest = {name: "synthetic:" + name for name in BUILDS}
         raw = {"e_inputs": {"part": "test-digest"}, "manifest": manifest}
         check = {"e_inputs": raw["e_inputs"], "manifest": manifest,
-                 "results": [{"identical": True} for _ in range(5)]}
+                 "results": synthetic_witness_rows()}
         check["results"][2]["identical"] = False
-        with self.assertRaisesRegex(ValueError, "five E-R"):
+        with self.assertRaisesRegex(ValueError, "five frozen E"):
             verify_lineage(raw, {"e_inputs": raw["e_inputs"]}, check)
 
     def test_git_blob_sha1_has_real_git_framing(self):
