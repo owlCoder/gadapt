@@ -50,7 +50,7 @@ jobs:
           }
           for name, expected in original.items():
               data = Path(name).read_bytes()
-              actual = hashlib.sha1(b'blob '+str(len(data)).encode()+b'\\0'+data).hexdigest()
+              actual = hashlib.sha1(b'blob '+str(len(data)).encode()+bytes((0,))+data).hexdigest()
               if actual != expected:
                   raise SystemExit(f'Original archived source changed: {name}: {actual}')
               print('ARCHIVED ORIGINAL GIT BLOB PASS',name,actual)
