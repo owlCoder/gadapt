@@ -1,0 +1,39 @@
+{
+  "schema": "I65_I64_R_E_SYNTHETIC_END_TO_END_LOCAL_EVIDENCE_V1",
+  "date": "2026-11-04",
+  "source_only": true,
+  "local_execution": {
+    "status": "PASS",
+    "ran": 38,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "suites": {
+      "E_SHA256_and_R_roster_readiness": 13,
+      "original_frozen_R_Budget_event_contract": 10,
+      "E_only_R_manifest_metadata": 8,
+      "E_only_synthetic_66_file_end_to_end": 7
+    },
+    "local_detailed_test_log_sha256": "87916188e765ec0726e3b6cbf13569be1faa9b826e13c8a39bf2b968ee685632",
+    "local_downloadable_receipt_sha256": "678850d8378ac54078eda86c6034bbd4444f59f03ad4dacd94b78c6b4b7ca6e4"
+  },
+  "source_git_blob_match_from_local_test": {
+    "E_sha256_and_roster": "2926e7a4ba34a7f749cc3db4c90b4f2b92ed96f3",
+    "E_sha256_tests": "88e5535827008ef30acb0f7a3acfe2cee4bf4799",
+    "E_only_auditor": "e47692c8abf72157cd31ec679313f8daecb55140",
+    "E_only_manifest_tests": "bec287474059e98c9c19a63e1b27136628b5e645",
+    "original_R_Budget_contract_tests": "e8dec4dbf42a7a1b70219b66428fa09a0dee23e6",
+    "synthetic_E_only_end_to_end_tests": "0f94dbe9c16907f9051a43417a0734020c45852f"
+  },
+  "fix_verified": "E-source readiness requires exactly 4200 R records, explicit attested original R roster passed by original raw recovery gate after full validate_r_records, correct frozen per-task optimizer params, and 44 SHA256-pinned mandatory E inputs",
+  "synthetic_66_E_test_limitation": "All E files in the end-to-end local suite were generated solely as adversarial/synthetic fixtures, not original source E data",
+  "full_original_R_gate_execution_limitation": "Local synthetic E-only tests use minimal frozen R helper stub for blob SHA/manifest identifiers; this does not substitute for executing original full gate on original R data",
+  "original_4200_R_raw_source_available": false,
+  "original_20000_R_bootstrap_replayed": false,
+  "real_66_E_binary_sha256_attested_by_GitHub_run": false,
+  "previous_full_clone_I55_readonly_CI_tests_passed": 86,
+  "new_latest_I55_CI_total_tests_expected": 124,
+  "new_latest_I55_CI_status": "NOT_YET_CONFIRMED",
+  "new_optimizer_PF_OPF_COCO_runs": 0,
+  "research_status": "DRAFT / NO-FREEZE / NOT_ESTABLISHED"
+}
