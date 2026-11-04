@@ -115,6 +115,8 @@ class ReliabilityMonitor:
         results.objective_evaluations = self.evaluations
         results.valid_objective_evaluations = self.valid_evaluations
         results.invalid_objective_evaluations = self.invalid_evaluations
+        if getattr(self, "probe_validation_warning", None):
+            results.messages.append(("WARNING", self.probe_validation_warning))
         results.stagnation_refreshes = self.stagnation_refreshes
         results.reliability_restarts = self.restarts
         results.acceptable = self.acceptable
