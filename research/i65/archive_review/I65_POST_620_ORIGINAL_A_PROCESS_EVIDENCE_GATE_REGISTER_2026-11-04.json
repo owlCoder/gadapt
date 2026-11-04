@@ -352,7 +352,13 @@
       "C1_events": 2105,
       "C2_events": 18779,
       "C1_C2_overlap_events": 1956,
-      "PyGAD_post_duplicates": 1200
+      "PyGAD_post_duplicates": 1200,
+      "original_signed_corner_C1": {
+        "negative": 2050,
+        "positive": 55,
+        "source": "direct immutable Git binary NPZ 109 original C1-positive cells",
+        "status": "CLOSED_DESCRIPTIVE_ONLY"
+      }
     },
     "I32_original_source_recovery": {
       "status": "CLOSED_ON_SEPARATE_DRAFT_PR_NOT_MAIN",
@@ -442,7 +448,7 @@
     "new_signed_corner_original_npz_source_audit": "i55_620_corner_direction_source_audit.py",
     "new_signed_corner_synthetic_tests": "test_i55_620_corner_direction_source_audit.py",
     "new_signed_corner_expected_tests": 9,
-    "new_signed_corner_actual_original_negative_positive_count": "NOT_YET_OBSERVED",
+    "new_signed_corner_actual_original_negative_positive_count": "CLOSED_FROM_DIRECT_109_OF_109_IMMUTABLE_GIT_NPZ_BINARIES",
     "new_signed_corner_original_full_clone_Github_CI": "NOT_YET_OBSERVED",
     "prior_original_full_clone_CI_tests_passed": 86,
     "other_new_I64_R_synthetic_tests_local_passed": 38,
@@ -483,6 +489,41 @@
       "standalone_local_original_CI_ZIP_receipt_sha256": "0142ed011c95276a78b71efd872d88b642c4ec194637651ec9d732250e785ed7",
       "new_latest_head_GitHub_CI": "NOT_OBSERVED",
       "important_caveat": "Distinct-corner cells can be fully inferred from old original SHA-pinned reports; event-level totals of all-negative vs all-positive still cannot."
+    },
+    "original_signed_C1_binary_replay": {
+      "status": "PASS_109_OF_109_ORIGINAL_C1_POSITIVE_GIT_BLOBS_AND_RAW_X_NPY_COUNTS",
+      "original_620_valid_A_npz_fullclone_attested_previously": 620,
+      "original_C1_positive_npz_binary_directly_fetched_and_verified": 109,
+      "original_C1_zero_npz_original_metadata_verified": 511,
+      "original_frozen_C1_events": 2105,
+      "negative_all_minus5_events": 2050,
+      "positive_all_plus5_events": 55,
+      "first_negative_C1_visits": 97,
+      "first_positive_C1_visits": 52,
+      "repeated_negative_C1_visits": 1953,
+      "repeated_positive_C1_visits": 3,
+      "original_C1_cells_with_both_signed_corners": 40,
+      "all_positive_events_2D": true,
+      "positive_events_10D": 0,
+      "source_original_commit": "6b56fbc53ffc4d275ecef5e911ea4663474c9a08",
+      "original_git_source_manifest": "50ca2e96762447070a74309850cb1aa6586d3eb3",
+      "exact_109_source_roster_git_sha1": "f1dd7d1b283eba1ee12562acaf22a144d9c525d5",
+      "independent_binary_reader_git_sha1": "7c0d2bbf23cf7e1dea209651d3778cb0c3030711",
+      "cell_level_machine_file": "I65_I55_ORIGINAL_109_C1_POSITIVE_NPZ_SIGNED_CORNER_DIRECT_BINARY_REPLAY_2026-11-04.json",
+      "original_binary_source_machine_file_git_sha1": "7f1716b061d703d5ab8c367d73386371dcb9d7a9",
+      "scientific_report": "I65_I55_ORIGINAL_620_C1_SIGNED_CORNER_DIRECT_BINARY_FORENSICS_2026-11-04.md",
+      "cross_checks": [
+        "109 frozen C1-positive cells each matched original Git NPZ blob sha1 and byte size",
+        "Decoded original float64 x.npy shape and per-cell C1 exactly matched original frozen C1 counts",
+        "All original C1 2105 equals signed negative+positive 2050+55",
+        "Original exact duplicate intersection 1956 = signed 1953+3",
+        "Original first 149 = 97+52",
+        "Original both-signed cells 40, all 2D, exactly match earlier separate 620-source SHA-pinned phase/census proof",
+        "All library/function/dimension source stratum original C1 and first/repeat totals agree with older full source CI"
+      ],
+      "evidence_limit": "Only original recorded A trace geometry in original fixed 21-library benchmark; no root-cause or independent defect adjudication",
+      "future_fullclone_python_CI": "NOT_YET_OBSERVED",
+      "new_optimizer_PF_OPF_COCO": 0
     }
   }
 }
