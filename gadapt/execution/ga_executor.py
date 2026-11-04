@@ -93,7 +93,12 @@ class GAExecutor:
         except Exception as ex:
             results.success = False
             results.messages.append((message_levels.ERROR, str(ex)))
-            self.termination_reason = "execution_error"
+            self.termination_reason = (
+                "evaluation_failure"
+                if isinstance(ex, ValueError)
+                and "All evaluated candidate costs were invalid or nonfinite" in str(ex)
+                else "execution_error"
+            )
         if self.reliability_monitor is not None:
             results.termination_reason = self.termination_reason or "exit_condition"
             if not hasattr(results, "_number_of_iterations"):
