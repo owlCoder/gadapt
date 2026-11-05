@@ -1,3 +1,5 @@
+import math
+
 import gadapt.ga_model.definitions as definitions
 from gadapt.adapters.validation.base_options_validator import BaseOptionsValidator
 from gadapt.utils.constraint_handling import parse_pair
@@ -43,6 +45,13 @@ class CommonOptionsValidator(BaseOptionsValidator):
                     )
                 )
                 rslt &= False
+            elif (getattr(self.options, "_reliability_monitor", None) is not None
+                  and not self._finite_reliability_grid(v)):
+                self._add_message(
+                    "Reliability mode requires finite variable bounds and step "
+                    "(variable {})".format(v.variable_id)
+                )
+                rslt &= False
             elif v.min_value > v.max_value:
                 self._add_message(
                     "Min value must be less or equal than max value!\
@@ -73,6 +82,16 @@ class CommonOptionsValidator(BaseOptionsValidator):
                 )
                 rslt &= False
         return rslt
+
+    @staticmethod
+    def _finite_reliability_grid(variable):
+        values = (variable.min_value, variable.max_value)
+        if variable.step is not None:
+            values += (variable.step,)
+        try:
+            return all(math.isfinite(float(value)) for value in values)
+        except (TypeError, ValueError, OverflowError):
+            return False
 
     def _check_cost_function(self):
         if self.options.cost_function is None:
