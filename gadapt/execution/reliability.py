@@ -30,6 +30,10 @@ class ReliabilityMonitor:
         self.acceptable_cost = float(acceptable_cost)
         self._declared_acceptable_cost = acceptable_cost
         self._best_target_met = False
+        # Exact source values select the incumbent when distinct Reals narrow
+        # to the same binary64 value. Public result remains a float.
+        self._best_raw_objective = None
+        self._best_raw_violation = None
         self.constrained = constrained
         # Immutable declared bounds. When supplied by GA, reject candidates
         # that could never be valid solutions to the declared problem.
@@ -133,6 +137,7 @@ class ReliabilityMonitor:
         # Check its original value rather than the rounded objective to avoid
         # false acceptance; a rounded tie below target must still be detected.
         raw_objective = result[0] if self.constrained else result
+        raw_violation = result[1] if self.constrained else 0.0
         try:
             reaches_target = bool(violation == 0 and
                                   raw_objective <= self._declared_acceptable_cost)
@@ -143,9 +148,19 @@ class ReliabilityMonitor:
             replace = True
         else:
             best_objective, best_violation, _ = self.best
-            replace = (violation == 0 and (best_violation != 0 or objective < best_objective)
-                       or violation > 0 and best_violation > 0
-                       and (violation, objective) < (best_violation, best_objective))
+            # Preserve ordering of validated precise numeric values. Float
+            # conversion is for the legacy cost finder, not an exact ranking
+            # certificate (two different Fractions may both round to 1.0).
+            try:
+                replace = (violation == 0 and
+                           (best_violation != 0 or raw_objective < self._best_raw_objective)
+                           or violation > 0 and best_violation > 0
+                           and (raw_violation, raw_objective) <
+                           (self._best_raw_violation, self._best_raw_objective))
+            except (TypeError, ValueError, OverflowError):
+                # A custom Real with an unusable ordering cannot override a
+                # validated incumbent based on an unsafe rounded comparison.
+                replace = False
         if reaches_target and not self._best_target_met:
             # Exact acceptance outranks a rounded binary64 tie with an
             # earlier, genuinely unacceptable candidate.
@@ -153,6 +168,8 @@ class ReliabilityMonitor:
         if replace:
             self.best = (objective, violation, evaluated_values)
             self._best_target_met = reaches_target
+            self._best_raw_objective = raw_objective
+            self._best_raw_violation = raw_violation
         if cache_key is not None:
             # Store the validated scalar or immutable pair, never a mutable
             # reference returned by the user's callback.

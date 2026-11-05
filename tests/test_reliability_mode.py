@@ -29,6 +29,46 @@ def seed():
 
 
 class ReliabilityModeTest(unittest.TestCase):
+    def test_precise_scalar_incumbent_improves_without_float_difference(self):
+        worse = Fraction(1) + Fraction(3, 2**56)
+        better = Fraction(1) + Fraction(1, 2**56)
+        self.assertEqual(float(worse), float(better))
+        values = [worse, better]
+        monitor = ReliabilityMonitor(lambda v: values[int(v[0])], 2,
+                                     0.0, False, cache_evaluations=True)
+        self.assertEqual(monitor([0]), worse)
+        self.assertEqual(monitor([1]), better)
+        self.assertEqual(monitor.best, (1.0, 0.0, (1,)))
+        self.assertFalse(monitor.acceptable)
+        self.assertEqual(monitor.evaluations, 2)
+        self.assertEqual(monitor.valid_evaluations, 2)
+        self.assertEqual(monitor([0]), 1.0)
+        self.assertEqual(monitor.best[2], (1,))
+        self.assertEqual(monitor.cached_objective_requests, 1)
+
+    def test_precise_constrained_violation_orders_infeasible_incumbent(self):
+        worse = Fraction(1) + Fraction(3, 2**56)
+        better = Fraction(1) + Fraction(1, 2**56)
+        self.assertEqual(float(worse), float(better))
+        values = [worse, better]
+        monitor = ReliabilityMonitor(lambda v: (10.0, values[int(v[0])]),
+                                     2, 0.0, True)
+        self.assertEqual(monitor([0]), (10.0, worse))
+        self.assertEqual(monitor([1]), (10.0, better))
+        self.assertEqual(monitor.best, (10.0, 1.0, (1,)))
+        self.assertFalse(monitor.acceptable)
+        self.assertEqual(monitor.evaluations, 2)
+
+    def test_precise_constrained_objective_orders_feasible_incumbent(self):
+        worse = Fraction(1) + Fraction(3, 2**56)
+        better = Fraction(1) + Fraction(1, 2**56)
+        monitor = ReliabilityMonitor(lambda v: (worse if v[0] == 0 else better, 0.0),
+                                     2, 0.0, True)
+        self.assertEqual(monitor([0]), (worse, 0.0))
+        self.assertEqual(monitor([1]), (better, 0.0))
+        self.assertEqual(monitor.best, (1.0, 0.0, (1,)))
+        self.assertEqual(monitor.valid_evaluations, 2)
+
     def test_precise_objective_cannot_false_accept_binary64_rounding(self):
         above = Fraction(1) + Fraction(1, 2**55)
         below = Fraction(1) - Fraction(1, 2**55)
