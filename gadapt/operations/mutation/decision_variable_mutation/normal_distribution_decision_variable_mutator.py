@@ -65,6 +65,11 @@ class NormalDistributionDecisionVariableMutator(BaseDecisionVariableMutator):
 
         decision_variable = self.variable_value.decision_variable
         decision_variable_range = decision_variable.max_value - decision_variable.min_value
+        if decision_variable_range == 0:
+            # Equal bounds are a valid declared fixed decision variable.
+            # Normalizing by its zero span would abort otherwise valid runs.
+            # There is no alternative value to mutate to: keep the fixed one.
+            return decision_variable.min_value
 
         # mean normalized to [0,1]
         mean = (curr_value - decision_variable.min_value) / decision_variable_range
