@@ -132,6 +132,22 @@ class DecisionVariable:
     def columnar_diversity_coefficient(self, value: float):
         self._standard_deviation = value
 
+    def _random_continuous_value(self):
+        """Draw a continuous value while avoiding overflowing finite spans.
+
+        Keep the legacy NumPy draw unchanged unless explicitly enabled by a
+        reliability execution with finite bounds whose difference overflows.
+        """
+        low, high = self.min_value, self.max_value
+        if (getattr(self, "_reliability_safe_random", False)
+                and math.isfinite(low) and math.isfinite(high)
+                and not math.isfinite(high - low)):
+            fraction = numpy.random.random()
+            # Each weighted endpoint stays finite, unlike high - low.
+            # Clamp a possible last-bit rounding excursion to the bounds.
+            return max(low, min(high, low * (1.0 - fraction) + high * fraction))
+        return numpy.random.uniform(low=low, high=high)
+
     def make_random_value(self):
         """
         Makes random value, based on min value, max value, and step.
@@ -142,7 +158,7 @@ class DecisionVariable:
             # Guard against extremely small steps that would create too many discrete values
             if decision_variable_range / self.step > 1e9:
                 # Step is too small relative to range — treat as continuous
-                return numpy.random.uniform(low=self.min_value, high=self.max_value)
+                return self._random_continuous_value()
             # Discrete case: pick a random step multiple within bounds
             # A range that is a whole number of steps can give a ratio just below it (e.g. 10.2 / 0.1 = 101.99999999999999),
             # which truncation would turn into one step less, losing the top value of the grid.
@@ -153,8 +169,7 @@ class DecisionVariable:
             return round(min(value, self.max_value), self.decimal_places)
         else:
             # Continuous case: any float in [min_value, max_value]
-            return numpy.random.uniform(low=self.min_value,
-                                        high=self.max_value)
+            return self._random_continuous_value()
 
     @property
     def initial_st_dev(self) -> float:
