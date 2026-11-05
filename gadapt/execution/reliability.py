@@ -91,6 +91,11 @@ class ReliabilityMonitor:
                 if result[1] > 0 and violation == 0.0:
                     self.invalid_evaluations += 1
                     return math.nan
+                # A positive subnormal exact objective may also round down
+                # to zero, spuriously meeting an acceptable_cost of zero.
+                if result[0] > 0 and objective == 0.0:
+                    self.invalid_evaluations += 1
+                    return math.nan
             else:
                 if isinstance(result, bool):
                     # bool is a Real in Python. Without a nonnumeric sentinel,
@@ -112,6 +117,11 @@ class ReliabilityMonitor:
                 if not math.isfinite(objective):
                     self.invalid_evaluations += 1
                     return result
+                # Never turn a strictly positive objective into a false
+                # zero-cost acceptable candidate via binary64 underflow.
+                if result > 0 and objective == 0.0:
+                    self.invalid_evaluations += 1
+                    return math.nan
                 violation = 0.0
         except (TypeError, ValueError, OverflowError):
             self.invalid_evaluations += 1
