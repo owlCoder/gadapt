@@ -78,7 +78,14 @@ class ReliabilityMonitor:
                 if isinstance(result, bool) or not isinstance(result, Real):
                     self.invalid_evaluations += 1
                     return result
-                objective = float(result)
+                try:
+                    objective = float(result)
+                except (TypeError, ValueError, OverflowError):
+                    # A Real may be too large for binary64 (e.g. 10**400).
+                    # Count it as an invalid attempted call, not a structural
+                    # executor error or an uncharged evaluation.
+                    self.invalid_evaluations += 1
+                    return result
                 if not math.isfinite(objective):
                     self.invalid_evaluations += 1
                     return result
