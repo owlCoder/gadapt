@@ -874,6 +874,98 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertEqual(result.number_of_iterations, 0)
         self.assertEqual(len(calls), 1)
 
+    def test_step_nondividing_bound_probes_last_reachable_grid_point(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return 0.0 if values[0] == 0.9 else 1.0
+
+        ga = GA(cost_function=objective, population_size=4,
+                reliability_mode=True, max_evaluations=6, acceptable_cost=0.0)
+        ga.add(0.0, 1.0, step=0.3)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertTrue(result.acceptable)
+        self.assertEqual(result.termination_reason, "acceptable_target")
+        self.assertEqual(result.objective_evaluations, 2)
+        self.assertEqual(result.valid_objective_evaluations, 2)
+        self.assertEqual(result.invalid_objective_evaluations, 0)
+        self.assertEqual(result.result_values, {0: 0.9})
+        self.assertEqual(calls, [(0.0,), (0.9,)])
+
+    def test_constrained_step_probe_can_find_last_reachable_feasible_point(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return (0.0, 0.0) if values[0] == 0.9 else (1.0, 1.0)
+
+        ga = GA(cost_function=objective, population_size=4,
+                reliability_mode=True, max_evaluations=6, acceptable_cost=0.0,
+                constraint_handling="feasibility_rules")
+        ga.add(0.0, 1.0, step=0.3)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertTrue(result.feasible)
+        self.assertTrue(result.acceptable)
+        self.assertEqual(result.termination_reason, "acceptable_target")
+        self.assertEqual(result.objective_evaluations, 2)
+        self.assertEqual(result.invalid_objective_evaluations, 0)
+        self.assertEqual(result.result_values, {0: 0.9})
+        self.assertEqual(calls, [(0.0,), (0.9,)])
+
+    def test_validation_upper_probe_handles_mixed_discrete_and_continuous(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return 0.0 if tuple(values) == (0.9, 1.0) else 1.0
+
+        ga = GA(cost_function=objective, population_size=4,
+                reliability_mode=True, max_evaluations=6, acceptable_cost=0.0)
+        ga.add(0.0, 1.0, step=0.3)
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertTrue(result.acceptable)
+        self.assertEqual(result.objective_evaluations, 2)
+        self.assertEqual(result.invalid_objective_evaluations, 0)
+        self.assertEqual(result.result_values, {0: 0.9, 1: 1.0})
+        self.assertEqual(calls, [(0.0, -1.0), (0.9, 1.0)])
+
+    def test_legacy_validation_still_probes_declared_upper_box_bound(self):
+        seed()
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return 1.0
+
+        ga = GA(cost_function=objective, population_size=4,
+                exit_check="generations", number_of_generations=1)
+        ga.add(0.0, 1.0, step=0.3)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertGreaterEqual(len(calls), 2)
+        self.assertEqual(calls[:2], [(0.0,), (1.0,)])
+
+    def test_continuous_fallback_still_probes_upper_bound(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return 0.0 if values[0] == 1.0 else 1.0
+
+        ga = GA(cost_function=objective, population_size=4,
+                reliability_mode=True, max_evaluations=6, acceptable_cost=0.0)
+        ga.add(0.0, 1.0, step=1e-12)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertTrue(result.acceptable)
+        self.assertEqual(result.objective_evaluations, 2)
+        self.assertEqual(calls, [(0.0,), (1.0,)])
+
     def test_first_acceptable_probe_never_calls_opposite_boundary(self):
         calls = []
 

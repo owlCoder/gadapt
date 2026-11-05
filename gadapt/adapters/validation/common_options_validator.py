@@ -93,6 +93,37 @@ class CommonOptionsValidator(BaseOptionsValidator):
         except (TypeError, ValueError, OverflowError):
             return False
 
+    @staticmethod
+    def _reliability_upper_grid_probe(variable, monitor):
+        """Probe a generated discrete endpoint, not an unreachable box corner.
+
+        A step need not divide the declared interval. In that case the
+        generator's last rounded point can be below the upper bound. Probing
+        the ungenerated upper bound wastes one charged objective call and
+        reports an invalid evaluation under reliability monitoring.
+        """
+        upper = variable.max_value
+        if monitor is None or variable.step is None:
+            return upper
+        spec = (variable.min_value, upper, variable.step, variable.decimal_places)
+        if monitor._on_declared_grid(upper, spec):
+            return upper
+        try:
+            ratio = (upper - variable.min_value) / variable.step
+            if not math.isfinite(float(ratio)) or ratio < 0 or ratio > 1e9:
+                return upper  # Existing generator treats huge ratios as continuous.
+            last_index = (round(ratio) if math.isclose(
+                ratio, round(ratio), rel_tol=1e-9, abs_tol=1e-9)
+                else int(ratio))
+            last = round(min(variable.min_value + last_index * variable.step, upper),
+                         variable.decimal_places)
+            if (variable.min_value <= last <= upper
+                    and monitor._on_declared_grid(last, spec)):
+                return last
+        except (TypeError, ValueError, OverflowError, ZeroDivisionError):
+            pass
+        return upper
+
     def _check_cost_function(self):
         if self.options.cost_function is None:
             self._add_message("Cost Function must not be None!")
@@ -104,12 +135,12 @@ class CommonOptionsValidator(BaseOptionsValidator):
             return True
         argsmin = []
         argsmax = []
+        monitor = getattr(self.options, "_reliability_monitor", None)
         for v in self.options._decision_variables:
             argsmin.append(v.min_value)
-            argsmax.append(v.max_value)
+            argsmax.append(self._reliability_upper_grid_probe(v, monitor))
         try:
             func_result_min = self.options.cost_function(argsmin)
-            monitor = getattr(self.options, "_reliability_monitor", None)
             if monitor is not None and monitor.acceptable:
                 # Structural validation still completes; the first probed
                 # point already meets the verified target, so evaluating the

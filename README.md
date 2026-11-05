@@ -501,7 +501,11 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   mode, if the **first** boundary probe already verifies the acceptable
   target, the second boundary probe is skipped, saving a physical call.
   Structural configuration checks still run and may reject the execution.
-  Otherwise both probes are performed. Legacy validation is unchanged.
+  Otherwise both probes are performed. When a discrete `step` does not
+  divide the variable's range, the upper reliability probe uses the last
+  reachable rounded grid point rather than an off-grid box corner; this
+  keeps the probe within the declared decision space and avoids an invalid
+  physical evaluation. Legacy validation is unchanged.
   Exceptions raised by the objective are counted as invalid calls. In particular,
   callback-raised reliability control exceptions cannot masquerade as an actual
   monitor budget exhaustion or an accepted solution.
