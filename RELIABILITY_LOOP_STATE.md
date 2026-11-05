@@ -7,8 +7,8 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
 - Scheduled cycles completed: **21**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **64 / 1,000** (47 user-triggered review/fix scopes, seventeen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and nine subsequent separately verified fixes).
-- Additional verified cycles remaining: **936**.
+- Additional verified cycles completed after that request: **65 / 1,000** (48 user-triggered review/fix scopes, seventeen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and ten subsequent separately verified fixes).
+- Additional verified cycles remaining: **935**.
 - Consecutive scheduled cycles without verified progress: **7**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -362,3 +362,13 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Green branch CI: https://github.com/owlCoder/gadapt/actions/runs/42086881231 (Python 3.10/3.11/3.12 all successful).
 - Green post-merge main CI: https://github.com/owlCoder/gadapt/actions/runs/42087018834 (Python 3.10/3.11/3.12 all successful).
 - Result: **progress in regression verification**, one new documented engineering cycle **64/1000**, **936** remaining; **no implementation defect fixed**. Scheduled cycles remain **21**, consecutive scheduled no-progress stays **7** (manual checks do not reset this streak). No physical simulation, optimizer benchmarks, original research archive edits, upstream changes, legacy default behavior changes, or empirical optimizer performance claims.
+
+### 2026-11-05 — user-triggered additional cycle 65/1000: finite extreme-span normal mutation
+
+- Finding: following the stable opt-in random initialization fix, the distinct normal-distribution mutation path still formed `max_value-min_value == inf` for fully finite bounds [-1e308,+1e308]. This caused upper-parent normalization `inf/inf` to become NaN and inverse continuous normalization `low+fraction*inf` to become NaN (fraction=0) or infinity (positive fraction), although legitimate candidates exist. Reproduced the arithmetic on fixed inputs before the change; this is different from the earlier initial-value sampler defect.
+- Fix: in opt-in reliability mode only, and only for finite declared endpoints with an unrepresentable span, compute normalized mean by halving the finite coordinates/endpoints, then interpolate the returned continuous sample between separately weighted finite endpoints; clamp final rounding to bounds. Preserve default-mode and ordinary-span calculations, the existing random draw, discrete snapping and the physical objective-call budget.
+- Verification: six deterministic regression tests covering sampled endpoints/interiors from both extreme parents, finite and accurate normalized means, ultra-fine effective-continuous step, unchanged ordinary-range numerical interpolation, unchanged unmonitored legacy behavior, and a bounded end-to-end GA regression checking actual charged valid objective calls with no out-of-bounds/nonfinite coordinates. **229 unittest tests** successful in the full suite on Python 3.10, 3.11, 3.12.
+- Pull request: https://github.com/owlCoder/gadapt/pull/54 ; squash-merged as `f9412f485744b4588e683d2fcc0a7311e295aece`.
+- Green branch CI: https://github.com/owlCoder/gadapt/actions/runs/42089397364 (Python 3.10/3.11/3.12 success).
+- Green post-merge main CI: https://github.com/owlCoder/gadapt/actions/runs/42089511932 (Python 3.10/3.11/3.12 success).
+- Result: **progress**, additional documented cycles **65/1000**, **935** remaining. Scheduled cycles remain **21**, consecutive scheduled no-progress remains **7** (manual cycles do not reset this streak). No optimizer benchmarks, real-world experiments, archive/upstream edits or claim of improved optimizer success rates.
