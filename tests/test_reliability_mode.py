@@ -6,6 +6,7 @@ import math
 import random
 import unittest
 from datetime import datetime, timedelta
+from fractions import Fraction
 from unittest.mock import patch
 
 import numpy as np
@@ -607,6 +608,50 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertFalse(result.acceptable)
         self.assertEqual(result.best_objective, 1.0)
         self.assertIn((result.result_values[0],), calls[:2])
+
+    def test_positive_fraction_violation_cannot_underflow_to_feasible(self):
+        tiny = Fraction(1, 10 ** 400)
+        self.assertGreater(tiny, 0)
+        self.assertEqual(float(tiny), 0.0)
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return (0.0, tiny)
+
+        monitor = ReliabilityMonitor(objective, 2, 0.0, True,
+                                     decision_bounds=((0.0, 1.0),))
+        for value in (0.25, 0.75):
+            self.assertTrue(math.isnan(monitor([value])))
+            self.assertFalse(monitor.acceptable)
+            self.assertIsNone(monitor.best)
+        self.assertEqual(monitor.evaluations, 2)
+        self.assertEqual(monitor.invalid_evaluations, 2)
+        self.assertEqual(monitor.valid_evaluations, 0)
+        self.assertEqual(calls, [(0.25,), (0.75,)])
+
+    def test_underflowed_violation_never_creates_feasible_ga_result(self):
+        seed()
+        tiny = Fraction(1, 10 ** 400)
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return (0.0, tiny)
+
+        ga = GA(cost_function=objective, population_size=4,
+                probe_cost_function=False, reliability_mode=True,
+                max_evaluations=8, acceptable_cost=0.0,
+                constraint_handling="feasibility_rules")
+        ga.add(0.0, 1.0)
+        result = ga.execute()
+        self.assertFalse(result.acceptable)
+        self.assertFalse(result.feasible)
+        self.assertEqual(result.solution_status, "no_valid_evaluation")
+        self.assertEqual(result.objective_evaluations, 8)
+        self.assertEqual(result.invalid_objective_evaluations, 8)
+        self.assertEqual(result.valid_objective_evaluations, 0)
+        self.assertEqual(len(calls), 8)
 
     def test_constrained_all_invalid_generation_recovers_feasible_probe(self):
         seed()
