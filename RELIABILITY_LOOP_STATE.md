@@ -7,8 +7,8 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
 - Scheduled cycles completed: **11**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **10 / 1,000** (three user-triggered, seven scheduled; reviews count only when actually completed and documented).
-- Additional verified cycles remaining: **990**.
+- Additional verified cycles completed after that request: **11 / 1,000** (four user-triggered, seven scheduled; reviews count only when actually completed and documented).
+- Additional verified cycles remaining: **989**.
 - Consecutive scheduled cycles without verified progress: **1**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -146,3 +146,12 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Concrete review: grid construction uses the same near-integer ratio rounding, upper-bound cap, and decimal rounding as the library's discrete random-value generator; duplicate or out-of-bounds rounded points fail closed to stochastic GA. Exhaustive absence is only marked when all grid points were attempted and the monitor recorded zero invalid evaluations; budget refusal and timeout do not certify absence. The grid's proof remains conditional on a stationary deterministic objective and correct declared domain. No separate reproducible defect was established in this review, so no implementation PR or duplicate fix was counted.
 - Existing verification evidence: https://github.com/owlCoder/gadapt/actions/runs/41990861105 (154 tests green across Python 3.10, 3.11 and 3.12 on the current implementation before this ledger-only change). No new optimizer benchmark, objective evaluation or physical experiment was run. No algorithmic performance inference.
 - Result: **no_progress** (completed technical review, not a new defect fix). Scheduled cycles **11**; additional completed review/fix cycles **10/1000**; consecutive scheduled cycles without verified progress **1**. Change technical strategy after 10 consecutive no-progress scheduled cycles. Legacy defaults, upstream and historical archive untouched.
+
+### 2026-11-05 — user-triggered additional cycle 11/1000 (not a scheduled cycle)
+
+- Finding: with default boundary validation probes, the first probe may already be a verified feasible solution at or below the acceptance threshold. The validator still performed the opposite-boundary objective call, unnecessarily spending one expensive physical evaluation even though the required quality was achieved.
+- Fix: only in opt-in reliability mode, skip the second boundary objective probe if the first has already met the monitor's verified target; do not skip structural checks. The opposite boundary is still evaluated when the first probe is not acceptable. Legacy mode unchanged.
+- Regression: four deterministic tests for unconstrained and constrained first-probe acceptance, continued probing when needed, and structural-invalid fail-closed. Updated previous two-probe assertion; full **158-test** suite green on Python 3.10, 3.11 and 3.12 after correcting one mistaken test expectation (invalid structural settings are rejected before any objective call).
+- Pull request: https://github.com/owlCoder/gadapt/pull/37
+- Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/41993441073 (all three Python jobs green).
+- Result: **progress**, merged as `c1604ee21a6b06c8ed6695584cc03f1a594ab753`. Scheduled cycle count stays **11**; additional completed cycles become **11/1000**; scheduled no-progress streak stays **1** (only scheduled cycles change that counter). No optimizer performance benchmarks or empirical claims.
