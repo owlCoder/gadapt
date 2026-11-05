@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **14**.
+- Scheduled cycles completed: **15**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **50 / 1,000** (40 user-triggered review/fix scopes, ten scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and three subsequent separate verified fixes).
-- Additional verified cycles remaining: **950**.
-- Consecutive scheduled cycles without verified progress: **0**.
+- Additional verified cycles completed after that request: **51 / 1,000** (40 user-triggered review/fix scopes, ten scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and three subsequent separate verified fixes).
+- Additional verified cycles remaining: **949**.
+- Consecutive scheduled cycles without verified progress: **1**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -241,3 +241,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Branch CI: https://github.com/owlCoder/gadapt/actions/runs/42023610362 (3.10/3.11/3.12 green).
 - Post-merge main CI: https://github.com/owlCoder/gadapt/actions/runs/42023760951 (3.10/3.11/3.12 green).
 - Result: **progress**, merged as `bbab5234715fec6e375a9cb340b2fbda1556e2d2`. Additional completed engineering/review cycles **50/1000**, remaining **950**; scheduled count **14** and consecutive scheduled non-progress count **0** unchanged. Prior scheduled cycle 14 was an unpatched source-level finding and this cycle supplies the code fix plus regressions, not a second claim about the same implementation change. No unauthorized optimizer experiments or empirical performance claim.
+
+
+### 2026-11-05 — scheduled cycle 15; additional completed review cycle 51/1000
+
+- Re-read current main AGENTS.md, RELIABILITY_ROADMAP.md, ARCHIVE.md and this ledger; verified that the previously identified charged-exception certification defect is already fixed in main by PR #46, with explicit unclassified-exception and valid-evaluation guards. Do not count that prior fix twice.
+- New focused architectural review: compared DecisionVariable.is_discrete and make_random_value against BlendingCrossover._combine_with_step. The crossover's overflow-only fallback covers nonfinite parent-step ratios, but the effective continuous/discrete classification uses a >1e9 whole-domain ratio while blending still uses step arithmetic whenever its finite parent-step ratio is available. This is a compatibility/semantic consistency risk for extremely fine finite steps, not a demonstrated runtime failure or proof of incorrect candidate domain; no code was changed. Future narrowly scoped regression should establish whether an in-bounds offspring violates the declared effective-continuous contract before modifying legacy crossover behavior.
+- Verification evidence: existing PR #46 post-merge CI https://github.com/owlCoder/gadapt/actions/runs/42023760951 (Python 3.10–3.12 green), **prior** run, not new CI. Current review inspected source only; no objective evaluations, optimizer benchmarks or new tests were run.
+- Result: **no_progress** (completed documented architectural review, no confirmed new defect). Scheduled cycles **15**; additional completed review/fix cycles **51/1000**; remaining **949**; consecutive scheduled no-progress **1**. Archive, upstream and legacy defaults untouched; no empirical optimization claims.
