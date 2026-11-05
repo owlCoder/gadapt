@@ -11,6 +11,9 @@ import numpy as np
 from gadapt.ga import GA
 from gadapt.ga_model.decision_variable import DecisionVariable
 from gadapt.ga_model.variable_value import VariableValue
+from gadapt.operations.candidate_solution_update.parent_diversity_candidate_solution_updater import (
+    ParentDiversityCandidateSolutionUpdater,
+)
 from gadapt.operations.mutation.decision_variable_mutation.normal_distribution_decision_variable_mutator import (
     NormalDistributionDecisionVariableMutator,
 )
@@ -55,6 +58,12 @@ class FixedVariableMutationTest(unittest.TestCase):
         mutator = NormalDistributionVariableColumnarDiversityDecisionVariableMutator()
         mutator.mutate(variable_value)
         self.assertEqual(variable_value.value, 0.75)
+
+    def test_fixed_parent_structural_diversity_is_zero(self):
+        variable_value = fixed_value(2.5)
+        updater = ParentDiversityCandidateSolutionUpdater()
+        self.assertEqual(updater._get_genetic_diversity(variable_value, variable_value),
+                         0.0)
 
     def test_nonfixed_normal_mutation_still_samples(self):
         variable = DecisionVariable(0)
