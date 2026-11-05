@@ -1,3 +1,4 @@
+import math
 import random
 import sys
 
@@ -35,9 +36,15 @@ class BlendingCrossover(BaseCrossover):
         x = 1
         if val_mother > val_father:
             x = -1
-        beta_steps = random.randint(
-            0, round(abs((val_father - val_mother) / decision_variable.step))
-        )
+        # An extremely fine, positive step can overflow the binary64
+        # ratio even when the declared bounds and both parent values are
+        # finite. The old round(inf) aborted the whole GA run. Only this
+        # previously failing case uses bounded continuous blending; retain
+        # existing discrete behavior for every finite step ratio.
+        step_count = abs((val_father - val_mother) / decision_variable.step)
+        if not math.isfinite(step_count):
+            return self._combine_without_step(decision_variable, val_father, val_mother)
+        beta_steps = random.randint(0, round(step_count))
         val1 = round(
             val_father - (beta_steps * x) * decision_variable.step,
             decision_variable.decimal_places,
