@@ -75,7 +75,13 @@ class ReliabilityMonitor:
             if self.constrained:
                 objective, violation = parse_pair(result)
             else:
-                if isinstance(result, bool) or not isinstance(result, Real):
+                if isinstance(result, bool):
+                    # bool is a Real in Python. Without a nonnumeric sentinel,
+                    # the legacy scalar cost finder accepts True as cost 1.0
+                    # and treats an invalid callback as a valid candidate.
+                    self.invalid_evaluations += 1
+                    return math.nan
+                if not isinstance(result, Real):
                     self.invalid_evaluations += 1
                     return result
                 try:

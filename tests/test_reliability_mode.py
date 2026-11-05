@@ -496,6 +496,51 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertEqual(result.best_violation, 0.0)
         self.assertIn((result.result_values[0],), calls[:2])
 
+    def test_boolean_callback_is_invalid_at_scalar_cost_finder_boundary(self):
+        seed()
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return True if len(calls) <= 4 else 2.0
+
+        ga = GA(cost_function=objective, probe_cost_function=False,
+                population_size=4, reliability_mode=True,
+                max_evaluations=8, acceptable_cost=0.0)
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertEqual(result.invalid_population_resamples, 1)
+        self.assertEqual(result.objective_evaluations, 8)
+        self.assertEqual(result.invalid_objective_evaluations, 4)
+        self.assertEqual(result.valid_objective_evaluations, 4)
+        self.assertEqual(result.best_objective, 2.0)
+        self.assertEqual(result.termination_reason, "budget_exhausted")
+        self.assertEqual(len(calls), 8)
+
+    def test_boolean_only_callback_never_becomes_a_valid_incumbent(self):
+        seed()
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return False
+
+        ga = GA(cost_function=objective, probe_cost_function=False,
+                population_size=4, reliability_mode=True,
+                max_evaluations=9, acceptable_cost=0.0)
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertFalse(result.success)
+        self.assertFalse(result.acceptable)
+        self.assertFalse(result.feasible)
+        self.assertEqual(result.solution_status, "no_valid_evaluation")
+        self.assertEqual(result.termination_reason, "budget_exhausted")
+        self.assertEqual(result.objective_evaluations, 9)
+        self.assertEqual(result.invalid_objective_evaluations, 9)
+        self.assertEqual(result.valid_objective_evaluations, 0)
+        self.assertEqual(len(calls), 9)
+
     def test_all_invalid_with_no_valid_history_still_fails(self):
         seed()
         ga = GA(cost_function=lambda values: float("nan"),
