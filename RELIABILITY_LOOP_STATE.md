@@ -7,8 +7,8 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
 - Scheduled cycles completed: **15**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **51 / 1,000** (40 user-triggered review/fix scopes, ten scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and three subsequent separate verified fixes).
-- Additional verified cycles remaining: **949**.
+- Additional verified cycles completed after that request: **52 / 1,000** (41 user-triggered review/fix scopes, eleven scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and four subsequent separately verified fixes).
+- Additional verified cycles remaining: **948**.
 - Consecutive scheduled cycles without verified progress: **1**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -249,3 +249,15 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - New focused architectural review: compared DecisionVariable.is_discrete and make_random_value against BlendingCrossover._combine_with_step. The crossover's overflow-only fallback covers nonfinite parent-step ratios, but the effective continuous/discrete classification uses a >1e9 whole-domain ratio while blending still uses step arithmetic whenever its finite parent-step ratio is available. This is a compatibility/semantic consistency risk for extremely fine finite steps, not a demonstrated runtime failure or proof of incorrect candidate domain; no code was changed. Future narrowly scoped regression should establish whether an in-bounds offspring violates the declared effective-continuous contract before modifying legacy crossover behavior.
 - Verification evidence: existing PR #46 post-merge CI https://github.com/owlCoder/gadapt/actions/runs/42023760951 (Python 3.10–3.12 green), **prior** run, not new CI. Current review inspected source only; no objective evaluations, optimizer benchmarks or new tests were run.
 - Result: **no_progress** (completed documented architectural review, no confirmed new defect). Scheduled cycles **15**; additional completed review/fix cycles **51/1000**; remaining **949**; consecutive scheduled no-progress **1**. Archive, upstream and legacy defaults untouched; no empirical optimization claims.
+
+### 2026-11-05 — user-triggered additional cycle 52/1000 (normal-mutation discrete grid bound)
+
+- Finding: a legitimate finite variable [0.0,1.0], step 0.6, has effective grid points {0.0,0.6}, but the normal-distribution decision-variable mutator computed `round(1.0/0.6)=2` at the normalized upper limit and returned 1.2. That is outside the declared bounds and in opt-in reliability runs can waste a real, physically charged objective call on a candidate that must then be rejected.
+- Fix: clamp the randomly selected normal-mutation grid index to the generator's last actually possible discrete index, with the same near-integer floating-ratio tolerance used by `DecisionVariable.make_random_value`. Preserve the real upper endpoint for perfectly dividing and near-integer grids; retain existing nudge behavior when sampled position equals current value.
+- Verification: six deterministic regression tests cover nondividing steps 0.6 and 0.3, near-integer 10.2/0.1 upper endpoint retention, exact-dividing step 0.5, safe last-grid nudge, and bounded end-to-end opt-in GA with no off-grid physically evaluated candidates. Entire **201-test** suite passed on Python 3.10, 3.11 and 3.12.
+- Pull request: https://github.com/owlCoder/gadapt/pull/47
+- Branch CI: https://github.com/owlCoder/gadapt/actions/runs/42031787296 (all three Python jobs green).
+- Post-merge main CI: https://github.com/owlCoder/gadapt/actions/runs/42031937387 (all three Python jobs green).
+- Result: **progress**, squash merge `892c4140d4d4ec49e92347a713f082400f673cb7`. Additional completed cycles **52/1000**, remaining **948**. Scheduled cycles stay **15** and consecutive scheduled non-progress streak stays **1**. This is a new verified fix, not counted among the prior 30 parallel source reviews.
+- Counter breakdown reconciliation: scheduled cycle 15 had raised the aggregate count to 51 after 14's 49 and the separately merged #46 user correction (50), but its summary retained the old ten-scheduled component. Scheduled cycle 15 is the eleventh post-baseline scheduled cycle, so **41 user-triggered + 11 scheduled = 52** after this new manual fix. The aggregate total is incremented by exactly one; correcting the textual components creates no extra cycle.
+- No new optimizer benchmarks, PF/AC/OPF or COCO runs, and no claims of measured improvement to `P(feasible and acceptable)`. Legacy defaults and the archived research branch remain untouched.
