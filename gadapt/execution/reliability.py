@@ -91,9 +91,9 @@ class ReliabilityMonitor:
                 if result[1] > 0 and violation == 0.0:
                     self.invalid_evaluations += 1
                     return math.nan
-                # A positive subnormal exact objective may also round down
-                # to zero, spuriously meeting an acceptable_cost of zero.
-                if result[0] > 0 and objective == 0.0:
+                # A nonzero exact objective may round to signed zero, losing
+                # its magnitude and misreporting the verified incumbent.
+                if result[0] != 0 and objective == 0.0:
                     self.invalid_evaluations += 1
                     return math.nan
             else:
@@ -117,9 +117,9 @@ class ReliabilityMonitor:
                 if not math.isfinite(objective):
                     self.invalid_evaluations += 1
                     return result
-                # Never turn a strictly positive objective into a false
-                # zero-cost acceptable candidate via binary64 underflow.
-                if result > 0 and objective == 0.0:
+                # Never turn a nonzero objective into signed zero via
+                # binary64 underflow and report a fabricated zero incumbent.
+                if result != 0 and objective == 0.0:
                     self.invalid_evaluations += 1
                     return math.nan
                 violation = 0.0
