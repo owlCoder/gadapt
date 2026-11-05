@@ -7,8 +7,8 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
 - Scheduled cycles completed: **11**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **12 / 1,000** (five user-triggered, seven scheduled; reviews count only when actually completed and documented).
-- Additional verified cycles remaining: **988**.
+- Additional verified cycles completed after that request: **13 / 1,000** (six user-triggered, seven scheduled; reviews count only when actually completed and documented).
+- Additional verified cycles remaining: **987**.
 - Consecutive scheduled cycles without verified progress: **1**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -164,3 +164,12 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Pull request: https://github.com/owlCoder/gadapt/pull/38
 - Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/41996265556 (all three Python jobs green).
 - Result: **progress**, merged as `9e402bf913ad1de9a58b5b5845635806c9805522`. Scheduled cycles remain **11**; verified additional cycles **12/1000**; consecutive *scheduled* no-progress cycles remain **1**. No unauthorized optimizer benchmarks or claims of measured success-rate improvement.
+
+### 2026-11-05 — user-triggered additional cycle 13/1000 (not a scheduled cycle)
+
+- Finding: discrete exhaustive certification narrowed the original decision bounds and step to binary64. Different exact integers can collapse (e.g. 2**54 and 2**54+2 become the same float) and the grid scanner could evaluate one point then incorrectly certify absence of an acceptable point from a declared three-point grid. Even if endpoints are representable, distinct interior coordinates (1+2**53) can collapse during grid construction.
+- Fix: in opt-in exact discrete certification, reject completeness proof when a declared bound/step is not preserved by binary64, or when any generated grid point differs from the original decision-variable arithmetic. Such cases safely fall back to the existing budget-bounded stochastic GA. Preserve legacy defaults, archive and upstream.
+- Verification: four deterministic regression tests for collapsed endpoint bounds, lost interior integer points, lost step precision, and a safe representable large-integer grid, including a bounded GA fallback with exact physical-call accounting. Full **167-test** suite green on Python 3.10, 3.11, 3.12.
+- Pull request: https://github.com/owlCoder/gadapt/pull/39
+- Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/41998498737 (all three jobs green).
+- Result: **progress**, merged as `ca5ace4d4c74300cbc46fd0528e9ddc22407cd2f`. Scheduled cycles stay **11**, additional cycles **13/1000**, scheduled no-progress streak **1**. Prevented false proof of absence, not a measured empirical optimizer advantage. No unauthorized optimizer benchmarks.
