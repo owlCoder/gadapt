@@ -242,7 +242,12 @@ class ReliabilityMonitor:
         """
         if self.best is None:
             return
-        objective, violation, _ = self.best
+        # Incumbent selection already uses the original Real values, because
+        # distinct improvements can collapse to the same binary64 float.
+        # Stagnation must use that same precise ordering; otherwise genuine
+        # improvements appear stalled and trigger premature refresh/restarts.
+        objective = self._best_raw_objective
+        violation = self._best_raw_violation
         quality = (0, objective) if violation == 0 else (1, violation, objective)
         if self._completed_generation_best is None or quality < self._completed_generation_best:
             self.stagnant_generations = 0
