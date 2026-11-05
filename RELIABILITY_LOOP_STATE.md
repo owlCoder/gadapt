@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **19**.
+- Scheduled cycles completed: **20**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **60 / 1,000** (45 user-triggered review/fix scopes, fifteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and eight subsequent separately verified fixes).
-- Additional verified cycles remaining: **940**.
-- Consecutive scheduled cycles without verified progress: **5**.
+- Additional verified cycles completed after that request: **61 / 1,000** (45 user-triggered review/fix scopes, sixteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and eight subsequent separately verified fixes).
+- Additional verified cycles remaining: **939**.
+- Consecutive scheduled cycles without verified progress: **6**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -327,3 +327,10 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Green branch CI: https://github.com/owlCoder/gadapt/actions/runs/42071045369 (Python 3.10/3.11/3.12 success).
 - Green post-merge main CI: https://github.com/owlCoder/gadapt/actions/runs/42071209973 (Python 3.10/3.11/3.12 success).
 - Result: **progress**, additional documented cycles **60/1000**, **940** remaining. Scheduled cycles remain **19** and the consecutive scheduled no-progress streak remains **5**: manual progress does not reset scheduled streaks. No unapproved optimizer benchmarks, physical solvers, historical-data edits, changes to default optimizer behavior, or empirical improvement claims.
+
+### 2026-11-05 — scheduled cycle 20; additional completed review cycle 61/1000
+
+- Re-read live `main` versions of `AGENTS.md` (blob `62f4d3860faba934be920a06545dfe0521a3b05e`), `RELIABILITY_ROADMAP.md` (blob `3f11bbd50c29b2329ca5988fbbbfffe14eec4aed`), `ARCHIVE.md` (blob `817698e97395495dfd63cb229d92df93f43a8b7f`), and this ledger (prior blob `554844167ba143da163a93d8bb799935cfec9251`). Inspected latest `DecisionVariable` (blob `ab287812c5ab06d977601bedb42b3e2df709cd7b`), `BlendingCrossover` (blob `c8f2686651125d4b0f09d9cdcf0fcbe6fd95d40e`) and linear/log columnar updater (blob `21bf43681bf5b8a092bfbe416bbd7f4f24d21073`).
+- Focused architectural review: following the verified extreme-span initialization fix in PR #51, checked the boundary between continuous initialization and blending for finite bounds with overflowing subtraction. The reliability-safe random draw uses a weighted-endpoint interpolation when the range is nonfinite, while crossover's step-ratio overflow fallback also blends via weighted endpoints. For parents within finite bounds, each nonnegative weighted term has magnitude no larger than the corresponding endpoint magnitude, but a proof of numerical grid adherence does not follow for a declared positive step. `DecisionVariable.is_discrete` intentionally treats a grid with more than 1e9 steps as effectively continuous. No distinct reproducible contract violation was established by this source-only review; any proposed change to offspring quantization would need a deterministic regression and opt-in-only scope.
+- No code change, new tests, CI execution, optimizer objective evaluation or benchmark. Last **historical**, not new, post-merge implementation CI: https://github.com/owlCoder/gadapt/actions/runs/42071209973 (Python 3.10–3.12 green for PR #51). This cycle does not claim a fresh green build or optimizer performance improvement.
+- Result: **no_progress** (completed source-level architectural review). Scheduled cycles **20**, additional documented reviews/fixes **61/1000**, remaining **939**, consecutive scheduled no-progress **6**. Change strategy at 10; archive, upstream and legacy defaults untouched.
