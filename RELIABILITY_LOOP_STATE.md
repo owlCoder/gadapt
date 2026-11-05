@@ -5,10 +5,10 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **4**.
+- Scheduled cycles completed: **5**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **1 / 1,000** (this user-triggered review).
-- Additional verified cycles remaining: **999**.
+- Additional verified cycles completed after that request: **2 / 1,000** (one user-triggered, one scheduled).
+- Additional verified cycles remaining: **998**.
 - Consecutive scheduled cycles without verified progress: **0**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -65,3 +65,13 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Pull request: https://github.com/owlCoder/gadapt/pull/29
 - CI: https://github.com/owlCoder/gadapt/actions/runs/41947800690 (all three jobs green after merge).
 - Result: **progress**, merged as `66a0ec7c2e55ada9e323bd55a76ffbc043a9733b`. One additional verified cycle completed; original four scheduled cycles are not counted toward the new 1000-cycle target. Consecutive no-progress scheduled cycles: **0**. No optimizer benchmark or empirical success-rate claim.
+
+### 2026-11-05 — scheduled cycle 5; additional verified cycle 2/1000
+
+- Finding: the newly introduced opt-in decision-domain check used `float(value)` to compare the candidate to its declared bounds. Binary64 rounding can make distinct integers outside a bound appear equal to the bound, e.g. `float(2**54 + 1) == float(2**54)`. This could still admit an illegal candidate as an acceptable incumbent.
+- Fix: use binary64 conversion only to reject nonfinite/overflowing coordinates, then compare the original `Real` coordinate directly against the original declared bounds, without precision loss. Legacy behavior, caching policy, and original research archive unchanged.
+- Regression: two deterministic tests covering both sides of a large exact integer bound, constrained false feasibility, physical-call counts, and no invalid cache hits. The entire regression suite passed on Python 3.10, 3.11 and 3.12; no optimization benchmarks.
+- Pull request: https://github.com/owlCoder/gadapt/pull/30
+- Branch CI: https://github.com/owlCoder/gadapt/actions/runs/41953953562 (all three Python jobs green).
+- Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/41954035396 (all three Python jobs green).
+- Result: **progress**, merged as `f04a6bfd1414e4a5a11666362fda9c78cd9d4e0f`. Scheduled cycles: **5**; additional verified cycles: **2/1000**; consecutive scheduled cycles without progress: **0**. No empirical optimization-success claim.
