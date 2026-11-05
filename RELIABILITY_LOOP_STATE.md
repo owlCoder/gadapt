@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **25**.
+- Scheduled cycles completed: **26**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **70 / 1,000** (49 user-triggered review/fix scopes, eighteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and eleven subsequent separately verified fixes).
-- Additional verified cycles remaining: **930**.
-- Consecutive scheduled cycles without verified progress: **11**.
+- Additional verified cycles completed after that request: **71 / 1,000** (49 user-triggered review/fix scopes, eighteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and eleven subsequent separately verified fixes).
+- Additional verified cycles remaining: **929**.
+- Consecutive scheduled cycles without verified progress: **12**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **changed at scheduled cycle 24 after 10 consecutive no-progress scheduled reviews**. Stop revisiting already-guarded numeric edge cases; audit one end-to-end opt-in execution contract at a time (deadline, budget, status, incumbent), map existing tests, and create a minimal deterministic reproduction before proposing any code change. Keep Python 3.10–3.12 CI mandatory for implementation merges.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -411,3 +411,10 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Specific unresolved hypothesis for a clock-controlled test: when the final permitted objective call returns an acceptable candidate after the wall-clock deadline, the monitor can record it and the executor can report `acceptable_target` before the legacy timeout checker observes expiry. Distinguish cooperative timeout (callback not preempted) from a hard-deadline guarantee; no implementation change without a documented contract and deterministic reproduction. Avoid re-counting the same timeout hypothesis as a new bug.
 - Verification: connector source inspection only; no local runtime test, fresh CI, implementation patch, optimizer benchmark or physical evaluation. Last previously reported green Python 3.10–3.12 implementation CI: https://github.com/owlCoder/gadapt/actions/runs/42092330480 (historical PR #55, not this review). No claim of empirical optimizer improvement.
 - Result: **no_progress**; scheduled cycles **25**, additional documented cycles **70/1000**, remaining **930**, consecutive scheduled no-progress **11**. Strategy remains cross-module execution-contract mapping after the cycle-24 threshold change. Legacy defaults, archived research and upstream untouched.
+
+### 2026-11-06 — scheduled cycle 26; additional documented review cycle 71/1000
+
+- Read current `main` at `043919620b0e2babd64fa30ef19796312a7b1905` and live `AGENTS.md` (blob `62f4d3860faba934be920a06545dfe0521a3b05e`), `RELIABILITY_ROADMAP.md` (`3f11bbd50c29b2329ca5988fbbbfffe14eec4aed`), `ARCHIVE.md` (`817698e97395495dfd63cb229d92df93f43a8b7f`), and this ledger (prior blob `1e13e7dda26585c8f9f8fb01ac2e886ba2b7e7eb`). Inspected `gadapt/execution/ga_executor.py` (blob `3b4c44a180341a0ed9c2fd92f8218f4913460b94`) and `gadapt/execution/reliability.py` (blob `0c8c346d764444580e5b7dcc8845d3462e9811e7`).
+- Narrow cross-module review: invalid-population recovery in `GAExecutor.find_costs` checks elapsed time using `datetime.now() - population.start_time` only after a wholly invalid cohort; `ReliabilityMonitor.__call__` charges each objective attempt but has no deadline gate. A slow callback can exceed the configured wall-clock limit before this recovery check, and wall-clock adjustments can affect `datetime.now()` comparisons. This is a concrete cooperative-timeout / non-monotonic-clock architectural limitation, **not** a deterministically reproduced new defect or a claim that hard preemption was promised. A safe future test should inject a clock and verify timeout/status/accounting across invalid cohorts without performing optimizer benchmarks. Do not alter legacy timeout semantics without an explicit opt-in contract.
+- Verification: source-level inspection only; no local test execution, new GitHub CI, code patch, PR, objective experiment or benchmark. Last historical green Python 3.10–3.12 implementation CI: https://github.com/owlCoder/gadapt/actions/runs/42092330480 (earlier PR #55; not a verification of this cycle).
+- Result: **no_progress**; scheduled cycles **26**, additional completed review cycles **71/1000**, remaining **929**, consecutive scheduled no-progress **12**. Cross-module execution-contract strategy from cycle 24 retained. No legacy default, original archive or upstream modification; no empirical optimization-success claim.
