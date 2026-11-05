@@ -48,7 +48,8 @@ class ColumnarDiversityDecisionVariableUpdater(BaseDecisionVariableUpdater):
             else:
                 # 3. Logarithmic transformation relative to the lower bound.
                 log_values = []
-                monitor = getattr(self.population.options, "reliability_monitor", None)
+                monitor = getattr(getattr(self.population, "options", None),
+                                  "reliability_monitor", None)
                 for v in values:
                     if monitor is None:
                         # Preserve the historical default-mode transformation.
