@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **17**.
+- Scheduled cycles completed: **18**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **54 / 1,000** (41 user-triggered review/fix scopes, thirteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and four subsequent separately verified fixes).
-- Additional verified cycles remaining: **946**.
-- Consecutive scheduled cycles without verified progress: **3**.
+- Additional verified cycles completed after that request: **55 / 1,000** (41 user-triggered review/fix scopes, fourteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and four subsequent separately verified fixes).
+- Additional verified cycles remaining: **945**.
+- Consecutive scheduled cycles without verified progress: **4**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -275,3 +275,10 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Focused architectural audit: compared grid cardinality rounding, duplicate detection and point generation with `DecisionVariable.make_random_value`. Both use the same near-integer ratio tolerance and cap/decimal rounding; certification additionally rejects nonfinite ratios, duplicate rounded points, out-of-range points, and narrowed exact numeric bounds. Its negative certificate requires complete coverage, no unclassified exception, no invalid attempts, and exactly one valid charged evaluation per grid point. No new reproducible defect was established from source inspection. Potential remaining risk for future test design: very large yet finite step ratios and decimal rounding can collapse neighboring points; the current duplicate check is intended to fail closed. Do not claim this as a confirmed defect or change legacy crossover semantics based on the prior continuity hypothesis.
 - No implementation changes, new tests, new CI, or optimizer objective evaluations in this review. Prior post-merge CI https://github.com/owlCoder/gadapt/actions/runs/42031937387 (Python 3.10–3.12 green for PR #47) is historical evidence only, not a new verification.
 - Result: **no_progress** (completed concrete architectural review). Scheduled cycles **17**, additional documented review/fix cycles **54/1000**, remaining **946**, consecutive scheduled cycles without verified progress **3**. No unauthorized benchmarks, upstream/archive changes, or empirical optimizer success claims.
+
+### 2026-11-05 — scheduled cycle 18; additional completed review cycle 55/1000
+
+- Re-read current `main` at `4a3364ff97800a2eb3317c9cd9a9177d4b4d20b7` and `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, and this ledger. Focused source audit of `gadapt/operations/crossover/blending_crossover.py` (blob `c8f2686651125d4b0f09d9cdcf0fcbe6fd95d40e`) and `gadapt/ga_model/decision_variable.py` (blob `7d44843e8f41a7479560baac6a7493e483fa4b28`).
+- Architectural finding: the overflow fallback in `_combine_with_step` uses `_combine_without_step`, whose offspring are convex combinations of parent values, without step quantization. This avoids the previously confirmed `round(inf)` crash, but for a variable classified effectively continuous by `DecisionVariable.is_discrete` (whole-domain ratio >1e9), this is consistent with continuous sampling; for other cases, it is a deliberate exceptional fallback that can produce off-grid values. No new executable violation of the documented opt-in reliability contract was established from this source review. Any proposed grid-preserving replacement must first demonstrate a finite, bounded, deterministic implementation that does not change legacy defaults or silently increase objective calls.
+- No implementation change, regression execution, CI, or optimizer benchmark in this cycle. Previous CI https://github.com/owlCoder/gadapt/actions/runs/42031937387 is historical evidence for PR #47, **not** fresh verification. No claims about empirical optimizer success.
+- Result: **no_progress**; scheduled cycles **18**, additional completed review/fix cycles **55/1000**, remaining **945**, consecutive scheduled cycles without verified progress **4**. Archive, upstream, and legacy defaults unchanged.
