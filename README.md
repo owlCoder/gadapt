@@ -493,7 +493,11 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   objective, including the two default validation probes, exceptions and
   non-finite responses. `valid_objective_evaluations` and
   `invalid_objective_evaluations` split that count. If validation probes
-  already find an acceptable candidate, no population is evaluated.
+  find an acceptable candidate, no population is evaluated. In reliability
+  mode, if the **first** boundary probe already verifies the acceptable
+  target, the second boundary probe is skipped, saving a physical call.
+  Structural configuration checks still run and may reject the execution.
+  Otherwise both probes are performed. Legacy validation is unchanged.
   Exceptions raised by the objective are counted as invalid calls. In particular,
   callback-raised reliability control exceptions cannot masquerade as an actual
   monitor budget exhaustion or an accepted solution.
