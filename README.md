@@ -549,8 +549,16 @@ print(result.discrete_search_applied, result.discrete_points_checked,
 ```
 
 If the declared grid has at most `min(max_evaluations, 100000)` distinct
-points, it is checked exactly once per point, in deterministic order,
+points **and its generated coordinates can be enumerated without loss of
+numeric precision**, it is checked exactly once per point, in deterministic
+order,
 **without random GA generations or redundant boundary validation probes**.
+When large integer bounds, steps or interior grid points would collapse
+during binary64 conversion, complete coverage is **not** claimed; the
+configured bounded stochastic GA is used instead. This safety fallback
+may fail to find a target and must never be interpreted as an exhaustive
+absence certificate.
+
 The first acceptable, feasible point stops the scan. With valid evaluations,
 enough time, and a deterministic/stationary objective, the scan either finds
 a qualifying point if one exists on the grid, or proves none meets the target
