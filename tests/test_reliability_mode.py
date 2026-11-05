@@ -29,6 +29,68 @@ def seed():
 
 
 class ReliabilityModeTest(unittest.TestCase):
+    def test_negative_scalar_underflow_cannot_fabricate_zero_incumbent(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return Fraction(-1, 10**400) if len(calls) == 1 else 1.0
+
+        monitor = ReliabilityMonitor(objective, 2, 0.0, False,
+                                     cache_evaluations=True,
+                                     decision_bounds=((0.0, 1.0),))
+        self.assertTrue(math.isnan(monitor([0.5])))
+        self.assertFalse(monitor.acceptable)
+        self.assertIsNone(monitor.best)
+        self.assertEqual(monitor([0.5]), 1.0)
+        self.assertEqual(monitor.evaluations, 2)
+        self.assertEqual(monitor.invalid_evaluations, 1)
+        self.assertEqual(monitor.valid_evaluations, 1)
+        self.assertEqual(monitor.cached_objective_requests, 0)
+        self.assertEqual(calls, [(0.5,), (0.5,)])
+        self.assertEqual(monitor.best, (1.0, 0.0, (0.5,)))
+
+    def test_negative_constrained_objective_underflow_cannot_fabricate_zero(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return (Fraction(-1, 10**400), 0.0) if len(calls) == 1 else (1.0, 0.0)
+
+        monitor = ReliabilityMonitor(objective, 2, 0.0, True,
+                                     cache_evaluations=True,
+                                     decision_bounds=((0.0, 1.0),))
+        self.assertTrue(math.isnan(monitor([0.5])))
+        self.assertFalse(monitor.acceptable)
+        self.assertIsNone(monitor.best)
+        self.assertEqual(monitor([0.5]), (1.0, 0.0))
+        self.assertEqual(monitor.evaluations, 2)
+        self.assertEqual(monitor.invalid_evaluations, 1)
+        self.assertEqual(monitor.valid_evaluations, 1)
+        self.assertEqual(monitor.cached_objective_requests, 0)
+        self.assertEqual(calls, [(0.5,), (0.5,)])
+        self.assertEqual(monitor.best, (1.0, 0.0, (0.5,)))
+
+    def test_negative_underflow_population_recovery_uses_real_budget(self):
+        seed()
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return Fraction(-1, 10**400) if len(calls) <= 4 else 1.0
+
+        ga = GA(cost_function=objective, population_size=4,
+                probe_cost_function=False, reliability_mode=True,
+                max_evaluations=8, acceptable_cost=0.0)
+        ga.add(0.0, 1.0)
+        result = ga.execute()
+        self.assertFalse(result.acceptable)
+        self.assertEqual(result.objective_evaluations, 8)
+        self.assertEqual(result.invalid_objective_evaluations, 4)
+        self.assertEqual(result.valid_objective_evaluations, 4)
+        self.assertEqual(len(calls), 8)
+        self.assertEqual(result.best_objective, 1.0)
+
     def test_positive_scalar_underflow_never_falsely_reaches_zero_target(self):
         calls = []
 
