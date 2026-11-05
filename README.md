@@ -483,6 +483,9 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   non-finite responses. `valid_objective_evaluations` and
   `invalid_objective_evaluations` split that count. If validation probes
   already find an acceptable candidate, no population is evaluated.
+  Exceptions raised by the objective are counted as invalid calls. In particular,
+  callback-raised reliability control exceptions cannot masquerade as an actual
+  monitor budget exhaustion or an accepted solution.
   For **stationary, deterministic, side-effect-free** objectives only, set
   `reliability_cache_evaluations=True` to reuse the verified value of an
   identical numerical input without calling the expensive objective again.

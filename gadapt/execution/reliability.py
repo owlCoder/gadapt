@@ -62,6 +62,12 @@ class ReliabilityMonitor:
         self.evaluations += 1  # Charge failed calls, too.
         try:
             result = self.objective(values)
+        except (EvaluationBudgetExhausted, AcceptableTargetReached) as ex:
+            # These exceptions are internal monitor-to-executor signals.
+            # A user callback may raise the same public exception classes;
+            # never let that impersonate a real budget or acceptance event.
+            self.invalid_evaluations += 1
+            raise ValueError("Objective callback raised a reserved reliability control exception") from ex
         except Exception:
             self.invalid_evaluations += 1
             raise
