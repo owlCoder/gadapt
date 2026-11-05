@@ -13,7 +13,7 @@ import numpy as np
 
 from gadapt.ga import GA
 from gadapt.execution.ga_executor import GAExecutor
-from gadapt.execution.discrete_certification import discrete_grid_axes
+from gadapt.execution.discrete_certification import discrete_grid_axes, evaluate_discrete_grid
 from gadapt.execution.reliability import ReliabilityMonitor, EvaluationBudgetExhausted, AcceptableTargetReached
 from gadapt.ga_model.ga_options import GAOptions
 from gadapt.ga_model.population import Population
@@ -370,6 +370,78 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertTrue(result.discrete_space_exhausted)
         self.assertTrue(result.discrete_absence_certified)
         self.assertEqual(len(set(calls)), 4)
+
+    def test_charged_unclassified_exception_never_certifies_discrete_absence(self):
+        # Fault injection exposes the exception window after a true call
+        # was charged but before the monitor classified it valid/invalid.
+        calls = []
+        monitor = ReliabilityMonitor(
+            lambda values: calls.append(tuple(values)) or 1.0,
+            max_evaluations=2, acceptable_cost=0.0, constrained=False,
+            decision_bounds=((0.0, 1.0),),
+        )
+        with patch.object(monitor, "_candidate_in_bounds", side_effect=[
+            RuntimeError("fault after physical call was charged"), True
+        ]):
+            result = evaluate_discrete_grid(monitor, [(0.0, 1.0)], 60)
+        self.assertEqual(calls, [(0.0,), (1.0,)])
+        self.assertEqual(result.objective_evaluations, 2)
+        self.assertEqual(result.valid_objective_evaluations, 1)
+        self.assertEqual(result.invalid_objective_evaluations, 0)
+        self.assertEqual(result.discrete_points_checked, 2)
+        self.assertTrue(result.discrete_space_exhausted)
+        self.assertFalse(result.discrete_absence_certified)
+        self.assertFalse(result.acceptable)
+        self.assertTrue(result.success)  # Second point still has valid result.
+
+    def test_all_charged_unclassified_exceptions_fail_closed(self):
+        monitor = ReliabilityMonitor(lambda values: 1.0, 2, 0.0, False)
+        with patch.object(monitor, "_candidate_in_bounds",
+                          side_effect=RuntimeError("postcharge fault")):
+            result = evaluate_discrete_grid(monitor, [(0.0, 1.0)], 60)
+        self.assertEqual(result.objective_evaluations, 2)
+        self.assertEqual(result.valid_objective_evaluations, 0)
+        self.assertEqual(result.invalid_objective_evaluations, 0)
+        self.assertTrue(result.discrete_space_exhausted)
+        self.assertFalse(result.discrete_absence_certified)
+        self.assertFalse(result.success)
+        self.assertEqual(result.solution_status, "no_valid_evaluation")
+
+    def test_scan_cannot_certify_if_monitor_silently_skips_one_point(self):
+        # Independent fail-closed accounting: merely returning without an
+        # exception is insufficient evidence that the point was evaluated.
+        class SkippingMonitor:
+            evaluations = 0
+            valid_evaluations = 0
+            invalid_evaluations = 0
+            acceptable = False
+
+            def __call__(self, values):
+                if values[0] == 0.0:
+                    self.evaluations += 1
+                    self.valid_evaluations += 1
+                return 1.0
+
+            def annotate(self, results):
+                results.objective_evaluations = self.evaluations
+                results.valid_objective_evaluations = self.valid_evaluations
+                results.invalid_objective_evaluations = self.invalid_evaluations
+
+        result = evaluate_discrete_grid(SkippingMonitor(), [(0.0, 1.0)], 60)
+        self.assertEqual(result.discrete_points_checked, 2)
+        self.assertTrue(result.discrete_space_exhausted)
+        self.assertFalse(result.discrete_absence_certified)
+
+    def test_verified_acceptance_control_exception_still_stops_grid(self):
+        monitor = ReliabilityMonitor(lambda values: 0.0, 2, 0.0, False)
+        monitor.stop_on_acceptance = True
+        result = evaluate_discrete_grid(monitor, [(0.0, 1.0)], 60)
+        self.assertTrue(result.success)
+        self.assertTrue(result.acceptable)
+        self.assertEqual(result.termination_reason, "acceptable_target")
+        self.assertEqual(result.objective_evaluations, 1)
+        self.assertEqual(result.discrete_points_checked, 1)
+        self.assertFalse(result.discrete_absence_certified)
 
     def test_invalid_grid_point_invalidates_absence_certificate(self):
         calls = []
