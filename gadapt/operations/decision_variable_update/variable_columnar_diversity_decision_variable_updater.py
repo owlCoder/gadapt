@@ -46,14 +46,30 @@ class ColumnarDiversityDecisionVariableUpdater(BaseDecisionVariableUpdater):
                 # 3-4. Standard deviation relative to the range of the decision variable
                 current_log_stdev = stat.stdev(values) / (g.max_value - g.min_value)
             else:
-                # 3. Logarithmic Transformation
-                # Shift values by min_value and add 1.0 to ensure values are > 0 for log
-                # This measures variety relative to the decision variable's search space range
+                # 3. Logarithmic transformation relative to the lower bound.
                 log_values = []
+                monitor = getattr(self.population.options, "reliability_monitor", None)
                 for v in values:
-                    # Distance from min_value + 1.0 (to avoid log(0))
-                    shifted_v = (v - g.min_value) + 1.0
-                    log_values.append(math.log(shifted_v))
+                    if monitor is None:
+                        # Preserve the historical default-mode transformation.
+                        shifted_v = (v - g.min_value) + 1.0
+                        log_values.append(math.log(shifted_v))
+                        continue
+                    # Reliability mode must also support finite but widely
+                    # separated bounds. The subtraction of -1e308 from
+                    # +1e308 overflows, and log(inf) makes statistics.stdev
+                    # fail even though both coordinates are valid.
+                    gap = v - g.min_value
+                    if math.isfinite(gap):
+                        log_values.append(math.log1p(gap))
+                    else:
+                        # An overflowing difference between finite, ordered
+                        # coordinates requires a negative lower bound and a
+                        # positive value. Compute log(1 + value - lower)
+                        # without constructing the unrepresentable distance.
+                        log_values.append(
+                            math.log(-g.min_value) + math.log1p(v / -g.min_value)
+                        )
 
                 # 4. Calculate Logarithmic Standard Deviation
                 current_log_stdev = stat.stdev(log_values)
