@@ -84,6 +84,13 @@ class ReliabilityMonitor:
         try:
             if self.constrained:
                 objective, violation = parse_pair(result)
+                # parse_pair converts Real values to binary64. A strictly
+                # positive violation (e.g. Fraction(1, 10**400)) can
+                # underflow to 0.0 and otherwise falsely certify feasibility.
+                # Fail closed only in the opt-in reliability monitor.
+                if result[1] > 0 and violation == 0.0:
+                    self.invalid_evaluations += 1
+                    return math.nan
             else:
                 if isinstance(result, bool):
                     # bool is a Real in Python. Without a nonnumeric sentinel,
