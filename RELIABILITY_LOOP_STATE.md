@@ -7,8 +7,8 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
 - Scheduled cycles completed: **12**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **45 / 1,000** (37 user-triggered review/fix scopes, eight scheduled; includes 30 documented parallel code reviews, of which two yielded verified fixes and 28 were source reviews without new proven defects).
-- Additional verified cycles remaining: **955**.
+- Additional verified cycles completed after that request: **46 / 1,000** (38 user-triggered review/fix scopes, eight scheduled; includes 30 documented parallel code reviews with two verified fixes and one subsequent separately verified crossover fix).
+- Additional verified cycles remaining: **954**.
 - Consecutive scheduled cycles without verified progress: **2**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -197,3 +197,12 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - **The other 28 completed scoped reviews had no separately confirmed new defect**; mark these as **review_only / no_new_fix**, *not* successful bug fixes. Counting a completed documented review toward the requested batch is not a claim of reliability improvement. Independent regression suites green on Python 3.10/3.11/3.12 (178 tests for PR #41 and 176 for PR #42); combined main [CI run 42004746583](https://github.com/owlCoder/gadapt/actions/runs/42004746583) passed **182 tests** on all three versions. No optimizer benchmark, PF/AC/OPF, COCO or physical evaluation was authorized or run.
 - Audit record [PR #43](https://github.com/owlCoder/gadapt/pull/43) merged as `067e5ca1b0cd138121f10bd886244b825f913c0d`, documenting all 30 reviews (not modifying runtime code).
 - Accounting: previous additional completed review/fix scopes **15/1000**, plus **30 genuinely completed documented source-review scopes** = **45/1000**; remaining **955**. The two fixed reviews are **included in** these 30, never added twice. Scheduled cycles remain **12**; consecutive scheduled no-progress remains **2**, not changed by ad-hoc work. Strong empirical optimizer success-rate claims remain prohibited without a pre-approved evaluation protocol.
+
+### 2026-11-05 — user-triggered additional cycle 46/1000 (after the 30-scope parallel batch)
+
+- Follow-up finding (distinct from the 30 documented batch review scopes): `DifferentialCrossover._fit` always attempted integer-grid snapping when the step was nonzero. Even though `DecisionVariable.make_random_value` defines more than 1e9 step positions as effectively continuous, a finite interval [0, 1e200] with a positive step 1e-150 caused `(high - low) / step == inf`; `math.floor(inf)` could crash differential crossover and prematurely abort valid GA execution.
+- Fix: use the same effective-discrete threshold as the declared variable generator: only snap to a grid when its ratio is finite and <= 1e9, otherwise retain the reflected continuous offspring. Existing meaningful discrete snapping, step-free mutation, and legacy defaults unchanged.
+- Regression: five deterministic tests for overflow-prone grid ratio, high-precision finite ratio, genuinely discrete snapping, step-free continuity, and budget-bounded opt-in GA executing differential crossover. The complete **187-test** suite passed on Python 3.10, 3.11 and 3.12; no optimizer benchmark or external physical evaluations.
+- PR: https://github.com/owlCoder/gadapt/pull/44
+- Branch CI: https://github.com/owlCoder/gadapt/actions/runs/42006623374 (3.10/3.11/3.12 green).
+- Merged as `b2f1c5184ddec97577b5b5ea653276416eb9bce4`; post-merge main CI https://github.com/owlCoder/gadapt/actions/runs/42006802576. Additional cycles **46/1000**, remaining **954**; scheduled cycles remain **12**, scheduled no-progress streak **2**. These deterministic correctness tests do not measure real-world optimization success.
