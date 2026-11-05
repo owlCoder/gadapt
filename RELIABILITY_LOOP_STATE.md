@@ -7,8 +7,8 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
 - Scheduled cycles completed: **14**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **49 / 1,000** (39 user-triggered review/fix scopes, ten scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and two subsequent separate crossover fixes).
-- Additional verified cycles remaining: **951**.
+- Additional verified cycles completed after that request: **50 / 1,000** (40 user-triggered review/fix scopes, ten scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and three subsequent separate verified fixes).
+- Additional verified cycles remaining: **950**.
 - Consecutive scheduled cycles without verified progress: **0**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -231,3 +231,13 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Proposed opt-in correction: track any caught exception other than the monitor's verified acceptance control path and require no unclassified exception for absence certification. Add a deterministic test double that increments evaluations and raises before classification, plus a normal fully valid negative-grid control; verify no false absence and exact checked counts. No code fix or new CI has been performed in this cycle, so do not report a merged correction.
 - Prior implementation CI (not new evidence for this finding): https://github.com/owlCoder/gadapt/actions/runs/42009386852 (Python 3.10–3.12 green for PR #45). No benchmarks, PF/AC/OPF, held-out COCO or physical evaluations were run.
 - Result: **progress (new specific source-level finding, unpatched)**; scheduled cycles **14**; additional actually completed cycles **49/1000**, remaining **951**; consecutive scheduled no-progress **0** under the ledger's explicit rule that a relevant reproducible technical finding qualifies. Do not count this as a fixed bug or verified optimization improvement. Legacy defaults, upstream and archive untouched.
+
+### 2026-11-05 — user-triggered additional cycle 50/1000 (postcharge exception proof guard)
+
+- Confirmed and fixed the issue identified during scheduled cycle 14's independent review (which is already separately counted as a completed review, not a code fix). `evaluate_discrete_grid` treated every exception after an advanced physical-evaluation counter as a checked grid point, but could certify target absence without every charged point ever receiving a valid/invalid classification. A deterministic injected postcharge exception followed by one valid point reproduced the fail-open path: `discrete_space_exhausted=True`, `invalid_evaluations=0` despite incomplete valid evidence.
+- Fix: the opt-in exhaustive-grid path records any charged exceptional result; a negative full-grid certificate now additionally requires no such exceptions, exactly one physically charged evaluation and one validly classified evaluation for every grid point, zero invalid evaluations, and no accepted incumbent. Verified acceptable-target control exceptions still stop the grid successfully. The legacy stochastic GA/defaults, archive and upstream remain untouched.
+- Verification: four deterministic regressions for a postcharge unclassified exception plus valid later point, all-exception attempts, silent missing-physical-call test double, and verified acceptance exception. The entire **195-test** suite passed on Python 3.10, 3.11 and 3.12.
+- PR: https://github.com/owlCoder/gadapt/pull/46
+- Branch CI: https://github.com/owlCoder/gadapt/actions/runs/42023610362 (3.10/3.11/3.12 green).
+- Post-merge main CI: https://github.com/owlCoder/gadapt/actions/runs/42023760951 (3.10/3.11/3.12 green).
+- Result: **progress**, merged as `bbab5234715fec6e375a9cb340b2fbda1556e2d2`. Additional completed engineering/review cycles **50/1000**, remaining **950**; scheduled count **14** and consecutive scheduled non-progress count **0** unchanged. Prior scheduled cycle 14 was an unpatched source-level finding and this cycle supplies the code fix plus regressions, not a second claim about the same implementation change. No unauthorized optimizer experiments or empirical performance claim.
