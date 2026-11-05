@@ -1528,6 +1528,62 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertEqual(feasible.get_values_tuple(), (0.5,))
         self.assertEqual(monitor.evaluations, before)
 
+    def test_precise_feasible_improvement_resets_stagnation_and_refresh_debt(self):
+        # Three strictly improving objectives collapse to float 1.0.
+        high = Fraction(1) + Fraction(3, 2**55)
+        middle = Fraction(1) + Fraction(2, 2**55)
+        low = Fraction(1) + Fraction(1, 2**55)
+        self.assertEqual([float(x) for x in (high, middle, low)],
+                         [1.0, 1.0, 1.0])
+        values = (high, middle, low)
+        monitor = ReliabilityMonitor(lambda v: values[int(v[0])],
+                                     6, 0.0, False)
+        monitor([0])
+        monitor.completed_generation()
+        monitor([0])
+        monitor.completed_generation()
+        self.assertEqual(monitor.stagnant_generations, 1)
+        monitor.refreshes_since_improvement = 2
+        monitor([1])
+        monitor.completed_generation()
+        self.assertEqual(monitor.best, (1.0, 0.0, (1,)))
+        self.assertEqual(monitor.stagnant_generations, 0)
+        self.assertEqual(monitor.refreshes_since_improvement, 0)
+        monitor([2])
+        monitor.completed_generation()
+        self.assertEqual(monitor.best, (1.0, 0.0, (2,)))
+        self.assertEqual(monitor.stagnant_generations, 0)
+        monitor([1])
+        monitor.completed_generation()
+        self.assertEqual(monitor.stagnant_generations, 1)
+        self.assertEqual(monitor.evaluations, 5)
+        self.assertEqual(monitor.valid_evaluations, 5)
+
+    def test_precise_violation_improvement_resets_stagnation_before_feasibility(self):
+        # The scalar ranker rounds these to equal violation, but a feasible
+        # point is not yet found. A real violation reduction still matters.
+        high = Fraction(1) + Fraction(3, 2**55)
+        middle = Fraction(1) + Fraction(2, 2**55)
+        low = Fraction(1) + Fraction(1, 2**55)
+        values = (high, middle, low)
+        monitor = ReliabilityMonitor(lambda v: (8.0, values[int(v[0])]),
+                                     6, -1.0, True)
+        monitor([0])
+        monitor.completed_generation()
+        monitor([0])
+        monitor.completed_generation()
+        self.assertEqual(monitor.stagnant_generations, 1)
+        monitor([1])
+        monitor.completed_generation()
+        self.assertEqual(monitor.best, (8.0, 1.0, (1,)))
+        self.assertEqual(monitor.stagnant_generations, 0)
+        monitor([2])
+        monitor.completed_generation()
+        self.assertEqual(monitor.best, (8.0, 1.0, (2,)))
+        self.assertEqual(monitor.stagnant_generations, 0)
+        self.assertFalse(monitor.acceptable)
+        self.assertEqual(monitor.evaluations, 4)
+
     def test_real_incumbent_progress_resets_stagnation(self):
         pairs = {
             0: (0.0, 3.0),
