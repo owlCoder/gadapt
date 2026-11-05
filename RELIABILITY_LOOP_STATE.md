@@ -7,8 +7,8 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
 - Scheduled cycles completed: **18**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **55 / 1,000** (41 user-triggered review/fix scopes, fourteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and four subsequent separately verified fixes).
-- Additional verified cycles remaining: **945**.
+- Additional verified cycles completed after that request: **56 / 1,000** (42 user-triggered review/fix scopes, fourteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and five subsequent separately verified fixes).
+- Additional verified cycles remaining: **944**.
 - Consecutive scheduled cycles without verified progress: **4**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -282,3 +282,13 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Architectural finding: the overflow fallback in `_combine_with_step` uses `_combine_without_step`, whose offspring are convex combinations of parent values, without step quantization. This avoids the previously confirmed `round(inf)` crash, but for a variable classified effectively continuous by `DecisionVariable.is_discrete` (whole-domain ratio >1e9), this is consistent with continuous sampling; for other cases, it is a deliberate exceptional fallback that can produce off-grid values. No new executable violation of the documented opt-in reliability contract was established from this source review. Any proposed grid-preserving replacement must first demonstrate a finite, bounded, deterministic implementation that does not change legacy defaults or silently increase objective calls.
 - No implementation change, regression execution, CI, or optimizer benchmark in this cycle. Previous CI https://github.com/owlCoder/gadapt/actions/runs/42031937387 is historical evidence for PR #47, **not** fresh verification. No claims about empirical optimizer success.
 - Result: **no_progress**; scheduled cycles **18**, additional completed review/fix cycles **55/1000**, remaining **945**, consecutive scheduled cycles without verified progress **4**. Archive, upstream, and legacy defaults unchanged.
+
+### 2026-11-05 — user-triggered additional cycle 56/1000 (extreme finite-cost log diversity)
+
+- Finding: the `log_relative` population cost-diversity transform formed a shift `1 - min_cost` and evaluated `math.log(value + shift)`. With two valid finite costs such as -1e308 and +1e308, floating rounding collapses the positive offset at the minimum to zero and may overflow the opposite-sign sum, causing a `math domain error` on a technically valid objective result. This is a distinct numerical reliability correctness issue, not the earlier grid/crossover defects.
+- Fix: only when `reliability_monitor` is present, use `math.log1p(value - minimum)` for shifted costs; if an opposite-sign finite subtraction overflows, use `math.log(-minimum) + math.log1p(value / -minimum)` to obtain a finite logarithm without constructing the unrepresentable difference. Legacy/default-mode log-relative transformation is untouched.
+- Deterministic verification: four tests of extreme negative/positive finite costs, subsequent complete convergence, equivalence to the regular log-relative expression at ordinary scale, and full opt-in `GA.execute()` with a fixed four-call budget and no invalid physical calls. Entire **205-test** suite green on Python 3.10, 3.11, 3.12. No optimizer benchmarks or empirical success-rate claims.
+- Pull request: https://github.com/owlCoder/gadapt/pull/48
+- Branch CI: https://github.com/owlCoder/gadapt/actions/runs/42053580654 (3.10/3.11/3.12 success).
+- Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/42053810199 (3.10/3.11/3.12 success).
+- Result: **progress**; merged as `1ada98c5f887490997c50cf93fdd849637fee77f`. Additional documented cycles **56/1000**, remaining **944**; scheduled cycles remain **18**, scheduled no-progress streak remains **4**. No changes to archive, upstream or legacy defaults.
