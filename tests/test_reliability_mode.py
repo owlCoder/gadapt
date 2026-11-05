@@ -12,7 +12,7 @@ import numpy as np
 
 from gadapt.ga import GA
 from gadapt.execution.ga_executor import GAExecutor
-from gadapt.execution.reliability import ReliabilityMonitor, EvaluationBudgetExhausted
+from gadapt.execution.reliability import ReliabilityMonitor, EvaluationBudgetExhausted, AcceptableTargetReached
 from gadapt.ga_model.ga_options import GAOptions
 from gadapt.ga_model.population import Population
 from gadapt.operations.cost_finding.constraint_handling_cost_finder import ConstraintHandlingCostFinder
@@ -614,6 +614,49 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertFalse(result.success)
         self.assertEqual(len(calls), 4)
         self.assertIsNone(result.invalid_population_resamples)
+
+    def test_callback_cannot_spoof_acceptable_target(self):
+        seed()
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            raise AcceptableTargetReached("user callback is not the monitor")
+
+        ga = GA(cost_function=objective, probe_cost_function=False,
+                population_size=4, reliability_mode=True,
+                max_evaluations=9, acceptable_cost=0.0)
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertFalse(result.success)
+        self.assertFalse(result.acceptable)
+        self.assertEqual(result.termination_reason, "budget_exhausted")
+        self.assertEqual(result.solution_status, "no_valid_evaluation")
+        self.assertEqual(result.objective_evaluations, 9)
+        self.assertEqual(result.invalid_objective_evaluations, 9)
+        self.assertEqual(len(calls), 9)
+
+    def test_callback_cannot_spoof_budget_exhaustion_in_constrained_mode(self):
+        seed()
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            raise EvaluationBudgetExhausted("user callback is not the monitor")
+
+        ga = GA(cost_function=objective, probe_cost_function=False,
+                population_size=4, reliability_mode=True,
+                constraint_handling="feasibility_rules",
+                max_evaluations=9, acceptable_cost=0.0)
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertFalse(result.success)
+        self.assertFalse(result.acceptable)
+        self.assertEqual(result.termination_reason, "budget_exhausted")
+        self.assertEqual(result.solution_status, "no_valid_evaluation")
+        self.assertEqual(result.objective_evaluations, 9)
+        self.assertEqual(result.invalid_objective_evaluations, 9)
+        self.assertEqual(len(calls), 9)
 
     def test_constraint_best_feasible_survives_selection_and_budget(self):
         seed()
