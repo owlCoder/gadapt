@@ -586,6 +586,93 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertTrue(monitor.acceptable)
         self.assertEqual(monitor.valid_evaluations, 1)
 
+    def test_reliability_rejects_in_bounds_but_off_grid_candidates(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return 0.0
+
+        monitor = ReliabilityMonitor(objective, 5, 0.0, False,
+                                     cache_evaluations=True,
+                                     decision_bounds=((0.0, 1.0),),
+                                     decision_grids=((0.0, 1.0, 0.5, 1),))
+        for value in (0.25, 0.75, 0.25):
+            self.assertTrue(math.isnan(monitor([value])))
+            self.assertFalse(monitor.acceptable)
+            self.assertIsNone(monitor.best)
+        self.assertEqual(monitor.cached_objective_requests, 0)
+        self.assertEqual(monitor.invalid_evaluations, 3)
+        self.assertEqual(monitor([0.5]), 0.0)
+        self.assertTrue(monitor.acceptable)
+        self.assertEqual(monitor([0.5]), 0.0)
+        self.assertEqual(monitor.evaluations, 4)
+        self.assertEqual(monitor.cached_objective_requests, 1)
+        self.assertEqual(calls, [(0.25,), (0.75,), (0.25,), (0.5,)])
+
+    def test_off_grid_constrained_population_cannot_claim_feasibility(self):
+        seed()
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return 0.0, 0.0
+
+        ga = GA(cost_function=objective, population_size=4,
+                reliability_mode=True, max_evaluations=4, acceptable_cost=0.0,
+                probe_cost_function=False, constraint_handling="feasibility_rules")
+        ga.add(0.0, 1.0, step=0.5)
+        with patch("gadapt.ga_model.decision_variable.DecisionVariable.make_random_value",
+                   return_value=0.25):
+            result = ga.execute()
+        self.assertFalse(result.success)
+        self.assertFalse(result.acceptable)
+        self.assertFalse(result.feasible)
+        self.assertEqual(result.solution_status, "no_valid_evaluation")
+        self.assertEqual(result.termination_reason, "evaluation_failure")
+        self.assertEqual(result.objective_evaluations, 4)
+        self.assertEqual(result.invalid_objective_evaluations, 4)
+        self.assertEqual(result.valid_objective_evaluations, 0)
+        self.assertEqual(calls, [(0.25,)] * 4)
+
+    def test_non_dividing_discrete_step_rejects_ungenerated_upper_endpoint(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return 0.0
+
+        monitor = ReliabilityMonitor(objective, 5, 0.0, False,
+                                     decision_bounds=((0.0, 1.0),),
+                                     decision_grids=((0.0, 1.0, 0.3, 1),))
+        self.assertTrue(math.isnan(monitor([1.0])))
+        self.assertFalse(monitor.acceptable)
+        self.assertEqual(monitor([0.9]), 0.0)
+        self.assertTrue(monitor.acceptable)
+        self.assertEqual(monitor.best[2], (0.9,))
+        self.assertEqual(monitor.evaluations, 2)
+        self.assertEqual(calls, [(1.0,), (0.9,)])
+
+    def test_step_too_fine_for_grid_remains_continuous(self):
+        monitor = ReliabilityMonitor(lambda values: 0.0, 1, 0.0, False,
+                                     decision_bounds=((0.0, 1.0),),
+                                     decision_grids=((0.0, 1.0, 1e-12, 12),))
+        self.assertEqual(monitor([0.1234567891234]), 0.0)
+        self.assertTrue(monitor.acceptable)
+        self.assertEqual(monitor.evaluations, 1)
+
+    def test_large_exact_integer_grid_does_not_lose_index_precision(self):
+        low = 2**54
+        calls = []
+        monitor = ReliabilityMonitor(lambda values: calls.append(values[0]) or 0.0,
+                                     2, 0.0, False,
+                                     decision_bounds=((low, low + 2),),
+                                     decision_grids=((low, low + 2, 1, 0),))
+        self.assertEqual(monitor([low + 1]), 0.0)
+        self.assertTrue(monitor.acceptable)
+        self.assertEqual(monitor.best[2], (low + 1,))
+        self.assertEqual(calls, [low + 1])
+
     def test_out_of_bounds_inputs_can_never_become_acceptable(self):
         calls = []
 
