@@ -43,8 +43,29 @@ class ColumnarDiversityDecisionVariableUpdater(BaseDecisionVariableUpdater):
             g.stacked = False
 
             if self._metric == "linear":
-                # 3-4. Standard deviation relative to the range of the decision variable
-                current_log_stdev = stat.stdev(values) / (g.max_value - g.min_value)
+                # Scale first in opt-in reliability mode. Even finite bounds
+                # [-1e308, 1e308] yield an infinite binary64 range; dividing
+                # a finite raw standard deviation by inf silently reports
+                # zero diversity for genuinely distinct candidates.
+                monitor = getattr(getattr(self.population, "options", None),
+                                  "reliability_monitor", None)
+                if monitor is not None:
+                    low, high = g.min_value, g.max_value
+                    span = high - low
+                    if math.isfinite(span):
+                        normalized = [(v - low) / span for v in values]
+                    else:
+                        # Halve before subtraction so opposite-signed finite
+                        # extremes cannot overflow; the dimensionless ratio
+                        # still represents (value - low) / (high - low).
+                        half_low = low * 0.5
+                        half_span = high * 0.5 - half_low
+                        normalized = [(v * 0.5 - half_low) / half_span
+                                      for v in values]
+                    current_log_stdev = stat.stdev(normalized)
+                else:
+                    # Keep the historical unmonitored calculation unchanged.
+                    current_log_stdev = stat.stdev(values) / (g.max_value - g.min_value)
             else:
                 # 3. Logarithmic transformation relative to the lower bound.
                 log_values = []

@@ -503,7 +503,7 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   to `log_relative` **variable-columnar diversity** across very large but
   finite decision bounds of opposite signs: logarithmic distances are formed
   without overflowing their intermediate subtraction. Legacy/default-mode
-  columnar diversity remains unchanged.
+  columnar diversity remains unchanged. In opt-in `columnar_diversity_metric="linear"`, coordinates are also normalized before calculating standard deviation, preventing a finite extreme span from silently reporting zero diversity due to `high - low` overflowing to infinity.
 - `objective_evaluations` counts every attempted call through the monitored
   objective, including up to two default validation probes, exceptions and
   non-finite responses. `valid_objective_evaluations` and
