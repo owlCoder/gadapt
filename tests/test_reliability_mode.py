@@ -314,6 +314,103 @@ class ReliabilityModeTest(unittest.TestCase):
             GA(cost_function=lambda values: 1.0,
                reliability_mode=True, reliability_cache_evaluations=1)
 
+    def test_out_of_bounds_inputs_can_never_become_acceptable(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return 0.0
+
+        monitor = ReliabilityMonitor(objective, 8, 0.0, False,
+                                     decision_bounds=((0.0, 1.0),))
+        invalid = [[-0.01], [1.01], [float("nan")], [float("inf")],
+                   [True], ["0.5"], []]
+        for values in invalid:
+            self.assertTrue(math.isnan(monitor(values)))
+            self.assertFalse(monitor.acceptable)
+            self.assertIsNone(monitor.best)
+        self.assertEqual(monitor.evaluations, len(invalid))
+        self.assertEqual(monitor.invalid_evaluations, len(invalid))
+        self.assertEqual(monitor.valid_evaluations, 0)
+        self.assertEqual(len(calls), len(invalid))
+        self.assertEqual(monitor([0.5]), 0.0)
+        self.assertTrue(monitor.acceptable)
+        self.assertEqual(monitor.best, (0.0, 0.0, (0.5,)))
+        self.assertEqual(monitor.evaluations, 8)
+
+    def test_constrained_cost_finder_never_accepts_outside_domain(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return 0.0, 0.0  # Claimed feasible even for an illegal vector.
+
+        ga = GA(cost_function=objective, population_size=4,
+                probe_cost_function=False, constraint_handling="feasibility_rules")
+        ga.add(0.0, 1.0)
+        options = GAOptions(ga)
+        monitor = ReliabilityMonitor(objective, 8, 0.0, True,
+                                     decision_bounds=((0.0, 1.0),))
+        options.cost_function = monitor
+        options.reliability_monitor = monitor
+        population = Population(options)
+        for candidate in population:
+            candidate[0].value = 2.0
+        finder = ConstraintHandlingCostFinder(ConstraintHandler("feasibility_rules"))
+        with self.assertRaisesRegex(ValueError, "All evaluated candidate costs were invalid"):
+            finder.find_costs(population)
+        self.assertEqual(monitor.evaluations, 4)
+        self.assertEqual(monitor.invalid_evaluations, 4)
+        self.assertFalse(monitor.acceptable)
+        self.assertIsNone(monitor.best)
+        self.assertEqual(len(calls), 4)
+
+    def test_invalid_domain_points_never_enter_deterministic_cache(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return 0.0
+
+        monitor = ReliabilityMonitor(objective, 4, 0.0, False,
+                                     cache_evaluations=True,
+                                     decision_bounds=((0.0, 1.0),))
+        self.assertTrue(math.isnan(monitor([3.0])))
+        self.assertTrue(math.isnan(monitor([3.0])))
+        self.assertEqual(monitor.cached_objective_requests, 0)
+        self.assertFalse(monitor.acceptable)
+        self.assertEqual(monitor([0.5]), 0.0)
+        self.assertEqual(monitor([0.5]), 0.0)
+        self.assertEqual(monitor.evaluations, 3)
+        self.assertEqual(monitor.invalid_evaluations, 2)
+        self.assertEqual(monitor.valid_evaluations, 1)
+        self.assertEqual(monitor.cached_objective_requests, 1)
+        self.assertEqual(calls, [(3.0,), (3.0,), (0.5,)])
+
+    def test_reliability_rejects_nonfinite_bounds_before_objective(self):
+        for lower, upper, step in (
+                (float("nan"), 1.0, None),
+                (0.0, float("inf"), None),
+                (0.0, 1.0, float("nan"))):
+            with self.subTest(lower=lower, upper=upper, step=step):
+                calls = []
+
+                def objective(values):
+                    calls.append(tuple(values))
+                    return 0.0
+
+                ga = GA(cost_function=objective, population_size=4,
+                        reliability_mode=True, max_evaluations=8,
+                        acceptable_cost=0.0, probe_cost_function=True)
+                ga.add(lower, upper, step=step)
+                result = ga.execute()
+                self.assertFalse(result.success)
+                self.assertEqual(result.termination_reason, "validation_failed")
+                self.assertEqual(result.objective_evaluations, 0)
+                self.assertEqual(result.solution_status, "no_valid_evaluation")
+                self.assertIn("finite variable bounds", str(result.messages))
+                self.assertEqual(calls, [])
+
     def test_hard_budget_including_validation_probes_and_best_ever(self):
         seed()
         seen = []
