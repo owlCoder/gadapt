@@ -558,7 +558,12 @@ class GA:
             configured.probe_cost_function = False
         monitor = ReliabilityMonitor(self.cost_function, self.max_evaluations,
                                      self.acceptable_cost, self.constraint_handling is not None,
-                                     cache_evaluations=self.reliability_cache_evaluations)
+                                     cache_evaluations=self.reliability_cache_evaluations,
+                                     decision_bounds=tuple(
+                                         (v.min_value, v.max_value)
+                                         for v in sorted(self._decision_variables,
+                                                         key=lambda v: v.variable_id)
+                                     ))
         configured._cost_function = monitor
         configured._reliability_monitor = monitor
         if not callable(self.cost_function):
