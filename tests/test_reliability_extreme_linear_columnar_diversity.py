@@ -80,6 +80,7 @@ class ReliabilityExtremeLinearColumnarTests(unittest.TestCase):
 
         ga = GA(
             cost_function=objective, population_size=4,
+            keep_elitism_percentage=100,
             reliability_mode=True, max_evaluations=4,
             acceptable_cost=-2.0, probe_cost_function=False,
             ensure_unique_individuals=False,
