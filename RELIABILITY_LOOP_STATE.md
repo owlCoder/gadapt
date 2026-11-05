@@ -7,8 +7,8 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
 - Scheduled cycles completed: **11**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **11 / 1,000** (four user-triggered, seven scheduled; reviews count only when actually completed and documented).
-- Additional verified cycles remaining: **989**.
+- Additional verified cycles completed after that request: **12 / 1,000** (five user-triggered, seven scheduled; reviews count only when actually completed and documented).
+- Additional verified cycles remaining: **988**.
 - Consecutive scheduled cycles without verified progress: **1**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -155,3 +155,12 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Pull request: https://github.com/owlCoder/gadapt/pull/37
 - Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/41993441073 (all three Python jobs green).
 - Result: **progress**, merged as `c1604ee21a6b06c8ed6695584cc03f1a594ab753`. Scheduled cycle count stays **11**; additional completed cycles become **11/1000**; scheduled no-progress streak stays **1** (only scheduled cycles change that counter). No optimizer performance benchmarks or empirical claims.
+
+### 2026-11-05 — user-triggered additional cycle 12/1000 (not a scheduled cycle)
+
+- Finding: in reliability mode the monitored decision-domain check rejected nonfinite and out-of-bounds inputs but did not enforce membership in an effective declared discrete grid. An in-bounds off-grid value (e.g. 0.25 with bounds [0,1] and step 0.5) could be recorded as feasible/acceptable, contrary to the decision-variable generator's declared discrete search space.
+- Fix: pass decision-grid metadata (bounds, step, decimal rounding) to the opt-in reliability monitor. Reject candidates not in the generator's finite, rounded and capped mesh; preserve the existing continuous fallback where more than 1e9 step intervals fit. Off-grid objective calls remain charged, cannot become incumbents and cannot enter the optional deterministic cache. Legacy execution, archived research and upstream untouched.
+- Regression: five deterministic tests of off-grid cache exclusion, constrained end-to-end false-feasibility prevention, a nondividing floating step, continuous tiny-step fallback, and exact large-integer grid membership. The full **163-test** suite passed on Python 3.10, 3.11 and 3.12.
+- Pull request: https://github.com/owlCoder/gadapt/pull/38
+- Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/41996265556 (all three Python jobs green).
+- Result: **progress**, merged as `9e402bf913ad1de9a58b5b5845635806c9805522`. Scheduled cycles remain **11**; verified additional cycles **12/1000**; consecutive *scheduled* no-progress cycles remain **1**. No unauthorized optimizer benchmarks or claims of measured success-rate improvement.
