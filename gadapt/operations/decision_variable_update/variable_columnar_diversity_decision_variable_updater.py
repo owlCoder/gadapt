@@ -95,6 +95,14 @@ class ColumnarDiversityDecisionVariableUpdater(BaseDecisionVariableUpdater):
 
                 # 4. Calculate Logarithmic Standard Deviation
                 current_log_stdev = stat.stdev(log_values)
+                if monitor is not None and current_log_stdev == 0.0:
+                    # Distinct raw column values passed the equality check
+                    # above, but their log-space standard deviation may
+                    # underflow to zero (e.g. [0, ulp(0), ulp(0), ulp(0)]).
+                    # Like opt-in affine diversity, retain the least positive
+                    # representable spread instead of permanently marking a
+                    # diverse initial population as converged.
+                    current_log_stdev = math.ulp(0.0)
 
             # 5. Capture Benchmark (Initial Log Diversity)
             if g.initial_st_dev < 0:
