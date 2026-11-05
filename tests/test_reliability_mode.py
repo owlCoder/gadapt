@@ -29,6 +29,75 @@ def seed():
 
 
 class ReliabilityModeTest(unittest.TestCase):
+    def test_precise_objective_cannot_false_accept_binary64_rounding(self):
+        above = Fraction(1) + Fraction(1, 2**55)
+        below = Fraction(1) - Fraction(1, 2**55)
+        self.assertEqual(float(above), 1.0)
+        self.assertEqual(float(below), 1.0)
+        calls = []
+
+        def objective(values):
+            calls.append(values[0])
+            return above if values[0] == 0 else below
+
+        monitor = ReliabilityMonitor(objective, 2, 1.0, False,
+                                     cache_evaluations=True)
+        self.assertEqual(monitor([0]), above)
+        self.assertFalse(monitor.acceptable)
+        self.assertEqual(monitor.best, (1.0, 0.0, (0,)))
+        # Cache hits must never convert a falsely rounded objective to
+        # an actual acceptance, even when no new physical calls remain.
+        monitor.stop_on_acceptance = True
+        self.assertEqual(monitor([0]), 1.0)
+        self.assertFalse(monitor.acceptable)
+        with self.assertRaises(AcceptableTargetReached):
+            monitor([1])
+        self.assertTrue(monitor.acceptable)
+        self.assertEqual(monitor.best, (1.0, 0.0, (1,)))
+        self.assertEqual(monitor.evaluations, 2)
+        self.assertEqual(monitor.cached_objective_requests, 1)
+        self.assertEqual(calls, [0, 1])
+
+    def test_constrained_precise_objective_and_exact_threshold(self):
+        above = Fraction(1) + Fraction(1, 2**55)
+        below = Fraction(1) - Fraction(1, 2**55)
+        values = [above, below]
+        monitor = ReliabilityMonitor(lambda v: (values[int(v[0])], 0.0),
+                                     2, 1.0, True)
+        self.assertEqual(monitor([0]), (above, 0.0))
+        self.assertFalse(monitor.acceptable)
+        self.assertEqual(monitor([1]), (below, 0.0))
+        self.assertTrue(monitor.acceptable)
+        self.assertEqual(monitor.best, (1.0, 0.0, (1,)))
+        # A non-binary64 threshold is also compared at its original
+        # precision, rather than being rounded down on construction.
+        threshold = Fraction(1) + Fraction(1, 2**55)
+        m2 = ReliabilityMonitor(lambda _: 1.0, 1, threshold, False)
+        self.assertEqual(m2([0]), 1.0)
+        self.assertTrue(m2.acceptable)
+
+    def test_rounded_above_threshold_never_stops_real_ga(self):
+        seed()
+        above = Fraction(1) + Fraction(1, 2**55)
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return above
+
+        ga = GA(cost_function=objective, population_size=4,
+                reliability_mode=True, max_evaluations=4,
+                acceptable_cost=1.0, probe_cost_function=False)
+        ga.add(0.0, 1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertFalse(result.acceptable)
+        self.assertEqual(result.solution_status, "feasible_but_unacceptable")
+        self.assertEqual(result.termination_reason, "budget_exhausted")
+        self.assertEqual(result.objective_evaluations, 4)
+        self.assertEqual(result.valid_objective_evaluations, 4)
+        self.assertEqual(len(calls), 4)
+
     def test_negative_scalar_underflow_cannot_fabricate_zero_incumbent(self):
         calls = []
 
