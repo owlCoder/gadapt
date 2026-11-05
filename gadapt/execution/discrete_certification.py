@@ -70,6 +70,9 @@ def evaluate_discrete_grid(monitor, axes, timeout_seconds):
     results.discrete_space_size = math.prod(len(axis) for axis in axes)
     results.discrete_points_checked = 0
     results.discrete_search_applied = True
+    # A charged exception is not evidence that its grid point was validly
+    # classified. Never certify absence from partially completed processing.
+    unclassified_exception = False
     start = time.monotonic()
     for point in itertools.product(*axes):
         if time.monotonic() - start >= timeout_seconds:
@@ -79,11 +82,16 @@ def evaluate_discrete_grid(monitor, axes, timeout_seconds):
         try:
             monitor(list(point))
         except Exception:
-            # Invalid objective calls are charged and classified by monitor.
             # Never claim a point was checked if the hard budget refused it.
             if monitor.evaluations == before:
                 results.termination_reason = "budget_exhausted"
                 break
+            # The objective may have raised *after* charging the physical
+            # attempt but before marking it valid/invalid. Even if no invalid
+            # count was recorded, that point cannot support a proof of
+            # complete negative coverage. Monitor acceptance is still
+            # handled below, after its verified incumbent has been recorded.
+            unclassified_exception = True
         results.discrete_points_checked += 1
         if monitor.acceptable:
             results.termination_reason = "acceptable_target"
@@ -94,7 +102,13 @@ def evaluate_discrete_grid(monitor, axes, timeout_seconds):
     )
     results.discrete_absence_certified = (
         results.discrete_space_exhausted and not monitor.acceptable
+        and not unclassified_exception
         and monitor.invalid_evaluations == 0
+        # A point is not proof-checked merely because the callback returned
+        # without raising (or because the call counter advanced). Every grid
+        # point needs a distinctly charged, classified valid evaluation.
+        and monitor.evaluations == results.discrete_space_size
+        and monitor.valid_evaluations == results.discrete_space_size
     )
     if results.termination_reason is None:
         results.termination_reason = "discrete_space_exhausted"

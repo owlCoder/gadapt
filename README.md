@@ -564,6 +564,8 @@ configured bounded stochastic GA is used instead. This safety fallback
 may fail to find a target and must never be interpreted as an exhaustive
 absence certificate.
 
+A certificate of absence requires **one charged, validly classified evaluation for every grid point**. An exception after a charged call, an invalid outcome, or an unaccounted/skipped point can never certify absence, even if all grid coordinates were attempted.
+
 The first acceptable, feasible point stops the scan. With valid evaluations,
 enough time, and a deterministic/stationary objective, the scan either finds
 a qualifying point if one exists on the grid, or proves none meets the target
