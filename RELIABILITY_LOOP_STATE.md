@@ -7,8 +7,8 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
 - Scheduled cycles completed: **13**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **47 / 1,000** (38 user-triggered review/fix scopes, eight scheduled; includes 30 documented parallel code reviews with two verified fixes and one subsequent separately verified crossover fix).
-- Additional verified cycles remaining: **953**.
+- Additional verified cycles completed after that request: **48 / 1,000** (39 user-triggered review/fix scopes, nine scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and two subsequent separate crossover fixes).
+- Additional verified cycles remaining: **952**.
 - Consecutive scheduled cycles without verified progress: **3**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -213,3 +213,13 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Architectural finding: `evaluate_discrete_grid` catches any `Exception` from `monitor(list(point))`, distinguishes budget refusal only when the evaluation counter did not change, and certifies absence only after all grid points were visited and `monitor.invalid_evaluations == 0`. This is safe only if every exception after a charged call also increments `invalid_evaluations`, or otherwise prevents certification. A future focused test should inject an exception after the monitor increments `evaluations` but before it classifies the result, and verify fail-closed certification. The code inspection alone did **not** establish a reproducible defect or a successful fix; no optimizer objective was run.
 - Existing earlier CI evidence (not a new verification of this review): https://github.com/owlCoder/gadapt/actions/runs/42006802576 (previous implementation merge). No new CI or Python-version test is claimed for this ledger-only review.
 - Result: **no_progress**; scheduled cycles **13**, additional completed review/fix cycles **47/1000**, remaining **953**, consecutive scheduled cycles without verified progress **3**. No changes to runtime, legacy defaults, archive or upstream; no empirical optimizer success-rate claims.
+
+### 2026-11-05 — user-triggered additional cycle 48/1000 (blending step-count overflow)
+
+- Finding: `BlendingCrossover._combine_with_step` used `round(abs((father-mother)/step))`. Valid finite decision bounds [0,1e200], step 1e-150, and distinct finite parents produce an infinite binary64 step count; `round(inf)` throws and prematurely aborts an otherwise valid budget-limited run.
+- Fix: only if the would-be discrete step count is nonfinite, fall back to the crossover's already-established bounded continuous interpolation. Keep existing step-based blending exactly unchanged for every finite step ratio. No changes to legacy configuration defaults, upstream or archive.
+- Regression: four deterministic tests for overflow fallback without an impossible randint, unchanged discrete steps, step-free continuous blending, and bounded end-to-end `reliability_mode` GA. Full **191-test** suite green on Python 3.10, 3.11 and 3.12.
+- PR: https://github.com/owlCoder/gadapt/pull/45 ; squash-merge `d71f64473c65f4e2f678dea8d95ba86d7d5202c2`.
+- Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/42009386852 (three Python jobs success).
+- Result: **progress**; additional documented cycles **48/1000**, remaining **952**. This is distinct from the prior differential-crossover fix and from the 30 source-review batch; it is counted only once. Scheduled count **13** and scheduled no-progress streak **3** unchanged.
+- Accounting reconciliation: the preceding scheduled cycle 13 entry had brought the additional scheduled count from eight to **nine** after exclusion of the first four baseline scheduled runs, although its summary text still said eight. Correct this component breakdown without adding any extra cycle. No optimizer benchmarks and no claims about measured target-achievement success rate.
