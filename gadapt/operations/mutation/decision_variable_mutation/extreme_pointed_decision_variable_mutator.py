@@ -51,6 +51,12 @@ class ExtremePointedDecisionVariableMutator(RandomDecisionVariableMutator):
         )
 
     def _get_mutate_func(self):
+        # Extreme-point step arithmetic is only defined on an effective
+        # discrete mesh. Missing or ultra-fine steps are continuous in the
+        # standard value generator; fall back to its bounded random value
+        # rather than divide by None or create billions of step positions.
+        if not self.variable_value.decision_variable.is_discrete:
+            return super()._make_mutated_value
         prob = self.variable_value.decision_variable.columnar_diversity_coefficient
         if prob > 1.0:
             prob = 1.0
