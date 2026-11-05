@@ -7,8 +7,8 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
 - Scheduled cycles completed: **12**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **15 / 1,000** (seven user-triggered, eight scheduled; reviews count only when actually completed and documented).
-- Additional verified cycles remaining: **985**.
+- Additional verified cycles completed after that request: **45 / 1,000** (37 user-triggered review/fix scopes, eight scheduled; includes 30 documented parallel code reviews, of which two yielded verified fixes and 28 were source reviews without new proven defects).
+- Additional verified cycles remaining: **955**.
 - Consecutive scheduled cycles without verified progress: **2**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -189,3 +189,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Pull request: https://github.com/owlCoder/gadapt/pull/40
 - Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/42001234860 (all three Python jobs green).
 - Result: **progress**, squash-merged as `876d318d093a9e7803cc810a7126b01af5b00de6`. Scheduled cycles remain **12**; additional verified cycles **15/1000**; scheduled no-progress streak remains **2**. This verifies a budget-wasting validation path was corrected, not that optimizer success rates are empirically improved. No unauthorized benchmarks.
+
+### 2026-11-05 — user-triggered parallel batch, additional completed review scopes 16–45/1000 (30 scopes, not scheduled)
+
+- User requested 30 cycles in parallel. Actually completed **30 distinct module-specific source reviews** through concurrent retrieval batches and three independently checked groups of ten targeted source invariants. Each source review is documented separately, with file name, narrow verified code condition, and outcome, in [PARALLEL_AUDIT_30_2026-11-05.md](PARALLEL_AUDIT_30_2026-11-05.md). The reviews are not 30 independent experimental or optimization runs; a source condition being present does not establish general correctness.
+- **Two reviews yielded confirmed bugs and merged corrections:** #15 found fixed-width normal mutation divided by a zero span; integration testing also exposed the same failure in parent-diversity normalization. [PR #41](https://github.com/owlCoder/gadapt/pull/41) fixes both (normal mutation retains the only valid fixed value; fixed-parent diversity zero). #17 found `extreme_pointed` mutation divides by a missing `step` for continuous variables. [PR #42](https://github.com/owlCoder/gadapt/pull/42) falls back to bounded continuous random mutation. Legacy variable behavior otherwise preserved.
+- **The other 28 completed scoped reviews had no separately confirmed new defect**; mark these as **review_only / no_new_fix**, *not* successful bug fixes. Counting a completed documented review toward the requested batch is not a claim of reliability improvement. Independent regression suites green on Python 3.10/3.11/3.12 (178 tests for PR #41 and 176 for PR #42); combined main [CI run 42004746583](https://github.com/owlCoder/gadapt/actions/runs/42004746583) passed **182 tests** on all three versions. No optimizer benchmark, PF/AC/OPF, COCO or physical evaluation was authorized or run.
+- Audit record [PR #43](https://github.com/owlCoder/gadapt/pull/43) merged as `067e5ca1b0cd138121f10bd886244b825f913c0d`, documenting all 30 reviews (not modifying runtime code).
+- Accounting: previous additional completed review/fix scopes **15/1000**, plus **30 genuinely completed documented source-review scopes** = **45/1000**; remaining **955**. The two fixed reviews are **included in** these 30, never added twice. Scheduled cycles remain **12**; consecutive scheduled no-progress remains **2**, not changed by ad-hoc work. Strong empirical optimizer success-rate claims remain prohibited without a pre-approved evaluation protocol.
