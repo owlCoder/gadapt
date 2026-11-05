@@ -361,7 +361,7 @@ Some details:
 - Leaving the step out is the same as passing `step=None`.
 - Equal minimum and maximum bounds without a step define a fixed variable. Normal-distribution mutation retains its only allowed value instead of dividing by the zero-width interval.
 - The step must be positive. A step of `0` or a negative step is not a way to say "no step": it fails the validation with the message *Step must be positive float value!*. To get a continuous variable, leave the step out.
-- A step so small that the range contains more than 10<sup>9</sup> steps is treated as no step, so such a variable is also continuous.
+- A step so small that the range contains more than 10<sup>9</sup> steps is treated as no step, so such a variable is also continuous. Differential crossover follows that same effective-continuous rule and avoids numeric overflow when the theoretical grid would be too dense to enumerate.
 - Discrete and continuous variables can be mixed in the same *GA* object. The default of *ensure_unique_individuals* depends on it: it is *True* only when all variables have a step (see its description above).
 
 For example:
