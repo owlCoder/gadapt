@@ -6,6 +6,9 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
 - Scheduled cycles completed: **4**.
+- Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
+- Additional verified cycles completed after that request: **1 / 1,000** (this user-triggered review).
+- Additional verified cycles remaining: **999**.
 - Consecutive scheduled cycles without verified progress: **0**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -53,3 +56,12 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Branch CI: https://github.com/owlCoder/gadapt/actions/runs/41946740337 (all three Python versions green).
 - Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/41946833100 (all three Python versions green).
 - Result: **progress**, merged as `85a82439313256c0953160e4afe4a25b11e80fd2`; consecutive no-progress cycles: **0**. This is a correctness fix, not evidence of improved optimizer success rate.
+
+### 2026-11-05 — user-triggered additional cycle 1/1000 (not a scheduled cycle)
+
+- Finding: a finite favorable objective result could be reported as a feasible/acceptable solution even when the evaluated decision vector was outside the declared bounds, had nonfinite coordinates or the wrong dimensionality.
+- Fix: opt-in monitor rejects illegal pre-callback decision-vector snapshots after charging the real objective attempt. Invalid candidates never become incumbents or deterministic cache entries. Reliability structural validation also rejects nonfinite bounds/step before validation probes; legacy behavior unchanged.
+- Verification: four deterministic regression tests for unconstrained and constrained values, cache safety and invalid bound rejection. Full 136-test suite passed on Python 3.10, 3.11 and 3.12.
+- Pull request: https://github.com/owlCoder/gadapt/pull/29
+- CI: https://github.com/owlCoder/gadapt/actions/runs/41947800690 (all three jobs green after merge).
+- Result: **progress**, merged as `66a0ec7c2e55ada9e323bd55a76ffbc043a9733b`. One additional verified cycle completed; original four scheduled cycles are not counted toward the new 1000-cycle target. Consecutive no-progress scheduled cycles: **0**. No optimizer benchmark or empirical success-rate claim.
