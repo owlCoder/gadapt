@@ -28,6 +28,12 @@ def discrete_grid_axes(decision_variables, max_points):
             step = float(variable.step)
             if not all(math.isfinite(x) for x in (low, high, step)):
                 return None
+            # Never certify an incomplete grid after narrowing exact integer
+            # bounds or a step to binary64. E.g. 2**54 and 2**54+2 both
+            # become the same float, spuriously suggesting a one-point grid.
+            if (low != variable.min_value or high != variable.max_value
+                    or step != variable.step):
+                return None
             if low > high or step <= 0.0:
                 return None
             ratio = (high - low) / step
@@ -41,6 +47,14 @@ def discrete_grid_axes(decision_variables, max_points):
                            for i in range(count))
             if len(set(values)) != len(values) or not all(
                     math.isfinite(x) and low <= x <= high for x in values):
+                return None
+            # Even when the endpoints themselves survive conversion, a
+            # generated interior integer can be lost (1+2**53 rounds to
+            # 2**53). Full-grid certification requires every enumerated
+            # candidate to match the original variable's arithmetic.
+            if any(point != round(
+                    min(variable.min_value + i * variable.step, variable.max_value),
+                    variable.decimal_places) for i, point in enumerate(values)):
                 return None
             axes.append(values)
             total *= count
