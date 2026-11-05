@@ -490,7 +490,7 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   Reliability configuration validation also rejects nonfinite bounds/steps
   before objective probes. This check does not change legacy GA behavior.
 - `objective_evaluations` counts every attempted call through the monitored
-  objective, including the two default validation probes, exceptions and
+  objective, including up to two default validation probes, exceptions and
   non-finite responses. `valid_objective_evaluations` and
   `invalid_objective_evaluations` split that count. If validation probes
   find an acceptable candidate, no population is evaluated. In reliability
