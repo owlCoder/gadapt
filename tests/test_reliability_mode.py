@@ -508,6 +508,43 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertEqual(result.solution_status, "no_valid_evaluation")
         self.assertEqual(result.objective_evaluations, 4)
 
+    def test_overflowing_real_is_charged_invalid_and_recovery_continues(self):
+        seed()
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return 10**400 if len(calls) <= 4 else 1.0
+
+        ga = GA(cost_function=objective, probe_cost_function=False,
+                population_size=4, reliability_mode=True,
+                max_evaluations=8, acceptable_cost=0.0)
+        ga.add(-1.0, 1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertEqual(result.termination_reason, "budget_exhausted")
+        self.assertEqual(result.invalid_population_resamples, 1)
+        self.assertEqual(result.objective_evaluations, 8)
+        self.assertEqual(result.invalid_objective_evaluations, 4)
+        self.assertEqual(result.valid_objective_evaluations, 4)
+        self.assertEqual(result.best_objective, 1.0)
+        self.assertFalse(result.acceptable)
+        self.assertEqual(len(calls), 8)
+
+    def test_overflowing_real_monitor_never_records_false_incumbent(self):
+        monitor = ReliabilityMonitor(lambda values: 10**400,
+                                     max_evaluations=1, acceptable_cost=0.0,
+                                     constrained=False)
+        self.assertEqual(monitor([0.0]), 10**400)
+        self.assertEqual(monitor.evaluations, 1)
+        self.assertEqual(monitor.invalid_evaluations, 1)
+        self.assertEqual(monitor.valid_evaluations, 0)
+        self.assertIsNone(monitor.best)
+        self.assertFalse(monitor.acceptable)
+        with self.assertRaises(EvaluationBudgetExhausted):
+            monitor([0.0])
+        self.assertEqual(monitor.evaluations, 1)
+
     def test_recovery_discovers_first_valid_after_two_invalid_cohorts(self):
         seed()
         calls = []
