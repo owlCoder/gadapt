@@ -355,7 +355,7 @@ The minimum and maximum value determine the range of possible variable values, a
 | `ga.add(1.0, 4.0, 0.01)` | discrete (with a step) | 1.0, 1.01, 1.02, ..., 4.0 |
 | `ga.add(1.0, 4.0)` | continuous (no step) | any real number between 1.0 and 4.0 |
 
-**If the step is not defined, continuous optimization is performed for that variable.** Its values are not restricted to a grid, and they are not rounded: random values, crossover and mutation can produce any real number in the range, so the optimized value may look like `1.3701139890548797`. With a step, the values are taken from the grid defined by the minimum value and the step (`min_value + k * step`, never above the maximum), rounded to the number of decimal places of the step.
+**If the step is not defined, continuous optimization is performed for that variable.** Its values are not restricted to a grid, and they are not rounded: random values, crossover and mutation can produce any real number in the range, so the optimized value may look like `1.3701139890548797`. With a step, the values are taken from the grid defined by the minimum value and the step (`min_value + k * step`, never above the maximum), rounded to the number of decimal places of the step. Normal-distribution mutation also caps its selected grid index to the last valid step, including when the declared maximum is not itself reachable (for example, `0..1` in steps of `0.6` has maximum valid value `0.6`).
 
 Some details:
 - Leaving the step out is the same as passing `step=None`.
