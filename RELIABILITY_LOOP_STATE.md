@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **15**.
+- Scheduled cycles completed: **16**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **52 / 1,000** (41 user-triggered review/fix scopes, eleven scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and four subsequent separately verified fixes).
-- Additional verified cycles remaining: **948**.
-- Consecutive scheduled cycles without verified progress: **1**.
+- Additional verified cycles completed after that request: **53 / 1,000** (41 user-triggered review/fix scopes, twelve scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and four subsequent separately verified fixes).
+- Additional verified cycles remaining: **947**.
+- Consecutive scheduled cycles without verified progress: **2**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -261,3 +261,10 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Result: **progress**, squash merge `892c4140d4d4ec49e92347a713f082400f673cb7`. Additional completed cycles **52/1000**, remaining **948**. Scheduled cycles stay **15** and consecutive scheduled non-progress streak stays **1**. This is a new verified fix, not counted among the prior 30 parallel source reviews.
 - Counter breakdown reconciliation: scheduled cycle 15 had raised the aggregate count to 51 after 14's 49 and the separately merged #46 user correction (50), but its summary retained the old ten-scheduled component. Scheduled cycle 15 is the eleventh post-baseline scheduled cycle, so **41 user-triggered + 11 scheduled = 52** after this new manual fix. The aggregate total is incremented by exactly one; correcting the textual components creates no extra cycle.
 - No new optimizer benchmarks, PF/AC/OPF or COCO runs, and no claims of measured improvement to `P(feasible and acceptable)`. Legacy defaults and the archived research branch remain untouched.
+
+### 2026-11-05 — scheduled cycle 16; additional completed review cycle 53/1000
+
+- Re-read current main `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, and this ledger. Inspected `gadapt/ga_model/decision_variable.py`, `gadapt/operations/crossover/blending_crossover.py`, and `gadapt/execution/discrete_certification.py` (source blob SHAs `7d44843e8f41a7479560baac6a7493e483fa4b28`, `c8f2686651125d4b0f09d9cdcf0fcbe6fd95d40e`, `97261211a2765391c03fab10069e4499948e323c`).
+- Focused architectural review: effective continuity in `DecisionVariable.is_discrete` and `make_random_value` is determined by the *whole-domain* step ratio (>1e9), while `BlendingCrossover._combine` chooses step arithmetic based solely on positive step magnitude. For a finite whole-domain ratio >1e9 but finite parent-to-parent step ratio, crossover therefore follows discrete arithmetic even though random initialization treats the same variable as continuous. This is a specific semantic inconsistency and possible diversity limitation, **not** a demonstrated incorrect output or reproducible runtime defect. Changing this behavior could alter legacy GA results, so no speculative change was made. A future opt-in-only deterministic regression should first establish a violated explicit reliability contract rather than assuming effective continuity requires continuous crossover.
+- Checked the finite-grid negative certificate guards: `evaluate_discrete_grid` requires complete checked coverage, zero invalid evaluations, no unclassified charged exception, and matching physical/valid evaluation counts. The previously fixed PR #46 issue is not recounted. No objective evaluations or new CI tests were performed. Prior post-merge verification (not new evidence): https://github.com/owlCoder/gadapt/actions/runs/42031937387 (Python 3.10–3.12 green for PR #47).
+- Result: **no_progress** (completed source review; no verified new defect or implementation fix). Scheduled cycles **16**; additional completed review/fix cycles **53/1000**, remaining **947**; consecutive scheduled cycles without verified progress **2**. No optimizer benchmarks, physical evaluations, changed legacy defaults, upstream edits, archive changes, or empirical optimizer-success claims.
