@@ -7,8 +7,8 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
 - Scheduled cycles completed: **18**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **56 / 1,000** (42 user-triggered review/fix scopes, fourteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and five subsequent separately verified fixes).
-- Additional verified cycles remaining: **944**.
+- Additional verified cycles completed after that request: **57 / 1,000** (43 user-triggered review/fix scopes, fourteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and six subsequent separately verified fixes).
+- Additional verified cycles remaining: **943**.
 - Consecutive scheduled cycles without verified progress: **4**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -292,3 +292,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Branch CI: https://github.com/owlCoder/gadapt/actions/runs/42053580654 (3.10/3.11/3.12 success).
 - Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/42053810199 (3.10/3.11/3.12 success).
 - Result: **progress**; merged as `1ada98c5f887490997c50cf93fdd849637fee77f`. Additional documented cycles **56/1000**, remaining **944**; scheduled cycles remain **18**, scheduled no-progress streak remains **4**. No changes to archive, upstream or legacy defaults.
+
+### 2026-11-05 — user-triggered additional cycle 57/1000: extreme-bound columnar diversity
+
+- Finding: finite [-1e308,+1e308] variable bounds produce an infinite intermediate distance in the legacy log-relative columnar-diversity transform, and statistics.stdev fails despite both decision coordinates being finite and valid. This is distinct from the prior extreme-cost diversity defect.
+- Fix: monitored reliability mode calculates log1p(value-lower) for finite differences; for overflowing opposite-sign differences it uses log(-lower)+log1p(value/-lower). Legacy default behavior is unchanged. Guard also supports minimal population test fixtures without options.
+- Evidence: four deterministic regression tests for extreme values, convergence, normal-scale equivalence and a four-call bounded opt-in GA; full **209 tests** pass on Python 3.10, 3.11, 3.12. PR https://github.com/owlCoder/gadapt/pull/49 merged as `75f6e362b08c7beea777addcd2d89ea72363dd6d`.
+- Green branch CI: https://github.com/owlCoder/gadapt/actions/runs/42061407522 ; post-merge main CI: https://github.com/owlCoder/gadapt/actions/runs/42061553001.
+- Result: **progress**, **57/1000** completed, **943** remaining. Scheduled cycles **18**, consecutive scheduled no-progress **4**, unchanged. No new optimization benchmarks, physical solver calls, archive/upstream edits or measured optimizer success-rate claims.
