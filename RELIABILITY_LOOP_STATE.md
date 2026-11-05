@@ -5,10 +5,10 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **7**.
+- Scheduled cycles completed: **8**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **4 / 1,000** (one user-triggered, three scheduled).
-- Additional verified cycles remaining: **996**.
+- Additional verified cycles completed after that request: **5 / 1,000** (one user-triggered, four scheduled).
+- Additional verified cycles remaining: **995**.
 - Consecutive scheduled cycles without verified progress: **0**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -93,3 +93,13 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Pull request: https://github.com/owlCoder/gadapt/pull/32
 - Branch CI: https://github.com/owlCoder/gadapt/actions/runs/41965761991 (all three Python jobs green).
 - Result: **progress**, merged as `d03c3dc2613e5d0cd82bede8ccebf2379b201067`; scheduled cycles: **7**; additional verified cycles: **4/1000**; consecutive scheduled no-progress cycles: **0**. This is a correctness regression fix, not evidence of better empirical optimization success rate.
+
+### 2026-11-05 — scheduled cycle 8; additional verified cycle 5/1000
+
+- Finding: the positive-only objective-underflow guard added in scheduled cycle 7 did not cover a strictly negative nonzero Real such as `Fraction(-1, 10**400)`. Conversion to binary64 yields `-0.0`; the monitor previously recorded a fabricated zero-valued incumbent, distorting the reported objective, ranking, and optional cache. This is a distinct signed-underflow correctness issue, not evidence of any optimizer performance advantage.
+- Fix: reject any **nonzero** exact objective converted to binary64 zero in both scalar and constrained opt-in reliability paths. Charge each real callback exactly once and exclude invalid outputs from the incumbent and cache. Legacy GA defaults, upstream and archived research remain unchanged.
+- Regression: three deterministic tests for negative scalar and constrained underflow, cache exclusion, exact physical call counts, and bounded invalid-population recovery. Full **146-test** suite green on Python 3.10, 3.11 and 3.12.
+- Pull request: https://github.com/owlCoder/gadapt/pull/33
+- Branch CI: https://github.com/owlCoder/gadapt/actions/runs/41972090297 (all three jobs green).
+- Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/41972169734 (all three jobs green).
+- Result: **progress**, merged as `f7c6b567d98e0cd38a799ee19e3920b3570e279c`; scheduled cycles: **8**; additional verified cycles: **5/1000**; consecutive scheduled cycles without progress: **0**. No unapproved optimizer benchmarks or empirical optimization-success claims.
