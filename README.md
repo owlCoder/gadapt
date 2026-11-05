@@ -575,6 +575,9 @@ simulations.
   `reliability_refresh_percentage=20.0` refreshes up to 20% of the retained
   population every five generations without an improvement of the *best
   evaluated* objective (or constraint violation until feasibility is found).
+  For extended-precision or rational objective values, the improvement and
+  stagnation counters use their original precise ordering rather than treating
+  different values rounded to the same binary64 float as identical.
   It does not refresh by default: set a patience explicitly to enable it.
   With `reliability_restart_after_refreshes=2`, a stronger full-population
   reseed occurs at the next refresh boundary after two refreshes without
