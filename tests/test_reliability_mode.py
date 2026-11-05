@@ -29,6 +29,68 @@ def seed():
 
 
 class ReliabilityModeTest(unittest.TestCase):
+    def test_positive_scalar_underflow_never_falsely_reaches_zero_target(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return Fraction(1, 10**400) if len(calls) == 1 else 1.0
+
+        monitor = ReliabilityMonitor(objective, 2, 0.0, False,
+                                     cache_evaluations=True,
+                                     decision_bounds=((0.0, 1.0),))
+        self.assertTrue(math.isnan(monitor([0.5])))
+        self.assertFalse(monitor.acceptable)
+        self.assertIsNone(monitor.best)
+        self.assertEqual(monitor([0.5]), 1.0)
+        self.assertEqual(monitor.evaluations, 2)
+        self.assertEqual(monitor.valid_evaluations, 1)
+        self.assertEqual(monitor.invalid_evaluations, 1)
+        self.assertEqual(monitor.cached_objective_requests, 0)
+        self.assertFalse(monitor.acceptable)
+
+    def test_positive_constrained_objective_underflow_never_falsely_acceptable(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            if len(calls) == 1:
+                return Fraction(1, 10**400), 0.0
+            return 1.0, 0.0
+
+        monitor = ReliabilityMonitor(objective, 2, 0.0, True,
+                                     cache_evaluations=True,
+                                     decision_bounds=((0.0, 1.0),))
+        self.assertTrue(math.isnan(monitor([0.5])))
+        self.assertIsNone(monitor.best)
+        self.assertFalse(monitor.acceptable)
+        self.assertEqual(monitor([0.5]), (1.0, 0.0))
+        self.assertEqual(monitor.evaluations, 2)
+        self.assertEqual(monitor.invalid_evaluations, 1)
+        self.assertEqual(monitor.valid_evaluations, 1)
+        self.assertEqual(monitor.cached_objective_requests, 0)
+        self.assertFalse(monitor.acceptable)
+
+    def test_positive_underflow_population_recovery_uses_real_evaluation_budget(self):
+        seed()
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return Fraction(1, 10**400) if len(calls) <= 4 else 1.0
+
+        ga = GA(cost_function=objective, population_size=4,
+                probe_cost_function=False, reliability_mode=True,
+                max_evaluations=8, acceptable_cost=0.0)
+        ga.add(0.0, 1.0)
+        result = ga.execute()
+        self.assertFalse(result.acceptable)
+        self.assertEqual(result.objective_evaluations, 8)
+        self.assertEqual(result.invalid_objective_evaluations, 4)
+        self.assertEqual(result.valid_objective_evaluations, 4)
+        self.assertEqual(len(calls), 8)
+        self.assertEqual(result.best_objective, 1.0)
+
     def test_small_discrete_grid_is_exhaustive_without_ga_population_floor(self):
         # The only acceptable point is last in grid order; cover all 3x2
         # points even though GA's default population_size is 32.
