@@ -20,7 +20,7 @@ class AcceptableTargetReached(RuntimeError):
 
 class ReliabilityMonitor:
     def __init__(self, objective, max_evaluations, acceptable_cost, constrained,
-                 cache_evaluations=False):
+                 cache_evaluations=False, decision_bounds=None):
         self.objective = objective
         # Opt-in only: correct for stationary, deterministic objectives.
         self.cache_evaluations = cache_evaluations
@@ -29,6 +29,9 @@ class ReliabilityMonitor:
         self.max_evaluations = max_evaluations
         self.acceptable_cost = float(acceptable_cost)
         self.constrained = constrained
+        # Immutable declared bounds. When supplied by GA, reject candidates
+        # that could never be valid solutions to the declared problem.
+        self.decision_bounds = tuple(decision_bounds) if decision_bounds is not None else None
         self.evaluations = 0
         self.valid_evaluations = 0
         self.invalid_evaluations = 0
@@ -71,6 +74,13 @@ class ReliabilityMonitor:
         except Exception:
             self.invalid_evaluations += 1
             raise
+        # An objective can return an excellent number for NaN, infinity or a
+        # point outside its declared domain. Such a point is not a solution.
+        # Validate the *pre-callback* snapshot after the real call, so the
+        # existing physical call counter remains exact.
+        if not self._candidate_in_bounds(evaluated_values):
+            self.invalid_evaluations += 1
+            return math.nan  # Both standard cost finders reject this value.
         try:
             if self.constrained:
                 objective, violation = parse_pair(result)
@@ -122,6 +132,22 @@ class ReliabilityMonitor:
             # The complete, actually evaluated result is cached in self.best.
             raise AcceptableTargetReached("Acceptable evaluated candidate found")
         return result
+
+    def _candidate_in_bounds(self, values):
+        if self.decision_bounds is None:
+            return True
+        if len(values) != len(self.decision_bounds):
+            return False
+        for value, (lower, upper) in zip(values, self.decision_bounds):
+            if isinstance(value, bool) or not isinstance(value, Real):
+                return False
+            try:
+                number = float(value)
+            except (TypeError, ValueError, OverflowError):
+                return False
+            if not math.isfinite(number) or not lower <= number <= upper:
+                return False
+        return True
 
     def _cache_key(self, values):
         """Identify identical numerical inputs, preserving types and signed zero.
