@@ -7,8 +7,8 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
 - Scheduled cycles completed: **19**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **59 / 1,000** (44 user-triggered review/fix scopes, fifteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and seven subsequent separately verified fixes).
-- Additional verified cycles remaining: **941**.
+- Additional verified cycles completed after that request: **60 / 1,000** (45 user-triggered review/fix scopes, fifteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and eight subsequent separately verified fixes).
+- Additional verified cycles remaining: **940**.
 - Consecutive scheduled cycles without verified progress: **5**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -317,3 +317,13 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Branch CI: https://github.com/owlCoder/gadapt/actions/runs/42067329532 (**214** tests all passing on Python 3.10/3.11/3.12).
 - Post-merge main CI: https://github.com/owlCoder/gadapt/actions/runs/42067795186 (all three Python jobs successful).
 - Result: **progress**, additional documented cycles **59/1000**, **941** remaining. Scheduled cycles stay **19**, consecutive scheduled no-progress stays **5** (manual work does not reset that counter). No optimizer benchmarks, physical simulations, archived-data changes, upstream edits or empirical optimization-success claims.
+
+### 2026-11-05 — user-triggered additional cycle 60/1000 (finite extreme-span random initialization)
+
+- Finding: even after the opt-in diversity metrics were stabilized, a continuous variable with fully finite declared bounds [-1e308,+1e308] could not initialize normally: `DecisionVariable.make_random_value()` passed both endpoints to `numpy.random.uniform(low, high)`, which raises `OverflowError: Range exceeds valid bounds` when the binary64 difference is infinite. The same invalid arithmetic affected the effective-continuous fallback for a tiny step on an enormous range. This is a separate executable initialization failure, not a repeat of cycle 59's diversity bug. Reproduced the NumPy failure directly before changing code; no optimization benchmark was run.
+- Fix: only the cloned variables in an opt-in `reliability_mode=True` execution are marked for stable continuous draws on finite but overflowing spans. Use a single uniform fraction and weighted endpoints `low*(1-u)+high*u`, clamped to the declared bounds, avoiding an unrepresentable intermediate width. Ordinary-range draws and every unmonitored/default execution still use the legacy `numpy.random.uniform` implementation. This also covers effective-continuous extremely fine-step variables.
+- Deterministic verification: five new tests check wide signed bounds at controlled fractions, the fine-step fallback, unchanged ordinary-range NumPy sampling, unchanged unmonitored sampling, and four physical objective calls in a bounded end-to-end reliability GA without patching the generator itself. Full **219 tests** passed on Python 3.10, 3.11 and 3.12; four-call integration is a regression contract, not an optimizer experiment.
+- Pull request: https://github.com/owlCoder/gadapt/pull/51 ; squash-merged as `3334ff1b2e896cfa0604aefde67bb8d4cb8db120`.
+- Green branch CI: https://github.com/owlCoder/gadapt/actions/runs/42071045369 (Python 3.10/3.11/3.12 success).
+- Green post-merge main CI: https://github.com/owlCoder/gadapt/actions/runs/42071209973 (Python 3.10/3.11/3.12 success).
+- Result: **progress**, additional documented cycles **60/1000**, **940** remaining. Scheduled cycles remain **19** and the consecutive scheduled no-progress streak remains **5**: manual progress does not reset scheduled streaks. No unapproved optimizer benchmarks, physical solvers, historical-data edits, changes to default optimizer behavior, or empirical improvement claims.
