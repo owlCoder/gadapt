@@ -145,7 +145,16 @@ class ReliabilityMonitor:
                 number = float(value)
             except (TypeError, ValueError, OverflowError):
                 return False
-            if not math.isfinite(number) or not lower <= number <= upper:
+            # float(value) is only a finiteness probe. Comparing the
+            # converted float can round a large exact integer into bounds
+            # (e.g. 2**53 + 1 becomes float(2**53)). Compare the original
+            # Real to the declared bounds instead, preserving exactness.
+            if not math.isfinite(number):
+                return False
+            try:
+                if not lower <= value <= upper:
+                    return False
+            except (TypeError, ValueError, OverflowError):
                 return False
         return True
 

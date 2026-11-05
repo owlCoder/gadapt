@@ -314,6 +314,44 @@ class ReliabilityModeTest(unittest.TestCase):
             GA(cost_function=lambda values: 1.0,
                reliability_mode=True, reliability_cache_evaluations=1)
 
+    def test_exact_integer_bounds_do_not_round_illegal_points_into_domain(self):
+        # Adjacent integers above binary64 precision have identical floats.
+        # The original input must be checked without converting to float.
+        limit = 2 ** 54
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return 0.0
+
+        monitor = ReliabilityMonitor(objective, 5, 0.0, False,
+                                     cache_evaluations=True,
+                                     decision_bounds=((limit, limit),))
+        for outside in (limit + 1, limit - 1):
+            self.assertEqual(float(outside), float(limit))
+            self.assertTrue(math.isnan(monitor([outside])))
+            self.assertFalse(monitor.acceptable)
+            self.assertIsNone(monitor.best)
+        self.assertEqual(monitor.invalid_evaluations, 2)
+        self.assertEqual(monitor.cached_objective_requests, 0)
+        self.assertEqual(monitor([limit]), 0.0)
+        self.assertTrue(monitor.acceptable)
+        self.assertEqual(monitor.best, (0.0, 0.0, (limit,)))
+        self.assertEqual(monitor.evaluations, 3)
+        self.assertEqual(calls, [(limit + 1,), (limit - 1,), (limit,)])
+
+    def test_exact_integer_bounds_constrained_objective_cannot_fake_feasibility(self):
+        limit = 2 ** 54
+        monitor = ReliabilityMonitor(lambda values: (0.0, 0.0),
+                                     2, 0.0, True,
+                                     decision_bounds=((limit, limit),))
+        self.assertTrue(math.isnan(monitor([limit + 1])))
+        self.assertEqual(monitor.invalid_evaluations, 1)
+        self.assertFalse(monitor.acceptable)
+        self.assertEqual(monitor((limit,)), (0.0, 0.0))
+        self.assertTrue(monitor.acceptable)
+        self.assertEqual(monitor.valid_evaluations, 1)
+
     def test_out_of_bounds_inputs_can_never_become_acceptable(self):
         calls = []
 
