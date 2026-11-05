@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **8**.
+- Scheduled cycles completed: **9**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **6 / 1,000** (two user-triggered, four scheduled).
-- Additional verified cycles remaining: **994**.
-- Consecutive scheduled cycles without verified progress: **0**.
+- Additional verified cycles completed after that request: **7 / 1,000** (two user-triggered, five scheduled; the ninth scheduled cycle was a review without a new fix).
+- Additional verified cycles remaining: **993**.
+- Consecutive scheduled cycles without verified progress: **1**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -113,3 +113,9 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Pull request: https://github.com/owlCoder/gadapt/pull/34
 - CI: https://github.com/owlCoder/gadapt/actions/runs/41978896396 (all three Python jobs green after merge).
 - Result: **progress**; merged as `dfed0784381b368631e7f27492ea7fb15614b098`. Scheduled cycle count unchanged at **8**; additional verified cycles now **6/1000**; consecutive scheduled no-progress **0**. Objective reporting continues to use binary64 approximation, not exact rational objective serialization.
+
+### 2026-11-05 — scheduled cycle 9; additional completed review cycle 7/1000
+
+- Review: re-read `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, and current `main` state. Audited the just-merged exact-acceptance fix against the acceptance contract: rounded objectives are not exact acceptance certificates; cached early stopping depends on validated `_best_target_met` state; and equal binary64 objectives must not conceal a precisely acceptable incumbent. The new deterministic regressions cover these cases. No distinct new reproducible defect was established; PR #34 is counted as a fix only in the earlier emergency cycle, not again here.
+- Evidence: https://github.com/owlCoder/gadapt/pull/34 merged at `dfed0784381b368631e7f27492ea7fb15614b098`; https://github.com/owlCoder/gadapt/actions/runs/41978896396 passed Python 3.10–3.12.
+- Result: **no_progress** (completed technical review; no separate fix). Scheduled cycles **9**; additional completed review/fix cycles **7/1000**; consecutive scheduled cycles without verified progress **1**. Change strategy after 10 consecutive no-progress scheduled cycles. No unauthorized benchmarks or claims of empirically improved optimization success.
