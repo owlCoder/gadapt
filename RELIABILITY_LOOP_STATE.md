@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **13**.
+- Scheduled cycles completed: **14**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **48 / 1,000** (39 user-triggered review/fix scopes, nine scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and two subsequent separate crossover fixes).
-- Additional verified cycles remaining: **952**.
-- Consecutive scheduled cycles without verified progress: **3**.
+- Additional verified cycles completed after that request: **49 / 1,000** (39 user-triggered review/fix scopes, ten scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and two subsequent separate crossover fixes).
+- Additional verified cycles remaining: **951**.
+- Consecutive scheduled cycles without verified progress: **0**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -223,3 +223,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/42009386852 (three Python jobs success).
 - Result: **progress**; additional documented cycles **48/1000**, remaining **952**. This is distinct from the prior differential-crossover fix and from the 30 source-review batch; it is counted only once. Scheduled count **13** and scheduled no-progress streak **3** unchanged.
 - Accounting reconciliation: the preceding scheduled cycle 13 entry had brought the additional scheduled count from eight to **nine** after exclusion of the first four baseline scheduled runs, although its summary text still said eight. Correct this component breakdown without adding any extra cycle. No optimizer benchmarks and no claims about measured target-achievement success rate.
+
+### 2026-11-05 — scheduled cycle 14; additional completed review cycle 49/1000
+
+- Re-read current main AGENTS.md, RELIABILITY_ROADMAP.md, ARCHIVE.md and this ledger. Focused source audit of gadapt/execution/discrete_certification.py, specifically evaluate_discrete_grid exception handling and the absence-certificate predicate.
+- Reproducible control-flow finding (source-level, not an executed regression): if monitor(list(point)) increments monitor.evaluations and then raises before incrementing monitor.invalid_evaluations, the broad except Exception branch treats that point as checked. After all points, discrete_absence_certified can become True solely because invalid_evaluations remains zero. This is a fail-open condition for an exceptional charged evaluation; a monitor test double can reproduce it deterministically. The currently inspected code has no explicit exception flag that would invalidate certification. This audit does not establish that the normal production monitor can reach this intermediate state.
+- Proposed opt-in correction: track any caught exception other than the monitor's verified acceptance control path and require no unclassified exception for absence certification. Add a deterministic test double that increments evaluations and raises before classification, plus a normal fully valid negative-grid control; verify no false absence and exact checked counts. No code fix or new CI has been performed in this cycle, so do not report a merged correction.
+- Prior implementation CI (not new evidence for this finding): https://github.com/owlCoder/gadapt/actions/runs/42009386852 (Python 3.10–3.12 green for PR #45). No benchmarks, PF/AC/OPF, held-out COCO or physical evaluations were run.
+- Result: **progress (new specific source-level finding, unpatched)**; scheduled cycles **14**; additional actually completed cycles **49/1000**, remaining **951**; consecutive scheduled no-progress **0** under the ledger's explicit rule that a relevant reproducible technical finding qualifies. Do not count this as a fixed bug or verified optimization improvement. Legacy defaults, upstream and archive untouched.
