@@ -94,7 +94,7 @@ def check_case(case):
             rel_tol=1e-13,
         )
     elif family == "log-columnar-extreme":
-        upper = (index + 1) * 1e306
+        upper = (index + 51) * 1e306
         variable = columnar(
             "log_relative", [-1e308, upper], -1e308, 1e308
         )
@@ -102,7 +102,7 @@ def check_case(case):
         assert math.isfinite(variable.initial_st_dev)
         assert variable.columnar_diversity_coefficient == 1.0
     elif family == "log-cost-extreme":
-        upper = (index + 1) * 1e306
+        upper = (index + 51) * 1e306
         population = SimpleNamespace(
             options=SimpleNamespace(
                 cost_diversity_metric="log_relative", reliability_monitor=object()
