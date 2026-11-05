@@ -32,6 +32,13 @@ def affine_cost_diversity(values, initial_spread=None):
     difference = maximum - minimum
     spread = (difference * 0.5 if math.isfinite(difference)
               else (maximum * 0.5 - minimum * 0.5))
+    if difference > 0.0 and spread == 0.0:
+        # Half of the smallest positive subnormal is not representable in
+        # binary64. The ordinary formula would misclassify distinct finite
+        # costs as a converged population. Use the least available positive
+        # spread as a conservative quantized reference, rather than zero.
+        # Ratios at this precision floor cannot resolve every half-ULP.
+        spread = math.ulp(0.0)
 
     if initial_spread is None:
         return (1.0 if spread > 0.0 else 0.0), spread
