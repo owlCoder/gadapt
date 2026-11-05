@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **12**.
+- Scheduled cycles completed: **13**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **46 / 1,000** (38 user-triggered review/fix scopes, eight scheduled; includes 30 documented parallel code reviews with two verified fixes and one subsequent separately verified crossover fix).
-- Additional verified cycles remaining: **954**.
-- Consecutive scheduled cycles without verified progress: **2**.
+- Additional verified cycles completed after that request: **47 / 1,000** (38 user-triggered review/fix scopes, eight scheduled; includes 30 documented parallel code reviews with two verified fixes and one subsequent separately verified crossover fix).
+- Additional verified cycles remaining: **953**.
+- Consecutive scheduled cycles without verified progress: **3**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -206,3 +206,10 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - PR: https://github.com/owlCoder/gadapt/pull/44
 - Branch CI: https://github.com/owlCoder/gadapt/actions/runs/42006623374 (3.10/3.11/3.12 green).
 - Merged as `b2f1c5184ddec97577b5b5ea653276416eb9bce4`; post-merge main CI https://github.com/owlCoder/gadapt/actions/runs/42006802576. Additional cycles **46/1000**, remaining **954**; scheduled cycles remain **12**, scheduled no-progress streak **2**. These deterministic correctness tests do not measure real-world optimization success.
+
+### 2026-11-05 — scheduled cycle 13; additional completed review cycle 47/1000
+
+- Re-read current default-branch `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, and this ledger. Inspected `gadapt/execution/discrete_certification.py` and `gadapt/ga_model/decision_variable.py` on current main, specifically the exception and accounting path during finite-grid enumeration.
+- Architectural finding: `evaluate_discrete_grid` catches any `Exception` from `monitor(list(point))`, distinguishes budget refusal only when the evaluation counter did not change, and certifies absence only after all grid points were visited and `monitor.invalid_evaluations == 0`. This is safe only if every exception after a charged call also increments `invalid_evaluations`, or otherwise prevents certification. A future focused test should inject an exception after the monitor increments `evaluations` but before it classifies the result, and verify fail-closed certification. The code inspection alone did **not** establish a reproducible defect or a successful fix; no optimizer objective was run.
+- Existing earlier CI evidence (not a new verification of this review): https://github.com/owlCoder/gadapt/actions/runs/42006802576 (previous implementation merge). No new CI or Python-version test is claimed for this ledger-only review.
+- Result: **no_progress**; scheduled cycles **13**, additional completed review/fix cycles **47/1000**, remaining **953**, consecutive scheduled cycles without verified progress **3**. No changes to runtime, legacy defaults, archive or upstream; no empirical optimizer success-rate claims.
