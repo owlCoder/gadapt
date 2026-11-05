@@ -5,7 +5,7 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **3**.
+- Scheduled cycles completed: **4**.
 - Consecutive scheduled cycles without verified progress: **0**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -43,3 +43,13 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Pull request: https://github.com/owlCoder/gadapt/pull/27
 - Branch CI: https://github.com/owlCoder/gadapt/actions/runs/41940449771 (Python 3.10, 3.11, 3.12 green).
 - Result: **progress**, verified branch CI and merged as `661ad3fd52d26ed65a4262e9c185eee305ef1619`; consecutive no-progress cycles: **0**. This is a correctness fix, not measured optimizer success improvement.
+
+### 2026-11-05 — scheduled cycle 4
+
+- Finding: Python `bool` subclasses `int` and satisfies `numbers.Real`. The opt-in monitor classified boolean objective returns as invalid, but returned the original boolean to the scalar cost finder, which accepted it as a finite numeric cost. This could falsely make an entirely invalid cohort look viable and prevent bounded invalid-population recovery.
+- Fix: for boolean scalar objective results, return a nonfinite sentinel from the opt-in monitor while charging the attempted call as invalid. The existing scalar cost finder now rejects that candidate. Legacy execution remains unchanged.
+- Regression: two deterministic end-to-end tests for an all-boolean fail-closed budget and recovery after four boolean returns, checking exact call counts and verified incumbent. No optimization benchmarks or unauthorized objective experiments.
+- Pull request: https://github.com/owlCoder/gadapt/pull/28
+- Branch CI: https://github.com/owlCoder/gadapt/actions/runs/41946740337 (all three Python versions green).
+- Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/41946833100 (all three Python versions green).
+- Result: **progress**, merged as `85a82439313256c0953160e4afe4a25b11e80fd2`; consecutive no-progress cycles: **0**. This is a correctness fix, not evidence of improved optimizer success rate.
