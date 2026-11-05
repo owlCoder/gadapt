@@ -84,9 +84,17 @@ class NormalDistributionDecisionVariableMutator(BaseDecisionVariableMutator):
 
         if effective_step is not None:
             # --- Discrete case (snap to step multiples) ---
-            number_of_steps = round(
+            # A sampled position near the upper bound can round up to a
+            # step beyond the declared interval (e.g. 0..1 by 0.6 gives
+            # round(1/0.6) == 2, producing 1.2). Use the same maximum
+            # grid index and near-integer tolerance as make_random_value.
+            steps_in_range = decision_variable_range / effective_step
+            max_steps = (round(steps_in_range) if math.isclose(
+                steps_in_range, round(steps_in_range),
+                rel_tol=1e-9, abs_tol=1e-9) else int(steps_in_range))
+            number_of_steps = min(max(round(
                 (normal_distribution_random_value * decision_variable_range) / effective_step
-            )
+            ), 0), max_steps)
             # Rounded to the decimals of the step, so the value is exactly a grid value (and equal to curr_value
             # when it is the same grid value), without the floating-point error of min_value + k * step.
             decimal_places = decision_variable.decimal_places
