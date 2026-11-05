@@ -7,8 +7,8 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
 - Scheduled cycles completed: **10**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **8 / 1,000** (two user-triggered, six scheduled; reviews count only when actually completed and documented).
-- Additional verified cycles remaining: **992**.
+- Additional verified cycles completed after that request: **9 / 1,000** (three user-triggered, six scheduled; reviews count only when actually completed and documented).
+- Additional verified cycles remaining: **991**.
 - Consecutive scheduled cycles without verified progress: **0**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -130,3 +130,12 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Branch CI: https://github.com/owlCoder/gadapt/actions/runs/41985757409 (all three Python jobs green).
 - Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/41985850809 (all three Python jobs green).
 - Result: **progress**, merged as `7ed65543a5b7568fc5c45dabc2c384340cba1036`; scheduled cycles: **10**, additional verified cycles: **8/1000**, consecutive scheduled no-progress cycles: **0**. Precise internal ordering does not make the public binary64 objective output exact and is not evidence of improved empirical optimization success rate.
+
+### 2026-11-05 — user-triggered additional cycle 9/1000 (not a scheduled cycle)
+
+- Finding: `ReliabilityMonitor` uses original precise `Real` values when choosing the best-ever evaluated objective/constraint violation, but its `completed_generation()` stagnation detector still compared binary64-rounded values. A strictly improving incumbent could be misclassified as stagnant, incrementing the refresh/restart debt and initiating disruptive reseeding unnecessarily.
+- Fix: compute generation-level quality from the same original precise objective and violation values used by incumbent ranking. This is opt-in reliability behavior only; legacy defaults, original research archive, and upstream unchanged.
+- Regression: two deterministic checks demonstrate reset of stagnant generation counters and refresh debt after strictly improving but identically rounded feasible objectives and infeasible violations. Full **154-test** suite green on Python 3.10, 3.11 and 3.12. No optimizer benchmark or external physical evaluation.
+- PR: https://github.com/owlCoder/gadapt/pull/36
+- CI: https://github.com/owlCoder/gadapt/actions/runs/41990717526 (all three Python jobs green after merge).
+- Result: **progress**; merged as `f313265b01673e440bcc54ba84e754e8a430b683`. Scheduled cycles unchanged at **10**; additional verified cycles **9/1000**, consecutive scheduled no-progress **0**. This proves correctness only, not an empirical increase in optimization success rate.
