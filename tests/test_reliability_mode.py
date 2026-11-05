@@ -803,8 +803,8 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertFalse(result.success)
         self.assertFalse(result.termination_reason == "acceptable_target")
         self.assertEqual(result.termination_reason, "validation_failed")
-        self.assertEqual(result.objective_evaluations, 1)
-        self.assertEqual(calls, [(0.0,)])
+        self.assertEqual(result.objective_evaluations, 0)
+        self.assertEqual(calls, [])  # Invalid structure is rejected before any probe.
 
     def test_first_acceptable_candidate_stops_initial_generation_immediately(self):
         seed()
