@@ -5,7 +5,7 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **2**.
+- Scheduled cycles completed: **3**.
 - Consecutive scheduled cycles without verified progress: **0**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -34,3 +34,12 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Pull request: https://github.com/owlCoder/gadapt/pull/26
 - Branch CI: https://github.com/owlCoder/gadapt/actions/runs/41939892985 (Python 3.10, 3.11, 3.12 green).
 - Result: **progress**, verified CI and merged as `35577531f1e140cc976b4f876159fd61240f2e14`; consecutive no-progress cycles: **0**. This is a correctness and reporting fix, not measured optimization success improvement.
+
+### 2026-11-05 — scheduled cycle 3
+
+- Finding: for an unconstrained objective, a Python integer such as `10**400` satisfies `numbers.Real` but `float(result)` raises `OverflowError`. The monitor previously propagated this without recording an invalid result, stopping execution prematurely even with remaining evaluation budget.
+- Fix: classify failed numeric conversion as an invalid charged attempt and let the existing cost finder handle the invalid output; opt-in reliability mode only, no legacy default changes.
+- Regression: deterministic direct-monitor accounting test and an end-to-end recovery test where four overflowing results precede four valid results. Both verify exact budget accounting and no false incumbent. No optimizer benchmarks or unauthorized evaluations.
+- Pull request: https://github.com/owlCoder/gadapt/pull/27
+- Branch CI: https://github.com/owlCoder/gadapt/actions/runs/41940449771 (Python 3.10, 3.11, 3.12 green).
+- Result: **progress**, verified branch CI and merged as `661ad3fd52d26ed65a4262e9c185eee305ef1619`; consecutive no-progress cycles: **0**. This is a correctness fix, not measured optimizer success improvement.
