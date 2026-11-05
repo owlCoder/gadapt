@@ -72,7 +72,14 @@ class DifferentialCrossover(BaseCrossover):
             value = low
         step = getattr(decision_variable, "step", None)
         if step is not None and step > 0 and step > sys.float_info.min:
-            k_max = math.floor((high - low) / step + 1e-9)
+            # Match the decision-variable generator: more than 1e9 grid
+            # positions denotes an effectively continuous variable.
+            # Otherwise (high - low) / step may overflow to infinity and
+            # math.floor(inf) aborts a legitimate bounded optimization run.
+            ratio = (high - low) / step
+            if not math.isfinite(ratio) or ratio > 1e9:
+                return value
+            k_max = math.floor(ratio + 1e-9)
             k = min(max(int(round((value - low) / step)), 0), k_max)
             value = low + k * step
             decimals = max(0, -Decimal(repr(step)).normalize().as_tuple().exponent, -Decimal(repr(low)).normalize().as_tuple().exponent)
