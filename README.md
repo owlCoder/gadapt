@@ -494,6 +494,12 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   and is counted invalid; its result is not cached.
   Reliability configuration validation also rejects nonfinite bounds/steps
   before objective probes. This check does not change legacy GA behavior.
+- For large but finite objective magnitudes of opposite signs, opt-in
+  `log_relative` population cost diversity computes the shifted logarithms
+  without cancellation of the positive offset or overflow of the signed
+  difference. This prevents a purely numerical `log(0)` crash; it does not
+  change the original GA's default-mode diversity calculation or claim a
+  better optimizer success rate.
 - `objective_evaluations` counts every attempted call through the monitored
   objective, including up to two default validation probes, exceptions and
   non-finite responses. `valid_objective_evaluations` and
