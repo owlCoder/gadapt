@@ -21,9 +21,13 @@ class ParentDiversityCandidateSolutionUpdater(BaseCandidateSolutionUpdater):
         self.cost_diversity_in_initial_population = float('NaN')
 
     def _get_genetic_diversity(self, mother_variable_value, father_variable_value) -> float:
-        return abs(mother_variable_value.value - father_variable_value.value) / (
-            father_variable_value.decision_variable.max_value - father_variable_value.decision_variable.min_value
-        )
+        decision_variable = father_variable_value.decision_variable
+        span = decision_variable.max_value - decision_variable.min_value
+        if span == 0:
+            # A fixed decision variable has no attainable genetic diversity.
+            # Equal bounds are a valid model, not a reason to abort mating.
+            return 0.0
+        return abs(mother_variable_value.value - father_variable_value.value) / span
 
     def _get_parent_structural_diversity(self):
         return round(ga_utils.average(self._genetic_diversity), 8)
