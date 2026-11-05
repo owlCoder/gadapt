@@ -554,6 +554,10 @@ class GA:
             raise ValueError("max_evaluations must cover the initial population and validation probes")
 
         configured = self.clone()
+        # Only the opt-in execution uses overflow-safe random draws on
+        # extreme finite bounds. The historical/default generator is intact.
+        for variable in configured._decision_variables:
+            variable._reliability_safe_random = True
         if axes is not None:
             configured.probe_cost_function = False
         monitor = ReliabilityMonitor(self.cost_function, self.max_evaluations,
