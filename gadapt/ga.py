@@ -563,6 +563,11 @@ class GA:
                                          (v.min_value, v.max_value)
                                          for v in sorted(self._decision_variables,
                                                          key=lambda v: v.variable_id)
+                                     ),
+                                     decision_grids=tuple(
+                                         (v.min_value, v.max_value, v.step, v.decimal_places)
+                                         for v in sorted(self._decision_variables,
+                                                         key=lambda v: v.variable_id)
                                      ))
         configured._cost_function = monitor
         configured._reliability_monitor = monitor
