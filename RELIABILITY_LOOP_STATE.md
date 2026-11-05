@@ -7,8 +7,8 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
 - Scheduled cycles completed: **12**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **14 / 1,000** (six user-triggered, eight scheduled; reviews count only when actually completed and documented).
-- Additional verified cycles remaining: **986**.
+- Additional verified cycles completed after that request: **15 / 1,000** (seven user-triggered, eight scheduled; reviews count only when actually completed and documented).
+- Additional verified cycles remaining: **985**.
 - Consecutive scheduled cycles without verified progress: **2**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -180,3 +180,12 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Architectural finding: certification constructs grid axes using the same near-integer step-ratio rule, capped endpoint, and decimal rounding as `DecisionVariable.make_random_value`; it additionally refuses narrowed bounds/step, altered interior points, duplicate rounded points, nonfinite coordinates and oversized grids. The completeness assertion depends on all enumerated calls being charged and valid, deterministic stationary objective responses, and sufficient timeout. A future regression test should exercise a callback that raises on an interior point and verify `discrete_absence_certified=False`; this review alone does not establish a new defect.
 - Existing implementation evidence: https://github.com/owlCoder/gadapt/pull/39 and https://github.com/owlCoder/gadapt/actions/runs/41998498737 (Python 3.10–3.12 green for prior merged change). No new CI run or implementation modification is claimed for this ledger-only review. No optimizer benchmark or physical evaluation was run.
 - Result: **no_progress** (completed concrete architecture review, not a verified new fix). Scheduled cycles **12**; additional completed review/fix cycles **14/1000**; consecutive scheduled cycles without verified progress **2**. Change technical strategy at 10 consecutive no-progress scheduled cycles. Legacy defaults, upstream and archived research untouched.
+
+### 2026-11-05 — user-triggered additional cycle 15/1000 (not a scheduled cycle)
+
+- Finding: after introducing opt-in discrete domain validation, the legacy-style upper boundary objective probe could be outside the variable's actual discrete mesh when the step does not divide the interval (e.g. bounds [0,1], step 0.3; upper declared box corner 1.0 is not a generatable value). The monitor correctly charged and rejected this off-grid call, but doing so wasted a real evaluation and missed the last valid grid point 0.9 which might already meet the target.
+- Fix: in reliability-mode structural/objective validation only, probe the last reachable rounded/capped grid coordinate in place of an unreachable upper box corner. Verify the replacement against existing grid membership checks; leave truly continuous step fallback and legacy validation unchanged. The first-acceptable-probe short circuit and exact call budget remain intact.
+- Regressions: five deterministic tests for scalar and constrained valid last-step acceptance, mixed discrete/continuous dimensions, unchanged legacy upper bound probe, and continuous tiny-step fallback. Full **172-test** suite green on Python 3.10, 3.11, and 3.12.
+- Pull request: https://github.com/owlCoder/gadapt/pull/40
+- Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/42001234860 (all three Python jobs green).
+- Result: **progress**, squash-merged as `876d318d093a9e7803cc810a7126b01af5b00de6`. Scheduled cycles remain **12**; additional verified cycles **15/1000**; scheduled no-progress streak remains **2**. This verifies a budget-wasting validation path was corrected, not that optimizer success rates are empirically improved. No unauthorized benchmarks.
