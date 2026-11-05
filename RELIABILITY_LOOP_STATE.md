@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **11**.
+- Scheduled cycles completed: **12**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **13 / 1,000** (six user-triggered, seven scheduled; reviews count only when actually completed and documented).
-- Additional verified cycles remaining: **987**.
-- Consecutive scheduled cycles without verified progress: **1**.
+- Additional verified cycles completed after that request: **14 / 1,000** (six user-triggered, eight scheduled; reviews count only when actually completed and documented).
+- Additional verified cycles remaining: **986**.
+- Consecutive scheduled cycles without verified progress: **2**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -173,3 +173,10 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Pull request: https://github.com/owlCoder/gadapt/pull/39
 - Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/41998498737 (all three jobs green).
 - Result: **progress**, merged as `ca5ace4d4c74300cbc46fd0528e9ddc22407cd2f`. Scheduled cycles stay **11**, additional cycles **13/1000**, scheduled no-progress streak **1**. Prevented false proof of absence, not a measured empirical optimizer advantage. No unauthorized optimizer benchmarks.
+
+### 2026-11-05 — scheduled cycle 12; additional completed review cycle 14/1000
+
+- Re-read current `main` versions of `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, and this ledger. Inspected `gadapt/execution/discrete_certification.py` and `gadapt/ga_model/decision_variable.py` following the precise-grid safeguard in PR #39.
+- Architectural finding: certification constructs grid axes using the same near-integer step-ratio rule, capped endpoint, and decimal rounding as `DecisionVariable.make_random_value`; it additionally refuses narrowed bounds/step, altered interior points, duplicate rounded points, nonfinite coordinates and oversized grids. The completeness assertion depends on all enumerated calls being charged and valid, deterministic stationary objective responses, and sufficient timeout. A future regression test should exercise a callback that raises on an interior point and verify `discrete_absence_certified=False`; this review alone does not establish a new defect.
+- Existing implementation evidence: https://github.com/owlCoder/gadapt/pull/39 and https://github.com/owlCoder/gadapt/actions/runs/41998498737 (Python 3.10–3.12 green for prior merged change). No new CI run or implementation modification is claimed for this ledger-only review. No optimizer benchmark or physical evaluation was run.
+- Result: **no_progress** (completed concrete architecture review, not a verified new fix). Scheduled cycles **12**; additional completed review/fix cycles **14/1000**; consecutive scheduled cycles without verified progress **2**. Change technical strategy at 10 consecutive no-progress scheduled cycles. Legacy defaults, upstream and archived research untouched.
