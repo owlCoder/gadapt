@@ -7,8 +7,8 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
 - Scheduled cycles completed: **8**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **5 / 1,000** (one user-triggered, four scheduled).
-- Additional verified cycles remaining: **995**.
+- Additional verified cycles completed after that request: **6 / 1,000** (two user-triggered, four scheduled).
+- Additional verified cycles remaining: **994**.
 - Consecutive scheduled cycles without verified progress: **0**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -103,3 +103,13 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Branch CI: https://github.com/owlCoder/gadapt/actions/runs/41972090297 (all three jobs green).
 - Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/41972169734 (all three jobs green).
 - Result: **progress**, merged as `f7c6b567d98e0cd38a799ee19e3920b3570e279c`; scheduled cycles: **8**; additional verified cycles: **5/1000**; consecutive scheduled cycles without progress: **0**. No unapproved optimizer benchmarks or empirical optimization-success claims.
+
+### 2026-11-05 — user-triggered emergency cycle; additional verified cycle 6/1000 (not scheduled)
+
+- Trigger: user reported apparent five-hour lack of work. Automation audit confirmed the task ran successfully in its separate task history; its latest visible run was 05:07–05:09 UTC on 2026-11-05 (scheduled for 05:10 UTC). Automation delivery status was `unknown`, so no claim is made that notifications reached the user.
+- Finding: high-precision `Real` objective values just above the declared acceptable threshold can round to the same binary64 value as the threshold, falsely marking an unacceptable result as accepted. Conversely, a later truly acceptable value can round to a tie and be overlooked.
+- Fix: monitor tests quality using the original numeric result and the user's original declared threshold. Exact acceptance breaks ties between otherwise equal rounded objective values; physical-call budget and cached numeric result behavior stay unchanged. Legacy optimizer unchanged.
+- Regression: 3 deterministic tests of precise scalar values, constrained values, exact threshold precision, cache safety, and end-to-end GA false acceptance. 149 tests green on Python 3.10, 3.11 and 3.12; no optimization benchmark.
+- Pull request: https://github.com/owlCoder/gadapt/pull/34
+- CI: https://github.com/owlCoder/gadapt/actions/runs/41978896396 (all three Python jobs green after merge).
+- Result: **progress**; merged as `dfed0784381b368631e7f27492ea7fb15614b098`. Scheduled cycle count unchanged at **8**; additional verified cycles now **6/1000**; consecutive scheduled no-progress **0**. Objective reporting continues to use binary64 approximation, not exact rational objective serialization.
