@@ -453,6 +453,11 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   finite result meets the threshold, and (with `constraint_handling`) has
   **zero reported constraint violation**. For a constrained problem, return
   `(objective, violation)` and choose a `constraint_handling` technique.
+  Quality acceptance compares the original numeric objective and threshold
+  before narrowing extended-precision or rational values to binary64; an
+  objective rounded down to the threshold is not misreported as acceptable.
+  The displayed best objective remains a binary64 approximation for the
+  built-in GA cost-finding API, not an exact rational certificate.
 - `feasible`, `best_objective`, `best_violation` and `result_values` describe
   the best valid evaluated candidate, including probes, even if a later
   generation fails. In opt-in constrained runs, **before any feasible
