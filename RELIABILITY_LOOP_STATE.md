@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **22**.
+- Scheduled cycles completed: **23**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **67 / 1,000** (49 user-triggered review/fix scopes, eighteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and eleven subsequent separately verified fixes).
-- Additional verified cycles remaining: **933**.
-- Consecutive scheduled cycles without verified progress: **8**.
+- Additional verified cycles completed after that request: **68 / 1,000** (49 user-triggered review/fix scopes, eighteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and eleven subsequent separately verified fixes).
+- Additional verified cycles remaining: **932**.
+- Consecutive scheduled cycles without verified progress: **9**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -388,3 +388,10 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Full regression suite: **234 unittest tests** passed on Python **3.10, 3.11, 3.12**. Branch CI: https://github.com/owlCoder/gadapt/actions/runs/42092189363 ; green post-merge main CI: https://github.com/owlCoder/gadapt/actions/runs/42092330480 .
 - Pull request: https://github.com/owlCoder/gadapt/pull/55 ; squash merge commit `771e9d4d9d36bb6679e48e609fe230b867473287`.
 - Result: **progress**, one additional verified engineering fix: **67/1000** completed, **933** remaining. Scheduled cycles **22** and consecutive scheduled non-progress **8** unchanged (this was a user-triggered cycle). Original archive, upstream and legacy defaults untouched; no unapproved optimizer benchmarks, physical evaluations, or empirical success-rate claims.
+
+### 2026-11-05 — scheduled cycle 23; additional documented review cycle 68/1000
+
+- Read live default-branch AGENTS.md (blob `62f4d3860faba934be920a06545dfe0521a3b05e`), RELIABILITY_ROADMAP.md (`3f11bbd50c29b2329ca5988fbbbfffe14eec4aed`), ARCHIVE.md (`817698e97395495dfd63cb229d92df93f43a8b7f`), this ledger (prior blob `4bd2a8de09fb4add8f1fa5f488f2420503af79f5`), and `gadapt/execution/discrete_certification.py` (`97261211a2765391c03fab10069e4499948e323c`). Recent main commit observed: `05069eab207c198e6182d46ec899c726082871ef`.
+- Narrow architectural review: timeout is checked *before* each discrete objective call, not after the callback. A callback taking longer than the remaining deadline can finish and be classified (including an acceptable target) after the timeout limit; this is cooperative deadline enforcement, not preemption. The implementation's certificate therefore assumes the callback returns and does not itself guarantee a hard wall-clock cap. A hard timeout would require cancellation/isolation semantics and risks changing accounting; no unapproved change was made. This is a concrete source-level limitation, **not** a reproduced defect or evidence of algorithmic performance.
+- Verification: source inspection only; no new deterministic test, local test run, GitHub CI or optimizer benchmark. Prior green Python 3.10–3.12 CI https://github.com/owlCoder/gadapt/actions/runs/42092330480 belongs to earlier PR #55, not this cycle. No implementation PR or merge in this cycle.
+- Result: **no_progress**; scheduled cycles **23**, additional documented cycles **68/1000**, remaining **932**, consecutive scheduled no-progress **9**. At 10 consecutive no-progress scheduled cycles change technical strategy. Historical archive, upstream and legacy defaults unchanged.
