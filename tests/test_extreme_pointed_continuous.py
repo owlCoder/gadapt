@@ -58,7 +58,7 @@ class ExtremePointedContinuousTest(unittest.TestCase):
                    "extreme_pointed_decision_variable_mutator.random.randint",
                    return_value=1):
             mutator.mutate(vv)
-        self.assertEqual(vv.value, 0.25)
+        self.assertEqual(vv.value, 0.75)  # Forced "above" branch: 0.5 + 1 * 0.25.
 
     def test_bounded_reliability_ga_continuous_extreme_mutation_no_exception(self):
         random.seed(19)
