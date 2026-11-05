@@ -20,7 +20,7 @@ class AcceptableTargetReached(RuntimeError):
 
 class ReliabilityMonitor:
     def __init__(self, objective, max_evaluations, acceptable_cost, constrained,
-                 cache_evaluations=False, decision_bounds=None):
+                 cache_evaluations=False, decision_bounds=None, decision_grids=None):
         self.objective = objective
         # Opt-in only: correct for stationary, deterministic objectives.
         self.cache_evaluations = cache_evaluations
@@ -38,6 +38,9 @@ class ReliabilityMonitor:
         # Immutable declared bounds. When supplied by GA, reject candidates
         # that could never be valid solutions to the declared problem.
         self.decision_bounds = tuple(decision_bounds) if decision_bounds is not None else None
+        # Optional (lower, upper, step, decimal_places) tuples from GA.
+        # A meaningful step denotes a finite discrete grid, not just bounds.
+        self.decision_grids = tuple(decision_grids) if decision_grids is not None else None
         self.evaluations = 0
         self.valid_evaluations = 0
         self.invalid_evaluations = 0
@@ -188,7 +191,9 @@ class ReliabilityMonitor:
             return True
         if len(values) != len(self.decision_bounds):
             return False
-        for value, (lower, upper) in zip(values, self.decision_bounds):
+        if self.decision_grids is not None and len(values) != len(self.decision_grids):
+            return False
+        for index, (value, (lower, upper)) in enumerate(zip(values, self.decision_bounds)):
             if isinstance(value, bool) or not isinstance(value, Real):
                 return False
             try:
@@ -206,7 +211,41 @@ class ReliabilityMonitor:
                     return False
             except (TypeError, ValueError, OverflowError):
                 return False
+            if (self.decision_grids is not None
+                    and not self._on_declared_grid(value, self.decision_grids[index])):
+                return False
         return True
+
+    @staticmethod
+    def _on_declared_grid(value, specification):
+        """Match DecisionVariable.make_random_value's effective discrete mesh.
+
+        Steps too small relative to the span (>1e9 positions) are treated as
+        continuous by the existing generator. Otherwise require exact
+        membership in its rounded, capped grid, rather than accepting an
+        arbitrary in-bounds value as a valid discrete decision.
+        """
+        lower, upper, step, decimals = specification
+        if step is None:
+            return True
+        try:
+            if not math.isfinite(float(step)) or step <= 0:
+                return False
+            ratio = (upper - lower) / step
+            if ratio > 1e9:
+                return True  # Existing generator treats this as continuous.
+            if not math.isfinite(float(ratio)):
+                return False
+            max_steps = (round(ratio) if math.isclose(
+                ratio, round(ratio), rel_tol=1e-9, abs_tol=1e-9)
+                else int(ratio))
+            index = round((value - lower) / step)
+            if index < 0 or index > max_steps:
+                return False
+            expected = round(min(lower + index * step, upper), decimals)
+            return value == expected
+        except (TypeError, ValueError, OverflowError, ZeroDivisionError):
+            return False
 
     def _cache_key(self, values):
         """Identify identical numerical inputs, preserving types and signed zero.
