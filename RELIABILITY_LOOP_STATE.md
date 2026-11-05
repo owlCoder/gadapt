@@ -5,10 +5,10 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **5**.
+- Scheduled cycles completed: **6**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **2 / 1,000** (one user-triggered, one scheduled).
-- Additional verified cycles remaining: **998**.
+- Additional verified cycles completed after that request: **3 / 1,000** (one user-triggered, two scheduled).
+- Additional verified cycles remaining: **997**.
 - Consecutive scheduled cycles without verified progress: **0**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -75,3 +75,12 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Branch CI: https://github.com/owlCoder/gadapt/actions/runs/41953953562 (all three Python jobs green).
 - Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/41954035396 (all three Python jobs green).
 - Result: **progress**, merged as `f04a6bfd1414e4a5a11666362fda9c78cd9d4e0f`. Scheduled cycles: **5**; additional verified cycles: **2/1000**; consecutive scheduled cycles without progress: **0**. No empirical optimization-success claim.
+
+### 2026-11-05 — scheduled cycle 6; additional verified cycle 3/1000
+
+- Finding: `parse_pair` converts constrained objective and violation values to binary64. A strictly positive finite `Fraction(1, 10**400)` violation becomes `0.0` after conversion; without an opt-in guard, an infeasible point could be reported as feasible and acceptable.
+- Fix: the reliability monitor now compares the original positive violation to its converted value and rejects positive-to-zero underflow as an invalid charged attempt. The constrained cost finder receives a nonfinite sentinel and cannot record a false feasible incumbent. The legacy pair parser and GA defaults remain unchanged.
+- Regression: deterministic direct-monitor and end-to-end GA tests verify false-feasibility prevention, physical-call counts, invalid classification, and bounded recovery. Full 140-test suite passed on Python 3.10, 3.11, and 3.12; no optimization benchmarks.
+- Pull request: https://github.com/owlCoder/gadapt/pull/31
+- Branch CI: https://github.com/owlCoder/gadapt/actions/runs/41959886004 (all three Python jobs green).
+- Result: **progress**, merged as `13bd32afabbcb5bc1f540a72abb044817cdefaf2`; scheduled cycles: **6**; additional verified cycles: **3/1000**; consecutive scheduled no-progress cycles: **0**. This proves a correctness regression was fixed, not improved empirical optimizer success rate.
