@@ -113,10 +113,29 @@ class CostDiversityPopulationUpdater(BasePopulationUpdater):
         if not raw_values:
             return 0.0
 
-        # Shift all values so the minimum becomes 1.0 (safe for log)
+        # In opt-in reliability mode, form log(1 + value - minimum)
+        # without catastrophic cancellation of the +1 offset. For instance,
+        # -1e308 + (1 - (-1e308)) rounds to zero and math.log(0) crashes,
+        # even though both cost values are finite and valid. An opposite-
+        # signed difference can also overflow: compute its logarithm via
+        # log(-minimum) + log1p(value / -minimum), without materializing it.
         min_val = min(raw_values)
-        shift = 1.0 - min_val if min_val < 1.0 else 0.0
-        allocated_values = [math.log(v + shift) for v in raw_values]
+        if (getattr(self.population.options, "reliability_monitor", None) is not None
+                and min_val < 1.0):
+            allocated_values = []
+            for value in raw_values:
+                gap = value - min_val
+                if math.isfinite(gap):
+                    allocated_values.append(math.log1p(gap))
+                else:
+                    # This can occur only for opposite-signed finite values.
+                    allocated_values.append(
+                        math.log(-min_val) + math.log1p(value / -min_val)
+                    )
+        else:
+            # Preserve the legacy log-relative transform in default mode.
+            shift = 1.0 - min_val if min_val < 1.0 else 0.0
+            allocated_values = [math.log(v + shift) for v in raw_values]
 
         if len(allocated_values) < 2:
             return 0.0
