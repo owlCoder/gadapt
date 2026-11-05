@@ -5,13 +5,13 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **23**.
+- Scheduled cycles completed: **24**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **68 / 1,000** (49 user-triggered review/fix scopes, eighteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and eleven subsequent separately verified fixes).
-- Additional verified cycles remaining: **932**.
-- Consecutive scheduled cycles without verified progress: **9**.
+- Additional verified cycles completed after that request: **69 / 1,000** (49 user-triggered review/fix scopes, eighteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and eleven subsequent separately verified fixes).
+- Additional verified cycles remaining: **931**.
+- Consecutive scheduled cycles without verified progress: **10**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
-- Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
+- Current strategy: **changed at scheduled cycle 24 after 10 consecutive no-progress scheduled reviews**. Stop revisiting already-guarded numeric edge cases; audit one end-to-end opt-in execution contract at a time (deadline, budget, status, incumbent), map existing tests, and create a minimal deterministic reproduction before proposing any code change. Keep Python 3.10–3.12 CI mandatory for implementation merges.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
 - At threshold: stop repeating fixes in the same family, explicitly record why attempts failed, and adopt a different technical hypothesis.
 - Never run optimizer benchmarks, PF/AC/OPF, held-out COCO, or unapproved objective experiments. Follow `AGENTS.md`.
@@ -395,3 +395,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Narrow architectural review: timeout is checked *before* each discrete objective call, not after the callback. A callback taking longer than the remaining deadline can finish and be classified (including an acceptable target) after the timeout limit; this is cooperative deadline enforcement, not preemption. The implementation's certificate therefore assumes the callback returns and does not itself guarantee a hard wall-clock cap. A hard timeout would require cancellation/isolation semantics and risks changing accounting; no unapproved change was made. This is a concrete source-level limitation, **not** a reproduced defect or evidence of algorithmic performance.
 - Verification: source inspection only; no new deterministic test, local test run, GitHub CI or optimizer benchmark. Prior green Python 3.10–3.12 CI https://github.com/owlCoder/gadapt/actions/runs/42092330480 belongs to earlier PR #55, not this cycle. No implementation PR or merge in this cycle.
 - Result: **no_progress**; scheduled cycles **23**, additional documented cycles **68/1000**, remaining **932**, consecutive scheduled no-progress **9**. At 10 consecutive no-progress scheduled cycles change technical strategy. Historical archive, upstream and legacy defaults unchanged.
+
+### 2026-11-05 — scheduled cycle 24; additional documented review cycle 69/1000
+
+- Re-read current default-branch `AGENTS.md` (blob `62f4d3860faba934be920a06545dfe0521a3b05e`), `RELIABILITY_ROADMAP.md` (`3f11bbd50c29b2329ca5988fbbbfffe14eec4aed`), `ARCHIVE.md` (`817698e97395495dfd63cb229d92df93f43a8b7f`) and ledger (prior blob `2323b8433b55db3d54328e4d2d07ecd800f952af`). Inspected `gadapt/execution/discrete_certification.py` (blob `97261211a2765391c03fab10069e4499948e323c`) and `gadapt/ga.py` (blob `b41faf6089f334234cad33bb6ca3a3962f19b88b`).
+- Narrow source-level hypothesis: an opt-in discrete exhaustive run can return `acceptable_target` when the objective returns after the wall-clock timeout, because the deadline is checked before each callback and `monitor.acceptable` is checked immediately afterward without another deadline check. This is a **cooperative timeout contract ambiguity**, not proof of an incorrect incumbent or a reproduced runtime bug. Distinguish hard-deadline status from completed valid objective accounting; do not attempt unsafe callback interruption without an approved design. No new defect established in this run.
+- The tenth consecutive scheduled no-progress review triggers the mandated **strategy change now**: discontinue repeated numerical-edge-case source scans; next work should trace end-to-end timeout/budget/acceptance semantics across monitor, executor, and results, identify the documented contract, and use a clock-controlled deterministic unit test before any opt-in code patch. If contract is intentionally cooperative, record that decision and move to a different execution-status boundary rather than repeatedly restating the same risk.
+- Verification: source inspection only; no new deterministic test execution, CI, optimizer benchmark, physical evaluation, PR, or merge. Last historical green Python 3.10–3.12 CI remains https://github.com/owlCoder/gadapt/actions/runs/42092330480 (earlier PR #55, **not** this review). Main revision at review time is identified by the fetched default-branch file blobs above; no unverified main SHA is asserted.
+- Result: **no_progress**; scheduled cycles **24**, additional documented cycles **69/1000**, remaining **931**, consecutive scheduled no-progress **10**. Strategy changed as required. No legacy default, upstream or archive modification and no empirical optimizer-success claim.
