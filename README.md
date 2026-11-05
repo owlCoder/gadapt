@@ -499,7 +499,11 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   without cancellation of the positive offset or overflow of the signed
   difference. This prevents a purely numerical `log(0)` crash; it does not
   change the original GA's default-mode diversity calculation or claim a
-  better optimizer success rate.
+  better optimizer success rate. The same opt-in numerical protection applies
+  to `log_relative` **variable-columnar diversity** across very large but
+  finite decision bounds of opposite signs: logarithmic distances are formed
+  without overflowing their intermediate subtraction. Legacy/default-mode
+  columnar diversity remains unchanged.
 - `objective_evaluations` counts every attempted call through the monitored
   objective, including up to two default validation probes, exceptions and
   non-finite responses. `valid_objective_evaluations` and
