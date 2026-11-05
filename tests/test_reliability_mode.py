@@ -13,6 +13,7 @@ import numpy as np
 
 from gadapt.ga import GA
 from gadapt.execution.ga_executor import GAExecutor
+from gadapt.execution.discrete_certification import discrete_grid_axes
 from gadapt.execution.reliability import ReliabilityMonitor, EvaluationBudgetExhausted, AcceptableTargetReached
 from gadapt.ga_model.ga_options import GAOptions
 from gadapt.ga_model.population import Population
@@ -261,6 +262,64 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertEqual(result.valid_objective_evaluations, 4)
         self.assertEqual(len(calls), 8)
         self.assertEqual(result.best_objective, 1.0)
+
+    def test_collapsed_large_integer_bounds_never_certify_discrete_absence(self):
+        # float(2**54) == float(2**54 + 2): old enumerator reduced
+        # a three-point grid to a single point and certified target absence.
+        seed()
+        low = 2**54
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return 1.0
+
+        ga = GA(cost_function=objective, population_size=4,
+                reliability_mode=True, reliability_discrete_certify=True,
+                max_evaluations=4, acceptable_cost=0.0,
+                probe_cost_function=False)
+        ga.add(low, low + 2, step=1)
+        self.assertEqual(float(low), float(low + 2))
+        self.assertIsNone(discrete_grid_axes(ga._decision_variables, 4))
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertFalse(result.discrete_search_applied)
+        self.assertFalse(result.discrete_absence_certified)
+        self.assertEqual(result.termination_reason, "budget_exhausted")
+        self.assertEqual(result.objective_evaluations, 4)
+        self.assertEqual(len(calls), 4)
+
+    def test_exact_bounds_but_unrepresentable_interior_never_certify(self):
+        # Both bounds and step survive float conversion, yet the middle
+        # actual grid point 1 + 2**53 does not.
+        ga = GA(cost_function=lambda values: 1.0, reliability_mode=True,
+                reliability_discrete_certify=True, max_evaluations=4,
+                acceptable_cost=0.0)
+        ga.add(1, 2**54, step=2**53)
+        self.assertEqual(float(1), 1)
+        self.assertEqual(float(2**54), 2**54)
+        self.assertEqual(float(2**53), 2**53)
+        self.assertNotEqual(float(1 + 2**53), 1 + 2**53)
+        self.assertIsNone(discrete_grid_axes(ga._decision_variables, 4))
+
+    def test_unrepresentable_large_integer_step_never_certifies(self):
+        ga = GA(cost_function=lambda values: 1.0, reliability_mode=True,
+                reliability_discrete_certify=True, max_evaluations=4,
+                acceptable_cost=0.0)
+        ga.add(0, 2**54 + 4, step=2**53 + 1)
+        self.assertNotEqual(float(2**53 + 1), 2**53 + 1)
+        self.assertIsNone(discrete_grid_axes(ga._decision_variables, 4))
+
+    def test_exactly_representable_large_integer_grid_still_certifies(self):
+        ga = GA(cost_function=lambda values: 1.0, reliability_mode=True,
+                reliability_discrete_certify=True, max_evaluations=4,
+                acceptable_cost=0.0)
+        low = 2**52
+        ga.add(low, low + 2, step=1)
+        self.assertEqual(
+            discrete_grid_axes(ga._decision_variables, 4),
+            [(float(low), float(low + 1), float(low + 2))],
+        )
 
     def test_small_discrete_grid_is_exhaustive_without_ga_population_floor(self):
         # The only acceptable point is last in grid order; cover all 3x2
