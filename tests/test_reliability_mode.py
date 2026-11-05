@@ -724,9 +724,87 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertTrue(result.success, result.messages)
         self.assertTrue(result.acceptable)
         self.assertEqual(result.termination_reason, "acceptable_target")
-        self.assertEqual(result.objective_evaluations, 2)  # Both probes; no wasted search calls
+        self.assertEqual(result.objective_evaluations, 1)  # First probe already met target.
         self.assertEqual(result.number_of_iterations, 0)
-        self.assertEqual(len(calls), 2)
+        self.assertEqual(len(calls), 1)
+
+    def test_first_acceptable_probe_never_calls_opposite_boundary(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            if values[0] == 1.0:
+                raise AssertionError("No need to evaluate this boundary")
+            return 0.0
+
+        ga = GA(cost_function=objective, population_size=4,
+                reliability_mode=True, max_evaluations=12, acceptable_cost=0.0)
+        ga.add(0.0, 1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertTrue(result.acceptable)
+        self.assertEqual(result.termination_reason, "acceptable_target")
+        self.assertEqual(result.objective_evaluations, 1)
+        self.assertEqual(result.valid_objective_evaluations, 1)
+        self.assertEqual(result.invalid_objective_evaluations, 0)
+        self.assertEqual(result.result_values, {0: 0.0})
+        self.assertEqual(calls, [(0.0,)])
+
+    def test_constrained_acceptable_first_probe_avoids_second_call(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            if values[0] == 1.0:
+                raise AssertionError("No need to evaluate this boundary")
+            return 0.0, 0.0
+
+        ga = GA(cost_function=objective, population_size=4,
+                reliability_mode=True, max_evaluations=12,
+                acceptable_cost=0.0, constraint_handling="feasibility_rules")
+        ga.add(0.0, 1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertTrue(result.acceptable)
+        self.assertTrue(result.feasible)
+        self.assertEqual(result.termination_reason, "acceptable_target")
+        self.assertEqual(result.objective_evaluations, 1)
+        self.assertEqual(result.result_values, {0: 0.0})
+        self.assertEqual(calls, [(0.0,)])
+
+    def test_first_unacceptable_probe_still_checks_opposite_boundary(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return 1.0 if values[0] == 0.0 else 0.0
+
+        ga = GA(cost_function=objective, population_size=4,
+                reliability_mode=True, max_evaluations=12, acceptable_cost=0.0)
+        ga.add(0.0, 1.0)
+        result = ga.execute()
+        self.assertTrue(result.success, result.messages)
+        self.assertTrue(result.acceptable)
+        self.assertEqual(result.objective_evaluations, 2)
+        self.assertEqual(result.result_values, {0: 1.0})
+        self.assertEqual(calls, [(0.0,), (1.0,)])
+
+    def test_first_probe_target_cannot_override_invalid_structural_options(self):
+        calls = []
+
+        def objective(values):
+            calls.append(tuple(values))
+            return 0.0
+
+        ga = GA(cost_function=objective, population_size=3,
+                reliability_mode=True, max_evaluations=10, acceptable_cost=0.0)
+        ga.add(0.0, 1.0)
+        result = ga.execute()
+        self.assertFalse(result.success)
+        self.assertFalse(result.termination_reason == "acceptable_target")
+        self.assertEqual(result.termination_reason, "validation_failed")
+        self.assertEqual(result.objective_evaluations, 1)
+        self.assertEqual(calls, [(0.0,)])
 
     def test_first_acceptable_candidate_stops_initial_generation_immediately(self):
         seed()
