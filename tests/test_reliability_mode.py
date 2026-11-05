@@ -317,7 +317,7 @@ class ReliabilityModeTest(unittest.TestCase):
     def test_exact_integer_bounds_do_not_round_illegal_points_into_domain(self):
         # Adjacent integers above binary64 precision have identical floats.
         # The original input must be checked without converting to float.
-        limit = 2 ** 53
+        limit = 2 ** 54
         calls = []
 
         def objective(values):
@@ -341,7 +341,7 @@ class ReliabilityModeTest(unittest.TestCase):
         self.assertEqual(calls, [(limit + 1,), (limit - 1,), (limit,)])
 
     def test_exact_integer_bounds_constrained_objective_cannot_fake_feasibility(self):
-        limit = 2 ** 53
+        limit = 2 ** 54
         monitor = ReliabilityMonitor(lambda values: (0.0, 0.0),
                                      2, 0.0, True,
                                      decision_bounds=((limit, limit),))
