@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **21**.
+- Scheduled cycles completed: **22**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **65 / 1,000** (48 user-triggered review/fix scopes, seventeen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and ten subsequent separately verified fixes).
-- Additional verified cycles remaining: **935**.
-- Consecutive scheduled cycles without verified progress: **7**.
+- Additional verified cycles completed after that request: **66 / 1,000** (48 user-triggered review/fix scopes, eighteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and ten subsequent separately verified fixes).
+- Additional verified cycles remaining: **934**.
+- Consecutive scheduled cycles without verified progress: **8**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -372,3 +372,10 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Green branch CI: https://github.com/owlCoder/gadapt/actions/runs/42089397364 (Python 3.10/3.11/3.12 success).
 - Green post-merge main CI: https://github.com/owlCoder/gadapt/actions/runs/42089511932 (Python 3.10/3.11/3.12 success).
 - Result: **progress**, additional documented cycles **65/1000**, **935** remaining. Scheduled cycles remain **21**, consecutive scheduled no-progress remains **7** (manual cycles do not reset this streak). No optimizer benchmarks, real-world experiments, archive/upstream edits or claim of improved optimizer success rates.
+
+### 2026-11-05 — scheduled cycle 22; additional completed review cycle 66/1000
+
+- Read live main at `87d6d68a402905ef4f94bff1eb6c824f59d94c36`, and fetched AGENTS.md (blob `62f4d3860faba934be920a06545dfe0521a3b05e`), RELIABILITY_ROADMAP.md (blob `3f11bbd50c29b2329ca5988fbbbfffe14eec4aed`), ARCHIVE.md (blob `817698e97395495dfd63cb229d92df93f43a8b7f`) and this ledger (prior blob `ffb5248c100b566250112816483d2154ec90403b`). Inspected `gadapt/execution/discrete_certification.py` (blob `97261211a2765391c03fab10069e4499948e323c`).
+- Narrow architectural hypothesis: a charged callback exception could still yield a false exhaustive-negative certificate if it increments the evaluation counter without recording an invalid result. Source check finds three independent fail-closed guards: `unclassified_exception`, `invalid_evaluations == 0`, and `valid_evaluations == discrete_space_size` alongside exact attempted-call count. A charged exception sets the first guard and cannot certify absence; a refused budget attempt terminates without incrementing checked points. This is a source-level review, not an executed deterministic regression. No new distinct defect established; the earlier PR #46 correction is not counted again.
+- Existing historical implementation verification: https://github.com/owlCoder/gadapt/actions/runs/42089511932 (post-merge Python 3.10–3.12 CI for PR #54); not fresh CI for this review. No code change, new tests, CI execution, optimizer benchmark, physical evaluation or objective calls in this cycle.
+- Result: **no_progress**, completed concrete architectural review. Scheduled cycles **22**; additional documented cycles **66/1000**; remaining **934**; consecutive scheduled no-progress **8**. At 10 change strategy. Legacy defaults, original archive and upstream untouched; no claim of measured optimizer improvement.
