@@ -71,8 +71,21 @@ class NormalDistributionDecisionVariableMutator(BaseDecisionVariableMutator):
             # There is no alternative value to mutate to: keep the fixed one.
             return decision_variable.min_value
 
-        # mean normalized to [0,1]
-        mean = (curr_value - decision_variable.min_value) / decision_variable_range
+        # Avoid the unrepresentable width of a fully finite signed interval
+        # in opt-in reliability mode. The legacy/default formula is retained.
+        stable_span = (
+            getattr(decision_variable, "_reliability_safe_random", False)
+            and math.isfinite(decision_variable.min_value)
+            and math.isfinite(decision_variable.max_value)
+            and not math.isfinite(decision_variable_range)
+        )
+        if stable_span:
+            half_low = decision_variable.min_value * 0.5
+            half_span = decision_variable.max_value * 0.5 - half_low
+            mean = (curr_value * 0.5 - half_low) / half_span
+        else:
+            # mean normalized to [0,1]
+            mean = (curr_value - decision_variable.min_value) / decision_variable_range
         std = self._calculate_normal_distribution_standard_deviation()
         normal_distribution_random_value = normally_distributed_random(mean, std, 0, 1)
 
@@ -112,6 +125,15 @@ class NormalDistributionDecisionVariableMutator(BaseDecisionVariableMutator):
 
         else:
             # --- Continuous case (no step) ---
-            value = decision_variable.min_value + normal_distribution_random_value * decision_variable_range
+            if stable_span:
+                # Interpolating weighted finite endpoints avoids both 0*inf
+                # (NaN) and positive_fraction*inf, while retaining bounds.
+                fraction = normal_distribution_random_value
+                value = (decision_variable.min_value * (1.0 - fraction)
+                         + decision_variable.max_value * fraction)
+                value = max(decision_variable.min_value,
+                            min(value, decision_variable.max_value))
+            else:
+                value = decision_variable.min_value + normal_distribution_random_value * decision_variable_range
 
         return value
