@@ -28,6 +28,8 @@ class ReliabilityMonitor:
         self._evaluation_cache = {}
         self.max_evaluations = max_evaluations
         self.acceptable_cost = float(acceptable_cost)
+        self._declared_acceptable_cost = acceptable_cost
+        self._best_target_met = False
         self.constrained = constrained
         # Immutable declared bounds. When supplied by GA, reject candidates
         # that could never be valid solutions to the declared problem.
@@ -127,6 +129,15 @@ class ReliabilityMonitor:
             self.invalid_evaluations += 1
             return result  # Let the original cost finder report invalid output.
 
+        # A non-binary64 Real can round onto the acceptance threshold.
+        # Check its original value rather than the rounded objective to avoid
+        # false acceptance; a rounded tie below target must still be detected.
+        raw_objective = result[0] if self.constrained else result
+        try:
+            reaches_target = bool(violation == 0 and
+                                  raw_objective <= self._declared_acceptable_cost)
+        except (TypeError, ValueError, OverflowError):
+            reaches_target = False
         self.valid_evaluations += 1
         if self.best is None:
             replace = True
@@ -135,8 +146,13 @@ class ReliabilityMonitor:
             replace = (violation == 0 and (best_violation != 0 or objective < best_objective)
                        or violation > 0 and best_violation > 0
                        and (violation, objective) < (best_violation, best_objective))
+        if reaches_target and not self._best_target_met:
+            # Exact acceptance outranks a rounded binary64 tie with an
+            # earlier, genuinely unacceptable candidate.
+            replace = True
         if replace:
             self.best = (objective, violation, evaluated_values)
+            self._best_target_met = reaches_target
         if cache_key is not None:
             # Store the validated scalar or immutable pair, never a mutable
             # reference returned by the user's callback.
@@ -221,7 +237,7 @@ class ReliabilityMonitor:
     @property
     def acceptable(self):
         return (self.best is not None and self.best[1] == 0
-                and self.best[0] <= self.acceptable_cost)
+                and self._best_target_met)
 
     def annotate(self, results):
         """Expose separately the technical execution status and solution quality."""
