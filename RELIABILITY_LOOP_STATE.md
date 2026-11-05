@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **9**.
+- Scheduled cycles completed: **10**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **7 / 1,000** (two user-triggered, five scheduled; the ninth scheduled cycle was a review without a new fix).
-- Additional verified cycles remaining: **993**.
-- Consecutive scheduled cycles without verified progress: **1**.
+- Additional verified cycles completed after that request: **8 / 1,000** (two user-triggered, six scheduled; reviews count only when actually completed and documented).
+- Additional verified cycles remaining: **992**.
+- Consecutive scheduled cycles without verified progress: **0**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -119,3 +119,14 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Review: re-read `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, and current `main` state. Audited the just-merged exact-acceptance fix against the acceptance contract: rounded objectives are not exact acceptance certificates; cached early stopping depends on validated `_best_target_met` state; and equal binary64 objectives must not conceal a precisely acceptable incumbent. The new deterministic regressions cover these cases. No distinct new reproducible defect was established; PR #34 is counted as a fix only in the earlier emergency cycle, not again here.
 - Evidence: https://github.com/owlCoder/gadapt/pull/34 merged at `dfed0784381b368631e7f27492ea7fb15614b098`; https://github.com/owlCoder/gadapt/actions/runs/41978896396 passed Python 3.10–3.12.
 - Result: **no_progress** (completed technical review; no separate fix). Scheduled cycles **9**; additional completed review/fix cycles **7/1000**; consecutive scheduled cycles without verified progress **1**. Change strategy after 10 consecutive no-progress scheduled cycles. No unauthorized benchmarks or claims of empirically improved optimization success.
+
+### 2026-11-05 — scheduled cycle 10; additional verified cycle 8/1000
+
+- Reviewed current `main` and `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, and this ledger before the change.
+- Finding: distinct precise finite `Real` values can narrow to identical binary64 floats. Even after the exact acceptance fix in PR #34, the reliability monitor still compared rounded values when choosing the best evaluated incumbent. It could therefore discard a strictly better feasible scalar/constrained objective, or a strictly smaller positive constraint violation, whenever both rounded to the same float.
+- Fix: keep private original numeric objective and violation values for the incumbent ordering decision, while preserving the public binary64 result contract, deterministic cache and exact objective-call accounting. No change to legacy defaults, upstream, or archive.
+- Regression: 3 deterministic tests covering scalar objective, constrained feasible objective and constrained infeasible violation, including a cache hit and physical evaluation counts. **152 tests** green on Python 3.10, 3.11 and 3.12; no optimizer benchmark.
+- Pull request: https://github.com/owlCoder/gadapt/pull/35
+- Branch CI: https://github.com/owlCoder/gadapt/actions/runs/41985757409 (all three Python jobs green).
+- Post-merge CI: https://github.com/owlCoder/gadapt/actions/runs/41985850809 (all three Python jobs green).
+- Result: **progress**, merged as `7ed65543a5b7568fc5c45dabc2c384340cba1036`; scheduled cycles: **10**, additional verified cycles: **8/1000**, consecutive scheduled no-progress cycles: **0**. Precise internal ordering does not make the public binary64 objective output exact and is not evidence of improved empirical optimization success rate.
