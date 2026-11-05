@@ -485,8 +485,12 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   cannot check undeclared constraints. In reliability mode, any candidate with
   a nonfinite coordinate, wrong dimensionality, or a value outside the
   declared bounds is **never recorded as acceptable**, even if the objective
-  callback returns a favorable finite value. Such an attempted real objective
-  call remains charged and is counted invalid; its result is not cached.
+  callback returns a favorable finite value. For an effective discrete
+  `step` (up to 1e9 grid intervals), a value must also belong to the
+  generator's declared rounded grid; merely lying between the bounds is not
+  enough. Very fine steps that the existing generator treats as continuous
+  remain continuous. Such an attempted real objective call remains charged
+  and is counted invalid; its result is not cached.
   Reliability configuration validation also rejects nonfinite bounds/steps
   before objective probes. This check does not change legacy GA behavior.
 - `objective_evaluations` counts every attempted call through the monitored
