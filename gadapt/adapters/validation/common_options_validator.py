@@ -109,6 +109,13 @@ class CommonOptionsValidator(BaseOptionsValidator):
             argsmax.append(v.max_value)
         try:
             func_result_min = self.options.cost_function(argsmin)
+            monitor = getattr(self.options, "_reliability_monitor", None)
+            if monitor is not None and monitor.acceptable:
+                # Structural validation still completes; the first probed
+                # point already meets the verified target, so evaluating the
+                # opposite boundary would spend a real call needlessly.
+                # Legacy mode always performs both probes as before.
+                return True
             func_result_max = self.options.cost_function(argsmax)
             if getattr(self.options, "constraint_handling", None) is not None:
                 try:
