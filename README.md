@@ -505,6 +505,9 @@ print(result.objective_evaluations, result.result_values, result.best_objective)
   remains charged, and a warning is reported. If the structure is invalid
   (or the objective is not callable), validation still fails. If subsequent
   population evaluations are all invalid, execution still fails closed.
+  Boolean objective outputs are invalid in opt-in reliability mode, even
+  though Python treats `bool` as a subclass of `int`; they cannot become
+  valid scalar costs or block recovery from an entirely invalid cohort.
   Legacy mode retains its existing strict probe-validation behavior.
   A callback internally
   running multiple physical simulations must enforce and report its own
