@@ -5,10 +5,10 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **6**.
+- Scheduled cycles completed: **7**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **3 / 1,000** (one user-triggered, two scheduled).
-- Additional verified cycles remaining: **997**.
+- Additional verified cycles completed after that request: **4 / 1,000** (one user-triggered, three scheduled).
+- Additional verified cycles remaining: **996**.
 - Consecutive scheduled cycles without verified progress: **0**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: identify and fix one measurable reliability defect per cycle; back it with deterministic regressions and full Python 3.10–3.12 CI.
@@ -84,3 +84,12 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Pull request: https://github.com/owlCoder/gadapt/pull/31
 - Branch CI: https://github.com/owlCoder/gadapt/actions/runs/41959886004 (all three Python jobs green).
 - Result: **progress**, merged as `13bd32afabbcb5bc1f540a72abb044817cdefaf2`; scheduled cycles: **6**; additional verified cycles: **3/1000**; consecutive scheduled no-progress cycles: **0**. This proves a correctness regression was fixed, not improved empirical optimizer success rate.
+
+### 2026-11-05 — scheduled cycle 7; additional verified cycle 4/1000
+
+- Finding: binary64 conversion can underflow a strictly positive scalar objective (or the objective component of a constrained pair), such as `Fraction(1, 10**400)`, to `0.0`. The opt-in monitor previously recorded this as a valid zero-cost incumbent and could falsely certify `acceptable_cost=0.0`.
+- Fix: reject strictly positive objective-to-zero underflow as an invalid, charged evaluation in both monitored paths; preserve exact physical-call accounting, fail closed at the cost-finder boundary and exclude invalid results from the optional deterministic cache. No legacy default or original archive changes.
+- Regression: three deterministic tests for unconstrained and constrained monitor acceptance/cache safety and bounded GA recovery. Full 143-test suite green on Python 3.10, 3.11 and 3.12.
+- Pull request: https://github.com/owlCoder/gadapt/pull/32
+- Branch CI: https://github.com/owlCoder/gadapt/actions/runs/41965761991 (all three Python jobs green).
+- Result: **progress**, merged as `d03c3dc2613e5d0cd82bede8ccebf2379b201067`; scheduled cycles: **7**; additional verified cycles: **4/1000**; consecutive scheduled no-progress cycles: **0**. This is a correctness regression fix, not evidence of better empirical optimization success rate.
