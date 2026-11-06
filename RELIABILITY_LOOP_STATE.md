@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **27**.
+- Scheduled cycles completed: **28**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **72 / 1,000** (49 user-triggered review/fix scopes, eighteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and eleven subsequent separately verified fixes).
-- Additional verified cycles remaining: **928**.
-- Consecutive scheduled cycles without verified progress: **13**.
+- Additional verified cycles completed after that request: **73 / 1,000** (49 user-triggered review/fix scopes, eighteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and eleven subsequent separately verified fixes).
+- Additional verified cycles remaining: **927**.
+- Consecutive scheduled cycles without verified progress: **14**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **changed at scheduled cycle 24 after 10 consecutive no-progress scheduled reviews**. Stop revisiting already-guarded numeric edge cases; audit one end-to-end opt-in execution contract at a time (deadline, budget, status, incumbent), map existing tests, and create a minimal deterministic reproduction before proposing any code change. Keep Python 3.10–3.12 CI mandatory for implementation merges.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -425,3 +425,10 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Distinct execution-contract audit: GAResults initializes `success=True` as a legacy technical-execution flag, whereas opt-in `acceptable`, `solution_status`, `termination_reason`, `objective_evaluations` and `feasible` are separate fields populated through monitor annotation. This separation prevents equating technical completion with meeting a problem-specific target. A consumer relying only on `success` can still misinterpret result quality; that is an API interpretation risk, not a newly reproduced runtime defect. Future deterministic integration checks should assert consistency of these fields for a valid but unacceptable incumbent, a budget stop and a no-valid-evaluation outcome, without calling expensive objectives.
 - Verification: source inspection only, no local test execution, new CI, patch, PR, optimizer benchmark or physical evaluation. Historical Python 3.10–3.12 green CI https://github.com/owlCoder/gadapt/actions/runs/42092330480 is **not** this cycle's validation. No new performance claim.
 - Result: **no_progress**; scheduled cycles **27**, additional completed review cycles **72/1000**, remaining **928**, consecutive scheduled no-progress **13**. Strategy remains end-to-end execution contract audits after cycle 24; legacy defaults, archive and upstream untouched.
+
+### 2026-11-06 — scheduled cycle 28; additional documented review cycle 73/1000
+
+- Re-read live default-branch AGENTS.md (blob `62f4d3860faba934be920a06545dfe0521a3b05e`), RELIABILITY_ROADMAP.md (`3f11bbd50c29b2329ca5988fbbbfffe14eec4aed`), ARCHIVE.md (`817698e97395495dfd63cb229d92df93f43a8b7f`) and this ledger (prior blob `0a8a561ccb932e2a89a6555728752a86dae49279`). Inspected `gadapt/execution/reliability.py` (blob `0c8c346d764444580e5b7dcc8845d3462e9811e7`), `gadapt/ga_model/ga_results.py` (blob `685510a333a201d6342ba2a35adb4a6509df7ceb`) and `gadapt/ga.py` (public add/variable-id contract).
+- Distinct narrow audit: the monitor captures an immutable pre-callback positional tuple of decision values and later publishes `result_values = dict(enumerate(values))`. The public `GA.add()` assigns monotonically increasing IDs from `_current_dv_id`, and the results API documents indices as order of addition. Thus the mapping is consistent under the supported public add-only path. It implicitly relies on contiguous positional IDs; external mutation of private decision-variable collections could break this assumption, but is not an established supported API or reproduced defect. The snapshot avoids using a callback-mutated argument for the incumbent; no new bug is established.
+- Verification: connector source review only, no local deterministic execution, fresh CI, implementation patch, PR, merge, optimizer benchmark or physical evaluation. Last previously documented green Python 3.10–3.12 CI https://github.com/owlCoder/gadapt/actions/runs/42092330480 belongs to an earlier change, not this review. No claim of measured optimization improvement.
+- Result: **no_progress**; scheduled cycles **28**, additional documented cycles **73/1000**, remaining **927**, consecutive scheduled no-progress **14**. End-to-end contract audit strategy remains active after the recorded cycle-24 change. Historical archive, upstream and legacy defaults untouched.
