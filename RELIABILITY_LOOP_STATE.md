@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **41**.
+- Scheduled cycles completed: **42**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **86 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **914**.
-- Consecutive scheduled cycles without verified progress: **27**.
+- Additional verified cycles completed after that request: **87 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **913**.
+- Consecutive scheduled cycles without verified progress: **28**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **changed again at scheduled cycle 34 after a second block of 10 no-progress reviews**. Stop extending static risk inventories. Prioritize executable deterministic reproduction of the specific missing Population deepcopy fields (and existing tests) before any patch; if execution cannot be verified, record the exact tooling limitation and do not merge implementation changes. Keep Python 3.10–3.12 CI mandatory for implementation merges.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -531,3 +531,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Narrow, distinct API review: `Population.__iter__` returns a dedicated `PopulationIterator`, whose `__next__` indexes the candidate list correctly. However, `Population.__next__` itself calls `next(self.candidate_solutions)`, and Python built-in lists are not iterators. Thus direct `next(population)` will raise `TypeError` for a normal Population even though `iter(population)` works. This is a source-level iterator-protocol inconsistency; direct next() support is not documented as public API, so no behavior change was merged. A focused actual-package regression should contrast `next(population)` and `next(iter(population))`, then decide whether to remove misleading `__next__` or implement a stateful iterator without breaking iteration semantics. No objective calls are required.
 - Verification: source inspection only, no actual-package execution, fresh Python 3.10–3.12 CI, code patch, PR or merge. Historical green CI https://github.com/owlCoder/gadapt/actions/runs/42092330480 is not verification of this finding. No unauthorized optimizer benchmark, PF/AC/OPF, held-out COCO or physical evaluation; no optimizer success-rate claim.
 - Result: **no_progress** (specific architectural/API review, not verified implementation fix); scheduled cycles **41**, additional documented cycles **86/1000**, remaining **914**, consecutive scheduled no-progress **27**. Reproduction-first strategy retained; change hypothesis by cycle 44 if no verified progress. Legacy defaults, original archive and upstream unchanged.
+
+
+### 2026-11-06 — scheduled cycle 42; additional documented review cycle 87/1000
+
+- Verified current main at `a80b5380e127db3261034786599a8ded125df8df` before review; read AGENTS.md (blob `62f4d3860faba934be920a06545dfe0521a3b05e`), RELIABILITY_ROADMAP.md (`3f11bbd50c29b2329ca5988fbbbfffe14eec4aed`), ARCHIVE.md (`817698e97395495dfd63cb229d92df93f43a8b7f`), this ledger (prior blob `4cc0c8e91480d3fc6c83b02b181cf4ee39ca8099`) and Population source (blob `d6df27deff040a705d2e7b071a6f3928607c00ef`).
+- Narrow new API-contract audit: `Population.add_candidate_solutions()` declares `-> int`, but its loop calls `add_candidate_solution(c)` without accumulating or returning a value, so it implicitly returns `None` on every normal path. The adjacent `add_not_contained_candidate_solutions()` explicitly returns an integer count, while `add_candidate_solution()` returns a boolean. This mismatch may break consumers relying on the declared integer return, but the docstring does not promise a count, and no supported caller relying on one was established. A safe follow-up is to inspect callsites and add a no-objective deterministic contract test before deciding whether returning the number actually added is backward-compatible. Do not silently change the API.
+- Verification: live source inspection and cross-method contract comparison only; no actual-package execution, regression suite, fresh Python 3.10–3.12 CI, code patch, PR or merge. Historical CI https://github.com/owlCoder/gadapt/actions/runs/42092330480 is not verification of this finding. No unauthorized optimizer benchmark or physical evaluation; no measured optimizer-success claim.
+- Result: **no_progress** (concrete API review, no verified fix); scheduled cycles **42**, additional documented review/fix cycles **87/1000**, remaining **913**, consecutive scheduled no-progress **28**. Continue reproduction-first approach and change hypothesis by cycle 44 if no verified progress. Legacy defaults, archive and upstream untouched.
