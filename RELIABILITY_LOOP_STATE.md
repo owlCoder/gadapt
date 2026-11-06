@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **29**.
+- Scheduled cycles completed: **30**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **74 / 1,000** (49 user-triggered review/fix scopes, eighteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and eleven subsequent separately verified fixes).
-- Additional verified cycles remaining: **926**.
-- Consecutive scheduled cycles without verified progress: **15**.
+- Additional verified cycles completed after that request: **75 / 1,000** (49 user-triggered review/fix scopes, eighteen scheduled after the first four; includes 30 documented parallel code reviews with two verified fixes and eleven subsequent separately verified fixes).
+- Additional verified cycles remaining: **925**.
+- Consecutive scheduled cycles without verified progress: **16**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **changed at scheduled cycle 24 after 10 consecutive no-progress scheduled reviews**. Stop revisiting already-guarded numeric edge cases; audit one end-to-end opt-in execution contract at a time (deadline, budget, status, incumbent), map existing tests, and create a minimal deterministic reproduction before proposing any code change. Keep Python 3.10–3.12 CI mandatory for implementation merges.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -439,3 +439,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Narrow end-to-end contract audit: `ReliabilityMonitor.__call__` charges the attempted objective invocation before entering the user callback; cache hits bypass that charge and are separately counted. A valid evaluated incumbent is stored independently of the current population. `GAExecutor.execute` catches the monitor's internal acceptance/budget control signals, then calls `annotate` to restore the validated incumbent and publish status and counts. A cache hit after acceptance can raise the same acceptance signal without another objective invocation; this is consistent with the existing counted-call contract, not a newly established defect. A separate concern for future test design is whether a custom cost finder handles monitor control exceptions without bypassing final annotation; this review does not establish a bug in a supported custom factory.
 - Verification: static GitHub source review only; no deterministic local execution, new CI, implementation change, PR, merge, optimizer benchmark, or physical evaluation. Earlier green Python 3.10–3.12 CI https://github.com/owlCoder/gadapt/actions/runs/42092330480 is historical, not a fresh verification. No empirical optimization success-rate claim.
 - Result: **no_progress**; scheduled cycles **29**, additional documented cycles **74/1000**, remaining **926**, consecutive scheduled no-progress **15**. Cycle-24 strategy change remains in force; no legacy-default, archived research or upstream changes.
+
+
+### 2026-11-06 — scheduled cycle 30; additional documented review cycle 75/1000
+
+- Re-read live default-branch AGENTS.md (blob `62f4d3860faba934be920a06545dfe0521a3b05e`), RELIABILITY_ROADMAP.md (blob `3f11bbd50c29b2329ca5988fbbbfffe14eec4aed`), ARCHIVE.md (blob `817698e97395495dfd63cb229d92df93f43a8b7f`) and this ledger (prior blob `b3a7677f019b7a2bf6da06675bc688a4abb12d04`). Inspected GAExecutor (current default-branch source) and ReliabilityMonitor (blob `0c8c346d764444580e5b7dcc8845d3462e9811e7`).
+- Narrow, distinct exception-boundary architectural audit: GAExecutor.execute catches objective/control-signal errors and then annotates results, but calls `operator_credit_controller.summary()` **after** that exception boundary and before returning. A custom operator-credit controller whose `summary()` raises could therefore replace an otherwise complete annotated result with an uncaught exception. The controller is opt-in and this is a source-level failure-mode hypothesis, not a reproduced supported-configuration defect. Any change requires a deterministic injected failing-controller regression and Python 3.10–3.12 CI; do not silently alter legacy behavior. This is distinct from prior deadline, cache, and incumbent reviews.
+- Verification: GitHub connector source inspection only; no local runtime, deterministic test execution, new CI, patch, PR, merge, optimizer benchmark or physical evaluation. Historical green Python 3.10–3.12 CI https://github.com/owlCoder/gadapt/actions/runs/42092330480 is not verification of this review. No claim of improved empirical optimizer success.
+- Result: **no_progress**; scheduled cycles **30**, additional documented cycles **75/1000**, remaining **925**, consecutive scheduled no-progress **16**. Strategy remains cross-module execution-contract auditing following cycle 24. Legacy defaults, archive and upstream untouched.
