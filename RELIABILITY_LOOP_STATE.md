@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **92**.
+- Scheduled cycles completed: **93**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **137 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **863**.
-- Consecutive scheduled cycles without verified progress: **78**.
+- Additional verified cycles completed after that request: **138 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **862**.
+- Consecutive scheduled cycles without verified progress: **79**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -949,3 +949,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Verification: in-memory deterministic parse of the actual fetched ledger; no optimizer objective evaluations, PF/AC/OPF, held-out COCO, physical tests, new regression run or candidate CI. Existing workflow was inspected but its passing status was not claimed as proof for this review. No legacy defaults, archive or upstream edits.
 - Strategy checkpoint: **78** consecutive scheduled cycles without verified implementation progress; pivot to a duplicate/gap-sensitive ledger invariant test and an executable candidate-SHA CI path rather than additional generic workflow recommendations.
 - Result: **no_progress** (one completed specific architectural evidence-integrity audit; no verified implementation fix). Scheduled cycles **92**; additional documented cycles **137/1000** (first four historical scheduled cycles excluded); remaining **863**; consecutive scheduled no-progress **78**.
+
+
+### 2026-11-08 — scheduled cycle 93; additional documented review cycle 138/1000
+
+- Starting main: previous ledger commit `6b700542deb5f7bfbe59cc657be337ed7c00cc11`; fetched current `main` copies of `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, this ledger, `.github/workflows/robustness-tests.yml`, `gadapt/ga.py`, `gadapt/utils/constraint_handling.py` and `setup.py`. The ledger's pre-update blob SHA was `3cb63df0c95862fd0056e06d51d3444af13fcf3a`.
+- Narrow source-backed hypothesis: opt-in constraint-pair parsing `parse_pair` in `gadapt/utils/constraint_handling.py` checks `math.isfinite(float(value))` without catching `OverflowError`. A valid Python `numbers.Real` integer such as `10**400` raises `OverflowError: int too large to convert to float`, rather than the function's documented `ValueError` for an out-of-range objective/violation. Verified this exact standard-library conversion behavior in local Python; **did not execute the installed GAdapt function**, so this is a plausible input-validation defect, not a confirmed end-to-end reproduction. Proposed opt-in scoped fix: catch `OverflowError` from numeric conversion, consistently reject invalid/out-of-range values as `ValueError`, with deterministic tests for huge positive/negative integer objective and violation and boundary finite pairs. Check other conversion paths before patching.
+- Strategy change after 79 scheduled non-progress cycles: abandon repetitive ledger/CI configuration reviews; prioritize this directly testable input-validation path and a runnable isolated regression checkout. No implementation was changed, because an executable package checkout and candidate-SHA Python 3.10–3.12 CI were not established. Existing workflow matrix configuration was inspected (3.10, 3.11, 3.12), but no new SHA-matched CI result is claimed for this review. No unauthorized objective evaluation, optimizer benchmark, PF/AC/OPF, held-out COCO or physical work.
+- Result: **no_progress** (one completed distinct source-backed architectural/input-validation review, not a verified fix). Scheduled cycles **93**; additional documented cycles **138/1000** (initial four historical scheduled cycles excluded); remaining **862**; consecutive scheduled no-progress **79**.
