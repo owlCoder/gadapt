@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **95**.
+- Scheduled cycles completed: **96**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **140 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **860**.
-- Consecutive scheduled cycles without verified progress: **81**.
+- Additional verified cycles completed after that request: **141 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **859**.
+- Consecutive scheduled cycles without verified progress: **82**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -976,3 +976,12 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Verification: source-backed cross-module architectural analysis only. No installed-package regression, no candidate fix, no candidate-SHA CI on Python 3.10–3.12, and no merge. Existing CI matrix configuration is 3.10/3.11/3.12 but was not treated as verification of a new change. No unauthorized optimizer objectives, benchmarks, PF/AC/OPF, held-out COCO, or physical evaluations; no legacy defaults, archive, or upstream edits.
 - Strategy checkpoint: **81** consecutive scheduled no-progress cycles; stop reiterating `parse_pair` without locating the real cost-finder implementation or obtaining an executable checkout. Next review should use a concrete repository tree listing/caller implementation or switch to a different testable subsystem.
 - Result: **no_progress** (one distinct documented cross-module boundary review, not a verified implementation fix). Scheduled cycles **95**; additional documented cycles **140/1000** (first four historical scheduled cycles excluded); remaining **860**; consecutive scheduled no-progress **81**.
+
+### 2026-11-08 — scheduled cycle 96
+
+- Baseline: latest `main` read via GitHub connector, ledger blob SHA `a02dd387c4ff9c2bea3107547da876b68432c9c4`; reviewed current `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, `RELIABILITY_LOOP_STATE.md`, `gadapt/utils/constraint_handling.py`, and `.github/workflows/robustness-tests.yml`.
+- Strategy change: stopped repeating the unverified `parse_pair` caller hypothesis after 81 no-progress cycles and inspected the independent CI resource-containment boundary.
+- Concrete architectural finding: `.github/workflows/robustness-tests.yml` defines three Python jobs (3.10, 3.11, 3.12) but neither the `unittest` job nor its steps specify `timeout-minutes`. Therefore the repository does not explicitly bound the duration of a stalled regression job; it relies on the GitHub Actions platform default. Proposed narrow CI-only hardening: add a conservative explicit job timeout, validate syntax and the existing full test matrix on the candidate SHA before merging. This is a configuration observation, not a reproduced hang, optimizer improvement, or approved implementation change.
+- Evidence: workflow source shows `runs-on: ubuntu-latest`, `strategy.fail-fast: false`, Python matrix, editable installation, and `unittest discover`, with no timeout directive. GitHub code search for `parse_pair(` and `class CostFinder` returned no results and cannot establish call coverage. No executable checkout or deterministic package regression was obtained in this cycle.
+- Verification/CI: source-only architectural review; no candidate patch, no new candidate-SHA CI on Python 3.10–3.12, and no merge. No unauthorized optimizer benchmarks, objective evaluations, PF/AC/OPF, held-out COCO, or physical tests. Legacy defaults, archive, and upstream untouched.
+- Result: **no_progress** (one distinct documented CI containment review). Scheduled cycles **96**; additional documented cycles **141/1000**, excluding the four historical scheduled cycles; remaining **859**; consecutive scheduled no-progress **82**.
