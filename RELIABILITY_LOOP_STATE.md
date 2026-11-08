@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **96**.
+- Scheduled cycles completed: **97**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **141 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **859**.
-- Consecutive scheduled cycles without verified progress: **82**.
+- Additional verified cycles completed after that request: **142 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **858**.
+- Consecutive scheduled cycles without verified progress: **83**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -985,3 +985,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Evidence: workflow source shows `runs-on: ubuntu-latest`, `strategy.fail-fast: false`, Python matrix, editable installation, and `unittest discover`, with no timeout directive. GitHub code search for `parse_pair(` and `class CostFinder` returned no results and cannot establish call coverage. No executable checkout or deterministic package regression was obtained in this cycle.
 - Verification/CI: source-only architectural review; no candidate patch, no new candidate-SHA CI on Python 3.10–3.12, and no merge. No unauthorized optimizer benchmarks, objective evaluations, PF/AC/OPF, held-out COCO, or physical tests. Legacy defaults, archive, and upstream untouched.
 - Result: **no_progress** (one distinct documented CI containment review). Scheduled cycles **96**; additional documented cycles **141/1000**, excluding the four historical scheduled cycles; remaining **859**; consecutive scheduled no-progress **82**.
+
+
+### 2026-11-08 — scheduled cycle 97; additional documented review cycle 142/1000
+
+- Starting main SHA: `02d9689b218ba6dd30173f1335d0c099847192f9` (GitHub commit search). Read current `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, this ledger and the CI workflow. Obtained the actual `gadapt/operations/cost_finding/` directory listing using the GitHub contents API, avoiding the earlier failed code-search/guessed-path approach; read `constraint_handling_cost_finder.py`, `base_cost_finder.py` and `constraint_handling.py`.
+- Distinct, source-backed caller-boundary finding: `ConstraintHandlingCostFinder._execute_function` invokes `parse_pair(cost_function(values))` inside `try`, catches ordinary `Exception` (including the `OverflowError` raised by `float(10**400)`), and marks that candidate invalid (`objective_value=None`, `violation_value=inf`, `succ=False`). The unconstrained `BaseCostFinder._execute_function` similarly catches ordinary `Exception` around `math.isfinite(float(value))` and marks failure. Therefore earlier suggestions that the `parse_pair` overflow necessarily escapes and aborts the optimizer are **not supported by these actual caller paths**. The parser's direct-call ValueError contract remains a possible API consistency issue, but there is no evidence here of a GA crash or need to change shared legacy behavior.
+- Architecture decision: do **not** patch the global parser solely on this evidence; prioritize a deterministic isolated direct-parser contract test only if an executable checkout becomes available, and preserve legacy behavior unless an opt-in caller-specific defect is demonstrated. The actual constrained caller is now located and documented. No optimizer objectives or benchmarks were executed. No candidate implementation, package regression, candidate-SHA CI 3.10–3.12 or merge is claimed; source-level architectural review only. Original defaults, archive and upstream untouched.
+- Result: **no_progress** (one completed distinct caller/exception-containment architectural review; prior hypothesis narrowed, not a verified fix). Scheduled cycles **97**; additional documented cycles **142/1000**, excluding first four historical scheduled cycles; remaining **858**; consecutive scheduled no-progress **83**.
