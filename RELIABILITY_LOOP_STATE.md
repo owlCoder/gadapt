@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **79**.
+- Scheduled cycles completed: **80**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **124 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **876**.
-- Consecutive scheduled cycles without verified progress: **65**.
+- Additional verified cycles completed after that request: **125 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **875**.
+- Consecutive scheduled cycles without verified progress: **66**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -839,3 +839,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - CI context: the previous cycle verified existing push workflow run https://github.com/owlCoder/gadapt/actions/runs/42437116443 for the **previous** main SHA `f7890ec8d84fc0c827cdd391ccdbc163badeaace` across Python 3.10–3.12. That result is **not** evidence for this cycle's starting SHA or any new change. No SHA-matched run/job result was established here, and no local regression execution or implementation merge was performed.
 - Strategy: after 65 consecutive scheduled no-progress cycles, prioritize executable, bounded regression contract checks and stop generating variants of source-only hypotheses; preserve opt-in semantics and do not claim a fix without tests. No unauthorized optimizer benchmark, PF/AC/OPF, held-out COCO, physical evaluation, empirical optimization-success claim, legacy-default change, archive change or upstream change.
 - Result: **no_progress** (one specific documented timeout-contract review). Scheduled cycles **79**; additional actually documented cycles **124/1000** (initial four historical scheduled cycles excluded); remaining **876**; consecutive scheduled no-progress **65**.
+
+
+### 2026-11-08 — scheduled cycle 80; additional documented review cycle 125/1000
+
+- Starting main SHA: `ff3143250def5270b86a1c62cd85b1954d27f63f` (fresh GitHub repository commit search). Re-read `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, and this ledger; inspected `.github/workflows/robustness-tests.yml` and `setup.py` via GitHub connector.
+- Distinct CI reproducibility architecture review: the workflow runs `python -m pip install --upgrade pip` without a pinned version and `python -m pip install -e .` without a locked build environment; `setup.py` pins runtime NumPy to `1.26.4` but does not pin pip/setuptools/build tooling. Therefore a later CI rerun for an unchanged SHA can use different installer/build-tool versions, even if the runtime dependency pin remains unchanged. This is a source-supported reproducibility risk, **not** an observed regression or evidence that any CI job failed. A possible future isolated CI-hardening PR would pin installation tooling and record versions in each Python 3.10–3.12 job; only merge after testing all three jobs and checking compatibility. Do not silently alter optimizer behavior or research archives.
+- Verification: source review only; no new tests executed and no SHA-matched CI result verified for this starting SHA. Previously documented successful run 42437116443 belongs to a different SHA and is not reused as proof. No implementation changes, PR, benchmark or experimental optimization claim.
+- Result: **no_progress** (one distinct documented CI reproducibility review). Scheduled cycles **80**; additional actually documented cycles **125/1000** (initial four historical scheduled cycles excluded); remaining **875**; consecutive scheduled no-progress **66**. Strategy remains focused on executable tests and SHA-matched CI, not speculative merges. No PF/AC/OPF, held-out COCO, expensive physical evaluations, legacy-default, archive or upstream changes.
