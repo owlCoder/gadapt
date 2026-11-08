@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **89**.
+- Scheduled cycles completed: **90**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **134 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **866**.
-- Consecutive scheduled cycles without verified progress: **75**.
+- Additional verified cycles completed after that request: **135 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **865**.
+- Consecutive scheduled cycles without verified progress: **76**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -920,3 +920,12 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Existing SHA-matched CI evidence: https://github.com/owlCoder/gadapt/actions/runs/42483929350 (`push`, completed/success); individually fetched `unittest (3.10)`, `unittest (3.11)`, `unittest (3.12)`, all completed/success for the starting SHA. No candidate implementation change, new regression, local executable checkout, or new optimization experiment. The green jobs do not validate an unmade branch-protection change.
 - Strategy checkpoint after 75 scheduled no-progress cycles: stop treating repeated source-only CI recommendations as implementation progress; require runnable deterministic tests and candidate-SHA green matrix before any code merge. This review documents a verified governance fact, not a reliability fix. No optimizer benchmark, PF/AC/OPF, held-out COCO, physical evaluation, legacy GA default, original archive, or upstream change.
 - Result: **no_progress** (one completed distinct, source-backed repository governance review). Scheduled cycles **89**; additional actually documented cycles **134/1000** (first four historical scheduled cycles excluded); remaining **866**; consecutive scheduled no-progress **75**.
+
+
+### 2026-11-08 — scheduled cycle 90; additional documented review cycle 135/1000
+
+- Starting main SHA: `afc7c5500433c654d9f471b32acc5f70568fdca4` (GitHub branches/main API). Re-read `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, this ledger, and `.github/workflows/robustness-tests.yml`. Attempted executable Git checkout; container DNS could not resolve github.com, so no runnable local checkout was obtained.
+- Distinct auditability architecture finding: the cycle ledger is a single ~233 KB free-form Markdown file with four manually maintained aggregate counters and long prose journal entries; the CI workflow only installs the package and runs unittest, and does not validate ledger counters, monotonicity, uniqueness, or the exclusion of the first four historical scheduled cycles. A mistaken manual counter edit could therefore pass CI unnoticed. This is an evidenced *audit-control gap*, not proof of a miscount. Candidate separate stdlib-only deterministic checker: parse uniquely identified scheduled/manual journal headings, validate count invariants and duplicate IDs, and run it in CI; first reconcile historical journal conventions before enforcing to avoid false failures. No ledger checker was implemented without a runnable candidate-SHA test matrix.
+- Existing SHA-matched CI: https://github.com/owlCoder/gadapt/actions/runs/42488190442 (`push`, completed/success); fetched individual `unittest (3.10)`, `unittest (3.11)`, and `unittest (3.12)` jobs, all completed/success. This validates existing tests for the starting SHA only, not the proposed ledger checker or this documentation commit.
+- Strategy checkpoint: 76 consecutive scheduled no-progress cycles exceed the 10-cycle threshold. Explicitly pivot from repeated CI configuration suggestions to *machine-checkable evidence integrity*; next engineering change requires an executable checkout, deterministic tests, and candidate-SHA CI before merge. No optimizer benchmarks, PF/AC/OPF, held-out COCO, physical evaluations, legacy defaults, archive or upstream edits.
+- Result: **no_progress** (one concrete documented architecture review, no verified implementation fix). Scheduled cycles **90**; additional documented cycles **135/1000** (initial four historical scheduled cycles excluded); remaining **865**; consecutive scheduled no-progress **76**.
