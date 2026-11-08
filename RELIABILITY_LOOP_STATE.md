@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **84**.
+- Scheduled cycles completed: **85**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **129 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **871**.
-- Consecutive scheduled cycles without verified progress: **70**.
+- Additional verified cycles completed after that request: **130 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **870**.
+- Consecutive scheduled cycles without verified progress: **71**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -879,3 +879,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - SHA-matched CI evidence for starting commit: https://github.com/owlCoder/gadapt/actions/runs/42462127900 (`push`, completed `success`); individually fetched `unittest (3.10)`, `unittest (3.11)`, `unittest (3.12)` jobs, all `completed/success`. These are existing-suite checks, not a new regression or optimizer benchmark.
 - Strategy checkpoint: 70 consecutive scheduled non-progress cycles. Continue prioritizing executable regression/CI hardening over speculative algorithm changes; this review does not count as a verified implementation improvement. No optimizer benchmarks, PF/AC/OPF, held-out COCO, physical evaluations, legacy defaults, archive, or upstream changes.
 - Result: **no_progress** (one concrete completed architectural review). Scheduled cycles **84**; additional actually documented cycles **129/1000** (first four historical scheduled cycles excluded); remaining **871**; consecutive scheduled no-progress **70**.
+
+### 2026-11-08 — scheduled cycle 85; additional documented review cycle 130/1000
+
+- Starting `main` SHA: `e651ee2a12ee009c7a846f82844d6d3a8be55c57` (fresh GitHub branch API). Re-read `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, and this ledger; inspected `.github/workflows/robustness-tests.yml` and enumerated the `tests/` directory.
+- Distinct CI auditability finding: the workflow installs an unpinned, upgraded `pip` and editable package, but does not explicitly emit a machine-readable resolved dependency/environment manifest (e.g. `python -m pip freeze` plus `python -m pip --version`), nor preserve it as a CI artifact. A green run proves the suite passed in that environment, but cannot by itself reproduce exact resolved installer/transitive dependency versions later. This is distinct from cycle 80's dependency pinning recommendation: even when versions are pinned, a recorded resolved environment is useful for incident diagnosis. The source supports an observability gap, not a demonstrated failing test. Candidate change: append a read-only manifest step/artifact with appropriate retention; require SHA-matched Python 3.10–3.12 verification before merge. No patch applied.
+- Verified starting-SHA CI: https://github.com/owlCoder/gadapt/actions/runs/42465850346 (`push`, `completed/success`); fetched individual jobs `unittest (3.10)`, `unittest (3.11)`, `unittest (3.12)`, all `completed/success`. This confirms existing regression tests only; no new local execution, optimizer benchmark, implementation change, or scientific success-rate evidence.
+- Strategy checkpoint: 71 consecutive scheduled no-progress cycles; continue emphasizing actionable CI reproducibility instrumentation and runnable verification rather than speculative source-only optimizer claims. No unauthorized PF/AC/OPF, held-out COCO, physical evaluation, legacy-default, archive, or upstream changes.
+- Result: **no_progress** (one completed distinct architecture review). Scheduled cycles **85**; additional actually documented cycles **130/1000** (first four historical scheduled cycles excluded); remaining **870**; consecutive scheduled no-progress **71**.
