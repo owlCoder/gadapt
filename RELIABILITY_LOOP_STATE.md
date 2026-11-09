@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **99**.
+- Scheduled cycles completed: **100**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **144 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **856**.
-- Consecutive scheduled cycles without verified progress: **85**.
+- Additional verified cycles completed after that request: **145 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **855**.
+- Consecutive scheduled cycles without verified progress: **86**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -1010,3 +1010,12 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Architectural recommendation: any opt-in sanitized diagnostic mode must cover BOTH cost-finder paths and stdout/stderr, preserve legacy defaults, and verify deterministic capture of stdout/stderr with a synthetic sentinel exception plus exact failed-evaluation accounting; do not change behavior without executable regression and SHA-matched Python 3.10–3.12 CI.
 - Verification: source-only architectural review, no candidate patch, no new tests or candidate CI, no merge. No optimizer benchmark, PF/AC/OPF, held-out COCO, physical evaluation or unauthorized objective call. Archive and upstream untouched.
 - Result: **no_progress** (one distinct documented cross-path diagnostic review; no verified implementation improvement). Scheduled cycles **99**; additional documented cycles **144/1000** (first four historical scheduled cycles excluded); remaining **856**; consecutive scheduled no-progress **85**. Strategy change: prioritize a minimal executable opt-in test harness rather than further repeated source-only logging observations.
+
+
+### 2026-11-09 — scheduled cycle 100; additional documented review cycle 145/1000
+
+- Read current repository instructions and scope documents `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, this ledger, CI workflow, both cost-finder implementations, and `gadapt/execution/reliability.py` from the GitHub connector. Starting ledger blob SHA: `04ad9bc941d3e8a7ebe2b04a7b833ad573e30257`. This is a source-level architecture review, not a package test.
+- Changed hypothesis after repeated no-progress diagnostic reviews: inspect the opt-in deterministic evaluation cache and its relationship to the hard objective-call budget. `ReliabilityMonitor.__call__` checks `_evaluation_cache` **before** `evaluations >= max_evaluations`; cached requests increment `cached_objective_requests` and return without invoking the objective or incrementing `evaluations`. This is consistent with a budget defined in *actual physical objective calls*, not requests. The cache key preserves built-in integer exactness and float signed zero, and caching is disabled by default. No budget-bypass defect is asserted on this evidence.
+- Specific verification gap and proposed deterministic regression: with opt-in caching enabled, budget 1 and a constant finite objective, make one uncached call, repeat identical input (must hit cache, physical calls remain 1, cached requests become 1), then call a different input (must raise `EvaluationBudgetExhausted` without a second physical call). Separately verify `stop_on_acceptance=True` raises `AcceptableTargetReached` on an acceptable cached hit. These are **test specifications, not executed tests**. Avoid optimizer runs.
+- No candidate code change, regression execution, SHA-matched Python 3.10–3.12 CI, or implementation merge was performed. Legacy defaults, archive, upstream and unapproved research evaluations untouched. CI workflow's 3.10/3.11/3.12 matrix is configuration evidence only, not proof of candidate passing.
+- Result: **no_progress** (one distinct, source-backed cache/budget architecture review; no verified implementation improvement). Scheduled cycles **100**; additional documented cycles **145/1000** (first four historical scheduled cycles excluded); remaining **855**; consecutive scheduled no-progress **86**. Strategy explicitly shifted from exception-output review to cache/budget accounting and executable contract tests.
