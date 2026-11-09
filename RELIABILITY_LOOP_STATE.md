@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **103**.
+- Scheduled cycles completed: **104**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **148 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **852**.
-- Consecutive scheduled cycles without verified progress: **89**.
+- Additional verified cycles completed after that request: **149 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **851**.
+- Consecutive scheduled cycles without verified progress: **90**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -1046,3 +1046,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Specific remaining risk: the two paths differ in how they handle non-finite or malformed step metadata, and a generator-produced candidate's exact rounded membership should be checked with deterministic boundary tests before any change. Proposed tests: ratio just above and at 1e9, non-grid candidate, and rounding at the upper endpoint; tests **not executed**. Avoid changing legacy step semantics.
 - Verification: connector source inspection only; no executable package checkout, no new test execution, no candidate-SHA Python 3.10–3.12 CI, no implementation merge. Existing CI matrix declaration is not proof of a new candidate passing. No unauthorized objective calls, optimizer benchmarks, PF/AC/OPF, held-out COCO or physical evaluations. Defaults, archive and upstream untouched.
 - Result: **no_progress** (one distinct cross-module architecture review, no proven bug fix). Scheduled cycles **103**; additional documented cycles **148/1000** (four historical scheduled cycles excluded); remaining **852**; consecutive scheduled no-progress **89**. Strategy: stop reexamining fine-step semantics without executable boundary tests; switch to independently testable input validation or CI infrastructure next cycle.
+
+
+### 2026-11-09 — scheduled cycle 104; additional documented review cycle 149/1000
+
+- Baseline main SHA: `c1877de5d3991914ec1c548553d299f30a20ab6d`; read current `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, this ledger, `.github/workflows/robustness-tests.yml`, `gadapt/ga_model/decision_variable.py`, and `gadapt/operations/cost_finding/base_cost_finder.py` via GitHub connector.
+- Changed strategy to malformed-step input handling rather than repeating fine-grid boundary reviews. Narrow source-backed inconsistency: `DecisionVariable.is_discrete` considers `step=math.inf` non-discrete because range/step=0 and its condition evaluates True (zero <= 1e9), whereas `make_random_value` takes the discrete branch and computes `lower + 0 * inf`, which is NaN. More precisely, `is_discrete` actually reports True for a finite range and infinite positive step; the discrete generator produces NaN. This is a potential invalid-input validation defect, not evidence of a public GA execution failure. A standalone Python arithmetic reproduction confirmed `(1.0-0.0)/inf == 0.0` and `0.0 + 0*inf` is NaN. No optimizer objective or benchmark was run.
+- Follow-up requires checking public `GA.add` step validation and deterministic package regression before deciding whether an opt-in guard is necessary. Avoid changing legacy defaults. No implementation patch, package regression, candidate-SHA CI, or merge was performed. Python 3.10–3.12 matrix is declared but not newly verified.
+- Result: **no_progress** (one distinct source-backed review and arithmetic reproduction, not a verified package defect fix). Scheduled cycles **104**; additional documented cycles **149/1000**, excluding first four historical scheduled cycles; remaining **851**; consecutive scheduled no-progress **90**. Archive and upstream untouched.
