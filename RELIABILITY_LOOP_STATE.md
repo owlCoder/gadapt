@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **102**.
+- Scheduled cycles completed: **103**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **147 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **853**.
-- Consecutive scheduled cycles without verified progress: **88**.
+- Additional verified cycles completed after that request: **148 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **852**.
+- Consecutive scheduled cycles without verified progress: **89**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -1037,3 +1037,12 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Concrete deterministic follow-up: construct a bounded decision with span 1 and step `1e-10` (ratio 1e10), compare the generator's effective continuous branch with the monitor's acceptance of a non-grid value such as `0.123456789123`; also test the same candidate with a coarse step `0.1` to ensure rejection. Use only synthetic unit checks, no optimizer run or expensive objective evaluation. If consistent with documented semantics, add a contract regression rather than changing legacy behavior.
 - Verification: source-level architecture review only. No executable checkout, package test, new candidate-SHA CI on Python 3.10–3.12, or implementation merge. The workflow declares a three-version matrix but that is not candidate validation. No unapproved optimizer benchmarks, PF/AC/OPF, held-out COCO, physics evaluations, or changes to defaults, archive, or upstream.
 - Result: **no_progress** (one distinct source-backed architectural review, not an implemented fix). Scheduled cycles **102**; additional documented cycles **147/1000**, excluding four historical scheduled cycles; remaining **853**; consecutive scheduled no-progress **88**. Continue pursuing executable deterministic verification rather than counting code-reading as implementation progress.
+
+
+### 2026-11-09 — scheduled cycle 103; additional documented review cycle 148/1000
+
+- Baseline main previously recorded as `68e7ca3c594a35e90d2d96ced6c777961918eeab`; read current `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, this ledger (blob `59b33361e8959462ed2da1567fcf1f261a433427`), CI workflow, `gadapt/execution/reliability.py`, and `gadapt/ga_model/decision_variable.py` from the GitHub connector.
+- Narrow cross-module review of the previous fine-step hypothesis: `DecisionVariable.is_discrete` explicitly defines a step as effectively continuous when `(max_value-min_value)/step > 1e9`; `make_random_value` uses `_random_continuous_value()` in exactly that case. `ReliabilityMonitor._on_declared_grid` likewise returns True for the same threshold, while enforcing grid membership below it. The purported inconsistency is therefore **not a demonstrated defect**; both paths share the declared effective-domain convention. This is a new direct generator-vs-validator contract check, not a package regression test.
+- Specific remaining risk: the two paths differ in how they handle non-finite or malformed step metadata, and a generator-produced candidate's exact rounded membership should be checked with deterministic boundary tests before any change. Proposed tests: ratio just above and at 1e9, non-grid candidate, and rounding at the upper endpoint; tests **not executed**. Avoid changing legacy step semantics.
+- Verification: connector source inspection only; no executable package checkout, no new test execution, no candidate-SHA Python 3.10–3.12 CI, no implementation merge. Existing CI matrix declaration is not proof of a new candidate passing. No unauthorized objective calls, optimizer benchmarks, PF/AC/OPF, held-out COCO or physical evaluations. Defaults, archive and upstream untouched.
+- Result: **no_progress** (one distinct cross-module architecture review, no proven bug fix). Scheduled cycles **103**; additional documented cycles **148/1000** (four historical scheduled cycles excluded); remaining **852**; consecutive scheduled no-progress **89**. Strategy: stop reexamining fine-step semantics without executable boundary tests; switch to independently testable input validation or CI infrastructure next cycle.
