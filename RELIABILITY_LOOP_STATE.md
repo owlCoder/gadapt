@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **108**.
+- Scheduled cycles completed: **109**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **153 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **847**.
-- Consecutive scheduled cycles without verified progress: **94**.
+- Additional verified cycles completed after that request: **154 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **846**.
+- Consecutive scheduled cycles without verified progress: **95**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -1090,3 +1090,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Targeted deterministic follow-up: instantiate a malformed opt-in GA with probe_cost_function=True and a callback counter, assert exact callback calls and validation_failed; repeat with probing disabled. Before proposing a change, audit compatibility with the intended validation-probe contract and budget charging. No test executed here because no executable checkout or local GitHub Actions dispatch was available.
 - Verification: source inspection only; workflow declares Python 3.10/3.11/3.12 but no fresh candidate-SHA CI, no patch, no merge. No benchmark, PF/AC/OPF, held-out COCO or expensive objective evaluation. No changes to legacy defaults, archive or upstream.
 - Result: **no_progress**. Scheduled cycles **108**; additional documented cycles **153/1000**, first four historical scheduled cycles excluded; remaining **847**; consecutive scheduled no-progress **94**. This review is counted once, not as an implementation success.
+
+
+### 2026-11-09 — scheduled cycle 109; additional documented review cycle 154/1000
+
+- Verified live `main` commit `0b17bee51a3baeb4c599e9c7f9a749b553a63c9e` via GitHub branches API. Re-read `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, this ledger (starting blob `e575d68918ee6134831c85aee6767b977067a3f6`), `.github/workflows/robustness-tests.yml`, and `gadapt/adapters/validation/common_options_validator.py`.
+- Changed strategy from repeated malformed-step discussion to auditing validator failure isolation. Narrow source-backed finding: `_check_nones_types_and_values()` records a validation failure if `_decision_variables is None`, but immediately calls `len(self.options._decision_variables)` unconditionally. For a configuration whose internal variable collection is None, the intended validation message is followed by a `TypeError` before the remaining validation checks. This is a potential exception-handling inconsistency, not an established public-API reachable bug; ordinary `GA.add` usage may not produce this state. A separate `_validate_options` non-short-circuit path may probe callbacks after other structural errors, but no new execution test was performed.
+- Follow-up: establish whether the public GA constructor/execute path can produce a None collection, and write a deterministic validator-level regression before proposing an opt-in fix. Avoid altering legacy validation or optimizer defaults without demonstrated need. No executable checkout, no package tests, no candidate-SHA Python 3.10–3.12 CI, no implementation patch or merge. Workflow declares the three Python versions but does not prove this candidate.
+- Result: **no_progress** (one distinct architecture review, not a verified defect fix). Scheduled cycles **109**; additional documented cycles **154/1000** (excluding first four historical scheduled cycles); remaining **846**; consecutive scheduled no-progress **95**. No unauthorized optimizer benchmarks, objective evaluations, PF/AC/OPF, held-out COCO or expensive physical evaluations. Archive and upstream untouched.
