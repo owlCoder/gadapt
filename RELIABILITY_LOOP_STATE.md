@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **100**.
+- Scheduled cycles completed: **101**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **145 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **855**.
-- Consecutive scheduled cycles without verified progress: **86**.
+- Additional verified cycles completed after that request: **146 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **854**.
+- Consecutive scheduled cycles without verified progress: **87**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -1019,3 +1019,12 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Specific verification gap and proposed deterministic regression: with opt-in caching enabled, budget 1 and a constant finite objective, make one uncached call, repeat identical input (must hit cache, physical calls remain 1, cached requests become 1), then call a different input (must raise `EvaluationBudgetExhausted` without a second physical call). Separately verify `stop_on_acceptance=True` raises `AcceptableTargetReached` on an acceptable cached hit. These are **test specifications, not executed tests**. Avoid optimizer runs.
 - No candidate code change, regression execution, SHA-matched Python 3.10–3.12 CI, or implementation merge was performed. Legacy defaults, archive, upstream and unapproved research evaluations untouched. CI workflow's 3.10/3.11/3.12 matrix is configuration evidence only, not proof of candidate passing.
 - Result: **no_progress** (one distinct, source-backed cache/budget architecture review; no verified implementation improvement). Scheduled cycles **100**; additional documented cycles **145/1000** (first four historical scheduled cycles excluded); remaining **855**; consecutive scheduled no-progress **86**. Strategy explicitly shifted from exception-output review to cache/budget accounting and executable contract tests.
+
+
+### 2026-11-09 — scheduled cycle 101; additional documented review cycle 146/1000
+
+- Baseline main SHA: `67894d7ea625fb2005803f9290515669fe4eb9f2`. Read current `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, this ledger, `.github/workflows/robustness-tests.yml`, and `gadapt/execution/reliability.py` via the connected GitHub repository. Source review only; no executable checkout or package regression executed.
+- Narrow new cache contract finding: on the first successful objective call, `ReliabilityMonitor.__call__` returns the original callback `result`; on a cache hit, it returns the stored normalized `float` (or normalized float pair). For example, a valid built-in integer objective result beyond binary64's exact integer range can be returned as an `int` on the first request but as a rounded `float` on the identical cached request. The monitor separately retains the raw objective for exact incumbent comparison. This is a source-confirmed change in callback return representation; whether it causes an observable cost-finder defect is not established.
+- Verification proposal: deterministic opt-in test with objective returning `2**53 + 1`, repeated identical input, and exact physical-call and cache-hit counters; compare downstream cost-finder behavior with and without caching before deciding on a patch. Preserve immutable cache values and avoid introducing extra physical calls. A second test should check that a cached acceptable result does not bypass target-stop signaling.
+- No patch, new executable regression, candidate-SHA Python 3.10/3.11/3.12 CI, or merge. Workflow matrix exists but is not proof of a candidate's passing. No optimizer benchmark, PF/AC/OPF, held-out COCO, physical evaluation or unapproved objective run. Archive, upstream and GA defaults untouched.
+- Result: **no_progress** (one distinct documented source-backed contract review; no verified implementation fix). Scheduled cycles **101**; additional documented cycles **146/1000** (first four historical scheduled cycles excluded); remaining **854**; consecutive scheduled no-progress **87**. Strategy: avoid repeating speculative cache observations; next step must prioritize executable source-level regression or a different testable subsystem.
