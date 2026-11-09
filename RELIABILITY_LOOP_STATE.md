@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **111**.
+- Scheduled cycles completed: **112**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **156 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **844**.
-- Consecutive scheduled cycles without verified progress: **97**.
+- Additional verified cycles completed after that request: **157 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **843**.
+- Consecutive scheduled cycles without verified progress: **98**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -1116,3 +1116,12 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Proposed deterministic test (not executed): construct GA with candidate_solution_mutation=None in opt-in reliability mode, one valid decision variable and a callback counter; execute with probe_cost_function=False, assert a controlled validation_failed result and zero objective calls, and compare with a valid mutation setting. If reachable, fix only the opt-in validation boundary with tests; preserve legacy defaults. No implementation change or PR this cycle.
 - Verification: GitHub source inspection only. The workflow declares Python 3.10, 3.11 and 3.12; no executable package checkout, new deterministic regression execution, candidate SHA-matched Actions job conclusions, or implementation merge. No unauthorized optimizer benchmark, PF/AC/OPF, held-out COCO or physical evaluation. Original archive and upstream unchanged.
 - Result: **no_progress** (one distinct architecture review, not a verified bug fix). Scheduled cycles **111**; additional documented cycles **156/1000**, excluding first four historical scheduled cycles; remaining **844**; consecutive scheduled no-progress **97**. Next priority: establish public API reachability and obtain an executable regression harness before making changes.
+
+
+### 2026-11-09 — scheduled cycle 112; additional documented review cycle 157/1000
+
+- Re-read live main AGENTS.md (blob 62f4d3860faba934be920a06545dfe0521a3b05e), RELIABILITY_ROADMAP.md (3f11bbd50c29b2329ca5988fbbbfffe14eec4aed), ARCHIVE.md (817698e97395495dfd63cb229d92df93f43a8b7f), this ledger (starting blob 39d742f6fd40c9336bf2c04fecb76ef107981992), workflow (5733f7743decfe18f4f8e504f784d40ca5ae80ad), gadapt/ga.py (b41faf6089f334234cad33bb6ca3a3962f19b88b) and gadapt/adapters/validation/common_options_validator.py (a7421eb04855ccf2f887b5739cb2d7d40334e26c). Blob SHAs are not branch-head commit SHAs.
+- Narrow public-API reachability check of cycle 111: GA.__init__ explicitly exposes candidate_solution_mutation as a constructor argument; it is not only a private mutable state. CommonOptionsValidator._check_nones_types_and_values checks equality against VARIABLE_COLUMNAR_DIVERSITY and then membership with 'in' before checking None/type. Thus candidate_solution_mutation=None is a public-input source-level TypeError risk rather than merely a corrupt-internals scenario. A similar validation-order hazard exists for population_mutation=None, where PARENT_DIVERSITY membership precedes its None/type guard. The precise GA.execute failure behavior is not claimed without an executable test.
+- Strategy: prioritize one executable deterministic public-API regression covering both malformed mutation options, with probe_cost_function=False and a callback counter, then implement only a verified opt-in guard if the observed failure violates the reliability-mode contract. Avoid changing legacy validator semantics by assumption. The observed constructor signature is evidence of reachability, not proof of end-to-end defect.
+- Verification: static source inspection only; no executable checkout, no package regression run, no new candidate-SHA CI jobs on Python 3.10/3.11/3.12, no implementation patch/PR/merge. Workflow declaration is not CI evidence. No unauthorized optimizer benchmark, objective evaluations, PF/AC/OPF, held-out COCO or physical evaluations; legacy defaults, archive and upstream unchanged.
+- Result: **no_progress** (one documented public API-to-validator architecture review, no verified fix). Scheduled cycles **112**; additional documented cycles **157/1000**, excluding first four historical scheduled cycles; remaining **843**; consecutive scheduled no-progress **98**.
