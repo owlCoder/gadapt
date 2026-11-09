@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **118**.
+- Scheduled cycles completed: **119**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **163 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **837**.
-- Consecutive scheduled cycles without verified progress: **104**.
+- Additional verified cycles completed after that request: **164 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **836**.
+- Consecutive scheduled cycles without verified progress: **105**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -1175,3 +1175,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Proposed next engineering step, only with executable verification: consider action SHA pinning and a tested dependency constraints strategy while preserving supported Python versions and package compatibility; compare CI outcomes before merging. Do not make a speculative CI change that could break installs without validating all three jobs.
 - Verification: GitHub source inspection only; no executable checkout, local unittest execution, candidate implementation SHA, new per-version CI conclusions, PR or implementation merge. No optimizer benchmarks, objective calls, PF/AC/OPF, held-out COCO or physical evaluations. Legacy defaults, archived originals and upstream untouched.
 - Result: **no_progress** (one distinct documented workflow reproducibility review). Scheduled cycles **118**; additional documented cycles **163/1000**, excluding the first four historical scheduled cycles; remaining **837**; consecutive scheduled no-progress **104**. Strategy changed to CI reproducibility and execution prerequisites instead of repeating result-model source hypotheses.
+
+
+### 2026-11-09 — scheduled cycle 119; additional documented architecture review 164/1000
+
+- Verified live main head `fb808aed1f9ed47f8f38dcd1bbe57b36677fd351` before this review; re-read AGENTS.md (blob 62f4d3860faba934be920a06545dfe0521a3b05e), RELIABILITY_ROADMAP.md (3f11bbd50c29b2329ca5988fbbbfffe14eec4aed), ARCHIVE.md (817698e97395495dfd63cb229d92df93f43a8b7f), this ledger (blob ca6a5fcc42b5ce07ba86ec7b0585119fbfff3ea3), and robustness-tests.yml (5733f7743decfe18f4f8e504f784d40ca5ae80ad).
+- Distinct packaging/CI reproducibility cross-check: `setup.py` (blob 9ecd8ff13dbc9ae4f1c64291a920c595e9cd71aa) declares only `numpy==1.26.4` as an install requirement; `requirements.txt` (blob 983f36fd407d935e3776da24645c0083cdf0d258) additionally pins `setuptools==70.0.0`. The CI workflow runs `pip install -e .`, **not** `pip install -r requirements.txt`, and upgrades pip without pinning it. Therefore the setuptools pin in requirements.txt is not enforced by the workflow, while NumPy is pinned by package metadata. The previous cycle's general 'unlocked dependencies' observation must not be read as claiming NumPy is unpinned. The repository has no pyproject.toml at the queried root. This is a specific reproducibility/configuration distinction, not an observed test failure or runtime optimizer defect.
+- No executable checkout or local package regression was established. No new candidate SHA-matched Python 3.10–3.12 CI results, implementation change, PR, or merge. No unapproved optimizer benchmark, objective evaluation, PF/AC/OPF, held-out COCO or physics. Legacy defaults, archive and upstream unchanged. Future remediation requires testing the actual build-backend environment and all three CI jobs before merging.
+- Result: **no_progress** (one completed distinct packaging/CI architecture review). Scheduled cycles **119**; additional documented cycles **164/1000**, excluding the first four historical scheduled cycles; remaining **836**; consecutive scheduled no-progress **105**. A ledger-only commit is not implementation progress.
