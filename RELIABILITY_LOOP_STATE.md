@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **104**.
+- Scheduled cycles completed: **105**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **149 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **851**.
-- Consecutive scheduled cycles without verified progress: **90**.
+- Additional verified cycles completed after that request: **150 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **850**.
+- Consecutive scheduled cycles without verified progress: **91**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -1054,3 +1054,12 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Changed strategy to malformed-step input handling rather than repeating fine-grid boundary reviews. Narrow source-backed inconsistency: `DecisionVariable.is_discrete` reports True for `step=math.inf` with finite range because range/step=0 (<= 1e9), and `make_random_value` takes the discrete branch and computes `lower + 0 * inf`, which is NaN. This is a potential invalid-input validation defect, not evidence of a public GA execution failure. A standalone Python arithmetic reproduction confirmed `(1.0-0.0)/inf == 0.0` and `0.0 + 0*inf` is NaN. No optimizer objective or benchmark was run.
 - Follow-up requires checking public `GA.add` step validation and deterministic package regression before deciding whether an opt-in guard is necessary. Avoid changing legacy defaults. No implementation patch, package regression, candidate-SHA CI, or merge was performed. Python 3.10–3.12 matrix is declared but not newly verified.
 - Result: **no_progress** (one distinct source-backed review and arithmetic reproduction, not a verified package defect fix). Scheduled cycles **104**; additional documented cycles **149/1000**, excluding first four historical scheduled cycles; remaining **851**; consecutive scheduled no-progress **90**. Archive and upstream untouched.
+
+
+### 2026-11-09 — scheduled cycle 105; additional documented review cycle 150/1000
+
+- Baseline `main` SHA verified via GitHub branches API: `36377189fbb44b726ebfb5abc575ff4cccc606a4`. Re-read `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, this ledger, CI workflow, `gadapt/ga.py`, `gadapt/ga_model/decision_variable.py`, and `gadapt/execution/reliability.py` using the connected GitHub repository.
+- Narrow public-API review of cycle 104's infinite-step hypothesis: `GA.add(min_value=0.0, max_value=1.0, step=float('inf'))` does **not** validate `step` at insertion: it checks only the types of the two bounds, then assigns the step. `DecisionVariable.step` accepts it; `is_discrete` evaluates `(max-min)/inf` as zero and selects the discrete branch. `make_random_value` then computes `min_value + random_step * inf`; with the resulting zero step index, `0 * inf` is NaN. Thus the malformed step is reachable through the public configuration path, not merely direct internal attribute mutation. The exact end-to-end reliability execution behavior is **not** established; do not claim a successful GA run or objective call.
+- Architectural recommendation: validate finite positive step in an opt-in reliability preflight before sampling, leaving legacy `GA.add` behavior untouched. Proposed deterministic regression: public `GA.add` with infinite step; assert opt-in preflight rejects before objective calls, and a finite step still samples valid grid points. Confirm any existing preflight before modifying code. A direct package-level test and candidate-SHA CI were not executed; no patch merged.
+- Verification: GitHub connector source inspection and verified baseline SHA only; no executable repository checkout or new Python 3.10–3.12 CI results. No optimizer benchmarks, objective evaluations, PF/AC/OPF, held-out COCO, physical evaluations, or changes to defaults/archive/upstream.
+- Result: **no_progress** (one distinct public API-to-generator architecture review, not an implementation fix). Scheduled cycles **105**; additional documented cycles **150/1000**, excluding four historical scheduled cycles; remaining **850**; consecutive scheduled no-progress **91**. Switch strategy to checking existing opt-in preflight and obtaining executable deterministic tests rather than repeating malformed-step code reviews.
