@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **113**.
+- Scheduled cycles completed: **114**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **158 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **842**.
-- Consecutive scheduled cycles without verified progress: **99**.
+- Additional verified cycles completed after that request: **159 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **841**.
+- Consecutive scheduled cycles without verified progress: **100**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -1134,3 +1134,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Next strategy: stop revisiting mutation None checks; require a runnable checkout and a public-API regression for a new independently reachable hypothesis. After 99 consecutive scheduled no-progress cycles, this strategy change is overdue; prioritize execution/CI verification over source-only conjecture.
 - Verification: static GitHub source review only; no executable checkout, package tests, new candidate-SHA matched Python 3.10–3.12 Actions conclusions, implementation PR or merge. Workflow matrix declaration is not passing CI evidence. No optimizer benchmark, objective evaluation, PF/AC/OPF, held-out COCO, physical evaluation, legacy default, archive or upstream change.
 - Result: **no_progress** (one documented cross-layer architecture correction). Scheduled cycles **113**; additional documented cycles **158/1000**, excluding four historical cycles; remaining **842**; consecutive scheduled no-progress **99**.
+
+
+### 2026-11-09 — scheduled cycle 114; additional documented review cycle 159/1000
+
+- Verified current main HEAD via GitHub commit search: `c35c5cce39fd919a12e4be3d29adb8b09c0910b5` before this ledger update. Re-read AGENTS.md (blob 62f4d3860faba934be920a06545dfe0521a3b05e), RELIABILITY_ROADMAP.md (3f11bbd50c29b2329ca5988fbbbfffe14eec4aed), ARCHIVE.md (817698e97395495dfd63cb229d92df93f43a8b7f), starting ledger (blob c2287f8d67ed05d50605f7cf2772f4d98f802102), workflow (5733f7743decfe18f4f8e504f784d40ca5ae80ad), GA constructor, DecisionVariable (ab287812c5ab06d977601bedb42b3e2df709cd7b) and GAResults (685510a333a201d6342ba2a35adb4a6509df7ceb).
+- Strategy change after 99 non-progress scheduled cycles: abandon malformed mutation-option conjectures; review the public output contract and numeric domain model instead. Concrete architecture finding: GAResults initializes `success=True` but separately exposes opt-in `acceptable`, `feasible`, `solution_status`, and `termination_reason`, all initially None. Therefore downstream clients must not interpret the legacy `success` flag alone as evidence of an acceptable feasible result; tests/integrations should assert explicit reliability status. This is a documented semantic boundary, not a new implementation defect. DecisionVariable's random-value path is not an independently proven new bug without executable reproduction and opt-in path tracing.
+- Verification: source-level architecture review only; no executable checkout, no deterministic package regression, no candidate SHA-matched Python 3.10/3.11/3.12 CI results, no implementation patch, PR or merge. Workflow matrix declaration does not establish CI success. No unapproved optimizer/objective experiments, PF/AC/OPF, held-out COCO or physical evaluations; defaults, archive and upstream untouched.
+- Result: **no_progress**; scheduled cycles **114**, additional completed documented cycles **159/1000** excluding four historical scheduled cycles, remaining **841**, consecutive scheduled no-progress **100**. Ledger update alone is not an implementation advance. Next strategy requires executable regression evidence before pursuing fixes.
