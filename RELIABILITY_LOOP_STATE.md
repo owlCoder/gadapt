@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **126**.
+- Scheduled cycles completed: **127**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **171 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **829**.
-- Consecutive scheduled cycles without verified progress: **112**.
+- Additional verified cycles completed after that request: **172 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **828**.
+- Consecutive scheduled cycles without verified progress: **113**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -1241,3 +1241,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Evidence: https://github.com/owlCoder/gadapt/blob/663e2730fced91337e899a1c9ff6b738a5550d65/.github/workflows/robustness-tests.yml ; https://github.com/owlCoder/gadapt/blob/663e2730fced91337e899a1c9ff6b738a5550d65/setup.py . Earlier green run https://github.com/owlCoder/gadapt/actions/runs/42733770900 belongs to SHA `f55c3e457ba38ea017f723bb6bd97df333130b05`, **not** the inspected head. No new SHA-matched CI result or local regression execution established this cycle.
 - No executable checkout, implementation patch, PR, or merge. No optimizer benchmarks, objective calls, PF/AC/OPF, held-out COCO, or physical evaluation. Legacy defaults, archive and upstream untouched.
 - Result: **no_progress** (one distinct completed cross-platform CI coverage architecture review; ledger-only update is not implementation progress). Scheduled cycles **126**; additional actually documented cycles **171/1000** excluding first four historical scheduled cycles; remaining **829**; consecutive scheduled no-progress **112**. Strategy: prioritize executable checkout and verifiable defects rather than accumulating speculative workflow edits.
+
+
+### 2026-11-10 — scheduled cycle 127; additional documented architecture review 172/1000
+
+- Verified live main SHA `994de232315ce1ba72ad02173a2a610e2096ee77` through GitHub commit API; re-read `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, this ledger, `.github/workflows/robustness-tests.yml`, and `tests/test_parallel_500_multimodule_reliability.py` through the GitHub connector.
+- Distinct regression-oracle coverage finding: the `linear-extreme` contract cases assert that `initial_st_dev` is positive and finite for a nontrivial interior value, but do not assert a known expected normalized dispersion for those 50 inputs. Similarly, `log-columnar-extreme` and `log-cost-extreme` verify finite/positive statistics or coefficient 1.0 but do not establish independent expected values for every computed statistic. An incorrect but finite nonzero standard deviation could satisfy these checks. This is a concrete test-oracle strength limitation, **not** evidence of a current production defect. Future remediation: derive independent deterministic expected normalized values for selected boundary cases, add explicit numerical tolerances, and verify all three Python CI jobs before merging; do not run optimizer evaluations.
+- CI: source confirms Python 3.10–3.12 matrix on Linux. No new SHA-matched job conclusions or executable regression established for this cycle; earlier verified green run https://github.com/owlCoder/gadapt/actions/runs/42733770900 applies only to `f55c3e457ba38ea017f723bb6bd97df333130b05`. No implementation patch or merge; archive, upstream and GA defaults untouched. No benchmark, objective callback, PF/AC/OPF, COCO or physics.
+- Result: **no_progress** (one distinct completed deterministic regression-oracle architecture review). Scheduled cycles **127**; additional actually completed documented cycles **172/1000**, first four historical scheduled cycles excluded; remaining **828**; consecutive scheduled no-progress **113**. Ledger-only update is not implementation progress. Strategy change: prioritize test-oracle specificity and independent reference calculations instead of speculative CI configuration changes.
