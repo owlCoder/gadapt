@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **128**.
+- Scheduled cycles completed: **129**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **173 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **827**.
-- Consecutive scheduled cycles without verified progress: **114**.
+- Additional verified cycles completed after that request: **174 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **826**.
+- Consecutive scheduled cycles without verified progress: **115**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -1258,3 +1258,12 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Evidence: https://github.com/owlCoder/gadapt/blob/9ae151e6cbf98e13d8f92df9486ab4f5727a730f/tests/test_parallel_500_multimodule_reliability.py ; workflow https://github.com/owlCoder/gadapt/blob/9ae151e6cbf98e13d8f92df9486ab4f5727a730f/.github/workflows/robustness-tests.yml . CI workflow declares Python 3.10–3.12, but no fresh SHA-matched CI jobs or local executable regression were verified in this cycle. Previously verified run https://github.com/owlCoder/gadapt/actions/runs/42733770900 pertains to older SHA `f55c3e457ba38ea017f723bb6bd97df333130b05`.
 - No implementation change, PR, merge, objective callback, optimizer benchmark, PF/AC/OPF, held-out COCO or physical evaluation. Original archive, upstream and GA defaults untouched.
 - Result: **no_progress** (one concrete completed test-integration coverage review). Scheduled cycles **128**; additional actually completed documented cycles **173/1000** (first four historical scheduled cycles excluded); remaining **827**; consecutive scheduled no-progress **114**. A ledger-only commit is not implementation progress. Strategy: examine real opt-in integration boundaries, rather than claim 500 isolated contracts demonstrate full integration.
+
+
+### 2026-11-10 — scheduled cycle 129; additional documented architecture review 174/1000
+
+- Inspected current main SHA `bca58779a638a48d799ae108fa046e4cdd788c70` through GitHub commit search and read `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, this ledger, `.github/workflows/robustness-tests.yml` and `tests/test_parallel_500_multimodule_reliability.py` on main.
+- Distinct concurrency-test finding: `ThreadPoolExecutor(max_workers=32)` submits 500 tiny independent checks via `executor.map`, but the test neither synchronizes task overlap nor records distinct thread identities. `workers=32` in the printed summary is a configured upper bound, not observed concurrency. The harness therefore establishes repeated thread-pool execution but cannot establish simultaneous access or detect a race that requires overlapping critical sections. This is a precise coverage limitation, **not** a demonstrated race or production defect. Potential next test: use deterministic barriers and explicit thread-ID/overlap assertions in isolated, side-effect-free shared-component contracts, without running GA optimization or objective callbacks.
+- Evidence: https://github.com/owlCoder/gadapt/blob/bca58779a638a48d799ae108fa046e4cdd788c70/tests/test_parallel_500_multimodule_reliability.py ; CI workflow https://github.com/owlCoder/gadapt/blob/bca58779a638a48d799ae108fa046e4cdd788c70/.github/workflows/robustness-tests.yml . Workflow declares Python 3.10–3.12; no new SHA-matched job results or executable regression confirmed in this cycle. Earlier green run 42733770900 belongs to an older SHA and is not reused as current evidence.
+- No implementation change or merge; archive, upstream and legacy defaults untouched; no unapproved optimizer benchmarks, objective evaluations, PF/AC/OPF, held-out COCO or physical evaluation.
+- Result: **no_progress** (one concrete concurrency-coverage architecture review). Scheduled cycles **129**; additional actually completed documented cycles **174/1000**, first four historical scheduled cycles excluded; remaining **826**; consecutive scheduled no-progress **115**. Ledger-only commit is not implementation progress. Strategy: prioritize observed synchronization/overlap evidence over nominal worker counts.
