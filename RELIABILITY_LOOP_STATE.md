@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **129**.
+- Scheduled cycles completed: **130**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **174 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **826**.
-- Consecutive scheduled cycles without verified progress: **115**.
+- Additional verified cycles completed after that request: **175 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **825**.
+- Consecutive scheduled cycles without verified progress: **116**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -1267,3 +1267,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Evidence: https://github.com/owlCoder/gadapt/blob/bca58779a638a48d799ae108fa046e4cdd788c70/tests/test_parallel_500_multimodule_reliability.py ; CI workflow https://github.com/owlCoder/gadapt/blob/bca58779a638a48d799ae108fa046e4cdd788c70/.github/workflows/robustness-tests.yml . Workflow declares Python 3.10–3.12; no new SHA-matched job results or executable regression confirmed in this cycle. Earlier green run 42733770900 belongs to an older SHA and is not reused as current evidence.
 - No implementation change or merge; archive, upstream and legacy defaults untouched; no unapproved optimizer benchmarks, objective evaluations, PF/AC/OPF, held-out COCO or physical evaluation.
 - Result: **no_progress** (one concrete concurrency-coverage architecture review). Scheduled cycles **129**; additional actually completed documented cycles **174/1000**, first four historical scheduled cycles excluded; remaining **826**; consecutive scheduled no-progress **115**. Ledger-only commit is not implementation progress. Strategy: prioritize observed synchronization/overlap evidence over nominal worker counts.
+
+
+### 2026-11-10 — scheduled cycle 130; additional documented source-contract review 175/1000
+
+- Reviewed current `main` SHA `8d8a50b6aa91e9aa2fd9d1661f8539cf80acfcf8`; re-read `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, this ledger, CI workflow, 500-case regression harness, and `gadapt/execution/reliability.py` through GitHub connector.
+- New narrow hypothesis: `ReliabilityMonitor.__call__` snapshots `evaluated_values = tuple(values)` before invoking the user objective, but passes the original `values` object to `self.objective(values)`; the snapshot is subsequently used for bound checks, cache keys, and incumbent capture. If a callback mutates a mutable input list before computing its result, the reported objective may refer to a different point from the captured incumbent. This is a source-level aliasing hazard requiring a deterministic mutation-callback reproduction and verification of the public GA call path; it is **not yet a reproduced production defect**. Avoid speculative changes to callback argument identity or legacy semantics.
+- Evidence: https://github.com/owlCoder/gadapt/blob/8d8a50b6aa91e9aa2fd9d1661f8539cf80acfcf8/gadapt/execution/reliability.py and https://github.com/owlCoder/gadapt/blob/8d8a50b6aa91e9aa2fd9d1661f8539cf80acfcf8/.github/workflows/robustness-tests.yml . CI matrix is configured for Python 3.10–3.12; no fresh SHA-matched green jobs or executable deterministic regression established in this cycle. No implementation merge; older CI evidence cannot verify this hypothesis.
+- Result: **no_progress** (one completed source-contract review, no verified fix). Scheduled cycles **130**; additional actually completed documented cycles **175/1000** excluding first four historical scheduled cycles; remaining **825**; consecutive scheduled no-progress **116**. Strategy changed from nominal parallelism coverage to callback aliasing and exact incumbent provenance. No unapproved optimizer benchmarks, objective evaluations, PF/AC/OPF, held-out COCO or physical evaluation; original archive, upstream and GA defaults untouched.
