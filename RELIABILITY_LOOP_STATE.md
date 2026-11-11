@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **161**.
+- Scheduled cycles completed: **162**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **206 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **794**.
-- Consecutive scheduled cycles without verified progress: **147**.
+- Additional verified cycles completed after that request: **207 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **793**.
+- Consecutive scheduled cycles without verified progress: **148**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -1526,3 +1526,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Narrow CI regression-discovery hypothesis (new strategy after 146 non-progress cycles): the workflow runs `python -m unittest discover -s tests -v` without a separate assertion of the number of collected tests. Python unittest discovery can exit successfully when it discovers zero tests; thus a future accidental test relocation, naming change or missing tests directory could produce a green job without exercising the expected regression corpus. This is a concrete *test-harness observability gap*, not evidence that current CI discovered zero tests or that the optimizer is defective. A safe follow-up is a deterministic discovery-count guard or explicit test manifest, first exercised locally and validated on all three Python versions. No unverified workflow change was made.
 - Evidence: https://github.com/owlCoder/gadapt/blob/main/.github/workflows/robustness-tests.yml ; https://github.com/owlCoder/gadapt/blob/main/AGENTS.md . No local checkout/test execution or new SHA-matched CI run was verified, so no implementation patch or merge. This review is counted once, not as a fixed defect.
 - Result: **no_progress**; scheduled cycles **161**; additional documented cycles **206/1000**, excluding four initial historical cycles; remaining **794**; consecutive scheduled cycles without verified progress **147**. No optimizer benchmark, physical evaluation, PF/AC/OPF, held-out COCO, archive, upstream or legacy-default change.
+
+
+### 2026-11-11 — scheduled cycle 162; additional documented architecture review 207/1000
+
+- Starting main SHA: `98394be7b36fe13245a286350791b5159b18b7b2` (GitHub commit search). Re-read current `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, this ledger, CI workflow, `setup.py`, and `gadapt/ga_model/ga_results.py` through the GitHub connector.
+- Narrow result-model initialization audit (strategy shift away from repeated CI and packaging reviews): `GAResults.__init__` initializes `_success`, `_min_cost`, `_messages`, `_result_values`, and other reporting fields, but does **not** initialize `_number_of_iterations`. Its public `number_of_iterations` property directly reads `self._number_of_iterations`, so accessing that property on a newly constructed `GAResults()` before assignment raises `AttributeError` by Python attribute semantics. This is a source-confirmed pre-execution model contract inconsistency, **not** evidence of an error in a completed `GA.execute()` call. A backward-compatible initialization default would require a deterministic public-model regression and full green Python 3.10–3.12 matrix before merge. No speculative code change was made.
+- Evidence: https://github.com/owlCoder/gadapt/blob/98394be7b36fe13245a286350791b5159b18b7b2/gadapt/ga_model/ga_results.py ; https://github.com/owlCoder/gadapt/blob/98394be7b36fe13245a286350791b5159b18b7b2/.github/workflows/robustness-tests.yml . No executable local regression or new SHA-matched CI matrix was verified for this cycle; no implementation PR or merge. The conclusion is static source analysis only.
+- Result: **no_progress** (one distinct documented result-model initialization review). Scheduled cycles **162**; additional actually documented cycles **207/1000**, excluding four initial historical scheduled cycles; remaining **793**; consecutive scheduled cycles without verified progress **148**. No optimizer benchmark, objective/physical evaluation, PF/AC/OPF, held-out COCO, legacy-default, archive or upstream change.
