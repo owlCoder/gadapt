@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **155**.
+- Scheduled cycles completed: **156**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **200 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **800**.
-- Consecutive scheduled cycles without verified progress: **141**.
+- Additional verified cycles completed after that request: **201 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **799**.
+- Consecutive scheduled cycles without verified progress: **142**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -1478,3 +1478,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Distinct CI reproducibility audit (strategy shift from repeated runtime source reviews): the Actions matrix explicitly selects Python 3.10/3.11/3.12 and runs standard unittest discovery, but executes `pip install --upgrade pip` and `pip install -e .` without installing the repository's `requirements.txt`. The package `setup.py` pins NumPy 1.26.4, whereas `requirements.txt` also pins setuptools 70.0.0. Consequently the CI workflow does **not** enforce the recorded setuptools version, and pip/build tooling can vary over time. This is a reproducibility gap, **not** evidence of a failing test or optimizer correctness defect. Do not change CI dependency policy without an executable validation path and verified matrix; no speculative patch was made.
 - Evidence: https://github.com/owlCoder/gadapt/blob/2385ae2d5fb4347c97bdcc657fde4e353364fcbb/.github/workflows/robustness-tests.yml ; https://github.com/owlCoder/gadapt/blob/2385ae2d5fb4347c97bdcc657fde4e353364fcbb/setup.py ; https://github.com/owlCoder/gadapt/blob/2385ae2d5fb4347c97bdcc657fde4e353364fcbb/requirements.txt . No new executable regression, no SHA-matched green CI matrix verified for this review, no implementation PR or merge.
 - Result: **no_progress** (distinct documented CI reproducibility review; no verified fix). Scheduled cycles **155**; additional actually documented cycles **200/1000** (first four historical scheduled cycles excluded); remaining **800**; consecutive scheduled no-progress **141**. No unauthorized benchmark, objective/physical evaluation, PF/AC/OPF, held-out COCO, default, archive or upstream modification.
+
+
+### 2026-11-11 — scheduled cycle 156; additional documented architecture review 201/1000
+
+- Starting main SHA: `27fd3eabc92c8a05cf7ecf3cbe8df66a0fefdad6` (GitHub branches/main API). Re-read current `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, this ledger, and `.github/workflows/robustness-tests.yml` through GitHub connector.
+- Distinct narrow CI supply-chain audit (separate from cycle 155 dependency-install reproducibility): the workflow invokes `actions/checkout@v4` and `actions/setup-python@v5` by mutable major-version tags rather than immutable full commit SHAs. Even with unchanged GAdapt source and Python matrix, the action implementation can change when those tags move. This is a provenance/reproducibility exposure, not a demonstrated compromise, regression or failed build. Pinning should be considered only with reviewed upstream action revisions and CI verification; no speculative workflow change was made.
+- Fresh SHA-matched CI evidence: https://github.com/owlCoder/gadapt/actions/runs/42992973967 completed successfully for the starting `main` SHA; all three jobs `unittest (3.10)`, `unittest (3.11)`, and `unittest (3.12)` concluded success (GitHub Actions jobs API). These are existing push-triggered CI results, **not newly executed local regressions**. No implementation patch/PR/merge. Strategy after >10 no-progress cycles: focus on actionable build provenance and restoring executable validation, rather than repeated cache/grid reviews.
+- Result: **no_progress** (one distinct source-level CI provenance review, no verified fix). Scheduled cycles **156**; additional actually documented cycles **201/1000** (first four historical scheduled cycles excluded); remaining **799**; consecutive scheduled no-progress **142**. No optimizer benchmark, objective/physical evaluation, PF/AC/OPF, held-out COCO, default, archive or upstream modification.
