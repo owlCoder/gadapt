@@ -5,11 +5,11 @@ This file records **engineering progress**, not optimizer benchmark results.
 - Scope: `owlCoder/gadapt`; original research archive and upstream untouched.
 - Goal: improve the rate of feasible, problem-specific acceptable outcomes under a fixed, correctly counted evaluation budget.
 - Scheduled cadence: hourly (Europe/Belgrade); automation is managed in ChatGPT.
-- Scheduled cycles completed: **175**.
+- Scheduled cycles completed: **176**.
 - Additional engineering-cycle goal requested 2026-11-05: **1,000 new verified cycles**, excluding the first four scheduled cycles.
-- Additional verified cycles completed after that request: **220 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
-- Additional verified cycles remaining: **780**.
-- Consecutive scheduled cycles without verified progress: **161**.
+- Additional verified cycles completed after that request: **221 / 1,000** (including this completed scheduled review; the first four historical scheduled cycles remain excluded).
+- Additional verified cycles remaining: **779**.
+- Consecutive scheduled cycles without verified progress: **162**.
 - Strategy-change threshold: **10** consecutive non-progress cycles.
 - Current strategy: **refined at scheduled cycle 78 after 64 consecutive no-progress cycles**. The GitHub Actions REST API is accessible via the GitHub connector, including push-triggered runs and per-version jobs. Stop relying on empty combined commit statuses or PR-only workflow lookups. Use SHA-matched Actions runs and job conclusions for CI evidence; still require an executable checkout and deterministic regression before any implementation merge. Resolve earlier source-only hypotheses against actual public call paths instead of inventing new defect claims.
 - Evidence required for progress: verified bug fix, green regression, or relevant new reproducible technical finding. A commit alone is not progress.
@@ -1639,3 +1639,11 @@ Use one dated entry per scheduled run: verified change/commit, test/CI URL, resu
 - Evidence: https://github.com/owlCoder/gadapt/blob/04098e3b5c19115d5d87e427d2af0dc7d9f0dfbc/gadapt/adapters/ga_logging/logging_settings.py . Existing SHA-matched push CI: https://github.com/owlCoder/gadapt/actions/runs/43152781073 , completed success with unittest jobs Python 3.10, 3.11 and 3.12 all success (verified via Actions REST jobs). This validates the starting main, not a new fix. No executable checkout, dedicated regression execution, implementation PR or merge in this cycle.
 - Strategy: following >10 no-progress cycles, move from directory creation race to filename identity/collision; next implementation requires deterministic executable reproduction and verified branch CI, not another speculative change.
 - Result: **no_progress** (one distinct documented architecture review). Scheduled cycles **175**; additional documented cycles **220/1000** excluding four historical scheduled cycles; remaining **780**; consecutive scheduled no-progress **161**. No unauthorized optimizer benchmark, PF/AC/OPF, held-out COCO, physical evaluation, legacy-default, archive or upstream changes.
+
+
+### 2026-11-12 — scheduled cycle 176; additional documented architecture review 221/1000
+
+- Starting main reference: ledger at 175 scheduled / 220 additional, blob SHA `a1e5a3fd7df563089d1b77f19aff6f6ad1806773`; last confirmed ledger commit `ed2c180f11674790b820d2558b3d7d6fcda5ee1f`. Re-read current `AGENTS.md`, `RELIABILITY_ROADMAP.md`, `ARCHIVE.md`, this ledger, `gadapt/adapters/ga_logging/logging_settings.py`, `gadapt/execution/ga_executor.py` and `.github/workflows/robustness-tests.yml` through GitHub connector.
+- Narrow new architecture finding (strategy shift from timestamp collisions to handler ownership): `init_logging(True)` attaches a handler to the named `gadapt_logger` and sets its level but never configures `logger.propagate`. Python loggers propagate records to ancestor/root handlers by default, so in an embedding application that configures root logging, one `gadapt_log_info` event may be emitted by both the dedicated rotating handler and root handlers. This is a conditional integration risk, not a reproduced duplicate or optimizer correctness defect. Deterministic non-optimizer test plan: install a temporary root capturing handler, call `init_logging` in a temporary working directory, emit one event, and assert the observed propagation contract; preserve root and named logger state in teardown. Do not silently change logging defaults without a compatibility decision.
+- Evidence: https://github.com/owlCoder/gadapt/blob/main/gadapt/adapters/ga_logging/logging_settings.py ; https://github.com/owlCoder/gadapt/blob/main/.github/workflows/robustness-tests.yml . The CI configuration declares Python 3.10, 3.11, 3.12, but no new SHA-matched job results or executable regression were verified in this review. No implementation patch, PR, or merge is claimed.
+- Result: **no_progress** (one distinct source-based logging-integration architecture review). Scheduled cycles **176**; additional actually documented cycles **221/1000**, excluding the initial four historical scheduled cycles; remaining **779**; consecutive scheduled no-progress **162**. After more than ten consecutive non-progress cycles, shifted hypothesis family from file naming to propagation/host-application integration. No unauthorized optimizer benchmarks, objective/physics/COCO evaluations, legacy-default changes, archive changes or upstream writes.
