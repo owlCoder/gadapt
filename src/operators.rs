@@ -139,6 +139,101 @@ pub(crate) fn cross(
         p=(p+0.1).min(1.0);
     }
 }
+
+/// Coupled two-offspring crossover, matching the Python pair structure.
+/// The second child is generated here even if an evaluation-budget boundary
+/// ultimately prevents that child from being evaluated.
+pub(crate) fn cross_pair(
+    mother:&Candidate,father:&Candidate,pool:&[Candidate],
+    vars:&[Variable],options:&Options,prob:f64,rng:&mut Rng
+)->(Vec<f64>,Vec<f64>){
+    let n=vars.len();
+    if options.crossover==Crossover::Differential {
+        if !rng.bool(prob){return (mother.values.clone(),father.values.clone());}
+        let available=pool.iter().filter(|c|!std::ptr::eq(*c,mother)
+            && !std::ptr::eq(*c,father)).count();
+        let f1=0.5+0.5*rng.unit();
+        let f2=0.5+0.5*rng.unit();
+        let donors=if available>=4 {
+            let mut picked=[usize::MAX;4];
+            for slot in 0..4 {
+                loop{
+                    let ix=rng.usize(pool.len());
+                    if std::ptr::eq(&pool[ix],mother)
+                        || std::ptr::eq(&pool[ix],father)
+                        || picked[..slot].contains(&ix){continue;}
+                    picked[slot]=ix;
+                    break;
+                }
+            }
+            Some(picked)
+        }else{None};
+        let mut a=Vec::with_capacity(n);
+        let mut b=Vec::with_capacity(n);
+        for (i,v) in vars.iter().enumerate(){
+            let (x,y)=if let Some([da,db,dc,dd])=donors {
+                let d1=pool[da].values[i]*0.5-pool[db].values[i]*0.5;
+                let d2=pool[dc].values[i]*0.5-pool[dd].values[i]*0.5;
+                (mother.values[i]+2.0*f1*d1,father.values[i]+2.0*f2*d2)
+            }else{
+                let x=lerp(mother.values[i],father.values[i],f1);
+                let y=lerp(father.values[i],mother.values[i],f1);
+                (x,y)
+            };
+            a.push(reflect_snap(x,v));
+            b.push(reflect_snap(y,v));
+        }
+        return (a,b);
+    }
+    let mut p=prob;
+    loop{
+        let mut first=Vec::with_capacity(n);
+        let mut second=Vec::with_capacity(n);
+        let mut crossed=false;
+        for (i,v) in vars.iter().enumerate(){
+            let mother_value=mother.values[i];
+            let father_value=father.values[i];
+            if !rng.bool(p){
+                first.push(mother_value);
+                second.push(father_value);
+                continue;
+            }
+            crossed=true;
+            let (a,b)=match options.crossover {
+                Crossover::Uniform=>match rng.usize(3) {
+                    0=>(father_value,mother_value),
+                    1=>(father_value,father_value),
+                    _=>(mother_value,mother_value),
+                },
+                Crossover::Blending=>{
+                    if let Some(count)=v.grid_len(){
+                        let step=v.step.unwrap();
+                        let m=((mother_value-v.min)/step).round()
+                            .clamp(0.0,(count-1) as f64) as usize;
+                        let f=((father_value-v.min)/step).round()
+                            .clamp(0.0,(count-1) as f64) as usize;
+                        let distance=m.abs_diff(f);
+                        let movement=rng.usize(distance+1);
+                        let a=if m>f{f+movement}else{f-movement};
+                        let b=if f>m{m+movement}else{m-movement};
+                        (v.grid_point(a).unwrap_or(mother_value),
+                         v.grid_point(b).unwrap_or(father_value))
+                    }else{
+                        let alpha=rng.unit();
+                        (lerp(father_value,mother_value,alpha),
+                         lerp(mother_value,father_value,alpha))
+                    }
+                }
+                Crossover::Differential=>unreachable!(),
+            };
+            first.push(snap(a,v));
+            second.push(snap(b,v));
+        }
+        if crossed{return (first,second);}
+        p=(p+0.1).min(1.0);
+    }
+}
+
 pub(crate) fn mutate(
     values:&mut [f64], vars:&[Variable], options:&Options, columns:&[f64],
     force:bool, rng:&mut Rng, stagnant_generations:usize,
@@ -265,5 +360,32 @@ mod crossover_contract_tests{
         options.crossover=Crossover::Differential;
         let out=cross(&a,&b,&a,&[],&[var,var],&options,0.0,&mut Rng::new(3));
         assert_eq!(out,a.values);
+    }
+}
+
+#[cfg(test)]
+mod paired_crossover_tests{
+    use super::*;
+    #[test]fn two_blending_offspring_share_alpha(){
+        let vars=[Variable::new(-2.0,2.0,None).unwrap()];
+        let m=Candidate::new(vec![-1.0]);
+        let f=Candidate::new(vec![1.0]);
+        let mut opts=Options::default();
+        opts.crossover=Crossover::Blending;
+        let mut rng=Rng::new(25);
+        for _ in 0..100 {
+            let (a,b)=cross_pair(&m,&f,&[],&vars,&opts,1.0,&mut rng);
+            assert!(a[0]>=-1.0&&a[0]<=1.0);
+            assert!((a[0]+b[0]).abs()<1e-12);
+        }
+    }
+    #[test]fn differential_pair_disabled_copies_both_parents(){
+        let vars=[Variable::new(-2.0,2.0,None).unwrap()];
+        let m=Candidate::new(vec![-1.0]);
+        let f=Candidate::new(vec![1.0]);
+        let mut opts=Options::default();
+        opts.crossover=Crossover::Differential;
+        let (a,b)=cross_pair(&m,&f,&[],&vars,&opts,0.0,&mut Rng::new(25));
+        assert_eq!(a,m.values);assert_eq!(b,f.values);
     }
 }

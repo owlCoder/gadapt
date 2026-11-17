@@ -288,46 +288,59 @@ impl<'a> GA<'a> {
                 options.population_size.saturating_sub(immigration)
             };
             let mut attempts_without_new_candidate = 0usize;
+            let mut pending_child:Option<(Vec<f64>,usize,usize)>=None;
             while next.len() < offspring_target {
                 if record.at_budget() { break; }
                 if options.timeout.is_some_and(|limit|start.elapsed()>=limit) {break;}
-                let crossover_probability=match options.crossover_probability_policy{
-                    CrossoverProbabilityPolicy::Fixed=>options.crossover_probability,
-                    CrossoverProbabilityPolicy::CostDiversity=>crossover_cost_probability,
-                    CrossoverProbabilityPolicy::ColumnarDiversity=>crossover_column_probability,
-                    CrossoverProbabilityPolicy::Mixed=>
-                        if rng.bool(0.5){crossover_cost_probability}
-                        else{crossover_column_probability},
-                };
-                let mut choose=|rng:&mut Rng| -> Result<usize,GAError> {
-                    let picked=self.operator_hooks.as_mut().and_then(|h|
-                        h.select_parent(&views,rng));
-                    if let Some(idx)=picked {
-                        if idx>=elites.len(){return Err(GAError::Configuration(
-                            "custom parent selector returned an out-of-range index".into()));}
-                        Ok(idx)
-                    }else{Ok(operators::parent_index(&elites,options.parent_selection,rng))}
-                };
-                let a=choose(&mut rng)?;
-                let b=choose(&mut rng)?;
-                let c=choose(&mut rng)?;
-                let first=&elites[a];
-                let second=&elites[b];
-                let third=&elites[c];
-                let custom=self.operator_hooks.as_mut().and_then(|h|h.crossover(
-                    &first.values,&second.values,&third.values,&vars,crossover_probability,&mut rng
-                ));
-                let mut trace:Vec<(usize,usize)>=Vec::new();
-                let mut values=if let Some(values)=custom {
-                    if values.len()!=vars.len(){
+                let (mut values,a,b)=if let Some(child)=pending_child.take(){
+                    child
+                } else {
+                    let crossover_probability=match options.crossover_probability_policy{
+                        CrossoverProbabilityPolicy::Fixed=>options.crossover_probability,
+                        CrossoverProbabilityPolicy::CostDiversity=>crossover_cost_probability,
+                        CrossoverProbabilityPolicy::ColumnarDiversity=>crossover_column_probability,
+                        CrossoverProbabilityPolicy::Mixed=>
+                            if rng.bool(0.5){crossover_cost_probability}
+                            else{crossover_column_probability},
+                    };
+                    let mut choose=|rng:&mut Rng| -> Result<usize,GAError>{
+                        let picked=self.operator_hooks.as_mut().and_then(|h|
+                            h.select_parent(&views,rng));
+                        if let Some(idx)=picked{
+                            if idx>=elites.len(){return Err(GAError::Configuration(
+                                "custom parent selector returned an out-of-range index".into()));}
+                            Ok(idx)
+                        }else{Ok(operators::parent_index(&elites,options.parent_selection,rng))}
+                    };
+                    let a=choose(&mut rng)?;
+                    let b=choose(&mut rng)?;
+                    let third_index=if self.operator_hooks.is_some(){choose(&mut rng)?}else{a};
+                    let first=&elites[a];
+                    let second=&elites[b];
+                    let third=&elites[third_index];
+                    let mut pair=operators::cross_pair(
+                        first,second,&elites,&vars,&options,crossover_probability,&mut rng);
+                    if let Some(hooks)=self.operator_hooks.as_mut(){
+                        if let Some(custom)=hooks.crossover(
+                            &first.values,&second.values,&third.values,&vars,crossover_probability,&mut rng
+                        ){pair.0=custom;}
+                        if let Some(custom)=hooks.crossover(
+                            &second.values,&first.values,&third.values,&vars,crossover_probability,&mut rng
+                        ){pair.1=custom;}
+                    }
+                    if pair.0.len()!=vars.len() || pair.1.len()!=vars.len(){
                         return Err(GAError::Configuration(
                             "custom crossover returned wrong genome length".into()));
                     }
-                    values
-                }else{
-                    operators::cross(first,second,third,&elites,&vars,&options,crossover_probability,&mut rng)
+                    if next.len()+1<offspring_target {
+                        pending_child=Some((pair.1,a,b));
+                    }
+                    (pair.0,a,b)
                 };
-                let force = options.must_mutate_for_same_parents && first.values==second.values;
+                let first=&elites[a];
+                let second=&elites[b];
+                let mut trace:Vec<(usize,usize)>=Vec::new();
+                let force=options.must_mutate_for_same_parents&&first.values==second.values;
                 let mutation_probability = options.population_mutation_fraction
                     * (1.0 - cost_diversity).clamp(0.0,1.0);
                 if force || (mutated_candidates<options.max_mutated_candidates.unwrap_or(usize::MAX)
