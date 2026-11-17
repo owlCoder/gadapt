@@ -3,6 +3,7 @@ use std::time::Instant;
 
 use crate::constraints::Ranker;
 use crate::diversity;
+use crate::hooks::{CandidateView,GeneticHooks};
 use crate::linkage::Linkage;
 use crate::discrete;
 use crate::model::{
@@ -23,6 +24,7 @@ pub struct GA<'a> {
     pub options: Options,
     pub variables: Vec<Variable>,
     objective: Box<Objective<'a>>,
+    operator_hooks:Option<Box<dyn GeneticHooks+'a>>,
 }
 impl<'a> GA<'a> {
     pub fn new<F>(mut objective: F) -> Self
@@ -40,7 +42,18 @@ impl<'a> GA<'a> {
     }
     pub fn try_new<F>(objective: F) -> Self
     where F: FnMut(&[f64]) -> Result<Fitness, String> + 'a {
-        Self { options: Options::default(), variables: Vec::new(), objective: Box::new(objective) }
+        Self { options: Options::default(), variables: Vec::new(), objective: Box::new(objective),
+            operator_hooks:None }
+    }
+    /// Install a custom Rust operator factory, without altering the objective.
+    pub fn set_hooks<H:GeneticHooks+'a>(&mut self,hooks:H)->&mut Self{
+        self.operator_hooks=Some(Box::new(hooks));
+        self
+    }
+    /// Restore all built-in operators.
+    pub fn clear_hooks(&mut self)->&mut Self{
+        self.operator_hooks=None;
+        self
     }
     pub fn add(&mut self, min: f64, max: f64, step: Option<f64>) -> Result<&mut Self, GAError> {
         self.variables.push(Variable::new(min, max, step)?);
@@ -154,6 +167,16 @@ impl<'a> GA<'a> {
             generations += 1;
             let keep_count = options.keep_count().min(population.len());
             let elites: Vec<Candidate> = population.iter().take(keep_count).cloned().collect();
+            // Assemble borrowed views only when a custom factory is installed.
+            let views:Vec<CandidateView<'_>>=if self.operator_hooks.is_some(){
+                elites.iter().map(|c|CandidateView{
+                    values:&c.values,
+                    objective:if c.valid{Some(c.objective)}else{None},
+                    violation:if c.valid{Some(c.violation)}else{None},
+                    score:if c.valid{Some(c.score)}else{None},
+                    parent_distance:c.parent_distance,
+                }).collect()
+            }else{Vec::new()};
             let cost_diversity = diversity::cost(
                 &population, options.cost_diversity_metric, &mut diversity_initial,
             );
@@ -227,24 +250,49 @@ impl<'a> GA<'a> {
             while next.len() < offspring_target {
                 if record.at_budget() { break; }
                 if options.timeout.is_some_and(|limit|start.elapsed()>=limit) {break;}
-                let a=operators::parent_index(&elites, options.parent_selection, &mut rng);
-                let b=operators::parent_index(&elites, options.parent_selection, &mut rng);
-                let c=operators::parent_index(&elites, options.parent_selection, &mut rng);
+                let mut choose=|rng:&mut Rng| -> Result<usize,GAError> {
+                    let picked=self.operator_hooks.as_mut().and_then(|h|
+                        h.select_parent(&views,rng));
+                    if let Some(idx)=picked {
+                        if idx>=elites.len(){return Err(GAError::Configuration(
+                            "custom parent selector returned an out-of-range index".into()));}
+                        Ok(idx)
+                    }else{Ok(operators::parent_index(&elites,options.parent_selection,rng))}
+                };
+                let a=choose(&mut rng)?;
+                let b=choose(&mut rng)?;
+                let c=choose(&mut rng)?;
                 let first=&elites[a];
                 let second=&elites[b];
                 let third=&elites[c];
-                let mut values=operators::cross(
-                    first, second, third, &vars, &options, crossover_probability, &mut rng,
-                );
+                let custom=self.operator_hooks.as_mut().and_then(|h|h.crossover(
+                    &first.values,&second.values,&third.values,&vars,crossover_probability,&mut rng
+                ));
+                let mut values=if let Some(values)=custom {
+                    if values.len()!=vars.len(){
+                        return Err(GAError::Configuration(
+                            "custom crossover returned wrong genome length".into()));
+                    }
+                    values
+                }else{
+                    operators::cross(first,second,third,&vars,&options,crossover_probability,&mut rng)
+                };
                 let force = options.must_mutate_for_same_parents && first.values==second.values;
                 let mutation_probability = options.population_mutation_fraction
                     * (1.0 - cost_diversity).clamp(0.0,1.0);
                 if force || (mutated_candidates<options.max_mutated_candidates.unwrap_or(usize::MAX)
                     && rng.bool(mutation_probability)) {
                     let before=linkage.as_ref().map(|_|values.clone());
-                    let count=operators::mutate(&mut values,&vars,&options,&column_diversity,
-                        force,&mut rng,stalled);
-                    if count>0 {mutated_candidates+=1;}
+                    let handled=self.operator_hooks.as_mut().is_some_and(|h|
+                        h.mutate(&mut values,&vars,&column_diversity,&mut rng));
+                    let count=if handled{
+                        before.as_ref().map(|v|v.iter().zip(&values)
+                            .filter(|(a,b)|*a!=*b).count()).unwrap_or(1)
+                    }else{
+                        operators::mutate(&mut values,&vars,&options,&column_diversity,
+                            force,&mut rng,stalled)
+                    };
+                    if count>0{mutated_candidates+=1;}
                     if let (Some(model),Some(original))=(&linkage,before) {
                         model.apply(&mut values,&original,&vars,&mut rng);
                     }
@@ -256,8 +304,12 @@ impl<'a> GA<'a> {
                         if !seen.contains(&current_key) && !global_seen.contains(&current_key) {break;}
                         if attempt < 5 {
                             let before=linkage.as_ref().map(|_|values.clone());
-                            operators::mutate(&mut values,&vars,&options,&column_diversity,
-                                true,&mut rng,stalled);
+                            let handled=self.operator_hooks.as_mut().is_some_and(|h|
+                                h.mutate(&mut values,&vars,&column_diversity,&mut rng));
+                            if !handled {
+                                operators::mutate(&mut values,&vars,&options,&column_diversity,
+                                    true,&mut rng,stalled);
+                            }
                             if let (Some(model),Some(original))=(&linkage,before) {
                                 model.apply(&mut values,&original,&vars,&mut rng);
                             }

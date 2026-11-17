@@ -19,6 +19,7 @@ mod discrete;
 mod diversity;
 mod linkage;
 mod engine;
+mod hooks;
 mod model;
 mod operators;
 mod rng;
@@ -31,3 +32,5 @@ pub use engine::GA;
 
 pub use credit::{PhysicalArm, PhysicalArmSummary, PhysicalObservation, PhysicalStatus, VerifiedCallRateBandit};
 pub use rng::Rng;
+
+pub use hooks::{CandidateView, GeneticHooks};

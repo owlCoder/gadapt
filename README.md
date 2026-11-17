@@ -87,3 +87,7 @@ A pure-Rust `VerifiedCallRateBandit` now exposes the Python research branch's op
 ### Stagnation refresh and restart
 
 The Rust engine now accepts `reliability_refresh_patience`, `reliability_refresh_percentage`, and `reliability_restart_after_refreshes` (all opt-in). Refreshes preserve the best genuinely evaluated incumbent and use the same evaluation budget. A full restart is attempted only when enough actual calls remain to evaluate an entire fresh population. `stagnation_refreshes` and `reliability_restarts` are reported independently; unlike a clean CI run, they are not evidence of improved solution quality.
+
+### Custom native Rust operators
+
+Implement the `GeneticHooks` trait and call `ga.set_hooks(hooks)` to override parent selection, crossover and/or mutation independently. Defaults fall back to the in-crate implementations, and custom operators still pass through bounded objective accounting and validation. This is a Rust-native extensibility mechanism, not binary compatibility with Python's user-defined GA factories.

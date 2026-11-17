@@ -211,3 +211,28 @@ fn verified_stagnation_refresh_and_restarts_preserve_budget(){
     assert!(r.reliability_restarts>0);
     assert_eq!(r.best_objective,Some(1.0));
 }
+
+struct FixedCrossover;
+impl gadapt::GeneticHooks for FixedCrossover {
+    fn crossover(
+        &mut self,_a:&[f64],_b:&[f64],_c:&[f64],
+        _vars:&[gadapt::Variable],_p:f64,_rng:&mut gadapt::Rng
+    )->Option<Vec<f64>>{
+        Some(vec![0.25])
+    }
+}
+#[test]
+fn custom_rust_operator_respects_budget_and_exact_target(){
+    let mut ga=GA::new(|x|(x[0]-0.25).powi(2));
+    ga.add(-1.0,1.0,None).unwrap();
+    ga.set_hooks(FixedCrossover);
+    ga.options.must_mutate_for_same_parents=false;
+    ga.options.population_mutation_fraction=0.0;
+    ga.options.reliability_mode=true;
+    ga.options.max_evaluations=Some(200);
+    ga.options.acceptable_cost=Some(0.0);
+    let r=ga.execute().unwrap();
+    assert!(r.objective_evaluations<=200);
+    assert_eq!(r.solution_status,SolutionStatus::Acceptable);
+    assert_eq!(r.result_values,vec![0.25]);
+}
