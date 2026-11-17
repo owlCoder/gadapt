@@ -75,3 +75,7 @@ To reproduce archived research, consult the original research archive branch rat
 ### Opt-in compensatory mutation
 
 Set `ga.options.compensatory_mutation = Some(CompensatoryMode::Gated)` for elite-correlation-linked variable mutation. Ungated, permuted, and conditional-Gaussian resample controls are also available. Correlations are computed once per generation and require at least `dimensions + 2` valid elites; gated mode also requires 3 members in each split. To bound memory and avoid disproportionate overhead in large-dimensional optimization, linkage is disabled above 256 dimensions.
+
+### Allocation-aware execution
+
+The engine only tracks per-candidate bitwise keys when uniqueness is enabled, and only creates evaluation cache keys if caching is explicitly enabled. With a fully stepped discrete variable set, uniqueness is now enabled by default, matching the Python default. Set `options.auto_unique_for_discrete = false` to disable the automatic behavior. Finite-grid absence certification refuses grids whose decimal quantization cannot be conservatively verified.

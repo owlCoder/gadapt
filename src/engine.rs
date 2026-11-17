@@ -51,8 +51,11 @@ impl<'a> GA<'a> {
         if self.variables.is_empty() {
             return Err(GAError::Configuration("add at least one decision variable".into()));
         }
-        let options = self.options.clone();
+        let mut options = self.options.clone();
         let vars = self.variables.clone();
+        if options.auto_unique_for_discrete && vars.iter().all(|v|v.grid_len().is_some()) {
+            options.ensure_unique_individuals=true;
+        }
         let start = Instant::now();
         let mut rng = Rng::new(options.seed);
         let mut record = Tracker::new(options.max_evaluations);
@@ -102,7 +105,7 @@ impl<'a> GA<'a> {
             if record.at_budget() { break; }
             let mut c = Candidate::new(vars.iter().map(|v| operators::sample(v, &mut rng)).collect());
             self.evaluate(&mut c, &mut record, &options, &vars);
-            global_seen.insert(key(&c.values));
+            if options.ensure_unique_individuals {global_seen.insert(key(&c.values));}
             population.push(c);
             if record.accepted(options.acceptable_cost) { break; }
         }
@@ -212,7 +215,8 @@ impl<'a> GA<'a> {
                         model.apply(&mut values,&original,&vars,&mut rng);
                     }
                 }
-                let mut current_key=key(&values);
+                let mut current_key=if options.ensure_unique_individuals{key(&values)}
+                    else{Vec::new()};
                 if options.ensure_unique_individuals {
                     for attempt in 0..15 {
                         if !seen.contains(&current_key) && !global_seen.contains(&current_key) {break;}
@@ -238,8 +242,10 @@ impl<'a> GA<'a> {
                 let mut child=Candidate::new(values);
                 child.parent_distance=diversity::parent_distance(&first.values,&second.values,&vars);
                 self.evaluate(&mut child, &mut record, &options, &vars);
-                seen.insert(current_key.clone());
-                global_seen.insert(current_key);
+                if options.ensure_unique_individuals {
+                    seen.insert(current_key.clone());
+                    global_seen.insert(current_key);
+                }
                 next.push(child);
                 if record.accepted(options.acceptable_cost) { break; }
             }
@@ -248,12 +254,12 @@ impl<'a> GA<'a> {
                 && !record.accepted(options.acceptable_cost) {
                 if options.timeout.is_some_and(|limit|start.elapsed()>=limit){break;}
                 let vals:Vec<f64>=vars.iter().map(|v|operators::sample(v,&mut rng)).collect();
-                let k=key(&vals);
+                let k=if options.ensure_unique_individuals{key(&vals)}else{Vec::new()};
                 if options.ensure_unique_individuals
                     && (global_seen.contains(&k) || seen.contains(&k)) {break;}
                 let mut immigrant=Candidate::new(vals);
                 self.evaluate(&mut immigrant, &mut record, &options, &vars);
-                global_seen.insert(k);
+                if options.ensure_unique_individuals{global_seen.insert(k);}
                 next.push(immigrant);
                 immigration_events+=1;
             }
@@ -283,9 +289,10 @@ impl<'a> GA<'a> {
 
     fn evaluate(&mut self, candidate:&mut Candidate, record:&mut Tracker,
         options:&Options, vars:&[Variable]) {
-        let request=key(&candidate.values);
-        if options.cache_evaluations {
-            if let Some(&(objective, violation)) = record.cache.get(&request) {
+        // Avoid per-callback key allocations and hash lookups when caching is off.
+        let request=options.cache_evaluations.then(||key(&candidate.values));
+        if let Some(request)=request.as_ref() {
+            if let Some(&(objective, violation)) = record.cache.get(request) {
                 record.cached += 1;
                 candidate.objective=objective;
                 candidate.violation=violation;
@@ -319,7 +326,7 @@ impl<'a> GA<'a> {
                 candidate.valid=true;
                 candidate.objective=objective;
                 candidate.violation=violation;
-                if options.cache_evaluations {
+                if let Some(request)=request {
                     record.cache.insert(request,(objective,violation));
                 }
                 record.observe(candidate);

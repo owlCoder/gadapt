@@ -109,6 +109,9 @@ pub struct Options {
     pub mutation_focus_exploration_probability: f64,
     pub must_mutate_for_same_parents: bool,
     pub ensure_unique_individuals: bool,
+    /// If enabled, treat a fully discrete variable set as unique-by-default.
+    /// Set false to disable auto uniqueness while preserving explicit `ensure_unique_individuals`.
+    pub auto_unique_for_discrete: bool,
     pub columnar_diversity_metric: DiversityMetric,
     pub cost_diversity_metric: DiversityMetric,
     pub normal_mutation_min_std_dev: f64,
@@ -155,6 +158,7 @@ impl Default for Options {
             mutation_focus_exploration_probability: 0.1,
             must_mutate_for_same_parents: true,
             ensure_unique_individuals: false,
+            auto_unique_for_discrete: true,
             columnar_diversity_metric: DiversityMetric::LogRelative,
             cost_diversity_metric: DiversityMetric::LogRelative,
             normal_mutation_min_std_dev: 0.001,

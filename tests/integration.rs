@@ -181,3 +181,16 @@ fn compensatory_mutation_preserves_hard_budget(){
     let r=ga.execute().unwrap();
     assert_eq!(r.objective_evaluations,81);
 }
+
+#[test]
+fn decimal_rounding_ambiguity_never_certifies_absence(){
+    let mut ga=GA::new(|_|1.0);
+    ga.add(0.15,0.45,Some(0.1)).unwrap();
+    ga.options.reliability_mode=true;
+    ga.options.max_evaluations=Some(5);
+    ga.options.acceptable_cost=Some(0.0);
+    ga.options.discrete_certification=true;
+    let result=ga.execute().unwrap();
+    assert!(!result.discrete_search_applied);
+    assert_eq!(result.discrete_absence_certified,None);
+}
