@@ -2,7 +2,7 @@
 //!
 //! # Example
 //!
-//! \`\`\`
+//! ```
 //! use gadapt::{GA, Options};
 //! let mut ga = GA::new(|xs: &[f64]| (xs[0] - 2.0).powi(2));
 //! ga.add(-5.0, 5.0, None).unwrap();
@@ -11,7 +11,7 @@
 //! let result = ga.execute().unwrap();
 //! assert!(result.best_objective.is_some());
 //! assert!(result.objective_evaluations <= 1000);
-//! \`\`\`
+//! ```
 
 mod constraints;
 mod diversity;

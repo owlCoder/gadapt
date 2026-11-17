@@ -16,6 +16,7 @@ fn zero_budget_overshoot_and_invalid_results() {
     assert_eq!(result.invalid_objective_evaluations,11);
     assert_eq!(result.valid_objective_evaluations,0);
     assert_eq!(result.solution_status,SolutionStatus::NoValidEvaluation);
+    drop(ga);
     assert_eq!(count,11);
 }
 #[test]
@@ -29,6 +30,7 @@ fn returns_genuinely_evaluated_incumbent(){
     let r=ga.execute().unwrap();
     assert_eq!(r.objective_evaluations,150);
     let found=r.result_values[0];
+    drop(ga);
     assert!(seen.contains(&found));
     assert_eq!(r.best_objective,Some((found-1.0).powi(2)));
 }

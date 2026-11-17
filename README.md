@@ -2,19 +2,19 @@
 
 This branch is a **native Rust** rewrite of the GAdapt self-adaptive genetic algorithm library. It has no Python, NumPy, PyO3, or runtime dependency on a Python interpreter. The public API is Rust-native rather than a drop-in replacement for the legacy Python API.
 
-The previous Python implementation remains on the repository's \`main\` branch; its historical research archive and attribution have not been modified. Original authorship: [bpzoran/gadapt](https://github.com/bpzoran/gadapt); this research fork is maintained by owlCoder.
+The previous Python implementation remains on the repository's `main` branch; its historical research archive and attribution have not been modified. Original authorship: [bpzoran/gadapt](https://github.com/bpzoran/gadapt); this research fork is maintained by owlCoder.
 
 ## Build
 
-\`\`\`bash
+```bash
 cargo test --all-targets
 cargo run --example rastrigin
 cargo build --release
-\`\`\`
+```
 
 ## Usage
 
-\`\`\`rust
+```rust
 use gadapt::{GA, ExitCriterion};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -28,11 +28,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("best objective: {:?}; parameters: {:?}", result.best_objective, result.result_values);
     Ok(())
 }
-\`\`\`
+```
 
 Constrained objectives return an explicit nonnegative aggregate violation, **zero only when feasible**:
 
-\`\`\`rust
+```rust
 use gadapt::GA;
 
 let mut ga = GA::constrained(|x| {
@@ -46,9 +46,9 @@ ga.options.acceptable_cost = Some(1.0);
 ga.options.reliability_mode = true;
 let result = ga.execute().unwrap();
 println!("{:?}", result.solution_status);
-\`\`\`
+```
 
-For fallible callbacks, use \`GA::try_new(|xs| -> Result<Fitness,String> { ... })\`. Callback errors and nonfinite evaluations count against the actual evaluation budget and are rejected as invalid. In reliability mode, the best *evaluated* feasible candidate is preserved in the returned result, even if scalar selection or restarts remove it from the current population.
+For fallible callbacks, use `GA::try_new(|xs| -> Result<Fitness,String> { ... })`. Callback errors and nonfinite evaluations count against the actual evaluation budget and are rejected as invalid. In reliability mode, the best *evaluated* feasible candidate is preserved in the returned result, even if scalar selection or restarts remove it from the current population.
 
 ## Components
 
