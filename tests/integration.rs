@@ -275,3 +275,37 @@ fn epsilon_constraint_ranker_needs_generation_limit(){
     ga.options.constraint_handling=Some(ConstraintMethod::Epsilon);
     assert!(ga.execute().is_err());
 }
+
+#[test]
+fn opt_in_validation_probes_charge_actual_budget(){
+    use std::cell::Cell;
+    let called=Cell::new(0usize);
+    let mut ga=GA::new(|x|{
+        called.set(called.get()+1);
+        x[0]*x[0]
+    });
+    ga.add(-1.0,1.0,None).unwrap();
+    ga.options.probe_cost_function=true;
+    ga.options.reliability_mode=true;
+    ga.options.max_evaluations=Some(2);
+    ga.options.acceptable_cost=Some(-1.0);
+    let r=ga.execute().unwrap();
+    assert_eq!(r.objective_evaluations,2);
+    assert_eq!(r.valid_objective_evaluations,2);
+    drop(ga);
+    assert_eq!(called.get(),2);
+}
+#[test]
+fn native_exit_callback_stops_between_generations(){
+    use std::cell::Cell;
+    let times=Cell::new(0usize);
+    let mut ga=GA::new(|x|x[0]*x[0]);
+    ga.add(-1.0,1.0,None).unwrap();
+    ga.set_exit_callback(||{times.set(times.get()+1);times.get()>1});
+    ga.options.exit_criterion=ExitCriterion::Generations;
+    ga.options.number_of_generations=Some(200);
+    let r=ga.execute().unwrap();
+    assert_eq!(r.termination_reason,Termination::ExternalStop);
+    drop(ga);
+    assert!(times.get()>=2);
+}

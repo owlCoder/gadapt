@@ -26,6 +26,7 @@ pub struct GA<'a> {
     pub variables: Vec<Variable>,
     objective: Box<Objective<'a>>,
     operator_hooks:Option<Box<dyn GeneticHooks+'a>>,
+    exit_callback:Option<Box<dyn FnMut()->bool+'a>>,
 }
 impl<'a> GA<'a> {
     pub fn new<F>(mut objective: F) -> Self
@@ -44,11 +45,20 @@ impl<'a> GA<'a> {
     pub fn try_new<F>(objective: F) -> Self
     where F: FnMut(&[f64]) -> Result<Fitness, String> + 'a {
         Self { options: Options::default(), variables: Vec::new(), objective: Box::new(objective),
-            operator_hooks:None }
+            operator_hooks:None,exit_callback:None }
     }
     /// Install a custom Rust operator factory, without altering the objective.
     pub fn set_hooks<H:GeneticHooks+'a>(&mut self,hooks:H)->&mut Self{
         self.operator_hooks=Some(Box::new(hooks));
+        self
+    }
+    /// Register an external early-stop callback, checked between generations.
+    pub fn set_exit_callback<F:FnMut()->bool+'a>(&mut self,callback:F)->&mut Self{
+        self.exit_callback=Some(Box::new(callback));
+        self
+    }
+    pub fn clear_exit_callback(&mut self)->&mut Self{
+        self.exit_callback=None;
         self
     }
     /// Restore all built-in operators.
@@ -111,6 +121,19 @@ impl<'a> GA<'a> {
                 return Ok(result);
             }
         }
+        if options.probe_cost_function {
+            // As in the legacy API, probe both extreme decision vectors.
+            // These are real objective callbacks and are charged against
+            // the same hard evaluation budget; probes do not join the population.
+            for values in [
+                vars.iter().map(|v|v.min).collect(),
+                vars.iter().map(|v|v.max).collect(),
+            ] {
+                if record.at_budget(){break;}
+                let mut candidate=Candidate::new(values);
+                self.evaluate(&mut candidate,&mut record,&options,&vars);
+            }
+        }
         let mut ranker = Ranker::new(options.constraint_handling, options.constraint_penalty_weight);
         let mut generations = 0usize;
         let mut diversity_initial: Option<f64> = None;
@@ -147,6 +170,9 @@ impl<'a> GA<'a> {
             if record.at_budget() { break 'run Termination::EvaluationBudget; }
             if let Some(limit) = options.timeout {
                 if start.elapsed() >= limit { break 'run Termination::Timeout; }
+            }
+            if self.exit_callback.as_mut().is_some_and(|f|f()) {
+                break 'run Termination::ExternalStop;
             }
             if options.number_of_generations.is_some_and(|n|generations >= n) {
                 break 'run Termination::GenerationLimit;

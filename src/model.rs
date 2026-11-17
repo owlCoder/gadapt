@@ -142,6 +142,8 @@ pub struct Options {
     pub constraint_handling: Option<ConstraintMethod>,
     pub constraint_penalty_weight: f64,
     pub reliability_mode: bool,
+    /// Legacy two-endpoint validation probes; each callback consumes a real evaluation.
+    pub probe_cost_function: bool,
     pub max_evaluations: Option<usize>,
     pub acceptable_cost: Option<f64>,
     pub cache_evaluations: bool,
@@ -195,6 +197,7 @@ impl Default for Options {
             constraint_handling: None,
             constraint_penalty_weight: 1000.0,
             reliability_mode: false,
+            probe_cost_function: false,
             max_evaluations: None,
             acceptable_cost: None,
             cache_evaluations: false,
@@ -324,6 +327,7 @@ pub enum Termination {
     Timeout,
     NoValidEvaluations,
     NoProgress,
+    ExternalStop,
     DiscreteSpaceExhausted,
 }
 #[derive(Clone, Debug)]

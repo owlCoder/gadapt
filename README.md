@@ -103,3 +103,7 @@ When `ga.options.mutation = Mutation::Mixed`, set `mutation_operator_policy = Mu
 ### Constraint correctness
 
 The native objective callback must return `Fitness::Constrained { objective, violation }` whenever a constraint handler is enabled; a scalar callback cannot certify constraint feasibility. The `epsilon` handler requires a finite generation limit. The baseline normalization reference is initialized once, and the initial violation percentile uses interpolation; adaptive penalty streaks use the preceding ranked incumbent.
+
+### Validation probes and external stopping
+
+`options.probe_cost_function = true` evaluates the two extreme decision vectors as legacy input probes, charging both actual objective attempts to the same hard budget. This is opt-in in the Rust rewrite (the historical Python API defaults to probing), so explicitly set it when comparing semantics. Set `ga.set_exit_callback(|| should_stop())` for an external generation-boundary stop; the result uses `Termination::ExternalStop`.
