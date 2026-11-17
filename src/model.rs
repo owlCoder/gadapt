@@ -133,6 +133,10 @@ pub struct Options {
     pub acceptable_cost: Option<f64>,
     pub cache_evaluations: bool,
     pub discrete_certification: bool,
+    pub reliability_refresh_patience: Option<usize>,
+    pub reliability_refresh_percentage: f64,
+    pub reliability_restart_after_refreshes: Option<usize>,
+    /// Legacy native-Rust alternate restart trigger. Disabled by default.
     pub stagnation_restart_patience: Option<usize>,
     pub seed: u64,
 }
@@ -180,7 +184,10 @@ impl Default for Options {
             acceptable_cost: None,
             cache_evaluations: false,
             discrete_certification: false,
-            stagnation_restart_patience: Some(5),
+            reliability_refresh_patience: None,
+            reliability_refresh_percentage: 20.0,
+            reliability_restart_after_refreshes: None,
+            stagnation_restart_patience: None,
             seed: 42,
         }
     }
@@ -220,6 +227,14 @@ impl Options {
         }
         if self.max_mutated_variables == Some(0) || self.max_mutated_candidates == Some(0) {
             return Err(GAError::Configuration("mutation count limits must be positive".into()));
+        }
+        if self.reliability_refresh_patience==Some(0) ||
+            self.reliability_restart_after_refreshes==Some(0) {
+            return Err(GAError::Configuration("reliability refresh/restart intervals must be positive".into()));
+        }
+        if !self.reliability_refresh_percentage.is_finite() ||
+            !(0.0..=100.0).contains(&self.reliability_refresh_percentage) {
+            return Err(GAError::Configuration("reliability refresh percentage must be 0..100".into()));
         }
         if self.max_evaluations == Some(0) { return Err(GAError::Configuration("evaluation budget must be > 0".into())); }
         if self.number_of_generations == Some(0) { return Err(GAError::Configuration("number_of_generations must be > 0".into())); }
@@ -302,6 +317,7 @@ pub struct RunResult {
     pub invalid_objective_evaluations: usize,
     pub cached_objective_requests: usize,
     pub reliability_restarts: usize,
+    pub stagnation_refreshes: usize,
     pub discrete_search_applied: bool,
     pub discrete_space_size: Option<usize>,
     pub discrete_points_checked: Option<usize>,

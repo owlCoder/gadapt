@@ -194,3 +194,20 @@ fn decimal_rounding_ambiguity_never_certifies_absence(){
     assert!(!result.discrete_search_applied);
     assert_eq!(result.discrete_absence_certified,None);
 }
+
+#[test]
+fn verified_stagnation_refresh_and_restarts_preserve_budget(){
+    let mut ga=GA::new(|_|1.0);
+    ga.add(-1.0,1.0,None).unwrap();
+    ga.options.reliability_mode=true;
+    ga.options.max_evaluations=Some(240);
+    ga.options.acceptable_cost=Some(0.0);
+    ga.options.reliability_refresh_patience=Some(2);
+    ga.options.reliability_refresh_percentage=30.0;
+    ga.options.reliability_restart_after_refreshes=Some(2);
+    let r=ga.execute().unwrap();
+    assert_eq!(r.objective_evaluations,240);
+    assert!(r.stagnation_refreshes>0);
+    assert!(r.reliability_restarts>0);
+    assert_eq!(r.best_objective,Some(1.0));
+}

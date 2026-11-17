@@ -84,7 +84,7 @@ impl<'a> GA<'a> {
                 let certified=exhausted && !record.accepted(options.acceptable_cost)
                     && record.valid==size && record.invalid==0
                     && record.evaluations==size;
-                let mut result=record.finish(reason,&[],0,vec![],0,0,options.seed,options.acceptable_cost);
+                let mut result=record.finish(reason,&[],0,vec![],0,0,0,options.seed,options.acceptable_cost);
                 result.discrete_search_applied=true;
                 result.discrete_space_size=Some(size);
                 result.discrete_points_checked=Some(checked);
@@ -117,6 +117,9 @@ impl<'a> GA<'a> {
         let mut stalled = 0usize;
         let mut idle = 0usize;
         let mut restarts = 0usize;
+        let mut refreshes = 0usize;
+        let mut refreshes_since_improvement = 0usize;
+        let mut verified_stagnant = 0usize;
         let mut immigration_events = 0usize;
 
         let reason = 'run: loop {
@@ -166,29 +169,60 @@ impl<'a> GA<'a> {
                     * (1.0-cost_diversity)
             ).clamp(0.0,1.0);
             let crossover_probability = crossover_probability.max(options.crossover_probability);
-            let restart = options.reliability_mode
-                && options.stagnation_restart_patience.is_some_and(|n|n>0 && stalled>=n);
-            let extra_immigrants = if options.adaptive_immigration_patience
-                .is_some_and(|n|n>0 && stalled>=n)
-                && cost_diversity<options.adaptive_immigration_diversity_threshold {
-                ((options.keep_count() as f64 * options.adaptive_immigration_percentage / 100.0)
-                    .round() as usize).min(options.population_size.saturating_sub(1))
-            } else { 0 };
-            let immigration = options.immigration_number.max(extra_immigrants)
-                .min(options.population_size.saturating_sub(1));
+            let refresh_due=options.reliability_mode
+                && options.reliability_refresh_percentage>0.0
+                && options.reliability_refresh_patience
+                    .is_some_and(|n|n>0 && verified_stagnant>=n && verified_stagnant%n==0);
+            let calls_remaining=options.max_evaluations.unwrap_or(usize::MAX)
+                .saturating_sub(record.evaluations);
+            let restart_due=refresh_due
+                && options.reliability_restart_after_refreshes
+                    .is_some_and(|n|refreshes_since_improvement>=n);
+            let legacy_restart=options.reliability_mode
+                && options.stagnation_restart_patience
+                    .is_some_and(|n|n>0 && stalled>=n);
+            // All replacement evaluations must fit before committing a restart.
+            let restart=(restart_due || legacy_restart)
+                && record.best.is_some()
+                && calls_remaining>=options.population_size.saturating_sub(1);
+            let adaptive_due=options.adaptive_immigration_patience
+                .is_some_and(|n|n>0 && stalled>=n && stalled%n==0)
+                && cost_diversity<options.adaptive_immigration_diversity_threshold;
+            let extra_immigrants=if adaptive_due {
+                ((keep_count as f64*options.adaptive_immigration_percentage/100.0).ceil() as usize).max(1)
+            }else{0};
+            let refresh_immigrants=if refresh_due {
+                ((keep_count as f64*options.reliability_refresh_percentage/100.0).ceil() as usize).max(1)
+            }else{0};
+            let immigration=options.immigration_number.max(extra_immigrants)
+                .max(refresh_immigrants).min(keep_count.saturating_sub(1));
 
+            let verified_before=record.best.as_ref().map(|c|(c.objective,c.violation));
             let mut next = Vec::with_capacity(options.population_size);
             if restart {
-                if let Some(best) = record.best.clone() { next.push(best); }
+                next.push(record.best.as_ref().unwrap().clone());
                 restarts += 1;
-                stalled=0;
+                refreshes_since_improvement=0;
             } else {
-                next.extend(elites.iter().cloned());
+                next.extend(elites.iter().take(keep_count.saturating_sub(immigration)).cloned());
+                if options.reliability_mode {
+                    if let Some(best)=record.best.as_ref() {
+                        if !next.iter().any(|c|c.values==best.values && c.valid) && !next.is_empty(){
+                            *next.last_mut().unwrap()=best.clone();
+                        }
+                    }
+                }
+                if refresh_due && immigration>0{
+                    refreshes+=1;
+                    refreshes_since_improvement+=1;
+                }
             }
             let prev_evals = record.evaluations;
             let mut seen: HashSet<Vec<u64>> = next.iter().map(|c| key(&c.values)).collect();
             // Keep live objective callbacks inside evaluate; never pre-score an unevaluated child.
-            let offspring_target = options.population_size.saturating_sub(immigration);
+            let offspring_target = if restart{1}else{
+                options.population_size.saturating_sub(immigration)
+            };
             let mut attempts_without_new_candidate = 0usize;
             while next.len() < offspring_target {
                 if record.at_budget() { break; }
@@ -277,13 +311,20 @@ impl<'a> GA<'a> {
                 _ => min < best_previous,
             };
             if improved {stalled=0;} else {stalled+=1;}
+            let verified_after=record.best.as_ref().map(|c|(c.objective,c.violation));
+            if verified_after!=verified_before {
+                verified_stagnant=0;
+                refreshes_since_improvement=0;
+            } else {
+                verified_stagnant+=1;
+            }
             best_previous=min;
             average_previous=average;
             // When no acceptable result exists, a restart preserves the exact
             // evaluated incumbent in Tracker, independent of scalar penalty ordering.
             if restart {stalled=0;}
         };
-        Ok(record.finish(reason, &population, generations, history, restarts,
+        Ok(record.finish(reason, &population, generations, history, restarts,refreshes,
             immigration_events, options.seed, options.acceptable_cost))
     }
 
@@ -382,7 +423,7 @@ impl Tracker {
         target.is_some_and(|t|self.best.as_ref().is_some_and(|c|c.feasible() && c.objective<=t))
     }
     fn finish(&self,reason:Termination,population:&[Candidate],generations:usize,
-        history:Vec<f64>,restarts:usize,immigration_events:usize,
+        history:Vec<f64>,restarts:usize,refreshes:usize,immigration_events:usize,
         seed:u64,target:Option<f64>)->RunResult{
         let accepted=self.accepted(target);
         let feasible=self.best.as_ref().is_some_and(Candidate::feasible);
@@ -405,6 +446,7 @@ impl Tracker {
             invalid_objective_evaluations:self.invalid,
             cached_objective_requests:self.cached,
             reliability_restarts:restarts,
+            stagnation_refreshes:refreshes,
             discrete_search_applied:false,
             discrete_space_size:None,
             discrete_points_checked:None,

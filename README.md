@@ -83,3 +83,7 @@ The engine only tracks per-candidate bitwise keys when uniqueness is enabled, an
 ### Physical-scenario operator-credit accounting
 
 A pure-Rust `VerifiedCallRateBandit` now exposes the Python research branch's optimistic verified-success-per-**actual physical scenario call** heuristic. Callers must supply independently measured `PhysicalObservation` records; success requires all scenarios checked with zero violation. Unknown and censored trials incur paid-call cost without becoming certified successes. This standalone controller is not yet wired into automatic GA mutation selection; do not confuse wrapper objective-call counts with actual external solver calls.
+
+### Stagnation refresh and restart
+
+The Rust engine now accepts `reliability_refresh_patience`, `reliability_refresh_percentage`, and `reliability_restart_after_refreshes` (all opt-in). Refreshes preserve the best genuinely evaluated incumbent and use the same evaluation budget. A full restart is attempted only when enough actual calls remain to evaluate an entire fresh population. `stagnation_refreshes` and `reliability_restarts` are reported independently; unlike a clean CI run, they are not evidence of improved solution quality.
