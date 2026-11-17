@@ -91,3 +91,7 @@ The Rust engine now accepts `reliability_refresh_patience`, `reliability_refresh
 ### Custom native Rust operators
 
 Implement the `GeneticHooks` trait and call `ga.set_hooks(hooks)` to override parent selection, crossover and/or mutation independently. Defaults fall back to the in-crate implementations, and custom operators still pass through bounded objective accounting and validation. This is a Rust-native extensibility mechanism, not binary compatibility with Python's user-defined GA factories.
+
+### Diversity performance
+
+Population cost diversity and per-variable column diversity now use streaming numerical moments without constructing temporary per-column vectors. This reduces allocation pressure from O(population × dimensions) scratch values to O(dimensions) output/baseline storage; it does not establish a speedup without measurements. Extreme finite spans use normalized arithmetic and representable subnormal differences are retained.
