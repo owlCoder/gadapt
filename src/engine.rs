@@ -325,7 +325,7 @@ impl<'a> GA<'a> {
                     }
                     values
                 }else{
-                    operators::cross(first,second,third,&vars,&options,crossover_probability,&mut rng)
+                    operators::cross(first,second,third,&elites,&vars,&options,crossover_probability,&mut rng)
                 };
                 let force = options.must_mutate_for_same_parents && first.values==second.values;
                 let mutation_probability = options.population_mutation_fraction

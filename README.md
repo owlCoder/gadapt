@@ -115,3 +115,7 @@ Per-gene diversity-weighted mutation now samples with two passes over existing i
 ### Crossover probability policy
 
 The original Python default uses a **fixed 0.5** per-gene crossover probability. `CrossoverProbabilityPolicy::Fixed` is now the Rust default. The opt-in `CostDiversity`, `ColumnarDiversity`, and `Mixed` policies follow the original direction of adaptation: `min_probability + (max_probability - min_probability) * diversity`, with the mixed policy selecting one of the two estimators per offspring. This corrects an earlier inverted/nonfixed Rust schedule.
+
+### Native crossover alignment
+
+The Rust blending operator now interpolates strictly between parents (uniform `alpha` in [0,1]) and uses a discrete index between parental grid points where applicable. The uniform operator follows the original first-offspring three-way choice. Differential crossover now uses a single Bernoulli trial and scale factor in [0.5,1.0] across every dimension, with distinct donor candidates when there are enough alternatives; out-of-bounds values are reflected. **An important remaining difference:** the Python implementation produces two coupled offspring per mating, while the Rust engine currently constructs/evaluates one offspring per selected mating operation.

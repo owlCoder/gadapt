@@ -51,28 +51,93 @@ fn lerp(a:f64,b:f64,t:f64)->f64 {
     let v = a*(1.0-t)+b*t;
     if v.is_finite(){v}else{a*0.5+b*0.5}
 }
+fn reflect_snap(x:f64,v:&Variable)->f64{
+    if !x.is_finite(){
+        return snap(if x.is_sign_negative(){v.min}else{v.max},v);
+    }
+    let span=v.max-v.min;
+    let period=2.0*span;
+    if span.is_finite() && period.is_finite() {
+        let offset=x-v.min;
+        if offset.is_finite(){
+            let folded=offset.rem_euclid(period);
+            return snap(v.min+if folded<=span{folded}else{period-folded},v);
+        }
+    }
+    snap(x.clamp(v.min,v.max),v)
+}
+/// Generate the first member of a pair. Probability and donor rules follow
+/// the native-Python operators, but pair bookkeeping is not yet identical.
 pub(crate) fn cross(
-    first:&Candidate, second:&Candidate, third:&Candidate,
-    vars:&[Variable], options:&Options, prob:f64, rng:&mut Rng
+    first:&Candidate,second:&Candidate,_third:&Candidate,pool:&[Candidate],
+    vars:&[Variable],options:&Options,prob:f64,rng:&mut Rng
 )->Vec<f64>{
-    first.values.iter().zip(&second.values).zip(&third.values).zip(vars)
-        .map(|(((&a,&b),&c),var)|{
-            if !rng.bool(prob){ return a; }
-            let result=match options.crossover {
-                Crossover::Uniform=>if rng.bool(0.5){a}else{b},
-                Crossover::Blending=>{
-                    // Blend with limited extrapolation for exploration.
-                    let alpha=rng.unit()*1.5-0.25;
-                    lerp(a,b,alpha)
-                }
-                Crossover::Differential=>{
-                    // Correctly handles even large finite endpoints by scaling differences first.
-                    let delta=(b*0.5-c*0.5)*rng.unit();
-                    a+delta
+    if options.crossover==Crossover::Differential {
+        // Python's differential operator chooses one shared F for the
+        // whole genome and one Bernoulli trial for the entire parent pair.
+        if !rng.bool(prob){return first.values.clone();}
+        let eligible=pool.iter().filter(|c|
+            !std::ptr::eq(*c,first) && !std::ptr::eq(*c,second)).count();
+        let f=0.5+0.5*rng.unit();
+        let donors=if eligible>=4 {
+            let pick=|rng:&mut Rng,other:Option<usize>|->usize{
+                loop{
+                    let index=rng.usize(pool.len());
+                    if other==Some(index) || std::ptr::eq(&pool[index],first)
+                        || std::ptr::eq(&pool[index],second){continue;}
+                    return index;
                 }
             };
-            snap(if result.is_finite(){result}else{a},var)
-        }).collect()
+            let a=pick(rng,None);
+            let b=pick(rng,Some(a));
+            Some((a,b))
+        }else{None};
+        return vars.iter().enumerate().map(|(i,v)|{
+            let a=first.values[i];
+            let shifted=if let Some((left,right))=donors{
+                let lhs=pool[left].values[i];let rhs=pool[right].values[i];
+                a+f*(lhs*0.5-rhs*0.5)*2.0
+            }else{
+                lerp(a,second.values[i],f)
+            };
+            reflect_snap(shifted,v)
+        }).collect();
+    }
+    // Legacy blending/uniform crossover retries until at least one
+    // decision variable was crossed, raising the probability as needed.
+    let mut p=prob;
+    loop {
+        let mut crossed=false;
+        let values:Vec<_>=vars.iter().enumerate().map(|(i,var)|{
+            let a=first.values[i];
+            let b=second.values[i];
+            if !rng.bool(p){return a;}
+            crossed=true;
+            let value=match options.crossover {
+                Crossover::Uniform=>{
+                    // Python first-offspring uniform uses father in two
+                    // of three choices; mother in the remaining one.
+                    if rng.usize(3)<2{b}else{a}
+                }
+                Crossover::Blending=>{
+                    if let Some(n)=var.grid_len(){
+                        let step=var.step.unwrap();
+                        let left=((a-var.min)/step).round().clamp(0.0,(n-1) as f64) as usize;
+                        let right=((b-var.min)/step).round().clamp(0.0,(n-1) as f64) as usize;
+                        let low=left.min(right);let high=left.max(right);
+                        var.grid_point(low+rng.usize(high-low+1)).unwrap_or(a)
+                    }else{
+                        // No extrapolation: Python blending uses alpha in [0,1].
+                        lerp(a,b,rng.unit())
+                    }
+                }
+                Crossover::Differential=>unreachable!(),
+            };
+            snap(if value.is_finite(){value}else{a},var)
+        }).collect();
+        if crossed{return values;}
+        p=(p+0.1).min(1.0);
+    }
 }
 pub(crate) fn mutate(
     values:&mut [f64], vars:&[Variable], options:&Options, columns:&[f64],
@@ -174,5 +239,31 @@ mod tests {
         let var=Variable::new(-1e308,1e308,None).unwrap();
         let mut rng=Rng::new(3);
         for _ in 0..1000 {let x=sample(&var,&mut rng);assert!(x>=var.min&&x<=var.max&&x.is_finite());}
+    }
+}
+
+#[cfg(test)]
+mod crossover_contract_tests{
+    use super::*;
+    #[test]fn blend_never_extrapolates_continuous_values(){
+        let var=Variable::new(-1.0,1.0,None).unwrap();
+        let a=Candidate::new(vec![-0.5]);
+        let b=Candidate::new(vec![0.8]);
+        let mut options=Options::default();
+        options.crossover=Crossover::Blending;
+        let mut rng=Rng::new(42);
+        for _ in 0..500{
+            let next=cross(&a,&b,&a,&[],&[var],&options,1.0,&mut rng);
+            assert!(next[0]>=-0.5 && next[0]<=0.8);
+        }
+    }
+    #[test]fn differential_rate_is_whole_candidate(){
+        let var=Variable::new(-1.0,1.0,None).unwrap();
+        let a=Candidate::new(vec![0.1,0.2]);
+        let b=Candidate::new(vec![-0.1,-0.2]);
+        let mut options=Options::default();
+        options.crossover=Crossover::Differential;
+        let out=cross(&a,&b,&a,&[],&[var,var],&options,0.0,&mut Rng::new(3));
+        assert_eq!(out,a.values);
     }
 }
