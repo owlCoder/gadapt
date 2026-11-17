@@ -15,6 +15,7 @@
 
 mod constraints;
 mod credit;
+mod operator_credit;
 mod discrete;
 mod diversity;
 mod linkage;
@@ -26,6 +27,7 @@ mod rng;
 
 pub use model::{
     CompensatoryMode, ConstraintMethod, Crossover, DiversityMetric, ExitCriterion, Fitness, GAError, Mutation,
+    MutationOperatorPolicy, OperatorCreditSummary,
     Options, ParentSelection, RunResult, Sampling, SolutionStatus, Termination, Variable,
 };
 pub use engine::GA;

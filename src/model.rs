@@ -80,6 +80,17 @@ pub enum Crossover { Blending, Uniform, Differential }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Mutation { Random, Normal, Mixed, ExtremePointed }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum MutationOperatorPolicy { Legacy, Uniform, Ucb }
+#[derive(Clone, Debug)]
+pub struct OperatorCreditSummary {
+    pub operator:Mutation,
+    pub selections:usize,
+    pub observations:usize,
+    pub rewarded:usize,
+    pub withheld:usize,
+    pub recent_mean_reward:f64,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum CompensatoryMode { Gated, Ungated, Permuted, Resample }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum DiversityMetric { LogRelative, Linear, AffineInvariant }
@@ -99,6 +110,8 @@ pub struct Options {
     pub crossover_min_probability: f64,
     pub crossover_max_probability: f64,
     pub mutation: Mutation,
+    pub mutation_operator_policy:MutationOperatorPolicy,
+    pub mutation_credit_window:usize,
     pub population_mutation_fraction: f64,
     pub decision_variable_mutation_fraction: f64,
     pub max_mutated_candidates: Option<usize>,
@@ -152,6 +165,8 @@ impl Default for Options {
             crossover_min_probability: 0.5,
             crossover_max_probability: 1.0,
             mutation: Mutation::Mixed,
+            mutation_operator_policy:MutationOperatorPolicy::Legacy,
+            mutation_credit_window:64,
             population_mutation_fraction: 0.5,
             decision_variable_mutation_fraction: 0.2,
             max_mutated_candidates: None,
@@ -216,6 +231,13 @@ impl Options {
         }
         if self.crossover_min_probability > self.crossover_max_probability {
             return Err(GAError::Configuration("crossover probability interval is reversed".into()));
+        }
+        if self.mutation_credit_window==0{
+            return Err(GAError::Configuration("mutation credit window must be > 0".into()));
+        }
+        if self.mutation_operator_policy!=MutationOperatorPolicy::Legacy &&
+            self.mutation!=Mutation::Mixed{
+            return Err(GAError::Configuration("mutation operator credit requires Mixed mutation".into()));
         }
         if self.max_attempt_no == 0 { return Err(GAError::Configuration("max_attempt_no must be > 0".into())); }
         if self.mutation_focus_generations.is_some_and(|x|!x.is_finite() || x<=0.0) {
@@ -312,6 +334,7 @@ pub struct RunResult {
     pub termination_reason: Termination,
     pub number_of_iterations: usize,
     pub min_cost_per_generation: Vec<f64>,
+    pub operator_credit_summary:Option<Vec<OperatorCreditSummary>>,
     pub objective_evaluations: usize,
     pub valid_objective_evaluations: usize,
     pub invalid_objective_evaluations: usize,

@@ -95,3 +95,7 @@ Implement the `GeneticHooks` trait and call `ga.set_hooks(hooks)` to override pa
 ### Diversity performance
 
 Population cost diversity and per-variable column diversity now use streaming numerical moments without constructing temporary per-column vectors. This reduces allocation pressure from O(population × dimensions) scratch values to O(dimensions) output/baseline storage; it does not establish a speedup without measurements. Extreme finite spans use normalized arithmetic and representable subnormal differences are retained.
+
+### Adaptive objective-based mutation operator selection
+
+When `ga.options.mutation = Mutation::Mixed`, set `mutation_operator_policy = MutationOperatorPolicy::Uniform` or `Ucb` for opt-in per-gene selection of random/normal mutators, with bounded recent credit memory and a returned `operator_credit_summary`. Credit is an offspring-level heuristic shared across traced mutated genes, not causal proof. Cached or invalid fitness requests are withheld from credited observations. Physical-scenario UCB true-call-rate is available separately through the manually supplied evidence-based `VerifiedCallRateBandit`, **not** automatically inferred from Rust wrapper calls.

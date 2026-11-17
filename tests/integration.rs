@@ -236,3 +236,20 @@ fn custom_rust_operator_respects_budget_and_exact_target(){
     assert_eq!(r.solution_status,SolutionStatus::Acceptable);
     assert_eq!(r.result_values,vec![0.25]);
 }
+
+#[test]
+fn objective_ucb_operator_credit_is_budgeted_and_reported(){
+    let mut ga=GA::new(|x|x.iter().map(|v|v*v).sum());
+    for _ in 0..5{ga.add(-3.0,3.0,None).unwrap();}
+    ga.options.mutation_operator_policy=gadapt::MutationOperatorPolicy::Ucb;
+    ga.options.mutation_credit_window=10;
+    ga.options.reliability_mode=true;
+    ga.options.max_evaluations=Some(180);
+    ga.options.acceptable_cost=Some(-1.0);
+    let r=ga.execute().unwrap();
+    let stats=r.operator_credit_summary.unwrap();
+    assert_eq!(r.objective_evaluations,180);
+    assert_eq!(stats.len(),2);
+    assert!(stats.iter().map(|s|s.selections).sum::<usize>()>0);
+    assert!(stats.iter().map(|s|s.observations).sum::<usize>()>0);
+}

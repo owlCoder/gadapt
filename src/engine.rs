@@ -11,6 +11,7 @@ use crate::model::{
     SolutionStatus, Termination, Variable,
 };
 use crate::operators;
+use crate::operator_credit::CreditBook;
 use crate::rng::Rng;
 
 type Objective<'a> = dyn FnMut(&[f64]) -> Result<Fitness, String> + 'a;
@@ -72,6 +73,10 @@ impl<'a> GA<'a> {
         let start = Instant::now();
         let mut rng = Rng::new(options.seed);
         let mut record = Tracker::new(options.max_evaluations);
+        let mut credit=if options.mutation_operator_policy==
+            crate::model::MutationOperatorPolicy::Legacy{None}else{
+                Some(CreditBook::new(options.mutation_operator_policy,options.mutation_credit_window))
+            };
         if options.reliability_mode && options.discrete_certification {
             if let Some(axes) = discrete::axes(&vars, options.max_evaluations.unwrap_or(0)) {
                 let size=axes.iter().map(Vec::len).product::<usize>();
@@ -185,6 +190,12 @@ impl<'a> GA<'a> {
                 &mut column_initial,
             );
             let linkage=options.compensatory_mutation.and_then(|mode|Linkage::build(&elites,&vars,mode));
+            let reference_score=if credit.is_some(){
+                let mut values:Vec<_>=elites.iter().filter(|c|c.valid)
+                    .map(|c|c.score).filter(|s|s.is_finite()).collect();
+                values.sort_by(f64::total_cmp);
+                values.get(values.len()/2).copied()
+            }else{None};
             let mut mutated_candidates=0usize;
             let crossover_probability = (
                 options.crossover_min_probability
@@ -268,6 +279,7 @@ impl<'a> GA<'a> {
                 let custom=self.operator_hooks.as_mut().and_then(|h|h.crossover(
                     &first.values,&second.values,&third.values,&vars,crossover_probability,&mut rng
                 ));
+                let mut trace:Vec<(usize,usize)>=Vec::new();
                 let mut values=if let Some(values)=custom {
                     if values.len()!=vars.len(){
                         return Err(GAError::Configuration(
@@ -290,7 +302,7 @@ impl<'a> GA<'a> {
                             .filter(|(a,b)|*a!=*b).count()).unwrap_or(1)
                     }else{
                         operators::mutate(&mut values,&vars,&options,&column_diversity,
-                            force,&mut rng,stalled)
+                            force,&mut rng,stalled,credit.as_mut(),&mut trace)
                     };
                     if count>0{mutated_candidates+=1;}
                     if let (Some(model),Some(original))=(&linkage,before) {
@@ -308,7 +320,7 @@ impl<'a> GA<'a> {
                                 h.mutate(&mut values,&vars,&column_diversity,&mut rng));
                             if !handled {
                                 operators::mutate(&mut values,&vars,&options,&column_diversity,
-                                    true,&mut rng,stalled);
+                                    true,&mut rng,stalled,credit.as_mut(),&mut trace);
                             }
                             if let (Some(model),Some(original))=(&linkage,before) {
                                 model.apply(&mut values,&original,&vars,&mut rng);
@@ -327,7 +339,14 @@ impl<'a> GA<'a> {
                 }
                 let mut child=Candidate::new(values);
                 child.parent_distance=diversity::parent_distance(&first.values,&second.values,&vars);
+                let before_calls=record.evaluations;
                 self.evaluate(&mut child, &mut record, &options, &vars);
+                if let Some(book)=credit.as_mut(){
+                    let score=if record.evaluations>before_calls && child.valid {
+                        Some(ranker.score(&child))
+                    }else{None};
+                    book.observe(&trace,score,reference_score);
+                }
                 if options.ensure_unique_individuals {
                     seen.insert(current_key.clone());
                     global_seen.insert(current_key);
@@ -376,8 +395,10 @@ impl<'a> GA<'a> {
             // evaluated incumbent in Tracker, independent of scalar penalty ordering.
             if restart {stalled=0;}
         };
-        Ok(record.finish(reason, &population, generations, history, restarts,refreshes,
-            immigration_events, options.seed, options.acceptable_cost))
+        let mut result=record.finish(reason, &population, generations, history, restarts,refreshes,
+            immigration_events, options.seed, options.acceptable_cost);
+        result.operator_credit_summary=credit.map(|book|book.summary());
+        Ok(result)
     }
 
     fn evaluate(&mut self, candidate:&mut Candidate, record:&mut Tracker,
@@ -493,6 +514,7 @@ impl Tracker {
             feasible,acceptable:accepted,solution_status,
             termination_reason:reason,
             number_of_iterations:generations,min_cost_per_generation:history,
+            operator_credit_summary:None,
             objective_evaluations:self.evaluations,
             valid_objective_evaluations:self.valid,
             invalid_objective_evaluations:self.invalid,

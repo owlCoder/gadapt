@@ -1,5 +1,6 @@
 use crate::model::{Candidate, Crossover, Mutation, Options, ParentSelection, Variable};
 use crate::rng::Rng;
+use crate::operator_credit::CreditBook;
 
 pub(crate) fn sample(variable: &Variable, rng: &mut Rng) -> f64 {
     // Sampling by a uniform grid index avoids the half-weighted endpoints
@@ -75,7 +76,8 @@ pub(crate) fn cross(
 }
 pub(crate) fn mutate(
     values:&mut [f64], vars:&[Variable], options:&Options, columns:&[f64],
-    force:bool, rng:&mut Rng, stagnant_generations:usize
+    force:bool, rng:&mut Rng, stagnant_generations:usize,
+    mut credit:Option<&mut CreditBook>, trace:&mut Vec<(usize,usize)>
 )->usize {
     let dims=values.len();
     if dims==0{return 0;}
@@ -110,10 +112,21 @@ pub(crate) fn mutate(
         let i=candidates.swap_remove(pick);
         let old=values[i];
         let var=&vars[i];
-        let selected=match options.mutation {
-            Mutation::Mixed=>if rng.bool(0.5*focus){Mutation::Random}else{Mutation::Normal},
-            other=>other
+        let (selected,arm)=match options.mutation {
+            Mutation::Mixed=>{
+                if let Some(book)=credit.as_deref_mut(){
+                    let (idx,op)=book.choose(rng);
+                    (op,Some(idx))
+                }else if rng.bool(0.5*focus){(Mutation::Random,None)}
+                else{(Mutation::Normal,None)}
+            },
+            other=>(other,None),
         };
+        if let Some(arm)=arm {
+            if let Some(item)=trace.iter_mut().find(|(variable,_)|*variable==i){
+                *item=(i,arm);
+            }else{trace.push((i,arm));}
+        }
         let next=match selected {
             Mutation::Random=>sample(var,rng),
             Mutation::ExtremePointed=>if rng.bool(0.5){var.min}else{var.max},
