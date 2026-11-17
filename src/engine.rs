@@ -3,6 +3,7 @@ use std::time::Instant;
 
 use crate::constraints::Ranker;
 use crate::diversity;
+use crate::discrete;
 use crate::model::{
     Candidate, ConstraintMethod, ExitCriterion, Fitness, GAError, Options, RunResult,
     SolutionStatus, Termination, Variable,
@@ -54,6 +55,37 @@ impl<'a> GA<'a> {
         let start = Instant::now();
         let mut rng = Rng::new(options.seed);
         let mut record = Tracker::new(options.max_evaluations);
+        if options.reliability_mode && options.discrete_certification {
+            if let Some(axes) = discrete::axes(&vars, options.max_evaluations.unwrap_or(0)) {
+                let size=axes.iter().map(Vec::len).product::<usize>();
+                let mut checked=0usize;
+                let mut reason=Termination::EvaluationBudget;
+                for i in 0..size {
+                    if options.timeout.is_some_and(|limit|start.elapsed()>=limit) {
+                        reason=Termination::Timeout;
+                        break;
+                    }
+                    let mut c=Candidate::new(discrete::point(&axes,i));
+                    self.evaluate(&mut c, &mut record, &options, &vars);
+                    checked+=1;
+                    if record.accepted(options.acceptable_cost){
+                        reason=Termination::AcceptableTarget;
+                        break;
+                    }
+                }
+                let exhausted=checked==size;
+                let certified=exhausted && !record.accepted(options.acceptable_cost)
+                    && record.valid==size && record.invalid==0
+                    && record.evaluations==size;
+                let mut result=record.finish(reason,&[],0,vec![],0,0,options.seed,options.acceptable_cost);
+                result.discrete_search_applied=true;
+                result.discrete_space_size=Some(size);
+                result.discrete_points_checked=Some(checked);
+                result.discrete_space_exhausted=Some(exhausted);
+                result.discrete_absence_certified=Some(certified);
+                return Ok(result);
+            }
+        }
         let mut ranker = Ranker::new(options.constraint_handling, options.constraint_penalty_weight);
         let mut generations = 0usize;
         let mut diversity_initial: Option<f64> = None;
@@ -349,6 +381,11 @@ impl Tracker {
             invalid_objective_evaluations:self.invalid,
             cached_objective_requests:self.cached,
             reliability_restarts:restarts,
+            discrete_search_applied:false,
+            discrete_space_size:None,
+            discrete_points_checked:None,
+            discrete_space_exhausted:None,
+            discrete_absence_certified:None,
             immigration_events,seed,
         }
     }

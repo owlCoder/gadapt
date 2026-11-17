@@ -96,6 +96,7 @@ pub struct Options {
     pub max_evaluations: Option<usize>,
     pub acceptable_cost: Option<f64>,
     pub cache_evaluations: bool,
+    pub discrete_certification: bool,
     pub stagnation_restart_patience: Option<usize>,
     pub seed: u64,
 }
@@ -134,6 +135,7 @@ impl Default for Options {
             max_evaluations: None,
             acceptable_cost: None,
             cache_evaluations: false,
+            discrete_certification: false,
             stagnation_restart_patience: Some(5),
             seed: 42,
         }
@@ -243,6 +245,11 @@ pub struct RunResult {
     pub invalid_objective_evaluations: usize,
     pub cached_objective_requests: usize,
     pub reliability_restarts: usize,
+    pub discrete_search_applied: bool,
+    pub discrete_space_size: Option<usize>,
+    pub discrete_points_checked: Option<usize>,
+    pub discrete_space_exhausted: Option<bool>,
+    pub discrete_absence_certified: Option<bool>,
     pub immigration_events: usize,
     pub seed: u64,
 }

@@ -60,9 +60,10 @@ For fallible callbacks, use `GA::try_new(|xs| -> Result<Fitness,String> { ... })
 - Deterministic seeded pseudo-random generator with no ambient global RNG.
 - Optional evaluation cache (only enable for stationary, deterministic objective functions).
 - Hard actual-call budget, invalid-evaluation accounting, separate feasibility and quality status.
+- Optional exhaustive finite-grid certification via `options.discrete_certification = true` in reliability mode; only proves absence when all points were validly evaluated.
 
 ## Compatibility and scientific caution
 
-**This is a new Rust implementation, not an established bit-for-bit or feature-complete behavioral port of the Python implementation.** In particular it does not yet implement the legacy custom Python factory/plugin interface, scenario-physical-solver credit attribution, discrete absence certification, or all experimental operator-credit variants. The random stream, default mutation schedules, and numerical behavior can differ. The native Rust test suite verifies contracts, **not** superiority or optimizer reliability across problem classes. No performance or solution-quality claims are made without a pre-approved paired-seed benchmark protocol.
+**This is a new Rust implementation, not an established bit-for-bit or feature-complete behavioral port of the Python implementation.** In particular it does not yet implement the legacy custom Python factory/plugin interface, scenario-physical-solver credit attribution or all experimental operator-credit variants. The random stream, default mutation schedules, and numerical behavior can differ. The native Rust test suite verifies contracts, **not** superiority or optimizer reliability across problem classes. No performance or solution-quality claims are made without a pre-approved paired-seed benchmark protocol.
 
 To reproduce archived research, consult the original research archive branch rather than applying this rewrite to historical results.

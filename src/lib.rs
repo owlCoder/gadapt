@@ -14,6 +14,7 @@
 //! ```
 
 mod constraints;
+mod discrete;
 mod diversity;
 mod engine;
 mod model;
