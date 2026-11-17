@@ -111,3 +111,7 @@ The native objective callback must return `Fitness::Constrained { objective, vio
 ### Operator hot-path memory improvements
 
 Per-gene diversity-weighted mutation now samples with two passes over existing indices, without allocating a temporary weights array for every gene. The optional UCB operator picker and permuted-linkage selector also avoid transient candidate-index collections. Gaussian RNG reuses a cached second Box–Muller variate, reducing transcendental work when normal mutations are frequent. These modifications change the Rust random stream; they do not change the originally archived Python RNG and cannot establish a wall-clock speedup without a measured benchmark.
+
+### Crossover probability policy
+
+The original Python default uses a **fixed 0.5** per-gene crossover probability. `CrossoverProbabilityPolicy::Fixed` is now the Rust default. The opt-in `CostDiversity`, `ColumnarDiversity`, and `Mixed` policies follow the original direction of adaptation: `min_probability + (max_probability - min_probability) * diversity`, with the mixed policy selecting one of the two estimators per offspring. This corrects an earlier inverted/nonfixed Rust schedule.

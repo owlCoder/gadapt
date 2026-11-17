@@ -309,3 +309,29 @@ fn native_exit_callback_stops_between_generations(){
     drop(ga);
     assert!(times.get()>=2);
 }
+
+#[test]
+fn legacy_crossover_probability_is_fixed_by_default(){
+    let defaults=gadapt::Options::default();
+    assert_eq!(defaults.crossover_probability_policy,
+        gadapt::CrossoverProbabilityPolicy::Fixed);
+    assert_eq!(defaults.crossover_probability,0.5);
+}
+#[test]
+fn opt_in_crossover_probability_modes_respect_budget(){
+    for mode in [
+        gadapt::CrossoverProbabilityPolicy::CostDiversity,
+        gadapt::CrossoverProbabilityPolicy::ColumnarDiversity,
+        gadapt::CrossoverProbabilityPolicy::Mixed,
+    ] {
+        let mut ga=GA::new(|x|x[0]*x[0]+x[1]*x[1]);
+        ga.add(-2.0,2.0,None).unwrap();
+        ga.add(-2.0,2.0,None).unwrap();
+        ga.options.crossover_probability_policy=mode;
+        ga.options.reliability_mode=true;
+        ga.options.max_evaluations=Some(64);
+        ga.options.acceptable_cost=Some(-1.0);
+        let r=ga.execute().unwrap();
+        assert_eq!(r.objective_evaluations,64);
+    }
+}

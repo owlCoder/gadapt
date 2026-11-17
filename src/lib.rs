@@ -26,7 +26,8 @@ mod operators;
 mod rng;
 
 pub use model::{
-    CompensatoryMode, ConstraintMethod, Crossover, DiversityMetric, ExitCriterion, Fitness, GAError, Mutation,
+    CompensatoryMode, ConstraintMethod, Crossover, CrossoverProbabilityPolicy, DiversityMetric,
+    ExitCriterion, Fitness, GAError, Mutation,
     MutationOperatorPolicy, OperatorCreditSummary,
     Options, ParentSelection, RunResult, Sampling, SolutionStatus, Termination, Variable,
 };

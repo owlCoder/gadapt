@@ -7,7 +7,7 @@ use crate::hooks::{CandidateView,GeneticHooks};
 use crate::linkage::Linkage;
 use crate::discrete;
 use crate::model::{
-    Candidate, ConstraintMethod, ExitCriterion, Fitness, GAError, Options, RunResult,
+    Candidate, ConstraintMethod, CrossoverProbabilityPolicy, ExitCriterion, Fitness, GAError, Options, RunResult,
     SolutionStatus, Termination, Variable,
 };
 use crate::operators;
@@ -223,12 +223,14 @@ impl<'a> GA<'a> {
                 values.get(values.len()/2).copied()
             }else{None};
             let mut mutated_candidates=0usize;
-            let crossover_probability = (
-                options.crossover_min_probability
-                + (options.crossover_max_probability - options.crossover_min_probability)
-                    * (1.0-cost_diversity)
-            ).clamp(0.0,1.0);
-            let crossover_probability = crossover_probability.max(options.crossover_probability);
+            let column_rate=if column_diversity.is_empty(){0.0}else{
+                column_diversity.iter().sum::<f64>()/column_diversity.len() as f64
+            }.clamp(0.0,1.0);
+            let rate_span=options.crossover_max_probability-options.crossover_min_probability;
+            let crossover_cost_probability=options.crossover_min_probability+
+                rate_span*cost_diversity.clamp(0.0,1.0);
+            let crossover_column_probability=options.crossover_min_probability+
+                rate_span*column_rate;
             let refresh_due=options.reliability_mode
                 && options.reliability_refresh_percentage>0.0
                 && options.reliability_refresh_patience
@@ -289,6 +291,14 @@ impl<'a> GA<'a> {
             while next.len() < offspring_target {
                 if record.at_budget() { break; }
                 if options.timeout.is_some_and(|limit|start.elapsed()>=limit) {break;}
+                let crossover_probability=match options.crossover_probability_policy{
+                    CrossoverProbabilityPolicy::Fixed=>options.crossover_probability,
+                    CrossoverProbabilityPolicy::CostDiversity=>crossover_cost_probability,
+                    CrossoverProbabilityPolicy::ColumnarDiversity=>crossover_column_probability,
+                    CrossoverProbabilityPolicy::Mixed=>
+                        if rng.bool(0.5){crossover_cost_probability}
+                        else{crossover_column_probability},
+                };
                 let mut choose=|rng:&mut Rng| -> Result<usize,GAError> {
                     let picked=self.operator_hooks.as_mut().and_then(|h|
                         h.select_parent(&views,rng));

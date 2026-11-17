@@ -78,6 +78,8 @@ pub enum Sampling { Roulette, Tournament(usize), Random, TopToBottom }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Crossover { Blending, Uniform, Differential }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum CrossoverProbabilityPolicy { Fixed, CostDiversity, ColumnarDiversity, Mixed }
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Mutation { Random, Normal, Mixed, ExtremePointed }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum MutationOperatorPolicy { Legacy, Uniform, Ucb }
@@ -106,6 +108,7 @@ pub struct Options {
     pub number_of_crossover_parents: Option<usize>,
     pub parent_selection: ParentSelection,
     pub crossover: Crossover,
+    pub crossover_probability_policy:CrossoverProbabilityPolicy,
     pub crossover_probability: f64,
     pub crossover_min_probability: f64,
     pub crossover_max_probability: f64,
@@ -163,6 +166,7 @@ impl Default for Options {
             number_of_crossover_parents: None,
             parent_selection: ParentSelection::Roulette,
             crossover: Crossover::Blending,
+            crossover_probability_policy:CrossoverProbabilityPolicy::Fixed,
             crossover_probability: 0.5,
             crossover_min_probability: 0.5,
             crossover_max_probability: 1.0,
