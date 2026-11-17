@@ -303,6 +303,7 @@ impl<'a> GA<'a> {
                             if rng.bool(0.5){crossover_cost_probability}
                             else{crossover_column_probability},
                     };
+                    let has_custom_hooks=self.operator_hooks.is_some();
                     let mut choose=|rng:&mut Rng| -> Result<usize,GAError>{
                         let picked=self.operator_hooks.as_mut().and_then(|h|
                             h.select_parent(&views,rng));
@@ -314,7 +315,7 @@ impl<'a> GA<'a> {
                     };
                     let a=choose(&mut rng)?;
                     let b=choose(&mut rng)?;
-                    let third_index=if self.operator_hooks.is_some(){choose(&mut rng)?}else{a};
+                    let third_index=if has_custom_hooks{choose(&mut rng)?}else{a};
                     let first=&elites[a];
                     let second=&elites[b];
                     let third=&elites[third_index];
