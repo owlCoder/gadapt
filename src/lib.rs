@@ -14,6 +14,7 @@
 //! ```
 
 mod constraints;
+mod credit;
 mod discrete;
 mod diversity;
 mod linkage;
@@ -27,3 +28,6 @@ pub use model::{
     Options, ParentSelection, RunResult, Sampling, SolutionStatus, Termination, Variable,
 };
 pub use engine::GA;
+
+pub use credit::{PhysicalArm, PhysicalArmSummary, PhysicalObservation, PhysicalStatus, VerifiedCallRateBandit};
+pub use rng::Rng;

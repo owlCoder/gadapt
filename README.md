@@ -79,3 +79,7 @@ Set `ga.options.compensatory_mutation = Some(CompensatoryMode::Gated)` for elite
 ### Allocation-aware execution
 
 The engine only tracks per-candidate bitwise keys when uniqueness is enabled, and only creates evaluation cache keys if caching is explicitly enabled. With a fully stepped discrete variable set, uniqueness is now enabled by default, matching the Python default. Set `options.auto_unique_for_discrete = false` to disable the automatic behavior. Finite-grid absence certification refuses grids whose decimal quantization cannot be conservatively verified.
+
+### Physical-scenario operator-credit accounting
+
+A pure-Rust `VerifiedCallRateBandit` now exposes the Python research branch's optimistic verified-success-per-**actual physical scenario call** heuristic. Callers must supply independently measured `PhysicalObservation` records; success requires all scenarios checked with zero violation. Unknown and censored trials incur paid-call cost without becoming certified successes. This standalone controller is not yet wired into automatic GA mutation selection; do not confuse wrapper objective-call counts with actual external solver calls.

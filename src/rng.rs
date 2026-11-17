@@ -1,6 +1,6 @@
 //! Small deterministic PRNG, independent of platform and global mutable state.
 //! No claim is made that sequences match Python's random/NumPy.
-pub(crate) struct Rng { state: u64 }
+pub struct Rng { state: u64 }
 impl Rng {
     pub fn new(seed: u64) -> Self {
         Self { state: if seed == 0 { 0x9e3779b97f4a7c15 } else { seed } }
