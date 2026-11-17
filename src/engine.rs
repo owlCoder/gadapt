@@ -163,8 +163,9 @@ impl<'a> GA<'a> {
             let restart = options.reliability_mode
                 && options.stagnation_restart_patience.is_some_and(|n|n>0 && stalled>=n);
             let extra_immigrants = if options.adaptive_immigration_patience
-                .is_some_and(|n|n>0 && stalled>=n) {
-                ((options.population_size as f64 * options.adaptive_immigration_percentage / 100.0)
+                .is_some_and(|n|n>0 && stalled>=n)
+                && cost_diversity<options.adaptive_immigration_diversity_threshold {
+                ((options.keep_count() as f64 * options.adaptive_immigration_percentage / 100.0)
                     .round() as usize).min(options.population_size.saturating_sub(1))
             } else { 0 };
             let immigration = options.immigration_number.max(extra_immigrants)
@@ -200,7 +201,7 @@ impl<'a> GA<'a> {
                     * (1.0 - cost_diversity).clamp(0.0,1.0);
                 if force || rng.bool(mutation_probability) {
                     operators::mutate(&mut values,&vars,&options,&column_diversity,
-                        force,&mut rng,generations);
+                        force,&mut rng,stalled);
                 }
                 let mut current_key=key(&values);
                 if options.ensure_unique_individuals {
@@ -208,7 +209,7 @@ impl<'a> GA<'a> {
                         if !seen.contains(&current_key) && !global_seen.contains(&current_key) {break;}
                         if attempt < 5 {
                             operators::mutate(&mut values,&vars,&options,&column_diversity,
-                                true,&mut rng,generations);
+                                true,&mut rng,stalled);
                         }else{
                             values=vars.iter().map(|v|operators::sample(v,&mut rng)).collect();
                         }

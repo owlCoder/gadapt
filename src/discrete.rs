@@ -9,21 +9,13 @@ pub(crate) fn axes(vars:&[Variable], budget:usize)->Option<Vec<Vec<f64>>> {
     let mut total=1usize;
     let mut result=Vec::new();
     for v in vars {
-        let step=v.step?;
-        let ratio=(v.max-v.min)/step;
-        if !ratio.is_finite() || ratio<0.0 || ratio>1e9 {return None;}
-        let rounded=ratio.round();
-        let ratio=if (ratio-rounded).abs() <= 1e-9f64.max(1e-9*ratio.abs()){
-            rounded
-        } else {ratio.floor()};
-        if ratio>usize::MAX as f64-1.0{return None;}
-        let count=ratio as usize+1;
+        let count=v.grid_len()?;
         total=total.checked_mul(count)?;
         if total>budget {return None;}
         let mut distinct=HashSet::new();
         let mut line=Vec::with_capacity(count);
         for i in 0..count {
-            let x=(v.min+i as f64*step).min(v.max);
+            let x=v.grid_point(i)?;
             if !v.contains(x) || !distinct.insert(x.to_bits()) {return None;}
             line.push(x);
         }

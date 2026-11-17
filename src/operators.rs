@@ -2,20 +2,20 @@ use crate::model::{Candidate, Crossover, Mutation, Options, ParentSelection, Var
 use crate::rng::Rng;
 
 pub(crate) fn sample(variable: &Variable, rng: &mut Rng) -> f64 {
+    // Sampling by a uniform grid index avoids the half-weighted endpoints
+    // created by sampling a continuous value and snapping to the nearest point.
+    if let Some(n)=variable.grid_len(){
+        return variable.grid_point(rng.usize(n)).unwrap_or(variable.min);
+    }
     let u=rng.unit();
-    let raw=variable.min*(1.0-u)+variable.max*u;
-    snap(raw, variable)
+    (variable.min*(1.0-u)+variable.max*u).clamp(variable.min,variable.max)
 }
 pub(crate) fn snap(value:f64, variable:&Variable)->f64 {
     let x=value.clamp(variable.min,variable.max);
-    match variable.step {
-        None=>x,
-        Some(step)=>{
-            let idx=((x-variable.min)/step).round();
-            if !idx.is_finite() { return x; }
-            (variable.min+idx*step).clamp(variable.min,variable.max)
-        }
-    }
+    let Some(n)=variable.grid_len() else{return x;};
+    let step=variable.step.unwrap();
+    let i=((x-variable.min)/step).round().clamp(0.0,(n-1) as f64) as usize;
+    variable.grid_point(i).unwrap_or(x)
 }
 pub(crate) fn parent_index(elites:&[Candidate], method:ParentSelection,rng:&mut Rng)->usize {
     let n=elites.len();
@@ -75,17 +75,26 @@ pub(crate) fn cross(
 }
 pub(crate) fn mutate(
     values:&mut [f64], vars:&[Variable], options:&Options, columns:&[f64],
-    force:bool, rng:&mut Rng, generation:usize
+    force:bool, rng:&mut Rng, stagnant_generations:usize
 )->usize {
     let dims=values.len();
     if dims==0{return 0;}
     let avg=columns.iter().sum::<f64>()/dims as f64;
-    let cap=((dims as f64*options.decision_variable_mutation_fraction).ceil() as usize)
-        .clamp(1,dims);
-    let desired= if force { 1+rng.usize(cap) } else {
-        // As the population converges: fewer variables, more gentle mutations.
-        1+(rng.unit()*(cap as f64)*(0.25+0.75*avg)).floor() as usize
-    }.min(cap);
+    let mut cap=options.max_mutated_variables.unwrap_or_else(||{
+        (dims as f64*options.decision_variable_mutation_fraction).round() as usize
+    }).clamp(1,dims);
+    if !options.strict_mutation_decision_variable_limit {
+        cap=cap.max((dims+4)/5).min(dims);
+    }
+    let focused=options.mutation_focus_generations.is_some()
+        && !rng.bool(options.mutation_focus_exploration_probability);
+    let focus=if focused {
+        0.5f64.powf(stagnant_generations as f64/options.mutation_focus_generations.unwrap())
+    }else{1.0};
+    let mut desired=if force {1+rng.usize(cap)}else{
+        (1.0+rng.unit()*(cap as f64)*(0.25+0.75*avg)).floor() as usize
+    }.clamp(1,cap);
+    desired=((desired as f64*focus).ceil() as usize).clamp(1,cap);
     let mut candidates:Vec<usize>=(0..dims).collect();
     let mut changed=0;
     for _ in 0..desired {
@@ -102,17 +111,22 @@ pub(crate) fn mutate(
         let old=values[i];
         let var=&vars[i];
         let selected=match options.mutation {
-            Mutation::Mixed=>if rng.bool(0.5){Mutation::Normal}else{Mutation::Random},
+            Mutation::Mixed=>if rng.bool(0.5*focus){Mutation::Random}else{Mutation::Normal},
             other=>other
         };
         let next=match selected {
             Mutation::Random=>sample(var,rng),
             Mutation::ExtremePointed=>if rng.bool(0.5){var.min}else{var.max},
             Mutation::Normal | Mutation::Mixed => {
-                let progress=options.min_std_dev_decay_generations.map(|n|{
-                    (generation as f64/n.max(1) as f64).clamp(0.0,1.0)
+                let decay=options.min_std_dev_decay_generations.map(|n|{
+                    0.1f64.powf(stagnant_generations as f64/n.max(1) as f64)
+                }).unwrap_or(1.0);
+                let step_floor=var.step.and_then(|s|{
+                    let span=var.max-var.min;
+                    if span.is_finite() && span>0.0 {Some(s/span)}else{None}
                 }).unwrap_or(0.0);
-                let min_std=options.normal_mutation_min_std_dev*(1.0-progress);
+                let min_std=(options.normal_mutation_min_std_dev*decay)
+                    .max(1e-9).max(step_floor);
                 let std=min_std+
                     (options.normal_mutation_max_std_dev-min_std)*columns[i].clamp(0.0,1.0);
                 // Calculate in normalized space to avoid infinite ranges.

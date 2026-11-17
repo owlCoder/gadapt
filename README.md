@@ -67,3 +67,7 @@ For fallible callbacks, use `GA::try_new(|xs| -> Result<Fitness,String> { ... })
 **This is a new Rust implementation, not an established bit-for-bit or feature-complete behavioral port of the Python implementation.** In particular it does not yet implement the legacy custom Python factory/plugin interface, scenario-physical-solver credit attribution or all experimental operator-credit variants. The random stream, default mutation schedules, and numerical behavior can differ. The native Rust test suite verifies contracts, **not** superiority or optimizer reliability across problem classes. No performance or solution-quality claims are made without a pre-approved paired-seed benchmark protocol.
 
 To reproduce archived research, consult the original research archive branch rather than applying this rewrite to historical results.
+
+### Additional native compatibility options
+
+`Options::max_mutated_variables`, `max_mutated_candidates`, `strict_mutation_decision_variable_limit`, `mutation_focus_generations`, `mutation_focus_exploration_probability`, and `adaptive_immigration_diversity_threshold` expose the corresponding configuration controls. The first mutation candidate count cap is **not yet applied** to engine selection; do not rely on it for exact compatibility. The Rust RNG remains different from Python/NumPy. Normal mutation's stagnation-based standard deviation decay and focus are implemented as opt-in controls.

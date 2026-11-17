@@ -124,3 +124,47 @@ fn invalid_discrete_response_never_certifies_absence(){
     assert_eq!(r.discrete_space_exhausted,Some(true));
     assert_eq!(r.discrete_absence_certified,Some(false));
 }
+
+#[test]
+fn grid_sampling_covers_all_indices_including_endpoints(){
+    use std::collections::HashSet;
+    let mut seen=HashSet::new();
+    let mut ga=GA::new(|xs| {
+        seen.insert(xs[0].to_bits());
+        xs[0]
+    });
+    ga.add(0.0,1.0,Some(0.25)).unwrap();
+    ga.options.max_evaluations=Some(250);
+    ga.options.exit_criterion=ExitCriterion::Generations;
+    ga.options.number_of_generations=Some(20);
+    let r=ga.execute().unwrap();
+    assert!(r.objective_evaluations<=250);
+    drop(ga);
+    assert!(seen.contains(&0.0f64.to_bits()));
+    assert!(seen.contains(&1.0f64.to_bits()));
+    assert!(seen.iter().all(|&bits| {
+        let x=f64::from_bits(bits);
+        let grid=(x/0.25).round();
+        (x/0.25-grid).abs()<1e-9
+    }));
+}
+#[test]
+fn tiny_grid_step_does_not_accept_offgrid_values(){
+    let v=gadapt::Variable::new(0.0,1e-10,Some(1e-15)).unwrap();
+    assert!(v.contains(1e-15));
+    assert!(!v.contains(5e-16));
+}
+#[test]
+fn focus_and_mutation_caps_are_opt_in_and_budgeted(){
+    let mut ga=GA::new(|xs| xs.iter().map(|x|x*x).sum());
+    for _ in 0..7 {ga.add(-5.0,5.0,None).unwrap();}
+    ga.options.mutation_focus_generations=Some(2.5);
+    ga.options.max_mutated_variables=Some(1);
+    ga.options.strict_mutation_decision_variable_limit=true;
+    ga.options.max_evaluations=Some(100);
+    ga.options.reliability_mode=true;
+    ga.options.acceptable_cost=Some(-1.0);
+    let r=ga.execute().unwrap();
+    assert_eq!(r.objective_evaluations,100);
+    assert!(r.best_objective.is_some());
+}
