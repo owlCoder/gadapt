@@ -227,6 +227,7 @@ pub enum Termination {
     Timeout,
     NoValidEvaluations,
     NoProgress,
+    DiscreteSpaceExhausted,
 }
 #[derive(Clone, Debug)]
 pub struct RunResult {

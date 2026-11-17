@@ -4,7 +4,8 @@ use std::collections::HashSet;
 use crate::model::Variable;
 
 pub(crate) fn axes(vars:&[Variable], budget:usize)->Option<Vec<Vec<f64>>> {
-    if vars.is_empty() || budget==0 || budget>100_000 {return None;}
+    if vars.is_empty() || budget==0 {return None;}
+    let budget=budget.min(100_000);
     let mut total=1usize;
     let mut result=Vec::new();
     for v in vars {

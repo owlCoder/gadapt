@@ -74,6 +74,9 @@ impl<'a> GA<'a> {
                     }
                 }
                 let exhausted=checked==size;
+                if exhausted && reason != Termination::AcceptableTarget {
+                    reason=Termination::DiscreteSpaceExhausted;
+                }
                 let certified=exhausted && !record.accepted(options.acceptable_cost)
                     && record.valid==size && record.invalid==0
                     && record.evaluations==size;

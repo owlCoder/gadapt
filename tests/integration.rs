@@ -96,3 +96,31 @@ fn callback_constraint_contract_checked(){
     assert_eq!(r.invalid_objective_evaluations,5);
     assert_eq!(r.solution_status,SolutionStatus::NoValidEvaluation);
 }
+
+#[test]
+fn exhaustive_discrete_absence_only_after_valid_complete_coverage(){
+    let mut ga=GA::new(|_|1.0);
+    ga.add(-1.0,1.0,Some(1.0)).unwrap();
+    ga.options.reliability_mode=true;
+    ga.options.max_evaluations=Some(3);
+    ga.options.acceptable_cost=Some(0.0);
+    ga.options.discrete_certification=true;
+    let r=ga.execute().unwrap();
+    assert!(r.discrete_search_applied);
+    assert_eq!(r.discrete_space_size,Some(3));
+    assert_eq!(r.discrete_points_checked,Some(3));
+    assert_eq!(r.discrete_absence_certified,Some(true));
+    assert_eq!(r.termination_reason,Termination::DiscreteSpaceExhausted);
+}
+#[test]
+fn invalid_discrete_response_never_certifies_absence(){
+    let mut ga=GA::try_new(|_|Err("invalid".into()));
+    ga.add(0.0,1.0,Some(1.0)).unwrap();
+    ga.options.reliability_mode=true;
+    ga.options.max_evaluations=Some(2);
+    ga.options.acceptable_cost=Some(0.0);
+    ga.options.discrete_certification=true;
+    let r=ga.execute().unwrap();
+    assert_eq!(r.discrete_space_exhausted,Some(true));
+    assert_eq!(r.discrete_absence_certified,Some(false));
+}
