@@ -1,0 +1,14 @@
+name: Rust contracts
+on:
+  push:
+    branches: [rust-rewrite]
+  pull_request:
+    paths: ['**/*.rs', 'Cargo.toml', '.github/workflows/rust-tests.yml']
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Build and test
+        run: cargo test --all-targets

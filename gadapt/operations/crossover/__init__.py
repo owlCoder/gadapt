@@ -1,3 +1,0 @@
-"""
-Crossover functionality
-"""

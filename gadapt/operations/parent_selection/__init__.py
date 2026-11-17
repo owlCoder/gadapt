@@ -1,3 +1,0 @@
-"""
-Parent selection algorithms
-"""

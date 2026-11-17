@@ -1,0 +1,18 @@
+[package]
+name = "gadapt"
+version = "0.1.0"
+edition = "2021"
+license = "BSD-3-Clause"
+description = "Native Rust self-adaptive genetic algorithm optimizer"
+repository = "https://github.com/owlCoder/gadapt"
+keywords = ["optimization", "genetic-algorithm", "evolutionary"]
+categories = ["algorithms", "science"]
+rust-version = "1.70"
+
+[lib]
+name = "gadapt"
+path = "src/lib.rs"
+
+[[example]]
+name = "rastrigin"
+path = "examples/rastrigin.rs"

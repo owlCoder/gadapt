@@ -1,3 +1,0 @@
-"""
-GAdapt genetic algorithm
-"""
