@@ -99,3 +99,7 @@ Population cost diversity and per-variable column diversity now use streaming nu
 ### Adaptive objective-based mutation operator selection
 
 When `ga.options.mutation = Mutation::Mixed`, set `mutation_operator_policy = MutationOperatorPolicy::Uniform` or `Ucb` for opt-in per-gene selection of random/normal mutators, with bounded recent credit memory and a returned `operator_credit_summary`. Credit is an offspring-level heuristic shared across traced mutated genes, not causal proof. Cached or invalid fitness requests are withheld from credited observations. Physical-scenario UCB true-call-rate is available separately through the manually supplied evidence-based `VerifiedCallRateBandit`, **not** automatically inferred from Rust wrapper calls.
+
+### Constraint correctness
+
+The native objective callback must return `Fitness::Constrained { objective, violation }` whenever a constraint handler is enabled; a scalar callback cannot certify constraint feasibility. The `epsilon` handler requires a finite generation limit. The baseline normalization reference is initialized once, and the initial violation percentile uses interpolation; adaptive penalty streaks use the preceding ranked incumbent.

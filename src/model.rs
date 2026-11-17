@@ -277,6 +277,10 @@ impl Options {
         if self.acceptable_cost.is_some_and(|x| !x.is_finite()) {
             return Err(GAError::Configuration("acceptable_cost must be finite".into()));
         }
+        if self.constraint_handling==Some(ConstraintMethod::Epsilon)
+            && self.number_of_generations.is_none() {
+            return Err(GAError::Configuration("epsilon constraint ranking requires a generation limit".into()));
+        }
         if self.reliability_mode && self.max_evaluations.is_none() {
             return Err(GAError::Configuration("reliability_mode requires max_evaluations".into()));
         }

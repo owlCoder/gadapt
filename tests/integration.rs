@@ -253,3 +253,25 @@ fn objective_ucb_operator_credit_is_budgeted_and_reported(){
     assert!(stats.iter().map(|s|s.selections).sum::<usize>()>0);
     assert!(stats.iter().map(|s|s.observations).sum::<usize>()>0);
 }
+
+#[test]
+fn scalar_fitness_cannot_falsely_certify_constrained_feasibility(){
+    let mut ga=GA::new(|_|0.0);
+    ga.add(-1.0,1.0,None).unwrap();
+    ga.options.constraint_handling=Some(ConstraintMethod::FeasibilityRules);
+    ga.options.reliability_mode=true;
+    ga.options.max_evaluations=Some(13);
+    ga.options.acceptable_cost=Some(0.0);
+    let r=ga.execute().unwrap();
+    assert_eq!(r.valid_objective_evaluations,0);
+    assert_eq!(r.invalid_objective_evaluations,13);
+    assert!(!r.feasible);
+    assert_eq!(r.solution_status,SolutionStatus::NoValidEvaluation);
+}
+#[test]
+fn epsilon_constraint_ranker_needs_generation_limit(){
+    let mut ga=GA::constrained(|_|(1.0,1.0));
+    ga.add(0.0,1.0,None).unwrap();
+    ga.options.constraint_handling=Some(ConstraintMethod::Epsilon);
+    assert!(ga.execute().is_err());
+}

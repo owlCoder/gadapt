@@ -425,8 +425,8 @@ impl<'a> GA<'a> {
                 if !objective.is_finite() || !violation.is_finite()
                     || violation < 0.0 || objective.abs()>1e150
                     || violation>1e150 {None}
-                else if fitness != Fitness::Scalar(objective)
-                    && options.constraint_handling.is_none() {None}
+                else if !matches!((options.constraint_handling,fitness),
+                    (None,Fitness::Scalar(_)) | (Some(_),Fitness::Constrained{..})) {None}
                 else if !candidate.values.iter().zip(vars).all(|(&x,var)|var.contains(x)){
                     None
                 }else{Some((objective, violation))}
