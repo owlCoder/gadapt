@@ -70,4 +70,8 @@ To reproduce archived research, consult the original research archive branch rat
 
 ### Additional native compatibility options
 
-`Options::max_mutated_variables`, `max_mutated_candidates`, `strict_mutation_decision_variable_limit`, `mutation_focus_generations`, `mutation_focus_exploration_probability`, and `adaptive_immigration_diversity_threshold` expose the corresponding configuration controls. The first mutation candidate count cap is **not yet applied** to engine selection; do not rely on it for exact compatibility. The Rust RNG remains different from Python/NumPy. Normal mutation's stagnation-based standard deviation decay and focus are implemented as opt-in controls.
+`Options::max_mutated_variables`, `max_mutated_candidates`, `strict_mutation_decision_variable_limit`, `mutation_focus_generations`, `mutation_focus_exploration_probability`, and `adaptive_immigration_diversity_threshold` expose the corresponding configuration controls. The mutation candidate count cap is enforced for regular offspring; forced mutations and uniqueness recovery may exceed it, as in Python. The Rust RNG remains different from Python/NumPy. Normal mutation's stagnation-based standard deviation decay and focus are implemented as opt-in controls.
+
+### Opt-in compensatory mutation
+
+Set `ga.options.compensatory_mutation = Some(CompensatoryMode::Gated)` for elite-correlation-linked variable mutation. Ungated, permuted, and conditional-Gaussian resample controls are also available. Correlations are computed once per generation and require at least `dimensions + 2` valid elites; gated mode also requires 3 members in each split. To bound memory and avoid disproportionate overhead in large-dimensional optimization, linkage is disabled above 256 dimensions.

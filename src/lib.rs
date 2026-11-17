@@ -16,13 +16,14 @@
 mod constraints;
 mod discrete;
 mod diversity;
+mod linkage;
 mod engine;
 mod model;
 mod operators;
 mod rng;
 
 pub use model::{
-    ConstraintMethod, Crossover, DiversityMetric, ExitCriterion, Fitness, GAError, Mutation,
+    CompensatoryMode, ConstraintMethod, Crossover, DiversityMetric, ExitCriterion, Fitness, GAError, Mutation,
     Options, ParentSelection, RunResult, Sampling, SolutionStatus, Termination, Variable,
 };
 pub use engine::GA;

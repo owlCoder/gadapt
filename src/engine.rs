@@ -3,6 +3,7 @@ use std::time::Instant;
 
 use crate::constraints::Ranker;
 use crate::diversity;
+use crate::linkage::Linkage;
 use crate::discrete;
 use crate::model::{
     Candidate, ConstraintMethod, ExitCriterion, Fitness, GAError, Options, RunResult,
@@ -154,6 +155,8 @@ impl<'a> GA<'a> {
                 &population, &vars, options.columnar_diversity_metric,
                 &mut column_initial,
             );
+            let linkage=options.compensatory_mutation.and_then(|mode|Linkage::build(&elites,&vars,mode));
+            let mut mutated_candidates=0usize;
             let crossover_probability = (
                 options.crossover_min_probability
                 + (options.crossover_max_probability - options.crossover_min_probability)
@@ -199,17 +202,27 @@ impl<'a> GA<'a> {
                 let force = options.must_mutate_for_same_parents && first.values==second.values;
                 let mutation_probability = options.population_mutation_fraction
                     * (1.0 - cost_diversity).clamp(0.0,1.0);
-                if force || rng.bool(mutation_probability) {
-                    operators::mutate(&mut values,&vars,&options,&column_diversity,
+                if force || (mutated_candidates<options.max_mutated_candidates.unwrap_or(usize::MAX)
+                    && rng.bool(mutation_probability)) {
+                    let before=linkage.as_ref().map(|_|values.clone());
+                    let count=operators::mutate(&mut values,&vars,&options,&column_diversity,
                         force,&mut rng,stalled);
+                    if count>0 {mutated_candidates+=1;}
+                    if let (Some(model),Some(original))=(&linkage,before) {
+                        model.apply(&mut values,&original,&vars,&mut rng);
+                    }
                 }
                 let mut current_key=key(&values);
                 if options.ensure_unique_individuals {
                     for attempt in 0..15 {
                         if !seen.contains(&current_key) && !global_seen.contains(&current_key) {break;}
                         if attempt < 5 {
+                            let before=linkage.as_ref().map(|_|values.clone());
                             operators::mutate(&mut values,&vars,&options,&column_diversity,
                                 true,&mut rng,stalled);
+                            if let (Some(model),Some(original))=(&linkage,before) {
+                                model.apply(&mut values,&original,&vars,&mut rng);
+                            }
                         }else{
                             values=vars.iter().map(|v|operators::sample(v,&mut rng)).collect();
                         }

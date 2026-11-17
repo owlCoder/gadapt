@@ -168,3 +168,16 @@ fn focus_and_mutation_caps_are_opt_in_and_budgeted(){
     assert_eq!(r.objective_evaluations,100);
     assert!(r.best_objective.is_some());
 }
+
+#[test]
+fn compensatory_mutation_preserves_hard_budget(){
+    let mut ga=GA::new(|xs|xs.iter().sum());
+    ga.add(-1.0,1.0,None).unwrap();
+    ga.add(-1.0,1.0,None).unwrap();
+    ga.options.compensatory_mutation=Some(gadapt::CompensatoryMode::Gated);
+    ga.options.reliability_mode=true;
+    ga.options.max_evaluations=Some(81);
+    ga.options.acceptable_cost=Some(-100.0);
+    let r=ga.execute().unwrap();
+    assert_eq!(r.objective_evaluations,81);
+}

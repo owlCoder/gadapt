@@ -80,6 +80,8 @@ pub enum Crossover { Blending, Uniform, Differential }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Mutation { Random, Normal, Mixed, ExtremePointed }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum CompensatoryMode { Gated, Ungated, Permuted, Resample }
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum DiversityMetric { LogRelative, Linear, AffineInvariant }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ExitCriterion { AverageCost, MinimumCost, RequestedCost, Generations }
@@ -102,6 +104,7 @@ pub struct Options {
     pub max_mutated_candidates: Option<usize>,
     pub max_mutated_variables: Option<usize>,
     pub strict_mutation_decision_variable_limit: bool,
+    pub compensatory_mutation: Option<CompensatoryMode>,
     pub mutation_focus_generations: Option<f64>,
     pub mutation_focus_exploration_probability: f64,
     pub must_mutate_for_same_parents: bool,
@@ -147,6 +150,7 @@ impl Default for Options {
             max_mutated_candidates: None,
             max_mutated_variables: None,
             strict_mutation_decision_variable_limit: false,
+            compensatory_mutation: None,
             mutation_focus_generations: None,
             mutation_focus_exploration_probability: 0.1,
             must_mutate_for_same_parents: true,
