@@ -29,21 +29,31 @@ impl CreditBook {
         let picked=match self.policy {
             MutationOperatorPolicy::Legacy|MutationOperatorPolicy::Uniform=>rng.usize(self.arms.len()),
             MutationOperatorPolicy::Ucb=>{
-                let mut cold:Vec<_>=self.arms.iter().enumerate()
-                    .filter(|(_,a)|a.selections==0).map(|(i,_)|i).collect();
-                if !cold.is_empty(){cold.swap_remove(rng.usize(cold.len()))}
+                let mut cold_count=0usize;
+                let mut cold_choice=0usize;
+                for (i,a) in self.arms.iter().enumerate(){
+                    if a.selections==0 {
+                        cold_count+=1;
+                        if rng.usize(cold_count)==0{cold_choice=i;}
+                    }
+                }
+                if cold_count>0{cold_choice}
                 else {
                     let total=self.arms.iter().map(|a|a.selections).sum::<usize>();
                     let mut top=f64::NEG_INFINITY;
-                    let mut winners=Vec::new();
+                    let mut winner_count=0usize;
+                    let mut chosen=0usize;
                     for (i,a) in self.arms.iter().enumerate(){
                         let mean=if a.history.is_empty(){0.0}else{
                             a.history.iter().sum::<f64>()/a.history.len() as f64};
                         let value=mean+(2.0*((total+1) as f64).ln()/a.selections as f64).sqrt();
-                        if value>top{top=value;winners.clear();winners.push(i);}
-                        else if value==top{winners.push(i);}
+                        if value>top{top=value;winner_count=1;chosen=i;}
+                        else if value==top{
+                            winner_count+=1;
+                            if rng.usize(winner_count)==0{chosen=i;}
+                        }
                     }
-                    winners[rng.usize(winners.len())]
+                    chosen
                 }
             }
         };

@@ -107,3 +107,7 @@ The native objective callback must return `Fitness::Constrained { objective, vio
 ### Validation probes and external stopping
 
 `options.probe_cost_function = true` evaluates the two extreme decision vectors as legacy input probes, charging both actual objective attempts to the same hard budget. This is opt-in in the Rust rewrite (the historical Python API defaults to probing), so explicitly set it when comparing semantics. Set `ga.set_exit_callback(|| should_stop())` for an external generation-boundary stop; the result uses `Termination::ExternalStop`.
+
+### Operator hot-path memory improvements
+
+Per-gene diversity-weighted mutation now samples with two passes over existing indices, without allocating a temporary weights array for every gene. The optional UCB operator picker and permuted-linkage selector also avoid transient candidate-index collections. Gaussian RNG reuses a cached second Box–Muller variate, reducing transcendental work when normal mutations are frequent. These modifications change the Rust random stream; they do not change the originally archived Python RNG and cannot establish a wall-clock speedup without a measured benchmark.

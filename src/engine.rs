@@ -278,7 +278,9 @@ impl<'a> GA<'a> {
                 }
             }
             let prev_evals = record.evaluations;
-            let mut seen: HashSet<Vec<u64>> = next.iter().map(|c| key(&c.values)).collect();
+            let mut seen: HashSet<Vec<u64>> = if options.ensure_unique_individuals{
+                next.iter().map(|c|key(&c.values)).collect()
+            }else{HashSet::new()};
             // Keep live objective callbacks inside evaluate; never pre-score an unevaluated child.
             let offspring_target = if restart{1}else{
                 options.population_size.saturating_sub(immigration)

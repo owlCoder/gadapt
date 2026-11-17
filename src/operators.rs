@@ -101,13 +101,14 @@ pub(crate) fn mutate(
     let mut changed=0;
     for _ in 0..desired {
         if candidates.is_empty(){break;}
-        let weights:Vec<f64>=candidates.iter().map(|&i| (1.0-columns[i]).max(0.001)).collect();
-        let sum=weights.iter().sum::<f64>();
+        // Two passes over candidate indices; avoid allocating a new weights
+        // vector for every mutated gene.
+        let sum=candidates.iter().map(|&i|(1.0-columns[i]).max(0.001)).sum::<f64>();
         let mut target=rng.unit()*sum;
         let mut pick=candidates.len()-1;
-        for (i,w) in weights.iter().enumerate(){
-            target-=w;
-            if target<=0.0{pick=i;break;}
+        for (pos,&index) in candidates.iter().enumerate(){
+            target-=(1.0-columns[index]).max(0.001);
+            if target<=0.0{pick=pos;break;}
         }
         let i=candidates.swap_remove(pick);
         let old=values[i];

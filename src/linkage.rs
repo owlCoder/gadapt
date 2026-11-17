@@ -86,8 +86,9 @@ impl Linkage {
             }
             let Some(j)=best else {continue;};
             let partner=if self.mode==CompensatoryMode::Permuted {
-                let free:Vec<_>=(0..d).filter(|&x|!used[x]).collect();
-                free[rng.usize(free.len())]
+                let free_count=used.iter().filter(|&&taken|!taken).count();
+                let chosen=rng.usize(free_count);
+                (0..d).filter(|&x|!used[x]).nth(chosen).unwrap()
             }else{j};
             let slope=self.covariance[j][i]/(self.covariance[i][i]+1e-12);
             let new_x=if self.mode==CompensatoryMode::Resample {
